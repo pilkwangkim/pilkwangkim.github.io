@@ -51,7 +51,7 @@ It is natural to want to entrust important tasks to employees who have worked wi
 
 **Sublimation:** A leader's trust must be based on 'current competence,' not 'past connections.' The 'uncomfortable courage' to boldly employ capable people, even if they are strangers or offer bitter advice, maintains the organization's vitality.
 
-### 4. Structural Shift: From Control to Support, Introducing Servant Leadership
+## 4. Structural Shift: From Control to Support, Introducing Servant Leadership
 
 It is difficult to overcome these human dilemmas—emotional exhaustion, hero complex, temptation of favoritism—solely through individual willpower every time. Solving this requires a new framework that fundamentally redefines how leadership operates: '**Servant Leadership,**' championed by Robert K. Greenleaf.
 
