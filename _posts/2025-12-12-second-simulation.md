@@ -13,5 +13,5 @@ Equation Test: $E = mc^2$
 **test**
 
 test2
-![![](2025-12-12-15-23-31.png](![](/assets/img/2025-12-12-15-23-31.png)
 
+![Test Image](/assets/img/2025-12-12-15-35-17.png){: .w-50 }
