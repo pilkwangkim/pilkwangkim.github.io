@@ -1,6 +1,6 @@
 ---
 title: "The Mirage of Merit and the Geopolitics of Positioning: Exploiting the Flaws of a Broken System"
-date: 2026-02-12 19:36:00 +0900
+date: 2026-02-12 19:00:00 +0900
 categories: [Essay, Misc]
 tags: [essay, leadership]
 math: true
