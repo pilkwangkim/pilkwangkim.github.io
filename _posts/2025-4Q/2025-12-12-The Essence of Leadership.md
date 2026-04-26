@@ -1,114 +1,331 @@
 ---
-title: "The Essence of Leadership: Beyond the Desire for Recognition to Functional Commitment and Strategic Sublimation"
+title: "The Essence of Leadership: Functional Commitment and Strategic Sublimation"
 date: 2025-12-12 19:36:00 +0900
 categories: [Essay, Misc]
-tags: [essay, leadership]
+tags: [essay, leadership, organization, management]
 math: true
 pin: false
 ---
 
-## 1. Introduction: Natural Expectations vs. Realistic Responsibilities
+**Subtitle: Leadership begins when the desire for recognition is converted into responsibility for collective results**
 
-When anyone assumes a leadership position, they naturally desire to prove their competence. Having ascended to the role as a result of long-term dedication and exceptional performance, it is human nature to view the position as a legitimate *reward* for past efforts. We all seek validation and wish to confirm our indispensability to the organization.
+## **1. The Natural Desire for Recognition**
 
-However, from the perspective of organizational management, a subtle but critical tension exists between these personal expectations and the role the organization demands. The ultimate reason an organization appoints a leader is not to reward an individual, but out of a **Functional Necessity** to entrust authority and resources to a specific person to achieve the common goals of survival and success.
+When a person becomes a leader, the desire to prove oneself is natural. Leadership often arrives after years of effort, sacrifice, and exceptional individual performance. It is psychologically easy to experience the role as a reward: *I worked hard, I earned this, and now I want my value to be recognized.*
 
-This essay affirms the natural human desire for recognition while discussing how it must be harmonized with the **Fiduciary Duty** of achieving organizational goals. Specifically, it analyzes the psychological traps leaders often fall into and proposes **Servant Leadership** not merely as a moral imperative, but as a wise **management strategy** to overcome these pitfalls and generate superior results.
+There is nothing shameful about that desire. A leader is still human. Recognition, pride, and the wish to confirm one's indispensability are ordinary emotional facts.
 
-## 2. The First Principle of Leadership: From Excellent Player to Great Coach
+The problem begins when the leader forgets why the organization created the role.
 
-The organization requires a leader to transition from possessing the 'Ability' of an excellent individual contributor to demonstrating the managerial 'Capability' to achieve the goals of a unit. As Peter Drucker defined management as "**Management by Objectives (MBO),**" a leader is an entity that produces results by optimally allocating limited resources.
+From the organization's perspective, leadership is not primarily a trophy. It is a **functional necessity**. The organization grants authority, resources, and decision rights because someone must coordinate people toward survival, performance, and strategic adaptation.
 
-Many leaders struggle to prove the excellence they possessed as practitioners. This stems from a healthy sense of pride in not wanting to lose their competence. However, as implied by Laurence J. Peter's 'Peter Principle,' execution ability and leadership capability are distinct dimensions.
+The private expectation is:
 
-Therefore, a leader's growth begins by shifting the question from "How well do I perform?" to "How well do I enable my team to perform?" This is not an abandonment of personal brilliance, but an evolution into a coach who creates a greater brilliance through the team.
+$$
+\text{Leadership} = \text{Reward for Past Excellence}
+$$
 
-## 3. Three Psychological Dilemmas and Their Sublimation
+The organizational requirement is:
 
-In practicing leadership, anyone can fall prey to personal emotions, the desire for recognition, and the temptation of comfort. This is not because the leader is deficient, but because the leader is also a human being with emotions. The key lies in how these dilemmas are managed and sublimated.
+$$
+\text{Leadership} = \text{Responsibility for Future Collective Output}
+$$
 
-### 3.1. Managing Emotions: Bearing the Weight of Relationships
+The essence of leadership begins in the gap between these two equations.
 
-As a human being, a leader finds it painful to work with those they do not get along with or with whom they have past grievances. It is human nature to want to avoid collaboration with certain department heads or to care more for subordinates who follow well than for those who have caused trouble.
+## **2. From Excellent Player to Great Coach**
 
-**The Cost of the Dilemma:** However, if a leader avoids collaboration to resolve personal discomfort, the cost is transferred directly to the organization as '**Transaction Costs.**' Practitioners end up wasting energy navigating the leader's emotional landscape.
+Many leaders were promoted because they were excellent players. They solved problems quickly, produced high-quality work, and became reliable individual contributors.
 
-**Sublimation:** True leadership is not about suppressing emotions, but surpassing personal feelings with the professional will that "organizational goals are more important than my emotions." Smiling, shaking hands, and strategically collaborating with someone you dislike—that is the highest form of professionalism a leader can demonstrate.
+But leadership requires a different function.
 
-### 3.2. The Paradox of Presence: The Trap of the 'Super Leader'
+The individual contributor asks:
 
-Leaders with a strong sense of responsibility often obsess over the idea that "I must solve this." Intervening directly when subordinates show deficiencies and feeling relieved by one's own competence may seem 'heroic' at first glance.
+> How well do I perform?
 
-**The Cost of the Dilemma:** However, when a leader attempts to manage every detail (micromanagement) and claim all the credit, the organization's growth becomes ironically trapped by the leader's own 'Ceiling.' Members become passive entities watching the leader's mouth, and collective intelligence is paralyzed.
+The leader must ask:
 
-**Sublimation:** When a leader decides not to be the hero but to be the 'Kingmaker' who creates heroes, the organization experiences explosive growth. Creating a stage where members can shine, rather than one where I shine—this is a higher dimension of achievement.
+> How well does the system perform because I am here?
 
-### 3.3. Expanding Trust: Impartiality Beyond Familiarity
+That shift can be expressed as:
 
-It is natural to want to entrust important tasks to employees who have worked with you for a long time and understand your intentions well. This is also a choice for speed and stability.
+$$
+\operatorname{Leader\ Value}
+\approx
+\Delta \operatorname{Team\ Capability}
+\times
+\operatorname{Goal\ Alignment}
+$$
 
-**The Cost of the Dilemma:** However, if this solidifies into 'Favoritism,' it sends a signal to the organization that "relationships are more important than performance." This disenfranchises the silent majority of talented individuals and, in the long run, invites 'Gresham's Law,' where bad money drives out good.
+The leader's value is not merely their personal output. It is the increase in the team's capacity, clarity, decision quality, and execution speed.
 
-**Sublimation:** A leader's trust must be based on 'current competence,' not 'past connections.' The 'uncomfortable courage' to boldly employ capable people, even if they are strangers or offer bitter advice, maintains the organization's vitality.
+| Role | Core Question | Failure Mode |
+| :--- | :--- | :--- |
+| **Individual contributor** | How well can I execute? | Personal bottleneck |
+| **Manager** | How well can I allocate resources? | Mechanical control |
+| **Leader** | How well can I create collective capability? | Ego-centered leadership |
 
-## 4. Structural Shift: From Control to Support, Introducing Servant Leadership
+This is why the transition is difficult. The very ability that earned the promotion can become a trap. A leader who keeps proving personal brilliance may prevent the team from developing its own.
 
-It is difficult to overcome these human dilemmas—emotional exhaustion, hero complex, temptation of favoritism—solely through individual willpower every time. Solving this requires a new framework that fundamentally redefines how leadership operates: '**Servant Leadership,**' championed by Robert K. Greenleaf.
+## **3. The Fiduciary Duty of Leadership**
 
-Servant Leadership is literally a leadership style where the leader prioritizes '**Serving**' the members. It is a philosophy that a leader should not reign as a master but become a 'Facilitator' who removes obstacles and helps members grow so they can unleash their potential. It shifts the role from 'Controller' to 'Supporter.'
+Leadership is not just authority. It is a fiduciary role.
 
-Crucially, **this is not merely a moral admonition to "be a nice person."** Rather, **it emerges as a powerful management strategy that structurally blocks the psychological traps mentioned above and maximizes organizational efficiency.** When a leader lays down their Ego and serves the members, the organization's energy flows not toward internal politics (watching the leader), but toward external customers and goal achievement. This converts leadership energy from centripetal force (toward me) to centrifugal force (toward the goal).
+A leader holds organizational trust on behalf of others: the team, the customer, the institution, and the future. This means personal emotions, preferences, and recognition needs must be subordinated to the organization's real objectives.
 
-## 5. Servant Leadership as Strategy: The Most Selfish Altruism
+The leader's internal equation must become:
 
-### 5.1. Rational Doubt: "Isn't this too inefficient?"
+$$
+\text{Decision Quality}
+=
+f(\text{Goal},\ \text{People},\ \text{Constraints},\ \text{Timing})
+-
+\text{Ego Distortion}
+$$
 
-Some may ask, "In the fierce business jungle, isn't serving and waiting for members too idealistic and inefficient?" This question is valid. The primary goals of a business are survival and profit generation, and time is money.
+The goal is not to become emotionless. That is impossible. The goal is to prevent emotion from becoming hidden policy.
 
-Indeed, Servant Leadership 'appears' highly inefficient in the short term. It may seem wasteful to spend three hours coaching a member to solve a problem themselves when the leader could solve it in one hour by directing it personally. However, understanding how this time, wearing the 'mask of inefficiency,' transforms into greater actual efficiency is key. We will examine this through three specific cases.
+When a leader's preferences silently shape collaboration, delegation, promotion, or conflict avoidance, the organization pays the bill.
 
-### 5.2. Efficiency Disguised as Inefficiency: Case Analysis
+## **4. Three Psychological Traps**
 
-#### [Case 1] Handling Mistakes: Psychological Safety via Shielding
-When a team member makes a critical mistake, an efficiency-minded leader might immediately reprimand them and demand a written promise to prevent recurrence. This seems like the fastest way to enforce discipline. In contrast, a Servant Leader acts as a 'shield' protecting the member from external blame and spends internal time analyzing the cause instead of blaming.
+The central challenge of leadership is not only technical. It is psychological. Leaders must repeatedly sublimate ordinary human instincts into professional commitments.
 
-**Short-term View:** It looks foolish; the leader takes the heat, and problem-solving takes longer.
+### **4.1 Emotion: The Cost of Personal Discomfort**
 
-**Long-term Efficiency:** This process builds 'Psychological Safety'. Members trust that "if I report a mistake, we can solve it," leading to immediate sharing rather than hiding problems. Consequently, the organization saves costs by detecting issues early, and members propose innovative ideas without fear. Trust gained through protection guarantees much faster problem-solving speeds than silence gained through reprimand.
+A leader may dislike a peer, distrust a department head, or feel resentment toward a subordinate who caused trouble in the past. These reactions are human.
 
-#### [Case 2] The Paradox of Delegation: Investing in Scalability
-Facing complex and critical tasks, a capable leader is tempted to think, "It's faster if I do it myself than explaining it." A Servant Leader, however, endures the frustration, delegates the task, and supports the trial-and-error process through coaching.
+The danger is that personal discomfort becomes organizational friction.
 
-**Short-term View:** Obvious inefficiency with lower quality and longer time. The leader might even have to work overtime to fix things.
+| Human Impulse | Organizational Cost |
+| :--- | :--- |
+| Avoid disliked stakeholders | Higher transaction costs |
+| Favor agreeable subordinates | Distorted trust allocation |
+| Delay uncomfortable conversations | Accumulated ambiguity |
+| Let old grievances guide current decisions | Strategic coordination failure |
 
-**Long-term Efficiency:** If the leader handles execution personally, the organization's total output is forever trapped within 'one leader's time.' By patiently cultivating members, the leader can eventually step back from execution to focus on strategic decisions. Six months later, the organization transforms from one where the leader runs alone to one where five leader-level members run together. The current frustration is an essential 'Opportunity Cost' for scaling up productivity exponentially.
+Leadership does not require the absence of emotion. It requires the ability to act beyond emotion.
 
-#### [Case 3] The Paradox of Knowledge Work: Uncontrollable Immersion
-Consider an environment like semiconductor or AI development, where work is highly specialized and involves highly educated talent. The performance of these knowledge workers comes not from 'time input' but from 'depth of immersion.'
+The professional standard is:
 
-**Limits of Control:** If a leader pressures them authoritatively or disappoints them with personal emotions, they may outwardly follow instructions without issue. However, beneath the surface, they may engage in '**Quiet Quitting,**' becoming uncooperative or prioritizing only their own interests. There is a massive performance gap compared to when they are fully immersed, but it is impossible for a leader to micro-manage this subtle psychological disengagement. Attempting to do so drains management resources.
+$$
+\text{Organizational Goal}
+>
+\text{Personal Discomfort}
+$$
 
-**Strategic Necessity:** Therefore, in such high-level professional organizations, Servant Leadership is not about kindness but is closer to the only workable management method. Only when a leader lowers themselves and genuinely respects members can they elicit '**voluntary immersion**' from within the uncontrollable minds of the staff.
+Smiling, negotiating, and cooperating with someone one personally dislikes may look mundane. In reality, it is one of the highest forms of executive discipline.
 
-### 5.3. Calculated Patience
+### **4.2 Presence: The Trap of the Super Leader**
 
-Ultimately, the 'Service' and 'Patience' in Servant Leadership are not unconditional acts of charity. They are sophisticated investment activities that input current time to secure explosive future productivity.
+Responsible leaders often fall into the belief that they must personally solve everything.
 
-The temptation for a leader to think "It's faster if I do it" is a trap that provides 'short-term relief' while eroding the organization's future. Conversely, choosing to endure immediate inefficiency to grow members is a 'Strategic Belief' and 'Professional Attitude' where the leader controls their instincts to choose the best action for the organization's goals.
+At first, this looks heroic. The leader intervenes, fixes, explains, and rescues. The team feels protected. The leader feels useful.
 
-## 6. Conclusion: The 'Warm Strategist' Dedicated to Goals
+But the hidden cost is severe:
 
-Leadership is not a glittering crown, but often a lonely and heavy cross. A leader must constantly fight against the springing desire for recognition, the temptation of comfort, and the instinct for immediate efficiency. This battle is never easy, and sometimes one might feel foolish.
+$$
+\operatorname{Team\ Capacity}
+\le
+\operatorname{Leader\ Bandwidth}
+$$
 
-However, the greatest leaders are those who do not deny these human instincts but sublimate them into energy for the organization. They are people who cooperate beyond grievances, set members up as heroes beyond their own desire to shine, and wait for the organization's long-term capability beyond immediate speed.
+If every important decision must pass through the leader, the organization inherits the leader's ceiling. Members become passive. Collective intelligence collapses into leader-watching.
 
-Like the 'Level 5 Leader' described by Jim Collins, possessing Professional Will (fierce resolve for results) while choosing Personal Humility (the attitude of serving) to achieve those goals—this is the most mature and beautiful state a leader can reach, and the ultimate strategy to lead an organization to victory.
+| Super-Leader Behavior | Long-Term Effect |
+| :--- | :--- |
+| Solves every hard problem personally | Team capability does not grow |
+| Claims visible credit | Members avoid ownership |
+| Controls every detail | Decision latency increases |
+| Becomes the heroic bottleneck | Scale becomes impossible |
+
+The higher form of achievement is not being the hero. It is becoming the **kingmaker**: the person who creates conditions where others can become capable, visible, and responsible.
+
+### **4.3 Familiarity: The Temptation of Favoritism**
+
+It is natural to trust people who have worked with us for a long time. Familiarity reduces coordination cost. Shared history creates speed.
+
+But if familiarity becomes the basis of opportunity, the organization receives a dangerous signal:
+
+> Relationships matter more than competence.
+
+Over time, this drives out strong but less-connected people. The silent majority concludes that performance is secondary to proximity.
+
+| Basis of Trust | Healthy Use | Corrupt Form |
+| :--- | :--- | :--- |
+| **Past relationship** | Useful context | Favoritism |
+| **Current competence** | Evidence-based trust | Cold instrumentalism if used without care |
+| **Candor** | Corrective signal | Punished if ego dominates |
+| **Disagreement** | Strategic information | Treated as disloyalty |
+
+A leader's trust must be anchored in **current competence**, not merely past comfort. The uncomfortable courage to use capable people who challenge the leader is one of the strongest signs of maturity.
+
+## **5. Servant Leadership as Strategy**
+
+These traps cannot be solved by willpower alone. A leader needs an operating philosophy that structurally reduces ego distortion.
+
+This is where **Servant Leadership**, associated with Robert K. Greenleaf, becomes useful. It is often misunderstood as a moral request to be kind or soft. That is too shallow.
+
+Servant Leadership is a strategic posture:
+
+$$
+\text{Leader as Controller}
+\rightarrow
+\text{Leader as Capability Builder}
+$$
+
+The leader serves not because service is sentimental, but because service redirects organizational energy away from leader-centered politics and toward goal-centered execution.
+
+| Control-Centered Leadership | Servant Leadership |
+| :--- | :--- |
+| Members watch the leader | Members watch the goal |
+| Authority protects ego | Authority removes obstacles |
+| Mistakes create fear | Mistakes create learning |
+| Delegation feels like loss | Delegation becomes scalability |
+| Recognition flows upward | Capability spreads outward |
+
+Servant Leadership converts leadership energy from centripetal force toward the leader into centrifugal force toward the mission.
+
+## **6. The Efficiency That Looks Inefficient**
+
+Servant Leadership often looks inefficient in the short term.
+
+It may take three hours to coach someone through a problem the leader could solve in one hour. It may require absorbing blame so a team member can report a mistake honestly. It may mean waiting through imperfect execution instead of seizing control.
+
+The short-term equation seems obvious:
+
+$$
+\text{Direct Fix} < \text{Coaching Time}
+$$
+
+But leadership is not optimized over one task. It is optimized over repeated future work:
+
+$$
+\operatorname{Long\ Run\ Output}
+=
+\sum_{t=0}^{T}
+\gamma^t
+\operatorname{Team\ Capability}_t
+$$
+
+The leader who always chooses the direct fix may win the current hour and lose the future organization.
+
+### **6.1 Mistakes: Psychological Safety**
+
+When a team member makes a serious mistake, punishment may appear efficient. It produces visible discipline.
+
+But fear changes reporting behavior. People hide problems, delay disclosure, and optimize for self-protection.
+
+| Response to Mistake | Short-Term Appearance | Long-Term System Effect |
+| :--- | :--- | :--- |
+| Blame and punishment | Fast discipline | Hidden risk |
+| Shield and investigate | Slow and costly | Early reporting and learning |
+| Ignore the mistake | Kind but weak | Repeated failure |
+| Analyze without humiliation | Mature accountability | Psychological safety |
+
+Psychological safety is not the absence of standards. It is the condition under which truth can surface early enough to be useful.
+
+### **6.2 Delegation: Scalability**
+
+Delegation often begins as inefficiency. The first attempt is slower. Quality may drop. The leader may need to repair the result.
+
+But if the leader never delegates, output remains trapped inside one person's time:
+
+$$
+\operatorname{Output}_{team}
+\approx
+\operatorname{Output}_{leader}
+$$
+
+Successful delegation changes the equation:
+
+$$
+\operatorname{Output}_{team}
+\approx
+\operatorname{Output}_{leader}
++
+\sum_i \operatorname{Capability}_{member_i}
+$$
+
+The frustration of coaching is the opportunity cost of scale.
+
+### **6.3 Knowledge Work: Voluntary Immersion**
+
+In knowledge-intensive fields such as AI, semiconductors, research, architecture, or product strategy, performance cannot be extracted by surveillance alone.
+
+The difference between compliance and deep immersion is enormous, but often invisible.
+
+| Management Mode | Observable Behavior | Hidden State |
+| :--- | :--- | :--- |
+| Control | People comply | Minimal discretionary effort |
+| Fear | People avoid mistakes | Low candor |
+| Respect | People engage | Voluntary immersion |
+| Trust with standards | People own outcomes | Deep problem-solving |
+
+For highly educated specialists, Servant Leadership is not niceness. It is one of the few workable methods for eliciting discretionary intelligence.
+
+## **7. Calculated Patience**
+
+The service and patience of a leader are not unconditional charity. They are investment decisions.
+
+Calculated patience means tolerating short-term inefficiency only when it increases future capability.
+
+$$
+\text{Patience is justified}
+\quad \text{if} \quad
+\Delta \operatorname{Future\ Capability}
+>
+\operatorname{Current\ Delay}
+$$
+
+This matters because patience can also become avoidance. A leader must distinguish development from drift.
+
+| Patience Type | Meaning | Leadership Response |
+| :--- | :--- | :--- |
+| **Developmental patience** | The person is learning and feedback is working | Continue coaching |
+| **Avoidant patience** | The leader is avoiding conflict | Confront reality |
+| **Strategic patience** | Short-term cost unlocks long-term capability | Protect the investment |
+| **Sentimental patience** | Standards are lowered to avoid discomfort | Recalibrate expectations |
+
+Servant Leadership is not weak. It is disciplined patience tied to standards.
+
+## **8. The Warm Strategist**
+
+The best leader is neither the cold controller nor the sentimental caretaker.
+
+The mature leader is a **warm strategist**: someone with enough humility to serve people and enough professional will to demand results.
+
+This resembles Jim Collins's idea of the **Level 5 Leader**: personal humility combined with fierce resolve.
+
+| Dimension | Mature Form |
+| :--- | :--- |
+| **Recognition** | Converted into responsibility |
+| **Emotion** | Acknowledged but subordinated to goals |
+| **Authority** | Used to remove obstacles |
+| **Delegation** | Treated as capability creation |
+| **Service** | Practiced as strategic management |
+| **Patience** | Calibrated against future output |
+
+Leadership is not a glittering crown. It is often a lonely discipline of self-sublimation.
+
+The leader must repeatedly choose the organization's future over personal comfort, personal spotlight, and immediate efficiency.
+
+## **9. Conclusion**
+
+Leadership begins with authority, but it matures through restraint.
+
+The immature leader asks, "How can I prove that I deserve this role?"  
+The mature leader asks, "What must I become so the team can achieve what it could not achieve without leadership?"
+
+The essence of leadership is therefore not self-erasure, but **functional commitment**. The leader's ego, emotion, familiarity, and competence are not denied. They are sublimated into service of the goal.
+
+The highest form of leadership is not to shine alone. It is to build a system in which others can shine, and where their light becomes organizational capability.
 
 #### References
 
-1. Collins, J. (2001). Good to Great: Why Some Companies Make the Leap... and Others Don't. HarperBusiness.
-2. Drucker, P. F. (1954). The Practice of Management. Harper & Row.
-3. Edmondson, A. (1999). Psychological Safety and Learning Behavior in Work Teams. Administrative Science Quarterly.
-4. Greenleaf, R. K. (1970). The Servant as Leader. The Robert K. Greenleaf Center for Servant Leadership.
-5. McGregor, D. (1960). The Human Side of Enterprise. McGraw-Hill.
-6. Peter, L. J., & Hull, R. (1969). The Peter Principle: Why Things Always Go Wrong. William Morrow.
+1. Collins, J. (2001). *Good to Great: Why Some Companies Make the Leap... and Others Don't*. HarperBusiness.
+2. Drucker, P. F. (1954). *The Practice of Management*. Harper & Row.
+3. Edmondson, A. (1999). Psychological Safety and Learning Behavior in Work Teams. *Administrative Science Quarterly*.
+4. Greenleaf, R. K. (1970). *The Servant as Leader*. The Robert K. Greenleaf Center for Servant Leadership.
+5. McGregor, D. (1960). *The Human Side of Enterprise*. McGraw-Hill.
+6. Peter, L. J., & Hull, R. (1969). *The Peter Principle: Why Things Always Go Wrong*. William Morrow.
