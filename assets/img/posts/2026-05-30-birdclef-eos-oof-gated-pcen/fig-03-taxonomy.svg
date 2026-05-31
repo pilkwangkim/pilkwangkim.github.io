@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto" markerUnits="strokeWidth">
+      <path d="M1,1 L6,3.5 L1,6 Z" fill="#58708c"/>
+    </marker>
+    <style>
+      .bg { fill: #0c121c; }
+      .box { fill: #192435; stroke-width: 4; rx: 24; }
+      .title { fill: #ebf1f8; font: 700 44px Arial, sans-serif; }
+      .sub { fill: #9bacbf; font: 22px Arial, sans-serif; }
+      .box-title { fill: #ebf1f8; font: 700 24px Arial, sans-serif; }
+      .body { fill: #b7c5d7; font: 21px Arial, sans-serif; }
+      .eq { fill: #dbe8f6; font: 24px Arial, sans-serif; }
+      .line { stroke: #58708c; stroke-width: 4; fill: none; marker-end: url(#arrow); }
+    </style>
+  </defs>
+  <rect class="bg" width="1600" height="900"/>
+  <text x="72" y="90" class="title">Taxonomy Smoothing</text>
+  <text x="74" y="130" class="sub">A light biological prior shares evidence among related labels after the direct blend.</text>
+
+  <rect x="100" y="360" width="285" height="180" class="box" stroke="#5bb2ff"/>
+  <text x="136" y="410" class="box-title">Species scores</text>
+  <text x="136" y="456" class="body">independent columns</text>
+  <text x="136" y="486" class="body">from direct blend</text>
+
+  <rect x="545" y="230" width="300" height="160" class="box" stroke="#58e2dc"/>
+  <text x="571" y="278" class="box-title">Genus groups</text>
+  <text x="571" y="324" class="body">29 multi-species groups</text>
+  <text x="571" y="354" class="body">alpha = 0.15</text>
+
+  <rect x="545" y="550" width="300" height="160" class="box" stroke="#ad82ff"/>
+  <text x="571" y="598" class="box-title">Class groups</text>
+  <text x="571" y="644" class="body">4 broad groups</text>
+  <text x="571" y="674" class="body">alpha = 0.05</text>
+
+  <rect x="1010" y="360" width="300" height="180" class="box" stroke="#6ad691"/>
+  <text x="1036" y="410" class="box-title">Smoothed scores</text>
+  <text x="1036" y="456" class="body">same schema</text>
+  <text x="1036" y="486" class="body">small rank-sharing prior</text>
+
+  <rect x="1385" y="360" width="165" height="180" class="box" stroke="#f4c55d"/>
+  <text x="1409" y="410" class="box-title">Clip</text>
+  <text x="1409" y="456" class="body">[0, 1]</text>
+  <text x="1409" y="486" class="body">validate</text>
+
+  <path d="M385 450 C445 420, 490 335, 545 310" class="line"/>
+  <path d="M385 450 C445 500, 490 615, 545 630" class="line"/>
+  <path d="M845 310 C915 335, 960 420, 1010 450" class="line"/>
+  <path d="M845 630 C915 600, 960 500, 1010 450" class="line"/>
+  <path d="M1310 450 L1385 450" class="line"/>
+  <text x="120" y="700" class="eq">p_c &lt;- (1 - a) p_c + a * mean_group(p)</text>
+</svg>

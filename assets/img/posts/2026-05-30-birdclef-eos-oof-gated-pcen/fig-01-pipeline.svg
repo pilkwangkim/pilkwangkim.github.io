@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto" markerUnits="strokeWidth">
+      <path d="M1,1 L6,3.5 L1,6 Z" fill="#58708c"/>
+    </marker>
+    <marker id="arrow-red" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto" markerUnits="strokeWidth">
+      <path d="M1,1 L6,3.5 L1,6 Z" fill="#ee7171"/>
+    </marker>
+    <style>
+      .bg { fill: #0c121c; }
+      .box { fill: #192435; stroke-width: 4; rx: 24; }
+      .title { fill: #ebf1f8; font: 700 44px Arial, sans-serif; }
+      .sub { fill: #9bacbf; font: 22px Arial, sans-serif; }
+      .box-title { fill: #ebf1f8; font: 700 24px Arial, sans-serif; }
+      .body { fill: #b7c5d7; font: 21px Arial, sans-serif; }
+      .small { fill: #dbe8f6; font: 22px Arial, sans-serif; }
+      .line { stroke: #58708c; stroke-width: 4; fill: none; marker-end: url(#arrow); }
+      .redline { stroke: #ee7171; stroke-width: 4; fill: none; marker-end: url(#arrow-red); }
+    </style>
+  </defs>
+  <rect class="bg" width="1600" height="900"/>
+  <text x="72" y="90" class="title">BirdCLEF 2026 EoS9 Anchor + Gated Sidecars</text>
+  <text x="74" y="130" class="sub">Keep the public EoS9 path fixed, then allow only budgeted rank corrections.</text>
+
+  <rect x="80" y="204" width="320" height="150" class="box" stroke="#58e2dc"/>
+  <text x="106" y="250" class="box-title">yukiZ branch</text>
+  <text x="106" y="286" class="body">Perch + ProtoSSM</text>
+  <text x="106" y="314" class="body">+ ResidualSSM</text>
+  <text x="106" y="342" class="body">weight 0.012</text>
+
+  <rect x="80" y="376" width="320" height="150" class="box" stroke="#f4c55d"/>
+  <text x="106" y="422" class="box-title">PSSM branch</text>
+  <text x="106" y="458" class="body">PowerOptimization</text>
+  <text x="106" y="486" class="body">intermediate PSSM</text>
+  <text x="106" y="514" class="body">weight 0.021</text>
+
+  <rect x="80" y="548" width="320" height="150" class="box" stroke="#5bb2ff"/>
+  <text x="106" y="594" class="box-title">EoS9 main</text>
+  <text x="106" y="630" class="body">ProtoSSM/SED rank</text>
+  <text x="106" y="658" class="body">prior + scaling</text>
+  <text x="106" y="686" class="body">weight 0.967</text>
+
+  <rect x="520" y="376" width="300" height="150" class="box" stroke="#6ad691"/>
+  <text x="546" y="422" class="box-title">Direct blend</text>
+  <text x="546" y="462" class="body">weighted branch</text>
+  <text x="546" y="490" class="body">probabilities</text>
+
+  <rect x="900" y="376" width="350" height="150" class="box" stroke="#ad82ff"/>
+  <text x="926" y="422" class="box-title">Taxonomy smoothing</text>
+  <text x="926" y="462" class="body">genus alpha 0.15</text>
+  <text x="926" y="490" class="body">class alpha 0.05</text>
+
+  <rect x="900" y="644" width="350" height="150" class="box" stroke="#ee7171"/>
+  <text x="926" y="690" class="box-title">Optional sidecars</text>
+  <text x="926" y="730" class="body">BirdNET / PCEN</text>
+  <text x="926" y="758" class="body">masked rank correction</text>
+
+  <rect x="1365" y="376" width="180" height="150" class="box" stroke="#6ad691"/>
+  <text x="1389" y="422" class="box-title">Final CSV</text>
+  <text x="1389" y="462" class="body">schema</text>
+  <text x="1389" y="490" class="body">checked</text>
+
+  <path d="M400 279 C450 310, 482 390, 520 451" class="line"/>
+  <path d="M400 451 L520 451" class="line"/>
+  <path d="M400 623 C450 590, 482 512, 520 451" class="line"/>
+  <path d="M820 451 L900 451" class="line"/>
+  <path d="M1250 451 L1365 451" class="line"/>
+  <path d="M1075 644 L1075 526" class="redline"/>
+  <text x="1098" y="612" class="small">sidecars run only after the anchor file is written</text>
+</svg>

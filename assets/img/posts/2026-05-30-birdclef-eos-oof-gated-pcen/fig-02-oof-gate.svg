@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto" markerUnits="strokeWidth">
+      <path d="M1,1 L6,3.5 L1,6 Z" fill="#58708c"/>
+    </marker>
+    <style>
+      .bg { fill: #0c121c; }
+      .box { fill: #192435; stroke-width: 4; rx: 24; }
+      .title { fill: #ebf1f8; font: 700 44px Arial, sans-serif; }
+      .sub { fill: #9bacbf; font: 22px Arial, sans-serif; }
+      .box-title { fill: #ebf1f8; font: 700 24px Arial, sans-serif; }
+      .body { fill: #b7c5d7; font: 21px Arial, sans-serif; }
+      .note { fill: #dbe8f6; font: 22px Arial, sans-serif; }
+      .line { stroke: #58708c; stroke-width: 4; fill: none; marker-end: url(#arrow); }
+    </style>
+  </defs>
+  <rect class="bg" width="1600" height="900"/>
+  <text x="72" y="90" class="title">OOF-Gated Rank Correction</text>
+  <text x="74" y="130" class="sub">A sidecar can move only cells that pass plausibility, OOF gate, and perturbation checks.</text>
+
+  <rect x="90" y="230" width="310" height="150" class="box" stroke="#5bb2ff"/>
+  <text x="116" y="274" class="box-title">Anchor ranks A</text>
+  <text x="116" y="318" class="body">rank columns of</text>
+  <text x="116" y="346" class="body">tax-smoothed EoS9</text>
+
+  <rect x="90" y="520" width="310" height="150" class="box" stroke="#58e2dc"/>
+  <text x="116" y="564" class="box-title">Sidecar ranks S</text>
+  <text x="116" y="608" class="body">PCEN / BirdNET</text>
+  <text x="116" y="636" class="body">side prediction ranks</text>
+
+  <rect x="520" y="230" width="330" height="150" class="box" stroke="#f4c55d"/>
+  <text x="546" y="274" class="box-title">Plausibility mask M</text>
+  <text x="546" y="318" class="body">anchor top-k OR</text>
+  <text x="546" y="346" class="body">side top-k with A >= tau</text>
+
+  <rect x="520" y="520" width="330" height="150" class="box" stroke="#ad82ff"/>
+  <text x="546" y="564" class="box-title">Class gate W</text>
+  <text x="546" y="608" class="body">OOF gate_weight[c]</text>
+  <text x="546" y="636" class="body">clipped by max weight</text>
+
+  <rect x="980" y="375" width="330" height="170" class="box" stroke="#6ad691"/>
+  <text x="1006" y="420" class="box-title">Budgeted update</text>
+  <text x="1006" y="466" class="body">B = A + W * M * (S - A)</text>
+  <text x="1006" y="494" class="body">D &lt;= configured budget</text>
+
+  <rect x="1350" y="375" width="190" height="170" class="box" stroke="#ee7171"/>
+  <text x="1374" y="420" class="box-title">Accept</text>
+  <text x="1374" y="466" class="body">or keep</text>
+  <text x="1374" y="494" class="body">anchor</text>
+
+  <path d="M400 305 L520 305" class="line"/>
+  <path d="M400 595 L520 595" class="line"/>
+  <path d="M850 305 C910 340, 940 405, 980 442" class="line"/>
+  <path d="M850 595 C910 560, 940 510, 980 478" class="line"/>
+  <path d="M1310 460 L1350 460" class="line"/>
+  <text x="895" y="625" class="note">Safeguards: active fraction, top-3/top-10 overlap, D budget</text>
+</svg>
