@@ -1,5 +1,5 @@
 ---
-title: "PG S6E6: EDA, GBDT Bases, and Artifact Blend"
+title: "PG S6E6: Redshift, Color Geometry, and OOF Artifact Blending"
 date: 2026-06-02 21:00:00 +0900
 categories: [AI, Kaggle]
 tags: [kaggle, playground-series, stellar-classification, eda, gbdt, artifact-blend, balanced-accuracy]
@@ -7,7 +7,7 @@ math: true
 pin: false
 ---
 
-# PG S6E6: EDA, GBDT Bases, and Artifact Blend
+# PG S6E6: Redshift, Color Geometry, and OOF Artifact Blending
 
 Competition link:  
 [Playground Series S6E6](https://www.kaggle.com/competitions/playground-series-s6e6)
@@ -76,7 +76,7 @@ $$
 \frac{\operatorname{TP}_k}{\operatorname{TP}_k + \operatorname{FN}_k}
 $$
 
-For this competition, \(K=3\).
+For this competition, `K = 3`.
 The score is therefore an average of recall for `GALAXY`, `QSO`, and `STAR`.
 
 This changes the optimization target from row-level correctness to **class-wise coverage**.
@@ -332,7 +332,7 @@ That is the right interpretation for a mixed stellar/galaxy/quasar classificatio
 Astronomy-oriented EDA geometry sits closer to the measurement process than a plain feature-importance table.
 The useful signals are not just "which column is strong"; they are **where the class boundary bends** and **which feature families should be trusted as priors rather than labels**.
 
-Categorical association can be summarized with Cramer's \(V\):
+Categorical association can be summarized with Cramer's `V`:
 
 $$
 V
@@ -343,10 +343,10 @@ V
 }
 $$
 
-where \(r\) and \(c\) are the contingency-table dimensions.
+where `r` and `c` are the contingency-table dimensions.
 The two categorical fields are not decorative:
 
-| Feature | Cramer's \(V\) With Class | Modeling Meaning |
+| Feature | Cramer's `V` With Class | Modeling Meaning |
 |---|---:|---|
 | `galaxy_population` | `0.59349` | strong population prior |
 | `spectral_type` | `0.52480` | strong spectral prior |
@@ -375,7 +375,7 @@ $$
 $$
 
 approximate adjacent spectral slopes.
-`QSO` occupies a lower \(g-r\) band, `GALAXY` forms a large higher \(g-r\) cloud, and `STAR` overlaps both in the middle.
+`QSO` occupies a lower `g-r` band, `GALAXY` forms a large higher `g-r` cloud, and `STAR` overlaps both in the middle.
 That overlap is important: color geometry creates strong regions, but not an axis-aligned rule.
 GBDT splits and neural probability artifacts are therefore useful because they can represent curved and locally mixed decision surfaces.
 
@@ -385,7 +385,7 @@ The redshift ECDF makes the threshold logic more explicit:
   <img src="{{ site.baseurl }}/assets/img/posts/2026-06-02-pg-s6e6-eda-gbdt-artifact-blend/fig-07-astro-redshift-ecdf-by-class.png" alt="PG S6E6 redshift ECDF by class" width="78%">
 </p>
 
-For class \(c\), the curve is:
+For class `c`, the curve is:
 
 $$
 F_c(z)
@@ -415,7 +415,7 @@ Finally, `alpha` and `delta` should be treated as sky geometry rather than ordin
 </p>
 
 The projection shows a survey footprint, not a uniformly sampled sphere.
-Coordinate position may encode selection effects, but right ascension also wraps at \(0^\circ/360^\circ\).
+Coordinate position may encode selection effects, but right ascension also wraps at `0 degrees / 360 degrees`.
 Periodic and spherical encodings are safer than raw-angle-only splits:
 
 <details markdown="1">
@@ -512,15 +512,15 @@ Probability sources are not interchangeable until they earn trust through OOF be
 
 > Every probability source must first behave well on rows it did not train on.
 
-For row \(i\), OOF prediction means:
+For row `i`, OOF prediction means:
 
 $$
 \hat{p}^{\text{OOF}}_i
 =
-f^{(-k(i))}(x_i)
+f_{-k_i}(x_i)
 $$
 
-where \(f^{(-k(i))}\) is trained without fold \(k(i)\), the fold containing row \(i\).
+where `k_i` is the validation fold containing row `i`, and `f_{-k_i}` is trained without that fold.
 
 This matters because in-sample predictions answer the wrong question.
 They ask:
@@ -591,7 +591,7 @@ $$
 =
 \frac{1}{K}
 \sum_{k=1}^{K}
-f^{(-k)}(x_{\text{test}})
+f_{-k}(x_{\text{test}})
 $$
 
 That keeps the validation and test prediction recipes aligned.
@@ -607,7 +607,7 @@ The strongest single member is:
 The selected blend is not trying to replace it.
 It is trying to correct it.
 
-Let \(p_m(x)\) be the probability vector from member \(m\).
+Let `p_m(x)` be the probability vector from member `m`.
 A probability blend is:
 
 $$
