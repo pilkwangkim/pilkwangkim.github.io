@@ -1,6 +1,6 @@
 ---
 title: "ROGII: Leakage-Controlled TVT Recovery Through Target-Free Stratigraphic Alignment"
-date: 2026-06-04 21:00:00 +0900
+date: 2026-06-03 21:00:00 +0900
 categories: [AI, Kaggle]
 tags: [kaggle, rogii, geosteering, stratigraphy, tvt, leakage-control, target-free-alignment, ensemble]
 math: true
