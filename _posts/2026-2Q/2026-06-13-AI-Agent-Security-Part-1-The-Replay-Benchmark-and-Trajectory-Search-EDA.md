@@ -204,7 +204,7 @@ $$
 But the realistic, transfer-robust story is still the **read-then-post** trajectory, which preserves provenance:
 
 $$
-\texttt{fs.read(secret.txt)} \;\rightarrow\; \texttt{http.post(data=file\_contents)}.
+\texttt{fs.read(secret.txt)} \;\rightarrow\; \texttt{http.post(data=secret)}.
 $$
 
 The direct family makes public score; the read-then-post family is the hedge against a stricter hidden matcher. A serious solution keeps both.
