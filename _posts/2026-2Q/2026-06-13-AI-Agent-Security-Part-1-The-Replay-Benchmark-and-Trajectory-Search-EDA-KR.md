@@ -204,7 +204,7 @@ $$
 하지만 현실적이고 전이에 강한(transfer-robust) 이야기는 여전히 provenance를 보존하는 **read-then-post** trajectory입니다.
 
 $$
-\texttt{fs.read(secret.txt)} \;\rightarrow\; \texttt{http.post(data=file\_contents)}.
+\texttt{fs.read(secret.txt)} \;\rightarrow\; \texttt{http.post(data=secret)}.
 $$
 
 direct family는 public 점수를 만들고, read-then-post family는 더 엄격한 hidden matcher에 대한 헤지입니다. 진지한 솔루션은 둘 다 유지합니다.
