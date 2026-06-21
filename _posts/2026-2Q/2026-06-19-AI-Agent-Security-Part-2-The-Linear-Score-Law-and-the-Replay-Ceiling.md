@@ -20,7 +20,7 @@ Kaggle code:
 
 This is a working-note, not a tidy result. Most of what follows is a record of things that looked promising and *didn't* behave as expected, and the effort to understand *why* — which turned out to be more informative than the things that worked. The short version:
 
-> **The public score is an accounting identity, $S \approx 0.09\,N_{\text{eff}}$. The only lever is $N_{\text{eff}}$, the number of returned candidates that fire `EXFILTRATION` within the replay budget. Every "clever" idea — severity stacking, prompt compression, multi-turn packing — fails, and each failure pins down a different constant. What limits $N$ is a *runtime* wall, not the score — and that wall seems to be **soft**: it shifts with run-to-run GPU variance, so as of now I treat $N=626$ as a *reliable* pass and anything from $\sim630$ up as an open, variance-dominated frontier — another notebook has already cleared 630, which is why I would not call 626 a hard ceiling. The cost that sets the wall looks like *generation*, not input length. And the exploit that buys the public score appears structurally self-defeating against a private guardrail that inspects payloads.**
+> **The public score is an accounting identity, $S \approx 0.09\,N_{\text{eff}}$. The only lever is $N_{\text{eff}}$, the number of returned candidates that fire `EXFILTRATION` within the replay budget. Every "clever" idea — severity stacking, prompt compression, multi-turn packing — fails, and each failure pins down a different constant. What limits $N$ is a *runtime* wall, not the score — and that wall seems to be *soft*: it shifts with run-to-run GPU variance, so as of now I treat $N=626$ as a *reliable* pass and anything from $\sim632$ up as an open, variance-dominated frontier — competitors have cleared $N\approx632$ (imp + measured-latency auto-sizing) and $N=636$ (the shorter r3 form, 57.240), with $N=640$ failing, which is why I would not call 626 a hard ceiling. The cost that sets the wall looks like *generation*, not input length. And the exploit that buys the public score appears structurally self-defeating against a private guardrail that inspects payloads.**
 
 ---
 
@@ -281,7 +281,9 @@ $$
 
 Taken alone, that reads like a clean floor — and that is exactly how I first wrote it up. Then a separate notebook *passed* $N=630$ with the imperative format, the same $N$ that timed out for me. That single fact reframes the picture: the 630 timeouts were most likely **run-to-run variance, not a hard cost floor.** The replay budget $B_{\text{wall}}$ is wall-clock time on shared T4 GPUs whose throughput fluctuates between rerun environments; a candidate count that clears the wall on a fast draw can time out on a slow one. The boundary is real, but it is a *band*, not a line.
 
-So the honest statement is narrower than "the ceiling is 626." The cheap message-format levers — stacking, prefill, the output suppressor — appear to have *plateaued for me*: I did not find a message change that reliably bought more candidates. But $N\geq630$ is clearly reachable — another notebook has cleared it — and clearing the wall looks more and more like the luck of the GPU draw as $N$ climbs. So at this point I read it this way: **$N=626$ passes reliably, and everything from $\sim630$ up is an open, variance-dominated frontier** — reachable, but increasingly down to the luck of the GPU draw, and not something I'd pin to a fixed number.
+So the honest statement is narrower than "the ceiling is 626." The cheap message-format levers — stacking, prefill, the output suppressor — appear to have *plateaued for me*: I did not find a message change that reliably bought more candidates. But the frontier above is clearly reachable — competitors have landed $N\approx632$ and $N=636$ — and clearing the wall looks more and more like the luck of the GPU draw as $N$ climbs. So at this point I read it this way: **$N=626$ passes reliably, and everything from $\sim630$ up is an open, variance-dominated frontier** — reachable, but increasingly down to the luck of the GPU draw, and not something I'd pin to a fixed number.
+
+**A twist on the prefill verdict.** I concluded above that r3's shorter prefill *doesn't* matter, since it timed out at the same $N=630$ as imp. But the current top public score (**57.240**) used *exactly* this r3 form to carry $N=636$ — its author records $N=635$ passing, $N=640$ failing, $N=650$ timing out. So r3's seven-char trim may buy a few candidates of headroom near the wall after all, or that pass is just the same variance landing six candidates higher; one submission each cannot separate the two, and the author flags the identical open question ("count ceiling vs prompt-length ceiling"). I'm leaving it unresolved. What is clear is that there are now two routes into the 632–640 band: **measure the wall and size $N$ to it** — the 56.87 run probes its own replay latency in-run and auto-sizes — or **fix $N$ near the edge and resubmit until a fast draw clears it** (the 57.240 run). The first is a mechanism; the second is a lottery. Neither changes the per-candidate yield of 18; both just push $N$ a little further up the same line, toward a structural ceiling near **57.6** at $N\approx640$.
 
 ---
 
@@ -302,9 +304,9 @@ with my best *confirmed* passes (the wall above them is soft and run-dependent �
 $$
 N_{\text{base}} = 620\ (55.8\text{ pts}),
 \qquad
-N_{\text{imp}} = 626\ (56.34\text{ pts}),
+N_{\text{imp}} = 626\ (56.34\text{ pts, my PB}),
 \qquad
-N = 630\ \text{reached elsewhere}.
+N \in [632, 636]\ \text{reached by others}.
 $$
 
 The Working Note's profile selector reduces the entire strategy to two lines — *mode* (which message format) and *N* (how many candidates) — because the format question is settled and only $N$ is left to push:
@@ -495,7 +497,7 @@ To be explicit, because it matters: this analysis is confined to a deterministic
 
 ## 16. Conclusion
 
-The arc of this competition was an unusually clean instance of black-box reverse-engineering. A noisy "jailbreak the agent" task turned out to be governed by a one-line identity, $S = 0.09\,N_{\text{eff}}$; every tempting elaboration — stacking, compression, multi-turn packing — failed, and each failure pinned a constant: per-trace dedup, generation-dominated cost, and a *runtime* wall whose exact height turned out to be soft. As of now my reliable score is **56.34 pts** (imp, $N=626$); above it, clearing the wall looks increasingly like the luck of the GPU draw — a later notebook reached $N=630$. So I won't claim a hard ceiling: 626 is my safe, repeatable level, and the frontier above it stays open.
+The arc of this competition was an unusually clean instance of black-box reverse-engineering. A noisy "jailbreak the agent" task turned out to be governed by a one-line identity, $S = 0.09\,N_{\text{eff}}$; every tempting elaboration — stacking, compression, multi-turn packing — failed, and each failure pinned a constant: per-trace dedup, generation-dominated cost, and a *runtime* wall whose exact height turned out to be soft. As of now my reliable score is **56.34 pts** (imp, $N=626$); above it, clearing the wall looks increasingly like the luck of the GPU draw — later notebooks reached $N\approx632$ (56.87) and $N=636$ (57.240), with $N=640$ failing. So I won't claim a hard ceiling: 626 is my safe, repeatable level, and the frontier above it (≈632–640, toward a ~57.6 structural ceiling) stays open.
 
 But the part worth keeping is not the number. It is that the move which maximizes the *visible* score is structurally self-defeating against a guardrail that inspects what you send — and that this gap, between "what counts as exfiltration" and "what gets blocked," is the real object the benchmark was built to measure. The optimal public play and the robust private play diverge, and understanding *why* is the lesson the leaderboard pays for.
 
@@ -506,5 +508,5 @@ But the part worth keeping is not the number. It is that the move which maximize
 - Competition: [AI Agent Security — Multi-Step Tool Attacks](https://www.kaggle.com/competitions/ai-agent-security-multi-step-tool-attacks).
 - Notebooks: [Replay-Dense Exfiltration](https://www.kaggle.com/code/pilkwang/ai-agent-replay-dense-exfiltration) (origin: the linear law, the runtime model, the over-return fix), [AI Agent Security — Working Note](https://www.kaggle.com/code/pilkwang/ai-agent-security-working-note) (the full evidence timeline, ceiling analysis, guardrail asymmetry, and private-robustness research directions).
 - Series: [Part 1 — The Replay Benchmark and Trajectory-Search EDA]({{ site.baseurl }}/posts/AI-Agent-Security-Part-1-The-Replay-Benchmark-and-Trajectory-Search-EDA/).
-- The competitor reference (imperative format, $N=625$) is boristown's public notebook, *AGI AI Agent Security* (Kaggle, V19).
+- Competitor references: boristown's *AGI AI Agent Security* (Kaggle, V19; imperative format, $N=625$); [imbikramsaha — v10, 56.87](https://www.kaggle.com/code/imbikramsaha/ai-agent-security-v10-score-56-87) ($N\approx632$ via in-run measured-latency $N$ auto-sizing); [yaroslavkholmirzayev — k1-short, 57.240](https://www.kaggle.com/code/yaroslavkholmirzayev/ai-agent-security-k1-short) ($N=636$, static r3 single-post).
 - Academic lineage carried over from Part 1: AgentDojo (Debenedetti et al., 2024, arXiv:2406.13352); Indirect Prompt Injection (Greshake et al., 2023, arXiv:2302.12173); Go-Explore (Ecoffet et al., 2021, Nature 590).
