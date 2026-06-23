@@ -9,6 +9,8 @@ pin: false
 
 # AI Agent Security (Part 1): The Replay Benchmark and Trajectory-Search EDA
 
+> **Caveat (valid through 2026-06-21).** Everything below describes the evaluator as it behaved **up to June 21, 2026**. The organizers have since announced a large-scale scoring/evaluator update for **June 22, 2026**, whose stated intent is to improve the fairness and reliability of evaluation and bring the harness in line with the intended contract — prompted by forum reports of long-running submissions and unexpected scores, including findings of the kind in this series. Concretely it adds strict runtime-budget enforcement during replay (over-budget runs now fail fast instead of running to the global timeout) and a scorer that recognizes reversible encodings (base64, hex, URL-encoding, reversal, separator-joined). That changes parts of this analysis — notably the runtime-ceiling numbers and the "encoding self-defeating" finding. I will cover the June 22 update and its consequences in a **separate note**, not this one.
+
 Competition link:  
 [AI Agent Security — Multi-Step Tool Attacks](https://www.kaggle.com/competitions/ai-agent-security-multi-step-tool-attacks)
 
