@@ -9,6 +9,8 @@ pin: false
 
 # AI Agent Security (1편): Replay 벤치마크와 Trajectory-Search EDA
 
+> **주의 (2026-06-21까지 유효).** 아래 내용은 모두 **2026년 6월 21일까지** 동작하던 평가기(evaluator) 기준입니다. 이후 주최 측이 **2026년 6월 22일** 대규모 채점/평가기 업데이트를 공지했는데, 그 취지는 평가의 공정성·신뢰성을 높이고 하니스를 의도된 계약(contract)에 맞추는 것으로 보입니다 — 장시간 실행 제출과 예상치 못한 점수에 대한 포럼 제보(이 시리즈에서 다룬 종류의 발견 포함)가 계기가 됐습니다. 구체적으로는 replay 단계의 런타임 예산 강제 집행(예산 초과 시 글로벌 타임아웃까지 가지 않고 즉시 실패)과, 가역 인코딩(base64·hex·URL 인코딩·역순·구분자 결합)을 인식하는 스코어러가 추가됩니다. 이로 인해 이 분석의 일부 — 특히 런타임 천장 수치와 'encoding self-defeating' 발견 — 가 바뀝니다. 6월 22일 업데이트와 그 여파에 대한 내용은 **이 글이 아니라 별도의 노트**에서 다루겠습니다.
+
 대회 링크:  
 [AI Agent Security — Multi-Step Tool Attacks](https://www.kaggle.com/competitions/ai-agent-security-multi-step-tool-attacks)
 
