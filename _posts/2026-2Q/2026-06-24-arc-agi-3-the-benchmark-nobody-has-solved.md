@@ -31,7 +31,7 @@ Technical report:
 
 ## Why I'm writing this
 
-I'm working through ARC-AGI-3 seriously, and writing is how I think. This post is my attempt to lay out — as precisely as I can — what the competition actually is, how the scoring really works (there is a unit confusion that trips up almost everyone, including me), what the current state of the art looks like once you strip away the leaderboard theater, and how I'd approach it. The framing is opinionated on purpose. Where I'm stating fact I'll try to be careful; where I'm stating a bet, I'll say so.
+I'm working through ARC-AGI-3 seriously, and writing is how I think. This post is my attempt to lay out — as precisely as I can — what the competition actually is, how the scoring works, what the current state of the art looks like once you strip away the leaderboard theater, and how I'd approach it. The framing is opinionated on purpose. Where I'm stating fact I'll try to be careful; where I'm stating a bet, I'll say so.
 
 If you take one thing away: **do not trust the leaderboard number you see attached to a notebook.** I'll explain why in detail, but the short version is that the public scoreboard is a mix of stale scores computed under an older scoring rule, scores inflated by overfitting to the public games, and — until recently — scores inflated by an exploit that has since been patched. The honest signal is much lower and much more uniform than it looks.
 
@@ -457,7 +457,7 @@ In real code, you will want a proper array comparison, and you will want to incl
 
 This sounds trivial, but it is a large part of why pure random agents waste their entire action budget. Random exploration does not know the difference between "I learned something" and "I pressed into a wall again."
 
-## 4. Scoring: RHAE, and the unit that trips everyone up
+## 4. Scoring: RHAE
 
 Performance is **Relative Human Action Efficiency (RHAE)**. For a single level $\ell$:
 
@@ -540,12 +540,6 @@ $$
 $$
 
 That cap is there because later levels are where the game usually tests whether the agent really understood the mechanic. Early levels can be tutorial-like; late levels combine rules.
-
-### The unit confusion
-
-Scores are reported as **percentages**, and this genuinely confuses people on the forums. A leaderboard entry of `0.46` means **0.46%** (a fraction of 0.0046), *not* 46%. The maximum is 100.00% (fraction 1.0, with the 1.15 per-level cap allowing slight local overshoot). I made this mistake myself while researching this post: a notebook "scoring 0.46" is scoring **0.46%**, which is a completely different — and far more sobering — claim. **Right now the entire field sits below ~2%.** Late-June public high-score reports are in roughly the **1.2%** band, not the 12% or 46% that a casual reading might suggest.
-
-Internalize that and the whole landscape snaps into focus: nobody has solved this. The leaderboard isn't a ranking of strong generalizers; it's a ranking of who is least bad at an unsolved problem.
 
 ### What RHAE changes about development
 
@@ -694,13 +688,12 @@ That is 1% credit on that level, before level weighting and game caps. A brute-f
 
 ### Why the leaderboard "lies"
 
-If everyone is sub-2%, why do you see notebooks with "0.4" attached? Three reasons, and you should hold all of them:
+If everyone is sub-2%, why do some public notebooks still look much stronger? Two reasons matter most:
 
-1. **Unit confusion** — "0.4" is 0.4%.
-2. **Stale scores under an older rule** — Kaggle does not retroactively re-score historical submissions when the metric changes. The per-level score was changed to be *squared* (and the cap raised) partway through; old high entries kept their old-rule numbers, and the public-notebook ranking has been effectively frozen for months because new entries can't displace them under the harsher rule. The leaderboard is therefore an apples-and-oranges mix.
-3. **A patched exploit** — for a while, some agents located the actual game *source code* on disk and ran exhaustive search against the real simulator (a white-box trick). That works on public games (whose source ships) but is dead on the private leaderboard games (API-only), and the dynamic-game-code-loading path has since been fixed. High historical scores that leaned on it don't reproduce.
+1. **Stale scores under an older rule** — Kaggle does not retroactively re-score historical submissions when the metric changes. The per-level score was changed to be *squared* (and the cap raised) partway through; old high entries kept their old-rule numbers, and the public-notebook ranking has been effectively frozen for months because new entries can't displace them under the harsher rule. The leaderboard is therefore an apples-and-oranges mix.
+2. **A patched exploit** — for a while, some agents located the actual game *source code* on disk and ran exhaustive search against the real simulator (a white-box trick). That works on public games (whose source ships) but is dead on the private leaderboard games (API-only), and the dynamic-game-code-loading path has since been fixed. High historical scores that leaned on it don't reproduce.
 
-So: anchoring on a published notebook's score is a mistake on at least three independent axes.
+So: anchoring on a published notebook's score is a mistake. The useful question is whether the same principle survives on unseen games.
 
 ## 7. Approaches, and what's actually wrong with each
 
@@ -987,7 +980,7 @@ This is not a final solution. It is the shape of the solution I would trust: rec
 
 ## 11. My take
 
-I think the leaderboard is mostly a distraction, and the unit confusion makes it an *actively misleading* one. The real situation is clean and motivating: **the launch-era purpose-built preview winner fell back into the quarter-percent regime on the full benchmark, and the late-June Kaggle field is still under two percent.** That means the problem is open, and a genuinely different approach has room to matter in a way it rarely does on a mature benchmark.
+I think the leaderboard is mostly a distraction. The real situation is clean and motivating: **the launch-era purpose-built preview winner fell back into the quarter-percent regime on the full benchmark, and the late-June Kaggle field is still under two percent.** That means the problem is open, and a genuinely different approach has room to matter in a way it rarely does on a mature benchmark.
 
 My bet is that the winning ideas will come from **(c)** — a learned, test-time world model coupled with **intrinsic-motivation exploration** (drive toward states where your model is most uncertain, which is exactly where there's the most to learn) and **lightweight planning** over that model, with **explicit goal inference** layered on top. Reactive action-prediction (a) and pure frontier search (b) are the proven-but-capped baselines; they game the metric or exhaust the frontier without ever *understanding* the game. The four capabilities the benchmark names — exploration, modeling, goal-setting, planning — are a research agenda, and I'd rather build against that agenda than against the scoreboard.
 
