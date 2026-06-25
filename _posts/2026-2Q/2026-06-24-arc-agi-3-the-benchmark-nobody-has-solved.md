@@ -111,10 +111,6 @@ The important caution is the ARC-AGI-3 score row. **12.58% was a preview result,
 
 The conceptual shift is from "intelligence as pattern-matching on a fixed dataset" to "intelligence as adaptive behavior in an open-ended environment." That shift is exactly why current systems fall off a cliff.
 
-<figure class="arc-agi-figure">
-  <img src="{{ site.baseurl }}/assets/img/arc-agi-3/lineage.svg" alt="ARC-AGI lineage from static puzzles to interactive games">
-</figure>
-
 Here is a toy contrast.
 
 In a static ARC task, you might be shown:
@@ -386,9 +382,13 @@ That is the little loop ARC-AGI-3 forces you to build. It feels mundane, but wit
 
 So even the "public" leaderboard you watch is computed on **unseen** games. This is why solving a pile of public levels can still yield a competition score of **0.00**.
 
-<figure class="arc-agi-figure">
-  <img src="{{ site.baseurl }}/assets/img/arc-agi-3/split.svg" alt="ARC-AGI-3 public demo, semi-private, and fully private split">
-</figure>
+| Split | Count | Visible to competitors? | Role |
+|---|---:|---|---|
+| Public demo games | 25 | Yes | Source-visible environments for local development, debugging, and first experiments. |
+| Semi-private hidden games | 55 | No | Used for public leaderboard and scorecard reporting during the competition. |
+| Fully private hidden games | 55 | No | Final holdout used for the private leaderboard at the end. |
+
+That split is the reason a public-game agent and a leaderboard-scoring agent can be very different systems. The public games are the practice field; the leaderboard asks whether the same ideas transfer to environments the agent has never seen.
 
 ### What the starter kit gives you
 
@@ -512,9 +512,14 @@ def rhae_score(games):
     return sum(game_scores) / len(game_scores)
 ```
 
-<figure class="arc-agi-figure">
-  <img src="{{ site.baseurl }}/assets/img/arc-agi-3/rhae.svg" alt="ARC-AGI-3 RHAE scoring pipeline">
-</figure>
+In prose, the pipeline is:
+
+| Stage | What is computed | Why it matters |
+|---|---|---|
+| Level score | Compare human action count `h` with agent action count `a`, using `min(h / a, 1.15)^2`; if `a > 5h`, the level gets 0. | Completion alone is not enough. The benchmark rewards human-like efficiency. |
+| Game score | Average level scores with larger weights on later levels. | An agent that solves only the easy prefix should not look too strong. |
+| Completion cap | Cap the game score by the sequential levels actually completed. | This prevents shortcuts where an agent misses the beginning but gets lucky later. |
+| Benchmark score | Average hidden-game scores and report them on a 0-100% scale. | Broad generalization matters more than overfitting one environment. |
 
 ### A numerical example
 
@@ -659,10 +664,6 @@ The preview-era result table is still useful because it shows which broad strate
 The lesson is not "CNN beats LLM forever" or "graph search is enough." The lesson is narrower and more useful: **methods that spend actions to discover environment dynamics beat methods that merely reason about a screenshot**, but the preview methods still failed to generalize robustly when the benchmark expanded.
 
 The single most important quote from the literature, paraphrased: *no approach has demonstrated clear generalization yet.* That is the opportunity.
-
-<figure class="arc-agi-figure">
-  <img src="{{ site.baseurl }}/assets/img/arc-agi-3/score-distribution.svg" alt="ARC-AGI-3 score distribution showing current systems below two percent">
-</figure>
 
 ### Why current systems struggle
 
