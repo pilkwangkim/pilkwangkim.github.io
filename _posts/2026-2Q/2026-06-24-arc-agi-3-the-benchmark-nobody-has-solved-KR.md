@@ -514,7 +514,7 @@ def grid_changed(prev_grid, next_grid):
 
 이건 사소해 보이지만 random agent가 action budget을 날리는 가장 큰 이유 중 하나를 줄여 줍니다. random exploration은 "무언가를 배웠다"와 "벽에 또 부딪혔다"를 구분하지 못합니다.
 
-## 4. Scoring: RHAE와 헷갈리기 쉬운 단위
+## 4. Scoring: RHAE
 
 ARC-AGI-3의 점수는 **Relative Human Action Efficiency**, 줄여서 **RHAE**입니다. 한 level $\ell$에 대한 기본 score는 다음과 같습니다.
 
@@ -615,22 +615,6 @@ $$
 $$
 
 뒤 level을 못 풀면 앞 level을 아무리 빨리 풀어도 game 전체 점수는 높아지지 않습니다. 뒤 level이야말로 mechanic을 정말 이해했는지를 묻는 곳이기 때문입니다.
-
-### 단위 혼동
-
-리더보드 점수는 **percentage**입니다. 이 부분이 정말 많이 헷갈립니다. leaderboard entry가 `0.46`이면 **0.46%**입니다. fraction으로는 0.0046입니다. 46%가 아닙니다.
-
-이 차이는 엄청 큽니다.
-
-```text
-0.46   = 0.46%
-46.0   = 46%
-100.0  = 100%
-```
-
-저도 처음 자료를 읽을 때 이 단위에 한 번 걸렸습니다. "0.46 score"라고 쓰여 있으면 눈이 자동으로 46%처럼 읽습니다. 하지만 ARC-AGI-3 맥락에서는 0.46%입니다. 지금 참가자 전체가 ~2% 아래에 있다는 말은, 정말로 거의 바닥에 붙어 있다는 뜻입니다.
-
-이렇게 읽고 나면 현재 상황이 훨씬 선명해집니다. 이것은 강한 generalizer끼리의 순위 경쟁이 아닙니다. 아직 아무도 제대로 풀지 못한 문제에서 누가 덜 못하고 있는가에 가깝습니다.
 
 ### RHAE가 개발 방식을 어떻게 바꾸는가
 
@@ -789,11 +773,10 @@ $$
 
 ### 왜 leaderboard가 "거짓말"처럼 보이는가
 
-모두 sub-2%라면 왜 notebook에 "0.4" 같은 점수가 보일까요? 이유는 세 가지입니다.
+모두 sub-2%라면 왜 public notebook에 더 높아 보이는 점수가 남아 있을까요? 이유는 크게 두 가지입니다.
 
-1. **Unit confusion** — `0.4`는 0.4%입니다.
-2. **Stale score** — Kaggle은 metric이 바뀌어도 오래된 submission을 자동으로 재채점하지 않습니다. 예전 rule로 계산된 점수가 섞여 있을 수 있습니다.
-3. **Patched exploit** — 한동안 public game source를 disk에서 찾아 실제 simulator에 대해 exhaustive search를 돌리는 white-box trick이 가능했습니다. private leaderboard에는 맞지 않고, 해당 path는 이후 막힌 것으로 알려져 있습니다.
+1. **Stale score** — Kaggle은 metric이 바뀌어도 오래된 submission을 자동으로 재채점하지 않습니다. 예전 rule로 계산된 점수가 섞여 있을 수 있습니다.
+2. **Patched exploit** — 한동안 public game source를 disk에서 찾아 실제 simulator에 대해 exhaustive search를 돌리는 white-box trick이 가능했습니다. private leaderboard에는 맞지 않고, 해당 path는 이후 막힌 것으로 알려져 있습니다.
 
 따라서 public notebook score를 기준점으로 삼는 것은 위험합니다. 중요한 것은 "이 notebook에 몇 점이라고 적혀 있나"가 아니라, **unseen game에서 같은 원리가 살아남는가**입니다.
 
@@ -1039,7 +1022,7 @@ score = (
 | Kaggle submission | 실제 leaderboard scoring입니다. 제출 횟수와 runtime이 귀하므로 마지막 확인용으로 써야 합니다. |
 | Scorecard | 여러 game run의 결과를 묶어 보는 기록입니다. 실패 원인을 추적하려면 scorecard보다 더 자세한 local log가 필요합니다. |
 | Replay | action sequence와 frame 변화를 다시 볼 수 있는 자료입니다. 사람이 실패를 이해하는 데 매우 중요합니다. |
-| Public notebook score | unit confusion, stale metric, exploit history 때문에 그대로 믿으면 안 됩니다. |
+| Public notebook score | stale metric과 exploit history 때문에 그대로 믿으면 안 됩니다. |
 | Private leaderboard | 최종 standing의 핵심입니다. public game overfit은 여기서 드러납니다. |
 
 초심자가 가장 많이 하는 실수는 Kaggle submission을 local debugger처럼 쓰는 것입니다. 이 대회에서는 반대로 해야 합니다. local/offline에서 수백 번 망하고, 그 망한 이유를 log로 설명할 수 있을 때만 Kaggle submission을 써야 합니다.
@@ -1225,7 +1208,7 @@ while not done:
 
 ## 11. 제 생각
 
-저는 리더보드가 이 문제의 본질을 꽤 흐린다고 봅니다. 특히 unit confusion 때문에 더 그렇습니다. 실제 상황은 오히려 단순합니다.
+저는 리더보드가 이 문제의 본질을 꽤 흐린다고 봅니다. 실제 상황은 오히려 단순합니다.
 
 > launch-era purpose-built preview winner도 full benchmark에서는 0.25% 근처로 떨어졌고, 2026년 6월 말 Kaggle 참가자 전체도 여전히 2% 아래입니다.
 
