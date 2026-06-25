@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-labelledby="title desc">
+  <title id="title">ARC-AGI-3 scores remain below two percent</title>
+  <desc id="desc">A bar chart showing frontier models below one percent, StochasticGoose preview at 12.58 percent, StochasticGoose full launch at 0.25 percent, and Kaggle high reports around 1.2 percent.</desc>
+  <rect width="960" height="360" fill="#f8fafc"/>
+  <text x="48" y="46" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="700" fill="#0f172a">The honest regime is still sub-2%</text>
+  <text x="48" y="76" font-family="Inter, Arial, sans-serif" font-size="15" fill="#475569">The preview result does not transfer to the full benchmark. Current systems remain far from 100%.</text>
+  <g font-family="Inter, Arial, sans-serif">
+    <line x1="115" y1="270" x2="860" y2="270" stroke="#94a3b8" stroke-width="2"/>
+    <line x1="115" y1="250" x2="860" y2="250" stroke="#e2e8f0" stroke-width="1"/>
+    <line x1="115" y1="230" x2="860" y2="230" stroke="#e2e8f0" stroke-width="1"/>
+    <text x="86" y="274" text-anchor="end" font-size="12" fill="#64748b">0%</text>
+    <text x="86" y="254" text-anchor="end" font-size="12" fill="#64748b">1%</text>
+    <text x="86" y="234" text-anchor="end" font-size="12" fill="#64748b">2%</text>
+    <rect x="145" y="260" width="80" height="10" fill="#2563eb"/>
+    <text x="185" y="250" text-anchor="middle" font-size="13" font-weight="700" fill="#0f172a">0.50%</text>
+    <text x="185" y="300" text-anchor="middle" font-size="12" fill="#334155">frontier</text>
+    <text x="185" y="316" text-anchor="middle" font-size="12" fill="#334155">best at release</text>
+    <rect x="300" y="265" width="80" height="5" fill="#0f766e"/>
+    <text x="340" y="250" text-anchor="middle" font-size="13" font-weight="700" fill="#0f172a">0.25%</text>
+    <text x="340" y="300" text-anchor="middle" font-size="12" fill="#334155">StochasticGoose</text>
+    <text x="340" y="316" text-anchor="middle" font-size="12" fill="#334155">full launch</text>
+    <rect x="455" y="246" width="80" height="24" fill="#b45309"/>
+    <text x="495" y="236" text-anchor="middle" font-size="13" font-weight="700" fill="#0f172a">~1.2%</text>
+    <text x="495" y="300" text-anchor="middle" font-size="12" fill="#334155">late-June</text>
+    <text x="495" y="316" text-anchor="middle" font-size="12" fill="#334155">public reports</text>
+    <rect x="720" y="112" width="80" height="158" fill="#7c3aed" opacity="0.35"/>
+    <path d="M715 154 L805 142 M715 166 L805 154" stroke="#7c3aed" stroke-width="3"/>
+    <text x="760" y="100" text-anchor="middle" font-size="13" font-weight="700" fill="#0f172a">12.58%</text>
+    <text x="760" y="118" text-anchor="middle" font-size="11" fill="#6d28d9">off scale</text>
+    <text x="760" y="300" text-anchor="middle" font-size="12" fill="#334155">preview winner</text>
+    <text x="760" y="316" text-anchor="middle" font-size="12" fill="#334155">3 hidden games</text>
+    <line x1="110" y1="230" x2="865" y2="230" stroke="#ef4444" stroke-width="2" stroke-dasharray="6 6"/>
+    <text x="853" y="222" text-anchor="end" font-size="13" fill="#b91c1c">2% line</text>
+  </g>
+</svg>
