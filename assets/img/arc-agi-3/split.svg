@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 300" role="img" aria-labelledby="title desc">
+  <title id="title">ARC-AGI-3 public and private split</title>
+  <desc id="desc">A diagram showing 25 public demo games and 110 private games split into 55 semi-private and 55 fully private games.</desc>
+  <rect width="960" height="300" fill="#f8fafc"/>
+  <text x="48" y="46" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="700" fill="#0f172a">Public games are not the leaderboard</text>
+  <text x="48" y="76" font-family="Inter, Arial, sans-serif" font-size="15" fill="#475569">The public set is a demonstration interface. Evaluation lives on hidden environments.</text>
+  <g font-family="Inter, Arial, sans-serif">
+    <rect x="62" y="130" width="190" height="96" rx="8" fill="#dbeafe" stroke="#93c5fd"/>
+    <text x="157" y="164" text-anchor="middle" font-size="28" font-weight="700" fill="#1e3a8a">25</text>
+    <text x="157" y="194" text-anchor="middle" font-size="16" font-weight="700" fill="#172554">Public demo</text>
+    <text x="157" y="214" text-anchor="middle" font-size="13" fill="#334155">source visible</text>
+    <rect x="315" y="130" width="250" height="96" rx="8" fill="#ccfbf1" stroke="#5eead4"/>
+    <text x="440" y="164" text-anchor="middle" font-size="28" font-weight="700" fill="#134e4a">55</text>
+    <text x="440" y="194" text-anchor="middle" font-size="16" font-weight="700" fill="#134e4a">Semi-private</text>
+    <text x="440" y="214" text-anchor="middle" font-size="13" fill="#334155">official/public reporting set</text>
+    <rect x="628" y="130" width="250" height="96" rx="8" fill="#ffedd5" stroke="#fdba74"/>
+    <text x="753" y="164" text-anchor="middle" font-size="28" font-weight="700" fill="#9a3412">55</text>
+    <text x="753" y="194" text-anchor="middle" font-size="16" font-weight="700" fill="#7c2d12">Fully private</text>
+    <text x="753" y="214" text-anchor="middle" font-size="13" fill="#334155">competition final holdout</text>
+    <line x1="285" y1="178" x2="590" y2="178" stroke="#64748b" stroke-width="2" stroke-dasharray="5 7"/>
+    <text x="438" y="258" text-anchor="middle" font-size="14" fill="#475569">110 hidden games: not seen by the submitted agent</text>
+  </g>
+</svg>
