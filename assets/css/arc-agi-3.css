@@ -1,17 +1,21 @@
 .arc-agi-figure {
   clear: both;
+  display: block !important;
   float: none !important;
-  width: min(1120px, calc(100vw - 3rem));
-  max-width: none;
-  margin: 2rem 0 2.25rem 50%;
-  transform: translateX(-50%);
+  box-sizing: border-box;
+  width: 100% !important;
+  max-width: 1120px !important;
+  margin: 2rem auto 2.25rem !important;
+  padding: 0;
+  transform: none !important;
+  text-align: center;
 }
 
 .arc-agi-figure img {
   display: block !important;
   float: none !important;
   width: 100% !important;
-  max-width: none !important;
+  max-width: 100% !important;
   height: auto;
   margin: 0 auto;
   border-radius: 10px;
@@ -28,11 +32,11 @@
 }
 
 .arc-agi-figure.arc-agi-hero {
-  width: min(920px, calc(100vw - 3rem));
+  max-width: 1120px !important;
 }
 
 .arc-agi-figure.arc-agi-frame {
-  width: min(640px, calc(100vw - 3rem));
+  max-width: 720px !important;
 }
 
 .arc-agi-figure.arc-agi-frame img {
@@ -41,12 +45,13 @@
 
 @media (max-width: 768px) {
   .arc-agi-figure {
-    width: calc(100vw - 1.25rem);
-    margin: 1.5rem 0 1.75rem 50%;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 1.5rem auto 1.75rem !important;
   }
 
   .arc-agi-figure.arc-agi-hero,
   .arc-agi-figure.arc-agi-frame {
-    width: calc(100vw - 1.25rem);
+    max-width: 100% !important;
   }
 }
