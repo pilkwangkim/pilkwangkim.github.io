@@ -7,6 +7,8 @@ math: true
 pin: false
 ---
 
+<link rel="stylesheet" href="{{ site.baseurl }}/assets/css/arc-agi-3.css">
+
 # ARC-AGI-3: The Benchmark Nobody Has Solved Yet
 
 > **Status note (written 2026-06-25).** ARC-AGI-3 is an active competition and the scaffolding around it is still moving. I have checked the durable pieces below against the official ARC Prize pages, docs, and technical report, but leaderboard positions, notebook runtimes, and milestone mechanics can change. Treat the exact leaderboard figures as timestamped, not permanent.
@@ -19,6 +21,11 @@ Official benchmark page:
 
 Technical report:  
 [ARC-AGI-3: A New Challenge for Frontier Agentic Intelligence](https://arxiv.org/abs/2603.24621)
+
+<figure class="arc-agi-figure arc-agi-hero">
+  <img src="{{ site.baseurl }}/assets/img/arc-agi-3/arc-agi-3-banner.jpg" alt="ARC-AGI-3 title over a collage of small grid-game environments">
+  <figcaption>ARC-AGI-3 moves the ARC benchmark family from static grid transformations into interactive, instruction-free game environments.</figcaption>
+</figure>
 
 > **One-paragraph version.** ARC-AGI-3 reframes "reasoning" as something you have to *do*, not something you *output*. An agent is dropped into an unfamiliar 2D grid game with no instructions and is scored on how *efficiently* it learns to win, relative to a human who has never seen the game either. The striking fact — the one that should anchor everything else you read about it — is that as of mid-2026 **every system, frontier LLMs and purpose-built agents alike, scores below ~2%.** That is not a measurement artifact. It is the entire point of the benchmark, and it is why I think this is the most interesting open problem on Kaggle right now.
 
@@ -89,11 +96,24 @@ ARC-AGI (the *Abstraction and Reasoning Corpus*) is François Chollet's attempt 
 - **ARC-AGI-2 (2025)** — still static, but harder and more compositional (multiple interacting rules, contextual rule application). It tracked how far test-time compute scaling could push reasoning. The static format had a vulnerability: you could brute-force it by sampling thousands of candidate solutions in parallel.
 - **ARC-AGI-3 (2026)** — interactive. The static format is gone. Now the agent must *explore* an environment, *build a model* of how it works, *infer the goal* with no instructions, and *plan* a path to that goal — correcting as it goes. This closes the parallel-sampling loophole: you can't pre-generate a million guesses for a game whose rules you don't yet know.
 
+Here is the same lineage as a compact comparison. The numbers are deliberately approximate because they refer to slightly different evaluation contexts, but the direction is what matters.
+
+| Feature | ARC-AGI-1 (2019) | ARC-AGI-2 (2025) | ARC-AGI-3 (2026) |
+|---|---|---|---|
+| Format | Static grid puzzles | Static grid puzzles, harder and more compositional | Interactive game environments |
+| Instructions | Input-output demo pairs | Input-output demo pairs | No natural-language instructions; discover rules through interaction |
+| Best reported AI score | o3 reached 75.7% at the public compute limit and 87.5% with high compute on the semi-private set; public-eval reports went above 90% | 24.03% top Kaggle private score in ARC Prize 2025 | 12.58% for the 30-day preview winner, but full-launch systems are far lower so far |
+| Human reference | Original private tasks were solved at 97-98% by individual testers, collectively 100%; many summaries use ~85% as the older rough human benchmark | Public eval human sample average was 66%; selected evaluation tasks were human-solvable | Humans can solve 100% of included environments; AI is scored by action efficiency relative to human baselines |
+| Scoring | Task accuracy, typically binary solved/not solved | Accuracy plus cost-per-task reporting | Relative Human Action Efficiency: completion and action efficiency vs. humans |
+| Dataset scale | 400 public train, 400 public eval, 100 semi-private, 100 private | 1,000 public train, 120 public eval, plus 120 semi-private and 120 private | 25 public demo environments plus 55 semi-private and 55 fully private environments, each with multiple levels |
+
+The important caution is the ARC-AGI-3 score row. **12.58% was a preview result, not the current full competition level.** The same family dropped sharply on launch, which is exactly the point: solving a few preview environments does not prove generalization across the full hidden set.
+
 The conceptual shift is from "intelligence as pattern-matching on a fixed dataset" to "intelligence as adaptive behavior in an open-ended environment." That shift is exactly why current systems fall off a cliff.
 
-<p align="center">
-  <img src="{{ site.baseurl }}/assets/img/arc-agi-3/lineage.svg" alt="ARC-AGI lineage from static puzzles to interactive games" width="92%">
-</p>
+<figure class="arc-agi-figure">
+  <img src="{{ site.baseurl }}/assets/img/arc-agi-3/lineage.svg" alt="ARC-AGI lineage from static puzzles to interactive games">
+</figure>
 
 Here is a toy contrast.
 
@@ -155,6 +175,11 @@ The environment is deliberately minimal so that the difficulty is all in the *re
 
 For a non-programmer, the grid can be imagined as a tiny board game:
 
+<figure class="arc-agi-figure arc-agi-frame">
+  <img src="{{ site.baseurl }}/assets/img/arc-agi-3/arc-agi-3-game-frame.png" alt="Pixel-art ARC-AGI-3 style game frame with colored objects, a player block, and progress bars">
+  <figcaption>A concrete game frame makes the abstraction less mysterious: the agent sees colored cells, but it is not told which object is the player, which tile is useful, or what the goal is.</figcaption>
+</figure>
+
 ```text
 0 0 0 0 0
 0 2 0 3 0
@@ -177,6 +202,183 @@ A single turn looks like this:
 
 The important limitation is that the action names are generic. `ACTION5` might mean "pick up" in one game and "rotate" in another. `ACTION6` means "click somewhere", but the frame does not hand you a list of useful click targets. So the first job is often not solving the puzzle; it is discovering the controls.
 
+### What the programmer actually receives
+
+This is where ARC-AGI-3 starts to feel very different from a normal ML problem. You do not call:
+
+```python
+answer = model(question)
+```
+
+You repeatedly call the environment, receive a bundle of state, interpret it, choose one legal action, and pay for that action immediately. In API form, the loop looks roughly like this:
+
+```python
+# Start a game or reset a running game.
+bundle = post("/api/cmd/RESET", {
+    "game_id": game_id,
+    "card_id": card_id,
+})
+
+guid = bundle["guid"]
+
+while bundle["state"] == "NOT_FINISHED":
+    action = choose_action(bundle, memory)
+
+    payload = {
+        "game_id": game_id,
+        "card_id": card_id,
+        "guid": guid,
+    }
+    if action["id"] == 6:
+        payload["x"] = action["x"]
+        payload["y"] = action["y"]
+
+    next_bundle = post(f"/api/cmd/{action['name']}", payload)
+    update_memory(memory, bundle, action, next_bundle)
+    bundle = next_bundle
+```
+
+A returned bundle is not a clean "observation tensor plus reward" in the textbook RL sense. It is closer to this:
+
+```python
+{
+    "game_id": "ls20-016295f7601e",
+    "guid": "2fa5332c-2e55-4825-b5c5-df960d504470",
+    "frame": [[0, 0, 0, ...], [0, 3, 3, ...], ...],
+    "state": "NOT_FINISHED",
+    "levels_completed": 0,
+    "win_levels": 254,
+    "action_input": {"id": 6, "data": {"x": 12, "y": 34}},
+    "available_actions": [1, 2, 3, 4, 6],
+    "score": 0.0,  # present in many API/toolkit responses
+}
+```
+
+The agent has to extract its own usable state from that bundle:
+
+| Field | What it gives you | What it does not give you |
+|---|---|---|
+| `frame` | The visible grid. | Object identities, goals, physics, or which cell is worth clicking. |
+| `available_actions` | Which action ids are legal now. | For `ACTION6`, it does **not** tell you useful `(x, y)` coordinates. |
+| `state` | Whether the game is still active, won, or over. | How close you are to winning. |
+| `levels_completed` | A coarse progress counter. | Which hidden mechanic was learned, or why progress happened. |
+| `win_levels` | The total number of levels in that environment. | A plan for reaching the next level. |
+| `action_input` | The action that produced the returned frame. | Whether that action was strategically good. |
+| local action counter | How many actions you have spent. | This is not a magic "remaining turns" hint; you usually maintain it yourself or read it from your local framework wrapper. |
+
+That last line is the kind of thing that makes the first implementation feel unexpectedly awkward. The environment may tell you the state and progress, but it does not hand you a friendly `remaining_turns_to_good_score` value. If your agent cares about action budget — and it must — it needs to track how many calls it has made, when a level changed, when it reset, and how many actions were spent per completed level.
+
+Now imagine the first real debugging session. The agent calls `ACTION6` at `(12, 34)`. The next bundle comes back with the same `frame`, the same `levels_completed`, the same `state`, and the same `available_actions`. What did you learn?
+
+```python
+def update_memory(memory, prev, action, nxt):
+    prev_grid = prev["frame"]
+    next_grid = nxt["frame"]
+
+    changed = prev_grid != next_grid
+    progress = nxt.get("levels_completed", 0) - prev.get("levels_completed", 0)
+    state_changed = nxt["state"] != prev["state"]
+
+    key = (hash_grid(prev_grid), canonical_action(action))
+    memory["outcome"][key] = {
+        "changed": changed,
+        "progress": progress,
+        "state_changed": state_changed,
+        "next_hash": hash_grid(next_grid),
+    }
+
+    if not changed and progress == 0 and not state_changed:
+        memory["no_ops"].add(key)
+```
+
+This tiny function is already "learning." It does not learn a grand theory of the game, but it learns that a specific action in a specific state was probably useless. The next call should use that fact:
+
+```python
+def choose_action(bundle, memory):
+    grid = bundle["frame"]
+    legal = bundle["available_actions"]
+    state_hash = hash_grid(grid)
+
+    candidates = []
+    for action_id in legal:
+        if action_id == 6:
+            for x, y in candidate_clicks(grid):
+                candidates.append({"id": 6, "name": "ACTION6", "x": x, "y": y})
+        else:
+            candidates.append({"id": action_id, "name": f"ACTION{action_id}"})
+
+    candidates = [
+        a for a in candidates
+        if (state_hash, canonical_action(a)) not in memory["no_ops"]
+    ]
+
+    return rank_candidates(candidates, bundle, memory)[0]
+```
+
+The "training data" for a small model can come from exactly these transitions. For example, StochasticGoose-style action learning does not begin by predicting the final goal. It begins with a smaller target:
+
+```python
+training_example = {
+    "grid_before": prev["frame"],
+    "action": encode_action(action),
+    "label_changed": int(prev["frame"] != nxt["frame"]),
+    "label_progress": int(nxt["levels_completed"] > prev["levels_completed"]),
+}
+```
+
+A CNN can learn `P(frame changes | grid, action)` or `P(progress | grid, action)`. That is useful because it lets the agent spend fewer actions on obvious no-ops. But notice the narrowness: this does not yet solve the game. It only makes exploration less wasteful.
+
+### Why "just use torch" or "just ask an LLM" fails
+
+The tempting first idea is:
+
+```python
+policy = CNN()
+action = policy(torch.tensor(frame))
+```
+
+or:
+
+```python
+prompt = f"What should I do in this grid?\n{frame}"
+action = llm(prompt)
+```
+
+Both are understandable. Both run into concrete walls.
+
+| Naive idea | What goes wrong |
+|---|---|
+| Train a CNN policy on the 25 public games. | The hidden games are different. A policy that memorizes public mechanics learns "what worked here", not "how to discover what works next." |
+| Use RL from scratch. | Rewards are sparse and expensive. Each failed exploratory action lowers RHAE, and Kaggle runtime is finite. A blank-slate RL agent cannot afford millions of environment steps per hidden game. |
+| Predict the next frame with torch. | Next-frame prediction is useful only after you have diverse transitions. At the beginning, the agent does not even know which actions produce transitions. |
+| Ask an LLM to inspect the grid. | Hosted APIs are not available in final Kaggle evaluation, and serializing a 64×64 grid into text discards spatial structure while consuming huge context. |
+| Run a local LLM inside the notebook. | It is slow, memory-heavy, and still has to learn through actions. A fluent explanation of the screenshot does not reveal hidden mechanics. |
+| Use image classification. | There is no fixed class label like "cat" or "dog." The target is an action sequence under unknown rules. |
+| Brute force action sequences. | The scorer sees every action. Finding a win after 500 random moves may score nearly zero compared with a human who needed 20. |
+
+So the practical route is not "no neural nets" and not "LLMs are useless." The practical route is to give any model a job that matches the data you actually have:
+
+| Model job | Input | Target | Why it is plausible |
+|---|---|---|---|
+| Action-change predictor | `(frame, action)` | Did the frame change? | Labels are available after every step. |
+| Progress predictor | `(frame, action)` | Did `levels_completed` or score improve? | Sparse, but directly measurable. |
+| State embedding | frame | Similar states should have nearby embeddings. | Helps de-duplicate and detect loops. |
+| Transition model | `(frame, action)` | Approximate next frame or changed cells. | Useful for short-horizon planning once enough transitions exist. |
+| Goal hypothesis scorer | frame history | Which object/state looks like progress? | Can be trained or heuristic, but must be validated by action outcomes. |
+
+The programmer's first wall is therefore not "which transformer should I use?" It is more basic:
+
+```text
+What exactly did I observe?
+What action did I take?
+Did anything change?
+Did progress change?
+Have I tried this transition before?
+What did this teach me about the next call?
+```
+
+That is the little loop ARC-AGI-3 forces you to build. It feels mundane, but without it the expensive model has nothing reliable to learn from.
+
 **The public/private split** is the part you have to internalize:
 
 - **25 public games** — you get the source; you can train and debug on them.
@@ -184,9 +386,9 @@ The important limitation is that the action names are generic. `ACTION5` might m
 
 So even the "public" leaderboard you watch is computed on **unseen** games. This is why solving a pile of public levels can still yield a competition score of **0.00**.
 
-<p align="center">
-  <img src="{{ site.baseurl }}/assets/img/arc-agi-3/split.svg" alt="ARC-AGI-3 public demo, semi-private, and fully private split" width="92%">
-</p>
+<figure class="arc-agi-figure">
+  <img src="{{ site.baseurl }}/assets/img/arc-agi-3/split.svg" alt="ARC-AGI-3 public demo, semi-private, and fully private split">
+</figure>
 
 ### What the starter kit gives you
 
@@ -310,9 +512,9 @@ def rhae_score(games):
     return sum(game_scores) / len(game_scores)
 ```
 
-<p align="center">
-  <img src="{{ site.baseurl }}/assets/img/arc-agi-3/rhae.svg" alt="ARC-AGI-3 RHAE scoring pipeline" width="92%">
-</p>
+<figure class="arc-agi-figure">
+  <img src="{{ site.baseurl }}/assets/img/arc-agi-3/rhae.svg" alt="ARC-AGI-3 RHAE scoring pipeline">
+</figure>
 
 ### A numerical example
 
@@ -450,11 +652,23 @@ Here is the honest state of the art:
 - **Purpose-built agents (preview): low, and they don't hold up.** The 30-day preview's winner, **StochasticGoose** (Tufa Labs, a CNN + sparse-RL action-prediction agent), scored **12.58%** on three hidden preview games — and then **dropped to 0.25%** on the full launch benchmark, right back into LLM territory. Second place, **Blind Squirrel**, scored 6.71% with a state-graph + value-model approach. The preview lead evaporated on the full set.
 - **The whole Kaggle field: sub-2%**, with public high-score reports around the ~1.2% band as of late June 2026. The exact top score is volatile, but the qualitative fact is not: we are not looking at a mature leaderboard where the best systems are near human efficiency. A competitor's measurement of the best public notebook on ten public games came out to **0.66%**. Another reported solving ~15 public levels and still scoring **0.00** in the competition.
 
+The preview-era result table is still useful because it shows which broad strategy families produced signal before the full hidden benchmark got harder. Read it as a methods map, not as today's Kaggle leaderboard.
+
+| Reference | Team / agent | Approach | Score | Levels completed |
+|---|---|---|---:|---:|
+| 1st preview winner | StochasticGoose (Tufa Labs) | CNN + sparse-RL action learning | 12.58% | 18 |
+| 2nd preview winner | Blind Squirrel | State-graph exploration + ResNet18 value model | 6.71% | 13 |
+| Notable preview method | Explore It Till You Solve It | Training-free frame graph exploration | 3.64% | 12 |
+| Frontier LLM reference | Best frontier LLM agents in the technical report | LLM-based agentic prompting / control | <1% | only a few level equivalents, not reported in the same table |
+| Human reference | Human players | Human cognition: explore, model, infer goals, plan | 100% | all calibrated environments |
+
+The lesson is not "CNN beats LLM forever" or "graph search is enough." The lesson is narrower and more useful: **methods that spend actions to discover environment dynamics beat methods that merely reason about a screenshot**, but the preview methods still failed to generalize robustly when the benchmark expanded.
+
 The single most important quote from the literature, paraphrased: *no approach has demonstrated clear generalization yet.* That is the opportunity.
 
-<p align="center">
-  <img src="{{ site.baseurl }}/assets/img/arc-agi-3/score-distribution.svg" alt="ARC-AGI-3 score distribution showing current systems below two percent" width="92%">
-</p>
+<figure class="arc-agi-figure">
+  <img src="{{ site.baseurl }}/assets/img/arc-agi-3/score-distribution.svg" alt="ARC-AGI-3 score distribution showing current systems below two percent">
+</figure>
 
 ### Why current systems struggle
 
@@ -784,10 +998,14 @@ I'll be writing up the build as I go.
 ### Resources
 
 - [ARC Prize 2026 - ARC-AGI-3 on Kaggle](https://www.kaggle.com/competitions/arc-prize-2026-arc-agi-3)
+- [ARC-AGI-1 benchmark page](https://arcprize.org/arc-agi/1)
+- [ARC-AGI-2 dataset repository](https://github.com/arcprize/ARC-AGI-2)
+- [OpenAI o3 ARC-AGI-1 report](https://arcprize.org/blog/oai-o3-pub-breakthrough)
+- [ARC Prize 2025 technical report](https://arxiv.org/abs/2601.10904)
 - [Official ARC-AGI-3 competition page](https://arcprize.org/competitions/2026/arc-agi-3)
 - [ARC Prize 2026 overview and key dates](https://arcprize.org/competitions/2026)
 - [ARC-AGI-3 technical report](https://arxiv.org/abs/2603.24621)
-- [ARC-AGI-3 docs](https://docs.arcprize.org/arc-prize-2026), especially [Games](https://docs.arcprize.org/games), [Actions](https://docs.arcprize.org/actions), and [Scoring methodology](https://docs.arcprize.org/methodology)
+- [ARC-AGI-3 docs](https://docs.arcprize.org/arc-prize-2026), especially [Games](https://docs.arcprize.org/games), [Actions](https://docs.arcprize.org/actions), [Scoring methodology](https://docs.arcprize.org/methodology), [Local vs Online](https://docs.arcprize.org/local-vs-online), and [Scorecards](https://docs.arcprize.org/scorecards)
 - [ARC-AGI-3 Kaggle Starter](https://github.com/arcprize/ARC-AGI-3-Kaggle-Starter)
 - [ARC-AGI-3 Preview: 30-Day Learnings](https://arcprize.org/blog/arc-agi-3-preview-30-day-learnings)
 - [StochasticGoose preview solution](https://github.com/DriesSmit/ARC3-solution)

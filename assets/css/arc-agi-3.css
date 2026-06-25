@@ -1,0 +1,52 @@
+.arc-agi-figure {
+  clear: both;
+  float: none !important;
+  width: min(1120px, calc(100vw - 3rem));
+  max-width: none;
+  margin: 2rem 0 2.25rem 50%;
+  transform: translateX(-50%);
+}
+
+.arc-agi-figure img {
+  display: block !important;
+  float: none !important;
+  width: 100% !important;
+  max-width: none !important;
+  height: auto;
+  margin: 0 auto;
+  border-radius: 10px;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.10);
+}
+
+.arc-agi-figure figcaption {
+  max-width: 900px;
+  margin: 0.75rem auto 0;
+  color: #64748b;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  text-align: center;
+}
+
+.arc-agi-figure.arc-agi-hero {
+  width: min(920px, calc(100vw - 3rem));
+}
+
+.arc-agi-figure.arc-agi-frame {
+  width: min(640px, calc(100vw - 3rem));
+}
+
+.arc-agi-figure.arc-agi-frame img {
+  image-rendering: pixelated;
+}
+
+@media (max-width: 768px) {
+  .arc-agi-figure {
+    width: calc(100vw - 1.25rem);
+    margin: 1.5rem 0 1.75rem 50%;
+  }
+
+  .arc-agi-figure.arc-agi-hero,
+  .arc-agi-figure.arc-agi-frame {
+    width: calc(100vw - 1.25rem);
+  }
+}
