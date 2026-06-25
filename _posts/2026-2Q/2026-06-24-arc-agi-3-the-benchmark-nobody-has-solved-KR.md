@@ -7,7 +7,7 @@ math: true
 pin: false
 ---
 
-<link rel="stylesheet" href="{{ site.baseurl }}/assets/css/arc-agi-3.css?v=20260625-2">
+<link rel="stylesheet" href="{{ site.baseurl }}/assets/css/arc-agi-3.css?v=20260625-3">
 
 # ARC-AGI-3: 아직 아무도 풀지 못한 벤치마크
 

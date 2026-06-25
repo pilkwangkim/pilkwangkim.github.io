@@ -1,11 +1,15 @@
 .arc-agi-figure {
+  --arc-agi-figure-width: min(1320px, calc(100vw - 3rem));
   clear: both;
   display: block !important;
   float: none !important;
   box-sizing: border-box;
-  width: 100% !important;
-  max-width: 1120px !important;
-  margin: 2rem auto 2.25rem !important;
+  width: var(--arc-agi-figure-width) !important;
+  max-width: none !important;
+  margin-top: 2.5rem !important;
+  margin-right: calc((100% - var(--arc-agi-figure-width)) / 2) !important;
+  margin-bottom: 2.75rem !important;
+  margin-left: calc((100% - var(--arc-agi-figure-width)) / 2) !important;
   padding: 0;
   transform: none !important;
   text-align: center;
@@ -32,11 +36,11 @@
 }
 
 .arc-agi-figure.arc-agi-hero {
-  max-width: 1120px !important;
+  --arc-agi-figure-width: min(1240px, calc(100vw - 3rem));
 }
 
 .arc-agi-figure.arc-agi-frame {
-  max-width: 720px !important;
+  --arc-agi-figure-width: min(760px, calc(100vw - 3rem));
 }
 
 .arc-agi-figure.arc-agi-frame img {
@@ -45,13 +49,14 @@
 
 @media (max-width: 768px) {
   .arc-agi-figure {
+    --arc-agi-figure-width: 100%;
     width: 100% !important;
-    max-width: 100% !important;
+    max-width: none !important;
     margin: 1.5rem auto 1.75rem !important;
   }
 
   .arc-agi-figure.arc-agi-hero,
   .arc-agi-figure.arc-agi-frame {
-    max-width: 100% !important;
+    --arc-agi-figure-width: 100%;
   }
 }
