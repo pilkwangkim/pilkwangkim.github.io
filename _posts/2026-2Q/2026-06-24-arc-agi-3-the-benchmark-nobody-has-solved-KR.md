@@ -7,7 +7,7 @@ math: true
 pin: false
 ---
 
-<link rel="stylesheet" href="{{ site.baseurl }}/assets/css/arc-agi-3.css">
+<link rel="stylesheet" href="{{ site.baseurl }}/assets/css/arc-agi-3.css?v=20260625-2">
 
 # ARC-AGI-3: 아직 아무도 풀지 못한 벤치마크
 
@@ -832,7 +832,7 @@ $$
 *장점:* public game에서는 강력한 reasoning scaffold를 만들 수 있습니다.  
 *한계:* Kaggle evaluation에서 internet이 꺼지므로 hosted API 의존 방식은 final submission으로 부적합합니다. 또한 public game overfitting 위험이 큽니다.
 
-**(e) Public-game source 기반 BFS / FORGE 계열.** local `Public_Examples` 폴더의 notebook들에서 가장 눈에 띄는 계열입니다. 예를 들어 `0-35-forge-v16-trigger-aware-bfs.ipynb`, `forge-arc-agi-3-agent.ipynb`, `arc-agi-3-hybrid-solver-bfs-cnn-heuristics.ipynb`, `ash-s-arc-agi-3-agent.ipynb`는 모두 public game source를 최대한 활용해 search를 강하게 돌리는 흐름을 보입니다. 핵심은 game class를 직접 실행해 보고, 실제로 효과가 있는 action을 찾아내고, BFS/A\*/beam search로 solution path를 찾는 것입니다. 여기에 hidden field나 transient field를 hash에 넣거나 빼면서 state 구분을 더 정교하게 만듭니다.  
+**(e) Public-game source 기반 BFS / FORGE 계열.** 2026년 6월 25일 기준 고득점 public notebook들에서 가장 눈에 띄는 계열입니다. 핵심은 public game source를 최대한 활용해 game class를 직접 실행해 보고, 실제로 효과가 있는 action을 찾아낸 뒤, BFS/A\*/beam search로 solution path를 찾는 것입니다. 여기에 hidden field나 transient field를 hash에 넣거나 빼면서 state 구분을 더 정교하게 만듭니다.  
 *장점:* public game에서는 매우 강합니다. 어떤 action이 실제로 frame을 바꾸는지 미리 scan하고, click 좌표도 `_get_valid_actions()` 같은 내부 helper를 통해 좁힐 수 있으면 search가 훨씬 쉬워집니다.  
 *한계:* 이 방식은 public source와 내부 구현에 기대는 부분이 많습니다. hidden/private game에서도 같은 방식의 source introspection이 가능하다고 가정하면 위험합니다. 따라서 이런 notebook은 "final solution"이라기보다, 어떤 search 장치가 도움이 되는지 배우는 참고 자료로 보는 편이 안전합니다.
 
@@ -848,16 +848,16 @@ $$
 
 제 생각에는 여러 요소를 조합해야 할 가능성이 큽니다. loop를 피하기 위한 graph memory, action 낭비를 줄이는 action prior, transition을 예측하는 world model, goal이 보이기 시작했을 때 짧게라도 planning하는 search가 함께 필요해 보입니다.
 
-### Kaggle public example에서 보이는 패턴
+### 고득점 public notebook에서 보이는 패턴
 
-제가 로컬에서 확인한 `/Users/pilkwang/Documents/VSDocs/Kaggle/ARC_AGI_3/Public_Examples` 폴더에는 public notebook 네 개가 있었습니다.
+2026년 6월 25일 기준 고득점 public notebook들을 보면, 이름은 달라도 비슷한 전략 축이 반복됩니다. 아래 표는 특정 파일명을 외우기 위한 것이 아니라, 어떤 발상이 점수로 이어졌는지 분해해서 보기 위한 지도입니다.
 
-| Notebook | 전략 | 배울 점 | 조심할 점 |
+| 전략 이름 | 핵심 아이디어 | 배울 점 | 조심할 점 |
 |---|---|---|---|
-| `0-35-forge-v16-trigger-aware-bfs.ipynb` | trigger-aware BFS, hidden field probing, A\* fallback | state hash에 무엇을 넣고 뺄지가 search 성능을 크게 바꿉니다. | 내부 field probing은 hidden evaluation에서 그대로 통한다고 가정하면 위험합니다. |
-| `forge-arc-agi-3-agent.ipynb` | FORGE v18, public source 기반 BFS, action dedup, CLTI demo injection | public game에서 solution replay와 cross-level transfer를 어떻게 활용하는지 볼 수 있습니다. | public source exploit에 가까운 부분과 일반화 가능한 부분을 분리해야 합니다. |
-| `arc-agi-3-hybrid-solver-bfs-cnn-heuristics.ipynb` | BFS + A\* + beam + CNN fallback + novelty-guided exploration | search와 learned prior를 섞는 실전적 형태입니다. | 복잡도가 높아서, 어떤 구성요소가 실제로 기여하는지 분해 실험이 필요합니다. |
-| `ash-s-arc-agi-3-agent.ipynb` | BFS solver 개선, demo analysis, transient field 제거, CNN fallback | frame extraction, reset 횟수, epsilon reset 같은 작은 실행 버그가 점수를 크게 바꿀 수 있습니다. | 좋은 engineering과 overfit 사이의 경계가 얇습니다. |
+| **Trigger-aware graph search** | action이 실제로 state를 바꾸는 trigger인지 먼저 확인하고, 의미 있는 transition만 graph에 남깁니다. | state hash에 무엇을 넣고 뺄지가 search 성능을 크게 바꿉니다. | 내부 field probing은 hidden evaluation에서 그대로 통한다고 가정하면 위험합니다. |
+| **FORGE-style source-assisted BFS** | public game source를 이용해 action dedup, solution replay, cross-level transfer를 강화합니다. | public game에서 mechanics를 구조화하고 재사용하는 방법을 배울 수 있습니다. | public source exploit에 가까운 부분과 일반화 가능한 부분을 분리해야 합니다. |
+| **Hybrid BFS + learned prior** | BFS/A\*/beam search에 CNN fallback이나 novelty-guided exploration을 섞습니다. | search와 learned prior를 결합하는 실전적 형태입니다. | 복잡도가 높아서 어떤 구성요소가 실제로 기여하는지 분해 실험이 필요합니다. |
+| **Robust replay engineering** | frame extraction, reset handling, transient field 제거, epsilon reset 같은 실행 세부사항을 안정화합니다. | 작은 실행 버그가 점수를 크게 바꿀 수 있다는 점을 보여줍니다. | 좋은 engineering과 public-game overfit 사이의 경계가 얇습니다. |
 
 이 notebook들이 알려주는 것은 분명합니다.
 
