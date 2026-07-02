@@ -87,12 +87,12 @@ That last line is important. A candidate should not be submitted merely because 
 
 ## 3. Data layer: what was processed by June 30
 
-By June 30, the local store had processed five days of replay logs. The 2026-06-30 batch alone was already large:
+By June 30, the local store had processed five days of replay logs. The 2026-06-30 batch alone was
+enough to support a useful field snapshot:
 
 | Item | 2026-06-30 value |
 |---|---:|
 | Raw replay JSON files | 5,734 episodes |
-| Raw bytes scanned | 21.47 GB |
 | Player deck rows | 11,468 |
 | Winner decklists captured | 133 |
 | Strategy profiles | 17 archetypes |
@@ -100,15 +100,12 @@ By June 30, the local store had processed five days of replay logs. The 2026-06-
 | Candidate decision rows extracted | 327,937 |
 | Subsampled decision rows kept | 82,182 |
 
-This creates a practical storage problem. If a daily log is around 20 to 22 GB, keeping raw JSON forever will break a 300 GB project budget very quickly. The current policy is:
+The important point is not the count itself, but the shape of the evidence chain. Replays are converted
+into compact analysis tables, every derived artifact is partitioned by source date, and benchmark runs
+remain linked to the field snapshot that produced their panel weights.
 
-- keep raw daily logs only where they are still needed;
-- compress raw mirrors with `zstd`;
-- make compact Parquet / CSV tables the permanent source of analysis;
-- partition every derived artifact by date;
-- keep benchmark runs and field selections linked to their source day.
-
-The purpose is not only disk hygiene. It also makes the research reproducible. A future weekly report should be able to say: "This deck was selected because it beat the 20260630 field-weighted panel, whose weights came from these replay logs."
+That makes the research reproducible. A future weekly report should be able to say: "This deck was
+selected because it beat the 20260630 field-weighted panel, whose weights came from these replay logs."
 
 ---
 
@@ -349,7 +346,7 @@ Here is the project ledger up to the June 30 snapshot.
 | Public example reading | Compared high-scoring public notebooks and extracted ideas without treating them as mainline code to copy. | Public notebooks are best used as references, opponents, and behavior oracles; direct cloning destroys the research loop. | Public example inventory and derivative-candidate notes |
 | Two-agent portfolio turn | Started thinking in two active submissions rather than one "best" agent. | The objective is portfolio upside and different failure modes, not a single stable average. | Two-submission specs and portfolio benchmark tables |
 | Local engine breakthrough | Verified that `kaggle_environments.make("cabt")` and the packaged CABT engine can run full local games. | Mock benchmarks are unnecessary, but the engine does not expose reliable RNG seeding. This rules out CRN-style paired comparisons. | Seat-balanced benchmark runner and engine diagnostics |
-| MetaStore / FieldStore buildout | Moved from raw replay reading to date-partitioned compact stores. | Daily logs are too large to treat casually. The permanent layer must be compact, queryable, and tied to source dates. | `Archive/MMDD`, `MetaStore/YYYYMMDD`, `FieldStore/YYYYMMDD` |
+| MetaStore / FieldStore buildout | Moved from raw replay reading to date-partitioned compact stores. | Raw replays are evidence, but the analysis layer must be compact, queryable, and tied to source dates. | `Archive/MMDD`, `MetaStore/YYYYMMDD`, `FieldStore/YYYYMMDD` |
 | Deck discovery layer | Extracted exact deck hashes, winner decklists, field share, and matchup matrices. | A deck can be discovered before it is playable by my agent. Deck discovery and pilot acquisition must be separate gates. | Ready decks, exact deck summaries, matchup matrices |
 | Strategy profiler | Added behavior features: first attack turn, attack cadence, draw/search rate, ability rate, attack concentration, prize rate. | Archetype names are not enough. A deck's mechanism has to be described in behavior space. | Strategy profile reports |
 | Pilot audit and repair | Formalized pilot fidelity, weak-proxy detection, local-live gap diagnosis, beat-field pilot targets, and holdout / shrinkage. | A faithful average pilot is useful as an opponent, but the submitted pilot must beat the field, not merely imitate it. | Pilot audit specs and gap diagnosis policy |
@@ -367,7 +364,6 @@ For a future consolidated report, the important object is not a single notebook.
 | Artifact family | What it records | Report question it answers |
 |---|---|---|
 | `Archive/MMDD` | Raw official replay logs for a day. | What actually happened on the ladder? |
-| `Archive/raw_zst/YYYYMMDD` | Compressed raw mirror. | Can the raw evidence be preserved under the storage budget? |
 | `MetaStore/YYYYMMDD/daily_meta_report.md` | Daily field share, exact deck hashes, common matchups, strategy snapshots. | What changed today? |
 | `MetaStore/meta_trend_report.md` | Cross-day share and score movement. | Which archetypes are rising or falling? |
 | `FieldStore/YYYYMMDD` | Ready decklists, field weights, selection reports. | Which decks are worth testing, and how should the panel be weighted? |
