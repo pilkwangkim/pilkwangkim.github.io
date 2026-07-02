@@ -233,6 +233,8 @@ If the whole game is posts-per-$9000$ s, then anything that lowers per-post gene
 
 The submissions run as a small ladder of `VARIATION` presets — `safe` → `t60` → `more` → `max` — escalating the reasoning-suppression while holding everything else fixed, so the score spread isolates *how much the models actually honor the suppression*. Because anything at or below the banked $58$ is equally worthless, the objective here is **ceiling, not safety**: push the fastest template and accept that some runs die.
 
+**First results (jul-1).** The ladder came back split by the GPU lottery, but the template signal is clear: `more` (the barest, hardest-suppression template) scored **48.3** and `safe` (barely terser than the verbose baseline) scored **40.7** — a **~19 %** gap at the *same* submission window, so the terse speed lever is real and sizable. Both fell *below* the verbose **49.77**, but only because that window was GPU-slow (below): the speedup **cancelled** the slow draw instead of adding to a fast one. On a normal/fast run the same templates should add → the mid-$50$s, within reach of the banked $58$. (One caveat the fill can't see: it does **not** re-validate, so an over-aggressive template that lowers the fire rate would silently cap the ceiling — a good-window rerun separates "GPU-slow" from "template misfires.")
+
 ### The GPU lottery: why the same code scores differently
 
 Here is the uncomfortable part, and it is structural rather than a bug. The budget is **wall-clock** — $9000$ s per row — and the number of posts that fit is `9000 / (per-post generation time)`. Per-post generation time is **GPU throughput on the scored hardware at the moment the run executes**. That is not constant:
@@ -242,6 +244,8 @@ Here is the uncomfortable part, and it is structural rather than a bug. The budg
 - A **reasoning model is especially load-sensitive**: it generates far more tokens per call than a non-reasoning model, so any per-token slowdown is multiplied — the slow `gpt_oss` row swings more than the fast `gemma` row.
 
 The evidence is direct: the *same* reference code scored $44.765$ on one run and $47.185$ on another; our single-hop $N=390$ **times out** where other people's fills clearly seat ~$490$. Since `raw/candidate` is fixed and $N$ is capped by wall-clock, a faster run is simply worth more points — the identical algorithm lands at a different score depending on when it runs. The organisers have said they intend to damp this out, but as long as the budget is measured in **seconds** rather than **model calls**, throughput variation maps straight onto score, and it persists.
+
+The jul-1 ladder made the magnitude legible. `safe` uses a prompt *almost identical* to the verbose $49.77$ run, yet it scored $40.68 = 0.82\times$ that — wording that close cannot account for an $18\%$ drop, so its run simply drew a **~$15$–$20\%$ slower** GPU. `more` (barest) hit $48.3$ in the same window because its terse speedup roughly cancelled the slow draw, and `t60` timed out outright. So the run-to-run throughput swing is on the order of **~$15$–$20\%$** — larger at the tails, where it stops being a lower score and becomes a $0$.
 
 Two consequences for how we play it:
 
