@@ -225,7 +225,7 @@ S_{\mathrm{raw}}(A)=
 \;+\;2\,\big|\{C(\tau_i):1\le i\le N\}\big|.
 $$
 
-정규화된 리더보드 점수는 200으로 나누고 1000에서 cap합니다.
+~~정규화된 리더보드 점수~~ *(정정: 이 /200은 행(row)별 정규화이며, public 리더보드는 두 public-guardrail 행(gpt-oss, gemma)의 평균(MEAN)이지 단일 raw/200 숫자가 아님)*는 200으로 나누고 1000에서 cap합니다.
 
 $$
 S_{\mathrm{norm}}(A)=
