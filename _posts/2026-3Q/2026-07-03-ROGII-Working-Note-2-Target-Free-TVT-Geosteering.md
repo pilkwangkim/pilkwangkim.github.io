@@ -17,6 +17,9 @@ Read Series 1:
 Kaggle competition:  
 [ROGII Wellbore Geology Prediction](https://www.kaggle.com/competitions/rogii-wellbore-geology-prediction)
 
+Kaggle Working Note:  
+[Working Note: Target-Free TVT Geosteering](https://www.kaggle.com/code/pilkwang/working-note-target-free-tvt-geosteering)
+
 Korean version:  
 [ROGII Working Note (2편): Target-Free TVT Geosteering의 오차 해부](https://pilkwangkim.github.io/posts/ROGII-Working-Note-2-Target-Free-TVT-Geosteering-KR/)
 
@@ -655,6 +658,7 @@ That is why I wanted to write this note.
 - [ROGII - Wellbore Geology Prediction](https://www.kaggle.com/competitions/rogii-wellbore-geology-prediction)
 - [ROGII Geological Operations / StarSteer overview](https://rogii.com/solutions/geological-operations)
 - mycarta, [ROGII Geosteering Toolkit](https://github.com/mycarta/rogii-geosteering-toolkit)
+- Pilkwang Kim, [*Working Note: Target-Free TVT Geosteering*](https://www.kaggle.com/code/pilkwang/working-note-target-free-tvt-geosteering)
 - Georgy Mamarin, [*Stop reforking: the best GR fit is the wrong depth*](https://www.kaggle.com/code/georgymamarin/stop-reforking-the-best-gr-fit-is-the-wrong-depth)
 - Pilkwang Kim, [ROGII: Leakage-Controlled TVT Recovery Through Target-Free Stratigraphic Alignment](https://pilkwangkim.github.io/posts/ROGII-Target-Free-Stratigraphic-Alignment-for-TVT/)
 - Pilkwang Kim, [ROGII: Target-Free 지층 대비로 TVT 복원하기 - 데이터 누수 통제 설계](https://pilkwangkim.github.io/posts/ROGII-Target-Free-Stratigraphic-Alignment-for-TVT-KR/)
