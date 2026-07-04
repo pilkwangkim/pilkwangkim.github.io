@@ -1,6 +1,6 @@
 ---
 title: "Pokémon TCG AI Battle Working Note (Part 1): Meta Intelligence and the Pilot Gap"
-date: 2026-06-30 21:30:00 +0900
+date: 2026-07-02 21:30:00 +0900
 categories: [AI, Kaggle]
 tags: [kaggle, pokemon-tcg, game-ai, reinforcement-learning, behavior-cloning, meta-analysis, benchmark, working-note]
 math: true
@@ -9,7 +9,7 @@ pin: false
 
 # Pokémon TCG AI Battle Working Note (Part 1): Meta Intelligence and the Pilot Gap
 
-> **Working note status: 2026-06-30.**  
+> **Working note status: 2026-07-02.**  
 > This is the first note in a weekly series on the Pokémon TCG AI Battle competition. The goal is not only to improve a submission, but to build a repeatable research loop: mine the public battle logs, understand the changing field, separate deck strength from pilot strength, benchmark candidates against the actual meta, and eventually use behavior cloning / reinforcement learning to repair the parts that rule-based agents do poorly.
 
 Competition link:  
