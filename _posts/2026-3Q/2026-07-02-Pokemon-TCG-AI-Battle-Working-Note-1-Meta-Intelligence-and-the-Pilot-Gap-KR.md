@@ -1,6 +1,6 @@
 ---
 title: "Pokémon TCG AI Battle Working Note (1편): 메타 분석과 파일럿 격차"
-date: 2026-06-30 21:30:00 +0900
+date: 2026-07-02 21:30:00 +0900
 categories: [AI, Kaggle]
 tags: [kaggle, pokemon-tcg, game-ai, reinforcement-learning, behavior-cloning, meta-analysis, benchmark, working-note, korean]
 math: true
@@ -9,7 +9,7 @@ pin: false
 
 # Pokémon TCG AI Battle Working Note (1편): 메타 분석과 파일럿 격차
 
-> **Working note 기준일: 2026-06-30.**  
+> **Working note 기준일: 2026-07-02.**  
 > 이 글은 Pokémon TCG AI Battle 대회를 다루는 주간 시리즈의 첫 번째 기록이다. 목표는 단순히 제출 점수를 올리는 데서 끝나지 않는다. 공개 대전 로그를 모아 매일 바뀌는 메타를 읽고, 덱의 강함과 파일럿의 강함을 분리하고, 실제 필드에 맞춘 벤치마크를 만들고, 나아가 행동 복제(behavior cloning)와 강화학습으로 규칙 기반 에이전트의 약점을 보완하는 반복 가능한 연구 루프를 만드는 것이 목표다.
 
 대회 링크:  
