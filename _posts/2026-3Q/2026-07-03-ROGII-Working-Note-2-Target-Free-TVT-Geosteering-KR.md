@@ -14,13 +14,41 @@ Series 1 읽기:
 - [ROGII: Target-Free 지층 대비로 TVT 복원하기 — 데이터 누수 통제 설계 (KR)](https://pilkwangkim.github.io/posts/ROGII-Target-Free-Stratigraphic-Alignment-for-TVT-KR/)
 - [ROGII: Leakage-Controlled TVT Recovery Through Target-Free Stratigraphic Alignment (EN)](https://pilkwangkim.github.io/posts/ROGII-Target-Free-Stratigraphic-Alignment-for-TVT/)
 
+English version:  
+[ROGII Working Note (Part 2): Error Anatomy of Target-Free TVT Geosteering](https://pilkwangkim.github.io/posts/ROGII-Working-Note-2-Target-Free-TVT-Geosteering/)
+
 Kaggle 대회:  
 [ROGII Wellbore Geology Prediction](https://www.kaggle.com/competitions/rogii-wellbore-geology-prediction)
 
 핵심 참고 노트:  
 [Georgy Mamarin — Stop reforking: the best GR fit is the wrong depth](https://www.kaggle.com/code/georgymamarin/stop-reforking-the-best-gr-fit-is-the-wrong-depth)
 
-이 글은 위 노트북의 비판적 논의에 크게 빚지고 있다. 특히 “GR matching cost가 낮다”는 사실이 곧 “올바른 지층 깊이를 찾았다”는 뜻은 아니라는 점을 명확히 해 주었고, 논의를 단순한 점수 refork에서 오차 구조의 분해로 옮기는 데 중요한 계기가 되었다.
+Georgy Mamarin의 노트북은 이 글을 쓰는 데 중요한 전환점이었다. 특히 “GR matching cost가 낮다”는 사실이 곧 “올바른 지층 깊이를 찾았다”는 뜻은 아니라는 점을 명확히 해 주었고, 논의를 단순한 점수 refork에서 오차 구조의 분해로 옮기는 데 큰 도움이 되었다.
+
+---
+
+## 대회 배경: 이것은 깊이 예측이 아니라 지층 좌표 복원이다
+
+Kaggle의 ROGII 대회 설명은 목표를 간단히 말한다. 각 horizontal well의 evaluation zone에 대해 `TVT`를 예측해야 한다. 하지만 이 한 문장만으로는 문제의 성격이 잘 드러나지 않는다. 여기서 `TVT`는 단순한 지표면 기준 절대 깊이가 아니라, well이 지층 column 안에서 어느 stratigraphic position을 지나고 있는지 나타내는 좌표에 가깝다.
+
+실제 geosteering workflow에서도 lateral gamma log를 하나 이상의 typewell과 맞추고, 필요하면 segmenting, stretching/squeezing, faulting을 고려한다. 즉 이 문제를 도메인 관점에서 표현하면 “row마다 TVT를 회귀한다”보다 “horizontal trajectory를 typewell coordinate system 안에 배치한다”에 더 가깝다.
+
+수식으로 쓰면 row-wise regression은 다음처럼 보인다.
+
+$$
+\hat T_{w,i}=f(MD_{w,i},X_{w,i},Y_{w,i},Z_{w,i},GR_{w,i}).
+$$
+
+하지만 geosteering 관점에서는 먼저 well 단위의 coordinate transform을 생각하는 편이 자연스럽다.
+
+$$
+s_i=\frac{MD_i-MD_{start}}{MD_{end}-MD_{start}},\qquad
+\hat T_w(s_i)=\hat D_w+\hat\phi_w(s_i).
+$$
+
+여기서 $\hat D_w$는 지층 column 안에서 well 전체가 어디에 착지했는지를 나타내는 datum이고, $\hat\phi_w$는 tail이 그 datum에서 어떻게 drift하는지를 나타낸다. 이 구조를 받아들이면, 좋은 모델은 단순히 row feature를 많이 넣는 모델이 아니라 **datum, mode, shape를 서로 다른 증거로 다루는 모델**이 된다.
+
+이 글의 나머지 논의는 이 배경 위에서 출발한다.
 
 ---
 
@@ -136,6 +164,21 @@ Use future observed covariates if they are in the test file.
 Do not use future target values, or summaries fitted from them.
 ```
 
+실제 노트북에서는 이 경계를 먼저 코드 수준으로 고정했다. 핵심은 `T_input`이 보이는 prefix와 숨겨진 tail을 분리하고, tail target은 평가에만 쓰는 것이다.
+
+```python
+is_prefix = horizontal["TVT_input"].notna()
+prefix = horizontal.loc[is_prefix].copy()
+tail = horizontal.loc[~is_prefix].copy()
+
+safe_covariates = ["MD", "X", "Y", "Z", "GR"]
+X_full = horizontal[safe_covariates]          # allowed: observed trace
+T_prefix = prefix["TVT_input"]               # allowed: visible anchor
+T_tail_true = tail["TVT"]                    # analysis / validation only
+```
+
+이 작은 분리가 중요하다. 많은 leakage는 복잡한 모델에서 생기는 것이 아니라, 이 경계를 흐리게 만드는 편의성 feature에서 시작한다.
+
 ---
 
 ## 3. Well-level EDA: anchor는 강하지만 완전하지 않다
@@ -220,6 +263,38 @@ $$
 | 경쟁 minima가 가까움 | mode ambiguity | posterior mean / hedge |
 | minimum이 prefix anchor와 충돌 | calibration 또는 wrong mode 의심 | guard / downweight |
 | broad flat landscape | GR evidence 약함 | anchor 또는 model stack 쪽으로 후퇴 |
+
+---
+
+### 4.1 Notebook snippet: GR shift landscape
+
+GR이 정답 라벨이 아니라 likelihood landscape라는 말은 다음과 같은 scan으로 확인할 수 있다. prefix 구간에서만 여러 vertical shift $\delta$를 시험하고, typewell GR과 horizontal GR의 mismatch를 계산한다.
+
+```python
+SHIFT_GRID = np.linspace(-40.0, 40.0, 321)
+
+def typewell_gr_at(typewell, tvt):
+    tw = typewell[["TVT", "GR"]].dropna().sort_values("TVT")
+    return np.interp(tvt, tw["TVT"], tw["GR"])
+
+cost = []
+for delta in SHIFT_GRID:
+    ref = typewell_gr_at(typewell, prefix["TVT_input"].to_numpy() + delta)
+    obs = prefix["GR"].to_numpy()
+    cost.append(np.sqrt(np.nanmean((obs - ref) ** 2)))
+
+cost = np.asarray(cost)
+best_delta = SHIFT_GRID[np.argmin(cost)]
+```
+
+문제는 `best_delta` 하나를 고르는 것만으로는 충분하지 않다는 점이다. 더 중요한 값은 최솟값 주변의 모양이다.
+
+$$
+margin_w=C_{w,(2)}-C_{w,(1)},\qquad
+q_w(\delta)\propto \exp\{-C_w(\delta)^2/\tau\}.
+$$
+
+`margin`이 작거나 $q_w$의 entropy가 크면, 그 well은 하나의 GR minimum으로 단정하기 어렵다. 이때는 “best shift”보다 “mode uncertainty”가 더 중요한 feature가 된다.
 
 ---
 
@@ -351,6 +426,23 @@ After datum recovery, shape is the modeling frontier,
 but residual datum misses still dominate recoverable MSE.
 ```
 
+노트북에서는 이 split을 하드코딩하지 않고 RMSE rung에서 직접 계산했다.
+
+```python
+rmse_datum = ladder.loc["datum_only", "pooled_rmse"]
+rmse_const = ladder.loc["oracle_constant", "pooled_rmse"]
+rmse_smooth = ladder.loc["smooth_shape_oracle", "pooled_rmse"]
+
+recoverable_mse = rmse_datum**2 - rmse_smooth**2
+datum_residual_mse = rmse_datum**2 - rmse_const**2
+pure_shape_mse = rmse_const**2 - rmse_smooth**2
+
+datum_share = datum_residual_mse / recoverable_mse
+shape_share = pure_shape_mse / recoverable_mse
+```
+
+이 계산이 중요한 이유는, RMSE 차이를 눈으로 비교하면 shape/slope가 더 커 보일 수 있지만, squared error mass로 보면 긴 tail에 반복되는 datum miss가 훨씬 큰 비중을 차지하기 때문이다.
+
 ---
 
 ## 8. Tie wells: 단정 대신 posterior mean
@@ -383,6 +475,26 @@ p is a confidence weight.
 ```
 
 즉 $p$가 항상 올바른 mode를 찍어주는 것은 아니다. 다만 ambiguity가 클 때 전부 한쪽에 걸지 않게 만들어준다. public fork cluster에서 보였던 작은 점수 차이도 상당 부분 이 영역에 있었던 것으로 보인다.
+
+왜 midpoint나 posterior mean이 자연스러운지는 squared loss만 봐도 알 수 있다. $p\ge 1/2$라고 해서 항상 $a$로 hard commit하면 기대 손실은:
+
+$$
+R_{\text{hard}}=(1-p)(a-b)^2.
+$$
+
+posterior mean $\hat T=pa+(1-p)b$를 쓰면:
+
+$$
+R_{\text{mean}}=p(1-p)(a-b)^2.
+$$
+
+둘의 차이는:
+
+$$
+R_{\text{hard}}-R_{\text{mean}}=(1-p)^2(a-b)^2\ge 0.
+$$
+
+즉 $p$가 완전히 0 또는 1에 가깝지 않다면, hard decision은 squared loss에서 불필요하게 위험하다. 이것이 tie well에서 hedge가 단순한 요령이 아니라 loss function과 맞는 정책인 이유다.
 
 ---
 
@@ -538,6 +650,9 @@ policy: never confuse public-aggressive with private-safe
 
 ## References
 
+- [ROGII - Wellbore Geology Prediction](https://www.kaggle.com/competitions/rogii-wellbore-geology-prediction)
+- [ROGII Geological Operations / StarSteer overview](https://rogii.com/solutions/geological-operations)
+- mycarta, [ROGII Geosteering Toolkit](https://github.com/mycarta/rogii-geosteering-toolkit)
 - Georgy Mamarin, [*Stop reforking: the best GR fit is the wrong depth*](https://www.kaggle.com/code/georgymamarin/stop-reforking-the-best-gr-fit-is-the-wrong-depth)
 - Pilkwang Kim, [ROGII: Target-Free 지층 대비로 TVT 복원하기 — 데이터 누수 통제 설계](https://pilkwangkim.github.io/posts/ROGII-Target-Free-Stratigraphic-Alignment-for-TVT-KR/)
 - Pilkwang Kim, [ROGII: Leakage-Controlled TVT Recovery Through Target-Free Stratigraphic Alignment](https://pilkwangkim.github.io/posts/ROGII-Target-Free-Stratigraphic-Alignment-for-TVT/)

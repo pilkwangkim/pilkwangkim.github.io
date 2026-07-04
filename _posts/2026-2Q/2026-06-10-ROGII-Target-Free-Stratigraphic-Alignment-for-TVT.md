@@ -16,7 +16,7 @@ Kaggle code:
 [ROGII EDA: Target-Free Alignment for TVT](https://www.kaggle.com/code/pilkwang/rogii-eda-target-free-alignment-for-tvt)
 
 Update, 2026-07-03:  
-This post should be read as Series 1. The target-free stratigraphic-alignment framing still holds, but later working-note analysis refined two points. First, the best GR matching cost is not automatically the correct TVT depth; GR should be read as a likelihood landscape with competing minima, not as a hard label. Second, after datum recovery, shape and slope remain important modeling frontiers, but residual datum misses still dominate the recoverable MSE mass. The follow-up note is here: [ROGII Working Note (2편): Target-Free TVT Geosteering의 Error Anatomy](https://pilkwangkim.github.io/posts/ROGII-Working-Note-2-Target-Free-TVT-Geosteering-KR/).
+This post should be read as Series 1. The target-free stratigraphic-alignment framing still holds, but later working-note analysis refined two points. First, the best GR matching cost is not automatically the correct TVT depth; GR should be read as a likelihood landscape with competing minima, not as a hard label. Second, after datum recovery, shape and slope remain important modeling frontiers, but residual datum misses still dominate the recoverable MSE mass. The follow-up note is here: [ROGII Working Note (Part 2): Error Anatomy of Target-Free TVT Geosteering](https://pilkwangkim.github.io/posts/ROGII-Working-Note-2-Target-Free-TVT-Geosteering/).
 
 <p align="center">
   <img src="{{ site.baseurl }}/assets/img/posts/2026-06-04-rogii-target-free-tvt-alignment/fig-01.png" alt="ROGII leakage-aware stratigraphic alignment cover" width="88%">
