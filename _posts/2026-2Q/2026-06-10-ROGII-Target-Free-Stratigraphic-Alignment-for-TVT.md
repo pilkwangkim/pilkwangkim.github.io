@@ -15,6 +15,9 @@ Competition link:
 Kaggle code:  
 [ROGII EDA: Target-Free Alignment for TVT](https://www.kaggle.com/code/pilkwang/rogii-eda-target-free-alignment-for-tvt)
 
+Update, 2026-07-03:  
+This post should be read as Series 1. The target-free stratigraphic-alignment framing still holds, but later working-note analysis refined two points. First, the best GR matching cost is not automatically the correct TVT depth; GR should be read as a likelihood landscape with competing minima, not as a hard label. Second, after datum recovery, shape and slope remain important modeling frontiers, but residual datum misses still dominate the recoverable MSE mass. The follow-up note is here: [ROGII Working Note (2편): Target-Free TVT Geosteering의 Error Anatomy](https://pilkwangkim.github.io/posts/ROGII-Working-Note-2-Target-Free-TVT-Geosteering-KR/).
+
 <p align="center">
   <img src="{{ site.baseurl }}/assets/img/posts/2026-06-04-rogii-target-free-tvt-alignment/fig-01.png" alt="ROGII leakage-aware stratigraphic alignment cover" width="88%">
 </p>
@@ -346,6 +349,8 @@ Several alignment families cover different deformation patterns:
 
 The GR curve does not uniquely determine TVT. It narrows the plausible set of TVT paths. The rest of the system decides which path is consistent with geometry, prefix calibration, formation position, and smoothness.
 
+The later working-note correction sharpens this point: a lower GR matching cost is not a depth label. Repeated lithology motifs can create competing minima at different TVT depths, so GR alignment is better interpreted as a likelihood landscape than as a single argmin decision.
+
 <p align="center">
   <img src="{{ site.baseurl }}/assets/img/posts/2026-06-04-rogii-target-free-tvt-alignment/fig-13.png" alt="Gamma ray as a stratigraphic barcode" width="90%">
 </p>
@@ -637,6 +642,8 @@ This baseline also gives a clean error decomposition:
 <p align="center">
   <img src="{{ site.baseurl }}/assets/img/posts/2026-06-04-rogii-target-free-tvt-alignment/fig-22.png" alt="Baseline evaluation bars" width="90%">
 </p>
+
+Series 2 decomposes this baseline more carefully. Shape and slope remain real modeling frontiers, but they are not the whole remaining problem. In the recomputed recoverable-MSE split, residual datum misses account for about `70.3%` of recoverable MSE, while pure shape accounts for about `29.7%`. The safer interpretation is therefore: model shape after datum recovery, but keep guarding against wrong datum or wrong bundle choices.
 
 The metric is row-weighted, so long tails dominate. Well-level diagnostics are still necessary because a few very long wells can hide systematic failure on shorter wells.
 
