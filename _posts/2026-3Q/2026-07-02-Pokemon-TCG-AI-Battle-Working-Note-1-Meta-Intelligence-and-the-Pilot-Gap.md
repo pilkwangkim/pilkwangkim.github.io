@@ -9,7 +9,7 @@ pin: false
 
 # Pokémon TCG AI Battle Working Note (Part 1): Meta Intelligence and the Pilot Gap
 
-> **Working note status: 2026-07-02.**  
+> **Working note status: first written 2026-07-02, updated through the 2026-07-04 benchmark pass.**  
 > This is the first note in a weekly series on the Pokémon TCG AI Battle competition. The goal is not only to improve a submission, but to build a repeatable research loop: mine the public battle logs, understand the changing field, separate deck strength from pilot strength, benchmark candidates against the actual meta, and eventually use behavior cloning / reinforcement learning to repair the parts that rule-based agents do poorly.
 
 Competition link:  
@@ -497,7 +497,170 @@ The next week should not be a random search over card swaps. It should be a stru
 
 ---
 
-## 15. Conclusion
+## 15. July 4 update: the meta widened, and the B-slot question changed
+
+The July 3 replay batch and the July 4 benchmark pass changed the interpretation of the week. The earlier story was mostly:
+
+```text
+Archaludon falls -> Alakazam rises -> Marnie appears as the second-order answer
+```
+
+By July 4, that was no longer enough. The field had widened into a larger pressure map.
+
+The 20260703 extraction processed:
+
+| Item | Value |
+|---|---:|
+| Episodes | 5,133 |
+| Player deck rows | 10,266 |
+| Winner decklists captured | 99 |
+| Behavior rows | 5,126 |
+| Decision rows kept | 60,000 |
+
+The latest field share made the rotation clearer:
+
+| Archetype | 20260703 share | 20260703 score rate | Reading |
+|---|---:|---:|---|
+| Alakazam / Dunsparce | 0.2572 | 0.4428 | Largest share, but not winning the field overall. |
+| Marnie's Impidimp / Munkidori | 0.1784 | 0.5958 | The strongest high-share pressure. |
+| Starmie | 0.0924 | 0.5406 | Rebounded sharply; important control check. |
+| Cubchoo / Gravity Gemstone | 0.0569 | 0.4058 | High enough share to matter as a stress row, but not a strong field result. |
+| Solrock / Okidogi | 0.0512 | 0.5209 | New coverage gap; no longer ignorable. |
+| Lucario | 0.0505 | 0.5097 | Stable reference pressure. |
+| Archaludon | 0.0486 | 0.3888 | Field share collapsed, but tuned pilots can still be strong. |
+| Marnie's Grimmsnarl / Impidimp | 0.0386 | 0.5606 | Smaller than Marnie/Munkidori, still efficient. |
+| Crustle | 0.0376 | 0.5052 | Wall / library-out stress shape. |
+| Comfey / Chandelure | 0.0351 | 0.5000 | Coverage gap, not yet a clean benchmark row. |
+| Cubchoo / Dunsparce | 0.0297 | 0.5475 | New small-share pressure row. |
+
+The trend view is even more important than the one-day table:
+
+| Archetype | 20260629 share | 20260703 share | Move | 20260703 score |
+|---|---:|---:|---:|---:|
+| Archaludon | 0.4067 | 0.0486 | -0.3581 | 0.3888 |
+| Marnie's Impidimp / Munkidori | 0.0126 | 0.1784 | +0.1658 | 0.5958 |
+| Alakazam / Dunsparce | 0.2124 | 0.2572 | +0.0448 | 0.4428 |
+| Starmie | 0.0710 | 0.0924 | +0.0214 | 0.5406 |
+| Cubchoo / Gravity Gemstone | 0.0016 | 0.0569 | +0.0553 | 0.4058 |
+| Solrock / Okidogi | 0.0018 | 0.0512 | +0.0494 | 0.5209 |
+| Meowth ex / Mega Kangaskhan ex | 0.0054 | 0.0464 | +0.0409 | 0.4958 |
+| Marnie's Grimmsnarl / Impidimp | 0.0081 | 0.0386 | +0.0305 | 0.5606 |
+| Crustle | 0.0045 | 0.0376 | +0.0331 | 0.5052 |
+| Comfey / Chandelure | 0.0037 | 0.0351 | +0.0314 | 0.5000 |
+
+This changed the benchmark problem. A panel that only asks "Can I beat Alakazam and Archaludon?" is no longer representative. It also has to ask:
+
+```text
+Can the agent handle Marnie pressure?
+Can it survive Starmie speed?
+Can it close games against wall / library-out shapes?
+Can it avoid being fooled by weak local proxy pilots?
+```
+
+### Pilot repair before candidate conclusions
+
+The most important July 4 engineering change was not a new deck. It was a benchmark-panel repair.
+
+The priority repair pass built or restored proxy pilots for Solrock/Okidogi, Crustle, Meowth/Kangaskhan, and Marnie/Grimmsnarl. The useful coverage moved materially:
+
+| Selection | Fidelity-pass panel weight | Attached pilot weight |
+|---|---:|---:|
+| Previous strict selection | 0.6839 | 0.7962 |
+| After priority repair | 0.8577 | 0.8851 |
+
+This matters because a candidate can look excellent against weak proxies and then collapse live. The repaired panel does not make the benchmark perfect, but it moves it from "too incomplete to trust" toward "good enough to rank a short list."
+
+Remaining gaps were still real:
+
+| Archetype | Status | Why it matters |
+|---|---|---|
+| Comfey / Chandelure | pilot missing | Small but non-trivial share; unusual win mechanism. |
+| Cubchoo / Dunsparce | pilot missing | New rising pressure row. |
+| Dragapult | needs fidelity | Low share, but high observed score and useful stress behavior. |
+| Hop / Trevenant | fidelity fail | Falling share, but still a historical stress pattern. |
+
+### Larger repaired-panel confirmation
+
+After that repair, I reran a larger confirmation benchmark:
+
+```text
+Run: fresh_repaired_panel_confirmation_20260704_gps32
+Candidates: 5
+Opponents: 16
+Games per seat: 32
+Local games per candidate: about 960-1024
+```
+
+Raw score rates:
+
+| Candidate | Games | Raw score rate | Wilson low |
+|---|---:|---:|---:|
+| live A Archaludon reference | 1,024 | 0.7266 | 0.6985 |
+| public0627 v62 Lucario | 1,024 | 0.7236 | 0.6954 |
+| i-have-one-rear-card | 960 | 0.7198 | 0.6905 |
+| Phantom Dragapult | 960 | 0.7177 | 0.6884 |
+| live B Alakazam reference | 1,024 | 0.6621 | 0.6326 |
+
+Field-weighted scores over the repaired panel:
+
+| Candidate | Weighted score | Validated weighted score | Reading |
+|---|---:|---:|---|
+| public0627 v62 Lucario | 0.7718 | 0.7748 | Best single-agent weighted read, but not necessarily the best portfolio partner. |
+| live A Archaludon reference | 0.7715 | 0.7735 | Essentially tied with Lucario; strong A-style anchor. |
+| i-have-one-rear-card | 0.7580 | 0.7665 | Not the highest standalone bar, but strong complement shape. |
+| Phantom Dragapult | 0.7509 | 0.7509 | Viable pressure challenger, no longer the sole best B-slot answer. |
+| live B Alakazam reference | 0.7089 | 0.7164 | Weakest in this confirmation set. |
+
+The pair view was the most useful part:
+
+| Pair | Mean best score | Min member Wilson low | Both below 50% rows |
+|---|---:|---:|---:|
+| Lucario v62 + i-have-one-rear-card | 0.8281 | 0.6905 | 0 |
+| i-have-one-rear-card + Phantom Dragapult | 0.8281 | 0.6884 | 0 |
+| live A Archaludon + Phantom Dragapult | 0.8115 | 0.6884 | 0 |
+| live A Archaludon + i-have-one-rear-card | 0.8094 | 0.6905 | 0 |
+| Lucario v62 + Phantom Dragapult | 0.7906 | 0.6884 | 2 |
+
+This changed the submission reading. Earlier smaller runs made Phantom Dragapult look like the clean B-slot challenger. The larger repaired-panel run made the conclusion more careful:
+
+```text
+Phantom Dragapult is viable.
+i-have-one-rear-card has the stronger complement signal.
+live B Alakazam is weak in this repaired-panel evidence.
+Lucario / Archaludon remain the strongest single-agent references.
+```
+
+So the robust conclusion is not "submit Phantom immediately." It is:
+
+```text
+The current B-slot should be questioned.
+The replacement should be judged by portfolio complement, not just standalone weighted score.
+```
+
+### What this changed in the research policy
+
+This update reinforced three rules.
+
+First, **deck selection is not enough**. The field may reveal a strong archetype, but until the pilot is faithful enough as an opponent or strong enough as a submission, the deck is only a hypothesis.
+
+Second, **pilot repair can change benchmark conclusions**. The same candidate can move up or down when the opponent panel stops misplaying important archetypes. That is a feature, not a bug: it means the benchmark is becoming less self-deceptive.
+
+Third, **the two-agent objective is a portfolio objective**. The best single-agent bar is not automatically the second submission. A second slot should cover matchups the first slot misses and avoid correlated failure.
+
+As of this update, my practical read is:
+
+| Slot role | Current interpretation |
+|---|---|
+| A-style anchor | Archaludon / Lucario-style references remain the strongest single-agent anchors. |
+| B-slot complement | i-have-one-rear-card has the best current complement signal, with Phantom Dragapult still viable. |
+| Known weak point | Alakazam B is familiar and live-tested, but local repaired-panel evidence no longer protects it. |
+| Next research target | Marnie, Starmie, Comfey/Chandelure, Cubchoo/Dunsparce, and Dragapult pilot fidelity. |
+
+This is the kind of update I want the working-note series to preserve: not only which candidate was chosen, but why the interpretation changed.
+
+---
+
+## 16. Conclusion
 
 The first week changed my view of the competition.
 
