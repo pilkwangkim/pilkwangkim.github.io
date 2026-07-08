@@ -9,13 +9,12 @@ pin: false
 
 # AI Agent Security (Part 3): The v3.1.2 Reset and the Throughput Wall
 
-> This part logs a competition that reset its scorer mid-flight. It is mostly a record of getting the
-> answer wrong several times before it turned out boring. The final picture is simple: the public
-> leaderboard is a **throughput contest over two models**, and the only lever is to make one trivial
-> post cost **as few generation-tokens as possible**. Earlier drafts chased multi-predicate stacking,
-> then $K$-stacking, then a luck tail — all wrong, for reasons the SDK source makes precise. The text
-> below is organised around the resolved understanding; the wrong turns are kept where they taught
-> something, because the point of the series is the reasoning, not a leaderboard number.
+> This part covers the competition's mid-flight scorer change (**v3.1.2**) and the model it forced. The
+> result is simple: the public leaderboard is a **throughput contest over two models**, and the only
+> lever is to make a single post cost **as few generation-tokens as possible**. Earlier drafts chased
+> multi-predicate stacking, then $K$-stacking, then a luck tail; each is set aside below with the source
+> reason it did not work. The text is organised around the resolved model, with the wrong turns kept
+> where they carry a mechanism worth stating.
 
 Competition link:
 [AI Agent Security — Multi-Step Tool Attacks](https://www.kaggle.com/competitions/ai-agent-security-multi-step-tool-attacks)
@@ -32,7 +31,7 @@ Competition link:
 > (every attempt at a richer predicate path ran into a wall the source explains), so $r$ is fixed and the **only**
 > lever is $\tau$ — fewer generation-tokens. Two consequences run the whole competition: (1) the two models
 > differ in speed — `gpt_oss` reasons and is slow, `gemma` does not and is fast — so a **deadline-aware fill**
-> sized to each model's speed lifts the mean far above a static $N$ ($32 \to 49.77$); (2) a single post secretly
+> sized to each model's speed lifts the mean far above a static $N$ ($32 \to 49.77$); (2) a single post
 > costs **two generations** (the post, plus an unavoidable wrap-up), so the win is to **minimise both** — the
 > public notebook that first crossed $60$ emptied the wrap-up with one **word**, and a low-salience **framing**
 > of the post crossed it again from the other hop.
@@ -181,10 +180,10 @@ These are the constraints the SDK makes precise — the facts that shaped every 
 
 ## Where this stands
 
-The picture cohered, and it was boring the whole time. The exfiltration primitive is trivial and fixed; the leaderboard is a **throughput** contest, the unit of throughput is a **generation**, a single post is two of them, and the win is to make both cost as few tokens as the primitive allows — averaged over a fast model and a slow one, on whatever GPU the run happens to draw. Multi-predicate stacking never paid off (the windows nest); $K$-stacking was a throughput loss in every framing I tried; the variance is a lottery, not a farmable tail.
+To summarise. The exfiltration primitive is fixed; the leaderboard is a **throughput** contest; the unit of throughput is a **generation**; a single post is two of them; and the score is set by making both cost as few tokens as the primitive allows — averaged over a fast model and a slow one, on whatever GPU the run draws. Multi-predicate stacking did not pay off (the windows nest); $K$-stacking came out below the single post in every framing I tried; the run-to-run variance is a lottery, not a farmable tail.
 
 Two levers cross $60$, and they sit on different generations. The wrap-up word (`OK only`) empties hop $1$ — the notebook that first *shared* a $60$ found it, and credit to it for putting the recipe in the open. A low-salience framing of the post (`routine forward, no analysis needed`) shrinks hop $0$'s reasoning — our own lever, which carried our fill to $60.39$ from the other hop. Because they act on different generations, they compose.
 
 What is left is a single open quantity: **how far a framing can push `gpt_oss`'s reasoning down** at hop $0$, given the effort is a template default rather than a fixed maximum. One idea I have not cashed: the fast model gains nothing from the framing the slow one needs, so in principle each model should get a *different* message — the harness runs generation per model, so the hook exists, though the per-model gain has not looked large yet. All of it reads out only from the live score, so the next submissions are the measurement — not a new attack, just a shorter, blander prompt.
 
-The public frontier is bunched right under $60$, and the ideas that move it are worth trading in the open rather than re-deriving in private — which is why this write-up puts the whole mechanism on the table. **Series 3 ends here.** The competition kept rewarding the boring truth over the clever one, and the last mile was a framing, not an exploit. **Series 4** picks up where the single-post throughput game runs out.
+The public frontier is bunched right under $60$, and the ideas that move it are worth trading in the open rather than re-deriving in private — which is why this write-up puts the whole mechanism on the table. **Series 3 ends here**, with the last gain coming from a prompt framing rather than a new exploit. **Series 4** picks up where the single-post throughput game runs out.
