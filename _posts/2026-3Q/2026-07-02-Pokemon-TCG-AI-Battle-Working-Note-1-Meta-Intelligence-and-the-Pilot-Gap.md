@@ -2,14 +2,14 @@
 title: "Pokémon TCG AI Battle Working Note (Part 1): Meta Intelligence and the Pilot Gap"
 date: 2026-07-02 21:30:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, pokemon-tcg, game-ai, reinforcement-learning, behavior-cloning, meta-analysis, benchmark, working-note]
+tags: [kaggle, pokemon-tcg, game-ai, reinforcement-learning, behavior-cloning, offline-rl, self-play, meta-analysis, benchmark, working-note]
 math: true
 pin: false
 ---
 
 # Pokémon TCG AI Battle Working Note (Part 1): Meta Intelligence and the Pilot Gap
 
-> **Working note status: first written 2026-07-02, updated through the 2026-07-04 benchmark pass.**  
+> **Working note status: first written 2026-07-02, updated through the 2026-07-12 field and benchmark pass.**
 > This is the first note in a weekly series on the Pokémon TCG AI Battle competition. The goal is not only to improve a submission, but to build a repeatable research loop: mine the public battle logs, understand the changing field, separate deck strength from pilot strength, benchmark candidates against the actual meta, and eventually use behavior cloning / reinforcement learning to repair the parts that rule-based agents do poorly.
 
 Competition link:  
@@ -389,55 +389,232 @@ This is the part I was missing at the beginning. A working note should not only 
 
 ---
 
-## 12. RL and behavior cloning: why it starts with imitation
+## 12. From rules to RL: a practical learning ladder
 
-Pokemon TCG is tempting as a reinforcement learning problem, but starting from pure self-play is expensive and brittle:
-
-- the action space is a variable legal-option list;
-- hidden information and stochastic draws make credit assignment noisy;
-- many legal moves are obviously bad, but only after understanding card context;
-- a deck-specific pilot needs sequencing, not only final win/loss feedback;
-- the simulator is fast enough for local games, but not fast enough to waste on blind exploration.
-
-So the first RL direction is behavior cloning from replay logs.
-
-The supervised learning object is:
-
-$$
-\pi_\theta(i \mid o_t, c_i)
-$$
-
-where \(c_i\) is a legal candidate option from the simulator's `select.option` menu. A masked softmax scores only legal candidates:
-
-$$
-P(i \mid o_t) =
-\frac{\exp(s_\theta(o_t, c_i))}
-{\sum_{j \in \text{legal}(o_t)} \exp(s_\theta(o_t, c_j))}
-$$
-
-The label is the option actually selected in the replay. One important engineering detail: in the replay schema, the observation at step \(i\) is paired with the action that appears at step \(i+1\). Getting this alignment wrong silently trains nonsense.
-
-The initial BC playbook has already covered:
-
-- replay schema audit;
-- winner-only decision extraction;
-- game-level split;
-- legal-option candidate feature scaffolding;
-- a masked legal-option scorer;
-- a minimal behavior-cloning loop.
-
-The early smoke test was intentionally small: about 30 games and 2,120 decision records, just enough to prove that the pipeline connects. It is not a strength claim.
-
-The real use of BC is not "replace the agent with a neural policy tomorrow." The immediate goal is more modest and more useful:
+Pokémon TCG is a natural reinforcement-learning problem, but "use RL" is not yet an algorithm.
+There are several distinct techniques between a hand-written rule and a self-playing neural agent,
+and they solve different failure modes. The practical route is a ladder:
 
 ```text
-Use replay behavior to build better pilots for discovered decks.
-Use behavior profiles to compare our pilot against field pilots.
-Use learned scorers as priors or fallback rankers inside a rule-based agent.
-Use policy divergence to detect why a local candidate underperforms live.
+instrumented rules
+-> behavior cloning
+-> outcome- or advantage-weighted imitation
+-> conservative offline improvement
+-> population self-play
+-> live calibration
 ```
 
-In short: RL is not a magic button here. It is a way to close the pilot gap.
+Jumping directly to self-play would be expensive and brittle here:
+
+- the legal action set changes at every decision;
+- the opponent's hand, prizes, and remaining deck are only partially observed;
+- draws and coin flips make credit assignment noisy;
+- games are long enough for small decision errors to compound;
+- each deck has a different sequencing problem;
+- blind exploration spends simulator games rediscovering basic card play.
+
+### 12.1 Minimal RL vocabulary for this competition
+
+| Term | Meaning in this project |
+|---|---|
+| Observation \(o_t\) | Everything the agent is allowed to see now: board, public counters, logs, and the current legal-option menu. It is not the full hidden game state. |
+| Legal action set \(A_t\) | The variable list in `select.option`. The agent returns indices into this list. |
+| Policy \(\pi(a\mid o)\) | A rule or model that chooses an action from the current legal set. The deck list and policy are separate objects. |
+| Trajectory | One game's sequence \((o_0,a_0,o_1,a_1,\ldots)\). |
+| Reward / return | The signal being optimized. The terminal win/loss is the honest objective; intermediate signals are optional guidance. |
+| Value \(V(o)\) | Estimated chance or value of winning from the current observation. |
+| Action value \(Q(o,a)\) | Estimated value after choosing a particular legal option. |
+| Advantage \(A(o,a)=Q(o,a)-V(o)\) | How much better an action looks than the normal action from that situation. |
+
+Because hidden cards matter, this is technically a **partially observable Markov decision process
+(POMDP)**. A feed-forward model sees only the current observation. A recurrent model can also summarize
+earlier public actions into a belief-like history representation, but it must never use hidden fields that
+would be unavailable in a real submission.
+
+### 12.2 The central model is a legal-option ranker
+
+The simulator has already done rules enforcement. The model does not need a fixed output for every card
+in the game. It needs to score the candidates currently offered:
+
+$$
+s_i=f_\theta(o_t,c_i), \qquad c_i\in A_t
+$$
+
+and normalize only over legal candidates:
+
+$$
+\pi_\theta(i\mid o_t,A_t)=
+\frac{\exp(s_i)}{\sum_{j\in A_t}\exp(s_j)}.
+$$
+
+The same candidate encoder is applied to every option, so reordering the menu reorders the scores rather
+than changing their meaning. This permutation-equivariant structure is much safer than a fixed
+"option 0 / option 1" output head. When the engine asks for multiple choices, the policy can select one
+option, mask it, update the remaining context, and continue autoregressively until `minCount` / `maxCount`
+is satisfied.
+
+Useful inputs fall into three groups:
+
+| Feature group | Examples |
+|---|---|
+| State features | turn, prize counts, deck/hand size, active and bench HP, attached energy, status, resources already spent this turn |
+| Candidate features | option type, referenced card or Pokémon, attack id, target area, potential KO, evolution/setup relation |
+| History/meta features | recent public actions, opponent's revealed archetype, deck hash or policy family when known |
+
+Card IDs should be represented through shared embeddings plus interpretable card statistics. Otherwise a
+model can memorize one list and fail on a one-card variant.
+
+### 12.3 Stage 0: rules are teachers, safety rails, and experimental controls
+
+A rule-based policy is not the opposite of RL. It provides three things a learned policy needs:
+
+1. a legal and reasonably competent behavior policy for generating local data;
+2. interpretable labels for why a decision changed;
+3. a safe fallback when a model is uncertain or fails at runtime.
+
+The right first step is therefore to instrument the rules. For every decision, store the observation,
+every legal option, the chosen option, rule scores, decision context, eventual result, deck hash, policy
+hash, and engine version. Without that provenance, later learning cannot distinguish a strategic mistake
+from a parser, deck, or policy-version change.
+
+### 12.4 Stage 1: behavior cloning
+
+Behavior cloning (BC) treats a replay as supervised learning. If the demonstrator chose \(a_t^*\), train
+the model with masked cross-entropy:
+
+$$
+\mathcal L_{BC}=-\log\pi_\theta(a_t^*\mid o_t,A_t).
+$$
+
+The first parser smoke test used about 30 games and 2,120 decisions. It proved the data path, not policy
+strength. The production extractor now handles hundreds of thousands of decisions per daily batch.
+
+Several details decide whether BC means anything:
+
+- In CABT replays, the observation at step \(i\) is paired with the recorded action at step \(i+1\).
+- The initial 60-card deck return is not an in-game option-selection label.
+- Split by whole games, dates, players, and preferably exact deck/policy groups; a decision-level random
+  split leaks almost identical states into validation.
+- Balance decision contexts. Thousands of forced choices must not drown the rare attack, retreat, gust,
+  evolution, and resource-allocation decisions that decide games.
+- Winner-only filtering raises average label quality but creates selection bias. A win does not make every
+  move in that game correct.
+
+Offline top-1 accuracy is a debugging metric, not the objective. A model can correctly copy many trivial
+choices and still reverse one critical matchup by sequencing a supporter, evolution, retreat, or attack
+incorrectly.
+
+### 12.5 Stage 2: outcome- and advantage-weighted imitation
+
+Plain BC copies all demonstrations equally. A next step is to give more weight to decisions from stronger
+trajectories or to actions that look better than the local baseline:
+
+$$
+\mathcal L_{AW}=-w_t\log\pi_\theta(a_t\mid o_t,A_t),
+\qquad
+w_t=\min\left(w_{\max},\exp\left(\frac{\hat A_t}{\beta}\right)\right).
+$$
+
+Here \(\hat A_t\) is an estimated advantage and \(\beta\) controls how aggressively the model concentrates
+on high-advantage actions. In practice, trajectory quality can combine the final result, opponent-adjusted
+strength, and a learned value baseline. Simply assigning `+1` to every move in a win is too crude: a winner
+can make several mistakes and still be rescued by matchup advantage or draw variance.
+
+This stage is close to **advantage-weighted regression (AWR)**. It is attractive because it improves a BC
+policy without immediately asking a high-variance policy-gradient algorithm to explore from scratch.
+
+### 12.6 Stage 3: conservative offline RL
+
+Replay logs show what happened after the chosen action. They do not reveal the counterfactual outcome of
+every unchosen legal option. A naive Q-learner can therefore assign absurdly high value to actions that are
+rare or absent in the data. Conservative methods such as CQL, or in-sample methods such as IQL, are designed
+to reduce this extrapolation problem.
+
+For this project, offline RL should obey four constraints:
+
+1. initialize the actor from BC rather than from random weights;
+2. mask illegal actions in both actor and critic losses;
+3. train and evaluate per deck family before attempting one universal policy;
+4. require complete simulator games to confirm any offline gain.
+
+Importance-sampling evaluation is not automatically available. Public replays do not provide the
+demonstrator's probability for every legal option, and deterministic rule agents have probability zero on
+unchosen actions. If reliable off-policy evaluation is desired, local exploration policies must explicitly
+log action probabilities. Until then, the simulator is the more honest evaluator.
+
+### 12.7 Stage 4: DAgger-style aggregation and population self-play
+
+BC suffers from covariate shift: after one mistake, the learner reaches states that the demonstrator rarely
+visited. DAgger addresses this by rolling out the learner, asking an expert to label those new states, and
+adding them to the training set. A human expert is not available at this scale, but a mature rule policy,
+public reference, or search-enhanced scorer can act as a limited teacher for known contexts.
+
+After that, masked actor-critic training such as PPO can start from the BC policy. The opponent should be a
+population, not a mirror clone:
+
+```text
+current policy
+previous checkpoints
+strong rule-based references
+validated archetype pilots
+targeted stress policies
+```
+
+This reduces the chance of learning a private convention that only works against itself. Deck and opponent
+sampling should follow the current field, while preserving a stable holdout population so meta adaptation
+does not erase older competencies.
+
+### 12.8 Reward shaping without teaching the wrong game
+
+The terminal reward remains the anchor:
+
+$$
+r_T\in\{-1,0,+1\}.
+$$
+
+Intermediate signals can accelerate learning, but raw rewards for "draw cards" or "attach energy" invite
+reward hacking. A safer pattern is potential-based shaping:
+
+$$
+r'_t=r_t+\gamma\Phi(o_{t+1})-\Phi(o_t),
+$$
+
+where \(\Phi\) summarizes useful position features such as prize differential, board survival, setup
+completion, attack readiness, and deck-out risk. Every shaping term must be checked against control and
+library-out decks; otherwise a prize-race reward will incorrectly punish a Crustle policy that is winning by
+exhausting the opponent's resources.
+
+### 12.9 The evaluation ladder
+
+| Gate | What it catches | What it cannot prove |
+|---|---|---|
+| Parser checks | bad action alignment, invalid indices, version drift | strategic quality |
+| Held-out BC metrics | gross imitation failure and context-specific errors | complete-game strength |
+| Decision-trace comparison | whether intended rules or learned priorities changed | long-horizon outcome |
+| Seat-balanced simulator panel | runnable policy strength and matchup direction | live calibration by itself |
+| Fresh holdout / shrinkage | winner's curse from searching many policies | missing opponent-pilot fidelity |
+| Live feedback | benchmark mismatch and runtime/package surprises | timeless strength in a changing meta |
+
+The promotion criterion is complete-game performance on a current, fidelity-audited panel, followed by a
+fresh holdout. Offline accuracy, a strong deck hash, and a historical live score are supporting evidence;
+none of them can replace that chain.
+
+### 12.10 Practical roadmap
+
+The implementation order is deliberately conservative:
+
+1. keep the rule agents as production baselines and fallbacks;
+2. build deck-specific legal-option BC rankers;
+3. diagnose errors per decision context and per matchup, not only by aggregate accuracy;
+4. deploy learned scores as a hybrid tie-breaker before giving them full control;
+5. use outcome/advantage weighting to concentrate on strong trajectories;
+6. repair off-distribution states with DAgger-style local rollouts;
+7. only then fine-tune with population self-play and masked PPO;
+8. promote only through the same package, fidelity, holdout, and live-calibration gates as rule agents.
+
+In short, RL is not a magic replacement for strategy knowledge. It is a disciplined way to turn replay
+behavior into better sequencing, quantify the pilot gap, and eventually improve beyond the rules without
+discarding their safety and interpretability.
 
 ---
 
@@ -660,26 +837,202 @@ This is the kind of update I want the working-note series to preserve: not only 
 
 ---
 
-## 16. Conclusion
+## 16. July 5-11 update: the wall wave
 
-The first week changed my view of the competition.
+The following week produced a much cleaner structural story. The July 11 batch contained 5,018 replays,
+10,036 player-deck rows, and 609,913 extracted decisions. Across July 5-11, Crustle went from a side deck
+to one quarter of the observed field, while Marnie/Munkidori moved in the opposite direction.
 
-This is not a simple "find the best deck" contest. It is a three-layer game:
+| Archetype | Share 07-05 | Share 07-11 | Change | 07-11 score rate | Reading |
+|---|---:|---:|---:|---:|---|
+| Alakazam / Dunsparce | 23.32% | 37.08% | +13.76 pp | 49.10% | The mature center: very common, close to neutral. |
+| Crustle | 5.72% | 24.74% | +19.02 pp | 54.57% | The clearest structural winner of the week. |
+| Dragapult | 1.71% | 5.58% | +3.87 pp | 55.54% | Recovered sharply, but remained difficult to reproduce locally. |
+| Cynthia / Gible | 7.42% | 6.07% | -1.35 pp | 49.26% | Early strength settled toward neutral. |
+| Marnie / Munkidori | 24.17% | 5.54% | -18.63 pp | 39.39% | Lost both share and results. |
+| Marnie / Grimmsnarl | 7.24% | 4.00% | -3.24 pp | 51.12% | Smaller, but healthier than the Munkidori line. |
+| Team Rocket Spidops | 1.18% | 3.47% | +2.29 pp | 58.05% | Low-share pressure with a strong exact-list signal. |
+| Lucario | 2.94% | 3.41% | +0.47 pp | 37.43% | More appearances did not produce current field strength. |
+| Archaludon | 3.10% | 0.84% | -2.26 pp | 39.29% | The old metal-tempo center had almost disappeared. |
+
+The mechanism is visible in the matchup matrix. On July 11, Crustle scored 87.5% against
+Marnie/Munkidori, 74.5% against Marnie/Grimmsnarl, and 74.0% against Lucario. It was close to even with
+Alakazam over 1,190 games. That is enough to explain why a slow wall/resource-denial shell could expand
+into a field built around setup-heavy and tempo-oriented plans.
+
+But Crustle was not invulnerable. It scored only 36.6% into Team Rocket Spidops and 31.1% into Starmie.
+The emerging pressure decks were therefore not noise around the Crustle story; they were the next layer of
+the story. A snapshot that says only "Crustle rose" misses the reason the field may rotate again.
+
+---
+
+## 17. Why raw win rate is not deck power
+
+I initially used score rate as if it were a direct measure of strength. That is inadequate on a rating
+ladder. Strong agents are gradually paired with stronger opponents, so an excellent agent can remain near
+50% while operating in a much harder band. A 60% result against weak opponents can be less informative than
+48% against the strongest observed schedule.
+
+The current strength layer reconstructs relative difficulty from the replay graph. In its simplest form:
+
+$$
+P(i\text{ beats }j)=\sigma(r_i-r_j),
+$$
+
+where \(r_i\) and \(r_j\) are latent strengths and \(\sigma\) is the logistic function. Recent games receive
+more weight, and the model estimates team, archetype, and exact-deck effects separately. Because a display
+name can change deck or policy during the day, the finest diagnostic entity is bounded:
 
 ```text
-deck discovery
-pilot quality
-meta timing
+(display team, exact deck hash, source date, sequential 100-game epoch)
 ```
 
-The June 30 logs made that especially clear. Alakazam became the largest share deck because it answers Archaludon. Marnie/Munkidori emerged because it appears to answer both. Archaludon remained locally useful because a clean, strong pilot can outperform average field Archaludon, even when the archetype itself is no longer the raw field leader.
+This does not reveal Kaggle's hidden rating, and it does not prove the exact moment a policy changed. It is
+an opponent-difficulty estimate: a way to ask whether a list survived a hard schedule and whether the same
+60 cards behaved differently across policy epochs.
 
-The practical lesson is that a strong weekly system must be honest about evidence:
+The July 5-11 exact-list board looked like this:
 
-- logs can identify decks;
-- behavior profiles can explain why they win;
-- benchmarks can test runnable agents;
-- pilot fidelity determines whether those benchmarks mean anything;
-- live scores calibrate the whole loop.
+| Exact list | Archetype | Schedule-adjusted strength | Score vs stronger observed field | Reading |
+|---|---|---:|---:|---|
+| `2aee928c...` | Team Rocket Spidops | +172.2 | 60.2% | Strongest exact-list signal; adoption pilot still weak. |
+| `095da72a...` | Crustle | +160.0 | 56.6% | Compact challenger list with the strongest Crustle estimate. |
+| `138b82b4...` | Dragapult | +143.8 | 54.5% | Strong field deck, poorly reproduced by current local pilots. |
+| `eea0bff1...` | Comfey / Bramblin | +133.3 | 56.4% | Promising, but the matchup matrix is still thin. |
+| `ed9cdddb...` | Crustle | +126.4 | 52.8% | The most prevalent strong Crustle reference. |
+| `249d05fe...` | Alakazam / Dunsparce | +122.7 | 51.6% | Mature reference, not an unchecked winner. |
 
-That is the direction for the next note: move from meta discovery to pilot acquisition, especially for the emerging decks that the logs already identify but the local agent cannot yet play well.
+This added a fourth object to the project's original three-layer model:
+
+```text
+deck list       -> what strategic ceiling is available?
+pilot policy    -> how much of that ceiling is realized?
+opponent schedule -> how hard was the observed path?
+meta timing     -> does that edge matter now?
+```
+
+The same exact list can span a wide range of epoch-strength estimates. That variation is not proof that
+every jump came from policy changes; draws and opponents still matter. It is nevertheless strong evidence
+that treating a deck hash as an agent identity loses important information.
+
+---
+
+## 18. What the learned-pilot experiments actually taught
+
+The most valuable RL result so far is negative: **offline imitation accuracy did not reliably transfer to
+complete-game strength**.
+
+| Pilot | Held-out top-1 | Matchup fidelity | Wrong-sign matchups | Complete-game reading |
+|---|---:|---:|---:|---|
+| Team Rocket Spidops `2aee` balanced | 0.6374 | 0.9105 | 0 | Good field/stress proxy; negative adoption edge. |
+| Comfey / Bramblin `eea0` balanced | 0.6018 | 0.9429 | 0 | Promising proxy, but only two real matchup cells are deep. |
+| Crustle `095` balanced | 0.6686 | 0.7358 | 1 | Still gets the Spidops direction wrong. |
+| Crustle `ed9` balanced | 0.5482 | 0.6966 | 1 | Same important wrong-sign lane. |
+| Dragapult `138` learned | 0.6023 | 0.6420 | 3 | Rejected as proxy and as adoption pilot. |
+
+The Dragapult experiment was the clearest warning. Its field exact list had a +143.8 strength signal, and
+the learned ranker exceeded 60% holdout top-1 accuracy. Yet two focused complete-game policies scored only
+17.5% and 18.8% over roughly 200 games each. The deck was strong; the reconstructed pilot was not.
+
+There are several reasons this can happen:
+
+1. aggregate accuracy is dominated by frequent, easy decisions;
+2. one early sequencing error changes every later state;
+3. replay actions identify what was chosen, not why alternatives were bad;
+4. winner-only data mixes excellent decisions with mistakes from games that were won anyway;
+5. a model can match overall behavior while reversing one strategically decisive matchup.
+
+This forced a useful separation:
+
+| Pilot job | Objective |
+|---|---|
+| Opponent / field proxy | Match the field's matchup matrix and behavior profile. Fidelity matters. |
+| Submission / adoption pilot | Beat the field with the chosen deck. Supremacy matters; exact imitation does not. |
+
+A policy can be a good proxy and a bad submission. Spidops currently fits that description. Conversely, a
+policy that plays differently from the average field pilot may be exactly what is needed for submission.
+This is why the RL ladder in Section 12 ends in complete games rather than offline accuracy.
+
+---
+
+## 19. The July 12 benchmark correction
+
+Live feedback exposed another conceptual mistake. Historical live ratings and public-notebook scores are
+valuable for choosing reference opponents and detecting local-live gaps, but they are not comparable selector
+scores across dates, opponent bands, and uncertainty states. If I simply sort candidates by historical live
+score, the research system has done nothing more than sort public notebooks.
+
+The corrected policy assigns each metric one job:
+
+| Evidence | Correct use | Incorrect use |
+|---|---|---|
+| Historical live/public score | reference selection, calibration alert, research priority | rank A/B/C |
+| Deck Power Index | choose decks and pilots that deserve experiments | promote an exact agent |
+| Current field-weighted agent benchmark | qualify the exact deck + pilot + package | estimate a timeless Kaggle rating |
+| Fresh holdout / shrinkage | correct selection bias and winner's curse | repair missing field coverage |
+
+After removing the live-score penalty and rerunning the current holdout, the leading exact agents were:
+
+| Agent | Current field-weighted score | Corrected held score | Strict decision |
+|---|---:|---:|---|
+| Crustle `ed9` balanced | 0.7556 | 0.6159 | Hold: gap and tail coverage remain open. |
+| Lucario search counterweight | 0.7356 | 0.6015 | Hold: gap and tail coverage remain open. |
+| Crustle `095` balanced | 0.7294 | 0.5953 | Hold: gap and tail coverage remain open. |
+| Public Lucario reference | 0.7119 | 0.5778 | Reference only. |
+| Comfey / Bramblin balanced | 0.6879 | 0.5366 | Research diversity; thin matrix. |
+| Library-out control reference | 0.6554 | 0.4794 | Mature reference, below the current held bar. |
+| Team Rocket Spidops adoption pilot | 0.5229 | 0.3288 | Adoption holdout and supremacy fail. |
+
+The strongest measured pair was Lucario search + Crustle `095`, with a conservative pair score of 0.6961,
+reciprocal unique matchup edges, and no jointly sub-50 opponent row in the measured panel. Crustle `ed9`
+remained the strongest measured single agent.
+
+The strict conclusion, however, was still:
+
+```text
+NO_NEW_CANDIDATE
+```
+
+All leading packages passed technical and holdout checks, but panel-fidelity A1 and tail-coverage evidence
+remained unresolved. I later built A/B/C packages only after explicitly recording them as a user-approved
+compromise, not as proven replacements. The benchmark numbers are conservative local evidence, not live-score
+predictions.
+
+This is an important research result even though it is inconvenient. A workflow that can say "none of the
+current candidates is proven" is more useful than one that always manufactures two recommendations.
+
+---
+
+## 20. Conclusion
+
+The first ten days changed my view of the competition twice. First, I learned that this is not a simple
+"find the best deck" contest. Then I learned that even the more careful three-layer model was missing
+opponent difficulty and policy identity.
+
+The current model is:
+
+```text
+deck discovery      which strategic ceiling is available?
+pilot quality       how much of that ceiling can this policy realize?
+schedule strength   how difficult was the observed opposition?
+meta timing         does the resulting edge matter in the current field?
+```
+
+The July field supplied concrete examples. Crustle expanded because it punished the two Marnie lanes and
+Lucario while remaining viable into Alakazam. Team Rocket Spidops and Dragapult produced stronger exact-list
+signals than their shares suggested. But copying those 60 cards was not enough: the local pilots could not
+reproduce the field behavior, and offline imitation metrics overstated readiness.
+
+The durable lessons are therefore methodological:
+
+- logs can identify decks, matchups, and opponent schedules;
+- exact deck hashes do not identify policies;
+- behavior cloning is a useful starting point, not a strength certificate;
+- a field proxy should imitate, while a submitted pilot must outperform;
+- current held-out benchmarks should rank candidates;
+- live scores should calibrate and challenge the benchmark, not secretly choose the answer;
+- the honest output can be `NO_NEW_CANDIDATE`.
+
+The next phase is no longer "try more rules" or "train a neural net." It is to acquire faithful policies for
+the strong but unreproduced decks, use learned rankers inside a controlled hybrid agent, and move up the RL
+ladder only when each earlier stage survives complete-game evaluation.
