@@ -9,17 +9,10 @@ pin: false
 
 # BioHub Cell Tracking Working Note 1: Learned Lineage Graphs and Metric-Aware Repair
 
-Competition link:  
-[BioHub - Cell Tracking During Development](https://www.kaggle.com/competitions/biohub-cell-tracking-during-development)
-
-Official metric notes:  
-[RoyerLab kaggle-cell-tracking-competition metrics.md](https://github.com/royerlab/kaggle-cell-tracking-competition/blob/main/metrics.md)
-
-Background note:  
-[Biohub Calls on AI Community to Transform 3D Cell Tracking](https://network.febs.org/posts/biohub-calls-on-ai-community-to-transform-3d-cell-tracking)
-
-Korean version:  
-[BioHub Cell Tracking Working Note 1: Learned Lineage Graph와 Metric-Aware Repair](https://pilkwangkim.github.io/posts/BioHub-Cell-Tracking-Working-Note-1-Learned-Lineage-Graphs-KR/)
+- Competition: [BioHub - Cell Tracking During Development](https://www.kaggle.com/competitions/biohub-cell-tracking-during-development)
+- Official metric notes: [RoyerLab kaggle-cell-tracking-competition metrics.md](https://github.com/royerlab/kaggle-cell-tracking-competition/blob/main/metrics.md)
+- Background: [Biohub Calls on AI Community to Transform 3D Cell Tracking](https://network.febs.org/posts/biohub-calls-on-ai-community-to-transform-3d-cell-tracking)
+- Korean version: [BioHub Cell Tracking 작업 기록 1: 학습 기반 계보 그래프와 평가지표를 고려한 복원](https://pilkwangkim.github.io/posts/BioHub-Cell-Tracking-Working-Note-1-Learned-Lineage-Graphs-KR/)
 
 Related public notebooks:
 
@@ -325,19 +318,16 @@ $$
 
 where \(X_{t-k:t+k}\) is a short temporal context around frame \(t\).
 
-Candidate nodes are then linked by a learned edge model:
+The learned edge model produces a logit for each candidate pair:
 
 $$
-p_{ij}
+z_{ij}
 =
-\sigma
-\left(
-g_\phi(h_i,h_j,\Delta t,\Delta \mathbf r)
-\right).
+g_\phi(h_i,h_j,\Delta t,\Delta \mathbf r).
 $$
 
 Here \(h_i\) and \(h_j\) are learned node representations.
-The final graph is selected with an optimization layer rather than by accepting every edge independently.
+The logits are normalized and passed to an optimization layer rather than accepting every edge independently.
 That matters because a lineage graph has structural constraints.
 A node should not have arbitrary many parents.
 Division-like forks should be rare and physically plausible.
@@ -408,55 +398,6 @@ matches = [
 This equation also explains the parameter sensitivity.
 If \(\beta\) is too small, the system becomes almost a nearest-motion tracker.
 If it is too large, an imperfectly calibrated learned score can override good geometry.
-
-The Kaggle notebook cannot train online, so the model is shipped as an attached support dataset:
-
-```text
-support_pack/
-  ARTIFACT_MANIFEST.json
-  repo/
-  weights/
-    unet_transformer/
-      split_0/
-        edge_predictor_best.pth
-        checkpoint_last.pth
-  wheels/
-```
-
-<details markdown="1">
-<summary>Show snippet: artifact discovery</summary>
-
-```python
-from pathlib import Path
-import json
-
-ARTIFACT_MANIFEST = Path(
-    "/kaggle/input/datasets/pilkwang/"
-    "biohub-tracking-support-pack-v1/ARTIFACT_MANIFEST.json"
-)
-
-with ARTIFACT_MANIFEST.open() as f:
-    manifest = json.load(f)
-
-artifact_root = ARTIFACT_MANIFEST.parent
-model_info = (
-    manifest.get("models", {}).get("unet_transformer")
-    or manifest["model"]
-)
-weight_path = artifact_root / model_info["weight_path"]
-repo_dir = artifact_root / "repo"
-
-assert weight_path.is_file(), weight_path
-assert repo_dir.is_dir(), repo_dir
-print("weight:", weight_path)
-print("sha256:", model_info["weight_sha256"])
-print("repo:", repo_dir)
-```
-
-</details>
-
-The manifest is not just bookkeeping.
-It is the contract that lets the notebook recover source code, weights, wheel files, coordinate conventions, and model roles in an internet-disabled Kaggle run.
 
 ---
 
@@ -648,115 +589,189 @@ Division recall is useful only when the edit is high precision.
 
 ---
 
-## 8. Training And Artifact Workflow
+## 8. Objectives For Sparse Lineage Labels
 
-The practical workflow had two parts:
+The Temporal UNet and node Transformer are trained jointly for detection and association:
 
-```text
-local or remote training
--> checkpoint snapshots
--> support pack build
--> Kaggle dataset upload
--> notebook commit
--> public LB read
-```
+$$
+\mathcal L
+=
+\mathcal L_{\text{edge}}
++
+\lambda_{\text{det}}\mathcal L_{\text{det}}.
+$$
 
-The trainer was made deliberately strict.
-Resume mode must find an existing checkpoint.
-Fresh-start mode must be explicitly allowed.
-That rule exists because accidentally restarting from epoch 1 after a long run is one of the least fun ways to spend a night.
+### 8.1 Detection Loss
+
+Let \(y(\mathbf r)=1\) at an annotated center voxel and zero elsewhere.
+Because the annotation is sparse, \(y=0\) does not necessarily mean background.
+Positive and negative terms are normalized separately, and the negative mass is scaled by a small \(\eta\):
+
+$$
+w_+=\frac{1}{N_+},
+\qquad
+w_-=\frac{\eta}{N_-},
+$$
+
+$$
+\mathcal L_{\text{det}}
+=
+-\sum_{\mathbf r}
+\left[
+w_+y(\mathbf r)\log \sigma(s_{\mathbf r})
++
+w_-(1-y(\mathbf r))\log(1-\sigma(s_{\mathbf r}))
+\right].
+$$
+
+Annotated centers remain strong positives without turning every unannotated bright cell into a hard negative.
+
+### 8.2 Edge Loss
+
+Let \(Y_{ij}\) be the ground-truth transition matrix between consecutive frames.
+Only rows or columns participating in an annotated transition enter the sparse supervision mask:
+
+$$
+\mathcal M_{ij}
+=
+\mathbf 1
+\left[
+\sum_kY_{ik}>0
+\quad\lor\quad
+\sum_kY_{kj}>0
+\right].
+$$
+
+Edge logits are normalized over the **source-node axis**:
+
+$$
+q_{ij}
+=
+\frac{\exp z_{ij}}
+{\sum_k\exp z_{kj}}.
+$$
+
+Each target therefore competes for one parent, while one source can still score highly for two targets.
+This suppresses merges without removing the representation of division.
+The implementation uses focal BCE with \(\gamma=2\):
+
+$$
+p^*_{ij}
+=
+Y_{ij}q_{ij}+(1-Y_{ij})(1-q_{ij}),
+$$
+
+$$
+\mathcal L_{\text{edge}}
+=
+-\frac{1}{|\mathcal M|}
+\sum_{(i,j)\in\mathcal M}
+(1-p^*_{ij})^2
+\left[
+Y_{ij}\log q_{ij}
++
+(1-Y_{ij})\log(1-q_{ij})
+\right].
+$$
 
 <details markdown="1">
-<summary>Show snippet: strict resume command</summary>
-
-```bash
-cd /workspace/26_Biohub
-
-# Check the registered method, checkpoint, and scratch layout first.
-bash runpod_5090/scripts/biohub_runctl.sh inventory
-bash runpod_5090/scripts/biohub_runctl.sh doctor anchor400_legacy
-
-# Continue is fail-closed: a missing checkpoint is an error, not a fresh run.
-bash runpod_5090/scripts/biohub_runctl.sh \
-  start anchor400_legacy continue \
-  --epochs 500
-```
-
-</details>
-
-Packaging follows the same contract:
-
-<details markdown="1">
-<summary>Show snippet: support pack version upload</summary>
-
-```bash
-cd /workspace/26_Biohub
-
-BIOHUB_TRAIN_METHOD=unet_transformer_400ep_snapshot_v1 \
-BIOHUB_ARTIFACT_TAG=400ep-snapshot-v1 \
-BIOHUB_DATASET_SLUG=biohub-tracking-support-pack-v1 \
-BIOHUB_DATASET_VERSION_MESSAGE="Update learned graph checkpoint snapshot" \
-bash runpod_5090/scripts/package_and_upload_support_pack_version.sh
-```
-
-</details>
-
-A checkpoint path alone is not enough.
-The dataset version can change behind the same filename, so both epoch and SHA
-should be checked.
-
-<details markdown="1">
-<summary>Show snippet: fail-closed checkpoint identity</summary>
+<summary>Show snippet: sparse edge supervision</summary>
 
 ```python
-import hashlib
 import torch
+import torch.nn.functional as F
 
-def sha256_file(path, chunk_size=8 << 20):
-    digest = hashlib.sha256()
-    with open(path, "rb") as f:
-        for chunk in iter(lambda: f.read(chunk_size), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
+def sparse_edge_loss(logits, target):
+    active_rows = target.sum(dim=1) > 0
+    active_cols = target.sum(dim=0) > 0
+    mask = active_rows[:, None] | active_cols[None, :]
 
-checkpoint = torch.load(
-    checkpoint_path,
-    map_location="cpu",
-    weights_only=False,
-)
-
-expected_epoch = 400
-actual_epoch = int(checkpoint.get("epoch", -1))
-if actual_epoch != expected_epoch:
-    raise ValueError(
-        f"expected checkpoint epoch {expected_epoch}, got {actual_epoch}"
-    )
-
-actual_sha = sha256_file(checkpoint_path)
-expected_sha = manifest["model"]["weight_sha256"]
-if actual_sha != expected_sha:
-    raise ValueError(f"checkpoint SHA mismatch: {actual_sha}")
+    probs = torch.softmax(logits, dim=0)
+    bce = F.binary_cross_entropy(probs, target, reduction="none")
+    p_t = probs * target + (1.0 - probs) * (1.0 - target)
+    return (((1.0 - p_t) ** 2) * bce)[mask].mean()
 ```
 
 </details>
 
-In the public notebook text, I avoid making the hardware the story.
-The story is the artifact contract:
+### 8.3 What The ILP Adds
 
-```text
-weights are trained outside the notebook
-the notebook is deterministic given the attached dataset
-the manifest records what the notebook is actually using
+The neural score \(q_{ij}\) is local evidence, not a valid lineage graph by itself.
+At inference, binary variables \(x_{ij}\) select edges while appearance, disappearance, and division variables carry structural costs.
+A simplified objective is:
+
+$$
+\min_{x,a,d,b}
+-\lambda_e\sum_{ij}q_{ij}x_{ij}
++\lambda_a\sum_j a_j
++\lambda_d\sum_i d_i
++\lambda_b\sum_i b_i.
+$$
+
+The essential degree constraints are:
+
+$$
+\sum_i x_{ij}\le1,
+\qquad
+\sum_j x_{ij}\le1+b_i,
+\qquad
+b_i\in\{0,1\}.
+$$
+
+The first inequality prevents merges; the second allows one child normally and two when node \(i\) is selected as a division.
+
+### 8.4 Positive-Unlabelled Loss For The Center Model
+
+The auxiliary DeepCenterUNet3D predicts a single-frame center heatmap.
+Let \(h(\mathbf r)\) be the target heatmap and \(Q_{0.4}(I)\) the 40th intensity percentile.
+Its voxel weight is:
+
+$$
+w(\mathbf r)
+=
+\begin{cases}
+12, & h(\mathbf r)>0.05,\\
+1, & I(\mathbf r)<Q_{0.4}(I),\\
+0.05, & \text{otherwise}.
+\end{cases}
+$$
+
+Dark background is a normal negative, while bright unlabelled regions are nearly ignored:
+
+$$
+\mathcal L_{\text{center}}
+=
+\frac{
+\sum_{\mathbf r}w(\mathbf r)
+\operatorname{BCEWithLogits}(s_{\mathbf r},h(\mathbf r))
+}{
+\sum_{\mathbf r}w(\mathbf r)
+}.
+$$
+
+<details markdown="1">
+<summary>Show snippet: positive-unlabelled weighting</summary>
+
+```python
+import numpy as np
+import torch
+import torch.nn.functional as F
+
+weight_map = np.full(target_heatmap.shape, 0.05, dtype=np.float32)
+background_cutoff = np.quantile(image, 0.40)
+weight_map[image < background_cutoff] = 1.0
+weight_map[target_heatmap > 0.05] = 12.0
+
+target = torch.from_numpy(target_heatmap).to(logits)
+weights = torch.from_numpy(weight_map).to(logits)
+loss = F.binary_cross_entropy_with_logits(logits, target, reduction="none")
+loss = (loss * weights).sum() / weights.sum().clamp(min=1.0)
 ```
 
-The SHA-256 of the calibrated UNET400 anchor's
-`edge_predictor_best.pth` is:
+</details>
 
-```text
-12f6881ee3620a831697ca098ff8f48e687a24225f4e048b538deec3562fe771
-```
-
-This hash identifies the experimental lineage more reliably than the weight filename.
+The Center model does not replace the temporal graph.
+Its useful role is to add independent image-space evidence only to marginal repairs proposed by the temporal model.
 
 ---
 
@@ -764,7 +779,7 @@ This hash identifies the experimental lineage more reliably than the weight file
 
 The exact public leaderboard numbers are not private validation.
 They were still useful as a noisy diagnostic when each submission changed one structural hypothesis.
-As of July 12, 2026, the progression in this project was roughly:
+As of July 11, 2026, the progression in this project was roughly:
 
 | Stage | Public LB reading | What changed |
 |---|---:|---|
@@ -1133,45 +1148,4 @@ keep the calibrated UNET400 graph as the anchor
 use Center only for marginal repair confirmation
 train an independent seed for output-level disagreement
 build true OOF repair actions with two-fold models
-record checkpoint, config, split, and SHA as one artifact contract
 ```
-
----
-
-## Appendix: Submission Audit Snippet
-
-The final output is still just a CSV.
-Before submission, I keep a small audit routine around the schema.
-
-<details markdown="1">
-<summary>Show snippet: submission schema audit</summary>
-
-```python
-REQUIRED_COLUMNS = [
-    "id", "dataset", "row_type", "node_id", "t", "z", "y", "x",
-    "source_id", "target_id",
-]
-
-def audit_submission(df, expected_datasets):
-    assert list(df.columns) == REQUIRED_COLUMNS
-    assert df["id"].tolist() == list(range(len(df)))
-    assert set(df["row_type"]).issubset({"node", "edge"})
-    assert set(expected_datasets).issubset(set(df["dataset"]))
-
-    node_rows = df["row_type"].eq("node")
-    edge_rows = df["row_type"].eq("edge")
-
-    assert (df.loc[node_rows, ["source_id", "target_id"]] == -1).all().all()
-    assert (df.loc[edge_rows, ["node_id", "t", "z", "y", "x"]] == -1).all().all()
-
-    for dataset, part in df.groupby("dataset"):
-        node_ids = set(part.loc[part["row_type"].eq("node"), "node_id"])
-        for source_id, target_id in part.loc[part["row_type"].eq("edge"), ["source_id", "target_id"]].itertuples(index=False):
-            assert source_id in node_ids, (dataset, source_id)
-            assert target_id in node_ids, (dataset, target_id)
-```
-
-</details>
-
-This is not exciting code, but it prevents avoidable failures.
-For graph competitions, boring validation is part of the model.
