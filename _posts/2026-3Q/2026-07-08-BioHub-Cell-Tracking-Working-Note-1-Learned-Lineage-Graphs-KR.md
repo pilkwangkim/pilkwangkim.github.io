@@ -1,5 +1,5 @@
 ---
-title: "BioHub Cell Tracking 작업 기록 1: 학습 기반 계보 그래프와 평가지표를 고려한 복원"
+title: "BioHub Cell Tracking 작업 기록 1: 학습 기반 계보 그래프와 평가지표에 맞춘 복원"
 date: 2026-07-11 21:00:00 +0900
 categories: [AI, Kaggle]
 tags: [kaggle, biohub, cell-tracking, microscopy, lineage-reconstruction, unet, ilp, graph-repair, working-note, korean]
@@ -7,12 +7,13 @@ math: true
 pin: false
 ---
 
-# BioHub Cell Tracking 작업 기록 1: 학습 기반 계보 그래프와 평가지표를 고려한 복원
+# BioHub Cell Tracking 작업 기록 1: 학습 기반 계보 그래프와 평가지표에 맞춘 복원
 
 - 대회: [BioHub - Cell Tracking During Development](https://www.kaggle.com/competitions/biohub-cell-tracking-during-development)
 - 공식 평가지표: [RoyerLab kaggle-cell-tracking-competition metrics.md](https://github.com/royerlab/kaggle-cell-tracking-competition/blob/main/metrics.md)
 - 배경 기사: [Biohub Calls on AI Community to Transform 3D Cell Tracking](https://network.febs.org/posts/biohub-calls-on-ai-community-to-transform-3d-cell-tracking)
 - 영문판: [BioHub Cell Tracking Working Note 1: Learned Lineage Graphs and Metric-Aware Repair](https://pilkwangkim.github.io/posts/BioHub-Cell-Tracking-Working-Note-1-Learned-Lineage-Graphs/)
+- 후속 글: [BioHub Cell Tracking 작업 기록 2: 리더보드 정체에서 OOF 구조 진단으로](https://pilkwangkim.github.io/posts/BioHub-Cell-Tracking-Working-Note-2-OOF-Structural-Diagnostics-KR/)
 
 관련 공개 노트북:
 
@@ -21,7 +22,7 @@ pin: false
 - [Biohub Cell Tracking: Blend Preprocessings](https://www.kaggle.com/code/pilkwang/biohub-cell-tracking-blend-preprocessings)
 
 이 글은 BioHub 세포 추적 대회를 다루는 첫 번째 작업 기록이다.
-특정 제출 노트북을 해설하는 데 그치지 않고, 이후 실험이 임의적인 시행착오로 흐르지 않도록 문제의 구조와 판단 기준을 정리하는 것이 목적이다.
+특정 제출 노트북의 코드를 줄줄이 해설하기보다, 이후 실험이 무작정 임계값을 바꾸는 시행착오로 흐르지 않도록 문제의 구조와 판단 기준부터 세우려 한다.
 
 핵심은 다음 한 줄이다.
 
@@ -39,8 +40,20 @@ $$
 각 노드 \(v\in V\)는 특정 시점의 세포 중심점이고, 방향 간선 \(e=(u\rightarrow v)\in E\)는 두 시점 사이에서 같은 세포를 잇는다.
 세포 분열은 제출 파일에 별도의 레이블로 기록하지 않는다.
 하나의 부모 노드에서 두 개의 자식 간선이 나가는 그래프 구조로 표현한다.
+다만 공식 평가는 이 직접적인 모양만 비교하지 않는다.
+분열 전 단계와 두 딸 계보를 덮는 하나의 약연결 성분 안에 예측 갈림점이 있으면, 갈라지는 시점이 조금 달라도 분열을 맞힐 수 있다.
 
-이 글의 모든 논리는 이 관점 위에 있다.
+이 글은 이 그래프 관점을 출발점으로 삼는다.
+
+글의 흐름은 다음과 같다.
+
+| 범위 | 다루는 질문 |
+|---|---|
+| 1--3절 | 입력과 정답은 어떤 구조이며, 공식 점수는 무엇을 보상하는가? |
+| 4--5절 | 고전적 기준선에서 학습 기반 그래프로 어떻게 넘어갔는가? |
+| 6--8절 | 그래프 복원, 희소 라벨 손실, ILP는 각각 어떤 오류를 맡는가? |
+| 9--11절 | 실제 점수 변화와 실패 사례에서 무엇을 배웠는가? |
+| 12--13절 | 왜 다음 단계가 모델 다양성과 엄격한 OOF 진단인가? |
 
 ---
 
@@ -126,47 +139,95 @@ $$
 d_{\mu m}(i,j) \le 7.0.
 $$
 
-간선의 양 끝 노드가 모두 정답 노드와 짝을 이루고, 그 정답 노드 사이에 실제 간선이 있을 때만 참 양성으로 인정된다.
-기본 간선 점수는 Jaccard 지수다.
+여기서 중요한 점은 반경 안의 모든 쌍을 정답으로 세지 않는다는 것이다.
+평가기는 프레임 \(t\)마다 허용 거리 안의 후보로 최적 이분 매칭을 만들며, 한 노드는 반대편의 노드 하나와만 짝을 이룰 수 있다.
 
 $$
-J_{\text{edge}}
+m_{ij}\in\{0,1\},
+\qquad
+\sum_jm_{ij}\le1,
+\qquad
+\sum_im_{ij}\le1,
+\qquad
+m_{ij}=0\ \text{if}\ d_{\mu m}(i,j)>7.
+$$
+
+예측 간선의 양 끝 노드가 모두 정답 노드와 짝을 이루고, 대응된 두 정답 노드 사이에 실제 간선이 있을 때만 참 양성으로 인정된다.
+대응된 정답 간선을 놓치면 거짓 음성이 된다.
+거짓 양성은 예측 간선의 도착 노드가 주석된 정답 노드에 대응되지만 다른 출발 노드와 연결돼야 하거나, 반대로 출발 노드는 대응되지만 다른 도착 노드와 연결돼야 하는 경우에만 센다.
+희소 주석 바깥의 예측 간선처럼 그 밖의 간선은 평가에서 무시한다.
+샘플 \(i\)의 기본 간선 점수는 Jaccard 지수다.
+
+$$
+J_{\text{edge},i}
 =
-\frac{TP_{\text{edge}}}
-{TP_{\text{edge}}+FP_{\text{edge}}+FN_{\text{edge}}}.
+\frac{TP_i}{TP_i+FP_i+FN_i}.
 $$
 
-노드를 지나치게 많이 예측하면 별도의 감점도 받는다.
-이를 단순화한 보정 간선 점수는 다음과 같다.
+노드 수 보정도 샘플별로 적용된다.
+예측 노드 수를 \(N_{\text{pred},i}\), 주석되지 않은 세포까지 포함해 제공되는 전체 세포 수의 거친 추정치를 \(N_{\text{total},i}\)라 두면 상대 오차는 다음과 같다.
 
 $$
-\tilde J_{\text{edge}}
+r_i
 =
-\max
-\left(
+\frac{N_{\text{pred},i}-N_{\text{total},i}}
+{N_{\text{total},i}}.
+$$
+
+공식 설명의 계수 \(a=0.1\)을 적용한 샘플별 보정 점수는
+
+$$
+J_{\text{adj},i}
+=
+\max\left(
 0,
-J_{\text{edge}}
-\left[
-1-a\frac{T_{\text{pred}}-T_{\text{true}}}{T_{\text{true}}}
-\right]
-\right).
+J_{\text{edge},i}(1-0.1r_i)
+\right)
 $$
 
-공식 설명에서 감점 계수는 \(a=0.1\)이다.
+이다.
+노드를 많이 예측하면 \(r_i>0\)이므로 감점되고, 적게 예측하면 보정 계수만 보면 1보다 커질 수 있다.
+그렇다고 노드를 줄이기만 하면 유리한 것은 아니다.
+빠진 노드는 연결 가능한 참 간선을 함께 없애 \(FN_i\)를 늘리기 때문이다.
+
+전체 간선 점수는 샘플별 점수의 단순 평균이 아니다.
+각 샘플의 간선 Jaccard 분모
+
+$$
+D_i=TP_i+FP_i+FN_i
+$$
+
+로 가중한다.
+
+$$
+J_{\text{edge}}^{\text{adjusted}}
+=
+\frac{\sum_i D_iJ_{\text{adj},i}}
+{\sum_i D_i}.
+$$
 
 분열 점수는 별도로 계산한다.
 정답의 분열은 계보 그래프의 갈림점으로 나타난다.
+세포가 실제로 갈라져 보이는 시점에는 주관성이 있으므로, 공식 평가는 정답 시점 앞뒤 한 프레임의 차이를 허용한다.
 예측 그래프가 분열 직전 구간과 두 자식 계보를 모두 포착해야 분열을 맞힌 것으로 본다.
-최종 점수는 다음과 같이 구성된다.
+구체적으로는 하나의 예측 약연결 성분이 분열 전 단계와 두 딸 계보를 모두 건드리고, 그 성분 안에 나가는 간선이 두 개인 갈림점이 있어야 한다.
+그 갈림점이 정답의 분열 노드와 직접 짝지어질 필요는 없다.
+분열 항은 샘플별 비율을 평균내지 않고 전체 사건 수를 합쳐 마이크로 평균한다.
+
+$$
+J_{\text{division}}
+=
+\frac{\sum_i TP_i^{\text{div}}}
+{\sum_i\left(TP_i^{\text{div}}+FP_i^{\text{div}}+FN_i^{\text{div}}\right)}.
+$$
+
+최종 점수는 두 항의 합이다.
 
 $$
 S
 =
-\tilde J_{\text{edge}}
-+
-wJ_{\text{division}},
-\qquad
-w=0.1.
+J_{\text{edge}}^{\text{adjusted}}
++0.1J_{\text{division}}.
 $$
 
 이 수식에서 세 가지 설계 원칙을 바로 얻을 수 있다.
@@ -439,7 +500,7 @@ def keep_component(component_nodes, component_edges, min_track_len=7):
     if len(component_nodes) >= min_track_len:
         return True
 
-    # Plausible forks should not be removed only because they are short.
+    # 타당한 분열 성분은 짧다는 이유만으로 제거하지 않는다.
     out_degree = {}
     for source_id, target_id in component_edges:
         out_degree[source_id] = out_degree.get(source_id, 0) + 1
@@ -1005,7 +1066,7 @@ else:
 
 ---
 
-## 12. 모델 다양성과 진정한 OOF
+## 12. 다음 단계: 모델 다양성과 엄격한 OOF
 
 두 번째 모델을 만드는 목적은 하나가 아니다.
 다른 시드로 전체 자료를 학습한 모델은 테스트 시점의 앙상블과 모델 간 불일치를 측정하는 데 유용하다.
@@ -1035,7 +1096,10 @@ for fold in (0, 1):
 
     assert set(train_movies).isdisjoint(holdout_movies)
 
-    weight = weights_root / f"split_{fold}" / "edge_predictor_best.pth"
+    # 외부 검증 폴드를 보기 전에 epoch를 고정한다.
+    fixed_epoch = 100
+    weight = weights_root / f"split_{fold}" / "checkpoint_last.pth"
+    assert checkpoint_metadata(weight)["epoch"] == fixed_epoch
     predictions = predict_graphs(
         movies=holdout_movies,
         weight_path=weight,
@@ -1050,7 +1114,10 @@ assert all(count == 1 for count in holdout_coverage.values())
 
 </details>
 
-확률을 혼합한다면 두 모델이 충분히 학습된 뒤 기준 모델에 더 큰 비중을 두는 편이 안전하다.
+여기서 외부 검증 폴드 점수가 가장 높았던 `edge_predictor_best.pth`를 같은 폴드의 OOF 예측에 사용하면 epoch 선택 누수가 생긴다.
+고정 epoch의 마지막 체크포인트를 쓰거나, 외부 학습 폴드 안에 별도의 내부 검증 자료를 두고 epoch를 선택해야 한다.
+
+두 모델의 확률을 섞는 방법은 다음처럼 쓸 수 있다.
 
 $$
 p_{\mathrm{blend}}
@@ -1059,10 +1126,13 @@ p_{\mathrm{blend}}
 +
 (1-\alpha)p_{\mathrm{seed}},
 \qquad
-\alpha\in[0.65,0.75].
+\alpha\in[0,1].
 $$
 
-그러나 단순 평균이 최종 목표는 아니다.
+이후 고정 비율 실험은 기준점을 넘지 못했지만, 이것만으로 모델 혼합에 추가 개선 여지가 없다고 결론 내릴 수는 없다.
+모델을 섞으면 로짓 분포뿐 아니라 ILP, 가지치기, 공백 및 분열 복원의 입력도 함께 바뀐다.
+따라서 $\alpha$와 전체 후처리 파라미터는 별도로 떼어 둔 OOF 보정 자료에서 함께 맞춰야 한다.
+단순 평균이 최종 목표는 아니다.
 두 모델이 같은 간선에 동의하는지, 어떤 상황에서 서로 다른 오류를 내는지가 더 중요한 정보다.
 
 OOF 복원 학습표는 다음과 같이 구성할 수 있다.
@@ -1146,3 +1216,19 @@ Center는 애매한 복원 후보를 확인하는 데만 사용한다
 독립 시드 모델로 예측 그래프의 불일치를 측정한다
 두 폴드 모델로 진정한 OOF 복원 학습표를 만든다
 ```
+
+---
+
+## 13. 정리
+
+이 대회에서 실질적인 최적화 단위는 개별 검출이나 간선 하나가 아니라 **최종 계보 그래프**다.
+노드 매칭, 간선 Jaccard, 노드 수 보정, 분열 성분 판정이 한 점수 안에서 맞물리기 때문에, 모델 가중치와 후처리를 떼어 놓고 평가할 수 없다.
+
+첫 번째 작업 기록에서 얻은 결론은 세 가지다.
+
+1. 물리 좌표계와 공식 매칭 규칙을 먼저 고정해야 한다.
+2. 학습 모델은 후보를 제안하고, 운동 기하와 ILP는 전역 충돌을 정리하며, 그래프 복원은 근거가 충분한 누락만 보완해야 한다.
+3. 더 복잡한 규칙을 추가하기 전에 각 수정이 실제 점수를 높이는지 OOF에서 검증할 수 있어야 한다.
+
+이 지점부터 질문은 “어떤 임계값이 리더보드에서 더 높았는가”가 아니라 “어떤 구조적 오류를, 어떤 증거로, 얼마만큼 고칠 수 있는가”로 바뀐다.
+후속 실험에서 확인된 리더보드 정체, 모델 혼합의 보정 문제, 고정 epoch OOF 설계와 분열 오류 해부는 [작업 기록 2](https://pilkwangkim.github.io/posts/BioHub-Cell-Tracking-Working-Note-2-OOF-Structural-Diagnostics-KR/)에 이어서 정리했다.
