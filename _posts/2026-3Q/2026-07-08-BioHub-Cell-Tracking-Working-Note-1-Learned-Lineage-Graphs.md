@@ -12,7 +12,8 @@ pin: false
 - Competition: [BioHub - Cell Tracking During Development](https://www.kaggle.com/competitions/biohub-cell-tracking-during-development)
 - Official metric notes: [RoyerLab kaggle-cell-tracking-competition metrics.md](https://github.com/royerlab/kaggle-cell-tracking-competition/blob/main/metrics.md)
 - Background: [Biohub Calls on AI Community to Transform 3D Cell Tracking](https://network.febs.org/posts/biohub-calls-on-ai-community-to-transform-3d-cell-tracking)
-- Korean version: [BioHub Cell Tracking 작업 기록 1: 학습 기반 계보 그래프와 평가지표를 고려한 복원](https://pilkwangkim.github.io/posts/BioHub-Cell-Tracking-Working-Note-1-Learned-Lineage-Graphs-KR/)
+- Korean version: [BioHub Cell Tracking 작업 기록 1: 학습 기반 계보 그래프와 평가지표에 맞춘 복원](https://pilkwangkim.github.io/posts/BioHub-Cell-Tracking-Working-Note-1-Learned-Lineage-Graphs-KR/)
+- Follow-up: [BioHub Cell Tracking Working Note 2: From a Leaderboard Plateau to OOF Structural Diagnostics](https://pilkwangkim.github.io/posts/BioHub-Cell-Tracking-Working-Note-2-OOF-Structural-Diagnostics/)
 
 Related public notebooks:
 
@@ -38,8 +39,17 @@ $$
 
 where each node \(v\in V\) is a detected cell centroid at one time point, and each directed edge \(e=(u\rightarrow v)\in E\) is a temporal link between cells.
 A division event is not a separate label in the submission file. In the official metric notes, it appears as graph topology: one parent node with exactly two outgoing edges.
+The scorer does not compare only that direct shape. A prediction can recover a division when one weakly connected component covers the pre-division stage and both daughter lineages and contains a predicted fork, even if the fork timing is slightly displaced.
 
-Everything that follows is built around that view.
+Everything that follows is built around that view. The note proceeds in five stages:
+
+| Sections | Question |
+|---|---|
+| 1--3 | What are the inputs, annotations, graph representation, and exact scoring rules? |
+| 4--5 | How did the solution move from a classical baseline to a learned lineage graph? |
+| 6--8 | Which errors are handled by graph repair, sparse-label objectives, and the ILP? |
+| 9--11 | What did the score progression and failed experiments reveal? |
+| 12--13 | Why are model diversity and strict OOF diagnostics the next step? |
 
 ---
 
@@ -130,47 +140,93 @@ $$
 d_{\mu m}(i,j) \le 7.0.
 $$
 
-After node matching, an edge is correct only when both endpoints match ground-truth nodes that are connected by a ground-truth edge.
-The basic edge score is Jaccard:
+The scorer does not count every pair inside the radius as a match.
+At each frame \(t\), it finds an optimal bipartite assignment over admissible pairs, with each node matched at most once:
 
 $$
-J_{\text{edge}}
+m_{ij}\in\{0,1\},
+\qquad
+\sum_jm_{ij}\le1,
+\qquad
+\sum_im_{ij}\le1,
+\qquad
+m_{ij}=0\ \text{if}\ d_{\mu m}(i,j)>7.
+$$
+
+After node matching, a predicted edge is correct only when both endpoints match ground-truth nodes connected by a ground-truth edge.
+A ground-truth edge without such a prediction is a false negative.
+A predicted edge is a false positive only when its matched target belongs to another annotated source, or its matched source belongs to another annotated target.
+Other predicted edges, including edges outside the sparse annotated context, are ignored.
+For sample \(i\), the basic edge score is:
+
+$$
+J_{\text{edge},i}
 =
-\frac{TP_{\text{edge}}}
-{TP_{\text{edge}}+FP_{\text{edge}}+FN_{\text{edge}}}.
+\frac{TP_i}{TP_i+FP_i+FN_i}.
 $$
 
-There is also a penalty for over-predicting the number of nodes.
-In simplified form, the adjusted edge score is:
+The node-count adjustment is also applied per sample.
+Let \(N_{\text{pred},i}\) be the predicted node count and \(N_{\text{total},i}\) the provided coarse estimate of all true cells, including unannotated cells:
 
 $$
-\tilde J_{\text{edge}}
+r_i
 =
-\max
-\left(
+\frac{N_{\text{pred},i}-N_{\text{total},i}}
+{N_{\text{total},i}}.
+$$
+
+With the official coefficient \(a=0.1\), the adjusted score for one sample is:
+
+$$
+J_{\text{adj},i}
+=
+\max\left(
 0,
-J_{\text{edge}}
-\left[
-1-a\frac{T_{\text{pred}}-T_{\text{true}}}{T_{\text{true}}}
-\right]
-\right),
+J_{\text{edge},i}(1-0.1r_i)
+\right).
 $$
 
-with penalty coefficient \(a=0.1\) in the official metric notes.
+Over-prediction gives \(r_i>0\) and lowers the score.
+Under-prediction can make the multiplier exceed one, but deleting nodes is not a free gain: missing nodes usually remove valid links and increase \(FN_i\).
+
+The aggregate edge score is not an unweighted mean over samples.
+It uses each sample's Jaccard denominator,
+
+$$
+D_i=TP_i+FP_i+FN_i,
+$$
+
+as its weight:
+
+$$
+J_{\text{edge}}^{\text{adjusted}}
+=
+\frac{\sum_iD_iJ_{\text{adj},i}}
+{\sum_iD_i}.
+$$
 
 Division scoring is separate.
 A ground-truth division is a fork in the lineage graph.
+Because the visible split time is subjective, the official metric allows a tolerance of one frame on either side of the annotated split.
 The predicted graph must cover the pre-split stage and touch both daughter lineages.
-The final score has the form:
+More precisely, one predicted weakly connected component must touch the pre-stage and both daughter lineages and contain a node with out-degree two.
+The fork itself does not have to be a predicted node directly matched to the ground-truth divider.
+Division events are micro-averaged across samples:
+
+$$
+J_{\text{division}}
+=
+\frac{\sum_iTP_i^{\text{div}}}
+{\sum_i\left(TP_i^{\text{div}}+FP_i^{\text{div}}+FN_i^{\text{div}}\right)}.
+$$
+
+The final score is:
 
 $$
 S
 =
-\tilde J_{\text{edge}}
-+
-wJ_{\text{division}},
-\qquad
-w=0.1.
+J_{\text{edge}}^{\text{adjusted}}
++0.1J_{\text{division}}.
 $$
 
 This equation shaped almost every decision in my notebook.
@@ -1007,7 +1063,7 @@ The shared principle is to restrict auxiliary-model authority according to the t
 
 ---
 
-## 12. Model Diversity, True OOF, And Current Direction
+## 12. Next Step: Model Diversity and Strict OOF
 
 A second model can serve two different purposes.
 An independent seed trained on all data is useful for test-time disagreement and ensembling.
@@ -1037,7 +1093,10 @@ for fold in (0, 1):
 
     assert set(train_movies).isdisjoint(holdout_movies)
 
-    weight = weights_root / f"split_{fold}" / "edge_predictor_best.pth"
+    # The epoch is fixed before inspecting this outer holdout.
+    fixed_epoch = 100
+    weight = weights_root / f"split_{fold}" / "checkpoint_last.pth"
+    assert checkpoint_metadata(weight)["epoch"] == fixed_epoch
     predictions = predict_graphs(
         movies=holdout_movies,
         weight_path=weight,
@@ -1052,7 +1111,9 @@ assert all(count == 1 for count in holdout_coverage.values())
 
 </details>
 
-Once the second model is mature enough, a conservative score blend can remain anchor-heavy:
+Using `edge_predictor_best.pth` selected on the outer holdout to predict that same holdout would leak epoch selection into OOF. Use a fixed-epoch last checkpoint, or select the epoch on a separate inner validation split inside each outer-training fold.
+
+A probability blend can be written as:
 
 $$
 p_{\mathrm{blend}}
@@ -1061,9 +1122,10 @@ p_{\mathrm{blend}}
 +
 (1-\alpha)p_{\mathrm{seed}},
 \qquad
-\alpha\in[0.65,0.75].
+\alpha\in[0,1].
 $$
 
+Later fixed-ratio experiments did not beat the anchor, but that does not establish that blending has no headroom. A blend changes the distributions seen by ILP, pruning, gap recovery, and division repair, so $\alpha$ and the complete downstream parameter vector must be calibrated jointly on separated OOF data.
 The real objective is not averaging by itself.
 It is learning where the models agree and where they make different errors.
 
@@ -1149,3 +1211,19 @@ use Center only for marginal repair confirmation
 train an independent seed for output-level disagreement
 build true OOF repair actions with two-fold models
 ```
+
+---
+
+## 13. Conclusion
+
+The effective optimization unit in this competition is the **submitted lineage graph**, not an isolated detection or edge.
+Node matching, edge Jaccard, node-count adjustment, and division-component scoring interact inside one metric, so a checkpoint cannot be evaluated independently from the graph construction and repair policy around it.
+
+The first working note leaves three conclusions:
+
+1. Fix the physical coordinate convention and the official matching rules before tuning anything else.
+2. Let the learned model propose evidence, use motion geometry and the ILP to resolve global conflicts, and repair only omissions supported by multiple signals.
+3. Before adding more rules, build an OOF procedure that can show whether each graph edit is actually metric-positive.
+
+At this point the question changes from “which threshold scored higher on the leaderboard?” to “which structural error can be corrected, by what evidence, and at what cost?”
+The later leaderboard plateau, the calibration problem in model blending, the fixed-epoch OOF design, and division-error anatomy continue in [Working Note 2](https://pilkwangkim.github.io/posts/BioHub-Cell-Tracking-Working-Note-2-OOF-Structural-Diagnostics/).
