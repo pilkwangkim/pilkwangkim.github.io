@@ -34,8 +34,8 @@ $$
 a_t \in A_t = \text{Options}(o_t)
 $$
 
-Here (o_t) is the information visible to the agent and (A_t) is the variable-length option set.
-A model can assign one score to every candidate (c_i\in A_t):
+Here $o_t$ is the information visible to the agent and $A_t$ is the variable-length option set.
+A model can assign one score to every candidate $c_i\in A_t$:
 
 $$
 s_i=f_\theta(o_t,c_i), \qquad
@@ -106,14 +106,14 @@ partially observable Markov decision process (POMDP) than a fully observed MDP.
 
 | Term | Meaning in this project |
 |---|---|
-| Observation (o_t) | Board, revealed cards, counters, logs, and in-turn flags visible to the agent |
-| Action set (A_t) | The variable-length option list presented by the engine |
-| Policy (pi(a\mid o)) | A rule or model that chooses an action from the observation |
-| Trajectory | A game sequence ((o_0,a_0,o_1,a_1,\ldots)) |
-| Reward (r_t) | A learning signal; the true objective is the final game result |
-| State value (V(o)) | Expected future return from the current information state |
-| Action value (Q(o,a)) | Expected future return after choosing a particular action |
-| Advantage (A(o,a)) | How much better an action appears than the state's baseline value |
+| Observation $o_t$ | Board, revealed cards, counters, logs, and in-turn flags visible to the agent |
+| Action set $A_t$ | The variable-length option list presented by the engine |
+| Policy $\pi(a\mid o)$ | A rule or model that chooses an action from the observation |
+| Trajectory | A game sequence $(o_0,a_0,o_1,a_1,\ldots)$ |
+| Reward $r_t$ | A learning signal; the true objective is the final game result |
+| State value $V(o)$ | Expected future return from the current information state |
+| Action value $Q(o,a)$ | Expected future return after choosing a particular action |
+| Advantage $A(o,a)$ | How much better an action appears than the state's baseline value |
 
 #### 3.2 Behavior cloning is not RL, but it is the right starting point
 
@@ -485,14 +485,14 @@ Field proxies require two audits.
 
 #### Matchup fidelity
 
-Compare the real field rate (r_m) with the local proxy rate (hat r_m):
+Compare the real field rate $r_m$ with the local proxy rate $\hat r_m$:
 
 $$
 E_{fidelity}
 =\sum_m q_m|\hat r_m-r_m|,
 $$
 
-where (q_m) represents current matchup relevance. A low average error is not enough if an important
+where $q_m$ represents current matchup relevance. A low average error is not enough if an important
 matchup reverses sign.
 
 Two Festival proxies built from July 14 data achieved same-day weighted matchup errors of roughly
@@ -589,7 +589,7 @@ P(z\mid x_{visible})
 \propto P(z)\prod_{c\in x_{visible}}P(c\mid z).
 $$
 
-Here (z) is an opponent archetype and (x_{visible}) contains public active, bench, discard,
+Here $z$ is an opponent archetype and $x_{visible}$ contains public active, bench, discard,
 tools, and attached energy. Before informative cards are revealed, the router falls back to current
 field priors and generic experts.
 
@@ -718,7 +718,7 @@ Some target decks are only now reaching these prerequisites. CQL and IQL are nex
 established solutions for this competition.
 
 Their reference implementations are not drop-in solutions either. Because the legal action set
-changes at every decision, the critic must score (Q(o,c_i)) for each current option, and the
+changes at every decision, the critic must score $Q(o,c_i)$ for each current option, and the
 Bellman target must be restricted to `next_options`. Incorrect masking or multi-select handling can
 corrupt value learning even when the offline algorithm itself is conservative.
 
