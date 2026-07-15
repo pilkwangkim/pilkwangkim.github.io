@@ -190,8 +190,8 @@ S_{\mathrm{OOF}}\left(g_\alpha,\theta\right)
 S_{\mathrm{OOF}}\left(f_A,\theta\right).
 $$
 
-기존 제출은 공개 점수에서 \(\Delta_{\mathrm{fixed}}\)의 잡음 섞인 대리값을 본 셈이다.
-\(\Delta_{\mathrm{fixed}}\le0\)이어도 공동 보정 뒤의 추가 개선 여지를 뜻하는 \(\Delta_{\mathrm{joint}}^*\)가 0 이하라고 단정할 수는 없다.
+기존 제출은 공개 점수에서 $\Delta_{\mathrm{fixed}}$의 잡음 섞인 대리값을 본 셈이다.
+$\Delta_{\mathrm{fixed}}\le0$이어도 공동 보정 뒤의 추가 개선 여지를 뜻하는 $\Delta_{\mathrm{joint}}^*$가 0 이하라고 단정할 수는 없다.
 
 모델을 혼합하면 다음 분포가 동시에 바뀐다.
 
@@ -271,7 +271,7 @@ J_{\mathrm{edge},i}(1-0.1r_i)
 $$
 
 전체 간선 점수는 샘플별 단순 평균이 아니다.
-\(D_i=TP_i+FP_i+FN_i\)를 각 영상의 가중치로 사용한다.
+$D_i=TP_i+FP_i+FN_i$를 각 영상의 가중치로 사용한다.
 
 $$
 J_{\mathrm{edge}}^{\mathrm{adjusted}}
@@ -443,7 +443,7 @@ R_{\phi^*}(\hat G^{\mathrm{OOF}})
 \right).
 $$
 
-여기서 \(\mathcal D_{\mathrm{fit}}\)은 정책 자체를 학습하는 자료, \(\mathcal D_{\mathrm{cal}}\)은 임계값을 고르는 자료, \(\mathcal D_{\mathrm{eval}}\)은 최종 판정 자료다.
+여기서 $\mathcal D_{\mathrm{fit}}$은 정책 자체를 학습하는 자료, $\mathcal D_{\mathrm{cal}}$은 임계값을 고르는 자료, $\mathcal D_{\mathrm{eval}}$은 최종 판정 자료다.
 자료가 작다면 배아·영상 단위의 중첩 교차검증으로 이 역할을 번갈아 맡길 수 있지만, 같은 행으로 학습·보정·평가를 모두 해서는 안 된다.
 
 <details markdown="1">

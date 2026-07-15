@@ -37,7 +37,7 @@ $$
 G=(V,E),
 $$
 
-where each node \(v\in V\) is a detected cell centroid at one time point, and each directed edge \(e=(u\rightarrow v)\in E\) is a temporal link between cells.
+where each node $v\in V$ is a detected cell centroid at one time point, and each directed edge $e=(u\rightarrow v)\in E$ is a temporal link between cells.
 A division event is not a separate label in the submission file. In the official metric notes, it appears as graph topology: one parent node with exactly two outgoing edges.
 The scorer does not compare only that direct shape. A prediction can recover a division when one weakly connected component covers the pre-division stage and both daughter lineages and contains a predicted fork, even if the fork timing is slightly displaced.
 
@@ -141,7 +141,7 @@ d_{\mu m}(i,j) \le 7.0.
 $$
 
 The scorer does not count every pair inside the radius as a match.
-At each frame \(t\), it finds an optimal bipartite assignment over admissible pairs, with each node matched at most once:
+At each frame $t$, it finds an optimal bipartite assignment over admissible pairs, with each node matched at most once:
 
 $$
 m_{ij}\in\{0,1\},
@@ -157,7 +157,7 @@ After node matching, a predicted edge is correct only when both endpoints match 
 A ground-truth edge without such a prediction is a false negative.
 A predicted edge is a false positive only when its matched target belongs to another annotated source, or its matched source belongs to another annotated target.
 Other predicted edges, including edges outside the sparse annotated context, are ignored.
-For sample \(i\), the basic edge score is:
+For sample $i$, the basic edge score is:
 
 $$
 J_{\text{edge},i}
@@ -166,7 +166,7 @@ J_{\text{edge},i}
 $$
 
 The node-count adjustment is also applied per sample.
-Let \(N_{\text{pred},i}\) be the predicted node count and \(N_{\text{total},i}\) the provided coarse estimate of all true cells, including unannotated cells:
+Let $N_{\text{pred},i}$ be the predicted node count and $N_{\text{total},i}$ the provided coarse estimate of all true cells, including unannotated cells:
 
 $$
 r_i
@@ -175,7 +175,7 @@ r_i
 {N_{\text{total},i}}.
 $$
 
-With the official coefficient \(a=0.1\), the adjusted score for one sample is:
+With the official coefficient $a=0.1$, the adjusted score for one sample is:
 
 $$
 J_{\text{adj},i}
@@ -186,8 +186,8 @@ J_{\text{edge},i}(1-0.1r_i)
 \right).
 $$
 
-Over-prediction gives \(r_i>0\) and lowers the score.
-Under-prediction can make the multiplier exceed one, but deleting nodes is not a free gain: missing nodes usually remove valid links and increase \(FN_i\).
+Over-prediction gives $r_i>0$ and lowers the score.
+Under-prediction can make the multiplier exceed one, but deleting nodes is not a free gain: missing nodes usually remove valid links and increase $FN_i$.
 
 The aggregate edge score is not an unweighted mean over samples.
 It uses each sample's Jaccard denominator,
@@ -273,7 +273,7 @@ def within_match_gate(a_zyx, b_zyx, gate_um=7.0):
 </details>
 
 This small contract prevents a surprisingly common error.
-The \(z\) axis is about four times coarser than \(x\) and \(y\).
+The $z$ axis is about four times coarser than $x$ and $y$.
 Treating voxel distance as Euclidean distance in raw index space can make the linking gate physically wrong.
 
 ---
@@ -305,7 +305,7 @@ The key classical refinements were:
 
 1. **Intensity-weighted centroid refinement**
 
-   For a coarse peak, refine its coordinate inside a local window \(W\):
+   For a coarse peak, refine its coordinate inside a local window $W$:
 
    $$
    \hat{\mathbf r}
@@ -372,7 +372,7 @@ f_\theta(X_{t-k:t+k})(\mathbf r)
 \right),
 $$
 
-where \(X_{t-k:t+k}\) is a short temporal context around frame \(t\).
+where $X_{t-k:t+k}$ is a short temporal context around frame $t$.
 
 The learned edge model produces a logit for each candidate pair:
 
@@ -382,7 +382,7 @@ z_{ij}
 g_\phi(h_i,h_j,\Delta t,\Delta \mathbf r).
 $$
 
-Here \(h_i\) and \(h_j\) are learned node representations.
+Here $h_i$ and $h_j$ are learned node representations.
 The logits are normalized and passed to an optimization layer rather than accepting every edge independently.
 That matters because a lineage graph has structural constraints.
 A node should not have arbitrary many parents.
@@ -391,7 +391,7 @@ Division-like forks should be rare and physically plausible.
 ### 5.1 Combining Learned Edges With Motion Geometry
 
 The post-link assignment does not use learned probability alone.
-When the previous displacement of source node \(i\) is available, its next
+When the previous displacement of source node $i$ is available, its next
 position is predicted as:
 
 $$
@@ -400,7 +400,7 @@ $$
 p_i+\lambda(p_i-p_{i-1}).
 $$
 
-The assignment cost for candidate target \(j\) is:
+The assignment cost for candidate target $j$ is:
 
 $$
 C_{ij}
@@ -410,8 +410,8 @@ C_{ij}
 -\beta q_{ij}.
 $$
 
-Here \(q_{ij}\) is the learned edge probability and \(\beta\) determines how strongly learned evidence resolves a geometric tie.
-The current anchor uses \(\lambda=0.5\) and \(\beta=0.75\).
+Here $q_{ij}$ is the learned edge probability and $\beta$ determines how strongly learned evidence resolves a geometric tie.
+The current anchor uses $\lambda=0.5$ and $\beta=0.75$.
 Pairs outside the physical gate receive a large cost, and Hungarian assignment selects a one-to-one matching.
 
 <details markdown="1">
@@ -452,7 +452,7 @@ matches = [
 </details>
 
 This equation also explains the parameter sensitivity.
-If \(\beta\) is too small, the system becomes almost a nearest-motion tracker.
+If $\beta$ is too small, the system becomes almost a nearest-motion tracker.
 If it is too large, an imperfectly calibrated learned score can override good geometry.
 
 ---
@@ -553,7 +553,7 @@ d_{\mu m}(\mathbf r_t,\mathbf r_{t+2})
 2r_{\text{gap}}.
 $$
 
-If an existing node is close to \(\mathbf m\), the notebook reuses it.
+If an existing node is close to $\mathbf m$, the notebook reuses it.
 Otherwise, it may create a synthetic midpoint and refine it from the image with a local intensity-weighted centroid.
 The synthetic shift is capped:
 
@@ -627,7 +627,7 @@ def commit_gap_repair(
 </details>
 
 Division recovery is even more conservative.
-For a parent \(p_t\), an existing child \(c^{(1)}_{t+1}\), and a candidate second child \(c^{(2)}_{t+1}\), the edit is allowed only when:
+For a parent $p_t$, an existing child $c^{(1)}_{t+1}$, and a candidate second child $c^{(2)}_{t+1}$, the edit is allowed only when:
 
 $$
 d_{\mu m}(p,c^{(2)})\le r_{\text{parent}},
@@ -659,9 +659,9 @@ $$
 
 ### 8.1 Detection Loss
 
-Let \(y(\mathbf r)=1\) at an annotated center voxel and zero elsewhere.
-Because the annotation is sparse, \(y=0\) does not necessarily mean background.
-Positive and negative terms are normalized separately, and the negative mass is scaled by a small \(\eta\):
+Let $y(\mathbf r)=1$ at an annotated center voxel and zero elsewhere.
+Because the annotation is sparse, $y=0$ does not necessarily mean background.
+Positive and negative terms are normalized separately, and the negative mass is scaled by a small $\eta$:
 
 $$
 w_+=\frac{1}{N_+},
@@ -684,7 +684,7 @@ Annotated centers remain strong positives without turning every unannotated brig
 
 ### 8.2 Edge Loss
 
-Let \(Y_{ij}\) be the ground-truth transition matrix between consecutive frames.
+Let $Y_{ij}$ be the ground-truth transition matrix between consecutive frames.
 Only rows or columns participating in an annotated transition enter the sparse supervision mask:
 
 $$
@@ -709,7 +709,7 @@ $$
 
 Each target therefore competes for one parent, while one source can still score highly for two targets.
 This suppresses merges without removing the representation of division.
-The implementation uses focal BCE with \(\gamma=2\):
+The implementation uses focal BCE with $\gamma=2$:
 
 $$
 p^*_{ij}
@@ -752,8 +752,8 @@ def sparse_edge_loss(logits, target):
 
 ### 8.3 What The ILP Adds
 
-The neural score \(q_{ij}\) is local evidence, not a valid lineage graph by itself.
-At inference, binary variables \(x_{ij}\) select edges while appearance, disappearance, and division variables carry structural costs.
+The neural score $q_{ij}$ is local evidence, not a valid lineage graph by itself.
+At inference, binary variables $x_{ij}$ select edges while appearance, disappearance, and division variables carry structural costs.
 A simplified objective is:
 
 $$
@@ -774,12 +774,12 @@ $$
 b_i\in\{0,1\}.
 $$
 
-The first inequality prevents merges; the second allows one child normally and two when node \(i\) is selected as a division.
+The first inequality prevents merges; the second allows one child normally and two when node $i$ is selected as a division.
 
 ### 8.4 Positive-Unlabelled Loss For The Center Model
 
 The auxiliary DeepCenterUNet3D predicts a single-frame center heatmap.
-Let \(h(\mathbf r)\) be the target heatmap and \(Q_{0.4}(I)\) the 40th intensity percentile.
+Let $h(\mathbf r)$ be the target heatmap and $Q_{0.4}(I)$ the 40th intensity percentile.
 Its voxel weight is:
 
 $$
@@ -864,7 +864,7 @@ model weights
 ```
 
 not as weights alone.
-For example, moving the detector threshold from the \(0.9700\) anchor to \(0.9675\) and \(0.9725\) produced \(0.899\) on both sides.
+For example, moving the detector threshold from the $0.9700$ anchor to $0.9675$ and $0.9725$ produced $0.899$ on both sides.
 That effectively closed the local detector-threshold axis.
 
 ### 9.2 Error Anatomy: 300ep Versus 400ep
@@ -894,7 +894,7 @@ The failed experiments clarified how much authority each signal should receive.
 ### 10.1 Broad Recall And Aggressive TTA
 
 Intensity TTA and aggressive detection expansion increased node counts without beating the best graph.
-One intensity-TTA branch fell to \(0.894\).
+One intensity-TTA branch fell to $0.894$.
 Six-view spatial TTA using flips and XY rotations was useful, but more views were not automatically better.
 
 ### 10.2 An `edge_predictor` Checkpoint Is Not Just An Edge Head
@@ -909,20 +909,20 @@ The filename suggests an edge scorer, but the checkpoint contains the full model
 | Public score | about 0.900 | 0.861 |
 
 Nodes and edges increased by roughly 33%.
-The new checkpoint had inherited the old \(0.97\) detection threshold and configuration without recalibration.
+The new checkpoint had inherited the old $0.97$ detection threshold and configuration without recalibration.
 This showed that an independent-seed model should not be submitted as a blind weight swap.
 It should be calibrated and combined through output-level consensus or disagreement.
 
 ### 10.3 Small ILP Changes Still Need Isolated Experiments
 
-Lowering the division weight from \(1.0\) to \(0.7\) scored \(0.897\).
+Lowering the division weight from $1.0$ to $0.7$ scored $0.897$.
 The same notebook also contained a `pool_kernel_um=2.0` patch, but it ran after prediction and therefore had no effect on the submission.
 Bundling changes into one cell can make execution order obscure what was actually tested.
 
 ### 10.4 Center Is Still Dangerous As A Global Detector
 
 DeepCenterUNet3D did not help as a blind union or as a hard gate over every synthetic node.
-Requiring Center confidence for all synthetic gap nodes reduced the score to \(0.898\).
+Requiring Center confidence for all synthetic gap nodes reduced the score to $0.898$.
 A genuinely missing cell is often dim or occluded, so the auxiliary detector can make the same false negative in the same difficult frame.
 
 There was also an artifact trap.
@@ -938,7 +938,7 @@ It received veto authority only over **geometrically marginal one-frame gaps** a
 This line of work extends the public
 [Biohub Cell Tracking: Blend Preprocessings](https://www.kaggle.com/code/pilkwang/biohub-cell-tracking-blend-preprocessings) notebook.
 
-For a track ending at \(t\) and another beginning at \(t+2\), the gap proposal is:
+For a track ending at $t$ and another beginning at $t+2$, the gap proposal is:
 
 $$
 \tilde p_{t+1}=\frac{p_t+p_{t+2}}{2}.
@@ -955,9 +955,9 @@ $$
 \end{cases}
 $$
 
-Here \(d=\|p_{t+2}-p_t\|_2\), and \(c\) is the DeepCenter probability near the proposed midpoint.
-This configuration scored \(0.901\).
-In contrast, requiring \(c\ge0.15\) for every synthetic gap node scored \(0.898\).
+Here $d=\|p_{t+2}-p_t\|_2$, and $c$ is the DeepCenter probability near the proposed midpoint.
+This configuration scored $0.901$.
+In contrast, requiring $c\ge0.15$ for every synthetic gap node scored $0.898$.
 
 The difference reveals the correct signal hierarchy:
 
@@ -1015,7 +1015,7 @@ e_{\text{cons}}
 \|\hat p_f-\hat p_b\|_2.
 $$
 
-When \(e_{\text{cons}}\le2.5\,\mu\mathrm{m}\), temporal consensus takes priority over a weak image-space veto.
+When $e_{\text{cons}}\le2.5\,\mu\mathrm{m}$, temporal consensus takes priority over a weak image-space veto.
 
 <details markdown="1">
 <summary>Show snippet: adaptive Center gate and bidirectional consensus</summary>
@@ -1055,7 +1055,7 @@ else:
 
 The next experiments derived from this result are not another global-threshold sweep:
 
-1. a distance-adaptive gate that raises the Center threshold from \(0.12\) to \(0.28\) as the gap grows;
+1. a distance-adaptive gate that raises the Center threshold from $0.12$ to $0.28$ as the gap grows;
 2. a bidirectional motion gate that bypasses Center when forward and backward velocity predictions agree;
 3. a causal split between synthetic gap nodes and reuse of observed isolated nodes.
 
@@ -1158,7 +1158,7 @@ c_{ij}
 \right].
 $$
 
-Here \(c_{ij}\) is optional Center evidence and \(\rho\) is local density.
+Here $c_{ij}$ is optional Center evidence and $\rho$ is local density.
 A compact policy can then export:
 
 $$

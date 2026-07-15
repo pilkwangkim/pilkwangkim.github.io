@@ -177,8 +177,8 @@ S_{\mathrm{OOF}}\left(g_\alpha,\theta\right)
 S_{\mathrm{OOF}}\left(f_A,\theta\right).
 $$
 
-The submitted experiments gave a noisy public-leaderboard proxy for \(\Delta_{\mathrm{fixed}}\).
-Even if \(\Delta_{\mathrm{fixed}}\le0\), it does not follow that the jointly calibrated headroom \(\Delta_{\mathrm{joint}}^*\) is non-positive.
+The submitted experiments gave a noisy public-leaderboard proxy for $\Delta_{\mathrm{fixed}}$.
+Even if $\Delta_{\mathrm{fixed}}\le0$, it does not follow that the jointly calibrated headroom $\Delta_{\mathrm{joint}}^*$ is non-positive.
 
 A blend changes all of the following distributions:
 
@@ -252,7 +252,7 @@ J_{\mathrm{edge},i}(1-0.1r_i)
 $$
 
 The aggregate edge score is not an unweighted mean over videos.
-It uses \(D_i=TP_i+FP_i+FN_i\) as the sample weight:
+It uses $D_i=TP_i+FP_i+FN_i$ as the sample weight:
 
 $$
 J_{\mathrm{edge}}^{\mathrm{adjusted}}
@@ -410,7 +410,7 @@ R_{\phi^*}(\hat G^{\mathrm{OOF}})
 \right).
 $$
 
-Here \(\mathcal D_{\mathrm{fit}}\) trains the policy, \(\mathcal D_{\mathrm{cal}}\) chooses operating thresholds, and \(\mathcal D_{\mathrm{eval}}\) supports the final claim.
+Here $\mathcal D_{\mathrm{fit}}$ trains the policy, $\mathcal D_{\mathrm{cal}}$ chooses operating thresholds, and $\mathcal D_{\mathrm{eval}}$ supports the final claim.
 With limited data, grouped nested cross-validation can rotate these roles, but the same rows must not serve all three purposes.
 
 <details markdown="1">
