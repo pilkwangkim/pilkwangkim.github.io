@@ -1,6 +1,6 @@
 ---
 title: "AI Agent Security (Part 4): Past the Framing Plateau"
-date: 2026-07-16 22:00:00 +0900
+date: 2026-07-15 22:00:00 +0900
 categories: [AI, Kaggle]
 tags: [kaggle, ai-agent-security, red-teaming, agent-safety, exfiltration, prompt-injection, scoring, reverse-engineering, throughput, per-model, replay, variance]
 math: true
