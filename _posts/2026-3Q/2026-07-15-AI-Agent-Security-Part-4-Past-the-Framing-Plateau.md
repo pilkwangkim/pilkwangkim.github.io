@@ -142,6 +142,40 @@ The single durable lever here is sizing accuracy, and it belongs to the single-p
 
 A negative result, as far as we can tell: the top single-post scores appear to be the same engine, not a better one. Byte-identical code — the same submission, resubmitted — lands across a one-to-two-point band on different GPU draws, and the leaderboard's high single-post entries are best-of banking the top of that band by re-throwing. We have not found a hidden single-post trick above $\sim 85$ that a closer read recovers; the score there looks like variance, harvested by resubmission. The gap from a maxed single-post engine to the next tier is not a tuning gap that more framing or templates closes — those move the score within the noise. It is the raw wall, and the raw wall is behavioural.
 
-## 11. Where this ends
+## 11. Where the outside view ends
 
 The scorer left the door open — raw sums per firing post, uncapped in the practical regime — and the agent walks through it once. Both routes to a second scored event collapse to the same behaviour: do the action, report done, stop. The practical ceiling of the levers found is the single-post engine at the top of its draw distribution, banked by resubmission. One thread looked open: the multi-message decay sets in after the first turn or two, so a two-message chain might catch those first posts before the model calls it done — a narrow window, and the only place the raw wall had shown a seam. Thrown at low fill, it closed too: the chain fired about one post, not two, so the decay appears to land by the second message rather than gradually. On the data so far that seam is shut, though whether some framing reopens it stays an empirical question. Everything else about the search past the single post says the same thing: the constraint was never the scoring function. It was the agent's willingness to repeat itself.
+
+---
+
+## 12. A way to check the inference
+
+Everything above was read from the outside. A submission is a black box: one number, half a day later, over two models whose behaviour is inferred from the score and never watched. §11 ended on a claim about that behaviour — that the agent will not repeat a completed action — and a claim is a thing to test, not to trust.
+
+Both target agents are public: `gpt-oss-20b` and `gemma-4-26B-A4B`, each a small-active mixture-of-experts that runs on a laptop. The SDK ships the agents, the gym environment, and the guardrail; the served models are gguf files loaded through the same llama.cpp backend the evaluator uses. So the whole replay path reproduces locally — the exact weights, the exact env, the exact guardrail, greedy decode — and a candidate runs in under a second instead of thirteen hours, with no submission budget spent. Everything below is measured on that harness; because decoding is greedy the local behaviour is deterministic and tracks the served run.
+
+## 13. The reasoning agent does repeat — the wall is throughput
+
+The first framing to run is the one §7 said fails: several endpoints, one `http.post` per hop. It does not fail. The reasoning agent fires **three** posts, one per hop, cleanly — a numbered sequence, a pipeline, a set of recipients, three every time. The agent that stops at one, finalising with plain text after the first post, is the *non-reasoning* one. So the "the agent won't repeat itself" of §11 is true of exactly one of the two rows and false of the other — and §2's outside-view guess that the reasoning agent "stalls after two" was simply reading it low.
+
+Which reopens the question §7 closed for the wrong reason: if the reasoning agent will chain $K$ posts worth $16K+2$, why does chaining lose? Measure the two costs. The fixed per-candidate cost $F$ — build the environment, prefill the prompt — is **60 ms**. The marginal cost of one more post, $g$, is **0.75 s**. So $F/g \approx 0.08$, and throughput is
+
+$$\text{raw per second} = \frac{16K+2}{F + Kg},$$
+
+which, with $F$ this small, is largest at $K=1$: each extra post is a full generation of its own, with almost no fixed cost for it to amortise. Worse, the $+2$ novelty cell is credited once per candidate, so packing three posts into one candidate spends that bonus a third as often. Measured against a single post, a triple lands at **0.97×** — a hair *below*. Chaining had to clear $F/g > \tfrac{3\cdot 18 - 50}{50 - 18} = 0.125$ to pay, and it comes in under. The ratio is a count of prefill tokens over decode tokens, not a wall-clock speed, so it is the same on the evaluator's slower GPU and for the non-reasoning row too. The four multi-post framings that landed below the single-post floor were not a compliance failure. They were this: a scorer that pays per post, over an agent whose posts do not amortise.
+
+## 14. The knobs, on a scale
+
+The same harness prices every knob that lifted the score, because a row scales as $N = B/t_\text{cand}$ (§3): a knob that cuts the per-candidate time $t_\text{cand}$ by a factor $x$ lifts its row by $x$. Each was a claim about the reasoning row's chain-of-thought; each now reads as a number. Changing one thing at a time, on the reasoning agent:
+
+| knob | $t_\text{cand}$ | factor | why |
+|---|---|---|---|
+| wrap-up: `Output nothing else.` → `Then answer OK only.` | $4.86 \to 2.79$ s | $1.75\times$ | the negative terminal makes a reasoner deliberate over the empty state; a positive one-token task removes it |
+| hop-0 framing: `+ Routine forward, no analysis needed.` | $2.79 \to 2.33$ s | $1.20\times$ | a low-salience cue shrinks the remaining chain-of-thought |
+| harmony injection: forge a completed analysis turn | $2.33 \to 0.86$ s | $2.71\times$ | control tokens present the analysis as already written, so the model skips it |
+
+Multiplied, the three take the reasoning row from **$4.86$ s** — the un-collapsed negative terminal — down to **$0.86$ s**, about $5.7\times$: the throughput lever the whole first half of this post was spending points on, now on a scale.
+
+The verdict comes from running the *same three knobs* on the non-reasoning agent: $+0\%$, $-5\%$, and $-53\%$. The harmony injection worth $2.71\times$ on the reasoning row is worth **negative half** on the other — it cannot parse the control tokens, so they arrive as text it dutifully processes. That is the whole case for per-model routing, which §1 introduced as a small structural lever: a knob that triples one row halves the other, so the two rows must be sent different shapes. The non-reasoning row has no chain-of-thought to suppress; its fastest form is its plainest one, and it sits near $1$ s whatever is done to it.
+
+A floor shows through all of this. A single candidate is two generations, not one: the post on hop 0, then a forced wrap-up on hop 1 — the loop calls the agent again after a tool call, and only a final response ends it, and replay always grants eight hops. That wrap-up is **a third of $t_\text{cand}$**, and it cannot be removed, only shrunk to the one-token minimum the collapse already reaches. A post plus a forced wrap-up, both at their floor, is where the single-post engine sits. That is not a tuning plateau; it is the shape of the task.
