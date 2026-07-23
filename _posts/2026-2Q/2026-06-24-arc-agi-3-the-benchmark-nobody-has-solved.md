@@ -11,7 +11,7 @@ pin: false
 
 # ARC-AGI-3: The Benchmark Nobody Has Solved Yet
 
-> **Status note (written 2026-06-25).** ARC-AGI-3 is an active competition and the scaffolding around it is still moving. I have checked the durable pieces below against the official ARC Prize pages, docs, and technical report, but leaderboard positions, notebook runtimes, and milestone mechanics can change. Treat the exact leaderboard figures as timestamped, not permanent.
+> **Status note (updated 2026-07-23).** This article was originally written on June 24 and substantially revised after Milestone #1. I checked the update against the Kaggle CLI, the official ARC Prize result, the released submissions, and the latest papers. ARC-AGI-3 is still active, so every leaderboard number below is a dated snapshot rather than a permanent record.
 
 Competition link:  
 [ARC Prize 2026 - ARC-AGI-3](https://www.kaggle.com/competitions/arc-prize-2026-arc-agi-3)
@@ -27,13 +27,13 @@ Technical report:
   <figcaption>ARC-AGI-3 moves the ARC benchmark family from static grid transformations into interactive, instruction-free game environments.</figcaption>
 </figure>
 
-> **One-paragraph version.** ARC-AGI-3 reframes "reasoning" as something you have to *do*, not something you *output*. An agent is dropped into an unfamiliar 2D grid game with no instructions and is scored on how *efficiently* it learns to win, relative to a human who has never seen the game either. The striking fact — the one that should anchor everything else you read about it — is that as of mid-2026 **every system, frontier LLMs and purpose-built agents alike, scores below ~2%.** That is not a measurement artifact. It is the entire point of the benchmark, and it is why I think this is the most interesting open problem on Kaggle right now.
+> **One-paragraph version.** ARC-AGI-3 reframes "reasoning" as something you have to *do*, not something you *output*. An agent enters an unfamiliar 2D grid game with no instructions and is scored on how efficiently it learns to win relative to a human seeing the game for the first time. The post-Milestone #1 picture is more interesting than the launch picture: a local open-weight LLM can be a valid Kaggle agent, and Tufa Labs won with one. Yet the July 23 Kaggle leader was still only at **1.86%**, while far larger frontier systems reported much higher results on the visible public games. The benchmark is now exposing two problems at once: learning a world through action, and making that process generalize under an offline nine-hour sandbox.
 
 ## Why I'm writing this
 
 I'm working through ARC-AGI-3 seriously, and writing is how I think. This post is my attempt to lay out — as precisely as I can — what the competition actually is, how the scoring works, what the current state of the art looks like once you strip away the leaderboard theater, and how I'd approach it. The framing is opinionated on purpose. Where I'm stating fact I'll try to be careful; where I'm stating a bet, I'll say so.
 
-If you take one thing away: **do not trust the leaderboard number you see attached to a notebook.** I'll explain why in detail, but the short version is that the public scoreboard is a mix of stale scores computed under an older scoring rule, scores inflated by overfitting to the public games, and — until recently — scores inflated by an exploit that has since been patched. The honest signal is much lower and much more uniform than it looks.
+If you take one thing away: **never quote an ARC-AGI-3 score without its evaluation context.** A Kaggle hidden score, an ARC Prize public/semi-private evaluation, and a best-of public-game research run are not the same measurement. Older submissions also include stale scoring rules and a patched public-source exploit. The number is meaningful only when the game set, compute envelope, retry policy, and date travel with it.
 
 ### A beginner's map
 
@@ -69,7 +69,7 @@ Here is the minimum background I would want before touching an agent:
 
 And here is what you **do not** need on day one:
 
-- You do not need a giant language model. Hosted APIs are unavailable during final evaluation anyway.
+- You do not need a giant language model on day one. Hosted APIs are unavailable during evaluation, but a local open-weight model packaged as a Kaggle input is legal — and Milestone #1 showed that this route is competitive.
 - You do not need a polished neural architecture. A bad logger plus a fancy model is worse than a simple graph search you can inspect.
 - You do not need to solve all 25 public games manually. Playing a few by hand is useful; memorizing them is a trap.
 - You do not need to understand every Kaggle forum argument before writing code. Start with the official docs, the starter kit, and one local game.
@@ -102,12 +102,12 @@ Here is the same lineage as a compact comparison. The numbers are deliberately a
 |---|---|---|---|
 | Format | Static grid puzzles | Static grid puzzles, harder and more compositional | Interactive game environments |
 | Instructions | Input-output demo pairs | Input-output demo pairs | No natural-language instructions; discover rules through interaction |
-| Best reported AI score | o3 reached 75.7% at the public compute limit and 87.5% with high compute on the semi-private set; public-eval reports went above 90% | 24.03% top Kaggle private score in ARC Prize 2025 | 12.58% for the 30-day preview winner, but full-launch systems are far lower so far |
+| Best reported AI score | o3 reached 75.7% at the public compute limit and 87.5% with high compute on the semi-private set; public-eval reports went above 90% | 24.03% top Kaggle private score in ARC Prize 2025 | Not one comparable number: 12.58% in the three-game preview, 1.21% for the first full-competition milestone winner, and 13.33% public / 7.78% semi-private for the officially evaluated Sol Max harness |
 | Human reference | Original private tasks were solved at 97-98% by individual testers, collectively 100%; many summaries use ~85% as the older rough human benchmark | Public eval human sample average was 66%; selected evaluation tasks were human-solvable | Humans can solve 100% of included environments; AI is scored by action efficiency relative to human baselines |
 | Scoring | Task accuracy, typically binary solved/not solved | Accuracy plus cost-per-task reporting | Relative Human Action Efficiency: completion and action efficiency vs. humans |
 | Dataset scale | 400 public train, 400 public eval, 100 semi-private, 100 private | 1,000 public train, 120 public eval, plus 120 semi-private and 120 private | 25 public demo environments plus 55 semi-private and 55 fully private environments, each with multiple levels |
 
-The important caution is the ARC-AGI-3 score row. **12.58% was a preview result, not the current full competition level.** The same family dropped sharply on launch, which is exactly the point: solving a few preview environments does not prove generalization across the full hidden set.
+The ARC-AGI-3 score row needs more care than the other two. **These figures come from different game sets, compute budgets, and submission rules.** The 12.58% result used three hidden preview games. The 1.21% milestone result came from Kaggle's offline hidden evaluation. The 13.33% / 7.78% Sol Max result used ARC Prize's public and semi-private benchmark protocol. They answer related questions, but they are not interchangeable leaderboard entries.
 
 The conceptual shift is from "intelligence as pattern-matching on a fixed dataset" to "intelligence as adaptive behavior in an open-ended environment." That shift is exactly why current systems fall off a cliff.
 
@@ -347,12 +347,12 @@ Both are understandable. Both run into concrete walls.
 | Train a CNN policy on the 25 public games. | The hidden games are different. A policy that memorizes public mechanics learns "what worked here", not "how to discover what works next." |
 | Use RL from scratch. | Rewards are sparse and expensive. Each failed exploratory action lowers RHAE, and Kaggle runtime is finite. A blank-slate RL agent cannot afford millions of environment steps per hidden game. |
 | Predict the next frame with torch. | Next-frame prediction is useful only after you have diverse transitions. At the beginning, the agent does not even know which actions produce transitions. |
-| Ask an LLM to inspect the grid. | Hosted APIs are not available in final Kaggle evaluation, and serializing a 64×64 grid into text discards spatial structure while consuming huge context. |
-| Run a local LLM inside the notebook. | It is slow, memory-heavy, and still has to learn through actions. A fluent explanation of the screenshot does not reveal hidden mechanics. |
+| Call GPT, Claude, or another hosted API. | Kaggle disables internet access during evaluation, so the request never reaches the provider. |
+| Run a local LLM and ask it for the next move. | This is legal and now proven viable, but a bare prompt is not enough. The model still needs compact observations, persistent memory, tools, legal-action checks, and a way to test its hypotheses against real transitions. |
 | Use image classification. | There is no fixed class label like "cat" or "dog." The target is an action sequence under unknown rules. |
 | Brute force action sequences. | The scorer sees every action. Finding a win after 500 random moves may score nearly zero compared with a human who needed 20. |
 
-So the practical route is not "no neural nets" and not "LLMs are useless." The practical route is to give any model a job that matches the data you actually have:
+So the practical route is not "no neural nets," and it is no longer defensible to say "LLM harnesses cannot enter Kaggle." The practical route is to give any model a job that matches the data you actually have:
 
 | Model job | Input | Target | Why it is plausible |
 |---|---|---|---|
@@ -616,7 +616,7 @@ That is not a leaderboard-ready agent. But it is a *debuggable* agent. It tells 
 
 ARC-AGI-3 is the headline track of **ARC Prize 2026** (total pool ~$2M across the ARC-AGI-2 and ARC-AGI-3 tracks). It runs as a **Kaggle code competition** with rules that set it apart:
 
-- **No internet during evaluation.** This rules out calls to hosted models (GPT, Claude, Gemini) — a self-contained agent only. Frontier-model harnesses that need an API are simply ineligible.
+- **No internet during evaluation.** This rules out hosted API calls, not language models themselves. Publicly available pretrained weights may be attached as Kaggle inputs and served locally inside the notebook.
 - **Open-source to win.** Prize-eligible solutions must be open-sourced; the exact claim mechanics matter around milestone dates.
 - **Notebook-only submission.** The Kaggle overview currently lists CPU and GPU notebooks at up to 9 hours of runtime, with internet disabled. The ARC Prize docs also provide a local starter path so you can test before burning submissions.
 - **Timeline**: opened March 25, 2026; milestone checkpoints June 30 and September 30; final submissions due November 2; papers due November 8; results announced December 4.
@@ -641,29 +641,42 @@ If you have never done a Kaggle code competition, the key difference from a norm
 | Your model can often be trained offline and only output numbers. | Your agent must act repeatedly, observe feedback, and adapt. |
 | Internet is irrelevant after training. | Internet is disabled, so hosted API calls are not available. |
 
-That last row matters. A notebook that calls GPT, Claude, Gemini, or any external server might be a useful research harness outside Kaggle, but it is not a valid final Kaggle submission if it depends on internet access. The submitted agent has to carry its machinery with it: rules, heuristics, small models, learned priors, search procedures, and local state.
+That last row matters. A notebook that calls GPT, Claude, Gemini, or any external server is not a valid final submission if it depends on internet access. But the official GPT-OSS-120B template demonstrates the legal alternative: load model weights from a Kaggle input, start a local vLLM server on `127.0.0.1`, and point an OpenAI-compatible client at that local process. "No internet" means **self-contained inference**, not "no LLM."
 
 ## 6. The current landscape (with the theater removed)
 
-Here is the honest state of the art:
+### Milestone #1 changed the reference point
 
-- **Frontier LLMs: sub-1%.** At release, the technical report listed frontier models in the 0.10%-0.50% band on the semi-private evaluation: Anthropic Opus 4.6 (Max) at 0.50%, Google Gemini 3.1 Pro Preview at 0.40%, OpenAI GPT 5.4 (High) at 0.20%, and xAI Grok-4.20 at 0.10%. Reasoning models, which dominate most benchmarks, do *not* transfer cleanly to active skill-acquisition.
-- **Purpose-built agents (preview): low, and they don't hold up.** The 30-day preview's winner, **StochasticGoose** (Tufa Labs, a CNN + sparse-RL action-prediction agent), scored **12.58%** on three hidden preview games — and then **dropped to 0.25%** on the full launch benchmark, right back into LLM territory. Second place, **Blind Squirrel**, scored 6.71% with a state-graph + value-model approach. The preview lead evaporated on the full set.
-- **The whole Kaggle field: sub-2%**, with public high-score reports around the ~1.2% band as of late June 2026. The exact top score is volatile, but the qualitative fact is not: we are not looking at a mature leaderboard where the best systems are near human efficiency. A competitor's measurement of the best public notebook on ten public games came out to **0.66%**. Another reported solving ~15 public levels and still scoring **0.00** in the competition.
+The June 30 checkpoint produced the first prize-verified full-competition methods:
 
-The preview-era result table is still useful because it shows which broad strategy families produced signal before the full hidden benchmark got harder. Read it as a methods map, not as today's Kaggle leaderboard.
+| Place | Team / system | Core approach |
+|---|---|---|
+| 1 | Tufa Labs, **The Duck** | Local Qwen 3.6 27B FP8, live Python REPL, multimodal observations, rolling context eviction |
+| 2 | **Reki** | Local Gemma-4-31B, structured JSON planning and reflection, legal-action repair, NumPy click fallback |
+| 3 | **forge** | Local Gemma-4-31B with structured plans, reflection, and a configurable generation/selection framework |
 
-| Reference | Team / agent | Approach | Score | Levels completed |
-|---|---|---|---:|---:|
-| 1st preview winner | StochasticGoose (Tufa Labs) | CNN + sparse-RL action learning | 12.58% | 18 |
-| 2nd preview winner | Blind Squirrel | State-graph exploration + ResNet18 value model | 6.71% | 13 |
-| Notable preview method | Explore It Till You Solve It | Training-free frame graph exploration | 3.64% | 12 |
-| Frontier LLM reference | Best frontier LLM agents in the technical report | LLM-based agentic prompting / control | <1% | only a few level equivalents, not reported in the same table |
-| Human reference | Human players | Human cognition: explore, model, infer goals, plan | 100% | all calibrated environments |
+Duck's official milestone score was **1.21%**. It treats the model less like a policy network and more like a coding agent inside a live laboratory. Each observation becomes a Python variable; the model reasons, calls helper functions, writes code, executes an action, and inspects the result. It can switch among a rendered image, raw ASCII, and segmented regions. When context fills, the oldest interaction messages are evicted so play can continue.
 
-The lesson is not "CNN beats LLM forever" or "graph search is enough." The lesson is narrower and more useful: **methods that spend actions to discover environment dynamics beat methods that merely reason about a screenshot**, but the preview methods still failed to generalize robustly when the benchmark expanded.
+One attribution is worth getting exactly right. The pure-NumPy "salient click" rule and the `dead-signature` that suppresses objects whose clicks repeatedly do nothing belong to **Reki**, not Duck. Reki and forge started from the official GPT-OSS template and replaced the base model with Gemma, whereas Duck is the only podium system in which the agent itself writes exploratory code.
 
-The single most important quote from the literature, paraphrased: *no approach has demonstrated clear generalization yet.* That is the opportunity.
+The team history is suggestive but not a proof. Duck calls itself a successor to StochasticGoose, and Dries Smit joined the Duck team. That is strong practical evidence that a local LLM harness was more promising under the full Kaggle constraints than relying on a per-level CNN plus sparse RL alone. It does **not** prove that learned action priors or RL are useless; those components may still be valuable inside a stronger harness.
+
+### Four scoreboards that should not be mixed
+
+| Evaluation context | Result | What it establishes |
+|---|---:|---|
+| 30-day preview, three hidden games | StochasticGoose 12.58% | CNN + sparse-RL found real signal on a small preview set, but did not generalize to the full launch |
+| Kaggle Milestone #1 hidden evaluation | Duck 1.21% | A self-contained local open-weight coding harness is legal and competitive |
+| ARC Prize official model evaluation | Sol Max 13.33% public / 7.78% semi-private | A stronger frontier harness transfers partly beyond the visible games, outside the Kaggle submission envelope |
+| Public-game research reports | Rodionov 58.12%; Schema 98.98% / 95.35% | Explicit working models and verification can solve many visible games, but the highest figures remain public-only and partly self-reported |
+
+I also queried the competition through Kaggle CLI on **July 23, 2026**. The top three leaderboard scores were **1.86, 1.61, and 1.60**; Tufa Labs was at **1.45**. Ten teams were at or above 1.50, and 122 were at or above Duck's original 1.21. Duck therefore became the first widely inspectable baseline around the 1.2% band, not a permanent description of the frontier. The current 1.86 leader's method is not public, so it would be premature to say that every leading submission is a Duck derivative.
+
+The copy dilemma did arrive. A CLI search now finds dozens of public Duck forks and variants. But similar scores do not prove common ancestry: the 0.86 milestone entry was forge, for example, and a roughly 0.79 Gemma dynamics notebook was a separate line. Method lineage has to be checked from code, not inferred from a score.
+
+The public-game jump also needs restraint. Andrey Rodionov's executable-world-model agent reports 15 of 25 games fully solved and 58.12% mean RHAE with GPT-5.5 high. Schema reports 98.98% with an Opus/Fable fallback and 95.35% with GPT-5.6 Sol. Schema explicitly labels both results unverified, reruns weak games under a stronger fallback, and retains the better per-game score. Public visibility, repeated tuning, best-of selection, larger hosted models, and the absence of a hidden holdout all contribute to the gap between those numbers and Kaggle's 1.x% range.
+
+The durable lesson is no longer "CNN beats LLM" or "LLMs cannot enter Kaggle." It is this: **the agent needs a process for turning interaction history into a working model, testing that model, and planning with what survives the test.** Which representation and base model do that most efficiently is still open.
 
 ### Why current systems struggle
 
@@ -687,14 +700,15 @@ $$
 
 That is 1% credit on that level, before level weighting and game caps. A brute-force win can be almost indistinguishable from a failure.
 
-### Why the leaderboard "lies"
+### Why the leaderboard still needs context
 
-If everyone is sub-2%, why do some public notebooks still look much stronger? Two reasons matter most:
+If the Kaggle leaderboard is still below 2%, why do some public notebooks and research reports look much stronger? Three reasons matter most:
 
 1. **Stale scores under an older rule** — Kaggle does not retroactively re-score historical submissions when the metric changes. The per-level score was changed to be *squared* (and the cap raised) partway through; old high entries kept their old-rule numbers, and the public-notebook ranking has been effectively frozen for months because new entries can't displace them under the harsher rule. The leaderboard is therefore an apples-and-oranges mix.
 2. **A patched exploit** — for a while, some agents located the actual game *source code* on disk and ran exhaustive search against the real simulator (a white-box trick). That works on public games (whose source ships) but is dead on the private leaderboard games (API-only), and the dynamic-game-code-loading path has since been fixed. High historical scores that leaned on it don't reproduce.
+3. **Different protocols** — hosted frontier-model reports can use much more compute, and some public studies rerun failures or select the best result per game. Kaggle runs one self-contained notebook against hidden games under a nine-hour limit.
 
-So: anchoring on a published notebook's score is a mistake. The useful question is whether the same principle survives on unseen games.
+So: anchoring on a published notebook's score is a mistake. The useful questions are whether the principle survives on unseen games, how many real actions it spends, and whether it fits the Kaggle runtime envelope.
 
 ## 7. Approaches, and what's actually wrong with each
 
@@ -706,27 +720,31 @@ Before the approaches, translate the jargon:
 | **Sparse reward** | The agent gets useful feedback only rarely, usually when it wins or reaches a milestone. |
 | **State graph** | A map of frames the agent has seen, with actions as edges between frames. |
 | **Value model** | A model that estimates which state or action is closer to success. |
-| **World model** | A learned simulator: "if I do action A in state S, what state will come next?" |
+| **World model** | Any explicit working account of the environment: a learned simulator, a state graph, or Python code that predicts "if I do action A in state S, what happens next?" |
 | **Intrinsic exploration** | Exploration driven by curiosity or uncertainty, not only by external score. |
 | **Planning** | Searching over possible future action sequences before committing to one. |
 
 The important distinction is between **reactive** systems and **model-based** systems. A reactive system mostly asks, "what action looks promising now?" A model-based system asks, "what do I think will happen if I take this action, then that action, then that one?" Humans lean heavily on the second style when learning a new game.
 
-**(a) CNN + sparse-RL action prediction (the StochasticGoose lineage).** Learn a small CNN that predicts which actions change the frame, and bias exploration toward those. Hierarchical sampling (pick action *type*, then a click coordinate via a convolutional 64×64 head that keeps the 2D bias); a hash-deduplicated experience buffer for sample efficiency; reset the model per level; train with binary cross-entropy + light entropy regularization on sparse (level-completion) reward.
-*Pros:* proven preview winner, sample-efficient, fully self-contained.
-*Cons:* fundamentally *reactive*; it overfits to public-game priors and generalizes poorly (0.25% at launch). It explores the action space hoping to stumble into wins; it doesn't really *model* the world or *infer* goals.
+**(a) CNN + sparse-RL action prediction (the StochasticGoose lineage).** Learn a small CNN that predicts which actions change the frame, and bias exploration toward those. Hierarchical sampling can pick an action type and then a click coordinate with a convolutional 64×64 head.
+*Pros:* sample-efficient, fully self-contained, and still useful as an action prior or no-op filter.
+*Cons:* weak as a complete agent. Predicting that an action changes the screen does not explain why the change matters, and the preview result did not transfer to the full benchmark.
 
 **(b) State-graph + value model (Blind Squirrel / "just-explore").** Build a directed graph of observed states; prune actions that loop or change nothing; when the score improves, back-label the path with distances and train a small value model (e.g., a ResNet18) to rank (state, action) pairs toward the next milestone; repeat.
 *Pros:* a training-free variant exists; exact on visited states; interpretable.
 *Cons:* it only knows the frontier it has already explored — no *extrapolation* to goals it hasn't yet stumbled near.
 
-**(c) Model-based RL with a learned world model + intrinsic exploration (the open direction).** Learn a transition model from observed $(s, a, s')$, plan with search over that model, and drive exploration with an intrinsic objective (prediction-disagreement / information gain) rather than random flailing.
-*Pros:* it attacks the actual capability gap — modeling, goal inference, planning — instead of gaming the metric; planning over a learned model is sample-efficient; it's the research-valuable direction.
-*Cons:* it's hard. Goal inference under sparse reward is unsolved; you have a compute budget; online test-time learning is finicky. Unproven — which is also why it's where the headroom is.
+**(c) Learned neural world model + intrinsic exploration.** Learn a transition model from observed $(s, a, s')$, plan over that model, and prefer actions with high disagreement or information gain.
+*Pros:* it can predict beyond the exact states already visited and gives a compact action prior.
+*Cons:* online learning is data-hungry and unstable under sparse reward. The full competition has not yet shown that this can build a reliable model quickly enough. It now looks more like a useful component than the obvious top-level controller.
 
-**(d) Frontier-LLM harness.** Wrap a strong model in scaffolding.
-*Pros:* strong on *public* games with reasoning.
-*Cons:* **ineligible on Kaggle** (no internet), expensive, and it overfits to specific public environments — performance is wildly bimodal across games and doesn't generalize.
+**(d) Local LLM tool/coding harness (Duck, Reki, forge).** Run an open-weight model inside the offline notebook and surround it with observation tools, memory, legal-action validation, reflection, and a controlled action interface. Duck additionally gives the model a Python REPL so it can inspect and transform state programmatically.
+*Pros:* Kaggle-legal, Milestone #1-validated, and able to change representations and reasoning procedures at test time instead of relying on one fixed policy.
+*Cons:* a 27B- or 31B-class model consumes most of the runtime and memory envelope. Context management, malformed outputs, slow inference, and weak visual grounding remain concrete failure modes. Duck's 1.21% also shows that a fluent coding loop is not yet sufficient for hidden generalization.
+
+**(e) Verified executable world model (Rodionov / Schema direction).** Let a coding agent maintain executable Python hypotheses about game dynamics, test predictions against observed transitions, simplify models that have accumulated exceptions, and plan in the surviving model before spending real actions.
+*Pros:* this turns "reasoning" into falsifiable predictions. Rodionov reported 58.12% mean public RHAE, and Schema reported public scores in the mid-to-high 90s.
+*Cons:* the strongest results use visible games and much larger hosted models. A later ablation found that model strength and reasoning effort were the largest effects; textual working models sometimes beat flexible executable ones. Verification was consistently useful, but Python code by itself is not a magic ingredient.
 
 For a beginner, the most useful lesson is not "copy one of these." It is to see the failure modes:
 
@@ -734,10 +752,11 @@ For a beginner, the most useful lesson is not "copy one of these." It is to see 
 |---|---|---|
 | Action-prediction RL | Learn which actions are nontrivial. | Understanding why an action matters. |
 | State graph search | Avoid repeating useless states. | Guessing beyond states already visited. |
-| World-model planning | Predict and plan before acting. | Building a reliable model quickly enough. |
-| LLM harness | Use language reasoning and memory scaffolds. | Kaggle eligibility and generalization. |
+| Learned world-model planning | Predict beyond visited states and plan before acting. | Building a reliable model quickly enough. |
+| Local LLM harness | Change representation, write tools, and maintain semantic hypotheses. | Runtime, context, grounding, and hidden generalization. |
+| Verified executable model | Make hypotheses testable and revise them after contradictions. | Choosing useful experiments and avoiding brittle over-modeling. |
 
-My bias is that a strong solution will combine pieces: graph memory to avoid loops, an action prior to avoid wasting moves, a world model to predict transitions, and a planner that can exploit the model once the goal becomes plausible.
+My updated bias is a hybrid: a local LLM harness as the adaptive controller; exact transition memory for facts already observed; executable hypotheses for rules not yet known; disagreement-driven probes when hypotheses conflict; and shortest-path replay when a known route should be exploited efficiently. The model should propose and revise abstractions, while deterministic code protects it from forgetting what the environment has already proved.
 
 ### Three implementation passes for a beginner
 
@@ -840,19 +859,20 @@ This is the part you only learn by reading the forums, and it matters as much as
 
 - **Submission gotchas that silently zero you out.** Call `env.make()` exactly once, on the main thread — calling it per-process (e.g., when parallelizing) opens a scorecard per process and scores **0**. Don't set `MAX_ACTIONS = ∞`: recordings balloon and you hit Kaggle's storage quota and fail (a *storage* failure, not a logic one). Budget your rollout length to the notebook runtime limit rather than assuming long interactive search is free.
 - **Is the human baseline visible to the agent?** There's an unresolved question (as of June 2026) about whether `environment_info.baseline_actions` — the second-best human's action count — is readable during submission for the test games. If it is, an agent could target human efficiency *exactly*. The host hasn't confirmed whether this is intentional or usable. Treat it as unsettled.
-- **The open-source "copy" dilemma.** The moment a top team open-sources, thousands of copies get submitted, and with the inherent variance the original author can drop hundreds of places. So there's a perverse "small window" in which to open-source. Teams have asked for an AIMO-style fix: freeze the milestone ranking at a snapshot, then give a separate deadline to publish and claim — so you don't have to guess your rank before deciding to reveal your work. (As of this writing the exact milestone timing rules are still being clarified by the host.)
+- **The open-source "copy" dilemma is now observable, not hypothetical.** Duck was released, and public forks and light modifications quickly spread across the leaderboard. The host explicitly recommends copying a template or released submission as the fastest way to enter Milestone #2. That is good for baseline quality and awkward for attribution: a score alone no longer tells you whether a team discovered a method or changed a prompt in a public harness.
 - **High variance.** Even the same agent code scores differently run-to-run. The leaderboard is noisy near the top.
 
 ## 9. How I'd approach it
 
 My plan, and my advice:
 
-1. **Build a local evaluation harness and stop iterating through submissions.** Kaggle allows ~1 submission/day, but *interactive* runs are free and the 25 public games run **offline**. Run your agent against the public games locally, and — critically — hold out a subset (say 18 train / 7 holdout) to estimate *generalization* before you ever submit. (Run through the official `main.py` path when you can; it's closer to the real runtime than driving the environment files yourself.)
-2. **Benchmark against open methods, not the leaderboard number.** StochasticGoose is fully open (code + writeup); the graph-explore baseline is open. Reproduce them, measure them on your holdout, and beat *that*.
-3. **Don't anchor on published-notebook scores** — stale, unit-confused, and partly exploit-inflated.
-4. **Expect a shakeup and framework churn.** The metric and environment have already changed mid-competition; pin your environment and don't over-fit to the public games. The binding result is the final private re-run.
-5. **Build incrementally**, each step locally measurable: a graph-exploration baseline with a learned action prior → a learned world model for frontier extrapolation → intrinsic-motivation exploration → goal inference and cross-level transfer. Any stopping point is submittable.
-6. **Mine the milestone open-source releases** (June 30, Sept 30) for what the actual top teams do.
+1. **Build a local evaluation harness and stop iterating through submissions.** Run the 25 public games offline, save complete traces, and hold out a subset to catch the most obvious public-game overfitting. A public holdout is still not a hidden set, but it is better than tuning all 25 simultaneously.
+2. **Reproduce the current open baselines.** Start with the official GPT-OSS notebook and Duck, then compare Reki-style structured control and the older graph-search/action-prior baselines under the same local protocol.
+3. **Measure the Kaggle envelope, not only RHAE.** Record model load time, tokens per second, tool-call latency, peak memory, actions per game, and projected total runtime. A public solver that cannot process the hidden suite in nine hours is not a competition baseline.
+4. **Separate facts from hypotheses.** Put exact observed transitions in a deterministic cache. Keep uncertain rules, goals, and object roles in a hypothesis ledger with supporting and contradicting evidence.
+5. **Add planning in two layers.** Use shortest-path search over known transitions for cheap replay, and use model-generated programs or learned predictions only for states and actions the agent has not observed.
+6. **Explore where hypotheses disagree.** A probe is valuable when plausible models predict different outcomes, not merely because the resulting frame looks novel.
+7. **Treat Milestone #2 as a held-out engineering deadline.** Freeze a local suite before September 30, compare each component by ablation, and submit only after the local model, cache, and recovery path survive the full runtime budget.
 
 The starter kit makes the submission surface deliberately small. In practice, the interesting work lives behind one method:
 
@@ -930,6 +950,55 @@ The agent got stuck because:
 
 That is progress. Once failures have names, they can be attacked.
 
+### After week one: from Duck to a verified hybrid
+
+Once the basic logger works, the next architecture I would test is not "let the LLM do everything." It is a division of labor:
+
+```text
+observe frame
+→ normalize state and retrieve exact history
+→ give the LLM compact evidence and available tools
+→ let it propose hypotheses, code, and a legal action
+→ execute one real action
+→ record the exact transition
+→ check every prediction against the result
+→ preserve, revise, or reject the hypotheses
+```
+
+The central action boundary can stay small:
+
+```python
+def execute_and_learn(state, action, expected=None):
+    next_state = env.step(action)
+    edge = transition_cache.record(state, action, next_state)
+
+    if expected is not None:
+        hypotheses.update_from_prediction(expected, next_state)
+
+    if edge.conflicts_with_previous_outcome:
+        transition_cache.mark_latent_or_stochastic(state, action)
+
+    return next_state
+```
+
+A cache key should include at least the game, level, normalized grid, and any stable metadata the API exposes. Hashing only the visible grid is dangerous: two identical images may hide a timer, animation phase, inventory flag, or other latent state. When the same key and action produce different outcomes, the agent should record a conflict instead of silently overwriting the old edge.
+
+Known deterministic edges form a graph. Dijkstra or BFS can then find the cheapest route back to a discovered target after reset, failure, or a later level that reuses the same mechanics. This directly attacks repeated action waste. It does **not** refund the actions spent discovering the route, and it cannot plan through unobserved states. The cache is a memory and replay system, not a complete world model.
+
+The LLM should therefore work where exact memory ends. It names objects, writes candidate transition functions, proposes goals, and chooses probes that distinguish competing explanations. If hypothesis $h_1$ predicts "the blue object moves" and $h_2$ predicts "the selected row rotates," an action on which they disagree is more informative than another generic novelty click.
+
+The first ablation table should be equally concrete:
+
+| Variant | Question |
+|---|---|
+| Duck baseline | What does the released harness achieve unchanged? |
+| + exact transition cache | Does repeated-state and repeated-action waste fall? |
+| + shortest-path replay | Are solved or partially solved trajectories reproduced with fewer actions? |
+| + prediction verification | Do contradicted rules disappear instead of poisoning later plans? |
+| + disagreement probes | Does the agent identify useful mechanics with fewer exploratory actions? |
+
+Track `edge_reuse_rate`, `transition_conflict_rate`, `replay_actions_saved`, `invalid_action_rate`, `tokens_per_action`, wall-clock time, completed levels, and RHAE. Without these measurements, a more elaborate harness can look more intelligent while merely spending more compute.
+
 ### Things I would avoid early
 
 I would avoid these traps:
@@ -976,14 +1045,18 @@ This is not a final solution. It is the shape of the solution I would trust: rec
 - **Prizes** — milestone pools, a top-5 pool, and the (currently unreachable) grand prize.
 - **A separate Paper Prize track** rewards *methods*, not just scores — which fits a benchmark where the interesting contribution is an idea, not a leaderboard rank.
 - **Kaggle medals/ranking**, if that's part of your portfolio.
-- **Contribution to a genuinely open problem.** This is the rare benchmark where the field is near zero, so net-new general methods are both wanted and visible (the community explicitly disallows per-task hardcoding and rewards generalization).
+- **Contribution to a genuinely open problem.** Public games are increasingly solvable, but hidden-game generalization under the Kaggle envelope remains near the floor. New general methods are still both wanted and visible.
 - **Positioning** at the intersection of RL, world-models, and program-induction — and the plain intellectual value of working on something nobody has solved.
 
 ## 11. My take
 
-I think the leaderboard is mostly a distraction. The real situation is clean and motivating: **the launch-era purpose-built preview winner fell back into the quarter-percent regime on the full benchmark, and the late-June Kaggle field is still under two percent.** That means the problem is open, and a genuinely different approach has room to matter in a way it rarely does on a mature benchmark.
+Milestone #1 forced me to correct one of my original conclusions. I was right that a submission cannot depend on a hosted API. I was wrong to turn that into "an LLM harness is ineligible." A local open-weight model is legal, the official template demonstrates how to run one, and Duck won the milestone with exactly that class of system.
 
-My bet is that the winning ideas will come from **(c)** — a learned, test-time world model coupled with **intrinsic-motivation exploration** (drive toward states where your model is most uncertain, which is exactly where there's the most to learn) and **lightweight planning** over that model, with **explicit goal inference** layered on top. Reactive action-prediction (a) and pure frontier search (b) are the proven-but-capped baselines; they game the metric or exhaust the frontier without ever *understanding* the game. The four capabilities the benchmark names — exploration, modeling, goal-setting, planning — are a research agenda, and I'd rather build against that agenda than against the scoreboard.
+The newer evidence also changes my technical bet. I no longer think the answer is simply **a learned neural world model**. The stronger common pattern is a process: build a working account of the world, make predictions from it, test those predictions against interaction history, revise contradictions, and plan with what remains. An executable Python model is one useful representation, but the ablations warn against treating it as the cause of success by itself. Base-model capability and reasoning effort still matter enormously.
+
+My current bet is therefore **local LLM harness + exact transition memory + verified executable hypotheses + disagreement-driven exploration + shortest-path replay**. A learned action prior or neural transition model can sit inside that system, but it should not be trusted with facts the environment has already demonstrated exactly.
+
+The Kaggle leaderboard is still below 2% as of July 23, while visible public games are being solved at dramatically higher rates with larger systems. That gap is not an embarrassment to explain away. It is the research problem: how do we compress adaptive scientific reasoning into a self-contained agent that can face genuinely unseen worlds under a fixed action and compute budget?
 
 I'll be writing up the build as I go.
 
@@ -1001,6 +1074,12 @@ I'll be writing up the build as I go.
 - [ARC-AGI-3 technical report](https://arxiv.org/abs/2603.24621)
 - [ARC-AGI-3 docs](https://docs.arcprize.org/arc-prize-2026), especially [Games](https://docs.arcprize.org/games), [Actions](https://docs.arcprize.org/actions), [Scoring methodology](https://docs.arcprize.org/methodology), [Local vs Online](https://docs.arcprize.org/local-vs-online), and [Scorecards](https://docs.arcprize.org/scorecards)
 - [ARC-AGI-3 Kaggle Starter](https://github.com/arcprize/ARC-AGI-3-Kaggle-Starter)
+- [ARC Prize 2026 Milestone #1 results](https://arcprize.org/blog/arc-prize-2026-milestone-1)
+- [Tufa Labs: The Duck harness](https://tufalabs.ai/research/duck-harness/) and [released code](https://github.com/Tufalabs/duck-harness)
+- [Official Kaggle GPT-OSS-120B template](https://www.kaggle.com/code/gregkamradt/arc-agi-3-gpt-oss-120b)
+- [Executable World Models for ARC-AGI-3](https://arxiv.org/abs/2605.05138) and the [controlled ablation follow-up](https://arxiv.org/abs/2607.15439)
+- [Schema harness report](https://schema-harness.github.io/) and [released trace dataset](https://huggingface.co/datasets/schema-harness/arc-agi-3-schema-traces)
+- [Official GPT-5.6 ARC-AGI-3 results](https://arcprize.org/results/openai-gpt-5-6)
 - [ARC-AGI-3 Preview: 30-Day Learnings](https://arcprize.org/blog/arc-agi-3-preview-30-day-learnings)
 - [StochasticGoose preview solution](https://github.com/DriesSmit/ARC3-solution)
 - [ARC-AGI Community Leaderboard](https://github.com/arcprize/ARC-AGI-Community-Leaderboard)

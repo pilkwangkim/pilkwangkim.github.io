@@ -11,7 +11,7 @@ pin: false
 
 # ARC-AGI-3: 아직 아무도 풀지 못한 벤치마크
 
-> **작성 시점 메모 (2026-06-25).** ARC-AGI-3는 아직 진행 중인 대회입니다. 평가 환경 자체와 리더보드 해석에 필요한 정보도 계속 갱신되고 있습니다. 아래에서 쉽게 바뀌지 않는 내용은 공식 ARC Prize 페이지, 문서, technical report를 기준으로 확인했지만, 리더보드 순위·노트북 런타임·milestone claim 규칙은 달라질 수 있습니다. 특히 점수 숫자는 "이 시점의 관측값"으로 읽어야 합니다.
+> **업데이트 메모 (2026-07-23).** 이 글은 6월 24일에 처음 썼고, Milestone #1 결과가 나온 뒤 내용을 크게 고쳤습니다. 이번 개정에서는 Kaggle CLI, ARC Prize 공식 발표, 공개된 상위권 코드, 최신 논문을 서로 대조했습니다. 대회는 아직 진행 중이므로 아래 리더보드 숫자는 영구적인 기록이 아니라 해당 날짜에 확인한 값으로 읽어야 합니다.
 
 대회 링크:  
 [ARC Prize 2026 - ARC-AGI-3](https://www.kaggle.com/competitions/arc-prize-2026-arc-agi-3)
@@ -27,13 +27,13 @@ pin: false
   <figcaption>ARC-AGI-3는 ARC 계열 벤치마크를 정적인 grid 변환 문제에서, 설명서 없는 interactive game 환경으로 옮겨 놓은 대회입니다.</figcaption>
 </figure>
 
-> **한 문단 요약.** ARC-AGI-3는 "reasoning"을 정답으로 출력하는 능력이 아니라, 실제 환경 안에서 *행동으로 증명하는 능력*을 묻습니다. 에이전트는 설명서 없는 낯선 2D grid 게임에 들어가고, 얼마나 적은 시행착오로 규칙을 배워 이기는지로 평가됩니다. 기준은 같은 게임을 처음 본 사람의 행동 수입니다. 2026년 중반 기준으로 가장 놀라운 사실은 이것입니다. Frontier LLM도, 이 대회를 겨냥해 만든 에이전트도 **모두 2%에 못 미칩니다.** 이것은 측정 오류가 아닙니다. 이 벤치마크의 핵심이고, 제가 지금 Kaggle에서 이 문제를 가장 흥미롭게 보는 이유입니다.
+> **한 문단 요약.** ARC-AGI-3는 "reasoning"을 정답으로 출력하는 능력이 아니라, 실제 환경 안에서 *행동으로 증명하는 능력*을 묻습니다. 에이전트는 설명서 없는 낯선 2D grid 게임에 들어가고, 얼마나 적은 시행착오로 규칙을 배워 이기는지로 평가됩니다. Milestone #1 이후에는 한 가지 사실이 분명해졌습니다. Open-weight LLM을 Kaggle notebook 안에서 직접 실행하는 방식은 허용되며, 실제로 Tufa Labs가 이 접근법으로 우승했습니다. 그런데도 7월 23일 Kaggle 최고 점수는 여전히 **1.86%**에 불과했습니다. 반면 훨씬 큰 frontier model은 공개 게임에서 두 자릿수, 일부 자가보고는 90%대까지 올라갔습니다. 이제 이 벤치마크는 낯선 세계를 행동으로 배우는 능력뿐 아니라, 인터넷이 차단된 9시간짜리 실행 환경에서 처음 보는 게임까지 일반화하는 능력을 함께 드러내고 있습니다.
 
 ## 왜 이 글을 쓰는가
 
 저는 ARC-AGI-3를 꽤 진지하게 들여다보고 있습니다. 그리고 보통 글을 쓰면서 생각을 정리합니다. 이 글은 대회가 실제로 무엇인지, 점수가 어떻게 계산되는지, 리더보드 숫자를 왜 조심해서 읽어야 하는지, 현재 방법들이 어디에서 막히는지, 그리고 제가 어떤 방향으로 접근할지를 가능한 한 정확하게 정리하려는 시도입니다.
 
-주장은 꽤 분명합니다. **리더보드의 숫자를 그대로 믿으면 안 됩니다.** 이유는 하나가 아닙니다. 오래된 scoring rule로 계산된 submission이 섞여 있고, 한때는 public game source를 이용한 exploit에 가까운 접근도 있었습니다. 겉으로 보이는 숫자보다 실제 신호는 훨씬 낮고, 훨씬 균일합니다.
+이 글에서 점수보다 먼저 강조하고 싶은 원칙이 있습니다. **ARC-AGI-3 점수는 평가 맥락과 함께 적어야 합니다.** Kaggle hidden score, ARC Prize의 public/semi-private 평가, public game에서 여러 설정을 시도한 연구 결과는 같은 측정값이 아닙니다. 오래된 scoring rule과 이미 막힌 public-source exploit의 영향도 남아 있습니다. 어떤 game set을 썼는지, compute budget과 retry rule은 무엇이었는지, 언제 측정했는지가 빠지면 숫자만으로는 제대로 비교할 수 없습니다.
 
 이 글의 목표는 여섯 가지입니다.
 
@@ -80,7 +80,7 @@ pin: false
 
 반대로 첫날부터 필요하지 않은 것도 있습니다.
 
-- 대형 language model은 필요하지 않습니다. final evaluation에서는 hosted API를 호출할 수 없습니다.
+- 첫날부터 대형 language model이 필요한 것은 아닙니다. 평가 중 hosted API는 호출할 수 없지만, 공개된 model weight를 Kaggle input으로 넣어 local inference를 실행하는 것은 허용됩니다. Milestone #1은 이 경로가 실제로 경쟁력이 있음을 보여 줬습니다.
 - 멋진 neural architecture도 바로 필요하지 않습니다. 로그가 부실한 fancy model보다, 관찰 가능한 graph search가 훨씬 낫습니다.
 - 공개된 25개 game을 전부 손으로 풀 필요도 없습니다. 몇 개를 직접 해보는 것은 좋지만, 외우는 순간 hidden game에는 도움이 안 됩니다.
 - Kaggle forum의 모든 논쟁을 이해할 필요도 없습니다. 공식 docs, starter kit, local game 하나로 시작하면 됩니다.
@@ -130,12 +130,12 @@ Kaggle은 여기서 실행 플랫폼 역할을 합니다. 참가자는 코드를
 |---|---|---|---|
 | Format | static grid puzzle | 더 어렵고 조합적인 static grid puzzle | interactive game environment |
 | Instructions | input-output demo pair | input-output demo pair | 자연어 설명 없이 interaction으로 규칙을 발견해야 함 |
-| Best reported AI score | o3가 semi-private set에서 public compute 기준 75.7%, high-compute 기준 87.5%를 기록했고, public eval report에서는 90%를 넘었습니다. | ARC Prize 2025 Kaggle private top score 24.03% | 30-day preview winner가 12.58%를 기록했지만, full launch benchmark에서는 훨씬 낮아졌습니다. |
+| Best reported AI score | o3가 semi-private set에서 public compute 기준 75.7%, high-compute 기준 87.5%를 기록했고, public eval report에서는 90%를 넘었습니다. | ARC Prize 2025 Kaggle private top score 24.03% | 서로 직접 비교할 수 있는 숫자는 아닙니다. 3-game preview 1위는 12.58%, full competition의 Milestone #1 우승은 1.21%, 공식 Sol Max 평가는 public 13.33% / semi-private 7.78%였습니다. |
 | Human reference | 원래 private task에서 human tester가 각각 97-98%를 풀었고, 둘을 합치면 100%를 풀었습니다. 요약 자료에서는 예전 rough benchmark로 ~85%가 자주 쓰입니다. | public eval sample의 average human performance는 66%였습니다. 선별된 evaluation task들은 human-solvable 조건을 통과했습니다. | 포함된 environment는 사람이 100% 풀 수 있도록 calibration되었습니다. AI 점수는 human action baseline 대비 효율로 계산됩니다. |
 | Scoring | task accuracy, 대체로 solved/not solved | accuracy에 cost-per-task reporting이 함께 중요해짐 | Relative Human Action Efficiency. 사람 대비 action efficiency가 핵심 |
 | Dataset scale | 400 public train, 400 public eval, 100 semi-private, 100 private | 1,000 public train, 120 public eval, 120 semi-private, 120 private | 25개 public demo environment, 55개 semi-private, 55개 fully private. 각 environment 안에 여러 level이 있음 |
 
-특히 ARC-AGI-3의 12.58%는 조심해서 읽어야 합니다. 이 값은 **preview competition**의 hidden game 3개에서 나온 점수입니다. 현재 full competition의 일반적인 성능 수준을 뜻하지 않습니다. 같은 계열의 에이전트도 full launch benchmark에서는 크게 떨어졌고, 바로 그 점이 이 대회의 핵심입니다. 몇 개의 preview environment를 잘 푼다고 해서, 전체 hidden set에 일반화한다는 뜻은 아닙니다.
+ARC-AGI-3의 점수는 평가 맥락을 함께 읽어야 합니다. **12.58%는 preview competition의 hidden game 3개**, 1.21%는 Kaggle의 offline hidden evaluation, 13.33% / 7.78%는 ARC Prize가 별도로 수행한 public / semi-private 평가에서 나온 값입니다. 서로 연관된 능력을 재지만 game set, compute budget, submission rule이 다르므로 같은 리더보드의 숫자처럼 직접 비교해서는 안 됩니다.
 
 전환의 핵심은 이것입니다.
 
@@ -383,8 +383,8 @@ action = llm(prompt)
 | 25개 public game에서 CNN policy를 학습한다 | hidden game은 다릅니다. public mechanic을 외우면 "여기서 먹힌 행동"은 배우지만, "다음 낯선 game에서 무엇을 실험해야 하는지"는 잘 못 배웁니다. |
 | RL을 처음부터 돌린다 | reward가 sparse하고 action이 비쌉니다. 실패한 탐색 action도 RHAE를 깎고, Kaggle runtime은 유한합니다. hidden game마다 수백만 step을 쓰는 blank-slate RL은 현실적이지 않습니다. |
 | next frame prediction을 학습한다 | transition data가 충분해야 의미가 있습니다. 초반에는 어떤 action이 transition을 만드는지도 모릅니다. |
-| LLM에게 grid를 보여주고 물어본다 | final Kaggle evaluation에서는 hosted API를 쓸 수 없습니다. 게다가 64×64 grid를 text로 풀면 spatial structure가 흐려지고 context도 많이 씁니다. |
-| local LLM을 notebook 안에서 돌린다 | 느리고 메모리를 많이 먹습니다. 그리고 말을 잘한다고 hidden mechanic을 아는 것은 아닙니다. 결국 action으로 배워야 합니다. |
+| GPT나 Claude 같은 hosted API를 호출한다 | Kaggle evaluation에서는 인터넷이 차단되므로 요청 자체가 provider에 도달하지 않습니다. |
+| Local LLM에게 다음 action만 묻는다 | 합법적이고 실제 성과도 나왔지만, prompt 하나만으로는 부족합니다. compact observation, persistent memory, tool, legal-action 검사, 그리고 가설을 실제 transition으로 검증하는 절차가 필요합니다. |
 | image classification처럼 푼다 | label이 "cat/dog"처럼 고정되어 있지 않습니다. 목표는 unknown rule 아래에서 action sequence를 찾는 것입니다. |
 | brute force로 action sequence를 많이 시도한다 | scorer는 모든 action을 봅니다. 사람이 20 action으로 깬 level을 500 action으로 겨우 깨면, 점수는 거의 남지 않을 수 있습니다. |
 
@@ -705,7 +705,7 @@ $$
 
 ARC-AGI-3는 **ARC Prize 2026**의 핵심 track 중 하나입니다. Kaggle code competition으로 열렸고, 일반적인 prediction competition과는 조금 다릅니다.
 
-- **평가 중 인터넷이 차단됩니다.** GPT, Claude, Gemini 같은 hosted model API를 호출하는 방식은 final Kaggle submission으로 쓸 수 없습니다.
+- **평가 중 인터넷이 차단됩니다.** GPT, Claude, Gemini 같은 hosted API는 호출할 수 없습니다. 하지만 공개된 pretrained weight를 Kaggle input으로 넣고 notebook 안에서 local inference를 실행하는 것은 허용됩니다.
 - **상금을 받으려면 open-source 공개가 필요합니다.** 정확한 milestone claim 절차는 주최 측 clarification을 봐야 하지만, prize-eligible solution은 공개되어야 합니다.
 - **Notebook-only submission입니다.** Kaggle overview 기준으로 CPU/GPU notebook runtime은 최대 9시간입니다. ARC Prize docs는 local starter kit도 제공합니다.
 - **Timeline**: 2026년 3월 25일 시작, 6월 30일과 9월 30일 milestone, 11월 2일 final submission, 11월 8일 paper due, 12월 4일 결과 발표입니다.
@@ -732,23 +732,38 @@ Kaggle code competition이 처음이라면 핵심 차이는 이것입니다.
 
 ## 6. 현재 상황: 겉치레를 걷어내고 보면
 
-현재 상황을 정직하게 요약하면 이렇습니다.
+### Milestone #1이 기준점을 바꾸었다
 
-- **Frontier LLM: sub-1%.** Technical report의 release 당시 semi-private evaluation에서 Anthropic Opus 4.6 (Max)는 0.50%, Google Gemini 3.1 Pro Preview는 0.40%, OpenAI GPT 5.4 (High)는 0.20%, xAI Grok-4.20은 0.10%였습니다.
-- **대회 전 preview에 맞춘 에이전트도 버티지 못했습니다.** 30-day preview winner였던 **StochasticGoose**는 hidden preview game 3개에서 12.58%를 받았지만, full launch benchmark에서는 0.25%로 떨어졌습니다.
-- **Kaggle 참가자 전체도 sub-2%입니다.** 2026년 6월 말 public high-score 기준으로는 대략 1.2%대입니다. 숫자는 계속 변할 수 있지만 큰 그림은 그대로입니다. 아직 human efficiency에 가까운 시스템은 없습니다.
+6월 30일에 마감된 첫 milestone에서는 전체 대회 환경에서 실제 성과를 인정받은 방법이 처음 공개됐습니다.
 
-그래도 preview-era 결과표는 여전히 볼 가치가 있습니다. 어떤 전략 계열이 처음으로 신호를 냈는지 보여주기 때문입니다. 다만 이 표는 현재 Kaggle leaderboard가 아니라, **full benchmark 이전의 방법론 지도**로 읽어야 합니다.
+| 순위 | 팀 / 시스템 | 핵심 접근법 |
+|---|---|---|
+| 1 | Tufa Labs, **The Duck** | Local Qwen 3.6 27B FP8, live Python REPL, multimodal observation, 오래된 context를 순차적으로 비우는 eviction |
+| 2 | **Reki** | Local Gemma-4-31B, 구조화된 JSON plan과 reflection, legal-action repair, NumPy click fallback |
+| 3 | **forge** | Local Gemma-4-31B, 구조화된 plan과 reflection, 설정 가능한 candidate 생성·선택 framework |
 
-| 기준 | Team / agent | Approach | Score | 완료한 level 수 |
-|---|---|---|---:|---:|
-| preview 1위 | StochasticGoose (Tufa Labs) | CNN + sparse-RL action learning | 12.58% | 18 |
-| preview 2위 | Blind Squirrel | state-graph exploration + ResNet18 value model | 6.71% | 13 |
-| 주목할 만한 preview method | Explore It Till You Solve It | training-free frame graph exploration | 3.64% | 12 |
-| Frontier LLM reference | technical report의 best frontier LLM agents | LLM 기반 agentic prompting / control | <1% | 같은 표에서 직접 보고되지는 않았지만, level 수로 보면 몇 개 수준에 그칩니다. |
-| Human reference | Human players | 탐색, 모델링, 목표 추론, 계획을 결합한 인간의 문제 풀이 | 100% | calibration된 environment 전체 |
+Duck의 공식 milestone 점수는 **1.21%**였습니다. 이 시스템은 model을 policy network로 쓰기보다, 실시간으로 환경을 조사하며 코드를 쓰는 agent로 활용합니다. 매 단계의 observation을 Python 변수로 만들고, model이 추론한 뒤 helper function을 호출하거나 분석 코드를 실행합니다. 이어서 action을 하나 내고 그 결과를 다시 관찰합니다. 상황에 따라 rendered image, raw ASCII grid, segmentation 결과 중 적합한 표현을 골라 봅니다. Context가 가득 차면 오래된 interaction부터 제거해 긴 playthrough를 이어 갑니다.
 
-이 표의 결론은 "CNN이 LLM보다 영원히 낫다"도 아니고, "graph search만 있으면 된다"도 아닙니다. 더 좁고 실용적인 결론은 이것입니다. **screenshot을 보고 말로 추론만 하는 방식보다, action을 써서 environment dynamics를 발견하는 방식이 훨씬 강합니다.** 하지만 preview에서 성과를 냈던 방식도 full hidden benchmark로 가면 일반화가 크게 흔들립니다.
+기법의 출처는 정확히 구분할 필요가 있습니다. 작고 색이 드문 물체를 먼저 누르는 NumPy `salient click` 규칙과, 여러 번 눌러도 변화가 없던 물체를 다시 누르지 않게 하는 `dead-signature`는 **Duck이 아니라 2위 Reki**의 기법입니다. Reki와 forge는 공식 GPT-OSS template에서 출발해 base model을 Gemma로 바꿨습니다. 상위 3개 시스템 가운데 에이전트가 직접 탐색 코드를 작성하는 것은 Duck뿐입니다.
+
+팀 구성의 변화도 흥미롭지만 과장해서는 안 됩니다. Duck은 스스로를 StochasticGoose의 후속작이라고 설명하고, StochasticGoose를 만든 Dries Smit도 Duck 팀에 합류했습니다. 이는 full competition의 Kaggle 실행 조건에서는 per-level CNN과 sparse RL에만 의존하는 것보다 local LLM harness가 더 유망했다는 강한 실전 신호입니다. 그렇다고 action prior나 RL 자체가 쓸모없다는 뜻은 아닙니다. 더 강한 harness 안에서 여전히 중요한 부품이 될 수 있습니다.
+
+### 서로 섞으면 안 되는 네 가지 점수표
+
+| 평가 맥락 | 결과 | 이 결과가 말해 주는 것 |
+|---|---:|---|
+| 30-day preview, hidden game 3개 | StochasticGoose 12.58% | CNN + sparse-RL이 작은 preview set에서는 분명한 신호를 냈지만 full launch에는 일반화하지 못했습니다. |
+| Kaggle Milestone #1 hidden evaluation | Duck 1.21% | 외부 연결 없이 local open-weight model을 실행하는 coding harness가 규정에 맞고 실제 경쟁력도 있음을 입증했습니다. |
+| ARC Prize 공식 model evaluation | Sol Max public 13.33% / semi-private 7.78% | 훨씬 큰 frontier harness가 공개 game에서 얻은 성능을 semi-private set에도 일부 이어 갔음을 보여 줍니다. |
+| Public-game 연구 보고 | Rodionov 58.12%; Schema 98.98% / 95.35% | 명시적 working model과 검증 절차가 공개 game을 많이 풀 수 있음을 보여 주지만, 최고 수치는 public-only이거나 자가보고입니다. |
+
+저는 **2026년 7월 23일** Kaggle CLI로 leaderboard도 다시 확인했습니다. 상위 세 점수는 **1.86, 1.61, 1.60**이었고, Tufa Labs는 **1.45**였습니다. 1.50 이상이 10개 팀, Duck의 최초 점수인 1.21 이상이 122개 팀이었습니다. 따라서 Duck은 1.2% 부근에서 처음 등장한, 널리 살펴보고 재현할 수 있는 baseline이지 현재 frontier 전체를 뜻하지는 않습니다. 현재 1.86점 팀의 방법은 공개되지 않았으므로 상위권 전체가 Duck 계열이라고 단정할 수도 없습니다.
+
+공개 이후 Duck을 복제하거나 변형한 notebook이 빠르게 늘어난 것은 사실입니다. CLI로 검색해도 수십 개가 나옵니다. 그러나 점수가 비슷하다는 이유만으로 같은 계보라고 볼 수는 없습니다. 예를 들어 milestone의 0.86점 submission은 forge였고, 0.79점 안팎의 Gemma dynamics notebook은 별도 계열이었습니다. 전략의 출처는 점수가 아니라 코드를 보고 판단해야 합니다.
+
+Public game에서 보고된 급격한 상승도 신중하게 읽어야 합니다. Andrey Rodionov의 executable world model agent는 GPT-5.5 high로 25개 중 15개 game을 완전히 풀고 평균 RHAE 58.12%를 기록했습니다. Schema는 Opus/Fable fallback으로 98.98%, GPT-5.6 Sol로 95.35%를 보고했습니다. 다만 Schema는 두 결과 모두 미검증 자가보고라고 명시하고 있고, 점수가 낮은 game을 더 강한 설정으로 다시 실행한 뒤 game별 최고 점수를 남깁니다. Public game을 미리 볼 수 있다는 점, 반복 tuning, best-of selection, 훨씬 큰 hosted model, hidden holdout 부재가 모두 public 90%대와 Kaggle 1%대 사이의 차이에 영향을 줍니다.
+
+이제 남는 결론은 "CNN이 LLM보다 낫다"도, "LLM은 Kaggle에 낼 수 없다"도 아닙니다. **상호작용 기록을 working model로 바꾸고, 그 model의 예측을 실제 transition으로 검증한 뒤, 검증을 통과한 지식 위에서 계획하는 과정**이 필요합니다. 어떤 표현 방식과 base model이 이 과정을 가장 효율적으로 수행하는지는 아직 열린 문제입니다.
 
 ### 왜 현재 시스템이 어려워하는가
 
@@ -772,14 +787,15 @@ $$
 
 그 level에서 인정되는 점수는 1%뿐입니다. brute-force로 이긴 것도 점수 관점에서는 실패와 크게 다르지 않을 수 있습니다.
 
-### 왜 leaderboard가 오해를 부르는가
+### 왜 leaderboard에는 설명이 필요한가
 
-모두 sub-2%라면 왜 public notebook에 더 높아 보이는 점수가 남아 있을까요? 이유는 크게 두 가지입니다.
+Kaggle leaderboard가 여전히 2% 아래인데 public notebook과 연구 보고에는 훨씬 높은 점수가 나오는 이유는 크게 세 가지입니다.
 
 1. **Stale score** — Kaggle은 metric이 바뀌어도 오래된 submission을 자동으로 재채점하지 않습니다. 예전 rule로 계산된 점수가 섞여 있을 수 있습니다.
 2. **Patched exploit** — 한동안 public game source를 disk에서 찾아 실제 simulator에 대해 exhaustive search를 돌리는 white-box trick이 가능했습니다. private leaderboard에는 맞지 않고, 해당 경로는 이후 막힌 것으로 알려져 있습니다.
+3. **평가 protocol의 차이** — hosted frontier model 연구는 훨씬 많은 compute를 쓸 수 있고, 일부 public 연구는 실패한 game을 다시 실행하거나 game별 최고 결과를 선택합니다. Kaggle은 hidden game에서 self-contained notebook 하나를 9시간 안에 실행합니다.
 
-따라서 public notebook score를 기준점으로 삼는 것은 위험합니다. 중요한 것은 "이 notebook에 몇 점이라고 적혀 있나"가 아니라, **unseen game에서 같은 원리가 살아남는가**입니다.
+따라서 public notebook score만 기준점으로 삼는 것은 위험합니다. 중요한 것은 **같은 원리가 unseen game에서도 살아남는지, 실제 action을 얼마나 쓰는지, Kaggle runtime 안에서 끝나는지**입니다.
 
 ## 7. 접근법들: 각각 무엇을 배우고 어디서 막히는가
 
@@ -791,7 +807,7 @@ $$
 | **Sparse reward** | 보상이 드물게 주어지는 상황입니다. 보통 level을 클리어하거나 milestone에 도달했을 때만 의미 있는 피드백이 생깁니다. |
 | **State graph** | 에이전트가 본 frame들을 node로, action을 edge로 만든 graph입니다. |
 | **Value model** | 어떤 state/action이 성공에 가까운지 추정하는 model입니다. |
-| **World model** | 작은 learned simulator입니다. "state S에서 action A를 하면 next state가 무엇인가"를 예측합니다. |
+| **World model** | 환경이 어떻게 작동하는지 명시적으로 나타낸 working model입니다. Learned simulator일 수도 있고, state graph나 "state S에서 action A를 하면 무엇이 일어나는가"를 예측하는 Python code일 수도 있습니다. |
 | **Intrinsic exploration** | 외부 reward만이 아니라 novelty, uncertainty, information gain으로 탐색하는 방식입니다. |
 | **Planning** | action을 바로 실행하기 전에 가능한 future sequence를 탐색하는 것입니다. |
 | **BFS / A\*** | 가능한 action sequence를 systematic하게 탐색하는 search algorithm입니다. BFS는 짧은 경로부터 넓게 보고, A\*는 heuristic으로 유망한 경로를 먼저 봅니다. |
@@ -800,23 +816,36 @@ $$
 
 중요한 구분은 **reactive** system과 **model-based** system입니다. reactive system은 "지금 어떤 action이 좋아 보이는가"를 묻습니다. model-based system은 "이 action을 하고, 그 다음 action을 하면 무엇이 일어날까"를 묻습니다. 사람이 새로운 game을 배울 때는 보통 두 번째 방식에 많이 의존합니다.
 
-**(a) CNN + sparse-RL action prediction (StochasticGoose 계열).** 작은 CNN이 어떤 action이 frame을 바꾸는지 예측하게 하고, 변화가 있을 것 같은 action을 더 자주 시도합니다. click 좌표도 64×64 head로 예측할 수 있습니다.  
-*장점:* preview winner로 검증된 계열이고, self-contained이며, sample-efficient한 편입니다.  
-*한계:* 본질적으로 reactive합니다. action이 "변화를 만든다"는 것과 "목표에 도움이 된다"는 것은 다릅니다.
+**(a) CNN + sparse-RL action prediction (StochasticGoose 계열).** 작은 CNN이 어떤 action이 frame을 바꾸는지 예측하게 하고, 변화가 있을 법한 action을 먼저 시도합니다. Click 좌표도 convolutional 64×64 head로 예측할 수 있습니다.
+
+*장점:* sample-efficient하고 self-contained입니다. 지금도 action prior나 no-op filter로 쓸 가치가 있습니다.
+
+*한계:* 이것만으로 완성된 에이전트를 만들기는 어렵습니다. 화면을 바꾸는 action이 왜 목표에 도움이 되는지는 설명하지 못하며, preview의 성과도 full benchmark로 이어지지 않았습니다.
 
 **(b) State graph + value model (Blind Squirrel / just-explore).** 이미 본 state를 graph로 만들고, loop나 no-op action을 줄입니다. 점수가 좋아지는 path를 발견하면 그 path를 거꾸로 labeling해서 value model을 학습할 수 있습니다.  
 *장점:* 방문한 상태에 대해서는 해석 가능하고, loop를 피하는 데 도움이 됩니다.  
 *한계:* 이미 가본 frontier 안에서만 강합니다. 아직 가보지 않은 목표 상태를 상상하는 힘은 약합니다.
 
-**(c) Learned world model + intrinsic exploration.** $(s, a, s')$ 경험으로 transition model을 배우고, 그 model 위에서 planning을 합니다. exploration은 무작정 헤매는 것이 아니라 uncertainty나 disagreement가 큰 곳을 향하게 합니다.  
-*장점:* benchmark가 실제로 요구하는 modeling, goal inference, planning을 직접 겨냥합니다.  
-*한계:* 어렵습니다. sparse reward에서 goal을 추론해야 하고, test-time learning이 불안정할 수 있으며, compute budget도 있습니다.
+**(c) Learned neural world model + intrinsic exploration.** $(s, a, s')$ 경험으로 transition model을 학습하고, 그 model 위에서 planning합니다. 아직 불확실하거나 model 사이의 예측이 크게 엇갈리는 action을 먼저 실험합니다.
 
-**(d) Frontier LLM harness.** 강한 language model을 감싸서 reasoning, memory, planning을 시키는 방식입니다.  
-*장점:* public game에서는 강력한 reasoning scaffold를 만들 수 있습니다.  
-*한계:* Kaggle evaluation에서 인터넷이 차단되므로 hosted API 의존 방식은 final submission으로 부적합합니다. 또한 public game overfitting 위험이 큽니다.
+*장점:* 이미 방문한 state 바깥을 예측할 수 있고, compact한 action prior를 만들 수 있습니다.
 
-**(e) Public-game source 기반 BFS / FORGE 계열.** 2026년 6월 25일 기준 고득점 public notebook들에서 가장 눈에 띄는 계열입니다. 핵심은 public game source를 최대한 활용해 game class를 직접 실행해 보고, 실제로 효과가 있는 action을 찾아낸 뒤, BFS/A\*/beam search로 solution path를 찾는 것입니다. 여기에 hidden field나 transient field를 hash에 넣거나 빼면서 state 구분을 더 정교하게 만듭니다.  
+*한계:* sparse reward와 적은 online data로 신뢰할 만한 model을 빠르게 만드는 일이 어렵습니다. 현재로서는 전체를 지휘하는 controller라기보다 강한 보조 구성요소에 가깝습니다.
+
+**(d) Local LLM tool/coding harness (Duck, Reki, forge).** Open-weight model을 offline notebook 안에서 실행하고 observation tool, memory, legal-action 검사, reflection, 제한된 action interface를 붙입니다. Duck은 여기에 Python REPL을 제공해 model이 상태를 직접 분석하고 변환하는 code를 작성하게 합니다.
+
+*장점:* Kaggle 규정에 맞고, Milestone #1에서 실제 성과도 확인됐습니다. 하나의 고정 policy에 묶이지 않고 test time에 표현 방식과 문제 풀이 절차를 바꿀 수 있습니다.
+
+*한계:* 27B~31B급 model이 runtime과 memory budget 대부분을 사용합니다. Context 관리, 잘못된 출력 형식, 느린 inference, 불안정한 visual grounding도 해결해야 합니다. Duck의 1.21%는 coding loop만으로 hidden generalization이 해결되지는 않는다는 사실도 보여 줍니다.
+
+**(e) 검증 가능한 executable world model (Rodionov / Schema 방향).** Coding agent가 game dynamics를 설명하는 Python model을 유지하고, 그 model의 예측을 실제 transition과 비교합니다. 예외가 쌓인 model은 더 단순한 설명으로 정리하고, 실제 action을 쓰기 전에 살아남은 model 위에서 계획합니다.
+
+*장점:* 가설을 그럴듯한 문장에서 틀릴 수 있는 예측으로 바꿉니다. Rodionov는 public 평균 RHAE 58.12%, Schema는 90%대 중후반을 보고했습니다.
+
+*한계:* 가장 높은 결과는 visible public game과 훨씬 큰 hosted model을 사용했습니다. 후속 ablation에서는 model 크기와 reasoning effort의 영향이 가장 컸고, 일부 조건에서는 textual working model이 flexible executable model보다 나았습니다. Verification은 일관되게 도움이 됐지만 Python code 자체가 만능 열쇠인 것은 아닙니다.
+
+**(f) Public-game source 기반 BFS / FORGE 계열.** 2026년 6월 하순의 고득점 public notebook에서 두드러졌던 역사적 계열입니다. Public game source로 game class를 직접 실행하고, 실제로 효과가 있는 action을 찾은 뒤 BFS/A\*/beam search로 solution path를 탐색합니다. 여기에 hidden field나 transient field를 hash에 넣거나 빼면서 state 구분을 더 정교하게 만듭니다.
+
 *장점:* public game에서는 매우 강합니다. 어떤 action이 실제로 frame을 바꾸는지 미리 scan하고, click 좌표도 `_get_valid_actions()` 같은 내부 helper를 통해 좁힐 수 있으면 search가 훨씬 쉬워집니다.  
 *한계:* 이 방식은 public source와 내부 구현에 기대는 부분이 많습니다. hidden/private game에서도 같은 방식의 source introspection이 가능하다고 가정하면 위험합니다. 따라서 이런 notebook은 "final solution"이라기보다, 어떤 search 장치가 도움이 되는지 배우는 참고 자료로 보는 편이 안전합니다.
 
@@ -826,50 +855,48 @@ $$
 |---|---|---|
 | Action-prediction RL | 어떤 action이 의미 있는 변화를 만드는가 | 그 변화가 왜 중요한가 |
 | State graph search | 같은 state를 반복하지 않는 법 | 아직 안 가본 state를 상상하는 법 |
-| World-model planning | 행동 전에 예측하고 계획하는 법 | 빠르게 신뢰할 만한 model을 만드는 법 |
-| LLM harness | language reasoning과 memory scaffold | Kaggle eligibility와 unseen generalization |
+| Learned world-model planning | 방문하지 않은 state를 예측하고 행동 전에 계획하는 법 | 빠르게 신뢰할 만한 model을 만드는 법 |
+| Local LLM harness | 표현을 바꾸고 tool을 작성하며 의미 있는 가설을 유지하는 법 | Runtime, context, grounding, hidden generalization |
+| 검증 가능한 executable model | 가설을 시험하고 모순이 생기면 수정하는 법 | 좋은 실험을 고르고 지나치게 복잡한 model을 피하는 법 |
 | Public-source BFS/FORGE | search, action scan, state hashing의 힘 | hidden game에서 source/introspection 의존이 깨지는 문제 |
 
-제 생각에는 여러 요소를 조합해야 할 가능성이 큽니다. loop를 피하기 위한 graph memory, action 낭비를 줄이는 action prior, transition을 예측하는 world model, goal이 보이기 시작했을 때 짧게라도 planning하는 search가 함께 필요해 보입니다.
+지금 제 판단은 조금 더 구체적입니다. Local LLM harness가 변화에 대응하는 controller 역할을 맡고, 이미 확인한 사실은 exact transition memory가 보존합니다. 아직 모르는 규칙은 executable hypothesis로 표현하고, 여러 가설의 예측이 엇갈릴 때는 disagreement가 큰 action을 실험합니다. 이미 아는 경로를 다시 실행할 때는 shortest-path replay로 action 낭비를 줄입니다. Model은 abstraction을 만들고 수정하되, 환경이 이미 증명한 사실을 잊지 않도록 deterministic code가 받쳐 주는 구조입니다.
 
-### 고득점 public notebook에서 보이는 패턴
+### 공개 코드에서 보이는 패턴: 6월의 search, 7월의 harness
 
-2026년 6월 25일 기준 고득점 public notebook들을 보면, 이름은 달라도 비슷한 전략 축이 반복됩니다. 아래 표는 특정 파일명을 외우기 위한 것이 아니라, 어떤 발상이 점수로 이어졌는지 분해해서 보기 위한 지도입니다.
+6월 25일 무렵에는 public source를 이용한 BFS와 state hashing이 가장 눈에 띄었습니다. Milestone #1 이후에는 중심이 local LLM harness로 이동했습니다. 그렇다고 앞선 search 기법이 사라진 것은 아닙니다. 지금 공개 코드에서 반복되는 발상은 다음처럼 정리할 수 있습니다.
 
-| 전략 이름 | 핵심 아이디어 | 배울 점 | 조심할 점 |
+| 전략 축 | 핵심 아이디어 | 배울 점 | 조심할 점 |
 |---|---|---|---|
-| **Trigger-aware graph search** | action이 실제로 state를 바꾸는 trigger인지 먼저 확인하고, 의미 있는 transition만 graph에 남깁니다. | state hash에 무엇을 넣고 뺄지가 search 성능을 크게 바꿉니다. | 내부 field probing은 hidden evaluation에서 그대로 통한다고 가정하면 위험합니다. |
-| **FORGE-style source-assisted BFS** | public game source를 이용해 action dedup, solution replay, cross-level transfer를 강화합니다. | public game에서 mechanics를 구조화하고 재사용하는 방법을 배울 수 있습니다. | public source exploit에 가까운 부분과 일반화 가능한 부분을 분리해야 합니다. |
-| **Hybrid BFS + learned prior** | BFS/A\*/beam search에 CNN fallback이나 novelty-guided exploration을 섞습니다. | search와 learned prior를 결합하는 실전적 형태입니다. | 복잡도가 높아서 어떤 구성요소가 실제로 기여하는지 분해 실험이 필요합니다. |
-| **Robust replay engineering** | frame extraction, reset handling, transient field 제거, epsilon reset 같은 실행 세부사항을 안정화합니다. | 작은 실행 버그가 점수를 크게 바꿀 수 있다는 점을 보여줍니다. | 좋은 engineering과 public-game overfit 사이의 경계가 얇습니다. |
+| **Duck-style coding harness** | Local LLM이 Python REPL에서 observation을 분석하고 필요한 helper code를 작성합니다. | Model이 game마다 적절한 표현과 분석 절차를 새로 만들 수 있습니다. | Context와 runtime을 많이 쓰며, model이 작성한 code도 틀릴 수 있습니다. |
+| **Reki-style structured controller** | 짧은 action queue, reflection memory, JSON repair, legal-action 제약을 둡니다. | 자유로운 reasoning과 엄격한 action interface를 분리할 수 있습니다. | 형식이 안정적이라고 game model이 정확한 것은 아닙니다. |
+| **Verified executable model** | 규칙을 Python prediction으로 만들고 실제 transition과 대조합니다. | 가설을 검증하고 반례에 따라 수정하는 절차가 중요합니다. | Public game의 높은 점수를 hidden generalization으로 오해하면 안 됩니다. |
+| **Exact transition graph + replay** | 관찰한 $(s,a,s')$를 정확히 저장하고, 이미 찾은 경로는 shortest path로 재실행합니다. | 같은 실험과 실패를 반복하지 않고 RHAE 낭비를 줄일 수 있습니다. | Grid가 같아도 hidden timer나 latent state가 다를 수 있습니다. |
+| **Action prior / salient click** | CNN이나 NumPy heuristic으로 no-op 가능성이 큰 action과 click 좌표를 줄입니다. | 큰 action space를 다루려면 값싼 후보 축소가 필요합니다. | Heuristic만으로 goal이나 장기 계획을 알 수는 없습니다. |
+| **Public-source graph search** | 공개 simulator와 내부 helper를 이용해 BFS/A\*/beam search를 강화합니다. | State hash, action dedup, replay engineering의 좋은 실험장입니다. | Hidden game에도 source introspection이 가능하다고 가정할 수 없습니다. |
 
-이 notebook들이 보여주는 것은 분명합니다.
+여기서 중요한 변화는 "search가 LLM으로 대체됐다"가 아닙니다. **LLM이 가설과 도구를 만들고, deterministic memory와 search가 이미 확인한 사실을 지키는 방향으로 역할이 재배치됐다**고 보는 편이 정확합니다. 큰 prompt 하나에 모든 일을 맡기는 방식보다, 역할이 분명한 작은 도구를 제공하는 방식이 강합니다.
 
-- public game에서는 **search가 매우 강력**합니다.
-- search가 강해지려면 action space를 줄여야 합니다. 특히 click 좌표를 줄이는 것이 중요합니다.
-- state hash가 틀리면 search가 쉽게 무너집니다. 너무 적게 넣으면 다른 state를 같은 state로 보고, 너무 많이 넣으면 transient counter 때문에 같은 state를 계속 다른 state로 봅니다.
-- BFS만으로 부족하면 A\*, beam search, heuristic, CNN fallback을 붙입니다.
-- level 0에서 찾은 demonstration을 level 1 이후의 prior로 쓰려는 시도가 있습니다.
-
-그렇다고 그대로 베끼면 안 됩니다. public notebook의 강한 점수는 종종 public game source, 내부 helper, 구현 세부사항에 접근할 수 있다는 사실에서 나옵니다. ARC-AGI-3의 진짜 목표는 unseen game generalization입니다. 따라서 제 관점에서는 public examples를 이렇게 읽는 것이 맞습니다.
+공개 코드를 참고할 때는 다음을 분리해야 합니다.
 
 ```text
-복사할 것:
-  logging discipline
-  action scan 아이디어
+가져올 것:
+  observation을 여러 표현으로 바꾸는 tool
+  transition log와 exact state graph
   no-op/action dedup
-  state hash 설계
-  BFS/A*/beam의 역할 분담
-  search 실패 시 fallback 설계
+  legal-action 검사와 output repair
+  hypothesis prediction 검증
+  reset 후 shortest-path replay
 
-조심할 것:
-  public source 직접 사용
-  hidden field introspection
-  game마다 직접 박아 넣은 trigger
-  leaderboard score만 보고 구성요소를 믿는 것
+따로 검증할 것:
+  public source와 hidden field 의존성
+  model size와 harness 효과의 분리
+  grid hash가 hidden state를 놓치는 문제
+  public game별 tuning과 best-of selection
+  Kaggle 9시간 안의 실제 처리량
 ```
 
-즉, public examples는 "정답"이라기보다 **어떤 문제가 실제로 에이전트를 실패하게 만드는지 보여주는 해부도**에 가깝습니다.
+Public example은 여전히 정답지가 아닙니다. 다만 이제는 실패 원인뿐 아니라 **local LLM과 deterministic program을 어떻게 나눠 맡길 것인지**까지 보여 주는 설계 자료가 됐습니다.
 
 ### 초심자를 위한 세 번의 구현 패스
 
@@ -1011,7 +1038,7 @@ score = (
 - **`env.make()`를 여러 번 호출하면 위험할 수 있습니다.** 특히 parallelization 과정에서 process마다 scorecard를 열면 점수가 0이 되는 식의 문제가 생길 수 있습니다. main thread에서 한 번만 여는 방식을 지키는 것이 중요합니다.
 - **`MAX_ACTIONS = ∞` 같은 설정은 위험합니다.** recording이 커져 Kaggle storage quota를 터뜨릴 수 있습니다. logic error가 아니라 storage failure로 실패할 수 있습니다.
 - **에이전트가 human baseline을 볼 수 있는가?** `environment_info.baseline_actions` 같은 정보가 test game에서 의도적으로 노출되는지, 실제로 활용할 수 있는지는 2026년 6월 기준으로 조심스럽게 다뤄야 합니다. 확정된 사실처럼 쓰면 안 됩니다.
-- **open-source 공개 딜레마가 있습니다.** milestone prize를 받으려면 공개해야 하지만, 공개 직후 복사 제출이 쏟아지면 원 작성자의 ranking이 흔들릴 수 있습니다. 이 timing rule은 주최 측 clarification을 확인해 따라야 합니다.
+- **코드 공개를 둘러싼 딜레마는 실제로 벌어졌습니다.** Duck이 공개된 뒤 복제본과 가벼운 변형이 leaderboard에 빠르게 늘었습니다. 주최 측도 Milestone #2에 가장 빨리 진입하는 방법으로 공개 template이나 submission을 복사해 수정하라고 안내합니다. 전체 baseline이 빠르게 좋아진다는 장점은 있지만, 점수만으로는 새로운 방법을 만든 팀과 공개 harness의 prompt를 바꾼 팀을 구분하기 어려워졌습니다.
 - **variance가 있습니다.** 같은 코드도 run-to-run 점수가 달라질 수 있습니다. 특히 낮은 점수대에서는 작은 차이가 순위를 크게 흔듭니다.
 
 작지만 중요한 실전 정보도 있습니다.
@@ -1032,12 +1059,13 @@ score = (
 
 제 접근은 이렇습니다.
 
-1. **Kaggle submission loop로만 실험하지 않습니다.** 먼저 local evaluation harness를 만듭니다.
-2. **25 public games를 train/holdout처럼 나눕니다.** 예를 들어 18개는 개발용, 7개는 holdout으로 둡니다. public set 안에서도 overfit을 감지해야 합니다.
-3. **leaderboard 숫자가 아니라 공개된 방법론을 기준으로 삼습니다.** StochasticGoose나 graph-explore baseline을 재현해 보고, 같은 local protocol에서 비교해야 합니다.
-4. **작은 기초 산출물부터 만듭니다.** replay log, state cache, no-op detector, state graph가 neural model보다 먼저입니다.
-5. **world model은 나중에 붙입니다.** 관측/로그/metric이 없으면 model이 좋아졌는지 알 수 없습니다.
-6. **milestone open-source release를 관찰합니다.** 상위 팀이 공개하는 코드는 전략의 현실적인 방향을 보여줄 가능성이 큽니다.
+1. **Kaggle submission만으로 실험하지 않습니다.** 25개 public game을 offline에서 실행하고 전체 trace를 저장합니다. 일부 game은 holdout으로 두어 가장 노골적인 public overfit부터 걸러냅니다. Public holdout이 진짜 hidden set은 아니지만 25개 전체를 동시에 튜닝하는 것보다는 낫습니다.
+2. **현재 공개 baseline부터 재현합니다.** 공식 GPT-OSS notebook과 Duck을 먼저 실행하고, Reki식 structured controller와 기존 graph-search/action-prior baseline을 같은 local protocol에서 비교합니다.
+3. **RHAE뿐 아니라 Kaggle 실행 가능성도 측정합니다.** Model load time, token throughput, tool-call latency, peak memory, game당 action 수, 전체 예상 runtime을 기록합니다. Public game을 잘 풀어도 hidden suite를 9시간 안에 처리하지 못하면 대회 baseline이 아닙니다.
+4. **확정된 사실과 가설을 분리합니다.** 실제로 관찰한 transition은 deterministic cache에 저장합니다. 아직 확실하지 않은 규칙, goal, object 역할은 지지 증거와 반례를 함께 가진 hypothesis ledger에 둡니다.
+5. **Planning을 두 층으로 나눕니다.** 이미 관찰한 transition에서는 shortest-path search로 효율적인 replay를 만들고, 아직 보지 못한 state와 action에만 model이 작성한 program이나 learned prediction을 사용합니다.
+6. **가설이 충돌하는 곳을 탐색합니다.** 단순히 새로운 frame을 만드는 action보다, 그럴듯한 가설들이 서로 다른 결과를 예측하는 action에 정보 가치가 있습니다.
+7. **Milestone #2를 외부 검증 시한으로 삼습니다.** 9월 30일 전에 local suite를 고정하고, 구성요소별 ablation을 수행한 뒤, local model·transition cache·recovery path가 전체 runtime budget을 통과한 경우에만 제출합니다.
 
 starter kit에서 실제로 수정해야 하는 부분은 많지 않습니다. 보통 중요한 코드는 `agent/my_agent.py` 안의 `MyAgent` class입니다.
 
@@ -1158,6 +1186,55 @@ def choose_action(self, frames, latest_frame):
 
 이 정도면 진전입니다. 실패에 이름이 붙으면, 다음 수정도 정해집니다.
 
+### 첫 주 이후: Duck을 검증 가능한 hybrid로 확장하기
+
+기본 logger가 동작한 다음에는 LLM에게 모든 일을 맡기기보다 역할을 다음처럼 나누는 편이 좋습니다.
+
+```text
+frame 관찰
+→ state 정규화와 exact history 조회
+→ LLM에 compact evidence와 사용할 수 있는 tool 제공
+→ LLM이 가설, 분석 code, legal action 제안
+→ 실제 action 하나 실행
+→ exact transition 기록
+→ 예측과 실제 결과 대조
+→ 가설 유지·수정·폐기
+```
+
+실제 action을 실행하는 공통 함수는 단순하게 유지할 수 있습니다.
+
+```python
+def execute_and_learn(state, action, expected=None):
+    next_state = env.step(action)
+    edge = transition_cache.record(state, action, next_state)
+
+    if expected is not None:
+        hypotheses.update_from_prediction(expected, next_state)
+
+    if edge.conflicts_with_previous_outcome:
+        transition_cache.mark_latent_or_stochastic(state, action)
+
+    return next_state
+```
+
+Cache key에는 적어도 game, level, 정규화된 grid, API가 제공하는 안정적인 metadata가 들어가야 합니다. Visible grid만 hash하면 위험합니다. 화면은 같아도 timer, animation phase, inventory flag 같은 latent state가 다를 수 있기 때문입니다. 같은 key와 action에서 서로 다른 결과가 나오면 기존 edge를 덮어쓰지 말고 conflict로 기록해야 합니다.
+
+결과가 일관된 edge들은 graph를 이룹니다. Reset하거나 실패한 뒤 이미 발견한 목표로 돌아갈 때, 또는 뒤 level에서 같은 mechanic이 다시 나올 때 BFS나 Dijkstra로 가장 싼 경로를 찾을 수 있습니다. 이는 같은 action을 반복해서 낭비하는 문제를 직접 줄입니다. 다만 처음 경로를 발견할 때 쓴 action까지 되돌려 주지는 않으며, 아직 관찰하지 않은 state를 통과해 계획할 수도 없습니다. Transition cache는 정확한 기억과 replay 장치이지, 그 자체로 완전한 world model은 아닙니다.
+
+LLM은 exact memory가 끝나는 지점에서 일해야 합니다. Object에 의미를 붙이고, 가능한 transition function을 작성하고, goal 후보를 만들고, 서로 경쟁하는 설명을 구분할 실험을 고릅니다. 예를 들어 가설 $h_1$은 "파란 물체가 움직인다"고 예측하고 $h_2$는 "선택한 행 전체가 회전한다"고 예측한다면, 두 가설의 예측이 갈리는 action이 단순한 novelty click보다 정보 가치가 높습니다.
+
+첫 ablation도 구체적으로 설계해야 합니다.
+
+| Variant | 확인할 질문 |
+|---|---|
+| Duck baseline | 공개 harness를 그대로 실행했을 때 어디까지 가는가? |
+| + exact transition cache | 같은 state와 action을 반복하는 낭비가 줄어드는가? |
+| + shortest-path replay | 이미 찾은 trajectory를 더 적은 action으로 재현하는가? |
+| + prediction verification | 틀린 규칙이 뒤 계획을 계속 오염시키지 않고 제거되는가? |
+| + disagreement probe | 더 적은 탐색 action으로 중요한 mechanic을 찾는가? |
+
+`edge_reuse_rate`, `transition_conflict_rate`, `replay_actions_saved`, `invalid_action_rate`, `tokens_per_action`, wall-clock time, 완료한 level 수, RHAE를 함께 기록해야 합니다. 이런 측정이 없으면 복잡한 harness가 실제로 더 잘 푸는 것인지, 단지 compute를 더 쓰는 것인지 구분하기 어렵습니다.
+
 ### 초반에 피하고 싶은 것들
 
 저라면 초반에는 다음을 피하겠습니다.
@@ -1204,18 +1281,18 @@ while not done:
 - **상금** — milestone pool, top score pool, 그리고 현재로서는 매우 어려운 grand prize가 있습니다.
 - **Paper Prize track** — 점수뿐 아니라 방법론을 설명하는 paper도 별도 보상을 받을 수 있습니다.
 - **Kaggle medal/ranking** — portfolio 관점에서 의미가 있을 수 있습니다.
-- **진짜 open problem에 기여** — 전체 성능이 거의 0 근처에 있으므로, 새 아이디어가 보일 공간이 있습니다.
+- **진짜 open problem에 기여** — public game은 빠르게 풀리고 있지만, Kaggle 제약 안에서 hidden game에 일반화하는 성능은 여전히 바닥에 가깝습니다. 새 아이디어가 기여할 공간이 충분합니다.
 - **RL, world models, program induction 사이의 포지셔닝** — 학습 주제로도 매우 좋습니다.
 
 ## 11. 제 생각
 
-저는 리더보드가 이 문제의 본질을 꽤 흐린다고 봅니다. 실제 상황은 오히려 단순합니다.
+Milestone #1 결과를 보고 이 글의 이전 결론 하나를 분명히 정정해야 했습니다. Hosted API에 의존하는 submission을 낼 수 없다는 판단은 맞았습니다. 그러나 그 사실을 "LLM harness는 Kaggle에 낼 수 없다"로 일반화한 것은 틀렸습니다. Local open-weight model은 허용되고, 공식 template도 실행 방법을 보여 주며, Duck은 바로 그 계열의 시스템으로 milestone에서 우승했습니다.
 
-> launch-era purpose-built preview winner도 full benchmark에서는 0.25% 근처로 떨어졌고, 2026년 6월 말 Kaggle 참가자 전체도 여전히 2% 아래입니다.
+최신 결과는 기술적인 예상도 바꿨습니다. 이제 저는 답이 단순히 **learned neural world model**이라고 보지 않습니다. 더 일관되게 나타나는 공통점은 하나의 절차입니다. 환경에 대한 working model을 만들고, 그 model로 예측하고, interaction history와 대조하고, 모순이 생기면 고치고, 검증을 통과한 지식으로 계획하는 과정입니다. Executable Python model은 유용한 표현 방식이지만, ablation 결과를 보면 그것만이 성공의 원인이라고 할 수는 없습니다. Base model의 능력과 reasoning effort도 여전히 큰 영향을 줍니다.
 
-이 말은 우울하기보다 흥미롭습니다. 문제는 아직 열려 있고, 진짜 다른 접근이 의미를 가질 여지가 있습니다.
+현재 제가 가장 가능성 있게 보는 조합은 **local LLM harness + exact transition memory + 검증 가능한 executable hypothesis + disagreement-driven exploration + shortest-path replay**입니다. Learned action prior나 neural transition model도 이 구조 안에 들어갈 수 있습니다. 다만 환경에서 이미 정확히 확인한 사실까지 neural model의 불완전한 기억에 맡길 이유는 없습니다.
 
-제가 더 가능성이 있다고 보는 방향은 **learned test-time world model + intrinsic-motivation exploration + lightweight planning + explicit goal inference**입니다. reactive action-prediction과 pure frontier search는 좋은 baseline이지만, benchmark가 명시한 네 능력 — exploration, modeling, goal-setting, planning — 을 모두 직접 겨냥하지는 못합니다.
+7월 23일 기준 Kaggle leaderboard는 여전히 2% 아래인데, 공개 game은 더 큰 model과 더 많은 compute를 사용해 훨씬 높은 비율로 풀리고 있습니다. 이 간격은 변명해야 할 이상 현상이 아니라 이 대회의 연구 문제 그 자체입니다. 제한된 action과 compute 안에서, 처음 보는 세계를 상대로 과학자처럼 가설을 세우고 검증하는 과정을 어떻게 self-contained agent 안에 압축할 것인가?
 
 이 대회의 질문은 "어떤 trick이 지금 leaderboard를 조금 올리는가"가 아닙니다. 더 근본적으로는:
 
@@ -1239,6 +1316,12 @@ while not done:
 - [ARC-AGI-3 technical report](https://arxiv.org/abs/2603.24621)
 - [ARC-AGI-3 docs](https://docs.arcprize.org/arc-prize-2026), especially [Games](https://docs.arcprize.org/games), [Actions](https://docs.arcprize.org/actions), [Scoring methodology](https://docs.arcprize.org/methodology), [Local vs Online](https://docs.arcprize.org/local-vs-online), and [Scorecards](https://docs.arcprize.org/scorecards)
 - [ARC-AGI-3 Kaggle Starter](https://github.com/arcprize/ARC-AGI-3-Kaggle-Starter)
+- [ARC Prize 2026 Milestone #1 공식 결과](https://arcprize.org/blog/arc-prize-2026-milestone-1)
+- [Tufa Labs의 Duck harness 설명](https://tufalabs.ai/research/duck-harness/)과 [공개 코드](https://github.com/Tufalabs/duck-harness)
+- [공식 Kaggle GPT-OSS-120B template](https://www.kaggle.com/code/gregkamradt/arc-agi-3-gpt-oss-120b)
+- [Executable World Models for ARC-AGI-3](https://arxiv.org/abs/2605.05138)과 [후속 ablation 연구](https://arxiv.org/abs/2607.15439)
+- [Schema harness 보고](https://schema-harness.github.io/)와 [공개 trace dataset](https://huggingface.co/datasets/schema-harness/arc-agi-3-schema-traces)
+- [공식 GPT-5.6 ARC-AGI-3 결과](https://arcprize.org/results/openai-gpt-5-6)
 - [ARC-AGI-3 Preview: 30-Day Learnings](https://arcprize.org/blog/arc-agi-3-preview-30-day-learnings)
 - [StochasticGoose preview solution](https://github.com/DriesSmit/ARC3-solution)
 - [ARC-AGI Community Leaderboard](https://github.com/arcprize/ARC-AGI-Community-Leaderboard)
