@@ -12,6 +12,8 @@ pin: false
 # ARC-AGI-3: 아직 아무도 풀지 못한 벤치마크
 
 > **업데이트 메모 (2026-07-23).** 이 글은 6월 24일에 처음 썼고, Milestone #1 결과가 나온 뒤 내용을 크게 고쳤습니다. 이번 개정에서는 Kaggle CLI, ARC Prize 공식 발표, 공개된 상위권 코드, 최신 논문을 서로 대조했습니다. 대회는 아직 진행 중이므로 아래 리더보드 숫자는 영구적인 기록이 아니라 해당 날짜에 확인한 값으로 읽어야 합니다.
+>
+> **업데이트 메모 (2026-08-04).** 직접 제출을 반복하고 대회에 동봉된 채점 엔진 소스를 뜯어본 뒤, 채점 수식 두 곳을 정정했습니다. 첫째, 1.15 cap은 비율이 아니라 **제곱한 값**에 적용됩니다. 둘째, 이전 판에 있던 "human baseline의 5배를 넘기면 0점" 컷오프는 **현행 채점기에 존재하지 않습니다**. 완료한 레벨은 $(h/a)^2$로 연속 감쇠할 뿐입니다. 그 밖에 8월 4일 기준 리더보드 상위는 1.86 / 1.69 / 1.64로 이동했고, 100위 컷은 1.24에서 1.29로 올라왔습니다. 이 사이에 실제로 겪은 시행착오와 전략 재배치는 후속 글인 2편에 정리했습니다.
 
 대회 링크:  
 [ARC Prize 2026 - ARC-AGI-3](https://www.kaggle.com/competitions/arc-prize-2026-arc-agi-3)
@@ -519,7 +521,7 @@ def grid_changed(prev_grid, next_grid):
 ARC-AGI-3의 점수는 **Relative Human Action Efficiency**, 줄여서 **RHAE**입니다. 한 level $\ell$에 대한 기본 score는 다음과 같습니다.
 
 $$
-s_\ell \;=\; \left[\min\!\left(\frac{h_\ell}{a_\ell},\, 1.15\right)\right]^{2}
+s_\ell \;=\; \min\!\left(\left(\frac{h_\ell}{a_\ell}\right)^{2},\; 1.15\right)
 $$
 
 여기서 $h_\ell$은 human baseline action count이고, $a_\ell$은 에이전트가 그 level을 클리어하는 데 쓴 action 수입니다.
@@ -529,8 +531,8 @@ human baseline은 대충 정한 숫자가 아닙니다. 공식 scoring methodolo
 중요한 설계 선택이 세 가지 있습니다.
 
 - **제곱합니다.** 에이전트가 사람보다 2배 느리면 ratio는 0.5지만, score는 $0.5^2 = 0.25$입니다. 절반이 아니라 25%만 인정됩니다.
-- **1.15 cap이 있습니다.** 사람이 10 action에 푼 level을 에이전트가 2 action에 exploit처럼 풀어도, level 하나가 전체 점수를 터무니없이 끌어올리지는 못합니다.
-- **action cutoff가 있습니다.** human baseline이 $h$라면, 에이전트가 대략 $5h$ action을 넘기는 순간 해당 level은 0점입니다.
+- **1.15 cap이 있습니다.** cap은 비율이 아니라 **제곱한 값**에 적용됩니다. 사람이 10 action에 푼 level을 에이전트가 2 action에 exploit처럼 풀어도, 그 level의 점수는 1.15에서 잘립니다.
+- **컷오프는 없습니다.** 이 글의 이전 판에는 "$5h$를 넘기면 0점"이라는 컷오프 규칙이 있었는데, 대회에 동봉된 채점 엔진(v0.9.8)을 직접 확인해 보니 그런 규칙은 없습니다. 완료하지 못한 level이 0점일 뿐, 완료한 level은 아무리 느려도 $(h/a)^2$로 연속 감쇠합니다. $5h$면 4%, $10h$면 1%입니다.
 
 이 설계는 꽤 의도적입니다.
 
@@ -571,8 +573,8 @@ def rhae_score(games):
 
         for i, level in enumerate(levels, start=1):
             human_actions, agent_actions, solved = level
-            if solved and 0 < agent_actions <= 5 * human_actions:
-                level_score = min(human_actions / agent_actions, 1.15) ** 2
+            if solved and agent_actions > 0:
+                level_score = min((human_actions / agent_actions) ** 2, 1.15)
                 weighted += i * level_score
                 completed_weight += i
 
@@ -587,7 +589,7 @@ def rhae_score(games):
 
 | 단계 | 무엇을 계산하나 | 왜 중요한가 |
 |---|---|---|
-| Level score | 사람이 쓴 action 수 `h`와 에이전트가 쓴 action 수 `a`를 비교해 `min(h / a, 1.15)^2`를 계산합니다. 단, `a > 5h`이면 0점입니다. | "깼다"만으로는 부족하고, 사람에 비해 얼마나 효율적으로 깼는지를 반영합니다. |
+| Level score | 사람이 쓴 action 수 `h`와 에이전트가 쓴 action 수 `a`를 비교해 `min((h / a)^2, 1.15)`를 계산합니다. 완료하지 못한 level은 0점입니다. | "깼다"만으로는 부족하고, 사람에 비해 얼마나 효율적으로 깼는지를 반영합니다. |
 | Game score | 뒤쪽 level일수록 더 큰 weight를 주어 level score를 평균냅니다. | 쉬운 앞부분만 풀고 멈추는 에이전트가 과대평가되지 않도록 합니다. |
 | Completion cap | sequential하게 완료한 level까지만 점수 상한을 인정합니다. | 초반을 건너뛰고 운 좋게 뒤쪽 일부만 맞히는 shortcut을 막습니다. |
 | Benchmark score | hidden game들의 game score를 평균내고 0-100% scale로 보고합니다. | 특정 environment 하나에 overfit한 에이전트보다 넓게 일반화하는 에이전트를 높게 봅니다. |
@@ -598,10 +600,11 @@ human baseline이 10 action인 level이 있다고 해봅시다.
 
 | Agent action 수 | Ratio $h/a$ | 제곱 후 score | 의미 |
 |---:|---:|---:|---|
+| 8 | 1.25 | 1.15 (cap) | 사람보다 빨라도 제곱값은 1.15에서 잘립니다. |
 | 10 | 1.00 | 1.00 | 사람과 같은 효율입니다. |
 | 20 | 0.50 | 0.25 | 2배 느리면 25%만 인정됩니다. |
 | 50 | 0.20 | 0.04 | 5배 느리면 4%만 인정됩니다. |
-| 51 | cutoff | 0.00 | $5h$를 넘으면 0점입니다. |
+| 100 | 0.10 | 0.01 | 컷오프는 없지만, 여기까지 오면 사실상 0에 가깝습니다. |
 
 여기서 직관이 한 번 꺾입니다.
 

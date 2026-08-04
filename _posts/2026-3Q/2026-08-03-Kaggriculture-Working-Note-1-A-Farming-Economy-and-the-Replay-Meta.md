@@ -363,6 +363,27 @@ single open-loop program plus minor repairs is sufficient for the frontier. My r
 is a phase, not an equilibrium: it works *because* it is early, because ratings are still
 inflating, and because nobody is yet punishing predictability. Which brings me to the fun part.
 
+### Aside — is this good game design? (and will it get patched?)
+
+Let me say the quiet part plainly: a competitive AI ladder whose dominant strategy is *copying a
+recording* is not in a healthy place. The root causes are design choices, not player behavior —
+near-zero interaction between players, invalid actions that fail silently instead of costing
+anything, and a daily firehose of complete expert replays. Each is defensible alone; together they
+make the optimal meta "replay, don't play."
+
+It is also very early — the season runs into late September — and every one of those causes has an
+obvious patch lever. Penalize or fault invalid actions and the silent-no-op robustness that tapes
+depend on disappears. Nudge a few market constants (the engine exposes them as configuration) and
+every frozen schedule is suddenly mistimed, while adaptive policies barely notice. Delay or trim
+the replay dataset and the copying pipeline starves. Add even one weak interaction channel and the
+solitaire assumption breaks outright.
+
+I have no inside information about whether any of this will happen. But it shapes my strategy as a
+hedge: I would rather hold a structured, adaptive program that *understands* why the frontier
+program wins than hold a verbatim tape of it. If a patch lands, tapes die overnight and the
+understanding transfers. If no patch lands, the reverse-engineered program knowledge compounds
+anyway. Copying is only dominant until the rules move — and the rules have every reason to move.
+
 ### 12. Predictability is exploitable
 
 A tape's entire market schedule is knowable in advance — every buy and sell, with turns and

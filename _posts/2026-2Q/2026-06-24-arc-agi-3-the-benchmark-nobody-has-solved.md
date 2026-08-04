@@ -12,6 +12,8 @@ pin: false
 # ARC-AGI-3: The Benchmark Nobody Has Solved Yet
 
 > **Status note (updated 2026-07-23).** This article was originally written on June 24 and substantially revised after Milestone #1. I checked the update against the Kaggle CLI, the official ARC Prize result, the released submissions, and the latest papers. ARC-AGI-3 is still active, so every leaderboard number below is a dated snapshot rather than a permanent record.
+>
+> **Status note (updated 2026-08-04).** After submitting repeatedly and reading the scoring engine source that ships with the competition data, I corrected two scoring details. First, the 1.15 cap applies to the **squared** value, not to the raw ratio. Second, the "zero past $5h$ actions" cutoff described in earlier revisions **does not exist in the current scorer**: a completed level decays continuously as $(h/a)^2$, however slow it was. Separately, the leaderboard has moved — the top three are 1.86 / 1.69 / 1.64 as of August 4, and the rank-100 bar rose from 1.24 to 1.29. What I actually went through in between — the dead ends and the strategy rebuild — is written up in Part 2 of this series.
 
 Competition link:  
 [ARC Prize 2026 - ARC-AGI-3](https://www.kaggle.com/competitions/arc-prize-2026-arc-agi-3)
@@ -462,14 +464,14 @@ This sounds trivial, but it is a large part of why pure random agents waste thei
 Performance is **Relative Human Action Efficiency (RHAE)**. For a single level $\ell$:
 
 $$
-s_\ell \;=\; \left[\min\!\left(\frac{h_\ell}{a_\ell},\, 1.15\right)\right]^{2}
+s_\ell \;=\; \min\!\left(\left(\frac{h_\ell}{a_\ell}\right)^{2},\; 1.15\right)
 $$
 
 where $h_\ell$ is the (upper-median) action count of first-time human players and $a_\ell$ is your agent's action count. Three design choices, each with strategic teeth:
 
 - **It's squared.** A raw efficiency ratio of 0.5 becomes 0.25. Being twice as slow as a human doesn't cost you half — it costs you three-quarters. *Solving the level is not enough; you have to approach human efficiency.*
-- **It's capped at 1.15** (this cap was raised from an earlier 1.0). You can score slightly above "human" by beating human efficiency, but a freak two-action win can't blow up the average.
-- **There's an action budget**: you are cut off after $a_\ell = 5\,h_\ell$ actions (five times the human median). Run past it without winning and the level scores **0**.
+- **It's capped at 1.15** — and the cap applies to the **squared** value, not the raw ratio. Beating human efficiency earns a small bonus, but a freak two-action win can't blow up the average.
+- **There is no cutoff.** Earlier revisions of this article claimed the level scores 0 past $5h$ actions; reading the scoring engine that ships with the competition (v0.9.8) shows no such rule. Only an *uncompleted* level scores 0. A completed level decays continuously: $5h$ actions is worth 4%, $10h$ is worth 1%.
 
 A game's score is a **level-index-weighted** average — later levels count more — with a per-environment cap. If a game has $n$ levels and the agent completes the first $k$ sequential levels, then:
 
@@ -500,8 +502,8 @@ def rhae_score(games):
 
         for i, level in enumerate(levels, start=1):
             human_actions, agent_actions, solved = level
-            if solved and 0 < agent_actions <= 5 * human_actions:
-                level_score = min(human_actions / agent_actions, 1.15) ** 2
+            if solved and agent_actions > 0:
+                level_score = min((human_actions / agent_actions) ** 2, 1.15)
                 weighted += i * level_score
                 completed_weight += i
 
@@ -516,7 +518,7 @@ In prose, the pipeline is:
 
 | Stage | What is computed | Why it matters |
 |---|---|---|
-| Level score | Compare human action count `h` with agent action count `a`, using `min(h / a, 1.15)^2`; if `a > 5h`, the level gets 0. | Completion alone is not enough. The benchmark rewards human-like efficiency. |
+| Level score | Compare human action count `h` with agent action count `a`, using `min((h / a)^2, 1.15)`; an uncompleted level gets 0. | Completion alone is not enough. The benchmark rewards human-like efficiency. |
 | Game score | Average level scores with larger weights on later levels. | An agent that solves only the easy prefix should not look too strong. |
 | Completion cap | Cap the game score by the sequential levels actually completed. | This prevents shortcuts where an agent misses the beginning but gets lucky later. |
 | Benchmark score | Average hidden-game scores and report them on a 0-100% scale. | Broad generalization matters more than overfitting one environment. |
@@ -527,10 +529,11 @@ Suppose a human baseline solves a level in 10 actions.
 
 | Agent actions | Raw ratio $h/a$ | Squared score | Interpretation |
 |---:|---:|---:|---|
+| 8 | 1.25 | 1.15 (cap) | Faster than human, but the squared value is clipped at 1.15. |
 | 10 | 1.00 | 1.00 | Human efficiency. |
 | 20 | 0.50 | 0.25 | Twice as slow becomes only 25% credit. |
 | 50 | 0.20 | 0.04 | Five times slower becomes 4% credit. |
-| 51 | cutoff | 0.00 | Past $5h$, the level gets zero. |
+| 100 | 0.10 | 0.01 | No cutoff — but by here the credit is nearly zero anyway. |
 
 This is the first counterintuitive point: **solving is not enough**. If a brute-force agent eventually wins after many random moves, it may still score almost nothing because the benchmark is measuring how quickly it acquired the skill.
 
