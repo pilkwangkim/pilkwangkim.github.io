@@ -130,7 +130,9 @@ $$
 
 그래서 amortization 논리는 신기루입니다. 후보당 비용을 고정 오버헤드 $F$(fresh 환경 빌드 + prefill)에 비용 $g$짜리 생성 $M$번으로 쓰면:
 
-$$\text{cost} = F + Mg,\qquad \text{gain} = \frac{M(F+g)}{F+Mg}.$$
+$$
+\text{cost} = F + Mg,\qquad \text{gain} = \frac{M(F+g)}{F+Mg}.
+$$
 
 이득은 $M$개 메시지가 $M$개 post를 쏠 때만 실재합니다. 메시지를 $M$개 *생성*하니 비용은 $M$에 비례해 늘지만, *발화*는 $\approx 1$입니다. 멀티메시지 후보는 single-post 하나의 raw를 얻으려고 $M$배 비용을 다 치릅니다 — single-post보다 무조건 나쁘고, $M$이 클수록 더 나쁩니다.
 
@@ -164,7 +166,9 @@ $$\text{cost} = F + Mg,\qquad \text{gain} = \frac{M(F+g)}{F+Mg}.$$
 
 이 결과로 §7에서 잘못된 이유로 접어 두었던 질문을 다시 검토할 수 있었습니다. 추론 모델이 $K$개의 post를 이어 실행해 $16K+2$ raw를 얻는데도 왜 체인이 손해였을까요? 후보당 고정비용 $F$(환경 생성과 프롬프트 prefill)는 **60 ms**, post 하나를 더 붙이는 한계비용 $g$는 **0.75 s**였습니다. 따라서 $F/g \approx 0.08$이고, 처리량은
 
-$$\text{초당 raw} = \frac{16K+2}{F + Kg}$$
+$$
+\text{초당 raw} = \frac{16K+2}{F + Kg}
+$$
 
 입니다. $F$가 이처럼 작으면 $K=1$에서 처리량이 가장 큽니다. post를 하나 추가할 때마다 온전한 generation 비용이 들고, 여러 post에 나누어 상쇄할 고정비용은 거의 없기 때문입니다. 게다가 $+2$ novelty cell은 후보당 한 번만 주어지므로, post 세 개를 한 후보에 넣으면 이 보너스의 활용도도 3분의 1로 줄어듭니다. single post를 기준으로 triple은 **0.97×**로 소폭 낮았습니다. 체인이 이득이 되려면 $F/g > \tfrac{3\cdot 18 - 50}{50 - 18} = 0.125$여야 하지만 측정값은 그보다 작았습니다. 이 비율은 prefill 토큰과 decode 토큰 수의 관계에 가깝기 때문에 GPU가 느려져도 결론은 크게 달라지지 않습니다. 멀티포스트 프레이밍이 single-post보다 낮았던 이유는 compliance 실패가 아니라, post마다 점수는 붙지만 비용은 분산되지 않는 구조였습니다.
 

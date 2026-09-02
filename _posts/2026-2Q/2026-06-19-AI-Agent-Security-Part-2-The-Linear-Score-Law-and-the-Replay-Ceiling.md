@@ -469,9 +469,12 @@ There is an honest unknown attached. Whether the displayed 55.8/56.34 already fo
 The cleanest way to organize the private problem is to name the two recognizers explicitly. For an action $a$, let
 
 $$
-R_{\text{pred}}(a)=1 \iff \text{the scorer recognizes } a \text{ as a successful exfil},
-\qquad
-R_{G}(a)=1 \iff \text{guardrail } G \text{ blocks } a.
+\begin{aligned}
+R_{\text{pred}}(a)=1
+&\iff \text{the scorer recognizes } a \text{ as a successful exfil},\\
+R_G(a)=1
+&\iff \text{guardrail } G \text{ blocks } a.
+\end{aligned}
 $$
 
 Scoring under guardrail $G$ requires landing in the gap between them:

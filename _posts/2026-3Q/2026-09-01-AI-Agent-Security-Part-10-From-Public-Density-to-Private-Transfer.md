@@ -137,11 +137,11 @@ First, generation resilience cannot rescue an incorrect replay mechanism. Natres
 Second, the partial-bank behavior applies only after the inner scorer has begun returning completed findings. A phase that hangs until the outer timeout can still lose the entire result. The resulting engineering target was therefore:
 
 $$
-\text{reliable generation of 2,000 candidates}
-+
-\text{bounded replay latency per candidate}
-+
-\text{safe outer-phase completion}.
+\begin{aligned}
+&\text{reliable generation of 2,000 candidates}\\
++{}&\text{bounded replay latency per candidate}\\
++{}&\text{safe outer-phase completion}.
+\end{aligned}
 $$
 
 The natresil work closed the first term. The public staircase came from the second.

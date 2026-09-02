@@ -130,7 +130,9 @@ A firing `http.post` is $16$ raw and the sum is uncapped in the practical regime
 
 So the amortization argument is a mirage. Write the per-candidate cost as a fixed overhead $F$ (fresh-environment build plus prefill) plus $M$ generations of cost $g$:
 
-$$\text{cost} = F + Mg,\qquad \text{gain over one post} = \frac{M(F+g)}{F+Mg}.$$
+$$
+\text{cost} = F + Mg,\qquad \text{gain over one post} = \frac{M(F+g)}{F+Mg}.
+$$
 
 The gain is real only if $M$ messages fire $M$ posts. They *generate* $M$ messages — cost scales with $M$ — but they *fire* $\approx 1$. A multi-message candidate pays the full $M$-fold cost for a single post's raw: strictly worse than single-post, and worse the larger $M$ is.
 
@@ -164,7 +166,9 @@ The first framing to run is the one §7 said fails: several endpoints, one `http
 
 Which reopens the question §7 closed for the wrong reason: if the reasoning agent will chain $K$ posts worth $16K+2$, why does chaining lose? Measure the two costs. The fixed per-candidate cost $F$ — build the environment, prefill the prompt — is **60 ms**. The marginal cost of one more post, $g$, is **0.75 s**. So $F/g \approx 0.08$, and throughput is
 
-$$\text{raw per second} = \frac{16K+2}{F + Kg},$$
+$$
+\text{raw per second} = \frac{16K+2}{F + Kg},
+$$
 
 which, with $F$ this small, is largest at $K=1$: each extra post is a full generation of its own, with almost no fixed cost for it to amortise. Worse, the $+2$ novelty cell is credited once per candidate, so packing three posts into one candidate spends that bonus a third as often. Measured against a single post, a triple lands at **0.97×** — a hair *below*. Chaining had to clear $F/g > \tfrac{3\cdot 18 - 50}{50 - 18} = 0.125$ to pay, and it comes in under. The ratio is a count of prefill tokens over decode tokens, not a wall-clock speed, so it is the same on the evaluator's slower GPU and for the non-reasoning row too. The four multi-post framings that landed below the single-post floor were not a compliance failure. They were this: a scorer that pays per post, over an agent whose posts do not amortise.
 

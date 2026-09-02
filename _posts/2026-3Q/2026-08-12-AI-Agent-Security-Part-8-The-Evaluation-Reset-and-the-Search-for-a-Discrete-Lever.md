@@ -480,7 +480,7 @@ This also constrains how the negative results should be read. Packing, static re
 
 The search then moved from time density to feature-space coverage.
 
-The private-evaluation discussion emphasized transfer of a candidate portfolio rather than adaptation to a visible defense. The host had also pointed participants toward Rainbow Teaming, where a quality-diversity archive fills behaviorally distinct regions rather than storing only many copies of one solution. The public scorer already included a novelty term, $2|\text{cells}|$.
+The private-evaluation discussion emphasized transfer of a candidate portfolio rather than adaptation to a visible defense. The host had also pointed participants toward Rainbow Teaming, where a quality-diversity archive fills behaviorally distinct regions rather than storing only many copies of one solution. The public scorer already included a novelty term, $2\lvert\text{cells}\rvert$.
 
 This suggested a precise, testable hypothesis:
 

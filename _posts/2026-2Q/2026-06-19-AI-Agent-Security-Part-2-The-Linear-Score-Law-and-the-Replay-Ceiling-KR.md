@@ -469,9 +469,12 @@ $$
 private 문제는 두 판별 규칙을 분리해 쓰면 명확해집니다. action $a$에 대해 다음과 같이 정의합니다.
 
 $$
-R_{\text{pred}}(a)=1 \iff \text{scorer가 } a \text{를 성공한 exfil로 인식},
-\qquad
-R_{G}(a)=1 \iff \text{guardrail } G \text{가 } a \text{를 차단}.
+\begin{aligned}
+R_{\text{pred}}(a)=1
+&\iff \text{scorer가 } a \text{를 성공한 exfil로 인식},\\
+R_G(a)=1
+&\iff \text{guardrail } G \text{가 } a \text{를 차단}.
+\end{aligned}
 $$
 
 guardrail $G$ 하에서 득점하려면 둘 사이의 간극에 들어가야 합니다.

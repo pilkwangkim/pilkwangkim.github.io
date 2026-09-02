@@ -316,7 +316,13 @@ The fill has two stop bounds, and it halts the moment the *next* candidate would
 
 For the locally reproduced public-defense path, each candidate was probed at the grader's 8-hop depth, so measured elapsed was the replay-cost proxy used by both stop bounds, while wall-clock progress was `Σelapsed + warmup`. Substituting the wall-trigger point (`Σelapsed = frac·9000 − warmup − slowest·1.2`) into the replay left side gives exactly `COEF·(frac·9000 − warmup)`, versus a threshold of `(frac·9000 − warmup)`. Under this control flow, the replay bound trips **only when COEF ≥ 1**.
 
-$$\text{COEF}<1 \;\Rightarrow\; \text{the wall bound always binds first} \;\Rightarrow\; N \text{ is unchanged by the coefficient.}$$
+$$
+\begin{aligned}
+\text{COEF}<1
+&\Rightarrow \text{the wall bound always binds first}\\
+&\Rightarrow N \text{ is unchanged by the coefficient}.
+\end{aligned}
+$$
 
 Sharper still: overhead outside the timer (message construction, the stop check, and the append) landed on the *wall* side, moving the crossover slightly above 1. **COEF = 1.0 was therefore inert on this path**; the replay bound could bind only above that threshold. Of our five variants, only Z5 (1.05) qualified, and the source model predicted that it would trim the affected row's `N` by about 4.8%.
 

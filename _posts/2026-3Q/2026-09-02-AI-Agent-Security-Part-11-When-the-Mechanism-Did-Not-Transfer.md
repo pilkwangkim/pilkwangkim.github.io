@@ -528,7 +528,7 @@ where:
 - $A_f\in[0,1]$ is the effective survival factor of mechanism family $f$;
 - $R_{f,m}$ is the engineering reliability conditional on that survival: the fraction of family-allocated replay time spent on correctly routed attempts that replay successfully and produce scored findings;
 - $T_{f,m}$ is the replay time allocated to attempts from family $f$ before applying the survival and reliability factors;
-- $\rho^{\mathrm{cond}}_{f,m}$ is raw points per second measured only among surviving, correctly routed, successfully replayed findings that score. It therefore excludes the failure probability already represented by $A_f$ and $R_{f,m}$.
+- $\rho^{\mathrm{cond}}\_{f,m}$ is raw points per second measured only among surviving, correctly routed, successfully replayed findings that score. It therefore excludes the failure probability already represented by $A\_f$ and $R\_{f,m}$.
 
 For that conditional density, let $J_{f,m}$ be the ordered index set of scored findings included in the estimate, let $P_i=(p_{i1},\ldots,p_{iL_i})$ be the occurrence list of scored predicates in finding $i$, and let $C_{f,m}^{(<i)}$ be the cells already seen in earlier members of $J_{f,m}$. Its raw-point numerator is
 
@@ -540,7 +540,7 @@ $$
 \right],
 $$
 
-so a repeated cell receives its novelty bonus only on first appearance. For the HTTP K-post family, the first term becomes $16K_i$; for unique Deputy Mail it becomes four. A completed trace with no scored predicate is outside $J_{f,m}$ and receives no cell bonus; the time it consumes lowers $R_{f,m}$ rather than being hidden inside $\rho^{\mathrm{cond}}_{f,m}$. The expression is a decision model, not an exact independence claim; ordering couples $T_{f,m}$ across families.
+so a repeated cell receives its novelty bonus only on first appearance. For the HTTP K-post family, the first term becomes $16K\_i$; for unique Deputy Mail it becomes four. A completed trace with no scored predicate is outside $J\_{f,m}$ and receives no cell bonus; the time it consumes lowers $R\_{f,m}$ rather than being hidden inside $\rho^{\mathrm{cond}}\_{f,m}$. The expression is a decision model, not an exact independence claim; ordering couples $T\_{f,m}$ across families.
 
 For two final submissions, the portfolio objective remains
 
