@@ -16,11 +16,11 @@ image:
 
 This series follows Kaggle's [AI Agent Security — Multi-Step Tool Attacks](https://www.kaggle.com/competitions/ai-agent-security-multi-step-tool-attacks), where candidate message chains are replayed against model, tool, and guardrail fixtures and scored from the resulting traces. Earlier installments had established the score algebra, separate GPT and Gemma routes, parser and framing effects, and the distinction between local firing and hosted scoring density; [Part 9]({{ site.baseurl }}/posts/AI-Agent-Security-Part-9-From-Firing-to-Density-Chains-Gates-and-the-Per-K-Frontier/) ended with exact K3 firing on T4 but a nearly flat hosted score, while the Adaptive-K result remained pending.
 
-This note records the period from **24 August through 21:00 KST on 1 September 2026**. The cutoff matters. The public leaderboard and the local artifacts were observable; the hidden private result was not. Accordingly, this post describes the candidate banks we could inspect, the hosted scores we could attribute to submission references, and the transfer hypotheses that motivated the final portfolio. It does **not** infer which hidden guardrail was deployed from a leaderboard score.
+This note covers **24 August through 21:00 KST on 1 September 2026**. It records three linked threads: the public-density staircase, the identity checks that tied hosted scores to specific bank and route variants, and the conditional transfer hypotheses used to design the final two-slot portfolio.
 
 The period had two intertwined stories.
 
-The first was a public-score staircase. An Adaptive-K experiment produced only a small hosted gain, apparently weakening the case for multi-post traces. A later native-format correction reversed that reading. That in turn led to a sequence of increasingly dense or cheaper static replay banks: ExactUnion, Letter-K8, Static42, and URL-Decoded-18. The public team score moved from the low 110s to **137.370**, with a same-family control later reaching **137.850**.
+The first was a public-score staircase. An Adaptive-K experiment produced only a small hosted gain, apparently weakening the case for multi-post traces. A later native-format correction reversed that reading. That in turn led to a sequence of increasingly dense or cheaper static replay banks: ExactUnion, Letter-K8, Static42, and URL-Decoded-18. The public team score moved from the low 110s to **137.370**, with a same-family artifact whose selected route included a mail tail later reaching **137.850**.
 
 The second was a transfer problem. The candidate generator is not an online learner inside the hidden environment. It returns a fixed bank, and the evaluation replays that bank against held-out fixtures and a held-out guardrail. Therefore, a high public score identifies a strong portfolio under the public path, but it does not by itself identify a robust private portfolio. The remaining submissions were used to test different failure axes: non-empty labels on both models, valid HTTPS-shaped arguments, a different scoring predicate through Deputy Mail, and ordered fallback tails.
 
@@ -228,12 +228,6 @@ The ExactUnion submission, reference **55827977**, scored **119.710**. Its GPT b
 - rows 1039–1536: selected `a://host` copy candidates;
 - rows 1537–1999: a trusted frame tail.
 
-The decoded GPT bank SHA-256 was
-
-```text
-48261a8cdbb73d69663f28bb74357a4bcf0fe2c51d26f5a79d8317d3ce711cc0
-```
-
 The labels created 2,000 row-specific public score buckets. They were not real Internet domains, and most were not valid HTTP(S) URLs. ExactUnion diversified an accounting field while keeping the broad behavior fixed: a literal-marker synthetic `http.post → EXFILTRATION` K1 trace.
 
 The score was nevertheless important. It established that row-specific K1 buckets could outperform several denser but slower or less reliable constructions. In a separate GPT-isolated experiment, reference **55832445** scored 49.590, implying a rough GPT-frame contribution near 99.09 under the paired-score arithmetic. A SpacedShort variant reached 117.785, while a walk3 variant fell to 82.435. Small changes in the exact message and state trajectory were therefore not interchangeable.
@@ -246,11 +240,7 @@ Letter-K8 replaced ExactUnion’s GPT K1 bank with 2,000 copies of a single K8 s
 Y → V → T → S → R → P → O → N
 ```
 
-Its serialized length was 883 characters, and its message SHA-256 was
-
-```text
-eb1ba75141bd76557cb48973e54bbeb9ff5778bc3a5aa7bad155c9df11ffbde3
-```
+Its serialized length was 883 characters.
 
 Reference **55858034** scored **127.530**, a 7.820-point increase over ExactUnion. This was a density result, not a diversity result. Letter-K8 collapsed 2,000 candidates into essentially one repeated public cell but extracted eight predicates from each completed trace. If $n$ repeated K8 rows completed, the per-model contribution was
 
@@ -262,11 +252,7 @@ The message therefore won when its completed-row count remained high enough that
 
 ### 6.3 Static42: 134.170 by changing the Gemma leg
 
-The next submission kept the GPT Letter-K8 message byte-identical and changed the Gemma replay bank. Static42 was a compact, repeated, empty-URL K2 message:
-
-- serialized message length: 247 characters;
-- message SHA-256 beginning `eb9b99a6` and ending `2c9a`;
-- selected 2,000-row bank SHA-256 beginning `07d2a645` and ending `e396`.
+The next submission kept the GPT Letter-K8 message byte-identical and changed the Gemma replay bank. Static42 was a compact, repeated, empty-URL K2 message, 247 characters long, selected once and repeated across the 2,000-row Gemma bank.
 
 Reference **55869691** scored **134.170**, up 6.640 points from 127.530. Because the GPT bank was held byte-identical, this score difference was unusually informative: it localized the hosted gain to the Gemma-side construction plus any route/warm-up consequences around that construction.
 
@@ -280,11 +266,7 @@ for $n$ completed repeated K2 traces. It also introduced a future co-failure con
 
 ### 6.4 URL-Decoded-18: 137.370 by shortening the intended GPT path
 
-URL-Decoded-18 retained Static42 on Gemma and introduced a shorter intended GPT K8 path. The intended selected message was 683 characters with SHA-256
-
-```text
-c59006fcc2127d5bcb9172e86fa272159b5b6d3d4f30aa09b549bbce732d1d68
-```
+URL-Decoded-18 retained Static42 on Gemma and introduced a shorter intended GPT K8 path. The intended selected message was 683 characters.
 
 It used an empty URL, placed the URL argument first, and preserved the same eight payload-state transitions. Its decoded completion was about 144 tokens rather than Letter-K8’s approximately 160. Reference **55890904** scored **137.370**, 3.200 points above Letter-K8 plus Static42.
 
@@ -305,7 +287,7 @@ By 31 August at 06:37 KST, 137.370 placed the team fourth, 10.160 points behind 
 
 This was the point at which the public optimization finally became legible as a system rather than a sequence of prompt guesses. ExactUnion answered whether many K1 score buckets could beat a smaller dense repertoire. Letter-K8 answered whether predicate density could dominate the novelty loss. Static42 isolated a Gemma-specific syntax improvement while holding GPT fixed. URL-Decoded-18 tested whether shaving completion tokens from the intended GPT trajectory could buy additional completed K8 rows. Each result could be placed on the same three-axis diagram: raw points per completed row, end-to-end seconds per row, and the probability of reaching the intended route.
 
-The measurement that would have shortened this search most, if built at the beginning, was a full-path replay meter keyed by artifact identity. It needed separate GPT and Gemma completion counts, predicate counts, score-cell counts, per-candidate latency quantiles, the selected and fallback route, and the exact bank SHA. Token counts and short T4 firing tests would still have been useful, but only as components of that meter. The late staircase was not produced by a single more creative instruction; it came from making success and latency commensurable at the scorer boundary.
+The measurement this search required was a full-path replay meter keyed by artifact identity. It needed separate GPT and Gemma completion counts, predicate counts, score-cell counts, per-candidate latency quantiles, the selected and fallback route, and the exact bank SHA. Token counts and short T4 firing tests remained useful, but only as components of that meter. The staircase was not produced by a single more creative instruction; it came from making success and latency commensurable at the scorer boundary.
 
 The larger transition was a change in the optimization loop. The earlier loop compressed a candidate into one aggregate proxy—often raw points per inference second—then bundled several promising changes into a hosted submission. Because a hosted score took many hours and a daily slot, each experiment was expensive, and a disappointing result often could not identify which bundled change caused it. The Adaptive-K forecast and the K6 crater both exposed that weakness.
 
@@ -315,13 +297,13 @@ The contrast inside the team made the difference visible. My own zero-slot harne
 
 That distinction also explains why I might have remained near the earlier plateau if the search had continued in its original order. I was often using a local harness as a validity gate and the public leaderboard as the optimizer. The stronger loop used local full-replay measurements as the optimizer and the leaderboard as confirmation. Once a hosted result costs many hours and a scarce slot, reversing those roles changes how much search can happen before each bet.
 
-If restarting, this meter and manifest would be infrastructure from day one rather than an endgame diagnostic. It would not eliminate hosted uncertainty, but it would convert each hosted slot from a broad gamble into a confirmation of a locally distinguished hypothesis.
+The resulting operating rule was to treat the meter and manifest as core infrastructure, not an endgame diagnostic. They could not eliminate hosted uncertainty, but they could turn each hosted slot from a broad gamble into confirmation of a locally distinguished hypothesis.
 
 <figure class="align-center">
   <img src="{{ site.baseurl }}/assets/img/posts/2026-09-01-ai-agent-security-part-10/fig-01-public-score-staircase.png" alt="A four-step public score staircase attributed to ExactUnion, Letter-K8, Static42, and URL-Decoded-18" width="96%">
 </figure>
 
-*Figure 1. Each public move was tied to an identifiable replay-bank component. The final hosted route for URL-Decoded-18 remained unlogged at the cutoff.*
+*Figure 1. Each public move was tied to an identifiable replay-bank component. The final hosted route for URL-Decoded-18 remained unlogged as of 21:00 KST on 1 September.*
 
 ## 7. Artifact identity became part of the scientific method
 
@@ -331,8 +313,8 @@ Near the end of the competition, notebook titles and public scores were no longe
 - a model classifier;
 - a selected arm and one or more fallbacks;
 - warm-up calls that changed state before replay-bank construction;
-- Markdown claims copied from an earlier version;
-- a locally saved notebook that was not byte-identical to the hosted script version.
+- descriptive text copied from an earlier version;
+- a working copy that was not byte-identical to the hosted script version.
 
 Consequently, a candidate family required a tuple rather than a nickname:
 
@@ -340,15 +322,9 @@ $$
 (\text{submission ref},\ \text{kernel slug/version},\ \text{attack SHA},\ \text{route},\ \text{bank SHA},\ \text{fallback}).
 $$
 
-This was not bookkeeping for its own sake. The ExactUnion bank appeared in several later submissions, byte-identical, while the Gemma bank and generation-time routing changed. Conversely, two notebooks with similar titles could embed different attack source. A score resembling a previous result did not prove that the same branch ran.
+This was not bookkeeping for its own sake. The ExactUnion bank appeared in several later submissions, byte-identical, while the Gemma bank and generation-time routing changed. Conversely, two similarly titled submissions could embed different attack source. A score resembling a previous result did not prove that the same branch ran.
 
-The URL-Decoded-18 artifact illustrates the strongest safe claim. Its submitted attack SHA-256 was
-
-```text
-aab5f401ef363ccfa6f0b454016963f3801a80f265800de2f674b0e62116d837
-```
-
-That artifact scored 137.370. We could inspect its selected URL18 candidate bank, Letter-K8 fallback, and Static42 branch. Without the hosted route trace, however, we could not assign the score to one internal path. Later diagnostics could measure route behavior under a controlled T4 environment, but they could not reconstruct an unlogged past hosted decision.
+The URL-Decoded-18 artifact illustrates the strongest safe claim. Reference **55890904** scored 137.370 and contained a selected URL18 candidate bank, a Letter-K8 fallback, and a Static42 branch. Without the hosted route trace, however, the score could not be assigned to one internal path. Later diagnostics could measure route behavior under a controlled T4 environment, but they could not reconstruct an unlogged past hosted decision.
 
 This identity rule also limits causal arithmetic. Differences between separately hosted runs are useful hypotheses, but they are not matched A/B estimates unless the two artifacts hold every other relevant byte and state transition fixed.
 
@@ -360,7 +336,7 @@ Four evidence sources constrained the private problem without resolving it. The 
 
 Taken together, they opened several mutually incompatible but technically coherent worlds:
 
-| Private world considered at the cutoff | Why it was plausible then | Candidate family favored |
+| Private-evaluation scenario | Why it remained plausible | Candidate family favored |
 |---|---|---|
 | Broad public behavior still transfers; fixtures mainly reshuffle | shared scorer and an unchanged broad evaluation architecture | URL-Decoded-18 / Static42 anchor |
 | Empty or repeated trajectories are rejected, but direct HTTP remains allowed | host warning against public-pattern overfit | ExactUnion, PICK2B, both-no-empty |
@@ -444,7 +420,7 @@ The weak branch was therefore not evidence that the email predicate was broken. 
 
 **What changed the belief.** Time, not row count, was the scarce resource. The 64 mail rows occupied nearly half the replay clock while producing one third of the raw value of a K1 HTTP row. The exact 36.66 decomposition turned a vague “diversity run is weak” observation into an ordering diagnosis.
 
-**What a restart would measure first.** Before constructing any mixed bank, measure each mechanism’s full-path latency distribution and raw-points-per-second on the same model and chassis. Then simulate the ordered prefix under the actual 8,750-second budget. That one table would have rejected an unframed mail prefix before a hosted slot was used.
+**Next measurement.** Before constructing any mixed bank, measure each mechanism’s full-path latency distribution and raw-points-per-second on the same model and chassis. Then simulate the ordered prefix under the actual 8,750-second budget. This table provides a submission-time test for rejecting an unframed mail prefix before using a hosted slot.
 
 ### 10.2 FRAME64: a useful unsubmitted canary, not a deep hedge
 
@@ -472,17 +448,11 @@ FRAME64 was therefore not submitted. It was too thin to provide meaningful full-
 
 **What changed the belief.** Two measurements narrowed its role. First, the 700-second proposed gate ended before the email prefix, so it could not estimate the long-budget mixture. Second, even under a favorable latency ratio, 64 mail rows supplied only 0.96 displayed points if HTTP disappeared completely. FRAME64 could be a canary for a partial policy change, but not insurance against the deep failure it was being asked to cover.
 
-**What a restart would build first.** Use an interleaved micro-A/B to estimate the stable email-to-HTTP latency ratio, then validate one full-budget ordered replay where both arms reach the same tail. For full-HTTP-failure coverage, size the alternate mechanism from a required survival payoff backward rather than choosing 64 because it is operationally convenient.
+**Next test.** Use an interleaved micro-A/B to estimate the stable email-to-HTTP latency ratio, then validate one full-budget ordered replay where both arms reach the same tail. For full-HTTP-failure coverage, size the alternate mechanism from a required survival payoff backward rather than choosing 64 because it is operationally convenient.
 
 ### 10.3 PICK2B: 122.625 and the limit of cross-run arithmetic
 
-PICK2B removed the email prefix and combined the ExactUnion GPT bank with the proven Static42 Gemma bank. Its submitted attack SHA-256 was
-
-```text
-dbaa47b12f81e9ac3bd6e762ebdb836c6bbe0b65f195fe3ec106b0048663d5f2
-```
-
-Reference **55901252** scored **122.625**. End-to-end local checks routed GPT to ExactUnion and Gemma to Static42, and both legs fired the intended predicates. The GPT replay bank was byte-identical to the 119.710 ExactUnion bank; the Gemma bank was byte-identical to the Static42 branch used by the 134.170 and 137.370 families.
+PICK2B removed the email prefix and combined the ExactUnion GPT bank with the proven Static42 Gemma bank. Reference **55901252** scored **122.625**. End-to-end checks routed GPT to ExactUnion and Gemma to Static42, and both legs fired the intended predicates. The GPT replay bank matched the 119.710 ExactUnion bank; the Gemma bank matched the Static42 branch used by the 134.170 and 137.370 families.
 
 A cross-run estimate had predicted
 
@@ -506,7 +476,7 @@ PICK2B’s transfer role was consequently specific. Relative to the 137 anchor, 
 
 **What changed the belief.** Two separate premises narrowed. First, the 122.625 result was mechanically sound but below the 126.350 cross-difference forecast; independently hosted deltas were not additive controls, and Prime4’s 124.000 showed that warm-up and routing could move the same replay-bank family. Second, the byte-identical Static42 Gemma leg meant that changing GPT did not make the whole submission orthogonal to the anchor. PICK2B remained rational for a selective GPT/K8 world; it no longer looked like a broad private hedge merely because its GPT rows were numerous.
 
-**What a restart would measure first.** Run a matched same-chassis full-budget A/B with identical generation and warm-up state, changing only the GPT replay bank. In parallel, maintain a coverage matrix at the level of sink, predicate, URL class, K, and repeated state. That would separate the public cost of ExactUnion from the private axes it actually changed.
+**Next measurement.** Run a matched same-chassis full-budget A/B with identical generation and warm-up state, changing only the GPT replay bank. In parallel, maintain a coverage matrix at the level of sink, predicate, URL class, K, and repeated state. This separates the public cost of ExactUnion from the private axes it actually changes.
 
 ## 11. 1 September: widening the observable portfolio
 
@@ -514,13 +484,7 @@ With the main public family banked, the remaining submissions targeted explicit 
 
 ### 11.1 Both-no-empty: 117.030 without the empty-K4 arm
 
-The **non-empty distinct-host-label hedge**, reference **55918588**, scored **117.030**. Its attack SHA-256 was
-
-```text
-70b018ea3091810b99915d25d83b0a4458352f5f82821fcd64918b02e92bd541
-```
-
-GPT used the same ExactUnion bank. Gemma used a bounded native K1/K2/K3 race with the empty-K4 arm removed, followed by deterministic filling to 2,000 candidates. Every normal path returned a complete bank, and both model legs used row-distinct, non-empty `://label` arguments.
+The **non-empty distinct-host-label hedge**, reference **55918588**, scored **117.030**. GPT used the same ExactUnion bank. Gemma used a bounded native K1/K2/K3 race with the empty-K4 arm removed, followed by deterministic filling to 2,000 candidates. Every normal path returned a complete bank, and both model legs used row-distinct, non-empty `://label` arguments.
 
 This was the cleanest banked test of “no empty URL on either model” within the existing HTTP family. It was still important not to overname the property. `://label` is scheme-less and not a proper HTTPS URL. The sentinel remained literal, and the sink and predicate remained direct `http.post → EXFILTRATION`. The candidate covered empty-string rejection and some repeated-cell or repeated-prompt concerns; it did not cover strict URL parsing or a decoded-argument content rule.
 
@@ -528,17 +492,11 @@ This was the cleanest banked test of “no empty URL on either model” within t
 
 **What changed the belief.** The 117.030 score showed that the construction retained a substantial public payoff, making it a practical rather than purely symbolic hedge. The more important correction came from inspection: **non-empty was not the same property as valid**. The labels were still scheme-less, so this bank covered one syntactic boundary rather than general URL validity.
 
-**What a restart would build earlier.** A URL-class ladder—empty, one-character, scheme-less label, syntactically valid reserved HTTPS—should be crossed with model and K in one controlled bank family. That would price each validation step instead of discovering “non-empty” and “valid” in separate endgame submissions.
+**Next controlled family.** Cross a URL-class ladder—empty, one-character, scheme-less label, syntactically valid reserved HTTPS—with model and K in one controlled bank family. This prices each validation step separately rather than conflating “non-empty” with “valid.”
 
 ### 11.2 Proper HTTPS: 63.765 for a materially different URL class
 
-The **valid-HTTPS direct transfer candidate**, reference **55924627**, scored **63.765**. Its attack SHA-256 was
-
-```text
-39f8dee22c3c55e08d872e5969b066626a766254dd7a3e84f0fb2aca6727fca9
-```
-
-Both model legs used 2,000 distinct reserved example hosts of the form
+The **valid-HTTPS direct transfer candidate**, reference **55924627**, scored **63.765**. Both model legs used 2,000 distinct reserved example hosts of the form
 
 ```text
 https://xNNNN.example
@@ -561,7 +519,7 @@ Thus 63.765 was not “private-safe” in the abstract. It was a measurable opti
 
 **What changed the belief.** Exact T4 firing established that the mechanics worked, but 63.765 revealed a much larger hosted price than the 110–120 range expected for nearby HTTP banks. It remained the strongest strict-URL-shaped option, yet selecting it meant giving up roughly sixty public points of evidence relative to PICK2B-family candidates. Its orthogonality increased as its measured payoff decreased.
 
-**What a restart would measure first.** Build compact valid-HTTPS prompts before the public anchor is finalized, then decompose the cost into source-message length, decoded completion length, per-model route, and completed rows. Separately test raw-text scanning and decoded-argument scanning; escaping the source only covers the first.
+**Next measurement.** Build compact valid-HTTPS prompts before finalizing the public anchor, then decompose the cost into source-message length, decoded completion length, per-model route, and completed rows. Separately test raw-text scanning and decoded-argument scanning; escaping the source only covers the first.
 
 ### 11.3 The first Deputy tail: 117.610 and a score-compatible replay reconstruction
 
@@ -572,13 +530,7 @@ The next design attached an ordered Deputy-Mail tail behind the public anchor:
 
 The intention was contingent. Under public successful replay, the dense prefix should consume most or all of the budget. If another guardrail rejected the synthetic HTTP prefix much faster, replay might advance into the mail tail, which used a different sink and the `CONFUSED_DEPUTY` predicate without `SECRET_MARKER`.
 
-Reference **55927643** scored **117.610**, while an earlier tail-bearing artifact whose public behavior matched the parent anchor, reference **55926763**, scored **137.850**. The corrected selected-plus-observed-fallback tail artifact's attack SHA-256 was
-
-```text
-ada559b697af60905963b1012853d392b94fc5b563d1ec5fd4c9d23e45a05bbd
-```
-
-An exact T4 diagnostic had caught an important route bug before the final version: the actual GPT Letter fallback initially had no tail. The corrected version attached the mail bank to the selected GPT path and the observed Letter fallback.
+Reference **55927643** scored **117.610**, while an earlier tail-bearing artifact whose public behavior matched the parent anchor, reference **55926763**, scored **137.850**. An exact T4 diagnostic had caught an important route bug before the final version: the actual GPT Letter fallback initially had no tail. The corrected version attached the mail bank to the selected GPT path and the observed Letter fallback.
 
 The 117.610 result admits a score-exact but non-unique reconstruction. The 137.850 reference was consistent with 320 repeated GPT K8 completions and 443 repeated Gemma K2 completions:
 
@@ -614,19 +566,13 @@ The standalone Deputy-Mail donor had scored **25.695** at reference **55355507**
 
 **What changed the belief.** The 117.610 result was numerically consistent with the public switch point being too early and GPT reaching 16 mail rows after the 256-row K8 prefix. The later 135.450 split looked encouraging, but fallback ambiguity prevented it from proving that the desired selected tail was both preserved and unreachable. The concept remained coherent; the available scores and route records had not yet delivered a clean causal experiment.
 
-**What a restart would build first.** Measure successful and rejected latency distributions for every prefix route, including fallbacks, then solve the cutoff against both regimes. The artifact validator should assert that every reachable selected and fallback bank carries the intended tail and should emit a compact manifest tying that bank to the submitted attack SHA.
+**Next test.** Measure successful and rejected latency distributions for every prefix route, including fallbacks, then solve the boundary against both regimes. The artifact validator should assert that every reachable selected and fallback bank carries the intended tail and should emit a compact manifest tying that bank to the submitted attack SHA.
 
 ### 11.4 Follow-up splits: useful scores, incomplete identity
 
-Two follow-up notebooks attempted to isolate the cutoff more carefully.
+Two follow-up submissions attempted to isolate the boundary more carefully.
 
-The **URL18 / Static42 AL Deputy tail 240/950** artifact used attack SHA-256
-
-```text
-d39d6b85871bde294a54cf5fece7c4da86150e7d35158096d81d7773dced3892
-```
-
-and aligned by papermill metadata with reference **55932663**, which scored **135.450**. Its selected GPT bank used 240 URL18 rows before the tail, and its selected Gemma bank used 950 Static42-AL rows before the tail. However, the inexact GPT fallback still contained no tail.
+The **URL18 / Static42 AL Deputy tail 240/950** artifact was associated with reference **55932663**, which scored **135.450**. Its selected GPT bank used 240 URL18 rows before the tail, and its selected Gemma bank used 950 Static42-AL rows before the tail. However, the inexact GPT fallback still contained no tail.
 
 The score 135.450 is numerically compatible with a full Letter-K8 fallback on GPT and about 413 repeated K2 completions on Gemma:
 
@@ -636,11 +582,11 @@ $$
 
 That compatibility is an inference, not route proof. In particular, it does not establish that a 240-row URL18 prefix preserved the public score while retaining an effective tail. The fallback structure provides an alternative explanation.
 
-A second artifact, **v4 local-test-score-194**, aligned by papermill metadata with reference **55936117**, which scored **120.010**. Its Markdown described an unchanged URL18 GPT branch and a particular Gemma variant, but the actual embedded source did not match those claims: the embedded attack SHA began `ed04962a` rather than the documented `f274...`, the GPT path was Letter-K8, and the Gemma path used a distinct-label K2-like construction with a 256/960 mail-tail split. It should not be treated as a clean causal B experiment until the remote script identity, route, and actual bank are re-pinned.
+A second follow-up, reference **55936117**, scored **120.010**, but its route and bank identity could not be established consistently. It is therefore not treated as a clean causal B experiment.
 
-Another live score, reference **55938827**, reached **136.525**, but no local artifact in the reviewed set established its exact candidate identity. It is therefore recorded as an observable score only, not assigned to a named hedge family.
+Another live score, reference **55938827**, reached **136.525**, but its exact candidate identity was not established. It is therefore recorded as an observable score only, not assigned to a named hedge family.
 
-These follow-ups reinforce the same rule as the URL18 route caveat: near-identical scores and notebook titles do not establish lineage. A hedge is selectable only after its submission reference and actual embedded bank are linked.
+These follow-ups reinforce the same rule as the URL18 route caveat: near-identical scores and submission titles do not establish lineage. A hedge is selectable only after its submission reference and actual embedded bank are linked.
 
 ## 12. What the final observable portfolio covered—and did not cover
 
@@ -648,7 +594,7 @@ At this point “portfolio” did not mean combining every row into one giant su
 
 That framing makes a low public score easier to interpret but not automatically desirable. If the anchor survives, the hedge’s score is irrelevant. If the anchor fails, the hedge’s absolute surviving score matters greatly. A 63-point proper-HTTPS bank can dominate a zero in a strict-URL world, while a 25-point Deputy-Mail bank can dominate all HTTP candidates in a full-HTTP-block world. But PICK2B’s 122–124 points are far more valuable in a selective K8 or empty-URL failure. The options cannot be ranked without assigning probabilities to those worlds, and the available evidence did not supply trustworthy probabilities.
 
-As of the 1 September 21:00 KST cutoff, the banked families occupied several distinct but overlapping regions:
+By 21:00 KST on 1 September, the banked families occupied several distinct but overlapping regions:
 
 | Candidate family | Public score | Main observable role | Shared vulnerability that remained |
 |---|---:|---|---|
@@ -712,7 +658,7 @@ Every strong conclusion in this search was conditional on a concrete artifact an
 
 ### 13.3 Candidate identity is an experimental variable
 
-By the final week, a reproducible result required more than saving a notebook. The submission reference, kernel version, attack SHA, selected route, replay-bank SHA, and fallback all mattered. If one was unknown, the result could support only a weaker claim.
+By the final week, a reproducible result required more than a submission title. The submission reference, kernel version, attack SHA, selected route, replay-bank SHA, and fallback all mattered. If one was unknown, the result could support only a weaker claim.
 
 ### 13.4 Public cells and transfer cells are different abstractions
 
@@ -722,7 +668,7 @@ ExactUnion showed that score-cell diversity could be valuable under the public s
 
 Because the private evaluator replays a fixed bank, the attack cannot observe the hidden guardrail and choose a new action online. An ordered bank can nevertheless encode a crude contingent behavior: a slow successful prefix dominates one environment; a fast-rejected prefix exposes a different tail in another. The Deputy-tail experiments showed both the promise and fragility of that idea. Timing is the switch, and timing must be measured on every reachable route.
 
-## 14. Closing state at the 1 September cutoff
+## 14. Closing state on 1 September
 
 The observable public progression was substantial:
 
@@ -730,13 +676,13 @@ The observable public progression was substantial:
 - 31 August 06:37 KST: team best **137.370**, observed rank 4;
 - 1 September 20:30 KST: team best **137.850**, observed rank 6.
 
-Those numbers describe the public board at those timestamps, not the eventual private ordering.
+Those numbers describe the public board at those timestamps. Private evaluation remained pending.
 
 The public staircase came from successively identifying which loop mattered. Native syntax reopened multi-post density. ExactUnion exploited row-specific score buckets. Letter-K8 traded novelty for repeated predicate density. Static42 supplied a stronger Gemma-specific K2 trajectory. URL-Decoded-18 shortened the intended GPT path while preserving a proven fallback. Full replay arithmetic then explained why mixed low-density prefixes and prematurely reachable tails lost score.
 
 The transfer portfolio came from a different discipline. It separated score-cell diversity from mechanism diversity, treated the fixed bank as an ordered policy, and banked candidates for identifiable failure axes rather than assigning one story to the hidden guardrail. PICK2B changed the GPT construction but shared Static42. Both-no-empty removed empty arguments on both legs but did not provide valid URLs. Proper HTTPS covered scheme and hostname validation at a large public cost. Deputy Mail changed the sink and predicate, while the ordered-tail variants tested whether timing could expose it conditionally.
 
-As of **21:00 KST on 1 September 2026**, the private results were still unknown. Nothing in the public scores established whether the hidden guardrail was permissive, URL-strict, content-decoding, provenance-oriented, sink-specific, or something else. The defensible endpoint was therefore a ledger of exact artifacts, measured public behavior, and conditional transfer coverage—not a claim to have reverse-engineered an unseen defense.
+At **21:00 KST on 1 September 2026**, the closing state was a set of identified submission variants, their measured public behavior, and a conditional map of transfer risks. The remaining portfolio question was which failure condition the second slot should cover alongside the public anchor.
 
 Each source had made one branch of the decision tree more concrete without making the others disappear. The forum increased the weight of generalization. The shared scorer preserved the case for any synthetic HTTP trace that the private guardrail still allowed to execute. Both-no-empty, proper HTTPS, and Deputy Mail then attached very different measured costs to progressively different failure axes. Better evidence produced more defensible candidates than the selection rule allowed.
 
@@ -744,21 +690,10 @@ With the public anchor occupying one position, only one hedge position remained.
 
 ---
 
-## 15. Source trail for this note
+## 15. Public references
 
-The chronology and artifact identities above were reconstructed from the following contemporaneous records:
-
-After consolidation, these dated records are preserved under `_draft/backup/source-notes/`. Notebook code, the host-forum archive, and the paper remain in their original project locations.
-
-- the August 24–31 sections of `2026-08-13-attempts-and-findings.md`;
-- `2026-08-23-t4-native-density-report.md`, including its August 24 hosted update;
-- `2026-08-26-natresil-report.md`;
-- `2026-08-27-multipost-reopened-and-natfix-review.md` and `2026-08-27-firing-path-exhaust-and-cellk.md`;
-- `2026-08-29-endgame-retrospective.md` and `2026-08-29-reflection-misjudgments.md`, used for chronology and corrections rather than tone;
-- `2026-08-31-retrospective-137-methodology.md`;
-- `2026-09-01-private-hedge-endgame-retrospective.md`, `2026-09-01-proper-https-direct.md`, and `2026-09-01-url18-deputy-tail.md`;
-- `2026-09-02-final-project-retrospective.md`;
-- the matching ExactUnion, Letter-K8, Static42, URL-Decoded-18, PICK2B, both-no-empty, proper-HTTPS, and Deputy-tail notebooks under `notebooks/ref/` and `notebooks/submissions/`;
-- the host discussion archived in `PRIVATE_forum_1.md`, the live scoring/gateway source, and the Rainbow Teaming paper `2402.16822v3.pdf` linked above.
-
-Every full attack SHA printed in this post was re-derived from the embedded `attack.py` bytes rather than copied from a notebook title. Where no exact local artifact was attributable to a hosted reference, the score was left unnamed.
+- [AI Agent Security — Multi-Step Tool Attacks](https://www.kaggle.com/competitions/ai-agent-security-multi-step-tool-attacks)
+- [Competition SDK repository](https://github.com/mbhatt1/competitionscratch)
+- [Host discussion on static replay and transfer](https://www.kaggle.com/competitions/ai-agent-security-multi-step-tool-attacks/discussion/711457#3481516)
+- [Competition FAQ discussion](https://www.kaggle.com/competitions/ai-agent-security-multi-step-tool-attacks/discussion/712642)
+- [Rainbow Teaming: Open-Ended Generation of Diverse Adversarial Prompts](https://arxiv.org/abs/2402.16822)

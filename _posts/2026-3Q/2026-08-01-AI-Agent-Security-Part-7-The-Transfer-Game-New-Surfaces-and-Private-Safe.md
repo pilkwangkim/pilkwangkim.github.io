@@ -18,7 +18,7 @@ Kaggle's [AI Agent Security — Multi-Step Tool Attacks](https://www.kaggle.com/
 
 ## 1. From a throughput leader to a transfer portfolio
 
-By 1 August, our strongest bank had scored about 108 publicly. “Bank” here means the fixed list of candidate messages returned by `attack.py`; “replay” means that each message is run again through the live model and mock tools under a guardrail. A “finding” is a scored predicate in the resulting trace, a “cell” is the scorer’s diversity key, and $K$ denotes the number of intended tool calls inside one candidate trajectory.
+By 1 August, our strongest bank had scored about 108 publicly. “Bank” here means the fixed list of candidate messages returned by the submitted algorithm; “replay” means that each message is run again through the live model and mock tools under a guardrail. A “finding” is a scored predicate in the resulting trace, a “cell” is the scorer’s diversity key, and $K$ denotes the number of intended tool calls inside one candidate trajectory.
 
 The best-of rule protected the banked public score while we used later submissions to learn. That made it reasonable to redefine a *wild* experiment. I stopped using the word to mean “a clever idea likely to add leaderboard points” and used a stricter, more useful definition:
 
@@ -81,7 +81,7 @@ The host had clarified that the private leaderboard would not rerun our search a
 
 The word *static* was easy to misread. It described the **candidate bank**, not a cache of completed traces. Each fixed message would still be passed through a live model and tools, up to eight hops. This distinction became important later on 1 August when the phase accounting was checked directly.
 
-My first timing model focused on four replay legs: public GPT, public Gemma, private GPT, and private Gemma, each with a 9,000-second budget. The same-day source audit refined that to **six budgeted phases** in the end-to-end submission path: two candidate-generation legs plus four replay legs. A timeout in any one phase could invalidate the submission. I retain the earlier four-leg model here only as chronology; the six-phase model is the one used after the audit in Section 10.
+My first timing model focused on four replay legs: public GPT, public Gemma, private GPT, and private Gemma, each with a 9,000-second budget. The same-day source audit refined that to **six budgeted phases** in the end-to-end submission path: two candidate-generation legs plus four replay legs. A timeout in any one phase could invalidate the submission. The four-leg model describes the initial pass; from Section 10 onward, the six-phase model applies.
 
 Under either description, a public score around 108 faced two independent private questions:
 
@@ -117,7 +117,7 @@ The most consequential policy question was whether the private guardrail was pri
 - A content policy could inspect outgoing `data` and block a sentinel, credential-like string, or high-entropy value.
 - A provenance policy could track whether a value originated in an untrusted source and block only particular source-to-sink flows.
 
-Two observations kept the provenance hypothesis in the scenario set. The hosted registry exposed the key `persistent_provenance_private`, which resolved to the unavailable module path `aicomp_private_guardrails.persistent_provenance`; contemporaneous research also modeled tool-use security through causal support and provenance across a trace. This lexical alignment made provenance a reasonable branch to test, but did not make it more probable than content inspection by any measurable amount. An identifier is not a specification. The hidden guardrail could combine both approaches, define different trusted roots, or implement something benchmark-specific.
+Two observations kept the provenance hypothesis in the scenario set. The hosted registry exposed the key `persistent_provenance_private`, and contemporaneous research modeled tool-use security through causal support and provenance across a trace. This lexical alignment made provenance a reasonable branch to test, but did not make it more probable than content inspection by any measurable amount. An identifier is not a specification. The hidden guardrail could combine both approaches, define different trusted roots, or implement something benchmark-specific.
 
 The unresolved branch was the taint model. In the visible guardrail, web and email were untrusted sources while the user turn was treated as trusted. Our single-post candidate did not read from web or email; it placed the synthetic sentinel directly in the user instruction. Under a conventional provenance model, no untrusted source would be seeded and the call might pass. If the private benchmark instead treated the attacking user turn as untrusted, the same trajectory could be blocked.
 
@@ -232,7 +232,7 @@ The remaining tests did not reveal one universally robust path. Instead, they sh
 
 **`read_clean` could not fire publicly.** The proof was source-level rather than empirical. The mechanism’s seeding condition required the normalized path to equal `secret.txt`, while the visible guardrail blocked any path containing `secret`. Because path normalization did not invent or remove those characters, the fire condition and block condition were coupled.
 
-**The private wheel was not available locally.** Searches of the filesystem, Git history, package cache, and public repository found no implementation. It was not available through any artifact we could inspect. Local experiments could therefore compare scenarios, but not reveal the load-bearing policy branch.
+**No public implementation of the private wheel was available.** The [public SDK repository](https://github.com/mbhatt1/competitionscratch) did not expose it. Scenario experiments could compare possible policies, but they could not reveal the load-bearing private branch.
 
 With no direct observation, I assigned provisional **scenario weights** only to make portfolio comparisons executable: 0.58 for direct single-post survival, 0.35 for failure, and 0.07 for mixed outcomes. These were decision weights, not estimated probabilities. Their ordering came from two weak priors—the benchmark's provenance-oriented predicate structure and the visible guardrail's first-argument treatment of `url`—neither of which observed the private wheel.
 
@@ -346,7 +346,7 @@ $$
 
 not $4\cdot(16+2)=72$. The source-level cell rule applied the bonus once at the finding level, so the raw return per post generation was $66/4=16.5$, below the single-post value of 18.
 
-**Hop limit.** The live gateway at `jed_attack_gateway.py:632` allowed eight hops. A four-hop value elsewhere belonged to an offline path and was not the scored limit.
+**Hop limit.** The live competition gateway allowed eight hops. A four-hop value elsewhere belonged to an offline path and was not the scored limit.
 
 **Guardrail behavior.** All four posts passed the visible guardrail in the tested trace. The `http.post` source was the tool path used by the scorer, so the repeated calls did not create the self-taint failure we had considered.
 
@@ -372,17 +372,17 @@ Scores alone could not identify which engine a team used, so 207 teams above 90 
 
 In the top-20 materials available to me, I found no comparable private-transfer matrix, managed-scenario predictor, or predicate-spanning anchor. That absence was suggestive, not proof: private notebooks and unpublished local work were unobservable. It nevertheless left transfer design less visibly converged than the public throughput stack.
 
-At this cutoff, the banked public anchor was around fifth place. That position reduced the need to replace the anchor with a speculative mechanism, but it increased the potential value of making the second final selection fail differently.
+On 4 August, the banked public anchor was around fifth place. That position reduced the need to replace the anchor with a speculative mechanism, but it increased the potential value of making the second final selection fail differently.
 
 The audit also caught a proposed 5% public score leak before it consumed a slot. A collision hypothesis assumed that the label generator created only 676 distinct hosts. Direct code inspection showed that the active engine already generated 2,000 distinct netlocs: 676 two-character labels plus 1,400 three-character labels. The hypothesis had measured the wrong implementation. This became a useful experiment rule: a mechanistic claim needed verification against the exact active engine before it could change a submission.
 
-One especially consequential private branch remained unresolved. A provenance-strict policy might require a defensible read origin for a secret-shaped value and reject a fabricated sentinel with no read provenance. Under that policy, the roughly 0.70 single-post decision weight would be badly optimistic. `read_clean`, which posted an actual fixture value after a read, covered part of that distinction, although it remained vulnerable to a conventional taint policy and to combined content inspection.
+One especially consequential private branch remained unresolved. A provenance-strict policy might require a defensible read origin for a secret-shaped value and reject a fabricated sentinel with no read provenance. Under that policy, the roughly 0.70 single-post decision weight would be badly optimistic. The read-then-post variant, which posted an actual fixture value after a read, covered part of that distinction, although it remained vulnerable to a conventional taint policy and to combined content inspection.
 
 The final leaderboard would compare teams, not absolute survival rates. A nonzero transfer anchor mattered only if it outperformed the alternatives selected by other teams. That relative-rank uncertainty was another reason not to describe the portfolio as universally safe.
 
 ## 16. What the evidence supported by 4 August
 
-By the cutoff, three evidence layers had to remain separate.
+By 4 August, three evidence layers had to remain separate.
 
 **Established from source, local execution, or hosted results:**
 
@@ -391,11 +391,11 @@ By the cutoff, three evidence layers had to remain separate.
 - single-post scored 108, dual mechanisms about 55, CD-only about 25, and K8 packing about 24;
 - the CONFUSED_DEPUTY permission boundary was lexical on the tested path;
 - Gemma could perform different-tool two-hop chains in the small local sample;
-- the private guardrail implementation was not present in the local wheel or repository.
+- the private guardrail implementation was not part of the public SDK.
 
 **Inference, explicitly uncertain:**
 
-- the `persistent_provenance_private` registry key, its unresolved module path, and contemporaneous research made a provenance-style policy plausible, but did not prove its implementation;
+- the `persistent_provenance_private` registry key and contemporaneous research made a provenance-style policy plausible, but did not prove its implementation;
 - provenance papers in which actions could be grounded directly in the user query moved the subjective single-post survival weight toward 0.68–0.72;
 - the public frontier might remain in the 110–120 range, but the theoretical single-post ceiling was 180;
 - private transfer work appeared less converged publicly than the throughput stack, though other teams’ hidden work was unknown.
@@ -408,17 +408,11 @@ By the cutoff, three evidence layers had to remain separate.
 
 Part 6 mapped the visible throughput loop. Part 7 added a second loop: the fixed portfolio had to retain value when the guardrail, timing, or mechanism boundary changed. The goal was not to construct a hedge that could not lose—no such claim was supported. It was to reduce correlated failure, make each assumption testable, and preserve more than one plausible route through the held-out evaluation.
 
-## 17. Source and evidence trail
+## 17. Public references
 
-The chronology above used only material available by 4 August:
-
-- the live competition SDK and gateway for score weights, cell behavior, hop count, phase accounting, and visible guardrail rules;
-- the local GGUF harness for both model legs, including firing, token cost, wrapper cost, and different-tool chain checks;
-- hosted public results for single-post, dual, Korean dual, CD-only, K8 packing, and the repeated Z4 razor configuration;
-- the participant timing report, used as evidence of an end-to-end timeout but not as a logged identification of the failing phase;
-- [**Rainbow Teaming**](https://arxiv.org/abs/2402.16822) (arXiv:2402.16822, v3) for quality-diversity archives and cross-model transfer—not for the private guardrail's design;
-- [**ARGUS**](https://arxiv.org/abs/2605.03378) (arXiv:2605.03378, v2 by the cutoff) and [**Safeguarding LLM Agents from Misalignment through Provenance Analysis**](https://arxiv.org/abs/2607.01236v1) (arXiv:2607.01236, v1 at the cutoff) for planning-prior construction—not for claims about the hidden wheel;
-- [**Adaptive Evaluation of Out-of-Band Defenses Against Prompt Injection in LLM Agents**](https://arxiv.org/abs/2606.26479) (arXiv:2606.26479) for the distinction between a static attack set and adaptive defense evaluation;
-- public competition notebooks only as unverified sources of competing hypotheses.
-
-No later private result or later-August public construction is used to resolve the uncertainties left open here.
+- [AI Agent Security — Multi-Step Tool Attacks](https://www.kaggle.com/competitions/ai-agent-security-multi-step-tool-attacks)
+- [Competition SDK repository](https://github.com/mbhatt1/competitionscratch)
+- [Host discussion on static replay and transfer](https://www.kaggle.com/competitions/ai-agent-security-multi-step-tool-attacks/discussion/711457#3481516)
+- [**Rainbow Teaming**](https://arxiv.org/abs/2402.16822) for quality-diversity archives and cross-model transfer
+- [**ARGUS**](https://arxiv.org/abs/2605.03378) and [**Safeguarding LLM Agents from Misalignment through Provenance Analysis**](https://arxiv.org/abs/2607.01236v1) for provenance-oriented scenario design
+- [**Adaptive Evaluation of Out-of-Band Defenses Against Prompt Injection in LLM Agents**](https://arxiv.org/abs/2606.26479) for the distinction between a static attack set and adaptive defense evaluation

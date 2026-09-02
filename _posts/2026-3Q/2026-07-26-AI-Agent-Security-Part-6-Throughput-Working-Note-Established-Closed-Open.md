@@ -14,7 +14,7 @@ image:
 
 # AI Agent Security (Part 6): Throughput as an Experimental System — Costs, Cliffs, and Corrected Instruments
 
-Kaggle's [AI Agent Security — Multi-Step Tool Attacks](https://www.kaggle.com/competitions/ai-agent-security-multi-step-tool-attacks) replayed candidate-message banks through two agent models, synthetic tools, and guardrails under fixed time budgets. Parts 1–5 established the replay and scoring contract, adapted to v3.1.2, compressed model-specific single-post trajectories, and showed from source why richer per-candidate paths were blocked publicly. By July 26, reliable firing was no longer the main question; the remaining roughly 20% public gap looked like throughput. This working note starts from that July 26 state and follows the experiments through August 1 as they decomposed the gap into event cost, budget utilization, cache behavior, address length, routing, and measurement error.
+Kaggle's [AI Agent Security — Multi-Step Tool Attacks](https://www.kaggle.com/competitions/ai-agent-security-multi-step-tool-attacks) replayed candidate-message banks through two agent models, synthetic tools, and guardrails under fixed time budgets. Parts 1–5 established the replay and scoring contract, adapted to v3.1.2, compressed model-specific single-post trajectories, and showed from source why richer per-candidate paths were blocked publicly. By July 26, reliable firing was no longer the main question; the remaining roughly 20% public gap looked like throughput. This note records the experiments from July 26 through August 1 and decomposes that gap into event cost, budget utilization, cache behavior, address length, routing, and measurement error.
 
 Three pieces of competition shorthand recur below. A **banked score** is the best completed hosted result retained by the leaderboard. `frac` is the target share of the replay budget used when sizing a candidate bank. A run **craters** when a replay path crosses a hard deadline and the evaluator returns INVALID or zero rather than proportional partial credit.
 
@@ -48,7 +48,7 @@ I first suspected that the denominator was mostly fixed. Each candidate appears 
 
 The cold-versus-warm measurement broke that premise. Once the manual had been processed, later attempts reused cached computation: the opening step cost about $1.9$ s cold and about $0.5$ s on the next attempt with the same prefix. This directly refuted repeated fixed manual processing as the explanation for most variable cost.
 
-Combined with Part 5's token-level timing, the result left **fresh generation** as the dominant variable cost in the tested setup. The search again reduced to the two handles in §1. If restarting this branch, I would run the cold/warm prefix probe before estimating any ceiling from total per-candidate time.
+Combined with Part 5's token-level timing, the result left **fresh generation** as the dominant variable cost in the tested setup. The search again reduced to the two handles in §1. The cold/warm prefix probe therefore comes before any ceiling estimate based on total per-candidate time.
 
 ---
 
@@ -79,7 +79,7 @@ Where was the rest? Two possible contributors remained:
 
 The leaders' narrow score band was not a third contributor. At most, it was weak circumstantial evidence that several teams might be operating near a similar boundary, where one more step could turn a valid replay into INVALID. It did not reveal their methods.
 
-At the July 26 cutoff, the evidence supported a conservative working model: the same single-event engine, a favorable hosted run, and a setting one notch nearer the budget cliff. That model was explicitly provisional. It accounted for the terms I had measured, but it did not yet explain the entire leader gap.
+On July 26, the evidence supported a conservative working model: the same single-event engine, a favorable hosted run, and a setting one notch nearer the budget cliff. That model was explicitly provisional. It accounted for the terms I had measured, but it did not yet explain the entire leader gap.
 
 ---
 
@@ -115,14 +115,14 @@ Two methodological rules governed the experiments.
 
 **The stack transferred.** Shipping the denominator-and-numerator stack lifted the banked mean from the low 90s to **~96.6**, cleanly above the observed run-to-run noise. Increasing the replay fraction to the largest tested valid setting added another point; one notch beyond it cratered, returning INVALID rather than a proportionally smaller score. That bracket located a practical cliff for this construction under the observed hosted conditions.
 
-**Which row binds.** A diagnostic zeroed one model's row and read the other at half scale. It showed mild asymmetry: the reasoning model's row sat a few points **above** the fast model's, and the gap matched their decode-token difference (the fast model emitted a couple more tokens per event). Under the then-current interpretation, the fast model was the bottleneck, so the URL shave targeted the row on which it removed the most tokens. More importantly, the result was consistent with decode length contributing to hosted throughput, although the probe did not isolate it as the only cause. A row-isolation probe should have preceded any attempt to optimize both models with one shared setting.
+**Which row binds.** A diagnostic zeroed one model's row and read the other at half scale. It showed mild asymmetry: the reasoning model's row sat a few points **above** the fast model's, and the gap matched their decode-token difference (the fast model emitted a couple more tokens per event). Under the then-current interpretation, the fast model was the bottleneck, so the URL shave targeted the row on which it removed the most tokens. More importantly, the result was consistent with decode length contributing to hosted throughput, although the probe did not isolate it as the only cause. Row isolation is therefore the first step before optimizing both models with one shared setting.
 
-**The residual moved — correcting §8.4.** Section 8 had attributed the remaining gap largely to variance plus the budget cliff. The new result made that explanation quantitatively inadequate. Observed run-to-run spread was only a few percent, while the gap to the leaders was **~12–14%** of throughput. Under the spread observed by July 27, a difference that large appeared to require a systematic cost term rather than merely another favorable draw. Section 12 would later show that the hosted outcome range was wider than this estimate assumed. Two observations appeared to narrow its location:
+**The residual moved — correcting §8.4.** Section 8 had attributed the remaining gap largely to variance plus the budget cliff. The new result made that explanation quantitatively inadequate. Observed run-to-run spread was only a few percent, while the gap to the leaders was **~12–14%** of throughput. Under the spread observed by July 27, a difference that large appeared to require a systematic cost term rather than merely another favorable draw. The hosted outcome range was not yet settled; Section 12 tests that assumption against a wider result spread. Two observations appeared to narrow its location:
 
 - **Not the tool-schema re-read.** The model server kept its state across candidates—its cache was not flushed between them—so the ~1,200-token schema was processed once and amortized rather than re-paid per candidate. An earlier probe had guessed the opposite; the server source corrected it.
 - With the schema cached and decode apparently floored, I assigned the remaining per-candidate seconds either to raw decode on a model split across two GPUs or to the grader's environment rebuild. Both looked outside candidate code and common to all competitors.
 
-That led to a provisional estimate: the recoverable path might top out in the **high 90s**, leaving about 12 points in a per-candidate cost I had not localized or shown how to edit. The next section would overturn this estimate. The measurement I should have run first was a direct decomposition of per-candidate time into environment rebuild, prefill, and decode, rather than treating the unassigned remainder as fixed.
+That led to a provisional estimate: the recoverable path might top out in the **high 90s**, leaving about 12 points in a per-candidate cost I had not localized or shown how to edit. The next section tests and overturns this estimate. The decisive measurement is a direct decomposition of per-candidate time into environment rebuild, prefill, and decode, rather than treating the unassigned remainder as fixed.
 
 **Uncertainty in that estimate.**
 
@@ -131,7 +131,7 @@ That led to a provisional estimate: the recoverable path might top out in the **
 - A top score is banked as the best of many resubmissions — an upper-tail hosted observation. Ours came from far fewer submissions, so a *few* points of the gap could reflect banking effort rather than engine design. But only a few: our observed run-to-run spread was about ±a few percent, too small by itself to explain a 12–14% gap.
 - "Not yet reproducible for us" was only a hypothesis consistent with the measurements available on July 27. A single public result could not establish a ceiling.
 
-**The bracket designed at the July 27 cutoff.** It combined the two remaining source-verified recoverables—routing the model by a one-shot response-format read instead of a block of slow probes, and using single-token host labels past the first few hundred—with the largest fraction then known to be valid. It also included one stress run near the replay cliff and one diagnostic separating potentially editable generation cost from replay cost. On the evidence available that evening, the working projection remained in the high 90s.
+**The July 27 bracket.** It combined the two remaining source-verified recoverables—routing the model by a one-shot response-format read instead of a block of slow probes, and using single-token host labels past the first few hundred—with the largest fraction then known to be valid. It also included one stress run near the replay cliff and one diagnostic separating potentially editable generation cost from replay cost. On the evidence available that evening, the working projection remained in the high 90s.
 
 > **[Superseded by §10.]** The claim above — that the residual is a *non-editable* per-candidate cost and the ceiling is the high-90s — turned out to be the wrong link. §10 is the correction.
 
@@ -143,19 +143,19 @@ That led to a provisional estimate: the recoverable path might top out in the **
 
 **Then the reopening.** Section 9 had classified the last ~12 points as a non-editable per-candidate cost. The leaderboard was a standing counterexample: other submissions repeatedly reached that level under the same public evaluation architecture. I therefore reopened each link in the cost decomposition. The missing term was not a large gateway charge. Scoring replay ran the model *in process*, with no per-hop network relay, and the per-candidate environment rebuild was only ~40 ms. Most remaining seconds were **decode-proportional** or cache-sensitive, which message layout could change; sizing logic controlled how fully the resulting budget was used.
 
-**Two alternative explanations failed source inspection.** The first was hardware: perhaps the model was needlessly split across two GPUs and could decode much faster on one larger device. The source showed that the larger model exceeded one available GPU and that the served path necessarily used a layer split; the measured or estimated penalty was far smaller than the ~14% gap. The second was a proposed "+4–8% sizing-fraction knob." The relevant source path never used that knob because a tighter bound governed first. Both were rational leads from the timing symptoms, but neither survived contact with the implementation. Source-path tracing should have preceded percentage estimates for either one.
+**Two alternative explanations failed source inspection.** The first was hardware: perhaps the model was needlessly split across two GPUs and could decode much faster on one larger device. The source showed that the larger model exceeded one available GPU and that the served path necessarily used a layer split; the measured or estimated penalty was far smaller than the ~14% gap. The second was a proposed "+4–8% sizing-fraction knob." The relevant source path never used that knob because a tighter bound governed first. Both were rational leads from the timing symptoms, but neither survived contact with the implementation. The correct order is to trace the active control path before estimating the size of either effect.
 
 **The surviving lever: put the varying field last.** Every candidate shared an identical prompt except its one unique destination host. Placing that host at the very **end** of the message maximized the reusable prefix between candidates. In the same-chassis local A/B, the measured gains were **+6.7%** on the reasoning row and **+7.0%** on the fast row—same tokens, same firing behavior, same distinct cells, and only a different field order. What had looked like a minor layout edit was large enough to submit on top of the working stack.
 
 **Current position on July 28.** The residual was at least partly editable through decode, cache locality, and sizing. The known construction was moving from ≈98 toward ≈100 with URL-late. This restored the original stack hypothesis, but with a more precise mechanism: small changes could multiply because they reduced different parts of the same cost equation.
 
-**What changed the search order.** Section 9 had turned an unresolved residual into a ceiling. The leaderboard made that classification untenable. From this point, an unexplained but reproducible gap became a reason to improve the instrument—not a reason to close the axis. The cheapest decisive sequence would have been: trace the live source path, isolate environment cost, measure prefill and decode separately, and only then estimate the reachable score.
+**What changed the search order.** Section 9 had turned an unresolved residual into a ceiling. The leaderboard made that classification untenable. From this point, an unexplained but reproducible gap became a reason to improve the instrument—not a reason to close the axis. The search order is now: trace the active control path, isolate environment cost, measure prefill and decode separately, and only then estimate the reachable score.
 
 ---
 
 ## 11. Later on July 28: deriving the move from cost and fill
 
-The URL-late variant completed, and the banked mean crossed 100. The score itself was less informative than the accounting behind it. This section derives the change from the scoring identity, separates the two factors it moved, and records a compute-time interpretation that a later run would disprove.
+The URL-late variant completed, and the banked mean crossed 100. The score itself was less informative than the accounting behind it. This section derives the change from the scoring identity, separates the two factors it moved, and records a compute-time interpretation to be tested by the next runs.
 
 ### 11.1 The scoring identity
 
@@ -236,7 +236,7 @@ $$\text{wall}=\text{overhead}+\sum_\text{models}\Big[\underbrace{\text{generatio
 
 **The initial interpretation.** I mapped the +4 h to replay phases filling toward their caps as `N` climbed. Under that model, URL-late aligned the estimate more closely with realized replay cost, and frac 0.995 packed `N` near `N·c_replay ≈ 0.995·B`. Extra wall time and extra points would then be two readings of the same event: more candidates surviving replay. This was a testable instrument claim—**total rerun time is a throughput gauge**—not a consequence of the score equation itself.
 
-**The operational decision it produced.** I stopped pushing frac and prioritized reductions in `c`: more shared prefix, fewer decode tokens, and shorter hosts. That decision could still be useful even if the wall-time instrument was wrong, because replay timeout risk grew with `N`. The unresolved confound was total submission time, which also included queueing, model loading, and accelerator variability. A faithful test should have compared phase-level timers across several same-configuration runs before using total wall as a meter.
+**The operational decision it produced.** I stopped pushing frac and prioritized reductions in `c`: more shared prefix, fewer decode tokens, and shorter hosts. That decision could still be useful even if the wall-time instrument was wrong, because replay timeout risk grew with `N`. The unresolved confound was total submission time, which also included queueing, model loading, and accelerator variability. Total wall becomes a usable meter only after phase-level timers are compared across several same-configuration runs.
 
 > **[Corrected in §12.5.]** The headline of this subsection—"the rerun's compute time is a direct throughput gauge"—is **wrong**, and a later run disproves it cleanly: a ~20 h rerun that scored *low*. The timed phases self-size to a near-constant wall regardless of effective speed (higher per-attempt cost → fewer attempts in roughly the same timed interval); multi-hour total-wall variation can instead come from untimed overhead. §12.5 contains the correction, and §12.4 the run that forced it.
 
@@ -269,7 +269,7 @@ The fast model's row came back at **≈ 103**. With the banked mean at 106.6, th
 
 After the reasoning model posted the event, its closing turn used a few tokens. Shortening that close should have removed those tokens from every candidate, producing a small throughput gain. When a batch containing the edit returned cratered or low, the edit became a reasonable suspect: perhaps the shorter close changed later behavior during graded replay.
 
-The direct replay comparison rejected that causal story. At the grader's replay depth, both variants stopped after **exactly one post** with a 100% fire rate, and the shorter close was about **6% cheaper** on the affected model's candidates. Because the change applied to one row rather than both, its expected effect on the published mean was smaller. It was a real row-specific saving, but not the cause of the craters. The first measurement should have been this same-depth behavioral A/B; the hosted batch had changed several causal terms at once.
+The direct replay comparison rejected that causal story. At the grader's replay depth, both variants stopped after **exactly one post** with a 100% fire rate, and the shorter close was about **6% cheaper** on the affected model's candidates. Because the change applied to one row rather than both, its expected effect on the published mean was smaller. It was a real row-specific saving, but not the cause of the craters. The decisive first measurement is this same-depth behavioral A/B; the hosted batch had changed several causal terms at once.
 
 ### 12.3 Where the craters live — the half we can't see
 
@@ -291,7 +291,7 @@ The ratio `106.6 / 89.4 = 1.19` was consistent with about **19% greater effectiv
 
 Section 11.6 interpreted a long rerun as more candidates surviving replay. The new run falsified that instrument: it ran **long** (~20 h) and scored **low**. If total wall tracked completed candidates, the two measurements should have moved in the same direction. They did not.
 
-Self-sizing explains why. The engine emits candidates until estimated replay cost fills a fixed fraction of the budget. A run with greater effective per-attempt cost fits fewer candidates into approximately the same timed interval. Multi-hour variation in *total* wall can instead come from untimed overhead such as model loading, downloads, queueing, or contention. Total wall therefore mixes unrelated clocks and cannot recover `N`. The first correlation in §11.6 proposed the meter; the second data point rejected it. Phase-level timers or repeated same-configuration runs should have been required before using wall time as a proxy.
+Self-sizing explains why. The engine emits candidates until estimated replay cost fills a fixed fraction of the budget. A run with greater effective per-attempt cost fits fewer candidates into approximately the same timed interval. Multi-hour variation in *total* wall can instead come from untimed overhead such as model loading, downloads, queueing, or contention. Total wall therefore mixes unrelated clocks and cannot recover `N`. The first correlation in §11.6 proposed the meter; the second data point rejected it. From here, wall time is used as a proxy only with phase-level timers or repeated same-configuration runs.
 
 ### 12.6 The next structural test — feed the laggard
 
@@ -320,7 +320,7 @@ $$\text{COEF}<1 \;\Rightarrow\; \text{the wall bound always binds first} \;\Righ
 
 Sharper still: overhead outside the timer (message construction, the stop check, and the append) landed on the *wall* side, moving the crossover slightly above 1. **COEF = 1.0 was therefore inert on this path**; the replay bound could bind only above that threshold. Of our five variants, only Z5 (1.05) qualified, and the source model predicted that it would trim the affected row's `N` by about 4.8%.
 
-I tested the proof against its main alternative: uncounted overhead might invalidate the substitution. Tracing that overhead showed the opposite; it sat on the wall-bound side and therefore strengthened the conclusion. This was the measurement I should have done before spending hosted slots—a source-level stop-condition table followed by a small boundary simulation.
+I tested the proof against its main alternative: uncounted overhead might invalidate the substitution. Tracing that overhead showed the opposite; it sat on the wall-bound side and therefore strengthened the conclusion. The pre-slot test is now a source-level stop-condition table followed by a small boundary simulation.
 
 ### 13.2 So it's not a crater, and not a rejection either
 
@@ -343,7 +343,7 @@ I also tested a third model: the fast model (Gemma) might be pinned at the 2000-
 
 ### 13.5 What the model still could not explain
 
-At the August 1 cutoff, the working picture was:
+On August 1, the working picture was:
 
 $$\text{score}=0.045\cdot(N_\text{gpt}+N_\text{gemma}),$$
 
@@ -355,6 +355,6 @@ The operational result was clear. The bank rose to 108.135 and the implementatio
 
 **Closing Part 6 — what the August 1 evidence supported.** The public-throughput work established the scoring identity `score = 0.045·(gpt N + gemma N)` for this single-post construction and showed that prompt cost, cache layout, fill fraction, replay cliffs, and hosted-run variation all affected the observed `N`. Setup-amortization through the tested multipost bundle did not help; the tested higher-value second-predicate path remained blocked by the public taint rule; COEF below 1 was provably inert; and several framing and closing-turn edits were either small or confounded by run variation. Within this engine family, repeated submissions looked more valuable than further COEF tuning.
 
-That was a map of the mechanisms we had tested, **not a complete map of the public board**. The sequence of corrections in this note shows why the distinction matters: several apparent ceilings dissolved when a cheaper measurement separated one unresolved term. If restarting at this cutoff, I would build the instrument stack first—row isolation, cold/warm prefix timing, phase-level generation and replay timers, byte-identical hosted repeats, and a source-derived stop-condition model—before using a hosted score to close an axis.
+That was a map of the mechanisms we had tested, **not a complete map of the public board**. The sequence of corrections in this note shows why the distinction matters: several apparent ceilings dissolved when a cheaper measurement separated one unresolved term. The next stage therefore begins with the instrument stack—row isolation, cold/warm prefix timing, phase-level generation and replay timers, byte-identical hosted repeats, and a source-derived stop-condition model—before using a hosted score to close an axis.
 
 The public score also remained only a development signal. The final ranking would replay the returned portfolio against a **held-out private defense** unavailable to us. Public throughput and private transfer were therefore related but different objectives. Part 7 turns from maximizing the count of one public construction to asking which parts of a portfolio might survive a held-out evaluation.

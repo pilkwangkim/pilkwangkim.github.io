@@ -14,9 +14,9 @@ image:
 
 # AI Agent Security (1편): Replay 벤치마크와 Trajectory-Search EDA
 
-이 시리즈는 알고리즘이 후보 메시지 경로를 반환하면 평가기가 이를 도구 사용 모델에 다시 실행하는 Kaggle [AI Agent Security — Multi-Step Tool Attacks](https://www.kaggle.com/competitions/ai-agent-security-multi-step-tool-attacks) 대회를 다룬다. 최적화에 앞서 확인해야 할 것은 알고리즘이 실제로 무엇을 제출하는지, 독립 리플레이가 하나의 경로를 어떻게 점수로 바꾸는지, 그 과정에서 무엇을 측정할 수 있는지다. 1편에서는 이 평가 구조를 정리하고, 이를 분석하기 위한 트래젝터리 탐색 EDA의 틀을 세운다.
+이 시리즈는 알고리즘이 후보 메시지 경로를 반환하면 평가기가 이를 도구 사용 모델에 다시 실행하는 Kaggle [AI Agent Security — Multi-Step Tool Attacks](https://www.kaggle.com/competitions/ai-agent-security-multi-step-tool-attacks) 대회를 다룬다. 1편의 기록 범위는 **2026년 6월 13일부터 21일까지**다. 이 기간에는 알고리즘이 실제로 무엇을 제출하는지, 독립 리플레이가 하나의 경로를 어떻게 점수로 바꾸는지, 어떤 환경 정보를 트래젝터리 탐색에 활용할 수 있는지를 먼저 확인했다. 남은 질문은 예산 안에 재현 가능한 후보를 몇 개까지 넣을 수 있는지, 어떤 변이가 새로운 score cell을 만드는지, 공개 평가에서 관측한 메커니즘이 다른 guardrail에서도 얼마나 유지되는지였다.
 
-> **주의 (2026-06-21까지 유효).** 아래 내용은 모두 **2026년 6월 21일까지** 동작하던 평가기(evaluator) 기준입니다. 이후 주최 측이 **2026년 6월 22일** 대규모 채점/평가기 업데이트를 공지했는데, 그 취지는 평가의 공정성·신뢰성을 높이고 하니스를 의도된 계약(contract)에 맞추는 것으로 보입니다 — 장시간 실행 제출과 예상치 못한 점수에 대한 포럼 제보(이 시리즈에서 다룬 종류의 발견 포함)가 계기가 됐습니다. 구체적으로는 replay 단계의 런타임 예산 강제 집행(예산 초과 시 글로벌 타임아웃까지 가지 않고 즉시 실패)과, 가역 인코딩(base64·hex·URL 인코딩·역순·구분자 결합)을 인식하는 스코어러가 추가됩니다. 이로 인해 이 분석의 일부 — 특히 런타임 천장 수치와 'encoding self-defeating' 발견 — 가 바뀝니다. 6월 22일 업데이트와 그 여파에 대한 내용은 **이 글이 아니라 별도의 노트**에서 다루겠습니다.
+> **기록 범위 (2026년 6월 13–21일).** 아래 측정은 이 기간에 적용된 평가기 계약을 기준으로 한다. 6월 22일 업데이트부터는 replay 예산이 엄격하게 집행되고, base64·hex·URL 인코딩·역순·구분자 결합 같은 가역 인코딩도 인식한다. 이 변경이 런타임 한계와 인코딩 분석에 미친 영향은 2편에서 이어서 살펴본다.
 
 이 EDA의 Kaggle 코드: [Agent Security — Trajectory Search](https://www.kaggle.com/code/pilkwang/eda-agent-security-trajectory-search)
 
@@ -742,7 +742,7 @@ EDA가 끝날 무렵, 이 대회는 모호한 "agent를 jailbreak하라" 과제�
 
 ### 출처
 
-- 대회 페이지: [AI Agent Security — Multi-Step Tool Attacks](https://www.kaggle.com/competitions/ai-agent-security-multi-step-tool-attacks). 메커니즘 디테일(predicate, severity 가중치, 점수 공식, fixture, tool, SDK API, replay contract)은 EDA 노트북을 통해 대회 SDK와 fixture에서 직접 읽었습니다.
+- 대회와 공개 코드: [AI Agent Security — Multi-Step Tool Attacks](https://www.kaggle.com/competitions/ai-agent-security-multi-step-tool-attacks), 그리고 이 글에서 사용한 predicate·점수식·fixture·tool·SDK·replay 검사를 공개한 Kaggle 노트북 [Agent Security — Trajectory Search](https://www.kaggle.com/code/pilkwang/eda-agent-security-trajectory-search).
 - 메타 수준 디테일(주최, 상금 풀, Working Note Awards, 마감일)은 공개 보도 기준입니다. [OpenAI red-teaming 챌린지에 대한 TechPolicy.Press 보도](https://www.techpolicy.press/what-openais-latest-redteaming-challenge-reveals-about-the-evolution-of-ai-safety-practices/)와 관련 정리 글 [*Security Challenges in AI Agent Deployment: Insights from a Large-Scale Public Competition* (arXiv:2507.20526)](https://arxiv.org/abs/2507.20526)를 참고하세요.
 - 학술적 계보:
   - Debenedetti, Abdelnabi, et al., 2024, *AgentDojo: A Dynamic Environment to Evaluate Prompt Injection Attacks and Defenses for LLM Agents*, NeurIPS 2024 Datasets & Benchmarks Track ([arXiv:2406.13352](https://arxiv.org/abs/2406.13352); [OpenReview](https://openreview.net/forum?id=m1YYAQjO3w)) — Workspace, Slack, Travel, Banking 환경에 걸친 97개 user task와 629개 security test case; trace 단위 utility/security 분할은 이 대회 predicate 채점의 직접적 조상입니다.

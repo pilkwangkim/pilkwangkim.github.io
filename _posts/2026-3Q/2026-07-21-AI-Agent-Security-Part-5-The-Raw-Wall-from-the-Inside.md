@@ -16,13 +16,13 @@ image:
 
 Kaggle's [AI Agent Security — Multi-Step Tool Attacks](https://www.kaggle.com/competitions/ai-agent-security-multi-step-tool-attacks) replayed candidate-message banks through two agent models, synthetic tools, and a guardrail, then scored specified security predicates in the traces. Parts 1–4 established that replay contract, the v3.1.2 hard-budget evaluator, and the throughput law $S=0.045\,(N_\text{gpt-oss}+N_\text{gemma})$; model-specific routing and shorter trajectories increased completed posts, but raw value per candidate remained unresolved. Part 5 starts there and reads the scorer and guardrail source directly to test whether a second predicate can raise that value and what prevents it.
 
-The source findings below are paired with measurements on the local white-box harness from Part 4 §12: the served GGUF weights, environment, guardrail, and greedy decoding path.
+This note records the July 21 state of the search. The source findings below are paired with measurements on the white-box harness from Part 4 §12: the served GGUF weights, environment, guardrail, and greedy decoding path.
 
 ---
 
 ## 1. The grader decodes greedily, so the harness *is* the server
 
-Part 4 §12 justified the harness by architecture — same weights, same env, same backend — and hedged the one thing it could not see: whether the served run decodes the same way the laptop does. It does. The SDK's generation default is greedy at every layer: `hf_chat_template/types.py` sets `generation_kwargs = {"do_sample": False}`; the llama.cpp backend maps `do_sample=False` with no temperature to `temperature = 0.0`; the OpenAI-style agent hardcodes `"temperature": 0`. A search across the evaluation and core paths for any override — `do_sample=True`, a non-zero temperature, a replaced `generation_kwargs` — returns nothing.
+Part 4 §12 justified the harness by architecture — same weights, same env, same backend — and hedged the one thing it could not see: whether the served run decodes the same way the laptop does. It does. The SDK's chat-template layer sets `generation_kwargs = {"do_sample": False}`; the llama.cpp backend maps `do_sample=False` with no temperature to `temperature = 0.0`; the OpenAI-style agent hardcodes `"temperature": 0`. The evaluation and core paths contain no override to `do_sample=True`, a non-zero temperature, or a replacement `generation_kwargs`.
 
 Greedy decode is $\arg\max$ at every step: no sampling, no seed dependence. Given the same prompt and the same quantized weights, the served model emits the **same tokens** the harness does. So a behaviour observed locally is not an estimate of the server — it *is* the server, deterministically. Two consequences run through the rest of this post. First, every count below (posts fired, per-candidate seconds, per-hop cost) transfers exactly, not approximately. Second, the "chain survival under sampling" worry — that a $K$-post chain surviving $p$ per hop dies as $p^K$ — does not exist here: there is no $p$, the chain either fires or does not, identically, every time.
 
@@ -110,9 +110,9 @@ is a **pure throughput count**. This is not a new claim over Part 4 — it is Pa
 
 ---
 
-## 7. The frontier, read from its own comments
+## 7. The frontier's development sequence
 
-The top public single-post engines are legible: their `attack.py` carries dated comments — sweeps, "rungs," submission ref-IDs — that preserve the order in which the levers were found. Read chronologically, the climb is a walk through the stages of the scoring pipeline, each stage a fresh surface for slack:
+The top public single-post implementations are legible from dated comments, sweeps, and visible score rungs that preserve the order in which the levers were found. Read chronologically, the climb is a walk through the stages of the scoring pipeline, each stage a fresh surface for slack:
 
 1. **Fire efficiency (the 47 → 60 break).** The pre-break design probed latency a few times, then *blindly* emitted $N = \text{budget}\cdot\text{margin}/t$ candidates — none individually checked, so only $\approx 31\%$ actually fired, capping the row. The break is **live validation-fill**: generate one candidate, replay it against the live env, *keep it only if it fired*, repeat to a deadline cushion. Now $100\%$ of returned candidates score, and the loop self-sizes to each model's real speed. This is the single biggest jump, and it is a fill discipline, not a payload.
 2. **Per-model adaptive margin, then per-model routing.** A flat deadline cushion wastes the fast row's capacity; scaling it to the row's own observed slowest reclaims it. Then the latency-classified template split (Part 4 §1), corrected once a plain-English "no analysis" prefix tested null and the real mechanism turned out to be the harmony control-token collapse.
@@ -142,7 +142,7 @@ The most important line of that discipline, stated against our own history: **ne
 Comparing our fill engine to the frontier surfaced five throughput leaks — each an *under-fill*, since (as the audit confirmed) the reasoning row is bound by the generation wall and the fast row by the replay cap, so the sizing knobs cannot void here, only leave candidates on the table.
 
 1. **Multipost templates in the probe rotation, and a build-reserve term in *selection*.** The rotation spends probe budget on the throughput-neutral multipost forms, and a per-candidate additive in the selection rate ($\text{raw}/(t + F_\text{build})$) inflates the denominator more for many-candidate single-post templates than for few-candidate multipost ones — enough to tip the selector off the fast single-post form. Removing both restores the frontier's rule: rank on pure measured latency, single-post only.
-2. **Warm-up poisons the slowest estimate.** The cold-start trial runs the first `interact` inside the timing path, so its $75$–$146$ s model-load inflates the running maximum latency; the reset block clears the fired-probe bookkeeping but not that maximum, so the deadline cushion stays $\approx 175$ s instead of $\approx 60$ s and the fill stops early. This is Part 4 §1's warm-up lever, present but *undone* by a missing reset — one line. (The banked single-post notebook has the same bug.)
+2. **Warm-up poisons the slowest estimate.** The cold-start trial runs the first `interact` inside the timing path, so its $75$–$146$ s model-load inflates the running maximum latency; the reset block clears the fired-probe bookkeeping but not that maximum, so the deadline cushion stays $\approx 175$ s instead of $\approx 60$ s and the fill stops early. This is Part 4 §1's warm-up lever, present but *undone* by a missing reset — one line. (The banked single-post baseline has the same bug.)
 3. **A build reserve in *sizing* over-charges the replay-cap-bound row.** A $1.0$ s per-candidate reserve is far above the measured build cost (§10), trimming the fast row's returned set.
 4. **A hardcoded replay budget** instead of the real config budget — latent, harmless while the budget is what we assume.
 5. **A two-sample selection floor** lets a template win on a lucky thin draw once the confidence race stops early.

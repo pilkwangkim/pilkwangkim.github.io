@@ -14,9 +14,9 @@ image:
 
 # AI Agent Security (Part 1): The Replay Benchmark and Trajectory-Search EDA
 
-This series begins with Kaggle's [AI Agent Security — Multi-Step Tool Attacks](https://www.kaggle.com/competitions/ai-agent-security-multi-step-tool-attacks), a benchmark in which an algorithm returns candidate message trajectories and the evaluator replays them against tool-using models. Before optimising anything, the first task is to identify what the algorithm actually submits, how clean replay turns a trajectory into a score, and which quantities can be measured; this installment establishes that contract and the trajectory-search EDA used to read it.
+This series begins with Kaggle's [AI Agent Security — Multi-Step Tool Attacks](https://www.kaggle.com/competitions/ai-agent-security-multi-step-tool-attacks), a benchmark in which an algorithm returns candidate message trajectories and the evaluator replays them against tool-using models. This first note covers the opening phase, **June 13–21, 2026**. It identifies what the algorithm submits, how clean replay turns a trajectory into a score, and which parts of the environment can guide a trajectory-search EDA. The active questions are how many replay-stable candidates fit the budget, which mutations create genuinely new score cells, and how much of the visible mechanism transfers across guardrails.
 
-> **Caveat (valid through 2026-06-21).** Everything below describes the evaluator as it behaved **up to June 21, 2026**. The organizers have since announced a large-scale scoring/evaluator update for **June 22, 2026**, whose stated intent is to improve the fairness and reliability of evaluation and bring the harness in line with the intended contract — prompted by forum reports of long-running submissions and unexpected scores, including findings of the kind in this series. Concretely it adds strict runtime-budget enforcement during replay (over-budget runs now fail fast instead of running to the global timeout) and a scorer that recognizes reversible encodings (base64, hex, URL-encoding, reversal, separator-joined). That changes parts of this analysis — notably the runtime-ceiling numbers and the "encoding self-defeating" finding. I will cover the June 22 update and its consequences in a **separate note**, not this one.
+> **Scope (June 13–21, 2026).** The measurements below use the evaluator contract in effect during this period. The June 22 evaluator update begins the next phase: it adds strict replay-budget enforcement and recognizes reversible encodings such as base64, hex, URL encoding, reversal, and separator joining. Part 2 examines how that change affects the runtime ceiling and encoding analysis.
 
 Kaggle code for this EDA: [Agent Security — Trajectory Search](https://www.kaggle.com/code/pilkwang/eda-agent-security-trajectory-search)
 
@@ -362,7 +362,7 @@ $$
 
 Meanwhile, the `source → action` chains — the ones that actually walk through web/email and trip `UNTRUSTED_TO_ACTION` — are semantically faithful to the real threat and more likely to survive a stricter filter. They cost more (recent web/email observations raise the guardrail's block probability) and they are harder to land, but they are the robust half of the portfolio.
 
-This is the strategic fork the whole competition turns on: **direct marker exfiltration buys visible points cheaply but fragile; source-conditioned chains buy robustness expensively.** A portfolio needs both, weighted by how much you believe the private guardrail differs from the public one.
+This is the strategic fork at this stage: **direct marker exfiltration buys visible points cheaply but remains fragile; source-conditioned chains buy robustness at a higher cost.** A portfolio needs both, weighted by how much you believe the private guardrail differs from the public one.
 
 ---
 
@@ -742,7 +742,7 @@ That $0.09$-per-candidate observation is the loose thread. Pull on it and the wh
 
 ### Sources
 
-- Competition page: [AI Agent Security — Multi-Step Tool Attacks](https://www.kaggle.com/competitions/ai-agent-security-multi-step-tool-attacks). Mechanical details (predicates, severity weights, scoring formula, fixtures, tools, SDK API, replay contract) are read directly from the competition SDK and fixtures via the EDA notebook.
+- Competition and public code: [AI Agent Security — Multi-Step Tool Attacks](https://www.kaggle.com/competitions/ai-agent-security-multi-step-tool-attacks) and the public Kaggle notebook [Agent Security — Trajectory Search](https://www.kaggle.com/code/pilkwang/eda-agent-security-trajectory-search), which exposes the predicate, scoring, fixture, tool, SDK, and replay checks used in this note.
 - Meta-level details (hosts, prize pool, Working Note Awards, entry deadlines) are as publicly reported; see the [TechPolicy.Press coverage of the OpenAI red-teaming challenge](https://www.techpolicy.press/what-openais-latest-redteaming-challenge-reveals-about-the-evolution-of-ai-safety-practices/) and the related write-up [*Security Challenges in AI Agent Deployment: Insights from a Large-Scale Public Competition* (arXiv:2507.20526)](https://arxiv.org/abs/2507.20526).
 - Academic lineage:
   - Debenedetti, Abdelnabi, et al., 2024, *AgentDojo: A Dynamic Environment to Evaluate Prompt Injection Attacks and Defenses for LLM Agents*, NeurIPS 2024 Datasets & Benchmarks Track ([arXiv:2406.13352](https://arxiv.org/abs/2406.13352); [OpenReview](https://openreview.net/forum?id=m1YYAQjO3w)) — 97 user tasks and 629 security test cases across the Workspace, Slack, Travel, and Banking environments; the per-trace utility/security split is the direct ancestor of this competition's predicate scoring.

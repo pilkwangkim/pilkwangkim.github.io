@@ -14,11 +14,13 @@ image:
 
 # AI Agent Security (Part 9): From Firing to Density — Chains, Gates, and the Per-K Frontier
 
-This series follows Kaggle's [AI Agent Security — Multi-Step Tool Attacks](https://www.kaggle.com/competitions/ai-agent-security-multi-step-tool-attacks), where fixed candidate conversations are replayed through two model-and-tool paths and scored from their traces. By Part 8, source inspection and matched controls had established partial-prefix banking, separate generation and replay clocks, model-specific routing, and a still-unresolved gap between reliable local firing and hosted score; this article follows that gap using only results and diagnostics known by the end of August 23.
+This series follows Kaggle's [AI Agent Security — Multi-Step Tool Attacks](https://www.kaggle.com/competitions/ai-agent-security-multi-step-tool-attacks), where fixed candidate conversations are replayed through two model-and-tool paths and scored from their traces. By Part 8, source inspection and matched controls had established partial-prefix banking, separate generation and replay clocks, model-specific routing, and a still-unresolved gap between reliable local firing and hosted score. Part 9 follows that gap.
 
 [Part 8]({{ site.baseurl }}/posts/AI-Agent-Security-Part-8-The-Evaluation-Reset-and-the-Search-for-a-Discrete-Lever/) ended with one result deliberately unresolved: MULTIPOST-M had produced six exact local posts, and its hosted score had not yet landed. The first answer in this post is therefore the answer to that cliffhanger. MULTIPOST-M scored **102.835**. The six local posts were real; the expected hosted amortization was not.
 
-That result reopened the same public gap under a stricter question. The next ten days were an attempt to explain a frontier around 137 without treating a leaderboard number as magic. The search moved through three increasingly precise questions:
+This note covers **13–23 August 2026**. It records multi-candidate and multi-post tests, GPT/Gemma isolation, firing and density gates, per-K syntax search, K8 front-loading, token-floor experiments, and T4/RemoteAgent diagnostics. The Adaptive-K hosted run was still pending at the close of 23 August.
+
+The MULTIPOST-M result reopened the same public gap under a stricter question. Across those ten days, the goal was to explain a frontier around 137 without treating a leaderboard number as magic. The search moved through three increasingly precise questions:
 
 1. Was the gap simply **more candidates**?
 2. If not, could one candidate produce **more scoring events per unit time**?
@@ -34,7 +36,7 @@ $$
 \rho = \frac{\mathbb{E}[\text{raw score per candidate}]}{\mathbb{E}[\text{replay time per candidate}]}.
 $$
 
-This post reconstructs how that distinction emerged, which hypotheses it removed, and what remained genuinely open at the August 23 cutoff. It also ends with the measurement that, from that date’s vantage, should have been built earlier: a paired, full-path replay instrument that followed the same candidates through routing, remote generation, tool execution, scoring, and the actual deadline.
+This record follows how that distinction emerged, which hypotheses it removed, and which questions remained open on 23 August. The missing measurement was a paired, full-path replay instrument that followed the same candidates through routing, remote generation, tool execution, scoring, and the actual deadline.
 
 ## 0. What the evaluator was measuring
 
@@ -167,7 +169,7 @@ a 13.8% local reduction. It fired 24/24, retained distinct host cells, and route
 
 It scored 97.135.
 
-The first explanation in the working note used the old GPT-row estimate and described an enormous Gemma collapse. Once exp64a provided a clean GPT row, the correct subtraction was
+The initial explanation used the old GPT-row estimate and described an enormous Gemma collapse. Once exp64a provided a clean GPT row, the correct subtraction was
 
 $$
 S_{\text{Gemma,bare}}\approx2(97.135)-105.75=88.52,
@@ -494,7 +496,7 @@ Such an instrument would have adjudicated the central forks directly. If four fe
 
 The practical limitation was access: the hosted service did not expose all of this telemetry, and a local reconstruction could still miss infrastructure outside the container. But even an exact local gateway reproduction would have been a better organizing instrument than a sequence of separate firing, token, and in-process timing probes. Those probes were still useful—they isolated syntax, model, and hardware effects. The mistake was asking each to carry the unmeasured last mile to the leaderboard.
 
-## 12. The adaptive density gate at the cutoff
+## 12. The adaptive density gate on 23 August
 
 The unresolved K3 result motivated ADAPTIVE-K (`55707267`). Rather than betting the entire Gemma row on one chain, the engine raced K1 against exact K2/K3 on the live evaluator and compared realized raw per second. It required a 1.10 density margin and a median intended-post floor before committing. It also normalized the returned count by the observed latency ratio, so a heavier committed family would not automatically return the same 2,000-row tail as K1.
 
@@ -510,7 +512,7 @@ $$
 
 On local end-to-end tests, Gemma selected K3 and GPT retained K1. The engine passed compile, cell-signature, routing, and metadata checks. It was submitted on August 23 with the K3-all-in run as its paired diagnostic.
 
-At the end-of-day cutoff, `55707267` was still pending. Its later score is intentionally not used here. Therefore the correct August 23 conclusion was not “chains work” or “chains are dead.” It was narrower:
+At the end of 23 August, `55707267` was still pending. The working conclusion was therefore not “chains work” or “chains are dead.” It was narrower:
 
 - exact K3 fired on Metal, 5090, T4 direct, and the tested RemoteAgent path;
 - its all-in public score was nevertheless flat;
@@ -569,19 +571,8 @@ That question was finally precise. As of August 23, its strongest new instrument
 
 ---
 
-## 15. Source trail for this note
+## 15. Public references
 
-The dated state above comes from the following contemporaneous records and executable artifacts:
-
-After consolidation, the dated records are preserved under `_draft/backup/source-notes/`, with `per-k-syntax-frontier.json` under `_draft/backup/source-data/`. Notebook code remains in place.
-
-- `2026-08-13-attempts-and-findings.md`, stopping at the August 23 cutoff;
-- `2026-08-15-gemma-speed-lever-design.md`;
-- the contemporaneous August 15 versions of `2026-08-15-private-config-design.md` and `2026-08-15-private-strategy.md`;
-- `2026-08-17-gemma-chain-gated-card.md`;
-- `per-k-syntax-frontier.json`;
-- `2026-08-23-runpod-5090-0slot-checklist.md` and `2026-08-23-t4-native-density-report.md`;
-- the matching submission artifacts under `notebooks/submissions/aug12-*` through `notebooks/submissions/aug23-*`;
-- the exact token-cost, same-call K8, K8-frontload, grouped-sort, and prompt-anatomy references under `notebooks/ref/` that existed by the cutoff.
-
-Later edits to the private-strategy notes, later submission outcomes, and the late-August score staircase are deliberately excluded.
+- [AI Agent Security — Multi-Step Tool Attacks](https://www.kaggle.com/competitions/ai-agent-security-multi-step-tool-attacks)
+- [Competition SDK repository](https://github.com/mbhatt1/competitionscratch)
+- [Rainbow Teaming: Open-Ended Generation of Diverse Adversarial Prompts](https://arxiv.org/abs/2402.16822)

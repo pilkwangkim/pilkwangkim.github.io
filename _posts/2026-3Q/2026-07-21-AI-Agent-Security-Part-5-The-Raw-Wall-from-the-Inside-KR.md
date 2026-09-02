@@ -16,13 +16,13 @@ image:
 
 Kaggle의 [AI Agent Security — Multi-Step Tool Attacks](https://www.kaggle.com/competitions/ai-agent-security-multi-step-tool-attacks)는 후보 메시지 뱅크를 두 에이전트 모델과 모의 도구에 가드레일을 적용해 다시 실행하고, 그 결과 트레이스의 보안 판정 조건을 채점하는 대회다. 1~4편에서는 리플레이 계약, v3.1.2의 고정 예산 평가 구조, 공개 점수식 $S=0.045\,(N_\text{gpt-oss}+N_\text{gemma})$을 확인했다. 이어 모델별 라우팅과 더 짧은 실행 경로로 완료되는 POST 수를 늘렸다. 다만 후보 하나가 얻을 수 있는 원점수는 여전히 미해결 변수였다. 5편에서는 채점기와 가드레일 소스를 직접 읽어 두 번째 판정 조건을 더할 수 있는지, 가능해 보이는 경로를 어떤 규칙이 막는지 따져 본다.
 
-이후의 소스 분석은 4편 §12에서 만든 로컬 화이트박스 하네스의 측정과 함께 살펴본다. 서버와 같은 GGUF 가중치, 실행 환경, 가드레일, greedy 디코딩 경로를 사용한 하네스다.
+이 글은 7월 21일 당시의 탐색 상태를 기록한다. 이후의 소스 분석은 4편 §12에서 만든 화이트박스 하네스의 측정과 함께 살펴본다. 서버와 같은 GGUF 가중치, 실행 환경, 가드레일, greedy 디코딩 경로를 사용한 하네스다.
 
 ---
 
 ## 1. greedy 디코딩 덕분에 로컬 하네스로 행동을 재현할 수 있다
 
-4편 §12에서는 같은 가중치, env, backend를 사용한다는 점에서 로컬 하네스의 타당성을 설명했습니다. 다만 서빙 실행도 노트북과 같은 방식으로 디코딩하는지는 확인하지 못한 채 남겨 두었습니다. SDK를 읽어 보니 생성 기본값은 모든 계층에서 greedy였습니다. `hf_chat_template/types.py`는 `generation_kwargs = {"do_sample": False}`를 사용하고, llama.cpp backend는 temperature가 지정되지 않은 `do_sample=False`를 `temperature = 0.0`으로 매핑합니다. OpenAI 스타일 에이전트도 `"temperature": 0`으로 고정합니다. evaluation과 core 경로 어디에도 `do_sample=True`, 0이 아닌 temperature, `generation_kwargs` 교체 같은 override는 없었습니다.
+4편 §12에서는 같은 가중치, env, backend를 사용한다는 점에서 로컬 하네스의 타당성을 설명했습니다. 다만 서빙 실행도 같은 방식으로 디코딩하는지는 확인하지 못한 채 남겨 두었습니다. SDK를 읽어 보니 생성 기본값은 모든 계층에서 greedy였습니다. 채팅 템플릿 계층은 `generation_kwargs = {"do_sample": False}`를 사용하고, llama.cpp backend는 temperature가 지정되지 않은 `do_sample=False`를 `temperature = 0.0`으로 매핑합니다. OpenAI 스타일 에이전트도 `"temperature": 0`으로 고정합니다. evaluation과 core 경로 어디에도 `do_sample=True`, 0이 아닌 temperature, `generation_kwargs` 교체 같은 override는 없었습니다.
 
 greedy 디코딩은 매 단계에서 $\arg\max$ 토큰을 고르므로 샘플링과 seed 의존성이 없습니다. 프롬프트와 양자화 가중치가 같다면 서빙 모델과 하네스는 같은 토큰을 생성합니다. 따라서 로컬에서 관측한 행동은 서버 행동을 추정한 값이 아니라 동일한 결정론적 경로의 재현입니다. 여기서 두 가지가 따라옵니다. 첫째, 아래의 발화 post 수, 후보당 시간, hop당 비용은 샘플링 평균이 아닙니다. 둘째, hop마다 확률 $p$로 성공하는 $K$-post chain이 $p^K$로 감소한다는 우려도 이 설정에는 해당하지 않습니다. 각 chain은 매번 같은 방식으로 발화하거나 실패합니다.
 
@@ -110,9 +110,9 @@ $$
 
 ---
 
-## 7. 프론티어 노트북의 주석에서 개선 순서를 읽다
+## 7. 프론티어의 개선 순서를 읽다
 
-상위권의 공개 single-post 엔진은 코드 주석만으로도 개선 과정을 상당 부분 복원할 수 있었습니다. `attack.py`에 날짜, sweep, "rung", 제출 ref-ID가 남아 있어 레버를 발견한 순서를 보존하고 있었기 때문입니다. 이를 시간순으로 읽으면 채점 파이프라인의 각 단계에서 남은 여유를 찾아낸 과정이 드러납니다.
+상위권의 공개 single-post 구현에는 날짜가 붙은 주석과 sweep, 공개 점수 rung이 남아 있어 개선 순서를 상당 부분 읽을 수 있었습니다. 이를 시간순으로 보면 채점 파이프라인의 각 단계에서 남은 여유를 찾아낸 과정이 드러납니다.
 
 1. **발화 효율(47 → 60 돌파).** 돌파 이전 설계는 latency를 몇 번 재고 나서 $N = \text{budget}\cdot\text{margin}/t$ 후보를 *맹목적으로* 냈습니다 — 개별 검증 없이. 그래서 실제로는 $\approx 31\%$만 발화해 행 점수가 낮아졌습니다. 돌파는 **live validation-fill**입니다. 후보 하나 생성 → live env에 replay → *발화한 것만 keep* → deadline 쿠션까지 반복. 이제 반환 후보의 $100\%$가 점수를 내고, 루프는 각 모델의 실제 속도에 자가-사이징됩니다. 가장 큰 점프이고, payload가 아니라 fill 규율입니다.
 2. **per-model 적응형 margin, 그리고 per-model 라우팅.** 평평한 deadline 쿠션은 빠른 행의 용량을 낭비합니다. 그 행 자신의 관측 slowest에 비례시키면 되찾습니다. 그다음 latency 분류 템플릿 분기(4편 §1). 평문 "분석 불필요" prefix가 null로 나온 뒤 진짜 메커니즘이 harmony 제어 토큰 collapse였음이 밝혀지며 교정되었죠.
@@ -142,7 +142,7 @@ $$
 우리 fill 엔진을 프론티어와 비교하자 처리량을 잃는 지점 다섯 곳이 드러났습니다. 모두 반환 후보를 필요 이상으로 적게 만드는 *under-fill* 문제였습니다. 점검 결과 추론 행은 generation 시간에, 빠른 행은 replay 상한에 묶여 있었으므로 sizing 값을 보수적으로 잡으면 제출을 무효로 만들기보다 넣을 수 있었던 후보를 남겨 두게 됩니다.
 
 1. **probe 로테이션의 multipost 템플릿, 그리고 *선택*의 build-reserve 항.** 로테이션이 처리량-중립 multipost 형태에 probe 예산을 쓰고, 선택 비율($\text{raw}/(t + F_\text{build})$)의 후보당 가산항이 분모를, 후보가 많은 single-post 템플릿에는 더 크게 후보가 적은 multipost에는 덜 부풀립니다 — selector를 빠른 single-post 형태에서 떨어뜨릴 만큼. 둘 다 제거하면 프론티어의 규칙으로 복원됩니다. 순수 측정 latency로 랭크, single-post만.
-2. **warm-up이 slowest 추정을 오염시킨다.** cold-start 시행이 첫 `interact`를 타이밍 경로 안에서 돌려, $75$–$146$ s 모델-로드가 running maximum latency를 부풀립니다. reset 블록은 발화-probe 장부는 지우지만 그 maximum은 안 지워서, deadline 쿠션이 $\approx 60$ s 대신 $\approx 175$ s로 남고 fill이 일찍 멈춥니다. 4편 §1의 warm-up 레버가, 빠진 reset 한 줄로 *무효화*된 것입니다. (banked single-post 노트북에도 같은 버그가 있습니다.)
+2. **warm-up이 slowest 추정을 오염시킨다.** cold-start 시행이 첫 `interact`를 타이밍 경로 안에서 돌려, $75$–$146$ s 모델-로드가 running maximum latency를 부풀립니다. reset 블록은 발화-probe 장부는 지우지만 그 maximum은 안 지워서, deadline 쿠션이 $\approx 60$ s 대신 $\approx 175$ s로 남고 fill이 일찍 멈춥니다. 4편 §1의 warm-up 레버가, 빠진 reset 한 줄로 *무효화*된 것입니다. (banked single-post 기준 구성에도 같은 버그가 있습니다.)
 3. ***sizing*의 build reserve가 replay-cap 묶인 행에 과청구한다.** 후보당 $1.0$ s reserve는 측정 build 비용(§10)보다 훨씬 커서, 빠른 행의 반환 집합을 깎습니다.
 4. **하드코딩된 replay 예산** — 실제 config 예산 대신. 잠복성이고, 예산이 우리 가정과 같은 동안은 무해합니다.
 5. **최소 두 표본만으로 내리는 선택** — confidence race가 너무 일찍 멈추면 우연히 빠른 소수 표본 때문에 잘못된 템플릿이 선택될 수 있습니다.

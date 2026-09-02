@@ -14,25 +14,30 @@ image:
 
 # AI Agent Security (Part 8): The Evaluation Reset — Partial Banking and the Search for a Discrete Lever
 
-This series follows Kaggle's [AI Agent Security — Multi-Step Tool Attacks](https://www.kaggle.com/competitions/ai-agent-security-multi-step-tool-attacks), where submissions generate candidate message chains that are replayed through model-and-tool fixtures and scored from the resulting traces. By Part 7, I had established the replay and score algebra, the separate GPT and Gemma paths, the importance of latency, and the need to preserve functional diversity for a held-out guardrail; this article begins with the August 5 evaluation reset and uses only evidence available by August 12.
+This series follows Kaggle's [AI Agent Security — Multi-Step Tool Attacks](https://www.kaggle.com/competitions/ai-agent-security-multi-step-tool-attacks), where submissions generate candidate message chains that are replayed through model-and-tool fixtures and scored from the resulting traces. By Part 7, I had established the replay and score algebra, the separate GPT and Gemma paths, the importance of latency, and the need to preserve functional diversity for a held-out guardrail. Part 8 records the experiments from the August 5 evaluation reset through August 12.
 
 The reset changed how that portfolio was generated and replayed, and it made some previously dangerous experiments safe enough to run.
 
 ---
 
-## 0. Scope and cutoff
+## 0. August 5–12: period and questions
 
-This is a contemporaneous working note, not a reconstruction from the final leaderboard. Its information cutoff is **August 12, 2026, 23:59 KST**.
+This note covers **August 5–12, 2026**. It begins with the evaluation reset, follows the timeout and parser changes through packing, static return, and diversity tests, and ends with the six-post raw-stacking submission **MULTIPOST-M** still being evaluated. Its two $K=8$ follow-ups remain on hold behind that result.
 
-That boundary matters. At the cutoff, a six-post raw-stacking submission called **MULTIPOST-M** was still being evaluated. Its hosted result was unknown. No result or construction first recorded after the cutoff is used to explain an earlier decision here.
+Four questions organize the week:
 
-The claims below have three different sources and should not be blended:
+1. Which stages retain completed work after the timeout patch, and which failures can still invalidate a run?
+2. Does the new Gemma parser branch change any prompt form we actually use?
+3. Are the 120, 126, and 137 scores explained by replay speed, raw value per trace, or a discrete mechanism not present in the main cluster?
+4. Does multi-post raw stacking improve hosted value density enough to justify increasing $K$?
+
+The evidence below has three distinct roles:
 
 1. **Source facts** from the live August 5 evaluation bundle: budgets, timeout control flow, parser behavior, scoring, predicates, and score-cell construction.
 2. **Measurements** from the exact served GGUF models under greedy decoding: whether a prompt fires, how many tool calls it produces, token counts, and local relative latency.
 3. **Hosted results** from the public leaderboard: the only evidence for Kaggle T4 wall-clock transfer and the final score produced by a complete submission.
 
-Local behavior is strong evidence for *what* the model emits. It is not direct evidence for *how fast* the hosted evaluator replays it. That distinction becomes the central issue of the week.
+Local behavior is strong evidence for *what* the model emits. It is not direct evidence for *how fast* the hosted evaluator replays it. That distinction is the central issue of the week.
 
 For a reader new to the competition, it helps to picture the evaluator as two separate assembly lines. In the first line, our submitted `AttackAlgorithm.run()` interacts with one served model and returns a portfolio of at most 2000 candidate message sequences. In the second line, the evaluator takes those returned candidates one at a time, resets a fresh synthetic environment, replays the candidate, inspects the resulting trace for security predicates, and assigns score cells. The process is repeated independently for GPT and Gemma, and the two normalized rows are averaged.
 
@@ -72,7 +77,7 @@ The Gemma announcement looked more important. The public score was understood as
 
 For the limited rerun, the rational choice was conservative: the already-banked **109.485** and **108.135**, both direct single-post constructions. They were the strongest historical results and used the most established attack primitive. The more experimental private-transfer portfolios would be rebuilt on the new evaluator rather than consuming the two rerun nominations.
 
-Two such portfolio artifacts were prepared on August 6. One was a pure read-then-post construction: read `secret.txt`, then place the value actually returned by the tool into `http.post`. The other interleaved three mechanisms in equal rotation: direct sentinel POST, read-then-post, and an unauthorized `email.send`. Their importance was not a public score. They encoded a distinction that would recur through the rest of the competition: **domain variation is not mechanism variation**. A thousand different hosts can still represent one behavioral family.
+Two such portfolio artifacts were prepared on August 6. One was a pure read-then-post construction: read `secret.txt`, then place the value actually returned by the tool into `http.post`. The other interleaved three mechanisms in equal rotation: direct sentinel POST, read-then-post, and an unauthorized `email.send`. Their importance was not a public score. They encoded the distinction guiding portfolio design in this period: **domain variation is not mechanism variation**. A thousand different hosts can still represent one behavioral family.
 
 At announcement time, however, one part of the timeout interpretation remained incomplete. The notice explicitly described partial replay scoring. It did not provide the full generation-side implementation. That arrived in the live code diff.
 
@@ -84,7 +89,7 @@ The distinction between a **blank** and a **zero** was operationally important. 
 
 The live evaluation dataset was downloaded at the update boundary and diffed file by file against the previous snapshot.
 
-The first result was negative but useful: the **scoring SDK did not change**. `scoring.py`, the predicates, the score-cell function, the public `OptimalGuardrail`, the Gemma SDK component, and the shared response parser were byte-identical. The scoring identity remained
+The first result was negative but useful: the **scoring SDK did not change**. The score calculation, predicates, score-cell function, public `OptimalGuardrail`, Gemma SDK component, and shared response parser were byte-identical. The scoring identity remained
 
 $$
 \text{raw}
@@ -150,7 +155,7 @@ The leaderboard agreed with the local result. The post-reset field initially ret
 
 This closed the broad claim “the reset makes Gemma stronger.” The narrower claim survived: a team that had found a prompt which elicited the newly accepted JSON form could benefit. We had not found such a prompt.
 
-If I were restarting this branch with only the August 7 evidence, the first measurement would still be the raw argument blob—not a leaderboard submission. The parser patch was easy to overvalue because it was explicit in the announcement, but its benefit was conditional on the model entering one exact syntax branch. Forty-eight captured blobs were enough to show that our prompts did not. That cheap boundary test prevented a parser implementation detail from becoming a week-long causal story.
+For this parser branch, the first measurement is the raw argument blob—not a leaderboard submission. The parser patch was easy to overvalue because it was explicit in the announcement, but its benefit was conditional on the model entering one exact syntax branch. Forty-eight captured blobs were enough to show that our prompts did not. That cheap boundary test prevented a parser implementation detail from becoming a week-long causal story.
 
 ### 2.3 The first 120 was therefore differential
 
@@ -309,7 +314,7 @@ What was closed was specific but useful: **two-message packing, as built, was th
 
 COEF-080 became the new baseline at 107.860. Its isolated change was a lower replay-cost accounting coefficient, not a different attack. The hosted number showed that the configuration was viable, but one score could not separate a real sizing gain from ordinary run-to-run variation. The coefficient was therefore a baseline setting, not yet a causal explanation for a large leaderboard jump.
 
-The packing branch is a good example of why a rational hypothesis can fail cleanly. The 7.4-second hosted time and sub-two-second local generation made a large fixed reset cost plausible. The algebra then said that even a modest fixed cost should favor two-message packing. We built a pack-rate sweep rather than trusting one point, and the monotone decline broke the premise that the unobserved residual was reusable per-candidate overhead. If restarting at this cutoff, I would first launch the smallest matched hosted pair—identical routing and bank logic, differing only in one-post versus two-post density—before spending several variants on fill coefficients. The quantity to identify was the *slope* of score against pack rate, not the most optimistic coefficient.
+The packing branch is a good example of why a rational hypothesis can fail cleanly. The 7.4-second hosted time and sub-two-second local generation made a large fixed reset cost plausible. The algebra then said that even a modest fixed cost should favor two-message packing. We built a pack-rate sweep rather than trusting one point, and the monotone decline broke the premise that the unobserved residual was reusable per-candidate overhead. The next packing test should be the smallest matched hosted pair—identical routing and bank logic, differing only in one-post versus two-post density—before spending several variants on fill coefficients. The quantity to identify is the *slope* of score against pack rate, not the most optimistic coefficient.
 
 ---
 
@@ -391,7 +396,7 @@ The expected hosted range was therefore modest: roughly 108–115 from reclaimin
 
 The first hosted clue later in the window supported that reading. A GPT-static-1600 submission scored **109.620**, about 1.8 points above the 107.860 baseline. Static return had a small positive effect and a substantial wall-time benefit. It was not the missing 20% replay-speed lever.
 
-The premise broken here was narrower than “static banks do not work.” Static return worked exactly as designed: it removed generation pressure and made returned-list size predictable. What failed was the stronger inference that generation pressure had been hiding hundreds of replayable candidates. If I restarted on August 9, I would measure the live engine's completed generation count and a gateway-faithful replay count before building the full static notebook. Once both counts were in the same range, static return should have been classified immediately as an engineering simplification and modest cushion recovery, not a frontier mechanism.
+The premise broken here was narrower than “static banks do not work.” Static return worked exactly as designed: it removed generation pressure and made returned-list size predictable. What failed was the stronger inference that generation pressure had been hiding hundreds of replayable candidates. The live engine's completed generation count and a gateway-faithful replay count therefore come before a full static implementation. Once both counts are in the same range, static return is an engineering simplification and modest cushion recovery, not a frontier mechanism.
 
 ---
 
@@ -407,7 +412,7 @@ An audit ranked each candidate explanation by how directly it could be tested.
 
 I kept returning to server prefill because it reconciled two observations elegantly: replay looked expensive on Kaggle, while the model's visible generation looked cheap locally. But an unexplained residual is not automatically reusable overhead. It can contain hardware differences, context growth, environment work, tool execution, and measurement mismatch. The audit was designed to turn that residual into boundaries: first test whether prefixes could plausibly persist, then whether rows were asymmetric, then whether bookkeeping margins were large enough to matter.
 
-The cheap instrument still missing at the start of the week was a **faithful full-path replay meter**: reset the synthetic environment, render the real prompt and tool schema, run every model/tool/finalize hop, export the trace, evaluate predicates and cells, and record those phases separately for each model leg. A short decode benchmark measured only one term in that path. Cleaner leg isolation plus this meter would not reproduce Kaggle hardware, but it would have shown earlier which hypotheses attempted to optimize a term too small to explain the gap.
+The needed instrument is a **faithful full-path replay meter**: reset the synthetic environment, render the real prompt and tool schema, run every model/tool/finalize hop, export the trace, evaluate predicates and cells, and record those phases separately for each model leg. A short decode benchmark measures only one term in that path. Cleaner leg isolation plus this meter will not reproduce Kaggle hardware, but it can reject hypotheses that optimize a term too small to explain the gap.
 
 ### 6.1 Server prefill and prefix reuse
 
@@ -434,7 +439,7 @@ A dedicated prompt asked Gemma to emit `http.post` arguments as JSON. Locally it
 
 ### 6.3 Was one model secretly carrying the score?
 
-The external leaderboard exposed only the combined value. Two diagnostic notebooks therefore returned candidates for one model route and an empty list for the other.
+The external leaderboard exposed only the combined value. Two diagnostic variants therefore returned candidates for one model route and an empty list for the other.
 
 A contemporaneous model-isolation result gave 43.7 when the other branch was zero. Under the mean formula,
 
@@ -465,7 +470,7 @@ Hosted results remained near 106–107.2. The fixed cushion was large in a two-m
 
 At this point packing, static count, prefix formatting, JSON prompting, model asymmetry, and margin tuning had all become bounded explanations. None supplied the approximately 20% density improvement required by the frontier.
 
-The restart lesson from this branch is to isolate rows and clocks before tuning them. A zero-other-row diagnostic was more informative than another combined leaderboard point because it removed one hidden variable. Likewise, a full-budget, same-chassis comparison of one candidate form against another would be more informative than extrapolating hosted cost from short local runs. The sequence should be decomposition first, micro-optimization second.
+The next step is to isolate rows and clocks before tuning them. A zero-other-row diagnostic is more informative than another combined leaderboard point because it removes one hidden variable. Likewise, a full-budget, same-chassis comparison of one candidate form against another is more informative than extrapolating hosted cost from short local runs. The sequence is decomposition first, micro-optimization second.
 
 This also constrains how the negative results should be read. Packing, static return, and the diversity mixture were rational because the evaluator model still left fixed overhead, generation starvation, and public coverage rewards unresolved. Their hosted results narrowed those **specific constructions**. They did not prove that every form of multi-event density, static banking, or behavioral diversity was useless. Closing an axis requires an invariant; these experiments supplied boundaries.
 
@@ -508,11 +513,11 @@ This was a clean negative for one question:
 
 It did not answer the private question. A held-out defense can block one sink and allow another even when the public scorer gives no bonus for carrying both. Public value density and private failure-mode coverage remain different objectives.
 
-If restarting this branch, I would write the dilution table first and submit the smallest mixture capable of detecting an incremental cell or predicate reward. That would minimize the cost of a negative public result. I would still preserve the mixed bank as a separate private-transfer artifact, because the public experiment cannot adjudicate survival under a different guardrail.
+For the next mixed-bank test, the dilution table comes first, followed by the smallest mixture capable of detecting an incremental cell or predicate reward. That minimizes the cost of a negative public result. The mixed bank remains a separate private-transfer candidate set because the public experiment cannot adjudicate survival under a different guardrail.
 
 ### 7.2 Structural diversity without severity dilution
 
-A second notebook was prepared but held. STRUCT-C kept every scoring action as severity-5 EXFIL, while one in four candidates prepended a benign allow-listed `shell.run`. The trace changed from
+A second variant was prepared but held. STRUCT-C kept every scoring action as severity-5 EXFIL, while one in four candidates prepended a benign allow-listed `shell.run`. The trace changed from
 
 $$
 [\texttt{http.post}]
@@ -575,7 +580,7 @@ $$
 
 or from 10–20% more raw per unit replay time. The public number alone cannot distinguish the count axis from the raw-density axis.
 
-The surviving hypotheses at the cutoff were therefore deliberately broad:
+The hypotheses still open on August 12 were deliberately broad:
 
 1. **A hosted per-candidate speed form.** A shorter effective decode, a server-visible prefix effect, or a cheaper candidate path allows more findings inside 8750 seconds.
 2. **A raw-density form not yet tested correctly.** Multiple successful severity-5 events per trace overcome their cell and context cost.
@@ -590,11 +595,11 @@ What had become low probability was equally clear: ordinary packing, fill margin
   <img src="{{ site.baseurl }}/assets/img/posts/2026-08-12-ai-agent-security-part-8/fig-02-mainland-and-islands.png" alt="The August 12 public board shown as a main score cluster and two separated higher-score islands" width="96%">
 </figure>
 
-*Figure 2. The observed gaps supported a discrete-property hypothesis, but did not identify the property. MULTIPOST-M was still pending at the cutoff.*
+*Figure 2. The observed gaps supported a discrete-property hypothesis, but did not identify the property. MULTIPOST-M was still being evaluated on August 12.*
 
-## 9. The last experiment known at the cutoff: raw stacking without a forged history
+## 9. August 12: raw stacking without a forged history
 
-Earlier multi-post notebooks had used several different constructions, and their failures were easy to conflate.
+Earlier multi-post tests had used several different constructions, and their failures were easy to conflate.
 
 - Some packed multiple user messages into one candidate.
 - Some forged prior tool-call **history**. Replay rebuilds a candidate from its user messages, so forged history is not itself a stable instruction.
@@ -633,7 +638,7 @@ The hosted interpretation was preregistered:
 | 110–115 | marginal local-like regime |
 | <108 | growing-context/decode cost dominates; revert to single-post |
 
-Two follow-ups were built but held behind that gate. MULTIPOST-A raised GPT to the hop ceiling $K=8$ while keeping Gemma at $K=1$. SMP combined the same $K=8$ GPT candidate with static return. Both passed structural and local firing checks. Neither had hosted evidence at the August 12 cutoff.
+Two follow-ups were built but held behind that gate. MULTIPOST-A raised GPT to the hop ceiling $K=8$ while keeping Gemma at $K=1$. SMP combined the same $K=8$ GPT candidate with static return. Both passed structural and local firing checks. On August 12, neither has been evaluated on Kaggle.
 
 Holding those follow-ups was part of the experiment. Without the parent result, submitting all three would have produced correlated numbers with several changed quantities—hop count, context length, and return strategy—before any one of them had a hosted sign. The gated sequence preserved the ability to learn whether the next slot should move $K$ upward, return to $K=1$, or abandon this control structure.
 
@@ -670,16 +675,16 @@ That is where the week ends. The mechanism existed. Its score did not yet.
 - **The identity of the 126/137 lever.** This remains the central unknown.
 - **Hosted speed decomposition.** Local decode, hosted decode, prefix reuse, environment reset, and tool overhead are not separately observable from one leaderboard number.
 - **A different Gemma JSON-argument prompt.** The parser branch exists, but our prompts do not enter it.
-- **Raw stacking under the exact current-message construction.** MULTIPOST-M is pending at the cutoff.
+- **Raw stacking under the exact current-message construction.** MULTIPOST-M is still being evaluated.
 - **Private transfer.** Public guardrail behavior and public density do not reveal which attack families survive a held-out defense. No private implementation should be inferred merely from an identifier or a research theme.
 
 ---
 
-## 11. Closing perspective
+## 11. Where the search stands on August 12
 
 The reset removed a failure cliff, but it did not hand the field a score multiplier. The week after it was therefore less about exploiting a patch than separating several quantities that had been conflated: returned candidates versus replayed candidates, raw per candidate versus raw per second, structural diversity versus public novelty, and local deterministic behavior versus hosted wall-clock transfer.
 
-If I restarted the search with only the evidence available on August 12, I would order the measurements differently:
+The next measurement sequence is:
 
 1. Reconstruct the evaluator patch and write down both clocks, all graceful exits, and every exception cliff.
 2. Reduce each established trace to exact raw and cell arithmetic before optimizing candidate count.
@@ -689,56 +694,16 @@ If I restarted the search with only the evidence available on August 12, I would
 6. Use the smallest hosted A/B that changes one candidate form, and preregister which premise each score band would break.
 7. Treat public density and private mechanism coverage as two portfolio objectives. A mixed mechanism should not be expected to receive a public reward merely because it may transfer better.
 
-That sequence would not reveal the 137 mechanism automatically. It would make each leaderboard slot identify one boundary rather than decorate an existing theory. By the cutoff, that had become the practical definition of progress: not another plausible story for the residual, but a construction whose result could force one story to be false.
+That sequence will not reveal the 137 mechanism automatically. It makes each leaderboard slot identify one boundary rather than decorate an existing theory. The practical definition of progress is now not another plausible story for the residual, but a construction whose result can force one story to be false.
 
 By August 12 those separations had eliminated most of the comfortable stories. The remaining evidence was sparse but sharp: one established 109.620 engine, one isolated 126.010, one isolated 137.130, an empty band between them, and a raw-stack experiment still running. The board had not become closed. It had become specific.
 
 ---
 
-## 12. Source trail for this note
+## 12. Public references
 
-The chronology above is grounded in the following contemporaneous artifacts.
-
-After consolidation, the short blog drafts are preserved under `_draft/backup/superseded-blog-drafts/` and the dated working notes under `_draft/backup/source-notes/`. Notebook code remains in place.
-
-**Evaluation and announcement analysis**
-
-- `2026-08-06-AI-Agent-Security-Part-8-The-Eval-Reset-Partial-Scores-and-a-Reopened-Board.md`
-- `2026-08-07-AI-Agent-Security-Part-9-The-Update-Dissected-What-Changed-Why-and-the-Lever-That-Isnt-Ours.md`
-- the live `ai-agent-security-multi-step-tool-attacks/` SDK and gateway bundle downloaded at the update boundary
-
-**August 6–8 candidate families**
-
-- `notebooks/submissions/_archive/aug06-private-deck/`
-- `notebooks/submissions/_archive/aug07-lever-splits/`
-- `notebooks/submissions/_archive/aug07-newEval-probes/`
-- `notebooks/submissions/_archive/aug08-packing/`
-- `reports/strategy_history/2026-08-08_packing_amortization_splits.md`
-
-**Static return and knob audit**
-
-- `2026-08-09-AI-Agent-Security-Part-10-The-Patch-Re-Read-Bounded-Over-Return-and-the-134-That-Isnt-It.md`
-- `2026-08-09-team-status-update.md`
-- `2026-08-10-134-knob-audit.md`
-- `2026-08-10-tony-reply.md`
-- `reports/strategy_history/2026-08-09_static2000_knob.md`
-- `notebooks/submissions/aug09-static2000/STATIC-2000.ipynb`
-- `notebooks/submissions/_archive/aug09-diag/`
-- `notebooks/submissions/_archive/aug09-maxtweak/`
-- `notebooks/submissions/_archive/aug10-maxagg/`
-- `notebooks/submissions/_archive/aug10-probes/`
-
-**Diversity, frontier shape, and pending raw stack**
-
-- `2026-08-11-diversity-arsenal.md`
-- `2026-08-11-diversity-hypotheses-and-nextmoves.md`
-- `2026-08-12-137-knob-status.md` — using only material known on August 12
-- `2026-08-12-followup-notebooks-held.md`
-- `2026-08-12-static-2000-report.md`
-- `notebooks/submissions/_archive/aug11-diversity/DIVERSITY-B.ipynb`
-- `notebooks/submissions/_archive/aug11-struct/STRUCT-C.ipynb`
-- `notebooks/submissions/aug12-multipost/MULTIPOST-M.ipynb`
-- `notebooks/submissions/aug12-multipost-A/MULTIPOST-A.ipynb`
-- `notebooks/submissions/aug12-smp/SMP.ipynb`
-
-No notebook under `notebooks/ref/` is used: the earliest artifact there postdates this note's cutoff.
+- [AI Agent Security — Multi-Step Tool Attacks](https://www.kaggle.com/competitions/ai-agent-security-multi-step-tool-attacks)
+- [Competition SDK repository](https://github.com/mbhatt1/competitionscratch)
+- [Host discussion on static replay and transfer](https://www.kaggle.com/competitions/ai-agent-security-multi-step-tool-attacks/discussion/711457#3481516)
+- [Competition FAQ discussion](https://www.kaggle.com/competitions/ai-agent-security-multi-step-tool-attacks/discussion/712642)
+- [Rainbow Teaming: Open-Ended Generation of Diverse Adversarial Prompts](https://arxiv.org/abs/2402.16822)
