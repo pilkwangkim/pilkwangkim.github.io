@@ -9,12 +9,9 @@ pin: false
 
 # AI Agent Security (Part 5): The Raw Wall from the Inside
 
-> [Part 4]({{ site.baseurl }}/posts/AI-Agent-Security-Part-4-Past-the-Framing-Plateau/) reduced the whole competition to a throughput count — $S = 0.045\,(N_\text{gpt-oss} + N_\text{gemma})$ over firing candidates — and priced every lever that moves $N$: the drawn GPU, the replay cliff, a control-token collapse of the reasoning row, a warm-up, per-model routing. It left one thing open. The scorer pays $16$ per firing post with no cap, so a candidate that fired a second scored event would raise the raw itself; Part 4 measured that the *agent* will not chain posts profitably ($0.97\times$ at $K{=}3$) and called the raw "an open lever, not yet pried." This part opens the scorer's own source instead of the agent's behaviour, and reads the wall from the inside: the exact score arithmetic, the full predicate table, and the one guardrail that decides which events are allowed to fire. It then reverse-engineers the top public engine from its own dated comments, audits our engine against it, and prices the ceiling honestly. The short version: there is a second scored event that would pay, and it is held shut by a taint rule, not by the agent — which is a mechanism, not a wall, and where the next key would have to fit.
+Kaggle's [AI Agent Security — Multi-Step Tool Attacks](https://www.kaggle.com/competitions/ai-agent-security-multi-step-tool-attacks) replayed candidate-message banks through two agent models, synthetic tools, and a guardrail, then scored specified security predicates in the traces. Parts 1–4 established that replay contract, the v3.1.2 hard-budget evaluator, and the throughput law $S=0.045\,(N_\text{gpt-oss}+N_\text{gemma})$; model-specific routing and shorter trajectories increased completed posts, but raw value per candidate remained unresolved. Part 5 starts there and reads the scorer and guardrail source directly to test whether a second predicate can raise that value and what prevents it.
 
-Competition link:
-[AI Agent Security — Multi-Step Tool Attacks](https://www.kaggle.com/competitions/ai-agent-security-multi-step-tool-attacks)
-
-Everything below is read from `aicomp_sdk` source and measured on the local white-box harness of Part 4 §12 — the served gguf weights, the served env, the served guardrail, greedy decode.
+The source findings below are paired with measurements on the local white-box harness from Part 4 §12: the served GGUF weights, environment, guardrail, and greedy decoding path.
 
 ---
 

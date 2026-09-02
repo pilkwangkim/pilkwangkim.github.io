@@ -9,15 +9,11 @@ pin: false
 
 # AI Agent Security (Part 1): The Replay Benchmark and Trajectory-Search EDA
 
+This series begins with Kaggle's [AI Agent Security — Multi-Step Tool Attacks](https://www.kaggle.com/competitions/ai-agent-security-multi-step-tool-attacks), a benchmark in which an algorithm returns candidate message trajectories and the evaluator replays them against tool-using models. Before optimising anything, the first task is to identify what the algorithm actually submits, how clean replay turns a trajectory into a score, and which quantities can be measured; this installment establishes that contract and the trajectory-search EDA used to read it.
+
 > **Caveat (valid through 2026-06-21).** Everything below describes the evaluator as it behaved **up to June 21, 2026**. The organizers have since announced a large-scale scoring/evaluator update for **June 22, 2026**, whose stated intent is to improve the fairness and reliability of evaluation and bring the harness in line with the intended contract — prompted by forum reports of long-running submissions and unexpected scores, including findings of the kind in this series. Concretely it adds strict runtime-budget enforcement during replay (over-budget runs now fail fast instead of running to the global timeout) and a scorer that recognizes reversible encodings (base64, hex, URL-encoding, reversal, separator-joined). That changes parts of this analysis — notably the runtime-ceiling numbers and the "encoding self-defeating" finding. I will cover the June 22 update and its consequences in a **separate note**, not this one.
 
-Competition link:  
-[AI Agent Security — Multi-Step Tool Attacks](https://www.kaggle.com/competitions/ai-agent-security-multi-step-tool-attacks)
-
-Kaggle code (this EDA):  
-[EDA: Agent Security — Trajectory Search](https://www.kaggle.com/code/pilkwang/eda-agent-security-trajectory-search)
-
-This is the first of a two-part series. Part 1 explains **what the competition actually is**, what you are being asked to submit, how the score is constructed, and how to read the environment. It then walks through the EDA notebook section by section, because the EDA is where the scoring contract stops being a paragraph of rules and becomes a set of measurable quantities. Part 2 will take those quantities and push them to their ceiling — the part where a clean linear score law appears and the optimal strategy becomes arithmetic.
+Kaggle code for this EDA: [Agent Security — Trajectory Search](https://www.kaggle.com/code/pilkwang/eda-agent-security-trajectory-search)
 
 The single most important sentence to internalize before anything else:
 

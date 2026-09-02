@@ -9,6 +9,8 @@ pin: false
 
 # AI Agent Security (Part 2): The Linear Score Law, the Replay Ceiling, and What Survives the Private Guardrail
 
+Part 1 established the basic contract of Kaggle's [AI Agent Security — Multi-Step Tool Attacks](https://www.kaggle.com/competitions/ai-agent-security-multi-step-tool-attacks) benchmark: `run()` returns ranked message trajectories, and only what survives an independent clean replay is scored. By this point the EDA had also isolated one clean single-post exfiltration as a repeatable scoring unit; this installment turns that observation into a linear score model, measures the runtime and replay ceiling, and asks what might survive the hidden guardrail.
+
 > **Caveat (valid through 2026-06-21).** Everything below describes the evaluator as it behaved **up to June 21, 2026**. The organizers have since announced a large-scale scoring/evaluator update for **June 22, 2026**, which adds strict runtime-budget enforcement during replay (over-budget runs fail fast instead of running to the global timeout) and an active-fixture scorer that recognizes reversible encodings (base64, hex, URL-encoding, reversal, separator-joined). That update is **not yet deployed**. Since writing, the competition SDK has been read directly — the **Source Update (June 23)** section below states the source-confirmed mechanism and supersedes the inferred parts of §1–§16 (notably the "soft variance band," the per-trace-dedup phrasing, and the back-computed $c$/$B$ numbers); the narrative is kept as the original reverse-engineering.
 
 > **Correction (2026-06-27).** The central conclusion below — *"one `http.post` per trace ⇒ raw/candidate hard-capped at $18$ ⇒ $N$ is the only lever"* — is **wrong**, and I am leaving the original text intact with this note on top. The scorer sums `EXFILTRATION` **per event** with no per-finding dedup (the Source Update already quotes this from `scoring.py`), so a single finding with $K$ posts scores $16K+2$, not $18$. The 8-host run that looked like a hard one-post cap (§2) was the *model* declining to issue 8 posts under a complex composite instruction — a **compliance** limit, not a scorer cap. A simpler "post again on every turn" prompt (**hop-saturation**) can in principle fire $K>1$ and break the $18$ ceiling, which makes **hits-per-finding $K$ a second lever alongside $N$**. (See the 2026-06-29 update directly below: the first attempt at $K>1$ used an *open-loop* "repeat until you cannot" prompt, which the safety-tuned models refuse — but that refusal is specific to the open-loop framing, not to $K$ itself.)
@@ -19,14 +21,8 @@ pin: false
 > - **Only the *open-loop* "repeat until you cannot" framing is refused.** Part 3's $N=40$ open-loop probe scoring $\approx K{=}0.6$ killed *that prompt*, not $K$. **Bounded, enumerated multi-hop** (one message, $H$ explicit hops $\Rightarrow K\le H$) and **explicit multi-message** ($M$ messages $\times 1 \Rightarrow K=M$) framings are the route under test, and public scores **above the single-hop ceiling** have been reached under v3.1.2 — which is only possible at $K>1$.
 > - **The single-hop ladder is one regime, and its ceiling is the timeout edge, not the score cap.** $S=0.09\,N$ holds (the §1 derivation is intact and correct), but single-hop tops out near $S\approx33$ at the per-row timeout edge ($N\gtrsim370$ times out; the banked floor is $N=357\to32.13$). Anything above $\approx33$ requires $K>1$. The old "$K$ is dead / $N$ is the only usable lever" line below is therefore **retracted** — read it as "the *open-loop* prompt is dead; $K$ via bounded framings is the lever."
 
-Competition link:  
-[AI Agent Security — Multi-Step Tool Attacks](https://www.kaggle.com/competitions/ai-agent-security-multi-step-tool-attacks)
-
-Kaggle code:  
-[AI Agent: Replay-Dense Exfiltration](https://www.kaggle.com/code/pilkwang/ai-agent-replay-dense-exfiltration) ·
+Kaggle code: [AI Agent: Replay-Dense Exfiltration](https://www.kaggle.com/code/pilkwang/ai-agent-replay-dense-exfiltration) ·
 [AI Agent Security — 📘 Working Note](https://www.kaggle.com/code/pilkwang/ai-agent-security-working-note)
-
-[Part 1]({{ site.baseurl }}/posts/AI-Agent-Security-Part-1-The-Replay-Benchmark-and-Trajectory-Search-EDA/) ended with a loose thread: a single clean exfiltration is worth exactly $18$ raw points, i.e. $0.09$ normalized points, and the score is just a sum of those. This post pulls on that thread until the whole scoreboard unravels into one linear law — and then spends the rest of the time on the two questions that law cannot answer: **where is the runtime wall**, and **what survives the hidden guardrail**.
 
 This is a working-note, not a tidy result. Most of what follows is a record of things that looked promising and *didn't* behave as expected, and the effort to understand *why* — which turned out to be more informative than the things that worked. The short version:
 

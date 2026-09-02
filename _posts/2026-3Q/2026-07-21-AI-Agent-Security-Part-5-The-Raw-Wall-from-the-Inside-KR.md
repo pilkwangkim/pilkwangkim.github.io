@@ -9,12 +9,9 @@ pin: false
 
 # AI Agent Security (5편): 안쪽에서 본 raw 벽
 
-> [4편]({{ site.baseurl }}/posts/AI-Agent-Security-Part-4-Past-the-Framing-Plateau-KR/)은 대회 전체를 발화 후보에 대한 처리량 세기, $S = 0.045\,(N_\text{gpt-oss} + N_\text{gemma})$로 환원하고, $N$을 움직이는 레버를 하나씩 값매겼습니다. 뽑힌 GPU, replay cliff, 추론 행의 chain-of-thought를 무너뜨리는 제어 토큰, warm-up, per-model 라우팅. 그런데 하나가 열린 채 남았습니다. 채점기는 발화한 post마다 $16$을 상한 없이 쳐주므로, 후보 하나가 점수가 붙는 두 번째 이벤트를 발화시키면 raw 자체가 올라갑니다. 4편은 *에이전트*가 post를 이득이 되게 이어 쏘지 못한다는 것($K{=}3$에서 $0.97\times$)을 측정하고, raw를 "아직 열지 못한 레버"라 불렀습니다. 이번 편은 에이전트의 *행동* 대신 채점기의 *소스*를 열고, 벽을 안쪽에서 읽습니다. 정확한 점수 산식, predicate 전체 표, 그리고 어떤 이벤트가 발화하도록 허용되는지를 결정하는 단 하나의 guardrail. 요약하면 이렇습니다. 값을 쳐줄 두 번째 이벤트가 실제로 있고, 그것을 닫아두는 건 에이전트가 아니라 taint 규칙 하나입니다 — 즉 벽이 아니라 메커니즘이고, 다음 열쇠가 들어맞아야 할 자리입니다.
+Kaggle의 [AI Agent Security — Multi-Step Tool Attacks](https://www.kaggle.com/competitions/ai-agent-security-multi-step-tool-attacks)는 후보 메시지 뱅크를 두 에이전트 모델과 모의 도구로, 가드레일을 적용해 다시 실행한 뒤 결과 트레이스의 보안 판정 조건을 채점하는 대회다. 1~4편에서는 리플레이 계약, v3.1.2의 고정 예산 평가 구조, 공개 점수식 $S=0.045\,(N_\text{gpt-oss}+N_\text{gemma})$을 확인했고, 모델별 라우팅과 더 짧은 경로로 완료한 POST 수를 늘렸다. 그러나 후보 하나가 얻는 원점수는 미해결 변수로 남았다. 5편은 채점기와 가드레일 소스를 직접 읽어 두 번째 판정 조건이 그 값을 높일 수 있는지, 가능해 보이는 경로를 무엇이 막는지 따져 본다.
 
-대회 링크:
-[AI Agent Security — Multi-Step Tool Attacks](https://www.kaggle.com/competitions/ai-agent-security-multi-step-tool-attacks)
-
-아래 내용은 전부 `aicomp_sdk` 소스에서 읽고, 4편 §12의 로컬 화이트박스 하네스에서 측정했습니다 — 서빙되는 gguf 가중치, 서빙되는 env, 서빙되는 guardrail, greedy 디코딩.
+이후의 소스 분석은 4편 §12에서 만든 로컬 화이트박스 하네스의 측정과 함께 살펴본다. 서버와 같은 GGUF 가중치, 실행 환경, 가드레일, greedy 디코딩 경로를 사용한 하네스다.
 
 ---
 

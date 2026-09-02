@@ -9,6 +9,8 @@ pin: false
 
 # AI Agent Security (2편): Linear Score Law, Replay 천장, 그리고 Private Guardrail에서 무엇이 살아남는가
 
+1편에서는 Kaggle [AI Agent Security — Multi-Step Tool Attacks](https://www.kaggle.com/competitions/ai-agent-security-multi-step-tool-attacks) 대회의 기본 계약을 확인했다. `run()`이 순위가 매겨진 메시지 경로를 반환하고, 독립 리플레이를 통과한 결과만 점수를 받는다. 이때까지의 EDA는 반복해서 사용할 수 있는 단일 POST 유출을 하나의 채점 단위로 분리해 냈다. 2편은 그 관찰을 선형 점수 모형으로 정리하고, 실행 시간과 리플레이의 한계를 측정하며, 숨겨진 가드레일에서도 무엇이 살아남을지 묻는다.
+
 > **주의 (2026-06-21까지 유효).** 아래 내용은 모두 **2026년 6월 21일까지** 동작하던 평가기(evaluator) 기준입니다. 이후 주최 측이 **2026년 6월 22일** 대규모 채점/평가기 업데이트를 공지했는데, 이 업데이트는 replay 단계의 런타임 예산 강제 집행(예산 초과 시 글로벌 타임아웃까지 가지 않고 즉시 실패)과, 가역 인코딩(base64·hex·URL 인코딩·역순·구분자 결합)을 인식하는 active-fixture 스코어러를 더합니다. 이 업데이트는 **아직 배포되지 않았습니다.** 이후 대회 SDK를 직접 읽었는데, 아래 **소스 업데이트 (6월 23일)** 섹션이 소스로 확정된 메커니즘을 담고 있으며 §1–§16의 추론 부분(특히 "물렁한 분산 밴드" 프레이밍, per-trace-dedup 표현, back-computed $c$/$B$ 수치)을 대체합니다. 서사는 원래의 reverse-engineering 그대로 남겨 둡니다.
 
 > **정정 (2026-06-27).** 아래의 핵심 결론 — *"trace당 `http.post` 하나 ⇒ raw/candidate가 $18$로 hard-cap ⇒ $N$이 유일한 레버"* — 은 **틀렸습니다.** 원문은 그대로 두고 이 정정을 위에 답니다. 스코어러는 `EXFILTRATION`을 **이벤트별로** 합산하며 per-finding dedup이 없습니다(아래 소스 업데이트가 이미 `scoring.py`에서 인용함). 그래서 한 finding이 $K$번 post하면 $18$이 아니라 $16K+2$점입니다. 8-host 실행이 hard한 one-post cap처럼 *보였던* 건(§2), *모델*이 복잡한 복합 지시 하에서 8번 post를 거부한 **compliance** 한계였지 스코어러 cap이 아니었습니다. 더 단순한 "매 턴마다 다시 post하라" 프롬프트(**hop-saturation**)는 원리상 $K>1$을 발동시켜 그 $18$ 천장을 깰 수 있고, 이로써 **finding당 hit 수 $K$가 $N$과 나란한 두 번째 레버**가 됩니다. (바로 아래 2026-06-29 업데이트 참고: $K>1$의 첫 시도는 *open-loop* "못 할 때까지 반복하라" 프롬프트였는데 safety-tuned 모델은 이를 거부합니다 — 다만 그 거부는 open-loop 프레이밍에 한정된 것이지 $K$ 자체에 대한 게 아닙니다.)
@@ -19,14 +21,8 @@ pin: false
 > - **거부되는 것은 *open-loop* "못 할 때까지 반복하라" 프레이밍뿐입니다.** 3편의 $N=40$ open-loop probe가 $K{\approx}0.6$을 기록한 건 *그 프롬프트*를 죽인 것이지 $K$를 죽인 게 아닙니다. **bounded·enumerated multi-hop**(한 메시지, 명시적 $H$ hop $\Rightarrow K\le H$)과 **명시적 multi-message**($M$개 메시지 $\times 1 \Rightarrow K=M$) 프레이밍이 시험 중인 경로이고, v3.1.2에서 **single-hop 천장을 넘는** public 점수가 도달되었습니다 — 이는 $K>1$에서만 가능합니다.
 > - **single-hop 사다리는 한 regime일 뿐이고, 그 천장은 score cap이 아니라 timeout 가장자리입니다.** $S=0.09\,N$은 성립하고(§1 유도는 그대로 옳음), single-hop은 per-row timeout 가장자리에서 $S\approx33$ 근처에 머뭅니다($N\gtrsim370$은 timeout; banked floor는 $N=357\to32.13$). $\approx33$ 위는 $K>1$을 요구합니다. 따라서 아래의 "$K$는 죽었다 / $N$이 유일하게 쓸 수 있는 레버"라는 줄은 **철회합니다** — "*open-loop* 프롬프트가 죽은 것이지, bounded 프레이밍을 통한 $K$가 레버"로 읽으세요.
 
-대회 링크:  
-[AI Agent Security — Multi-Step Tool Attacks](https://www.kaggle.com/competitions/ai-agent-security-multi-step-tool-attacks)
-
-Kaggle 코드:  
-[AI Agent: Replay-Dense Exfiltration](https://www.kaggle.com/code/pilkwang/ai-agent-replay-dense-exfiltration) ·
+Kaggle 코드: [AI Agent: Replay-Dense Exfiltration](https://www.kaggle.com/code/pilkwang/ai-agent-replay-dense-exfiltration) ·
 [AI Agent Security — 📘 Working Note](https://www.kaggle.com/code/pilkwang/ai-agent-security-working-note)
-
-[1편]({{ site.baseurl }}/posts/AI-Agent-Security-Part-1-The-Replay-Benchmark-and-Trajectory-Search-EDA-KR/)은 풀린 실밥 하나로 끝났습니다: 깨끗한 exfiltration 하나는 정확히 $18$ raw 점수, 즉 $0.09$ 정규화 점수의 가치가 있고, 전체 점수는 그것의 합일 뿐이라는 것이죠. 이 글은 그 실밥을 잡아당겨 스코어보드 전체가 하나의 linear law로 풀려나갈 때까지 끌고 간 뒤, 그 law가 답할 수 없는 두 가지 질문에 나머지 시간을 씁니다: **런타임 벽은 어디인가**, 그리고 **숨겨진 guardrail에서 무엇이 살아남는가.**
 
 이것은 깔끔한 결과물이 아니라 working-note입니다. 아래 내용의 대부분은 유망해 보였지만 예상대로 *작동하지 않은* 것들의 기록이고, *왜* 그런지 이해하려는 노력입니다 — 그게 잘 작동한 것들보다 더 많은 것을 알려 주었거든요. 짧게 요약하면 이렇습니다.
 

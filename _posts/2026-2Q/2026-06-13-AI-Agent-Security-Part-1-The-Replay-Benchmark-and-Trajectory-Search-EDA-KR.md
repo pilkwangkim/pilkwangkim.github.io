@@ -9,15 +9,11 @@ pin: false
 
 # AI Agent Security (1편): Replay 벤치마크와 Trajectory-Search EDA
 
+이 시리즈는 알고리즘이 후보 메시지 경로를 반환하고 평가기가 이를 도구를 사용하는 모델을 상대로 다시 실행하는 Kaggle [AI Agent Security — Multi-Step Tool Attacks](https://www.kaggle.com/competitions/ai-agent-security-multi-step-tool-attacks) 대회를 다룬다. 최적화에 앞서 먼저 확인할 것은 알고리즘이 실제로 무엇을 제출하는지, 독립 리플레이가 하나의 경로를 어떻게 점수로 바꾸는지, 그리고 그 과정에서 어떤 값을 측정할 수 있는지다. 1편은 이 평가 구조와 이를 읽기 위한 트래젝터리 탐색 EDA의 틀을 세운다.
+
 > **주의 (2026-06-21까지 유효).** 아래 내용은 모두 **2026년 6월 21일까지** 동작하던 평가기(evaluator) 기준입니다. 이후 주최 측이 **2026년 6월 22일** 대규모 채점/평가기 업데이트를 공지했는데, 그 취지는 평가의 공정성·신뢰성을 높이고 하니스를 의도된 계약(contract)에 맞추는 것으로 보입니다 — 장시간 실행 제출과 예상치 못한 점수에 대한 포럼 제보(이 시리즈에서 다룬 종류의 발견 포함)가 계기가 됐습니다. 구체적으로는 replay 단계의 런타임 예산 강제 집행(예산 초과 시 글로벌 타임아웃까지 가지 않고 즉시 실패)과, 가역 인코딩(base64·hex·URL 인코딩·역순·구분자 결합)을 인식하는 스코어러가 추가됩니다. 이로 인해 이 분석의 일부 — 특히 런타임 천장 수치와 'encoding self-defeating' 발견 — 가 바뀝니다. 6월 22일 업데이트와 그 여파에 대한 내용은 **이 글이 아니라 별도의 노트**에서 다루겠습니다.
 
-대회 링크:  
-[AI Agent Security — Multi-Step Tool Attacks](https://www.kaggle.com/competitions/ai-agent-security-multi-step-tool-attacks)
-
-Kaggle 코드 (이 EDA):  
-[EDA: Agent Security — Trajectory Search](https://www.kaggle.com/code/pilkwang/eda-agent-security-trajectory-search)
-
-이 글은 2부작 시리즈의 첫 번째 편입니다. 1편에서는 **이 대회가 실제로 무엇인지**, 무엇을 제출해야 하는지, 점수가 어떻게 구성되는지, 그리고 환경을 어떻게 읽어야 하는지를 설명합니다. 그다음 EDA 노트북을 섹션별로 짚어 갑니다. EDA야말로 채점 contract가 규칙 문단에서 벗어나 측정 가능한 양(quantity)들의 집합으로 바뀌는 지점이기 때문입니다. 2편에서는 그 양들을 천장까지 밀어붙입니다 — 깨끗한 linear score law가 드러나고, 최적 전략이 단순한 산수 계산으로 환원되는 지점이죠.
+이 EDA의 Kaggle 코드: [Agent Security — Trajectory Search](https://www.kaggle.com/code/pilkwang/eda-agent-security-trajectory-search)
 
 다른 무엇보다 먼저 머릿속에 새겨둘 문장 하나는 이것입니다.
 
