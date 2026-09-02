@@ -5,8 +5,8 @@ categories: [AI, Kaggle]
 tags: [kaggle, ai-agent-security, red-teaming, agent-safety, evaluation, partial-scoring, throughput, packing, static-replay, diversity, working-note]
 math: true
 pin: false
-hide: true
-published: false
+hide: false
+published: true
 ---
 
 # AI Agent Security (Part 8): The Evaluation Reset — Partial Banking and the Search for a Discrete Lever

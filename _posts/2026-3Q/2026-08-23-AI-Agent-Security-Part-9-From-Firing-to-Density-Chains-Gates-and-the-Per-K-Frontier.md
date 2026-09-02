@@ -5,8 +5,8 @@ categories: [AI, Kaggle]
 tags: [kaggle, ai-agent-security, red-teaming, agent-safety, tool-use, evaluation, throughput, density, gemma, gpt-oss, t4, rainbow-teaming, working-note]
 math: true
 pin: false
-hide: true
-published: false
+hide: false
+published: true
 ---
 
 # AI Agent Security (Part 9): From Firing to Density — Chains, Gates, and the Per-K Frontier
