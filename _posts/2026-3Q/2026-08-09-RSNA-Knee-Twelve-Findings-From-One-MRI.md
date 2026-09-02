@@ -157,12 +157,14 @@ phrases carries most matches but cannot survive morphology: Turkish suffixes pos
 the noun, Croatian and Greek decline it. Where the phrase fails, a second pass matches a stem
 and requires a side qualifier within a **character** window:
 
+{% raw %}
 ```python
 # A character window rather than a token window, because word order differs: English puts
 # the side adjective before the noun and Greek after it.
 if re.search(rf"{STEM[t]}.{{0,{W}}}{SIDE[s]}|{SIDE[s]}.{{0,{W}}}{STEM[t]}", clause):
     ...
 ```
+{% endraw %}
 
 ### 2.4 The extractor on one report
 
