@@ -7,6 +7,9 @@ math: true
 pin: false
 hide: false
 published: true
+image:
+  path: /assets/img/posts/2026-07-26-ai-agent-security-part-6/cover.png
+  alt: "Part 6 cover: throughput equations, cache layout, and corrected instruments"
 ---
 
 # AI Agent Security (Part 6): Throughput as an Experimental System — Costs, Cliffs, and Corrected Instruments
@@ -178,27 +181,33 @@ Within this uncapped working model, and holding reward per successful candidate 
 
 ### 11.2 Backing N out of the scores
 
-Same engine family, three points, inverting `N = score/0.045`:
+For three points in the same engine family, applying `N = score/0.045` to the displayed, rounded scores gives approximate candidate-equivalent counts:
 
-| stage | change    | frac  | score | N (both models) | N / model |
-| ----- | --------- | ----- | ----- | --------------- | --------- |
-| A     | URL-early | 0.992 | 97.8  | 2174            | 1087      |
-| B     | URL-late  | 0.992 | 104.4 | 2320            | 1160      |
-| C     | URL-late  | 0.995 | 106.6 | 2369            | 1184      |
+| stage | change    | frac  | score | N (both models, approx.) | N / model (approx.) |
+| ----- | --------- | ----- | ----- | ------------------------ | ------------------- |
+| A     | URL-early | 0.992 | 97.8  | ≈2173                    | ≈1087               |
+| B     | URL-late  | 0.992 | 104.4 | ≈2320                    | ≈1160               |
+| C     | URL-late  | 0.995 | 106.6 | ≈2369                    | ≈1184               |
 
-A → C is **+195 surviving attempts (+9.0%)** across both models. The implied average at C was 1184 attempts per model, still well below the per-model cap of 2000. The jump was real throughput, not a scoring artifact.
+Using those rounded scores, A → C is approximately **+196 surviving attempts (+9.0%)** across both models. The implied average at C was about 1184 attempts per model, still well below the per-model cap of 2000. The jump was real throughput, not a scoring artifact.
 
 ### 11.3 Splitting the +9% into its two factors
 
 Because `score ∝ frac/c`, the ratio factors cleanly:
 
-$$\frac{106.6}{97.8}=1.090=\underbrace{\frac{0.995}{0.992}}_{1.003}\times\underbrace{\frac{c_A}{c_C}}_{1.086}.$$
+$$\frac{106.6}{97.8}\approx1.090\approx\underbrace{\frac{0.995}{0.992}}_{1.003}\times\underbrace{\frac{c_A}{c_C}}_{1.087}.$$
 
 The frac nudge accounted for only ×1.003, about +0.3 of the +8.8 points. **The inferred cost change was the dominant term.** Holding frac fixed gave the cleaner A → B comparison (URL-early → URL-late only):
 
 $$\frac{c_A}{c_B}=\frac{0.992}{0.992}\cdot\frac{104.4}{97.8}=1.067\quad\Rightarrow\quad c\;\text{down }6.3\%,$$
 
 which closely matched the laptop reading (−6.7% / −7.0%). At the time, that agreement made the local token-and-prefix measurement look predictive of the hosted ratio. It was still only one hosted comparison, not proof of transfer. The additional B → C gain beyond the fraction change was not isolated; cache state, live cost estimation, and hosted-run variation remained confounded, as the wider spread in §12 would soon demonstrate.
+
+<figure class="align-center">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-26-ai-agent-security-part-6/fig-01-throughput-decomposition.png" alt="Three controlled throughput stages and a multiplicative decomposition of the observed score move" width="96%">
+</figure>
+
+*Figure 1. The approximately $1.090\times$ A-to-C score ratio decomposes into an approximately $1.003\times$ fill term and a $1.087\times$ inferred effective-cost term. Later evidence rejected total notebook wall time as a throughput meter.*
 
 ### 11.4 Where each edit acts
 

@@ -7,6 +7,9 @@ math: true
 pin: false
 hide: false
 published: true
+image:
+  path: /assets/img/posts/2026-08-12-ai-agent-security-part-8/cover.png
+  alt: "Part 8 cover: partial banking, two clocks, and a discrete leaderboard gap"
 ---
 
 # AI Agent Security (Part 8): The Evaluation Reset — Partial Banking and the Search for a Discrete Lever
@@ -160,6 +163,12 @@ The correct status was not “the new ceiling is 120.” It was:
 That statement set the experimental program for the next five days.
 
 ---
+
+<figure class="align-center">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-08-12-ai-agent-security-part-8/fig-01-partial-banking-architecture.png" alt="Separate generation and replay phases retain completed prefixes at inner deadlines before an outer breaker" width="96%">
+</figure>
+
+*Figure 1. Generation and replay each retained completed prefixes at their inner deadlines. The outer breaker and raised exceptions remained separate invalidation paths.*
 
 ## 3. The public score as a value-density problem
 
@@ -577,6 +586,12 @@ What had become low probability was equally clear: ordinary packing, fill margin
 
 ---
 
+<figure class="align-center">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-08-12-ai-agent-security-part-8/fig-02-mainland-and-islands.png" alt="The August 12 public board shown as a main score cluster and two separated higher-score islands" width="96%">
+</figure>
+
+*Figure 2. The observed gaps supported a discrete-property hypothesis, but did not identify the property. MULTIPOST-M was still pending at the cutoff.*
+
 ## 9. The last experiment known at the cutoff: raw stacking without a forged history
 
 Earlier multi-post notebooks had used several different constructions, and their failures were easy to conflate.
@@ -601,13 +616,13 @@ $$
 \frac{18}{2}=9\text{ raw/generation}.
 $$
 
-A six-post committed trajectory could approach
+A six-post committed trajectory uses six post generations plus one finalization under the same counting convention, yielding
 
 $$
-\frac{98}{6}\approx16.3\text{ raw/generation}
+\frac{98}{7}=14.0\text{ raw/generation}.
 $$
 
-if all six generations transmitted and no expensive extra close dominated. But later hops saw a growing context, and local raw per second had already warned that generation count was not the whole cost.
+An unusually cheap finalization can improve wall-clock raw density relative to this generation-count summary, but it does not remove the seventh generation. Later hops also saw a growing context, and local raw per second had already warned that generation count was not the whole cost.
 
 The hosted interpretation was preregistered:
 

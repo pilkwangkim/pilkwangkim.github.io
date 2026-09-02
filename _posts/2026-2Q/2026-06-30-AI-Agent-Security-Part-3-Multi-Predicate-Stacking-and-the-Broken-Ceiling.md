@@ -5,6 +5,11 @@ categories: [AI, Kaggle]
 tags: [kaggle, ai-agent-security, red-teaming, agent-safety, exfiltration, prompt-injection, scoring, reverse-engineering, guardrail, throughput]
 math: true
 pin: false
+hide: false
+published: true
+image:
+  path: /assets/img/posts/2026-06-30-ai-agent-security-part-3/cover.png
+  alt: "Part 3 cover: two model rows, separate budgets, and hop economics"
 ---
 
 # AI Agent Security (Part 3): The v3.1.2 Reset and the Throughput Wall
@@ -64,7 +69,7 @@ $$
 t_\text{cand}=\tau_0+\tau_1,\qquad \tau_i = c_\text{fix} + \rho\,n_i,
 $$
 
-with $c_\text{fix}$ the fixed per-generation overhead (gRPC, guardrail, tool, env reset), $\rho$ the per-token decode time, and $n_i$ the tokens emitted at hop $i$. With $r$ pinned, minimising the score means **minimising $n_0 + n_1$** — cutting tokens at *both* generations. That single sentence is the whole method; §5 is its execution.
+with $c_\text{fix}$ the fixed per-generation overhead (gRPC, guardrail, tool, env reset), $\rho$ the per-token decode time, and $n_i$ the tokens emitted at hop $i$. With $r$ pinned, maximising the score means **minimising $n_0 + n_1$** — cutting tokens at *both* generations. That single sentence is the whole method; §5 is its execution.
 
 ---
 
@@ -96,6 +101,12 @@ A **fixed $N$ ships the same list to both models**, wasting `gemma`'s speed — 
 **The GPU lottery.** Because the budget is wall-clock, $N = 9000 / (\text{per-post generation time})$, and per-post time is **GPU throughput on the scored hardware at run time** — a shared pool, load- and thermal-dependent. The *same* code scored $44.765$ and $47.185$ on two runs; a fill that seats $\approx 730$ posts on a fast draw times out on a slow one. The reasoning model is more load-sensitive (more tokens per call, so any per-token slowdown is multiplied), so `gpt_oss` swings more than `gemma`. The deadline-aware fill turns this to advantage — it packs more when the draw is fast — but it inherits a fragility: it sizes $N$ to *generation* speed, and if the later, separate *replay* phase draws a slower moment, the row overruns and the whole submission fails. On a leaderboard scored best-of, a timeout is a lost slot, not a lost score.
 
 ---
+
+<figure class="align-center">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-06-30-ai-agent-security-part-3/fig-01-two-model-fill.png" alt="A fixed bank fills both model rows equally, while deadline-aware filling returns more candidates on the faster row" width="96%">
+</figure>
+
+*Figure 1. A fixed 357-row bank leaves the faster row underused; deadline-aware fill keeps that row working longer. Candidate counts are approximate, while 49.770 is the observed public mean.*
 
 ## 4. Three directions that don't pay
 
@@ -164,7 +175,7 @@ These are the constraints the SDK makes precise — the facts that shaped every 
 - **`EXFILTRATION` + `UNTRUSTED_TO_ACTION` — every co-fire attempt failed.** The guardrail taint window (`tool_events[-5:]`) is a superset of the predicate lookback (`events[i-2:i]`), so the source that arms the bonus predicate also denies the post, and a denied action fires neither. I have not found a source that arms it from outside that window.
 - **The generation config is out of the message's reach.** A candidate carries only its message text; `temperature`, `do_sample`, and `max_new_tokens` ($=256$) are fixed at model-server start, and the command protocol reads nothing else — attacker-supplied `reset` options are stripped and `max_tool_hops` is capped. This is why the hop-$0$ lever has to work through *framing* rather than a config knob.
 - **A timeout fails the whole submission.** An overrun in generation or replay raises `INVALID_SUBMISSION` for the entire submission — no partial credit — which is why sizing $N$ by a deadline-aware fill that stops before the wall is the only safe method.
-- **`CONFUSED_DEPUTY` sums but dilutes.** Predicate severities add with no per-type cap ($3\times$EXFIL $+ 1\times$DEPUTY $= 54$ raw), but `CONFUSED_DEPUTY` needs a whole extra generation (`email.send`) for a severity-$3$ ($+4$) return — $\approx 4$ raw/gen, well under the $9$ baseline. Higher raw per candidate, lower score.
+- **`CONFUSED_DEPUTY` sums but dilutes.** Predicate severities add with no per-type cap. Three EXFILTRATION occurrences, one CONFUSED_DEPUTY occurrence, and one finding-cell bonus give $3\times16+4+2=54$ raw. But `CONFUSED_DEPUTY` needs a whole extra generation (`email.send`) for a severity-$3$ ($+4$) return — $\approx 4$ raw/gen, well under the $9$ baseline. Higher raw per candidate, lower score.
 
 ---
 

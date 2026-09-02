@@ -435,7 +435,7 @@ An early eight-endpoint instruction produced one useful post, and I initially de
 $$
 \operatorname{raw}_i(K)
 =
-16K+2\,\mathbf 1\{c_i\text{ is new}\}.
+16K+2\,\mathbf{1}\!\left[c_i\text{ is new}\right].
 $$
 
 Later, expensive multi-message and multi-hop constructions lost, and I treated “these implementations are inefficient” as evidence that “multi-post is exhausted.” The successful Harmony-framed K8 construction proved that the broader axis had not been tested. The reusable correction is simple: a negative result closes the construction tested, not the entire axis named after it.
@@ -524,21 +524,21 @@ $$
 where:
 
 - $A_f\in[0,1]$ is the effective survival factor of mechanism family $f$;
-- $R_{f,m}$ is route and replay reliability for family $f$ on model $m$, conditional on survival;
-- $T_{f,m}$ is the portion of model $m$'s usable replay budget actually spent on that family;
-- $\rho^{\mathrm{cond}}_{f,m}$ is its conditional raw-point density over the ordered prefix.
+- $R_{f,m}$ is the engineering reliability conditional on that survival: the fraction of family-allocated replay time that reaches correctly routed, successfully replayed scored findings;
+- $T_{f,m}$ is the replay time allocated to attempts from family $f$ before applying the survival and reliability factors;
+- $\rho^{\mathrm{cond}}_{f,m}$ is raw points per second measured only within the surviving, correctly routed, successfully replayed scored-finding subset. It therefore excludes the failure probability already represented by $A_f$ and $R_{f,m}$.
 
-For a realized prefix, the numerator of that density uses
+For that conditional density, let $J_{f,m}$ be the ordered index set of scored findings included in the estimate, let $P_i=(p_{i1},\ldots,p_{iL_i})$ be the occurrence list of scored predicates in finding $i$, and let $C_{f,m,<i}$ be the cells already seen in earlier members of $J_{f,m}$. Its raw-point numerator is
 
 $$
-\sum_i
+\sum_{i\in J_{f,m}}
 \left[
-\sum_{p\in P_i}w(p)
-+2\,\mathbf 1\{c_i\notin C_{<i}\}
+\sum_{j=1}^{L_i}w\!\left(\operatorname{sev}(p_{ij})\right)
++2\,\mathbf{1}\!\left[c_i\notin C_{f,m,<i}\right]
 \right],
 $$
 
-so a repeated cell receives its novelty bonus only on first appearance. For the HTTP K-post family, the first term becomes $16K_i$; for unique Deputy Mail it becomes four. The expression is a decision model, not an exact independence claim; ordering couples $T_{f,m}$ across families.
+so a repeated cell receives its novelty bonus only on first appearance. For the HTTP K-post family, the first term becomes $16K_i$; for unique Deputy Mail it becomes four. A completed trace with no scored predicate is outside $J_{f,m}$ and receives no cell bonus; the time it consumes lowers $R_{f,m}$ rather than being hidden inside $\rho^{\mathrm{cond}}_{f,m}$. The expression is a decision model, not an exact independence claim; ordering couples $T_{f,m}$ across families.
 
 For two final submissions, the portfolio objective remains
 

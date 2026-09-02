@@ -7,6 +7,9 @@ math: true
 pin: false
 hide: false
 published: true
+image:
+  path: /assets/img/posts/2026-08-23-ai-agent-security-part-9/cover.png
+  alt: "Part 9 cover: exact chains, density gates, and the per-K syntax frontier"
 ---
 
 # AI Agent Security (Part 9): From Firing to Density — Chains, Gates, and the Per-K Frontier
@@ -173,7 +176,7 @@ $$
 or
 
 $$
-N_{\text{Gemma,bare}}\approx\frac{88.52}{0.09}\approx983.
+N_{\text{Gemma,bare}}\approx\frac{88.52}{0.09}\approx984.
 $$
 
 That was still a real hosted regression. It was not the earlier inferred drop to roughly 558 candidates.
@@ -374,6 +377,12 @@ The experiment comments omitted the positive $c$ terms, but the conclusion was u
 The K3 all-in notebook (`55699291`) therefore became the clean hosted test. On August 22 it was still pending. On August 23 it landed at **110.795**, effectively flat relative to the 110.325 banked result. That flat score contradicted the simple local model: a clean three-post K3 should have higher density for any nonnegative $a,b,c$.
 
 The contradiction was not resolved by the leaderboard alone. It created a sharper diagnostic question: did K3 fail to sustain three posts on T4, or did the full replay path contain a cost or sizing term missing from the model?
+
+<figure class="align-center">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-08-23-ai-agent-security-part-9/fig-01-per-k-syntax-frontier.png" alt="Gemma-local requested and realized post counts, exact-count reliability, raw score, and token efficiency across prompt families" width="96%">
+</figure>
+
+*Figure 1. The six-row sweep was Gemma-local. Later T4 checks preserved exact K2/K3 counts for the tested wording, but neither path measured end-to-end hosted density.*
 
 ## 9. The K8 frontload result: a useful bank, not a universal verdict
 
