@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="1008pt" height="626.4pt" viewBox="0 0 1008 626.4" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.1, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 626.4 
+L 1008 626.4 
+L 1008 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 45.36 396.5112 
+L 307.44 396.5112 
+L 307.44 164.7432 
+L 45.36 164.7432 
+z
+" clip-path="url(#p846f45c672)" style="fill: #ffffff; stroke: #d3d6d7; stroke-width: 1.3; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 45.36 170.3808 
+L 307.44 170.3808 
+L 307.44 164.7432 
+L 45.36 164.7432 
+z
+" clip-path="url(#p846f45c672)" style="fill: #25292b"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 372.96 396.5112 
+L 635.04 396.5112 
+L 635.04 164.7432 
+L 372.96 164.7432 
+z
+" clip-path="url(#p846f45c672)" style="fill: #ffffff; stroke: #d3d6d7; stroke-width: 1.3; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 372.96 170.3808 
+L 635.04 170.3808 
+L 635.04 164.7432 
+L 372.96 164.7432 
+z
+" clip-path="url(#p846f45c672)" style="fill: #25292b"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 700.56 396.5112 
+L 962.64 396.5112 
+L 962.64 164.7432 
+L 700.56 164.7432 
+z
+" clip-path="url(#p846f45c672)" style="fill: #ffffff; stroke: #d3d6d7; stroke-width: 1.3; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 700.56 170.3808 
+L 962.64 170.3808 
+L 962.64 164.7432 
+L 700.56 164.7432 
+z
+" clip-path="url(#p846f45c672)" style="fill: #0b6178"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 315.490588 279.3744 
+Q 338.689384 279.3744 359.875719 279.3744 
+" clip-path="url(#p846f45c672)" style="fill: none; stroke: #9ca2a5; stroke-width: 1.8; stroke-linecap: round"/>
+    <path d="M 351.475719 275.1744 
+L 359.875719 279.3744 
+L 351.475719 283.5744 
+z
+" clip-path="url(#p846f45c672)" style="fill: #9ca2a5; stroke: #9ca2a5; stroke-width: 1.8; stroke-linecap: round"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 643.090588 279.3744 
+Q 666.289384 279.3744 687.475719 279.3744 
+" clip-path="url(#p846f45c672)" style="fill: none; stroke: #9ca2a5; stroke-width: 1.8; stroke-linecap: round"/>
+    <path d="M 679.075719 275.1744 
+L 687.475719 279.3744 
+L 679.075719 283.5744 
+z
+" clip-path="url(#p846f45c672)" style="fill: #9ca2a5; stroke: #9ca2a5; stroke-width: 1.8; stroke-linecap: round"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 26px; font-family: 'Arial'; fill: #111315" transform="translate(142.449687 212.727392)">Local</text>
+    <text style="font-weight: 700; font-size: 26px; font-family: 'Arial'; fill: #111315" transform="translate(122.220469 240.299833)">behavior</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 15.5px; font-family: 'Arial'; text-anchor: middle; fill: #50565a" x="176.4" y="297.79283" transform="rotate(-0 176.4 297.79283)">Required evidence</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 20.5px; font-family: 'Arial'; fill: #111315" transform="translate(135.284687 338.592484)">Validity +</text>
+    <text style="font-size: 20.5px; font-family: 'Arial'; fill: #111315" transform="translate(109.184023 366.726932)">emitted artifact</text>
+   </g>
+   <g id="text_4">
+    <text style="font-weight: 700; font-size: 26px; font-family: 'Arial'; fill: #111315" transform="translate(452.002031 212.727392)">Runtime</text>
+    <text style="font-weight: 700; font-size: 26px; font-family: 'Arial'; fill: #111315" transform="translate(425.254531 238.045146)">performance</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 15.5px; font-family: 'Arial'; text-anchor: middle; fill: #50565a" x="504" y="297.79283" transform="rotate(-0 504 297.79283)">Required evidence</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 20.5px; font-family: 'Arial'; fill: #111315" transform="translate(455.85543 338.712601)">Full path +</text>
+    <text style="font-size: 20.5px; font-family: 'Arial'; fill: #111315" transform="translate(424.804336 364.68494)">repeated controls</text>
+   </g>
+   <g id="text_7">
+    <text style="font-weight: 700; font-size: 26px; font-family: 'Arial'; fill: #111315" transform="translate(778.893125 212.727392)">Held-out</text>
+    <text style="font-weight: 700; font-size: 26px; font-family: 'Arial'; fill: #111315" transform="translate(777.432656 240.117021)">outcome</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 15.5px; font-family: 'Arial'; text-anchor: middle; fill: #50565a" x="831.6" y="297.79283" transform="rotate(-0 831.6 297.79283)">Required evidence</text>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 20.5px; font-family: 'Arial'; fill: #0b6178" transform="translate(746.991055 340.629671)">Evaluation result +</text>
+    <text style="font-size: 20.5px; font-family: 'Arial'; fill: #0b6178" transform="translate(765.519531 364.689744)">artifact identity</text>
+   </g>
+   <g id="text_10">
+    <text style="font-weight: 700; font-size: 23px; font-family: 'Arial'; text-anchor: middle; fill: #111315" x="504" y="471.367124" transform="rotate(-0 504 471.367124)">A gain in one layer does not prove a gain in the next.</text>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 19px; font-family: 'Arial'; text-anchor: middle; fill: #0b6178" x="504" y="516.685792" transform="rotate(-0 504 516.685792)">Hidden implementation is different from uninformative observations.</text>
+   </g>
+  </g>
+  <g id="line2d_1">
+   <path d="M 45.36 119.6424 
+L 962.64 119.6424 
+" style="fill: none; stroke: #111315; stroke-linecap: square"/>
+  </g>
+  <g id="text_12">
+   <text style="font-weight: 700; font-size: 14px; font-family: 'Arial'; text-anchor: start; fill: #0b6178" x="45.36" y="35.874783" transform="rotate(-0 45.36 35.874783)">AI AGENT SECURITY  /  PART 12</text>
+  </g>
+  <g id="text_13">
+   <text style="font-weight: 700; font-size: 27px; font-family: 'Arial'; text-anchor: start; fill: #111315" x="45.36" y="75.406338" transform="rotate(-0 45.36 75.406338)">Three layers of evidence</text>
+  </g>
+  <g id="text_14">
+   <text style="font-size: 17px; font-family: 'Arial'; text-anchor: start; fill: #50565a" x="45.36" y="105.710065" transform="rotate(-0 45.36 105.710065)">Keep the claim at the level supported by the observation</text>
+  </g>
+  <g id="text_15">
+   <text style="font-size: 14px; font-family: 'Arial'; text-anchor: start; fill: #50565a" x="45.36" y="586.872818" transform="rotate(-0 45.36 586.872818)">Qualitative reading framework for the write-ups; no numeric scores or inferred private implementation.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p846f45c672">
+   <rect x="0" y="0" width="1008" height="626.4"/>
+  </clipPath>
+ </defs>
+</svg>
