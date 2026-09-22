@@ -5,14 +5,17 @@ categories: [AI, Kaggle]
 tags: [kaggle, biohub, cell-tracking, microscopy, lineage-reconstruction, oof, error-anatomy, graph-repair, model-calibration, working-note, korean]
 math: true
 pin: false
+image:
+  path: /assets/img/posts/2026-07-14-biohub-working-note-2/cover.png
+  alt: "BioHub 작업 기록 2 표지: 리더보드 정체에서 OOF 구조 진단으로"
 ---
 
 # BioHub Cell Tracking 작업 기록 2: 리더보드 정체에서 OOF 구조 진단으로
 
 - 대회: [BioHub - Cell Tracking During Development](https://www.kaggle.com/competitions/biohub-cell-tracking-during-development)
 - 공식 평가지표: [RoyerLab kaggle-cell-tracking-competition metrics.md](https://github.com/royerlab/kaggle-cell-tracking-competition/blob/main/metrics.md)
-- 이전 글: [BioHub Cell Tracking 작업 기록 1: 학습 기반 계보 그래프와 평가지표에 맞춘 복원](https://pilkwangkim.github.io/posts/BioHub-Cell-Tracking-Working-Note-1-Learned-Lineage-Graphs-KR/)
-- 영문판: [BioHub Cell Tracking Working Note 2: From a Leaderboard Plateau to OOF Structural Diagnostics](https://pilkwangkim.github.io/posts/BioHub-Cell-Tracking-Working-Note-2-OOF-Structural-Diagnostics/)
+- 이전 글: [BioHub Cell Tracking 작업 기록 1: 학습 기반 계보 그래프와 평가지표에 맞춘 복원]({{ site.baseurl }}/posts/BioHub-Cell-Tracking-Working-Note-1-Learned-Lineage-Graphs-KR/)
+- 영문판: [BioHub Cell Tracking Working Note 2: From a Leaderboard Plateau to OOF Structural Diagnostics]({{ site.baseurl }}/posts/BioHub-Cell-Tracking-Working-Note-2-OOF-Structural-Diagnostics/)
 
 관련 공개 노트북:
 
@@ -975,5 +978,5 @@ $0.902$ 부근의 정체는 현재 모델 계열의 절대적인 한계를 증�
 
 시리즈:
 
-- [1편: 학습 기반 계보 그래프와 평가지표에 맞춘 복원](https://pilkwangkim.github.io/posts/BioHub-Cell-Tracking-Working-Note-1-Learned-Lineage-Graphs-KR/)
+- [1편: 학습 기반 계보 그래프와 평가지표에 맞춘 복원]({{ site.baseurl }}/posts/BioHub-Cell-Tracking-Working-Note-1-Learned-Lineage-Graphs-KR/)
 - **2편: 리더보드 정체에서 OOF 구조 진단으로**

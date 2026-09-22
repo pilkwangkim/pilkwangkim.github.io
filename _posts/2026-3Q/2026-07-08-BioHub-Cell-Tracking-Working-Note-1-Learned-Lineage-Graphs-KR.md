@@ -5,6 +5,9 @@ categories: [AI, Kaggle]
 tags: [kaggle, biohub, cell-tracking, microscopy, lineage-reconstruction, unet, ilp, graph-repair, working-note, korean]
 math: true
 pin: false
+image:
+  path: /assets/img/posts/2026-07-08-biohub-working-note-1/cover.png
+  alt: "BioHub 작업 기록 1 표지: 학습 기반 계보 그래프와 평가지표에 맞춘 복원"
 ---
 
 # BioHub Cell Tracking 작업 기록 1: 학습 기반 계보 그래프와 평가지표에 맞춘 복원
@@ -12,8 +15,8 @@ pin: false
 - 대회: [BioHub - Cell Tracking During Development](https://www.kaggle.com/competitions/biohub-cell-tracking-during-development)
 - 공식 평가지표: [RoyerLab kaggle-cell-tracking-competition metrics.md](https://github.com/royerlab/kaggle-cell-tracking-competition/blob/main/metrics.md)
 - 배경 기사: [Biohub Calls on AI Community to Transform 3D Cell Tracking](https://network.febs.org/posts/biohub-calls-on-ai-community-to-transform-3d-cell-tracking)
-- 영문판: [BioHub Cell Tracking Working Note 1: Learned Lineage Graphs and Metric-Aware Repair](https://pilkwangkim.github.io/posts/BioHub-Cell-Tracking-Working-Note-1-Learned-Lineage-Graphs/)
-- 후속 글: [BioHub Cell Tracking 작업 기록 2: 리더보드 정체에서 OOF 구조 진단으로](https://pilkwangkim.github.io/posts/BioHub-Cell-Tracking-Working-Note-2-OOF-Structural-Diagnostics-KR/)
+- 영문판: [BioHub Cell Tracking Working Note 1: Learned Lineage Graphs and Metric-Aware Repair]({{ site.baseurl }}/posts/BioHub-Cell-Tracking-Working-Note-1-Learned-Lineage-Graphs/)
+- 후속 글: [BioHub Cell Tracking 작업 기록 2: 리더보드 정체에서 OOF 구조 진단으로]({{ site.baseurl }}/posts/BioHub-Cell-Tracking-Working-Note-2-OOF-Structural-Diagnostics-KR/)
 
 관련 공개 노트북:
 
@@ -1231,4 +1234,4 @@ Center는 애매한 복원 후보를 확인하는 데만 사용한다
 3. 더 복잡한 규칙을 추가하기 전에 각 수정이 실제 점수를 높이는지 OOF에서 검증할 수 있어야 한다.
 
 이 지점부터 질문은 “어떤 임계값이 리더보드에서 더 높았는가”가 아니라 “어떤 구조적 오류를, 어떤 증거로, 얼마만큼 고칠 수 있는가”로 바뀐다.
-후속 실험에서 확인된 리더보드 정체, 모델 혼합의 보정 문제, 고정 epoch OOF 설계와 분열 오류 해부는 [작업 기록 2](https://pilkwangkim.github.io/posts/BioHub-Cell-Tracking-Working-Note-2-OOF-Structural-Diagnostics-KR/)에 이어서 정리했다.
+후속 실험에서 확인된 리더보드 정체, 모델 혼합의 보정 문제, 고정 epoch OOF 설계와 분열 오류 해부는 [작업 기록 2]({{ site.baseurl }}/posts/BioHub-Cell-Tracking-Working-Note-2-OOF-Structural-Diagnostics-KR/)에 이어서 정리했다.

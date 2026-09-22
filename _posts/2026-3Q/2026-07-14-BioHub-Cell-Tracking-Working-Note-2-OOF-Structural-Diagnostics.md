@@ -5,14 +5,18 @@ categories: [AI, Kaggle]
 tags: [kaggle, biohub, cell-tracking, microscopy, lineage-reconstruction, oof, error-anatomy, graph-repair, model-calibration, working-note]
 math: true
 pin: false
+image:
+  path: /assets/img/posts/2026-07-14-biohub-working-note-2/cover.png
+  alt: "Title card for BioHub Working Note 2: from a leaderboard plateau to OOF structural diagnostics"
 ---
 
 # BioHub Cell Tracking Working Note 2: From a Leaderboard Plateau to OOF Structural Diagnostics
 
 - Competition: [BioHub - Cell Tracking During Development](https://www.kaggle.com/competitions/biohub-cell-tracking-during-development)
 - Official metric notes: [RoyerLab kaggle-cell-tracking-competition metrics.md](https://github.com/royerlab/kaggle-cell-tracking-competition/blob/main/metrics.md)
-- Previous note: [BioHub Cell Tracking Working Note 1: Learned Lineage Graphs and Metric-Aware Repair](https://pilkwangkim.github.io/posts/BioHub-Cell-Tracking-Working-Note-1-Learned-Lineage-Graphs/)
-- Korean version: [BioHub Cell Tracking 작업 기록 2: 리더보드 정체에서 OOF 구조 진단으로](https://pilkwangkim.github.io/posts/BioHub-Cell-Tracking-Working-Note-2-OOF-Structural-Diagnostics-KR/)
+- Previous note: [BioHub Cell Tracking Working Note 1: Learned Lineage Graphs and Metric-Aware Repair]({{ site.baseurl }}/posts/BioHub-Cell-Tracking-Working-Note-1-Learned-Lineage-Graphs/)
+- Korean version: [BioHub Cell Tracking 작업 기록 2: 리더보드 정체에서 OOF 구조 진단으로]({{ site.baseurl }}/posts/BioHub-Cell-Tracking-Working-Note-2-OOF-Structural-Diagnostics-KR/)
+- Follow-up: [BioHub Cell Tracking Working Note 3: What the OOF Machine Refused]({{ site.baseurl }}/posts/BioHub-Cell-Tracking-Working-Note-3-What-the-OOF-Machine-Refused/)
 
 Related public notebooks:
 
@@ -904,5 +908,5 @@ Only after answering those questions can the next $0.001$ be treated as a reprod
 
 Series:
 
-- [Part 1: Learned Lineage Graphs and Metric-Aware Repair](https://pilkwangkim.github.io/posts/BioHub-Cell-Tracking-Working-Note-1-Learned-Lineage-Graphs/)
+- [Part 1: Learned Lineage Graphs and Metric-Aware Repair]({{ site.baseurl }}/posts/BioHub-Cell-Tracking-Working-Note-1-Learned-Lineage-Graphs/)
 - **Part 2: From a Leaderboard Plateau to OOF Structural Diagnostics**

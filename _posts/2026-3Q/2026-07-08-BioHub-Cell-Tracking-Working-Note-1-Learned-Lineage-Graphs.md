@@ -5,6 +5,9 @@ categories: [AI, Kaggle]
 tags: [kaggle, biohub, cell-tracking, microscopy, lineage-reconstruction, unet, ilp, graph-repair, working-note]
 math: true
 pin: false
+image:
+  path: /assets/img/posts/2026-07-08-biohub-working-note-1/cover.png
+  alt: "Title card for BioHub Working Note 1: learned lineage graphs and metric-aware repair"
 ---
 
 # BioHub Cell Tracking Working Note 1: Learned Lineage Graphs and Metric-Aware Repair
@@ -12,8 +15,8 @@ pin: false
 - Competition: [BioHub - Cell Tracking During Development](https://www.kaggle.com/competitions/biohub-cell-tracking-during-development)
 - Official metric notes: [RoyerLab kaggle-cell-tracking-competition metrics.md](https://github.com/royerlab/kaggle-cell-tracking-competition/blob/main/metrics.md)
 - Background: [Biohub Calls on AI Community to Transform 3D Cell Tracking](https://network.febs.org/posts/biohub-calls-on-ai-community-to-transform-3d-cell-tracking)
-- Korean version: [BioHub Cell Tracking 작업 기록 1: 학습 기반 계보 그래프와 평가지표에 맞춘 복원](https://pilkwangkim.github.io/posts/BioHub-Cell-Tracking-Working-Note-1-Learned-Lineage-Graphs-KR/)
-- Follow-up: [BioHub Cell Tracking Working Note 2: From a Leaderboard Plateau to OOF Structural Diagnostics](https://pilkwangkim.github.io/posts/BioHub-Cell-Tracking-Working-Note-2-OOF-Structural-Diagnostics/)
+- Korean version: [BioHub Cell Tracking 작업 기록 1: 학습 기반 계보 그래프와 평가지표에 맞춘 복원]({{ site.baseurl }}/posts/BioHub-Cell-Tracking-Working-Note-1-Learned-Lineage-Graphs-KR/)
+- Follow-up: [BioHub Cell Tracking Working Note 2: From a Leaderboard Plateau to OOF Structural Diagnostics]({{ site.baseurl }}/posts/BioHub-Cell-Tracking-Working-Note-2-OOF-Structural-Diagnostics/)
 
 Related public notebooks:
 
@@ -1226,4 +1229,4 @@ The first working note leaves three conclusions:
 3. Before adding more rules, build an OOF procedure that can show whether each graph edit is actually metric-positive.
 
 At this point the question changes from “which threshold scored higher on the leaderboard?” to “which structural error can be corrected, by what evidence, and at what cost?”
-The later leaderboard plateau, the calibration problem in model blending, the fixed-epoch OOF design, and division-error anatomy continue in [Working Note 2](https://pilkwangkim.github.io/posts/BioHub-Cell-Tracking-Working-Note-2-OOF-Structural-Diagnostics/).
+The later leaderboard plateau, the calibration problem in model blending, the fixed-epoch OOF design, and division-error anatomy continue in [Working Note 2]({{ site.baseurl }}/posts/BioHub-Cell-Tracking-Working-Note-2-OOF-Structural-Diagnostics/).
