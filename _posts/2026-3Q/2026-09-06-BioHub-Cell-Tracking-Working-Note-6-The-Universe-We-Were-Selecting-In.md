@@ -264,7 +264,7 @@ It replays the deployed stack itself over all 199 training movies with embryo-di
 | deployed stack, the notebook's own output, same movies, same scorer | $0.7499$ | $0.9255$ |
 
 ![Two scores on the same 199 movies: comparator replay 0.6005 and deployed stack 0.7499, 0.149 apart]({{ site.baseurl }}/assets/img/posts/2026-09-06-biohub-working-note-6/fig-01-two-instruments.png)
-_Figure 1. Two instruments reading the same 199 training movies with the same scorer. The August selections were made on the lower one; the notebook runs the upper one._
+_Figure 1. Two instruments reading the same 199 training movies with the same scorer. The August selections were made on the comparator replay, the lower-scoring instrument; the notebook runs the deployed stack._
 
 The $0.6014$ of Section 0 is the same comparator replay with the old division stage's forks left in.
 Note 4's research replay (base near $0.74$) is a different graph family; the $+0.149$ is measured against the $0.60$ comparator.
