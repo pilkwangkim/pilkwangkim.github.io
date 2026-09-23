@@ -1,5 +1,5 @@
 ---
-title: "BioHub Cell Tracking 작업 기록 1: 학습 기반 계보 그래프와 평가지표에 맞춘 복원"
+title: "BioHub Cell Tracking 작업 기록 1: Lineage Graph 학습과 평가지표에 맞춘 후처리"
 date: 2026-07-11 21:00:00 +0900
 categories: [AI, Kaggle]
 tags: [kaggle, biohub, cell-tracking, microscopy, lineage-reconstruction, unet, ilp, graph-repair, working-note, korean]
@@ -7,16 +7,16 @@ math: true
 pin: false
 image:
   path: /assets/img/posts/2026-07-08-biohub-working-note-1/cover.png
-  alt: "BioHub 작업 기록 1 표지: 학습 기반 계보 그래프와 평가지표에 맞춘 복원"
+  alt: "BioHub 작업 기록 1 표지: Lineage Graph 학습과 평가지표에 맞춘 후처리"
 ---
 
-# BioHub Cell Tracking 작업 기록 1: 학습 기반 계보 그래프와 평가지표에 맞춘 복원
+# BioHub Cell Tracking 작업 기록 1: Lineage Graph 학습과 평가지표에 맞춘 후처리
 
 - 대회: [BioHub - Cell Tracking During Development](https://www.kaggle.com/competitions/biohub-cell-tracking-during-development)
 - 공식 평가지표: [RoyerLab kaggle-cell-tracking-competition metrics.md](https://github.com/royerlab/kaggle-cell-tracking-competition/blob/main/metrics.md)
 - 배경 기사: [Biohub Calls on AI Community to Transform 3D Cell Tracking](https://network.febs.org/posts/biohub-calls-on-ai-community-to-transform-3d-cell-tracking)
 - 영문판: [BioHub Cell Tracking Working Note 1: Learned Lineage Graphs and Metric-Aware Repair]({{ site.baseurl }}/posts/BioHub-Cell-Tracking-Working-Note-1-Learned-Lineage-Graphs/)
-- 후속 글: [BioHub Cell Tracking 작업 기록 2: 리더보드 정체에서 OOF 구조 진단으로]({{ site.baseurl }}/posts/BioHub-Cell-Tracking-Working-Note-2-OOF-Structural-Diagnostics-KR/)
+- 후속 글: [BioHub Cell Tracking 작업 기록 2: Public 점수가 멈췄을 때 — OOF 기반 오류 분석]({{ site.baseurl }}/posts/BioHub-Cell-Tracking-Working-Note-2-OOF-Structural-Diagnostics-KR/)
 
 관련 공개 노트북:
 
@@ -31,7 +31,7 @@ image:
 
 ```text
 이 문제는 단순한 3차원 분할 문제가 아니라,
-평가지표가 풀이의 형태를 강하게 규정하는 세포 계보 그래프 복원 문제다.
+평가지표가 풀이의 형태를 강하게 규정하는 세포 계통(lineage) 그래프 복원 문제다.
 ```
 
 따라서 가장 유용한 추상화는 다음이다.
@@ -44,7 +44,7 @@ $$
 세포 분열은 제출 파일에 별도의 레이블로 기록하지 않는다.
 하나의 부모 노드에서 두 개의 자식 간선이 나가는 그래프 구조로 표현한다.
 다만 공식 평가는 이 직접적인 모양만 비교하지 않는다.
-분열 전 단계와 두 딸 계보를 덮는 하나의 약연결 성분 안에 예측 갈림점이 있으면, 갈라지는 시점이 조금 달라도 분열을 맞힐 수 있다.
+분열 전 단계와 두 딸세포 계통을 덮는 하나의 약연결 성분 안에 예측 갈림점이 있으면, 갈라지는 시점이 조금 달라도 분열을 맞힐 수 있다.
 
 이 글은 이 그래프 관점을 출발점으로 삼는다.
 
@@ -63,7 +63,7 @@ $$
 ## 1. 대회와 문제 설정
 
 이 대회에서는 제브라피시 배아의 3차원 형광 현미경 영상에서 세포를 추적한다.
-각 샘플은 짧은 3차원 시계열 영상이다. 알고리즘은 시점마다 세포를 검출하고, 같은 세포를 시간축으로 연결하며, 분열 사건을 계보 그래프로 복원해야 한다.
+각 샘플은 짧은 3차원 시계열 영상이다. 알고리즘은 시점마다 세포를 검출하고, 같은 세포를 시간축으로 연결하며, 분열 사건을 계통 그래프로 복원해야 한다.
 
 생물학적으로 중요한 이유는 명확하다.
 발생생물학에서 중요한 것은 한 프레임에 찍힌 세포의 위치만이 아니다.
@@ -87,7 +87,7 @@ voxel scale:
   x = 0.40625 microns / voxel
 ```
 
-학습 샘플에는 GEFF 형식의 희소한 계보 주석이 제공된다.
+학습 샘플에는 GEFF 형식의 희소한 계통 주석이 제공된다.
 
 ```text
 sample.geff/
@@ -210,10 +210,10 @@ J_{\text{edge}}^{\text{adjusted}}
 $$
 
 분열 점수는 별도로 계산한다.
-정답의 분열은 계보 그래프의 갈림점으로 나타난다.
+정답의 분열은 계통 그래프의 갈림점으로 나타난다.
 세포가 실제로 갈라져 보이는 시점에는 주관성이 있으므로, 공식 평가는 정답 시점 앞뒤 한 프레임의 차이를 허용한다.
-예측 그래프가 분열 직전 구간과 두 자식 계보를 모두 포착해야 분열을 맞힌 것으로 본다.
-구체적으로는 하나의 예측 약연결 성분이 분열 전 단계와 두 딸 계보를 모두 건드리고, 그 성분 안에 나가는 간선이 두 개인 갈림점이 있어야 한다.
+예측 그래프가 분열 직전 구간과 두 자식 계통을 모두 포착해야 분열을 맞힌 것으로 본다.
+구체적으로는 하나의 예측 약연결 성분이 분열 전 단계와 두 딸세포 계통을 모두 건드리고, 그 성분 안에 나가는 간선이 두 개인 갈림점이 있어야 한다.
 그 갈림점이 정답의 분열 노드와 직접 짝지어질 필요는 없다.
 분열 항은 샘플별 비율을 평균내지 않고 전체 사건 수를 합쳐 마이크로 평균한다.
 
@@ -391,7 +391,7 @@ $$
 
 $h_i$와 $h_j$는 두 노드의 학습된 표현이다.
 이 로짓을 간선별로 독립 판정하지 않고, 뒤에서 설명할 정규화와 최적화 과정을 거쳐 최종 그래프를 고른다.
-계보 그래프에서는 한 노드에 여러 부모가 붙을 수 없고, 분열에 해당하는 갈림도 드물며 물리적으로 타당해야 하기 때문이다.
+계통 그래프에서는 한 노드에 여러 부모가 붙을 수 없고, 분열에 해당하는 갈림도 드물며 물리적으로 타당해야 하기 때문이다.
 
 ### 5.1 학습된 간선 점수와 운동 기하의 결합
 
@@ -756,7 +756,7 @@ def sparse_edge_loss(logits, target):
 
 ### 8.3 ILP가 맡는 역할
 
-신경망이 내놓은 $q_{ij}$는 국소적인 연결 가능성일 뿐, 그 자체로 유효한 계보 그래프는 아니다.
+신경망이 내놓은 $q_{ij}$는 국소적인 연결 가능성일 뿐, 그 자체로 유효한 계통 그래프는 아니다.
 추론에서는 이진 변수 $x_{ij}$로 간선 선택 여부를 나타내고, 출현·소멸·분열 비용을 더한 정수계획 문제를 푼다.
 단순화한 목적함수는 다음과 같다.
 
@@ -780,7 +780,7 @@ $$
 
 첫 식은 하나의 세포에 부모가 둘 이상 붙는 merge를 막는다.
 둘째 식은 보통은 자식 하나만 허용하되, $b_i=1$인 분열 노드에는 자식 둘을 허용한다.
-이 구조 덕분에 네트워크의 국소 점수와 계보 그래프의 전역 제약을 분리해 다룰 수 있다.
+이 구조 덕분에 네트워크의 국소 점수와 계통 그래프의 전역 제약을 분리해 다룰 수 있다.
 
 ### 8.4 보조 Center 모델의 양성-미표기 손실
 
@@ -845,7 +845,7 @@ loss = (loss * weights).sum() / weights.sum().clamp(min=1.0)
 
 | 단계 | 공개 점수 | 달라진 점 |
 |---|---:|---|
-| 고전적 검출과 초기 계보 기준선 | 0.68--0.75 | 제출 형식, 물리 거리, 그래프 출력을 검증했다. |
+| 고전적 검출과 초기 계통 기준선 | 0.68--0.75 | 제출 형식, 물리 거리, 그래프 출력을 검증했다. |
 | 규칙 기반 기하 모델 | 0.82--0.86 | 학습 모델 없이도 보수적인 그래프 구조가 강했다. |
 | 학습 모델의 첫 재현 | 약 0.81 | 공개 모델을 그대로 재현하는 것만으로는 부족했다. |
 | 학습 그래프와 그래프 복원 | 0.844--0.860 | 운동 기반 재연결, 공백 복원, 짧은 트랙 제거가 실제 상승을 만들었다. |
@@ -1224,7 +1224,7 @@ Center는 애매한 복원 후보를 확인하는 데만 사용한다
 
 ## 13. 정리
 
-이 대회에서 실질적인 최적화 단위는 개별 검출이나 간선 하나가 아니라 **최종 계보 그래프**다.
+이 대회에서 실질적인 최적화 단위는 개별 검출이나 간선 하나가 아니라 **최종 계통 그래프**다.
 노드 매칭, 간선 Jaccard, 노드 수 보정, 분열 성분 판정이 한 점수 안에서 맞물리기 때문에, 모델 가중치와 후처리를 떼어 놓고 평가할 수 없다.
 
 첫 번째 작업 기록에서 얻은 결론은 세 가지다.
@@ -1234,4 +1234,4 @@ Center는 애매한 복원 후보를 확인하는 데만 사용한다
 3. 더 복잡한 규칙을 추가하기 전에 각 수정이 실제 점수를 높이는지 OOF에서 검증할 수 있어야 한다.
 
 이 지점부터 질문은 “어떤 임계값이 리더보드에서 더 높았는가”가 아니라 “어떤 구조적 오류를, 어떤 증거로, 얼마만큼 고칠 수 있는가”로 바뀐다.
-후속 실험에서 확인된 리더보드 정체, 모델 혼합의 보정 문제, 고정 epoch OOF 설계와 분열 오류 해부는 [작업 기록 2]({{ site.baseurl }}/posts/BioHub-Cell-Tracking-Working-Note-2-OOF-Structural-Diagnostics-KR/)에 이어서 정리했다.
+후속 실험에서 확인된 리더보드 점수의 답보 상태, 모델 혼합의 보정 문제, 고정 epoch OOF 설계와 분열 오류 분석은 [작업 기록 2]({{ site.baseurl }}/posts/BioHub-Cell-Tracking-Working-Note-2-OOF-Structural-Diagnostics-KR/)에 이어서 정리했다.

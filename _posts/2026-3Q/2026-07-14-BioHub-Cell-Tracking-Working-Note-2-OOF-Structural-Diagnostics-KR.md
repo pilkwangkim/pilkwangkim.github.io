@@ -1,5 +1,5 @@
 ---
-title: "BioHub Cell Tracking 작업 기록 2: 리더보드 정체에서 OOF 구조 진단으로"
+title: "BioHub Cell Tracking 작업 기록 2: Public 점수가 멈췄을 때 — OOF 기반 오류 분석"
 date: 2026-07-14 21:00:00 +0900
 categories: [AI, Kaggle]
 tags: [kaggle, biohub, cell-tracking, microscopy, lineage-reconstruction, oof, error-anatomy, graph-repair, model-calibration, working-note, korean]
@@ -7,16 +7,16 @@ math: true
 pin: false
 image:
   path: /assets/img/posts/2026-07-14-biohub-working-note-2/cover.png
-  alt: "BioHub 작업 기록 2 표지: 리더보드 정체에서 OOF 구조 진단으로"
+  alt: "BioHub 작업 기록 2 표지: Public 점수가 멈췄을 때 — OOF 기반 오류 분석"
 ---
 
-# BioHub Cell Tracking 작업 기록 2: 리더보드 정체에서 OOF 구조 진단으로
+# BioHub Cell Tracking 작업 기록 2: Public 점수가 멈췄을 때 — OOF 기반 오류 분석
 
 - 대회: [BioHub - Cell Tracking During Development](https://www.kaggle.com/competitions/biohub-cell-tracking-during-development)
 - 공식 평가지표: [RoyerLab kaggle-cell-tracking-competition metrics.md](https://github.com/royerlab/kaggle-cell-tracking-competition/blob/main/metrics.md)
-- 이전 글: [BioHub Cell Tracking 작업 기록 1: 학습 기반 계보 그래프와 평가지표에 맞춘 복원]({{ site.baseurl }}/posts/BioHub-Cell-Tracking-Working-Note-1-Learned-Lineage-Graphs-KR/)
+- 이전 글: [BioHub Cell Tracking 작업 기록 1: Lineage Graph 학습과 평가지표에 맞춘 후처리]({{ site.baseurl }}/posts/BioHub-Cell-Tracking-Working-Note-1-Learned-Lineage-Graphs-KR/)
 - 영문판: [BioHub Cell Tracking Working Note 2: From a Leaderboard Plateau to OOF Structural Diagnostics]({{ site.baseurl }}/posts/BioHub-Cell-Tracking-Working-Note-2-OOF-Structural-Diagnostics/)
-- 후속 글: [BioHub Cell Tracking 작업 기록 3: OOF 기계가 거절한 것들]({{ site.baseurl }}/posts/BioHub-Cell-Tracking-Working-Note-3-What-the-OOF-Machine-Refused-KR/)
+- 후속 글: [BioHub Cell Tracking 작업 기록 3: OOF에 기반한 판단들]({{ site.baseurl }}/posts/BioHub-Cell-Tracking-Working-Note-3-What-the-OOF-Machine-Refused-KR/)
 
 관련 공개 노트북:
 
@@ -24,7 +24,7 @@ image:
 - [Biohub Cell Tracking: Learned Graph w Gap Recovery](https://www.kaggle.com/code/pilkwang/biohub-cell-tracking-learned-graph-w-gap-recovery)
 - [Biohub Cell Tracking: Blend Preprocessings](https://www.kaggle.com/code/pilkwang/biohub-cell-tracking-blend-preprocessings)
 
-첫 번째 글은 문제를 3차원 분할이 아니라 **희소 주석 아래의 세포 계보 그래프 복원**으로 정의하고, Temporal UNet, Transformer 간선 점수, ILP, 운동 기반 연결, 공백 복원, 보조 Center 모델이 어떤 역할을 하는지 정리했다.
+첫 번째 글은 문제를 3차원 분할이 아니라 **희소 주석 환경에서의 세포 계통(lineage) 그래프 복원**으로 정의하고, Temporal UNet, Transformer 간선 점수, ILP, 운동 기반 연결, 공백 복원, 보조 Center 모델이 어떤 역할을 하는지 정리했다.
 
 그 뒤 공개 점수는 약 $0.90$까지 올라왔지만, 비슷한 후처리 파라미터를 조금씩 바꾸는 실험은 더 이상 뚜렷한 개선을 만들지 못했다.
 이때 가장 위험한 해석은 다음과 같다.
@@ -39,7 +39,7 @@ image:
 우리가 실제로 확인한 것은 **기존 기준 그래프에 맞춰진 보정값을 거의 그대로 유지한 몇 가지 조합이 그 기준 그래프를 넘지 못했다**는 사실뿐이다.
 모델이 가진 정보, 조합 이후의 재보정, 공개 리더보드 과최적화는 서로 분리해서 봐야 한다.
 
-이번 글은 $0.902$ 부근의 정체를 어떻게 해석했고, 왜 다음 단계가 추가 임계값 탐색이 아니라 엄격한 OOF(out-of-fold) 예측과 공식 점수의 구조적 오류 해부가 되었는지 기록한다.
+이번 글은 $0.902$ 부근에서 멈춘 점수를 어떻게 해석했고, 왜 다음 단계가 추가 임계값 탐색이 아니라 엄격한 OOF(out-of-fold) 예측과 공식 점수의 구조적 오류 분석이 되었는지 기록한다.
 
 핵심 결론은 다음 한 줄이다.
 
@@ -52,7 +52,7 @@ image:
 
 | 범위 | 다루는 질문 |
 |---|---|
-| 0절 | 첫 글 이후 어떤 실험이 쌓였고 어디에서 정체됐는가? |
+| 0절 | 첫 글 이후 어떤 실험이 쌓였고 점수는 어디에서 멈췄는가? |
 | 1--3절 | 체크포인트, 후처리, 모델 혼합, 공식 점수를 하나의 시스템으로 어떻게 해석해야 하는가? |
 | 4절 | 누수 없이 OOF 그래프와 보정·평가 자료를 어떻게 만드는가? |
 | 5--7절 | 오류를 어떤 사건으로 나누고, 어떤 그래프 정책과 보조 신호를 검증할 것인가? |
@@ -313,17 +313,17 @@ $$
 정답 분열 하나가 TP가 되려면 하나의 예측 약연결 성분이
 
 1. 분열 전 단계의 짝지어진 노드를 포함하고,
-2. 두 딸 계보를 각각 하나 이상 건드리며,
+2. 두 딸세포 계통을 각각 하나 이상 건드리며,
 3. 그 노드들을 하나의 성분으로 연결하고,
 4. 성분 내부에 나가는 간선이 두 개인 예측 갈림점을 포함해야 한다.
 
 따라서 정답 부모와 정확히 같은 시점의 예측 노드가 직접 두 딸에 연결될 필요는 없다.
-정답과 짝지어지지 않은 중간 갈림점도 성분의 계보 연결을 완성하면 유효할 수 있다.
+정답과 짝지어지지 않은 중간 갈림점도 성분의 계통 연결을 완성하면 유효할 수 있다.
 
 이 사실은 분열 복원을 단순한 다음 프레임의 두 번째 간선 추가 문제에서 다음 문제로 바꾼다.
 
 ```text
-분열 전 단계와 두 딸 계보를 덮는 연결 성분을 만들되,
+분열 전 단계와 두 딸세포 계통을 덮는 연결 성분을 만들되,
 간선 FP와 불필요한 노드를 얼마나 적게 추가할 수 있는가?
 ```
 
@@ -367,7 +367,7 @@ $$
 
 ### 3.2 왜 추가 파라미터 탐색을 멈췄는가
 
-정체 구간에서 다음 축을 여러 번 시험했다.
+점수가 더 오르지 않던 구간에서 다음 축을 여러 번 시험했다.
 
 ```text
 detection threshold
@@ -591,9 +591,9 @@ OOF가 끝나면 먼저 전역 점수 하나를 보지 않는다.
 | 분류 | 의미 | 적절한 개입 |
 |---|---|---|
 | `connected_without_fork` | 세 단계가 같은 성분에 있지만 갈림점이 없다. | 제한된 두 번째 나가는 간선 |
-| `stages_disconnected` | 필요한 노드는 있으나 계보 단계가 끊겼다. | 연결 간선과 갈림점 후보 점수화 |
+| `stages_disconnected` | 필요한 노드는 있으나 계통 단계가 끊겼다. | 연결 간선과 갈림점 후보 점수화 |
 | `missing_pre_stage` | 분열 전 단계 검출이 없다. | 검출 모델 또는 Center 특징 |
-| `missing_daughter_lineage` | 한 딸 계보가 검출되지 않았다. | 검출 개선; 그래프만으로 억지 복원 금지 |
+| `missing_daughter_lineage` | 한 딸세포 계통이 검출되지 않았다. | 검출 개선; 그래프만으로 억지 복원 금지 |
 | `fork_assignment_conflict` | 갈림점은 있으나 다른 사건에 대응한다. | 사건 단위 배정 모델 |
 | `no_matched_nodes` | 안전하게 연결할 근거가 없다. | 개입하지 않음 |
 
@@ -958,8 +958,8 @@ $$
 
 ## 11. 마무리
 
-$0.902$ 부근의 정체는 현재 모델 계열의 절대적인 한계를 증명하지 않는다.
-기준 모델과 공개 리더보드에 맞춘 후처리 파라미터의 조합이 국소 정체에 도달했다는 뜻에 더 가깝다.
+점수가 $0.902$ 부근에서 멈췄다고 해서 현재 모델 계열의 절대적인 한계가 증명되지는 않는다.
+기준 모델과 공개 리더보드에 맞춘 후처리 파라미터의 조합이 국소 최적점에 머물렀다는 뜻에 더 가깝다.
 
 고정 혼합과 Center, TTA 실험이 기대만큼 오르지 않았다는 사실도 보조 모델의 추가 개선 가능성을 바로 부정하지 않는다.
 그 결과가 기각한 것은 **시험한 모델 조합과 상속된 보정값의 구체적인 구성**이다.
@@ -979,5 +979,5 @@ $0.902$ 부근의 정체는 현재 모델 계열의 절대적인 한계를 증�
 
 시리즈:
 
-- [1편: 학습 기반 계보 그래프와 평가지표에 맞춘 복원]({{ site.baseurl }}/posts/BioHub-Cell-Tracking-Working-Note-1-Learned-Lineage-Graphs-KR/)
-- **2편: 리더보드 정체에서 OOF 구조 진단으로**
+- [1편: Lineage Graph 학습과 평가지표에 맞춘 후처리]({{ site.baseurl }}/posts/BioHub-Cell-Tracking-Working-Note-1-Learned-Lineage-Graphs-KR/)
+- **2편: Public 점수가 멈췄을 때 — OOF 기반 오류 분석**
