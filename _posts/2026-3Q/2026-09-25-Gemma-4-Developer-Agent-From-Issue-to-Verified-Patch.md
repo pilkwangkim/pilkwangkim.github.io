@@ -8,7 +8,6 @@ math: true
 mermaid: true
 image:
   path: /assets/img/gemma4-developer-agent/hero.png
-  alt: "Gemma 4 Developer Agent Competition — adapted from the official competition header."
 pin: false
 published: true
 ---
@@ -35,18 +34,17 @@ article .content .mermaid * {
 
 ## Start here: what this project is trying to build
 
-The [Google — Gemma 4 Developer Agent Competition][competition] asks a practical question:
-**can we turn a specified open language model into a system that fixes unfamiliar software
-issues, reliably and within a time limit?** We build the agent's way of working. Kaggle
-runs it on issues we have not seen, then checks the code changes it produces. The score
-is the fraction of issues resolved under that evaluation.
+In a familiar Kaggle prediction competition, we build a model that turns an input into a
+prediction: a house's attributes into a price, for example. Here, the input is a report
+that a program behaves incorrectly, together with that program's source code. The system
+must investigate the report and change the code. The location and the repair are both
+part of the problem.
 
-This is an introduction to that project, from the software basics to a first experiment.
-You can start with an ability to read simple Python; knowledge of agent frameworks or
-model training is not assumed. By the end, the aim is to understand what we submit, what
-happens during an attempt, why an attempt earns a point, and which experiment to run next.
-The settings below are an unmeasured teaching example, separate from the project's actual
-candidates. Competition details were checked on **September 25, 2026**.
+The [Google — Gemma 4 Developer Agent Competition][competition] gives every model-backed
+agent the same permitted Gemma base model. We build the procedure around it: how to find
+relevant code, make an edit, check the result, and decide what to do next. Kaggle runs that
+procedure on hidden issues and evaluates the resulting patches. **We submit a way of
+solving new issues, not a set of fixes for the public practice issues.**
 
 **A few useful places to start.** These sources have different jobs; you do not need to
 read them all before continuing.
@@ -57,20 +55,37 @@ read them all before continuing.
 - **What a small coding agent looks like:** [mini-SWE-agent's documentation][mini-docs] and [GitHub][mini-code]. Follow one model–tool interaction before studying a large framework.
 - **What we will actually configure:** the competition's [official evaluation packages][wheelhouse] and [ADK Agent Config documentation][adk]. The competition's restricted format takes precedence over general ADK examples.
 
+### From predictions to repairs
+
+| Question | A typical prediction competition | This developer-agent competition |
+|---|---|---|
+| What arrives at evaluation time? | Unseen rows, images, or other examples. | An issue description and a repository snapshot. |
+| What must the system produce? | A prediction for each example. | Code changes that address each issue. |
+| What do we submit here? | Often a prediction file or inference notebook. | An agent package, `submission.zip`, that generates patches when run. |
+| What determines success? | A metric comparing predictions with targets. | The fraction of tasks whose patches pass the evaluator's checks. |
+
+A code model can suggest a replacement once the faulty line is in its prompt. A developer
+agent must also work out which line to inspect and whether its suggestion actually helped.
+If a report says "a limit of zero returns ten items," the agent has to find where zero
+became ten, repair that behavior, and preserve the default when no limit was supplied.
+We will follow exactly that small example in Section 1.
+
+This is why a coding agent makes repeated model calls. A search reveals a filename; reading
+it reveals a function; a test result can invalidate the first explanation. The useful next
+action depends on what the previous action discovered. The model is choosing actions in an
+ongoing investigation, rather than receiving every relevant fact in a single prompt.
+
 ### The three objects to keep separate
 
-A **repository** is a software project's files and recorded versions: implementation,
-tests, configuration and documentation. An **issue** describes behavior to change, such
-as an error to fix or a missing feature. A **patch** records which lines or files changed
-so that someone can apply the repair to another copy of the repository. In this article,
-Git's textual representation of those changes is called a **diff**.
+A **repository** is the project's source files, tests, configuration, documentation, and
+recorded versions. An **issue** describes the behavior to fix or add. A **patch** records
+changes to the files; Git's textual representation of those changes is a **diff**.
 
-The participant, the agent and the evaluator each produce a different object.
-We submit an **agent package**, containing configuration, instructions and any optional
-learned adapters. When that agent receives an issue and a repository, it produces a
-**patch**. The evaluator applies the patch to a fresh copy, runs its checks and produces
-an **outcome**. A package can load correctly while every patch it generates fails. A
-plausible patch can still fail verification. These are different steps toward the goal.
+We submit an **agent package** containing configuration, instructions, and any optional
+learned adapters. Running it produces a **patch for each issue**. A separate evaluator
+applies that patch to a fresh copy and produces a **resolved or unresolved outcome**.
+Loading the package, obtaining a nonempty diff, and passing verification are three
+different achievements. Only the final outcome contributes a resolved task to the score.
 
 ![Project map: build an agent package, run its model–tool loop on each new issue, verify the resulting patch, and improve the next design using public development evidence.](/assets/img/gemma4-developer-agent/fig-00-project-map.svg)
 
@@ -81,30 +96,57 @@ enter the agent's input. The numbered columns show responsibilities, not measure
 
 ### If the model is fixed, what can we improve?
 
-A language model generates a next response from the material currently provided to it.
-That material does not automatically contain every file in a repository. An **agent**
-adds instructions, tools and an execution loop: the model can request a file, inspect the
-returned text, choose another action and eventually edit code. A **tool** carries out a
-concrete operation such as reading a file or running a command. The organizer's
-**harness** connects these pieces, prepares the working environment and enforces limits.
+A **model** generates a response from its current input. An **agent** combines that model
+with instructions, tools, remembered observations, and a loop that continues the work.
+A **tool** performs an operation such as reading a file or running a command. The supplied
+**harness** connects these parts, prepares the repository environment, enforces limits, and
+checks the final patch. The model does not read the disk merely because the files exist.
+It has to request information through tools.
 
-This leaves substantial design work even before training. We choose instructions that
-help the model form a useful hypothesis, available tools that make relevant code easier
-to find, a workflow that reacts to errors, and limits that leave time for verification.
-Later, an optional learned adapter can change the model's behavior. Adding components is
-useful only when they help complete more repairs under the same evaluation conditions.
+The fixed base model does not fix the agent's behavior. We can change the prompt, the
+registration and use of permitted tools, how tasks are delegated, and the chosen limits.
+For example, **localization** means narrowing an issue down to the files and symbols that
+matter. A better search procedure can put the right function in front of the same model.
+A better editing procedure can turn a correct idea into a valid change instead of a failed
+tool call. A better test choice can expose a mistaken repair while time remains to revise it.
+These changes can improve resolution without training new weights.
 
-Our route through the project follows from that objective. First, make one complete
-attempt observable: input, actions, changed files, verdict and elapsed time. Then find
-which failure repeatedly prevents a correct patch. Change one part of the agent and compare
-it against the previous version on the same issues. Finally, check whether the gain survives
-on issues kept out of development and whether the whole run fits the competition's budget.
-Without that sequence, a better score may be difficult to explain or reproduce.
+The official evaluator remains the organizer's criterion. Improving our own evaluation
+means reproducing its relevant behavior and collecting useful evidence, not changing what
+Kaggle accepts. Likewise, an agent's checks during debugging are evidence for its next
+decision; the later evaluator verdict determines its score. The hidden verification tests
+are not an oracle the agent can query during the attempt.
 
-We will build this picture in order: one small bug, the reason for the competition,
-the evaluator and score, then the research ideas that help design the agent. The later
-sections turn that picture into files, commands and controlled experiments. The longer
-code recipes are expandable, so they can be read when you reach the implementation.
+Optional **LoRA adapters** add learned changes to the permitted base model. They offer a
+second route to improvement once we know which behavior needs to be learned. More agents,
+more retrieval, and more training each consume resources; their value must show up in
+repairs that finish within the same evaluation constraints.
+
+### Where the first experiment should begin
+
+The first goal is one attempt we can explain from beginning to end. Three questions put
+that experiment in order:
+
+1. **Can we trust the local check?** On a chosen development task, inspect the unmodified
+   repository and reference-fix controls. An environment failure is not evidence that the
+   agent needs a better prompt.
+2. **What does a simple agent actually do?** Record its searches, file reads, edits, test
+   results, patch, and elapsed time. This sequence is a **trajectory**. A failed edit and
+   a wrong diagnosis call for different changes even if both yield zero points.
+3. **Does one change fix the observed failure on other issues?** Compare the changed
+   agent with the baseline under matching conditions, including issues held out from
+   development. Then consider training or delegation if the remaining failures justify it.
+
+This connects the competition's purpose to the work we will do: build an agent, observe
+where repairs fail, and test whether a specific change makes new repairs more reliable.
+Sections 1–4 follow one bug through the system and its score; Sections 5–8 explain the
+research, data, and limits; Sections 9–12 turn those ideas into a baseline and comparison.
+Training comes after that foundation in Section 13.
+
+The article assumes only that you can read simple Python. Framework and training terms
+are introduced when needed. The runnable settings are an **unmeasured teaching example**,
+separate from the project's experimental candidates. Competition details were checked on
+**September 25, 2026**; the longer code recipes are expandable.
 
 ## 1. A one-line bug can require a repository-sized investigation
 
@@ -367,9 +409,9 @@ The first command does not create a commit; it lets new files appear in the diff
 why a temporary reproduction script left in the repository can accidentally become part
 of the submitted patch. [Released patch-extraction source][wheelhouse]
 
-In the second environment, the harness applies that patch to a fresh baseline, restores
-protected test and runner-configuration files that the agent might have changed, applies the evaluator's
-`test_patch`, and runs the selected tests. The released verification code derives its
+In the second environment, the harness applies that patch to a fresh baseline, attempts to
+restore protected test and runner-configuration files, applies the evaluator's `test_patch`,
+and runs the selected tests. The released verification code derives its
 pytest targets from the test patch. The dataset's account of how reference solutions were
 curated also discusses whole-suite checks; that curation step and the per-task grading
 procedure are distinct. The released verifier also checks that the test run produced a valid,
@@ -390,8 +432,15 @@ for tasks assigned to development; we keep it out of the agent's inputs when mea
 performance on tasks reserved for evaluation. Passing an agent's own check is encouraging,
 but the later evaluator outcome is what counts toward the score.
 
-Two practical consequences follow. First, altering test expectations cannot substitute for
-fixing the implementation: the targeted verification files are restored before grading.
+The restoration step needs an implementation qualification. In the inspected
+`swegemma 0.2.7`, it uses one `git checkout HEAD -- ...` for a list that can include missing
+paths, and suppresses the command's failure. A reproduction with Git 2.54 leaves modified
+tracked tests in place when that bulk checkout fails; the separate clean removes named
+untracked files. We therefore cannot assume that every test edit is discarded. This is a
+limitation of the inspected local source, not proof of the hidden scorer's behavior.
+
+Two practical consequences follow. First, keep the agent focused on the implementation;
+changing a test's expectations does not demonstrate that the reported behavior was repaired.
 Second, success should be reproducible from the extracted patch alone. An in-memory change,
 a package installed interactively, or an unrecorded environment adjustment is not a reliable
 solution artifact.
@@ -731,6 +780,26 @@ change visible. An **embedding** represents an indexed code item as a vector of 
 similarity search compares such representations to find nearby items. Similarity does
 not establish that an item causes the bug. It suggests where to inspect next.
 
+For example, after text search identifies an indexed function, its stored vector
+$\mathbf{q}$ can be compared with another indexed symbol's vector $\mathbf{z}_j$.
+For nonzero vectors, cosine similarity is
+
+$$
+s_j=\frac{\mathbf{q}^{\mathsf T}\mathbf{z}_j}
+{\lVert\mathbf{q}\rVert\,\lVert\mathbf{z}_j\rVert}.
+$$
+
+A larger value means the vectors point in a more similar direction; it is not a probability
+that the second symbol contains the bug. The supplied tool starts from an existing symbol.
+Searching from an arbitrary issue description would require a compatible query-embedding
+method; the formula alone does not supply one.
+
+A practical hybrid procedure can therefore start with literal names from the issue,
+inspect the matching source, and use indexed similarity or graph neighbors to expand a
+specific hypothesis. Keep text search as a fallback. Combining these sources does not
+require inventing a weighted score: first compare whether each extra retrieval step finds
+useful code within the available time and context.
+
 There is also a difference between a static map and a running program. Python can choose
 functions dynamically, generate attributes, or dispatch through wrappers. A graph can
 therefore guide navigation without containing every relationship that matters at runtime.
@@ -879,6 +948,20 @@ challenge is recognizing the difference from information available during the ru
 We should not label a task "easy" using a reference answer that the deployed agent cannot see.
 
 ### 7.2 Tool outputs are also a budget
+
+Before a request reaches generation, the serving limit must accommodate both its input
+and the **requested output allowance**:
+
+$$
+C_{\mathrm{prompt}}+M_{\mathrm{requested}}\leq32768.
+$$
+
+Here $C_{\mathrm{prompt}}$ includes instructions, issue text, tool schemas, observations,
+and template overhead. With the example's requested output allowance
+$M_{\mathrm{requested}}=8192$, the input can use at most 24,576 tokens. A response that
+would eventually be short does not remove this admission constraint. Leave room below the
+boundary rather than filling the entire advertised context with source code.
+[Serving request validation][vllm-context]
 
 The guide documents default command output truncation at 5,000 characters and `read_file`
 limits of 150 lines and 10,000 characters. Printing an entire repository does not put that
@@ -2235,3 +2318,5 @@ competition sources govern the submission:
 [requests-docs]: https://requests.readthedocs.io/en/latest/
 [httpx-docs]: https://www.python-httpx.org/
 [fastapi-example]: https://github.com/fastapi/fastapi/pull/11194
+
+[vllm-context]: https://docs.vllm.ai/en/v0.19.1/api/vllm/entrypoints/openai/engine/serving/
