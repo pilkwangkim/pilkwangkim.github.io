@@ -16,6 +16,7 @@ published: true
 article .content table:not(.rouge-table) th,
 article .content table:not(.rouge-table) td {
   white-space: normal;
+  word-break: keep-all;
   overflow-wrap: anywhere;
 }
 article .content .mermaid,
@@ -60,12 +61,12 @@ Kaggle에서는 보통 주어진 데이터로 예측 모델을 만든다. 집의
 
 ### 예측값 대신 코드 수정을 만들어 내는 대회
 
-| Question | A typical prediction competition | This developer-agent competition |
+| 비교 항목 | 일반적인 예측 대회 | 이번 개발 에이전트 대회 |
 |---|---|---|
-| What arrives at evaluation time? | Unseen rows, images, or other examples. | An issue description and a repository snapshot. |
-| What must the system produce? | A prediction for each example. | Code changes that address each issue. |
-| What do we submit here? | Often a prediction file or inference notebook. | An agent package, `submission.zip`, that generates patches when run. |
-| What determines success? | A metric comparing predictions with targets. | The fraction of tasks whose patches pass the evaluator's checks. |
+| 평가할 때 받는 입력 | 처음 보는 데이터 행, 이미지 등의 예제 | 이슈 설명과 저장소 스냅샷 |
+| 만들어야 할 결과 | 각 예제에 대한 예측값 | 각 이슈를 해결하는 코드 수정안 |
+| 제출물 | 주로 예측 파일이나 추론 노트북 | 실행하면 패치를 만드는 에이전트 패키지인 `submission.zip` |
+| 채점 기준 | 예측값과 정답을 비교하는 평가 지표 | 전체 과제 중 패치가 평가기의 검증을 통과한 비율 |
 
 AI에게 코드 수정을 부탁한다고 해 보자. 문제가 생긴 함수를 이미 알고 있다면 그 코드와 증상을 함께 보여 주면 된다. 하지만 이번 대회에서는 어떤 파일을 고쳐야 하는지부터 에이전트가 스스로 알아내야 한다. 수정한 뒤에는 오류가 해결됐는지, 원래 잘되던 기능은 그대로 동작하는지도 확인해야 한다.
 
@@ -145,11 +146,11 @@ example_service/
 
 이번 이슈에서 요구하는 동작은 다음과 같다.
 
-| Input to the helper | Current result | Required result under this invented issue |
+| 함수에 넣은 값 | 현재 반환값 | 이 가상 이슈에서 요구하는 결과 |
 |---|---:|---:|
-| `None` | 10 | 10: the default applies. |
-| `0` | 10 | 0: the explicit value must survive. |
-| `5` | 5 | 5: ordinary values must keep working. |
+| `None` | 10 | 10: 값을 생략했으므로 기본값을 사용한다. |
+| `0` | 10 | 0: 직접 입력한 값은 그대로 처리해야 한다. |
+| `5` | 5 | 5: 일반적인 입력도 계속 정상 처리해야 한다. |
 
 세 입력을 확인하는 이유는 각각 다르다. 0은 보고된 버그를 재현한다. `None`은 수정한 뒤에도 기본값을 사용하는지, 5는 일반적인 입력이 계속 정상 처리되는지 확인한다. 다른 타입의 입력도 허용하는 프로젝트라면 그 동작은 별도로 알아봐야 한다. 이 세 예에 나오지 않았다는 이유로 나머지 입력의 처리 방식을 임의로 정할 수는 없다.
 
@@ -159,13 +160,13 @@ example_service/
 
 이 과정에 등장하는 구성 요소를 정리하면 다음과 같다.
 
-| Term | Its role in this competition |
+| 용어 | 이 대회에서 하는 일 |
 |---|---|
-| **Model** | Gemma generates the next reasoning step, tool call, or response. |
-| **Agent** | The model together with instructions, tools, state, and a procedure for continuing the work. |
-| **Tool** | An operation such as reading a file, running a command, or submitting the current changes. |
-| **Harness** | The organizer's software that loads the agent, prepares tasks, enforces limits, and evaluates patches. |
-| **Patch** | A Git diff describing changes relative to the prepared repository baseline. |
+| **모델(Model)** | Gemma가 다음 판단 내용이나 도구 호출 요청, 응답을 생성한다. |
+| **에이전트(Agent)** | 모델에 작업 지침, 도구, 상태, 작업을 이어 가는 절차를 결합한 시스템이다. |
+| **도구(Tool)** | 파일 읽기, 명령 실행, 현재 변경 내용 제출 같은 작업을 수행한다. |
+| **Harness** | 주최 측이 제공하는 실행·평가 소프트웨어다. 에이전트를 불러오고 과제를 준비하며, 실행 한도를 관리하고 패치를 검증한다. |
+| **패치(Patch)** | 준비된 기준 저장소에서 무엇을 바꿨는지 기록한 Git diff다. |
 
 모델이 도구 사용을 요청하면 에이전트의 실행 루프가 해당 도구를 호출하고 결과를 다시 모델에 전달한다. harness는 작업 환경과 실행 한도를 관리하며, 만들어진 패치를 검증한다. 모델에 필요한 정보를 얼마나 잘 전달하는지, 명령이 실패했을 때 그 결과를 다음 판단에 활용하는지가 전체 성능에도 영향을 준다.
 
@@ -287,11 +288,11 @@ $$
 
 로컬 실행 결과에서는 다음 세 가지를 나누어 기록하는 편이 좋다.
 
-| Observation | What it establishes |
+| 실행 결과 | 여기서 알 수 있는 것 |
 |---|---|
-| The agent session ended | The control loop stopped. |
-| A nonempty patch was extracted | There are changes that can be sent to verification. |
-| Verification passed | This task earned a resolved result under this evaluation. |
+| 에이전트 세션이 종료됐다. | 에이전트의 실행 루프가 멈췄다. |
+| 변경 내용이 있는 패치를 추출했다. | 검증 단계에 전달할 코드 변경이 있다. |
+| 검증을 통과했다. | 이 평가에서 해당 과제를 해결한 것으로 인정됐다. |
 
 목표는 마지막 행의 검증 통과다. 앞의 두 항목으로는 실행이 어디까지 진행됐는지 알 수 있다. 에이전트가 시간 초과로 끝나더라도 로컬 harness가 남은 패치를 회수해 검증하는 경우가 있다. 따라서 종료 상태만 보고 성공과 실패를 결정하지 말고 실제 검증 결과를 함께 확인해야 한다.
 
@@ -372,11 +373,11 @@ Gemma 대회는 OpenHands를 사용하지 않지만 이 구분은 실패 원인�
 
 대회에서 **public**이라는 말은 두 가지 의미로 쓰인다. 공개 개발 데이터는 내려받아 내용을 살펴볼 수 있는 자료다. 반면 **Public 리더보드**에서는 점수가 공개될 뿐, 채점에 사용한 이슈와 정답까지 개발용으로 제공하지는 않는다.
 
-| Name | What the participant can see | What it is for |
+| 구분 | 참가자가 확인할 수 있는 내용 | 용도 |
 |---|---|---|
-| Public development data | Released issues, repository snapshots and reference material. | Build and debug the agent; reserve local evaluation tasks before tuning. |
-| Public leaderboard split | A score from part of the hidden evaluation; not its task answers. | Limited feedback during the competition. |
-| Private leaderboard split | Hidden evaluation used for final ranking. | Judge the submitted design on the final scoring split. |
+| 공개 개발 데이터 | 공개된 이슈, 저장소 스냅샷, 참조 자료 | 에이전트 개발과 디버깅에 사용한다. 설정을 조정하기 전에 로컬 평가용 과제를 따로 남겨 둔다. |
+| Public 리더보드 평가 집합 | 비공개 평가 중 일부의 점수. 해당 과제의 정답은 공개하지 않는다. | 대회 중 제출 결과에 대한 제한적인 피드백을 받는다. |
+| Private 리더보드 평가 집합 | 최종 순위에 쓰이는 비공개 평가 집합으로, 과제 내용은 볼 수 없다. | 최종 채점용 과제에서 제출한 에이전트를 평가한다. |
 
 내려받은 개발 데이터도 전부 같은 용도로 쓰기보다는 나누어 두는 것이 좋다. 일부는 가중치 학습에, 일부는 프롬프트와 설정을 고르는 데 사용하고, 나머지는 나중에 평가할 **holdout**으로 남겨 둘 수 있다. 가중치를 학습하지 않더라도 특정 예제의 결과를 보며 프롬프트를 반복해서 고쳤다면 그 예제를 개발에 사용한 것이다. holdout을 따로 두면 이렇게 설계를 고를 때 참고하지 않은 문제에서도 같은 방법이 통하는지 확인할 수 있다. 다만 holdout 결과까지 계속 보면서 설계를 바꾸면 독립적인 평가 자료로서의 의미는 점점 약해진다.
 
@@ -386,13 +387,13 @@ Gemma 대회는 OpenHands를 사용하지 않지만 이 구분은 실패 원인�
 
 내려받은 `tasks.jsonl`에서 저장소별 과제 수를 세면 다음과 같다.
 
-| Repository | What the project does | Tasks | Share |
+| 저장소 | 프로젝트 설명 | 과제 수 | 비율 |
 |---|---|---:|---:|
-| `fastapi/fastapi` | [A framework for building web APIs][fastapi-docs]. | 67 | 51.9% |
-| `Textualize/rich` | [Formats text, tables, and other output in a terminal][rich-code]. | 48 | 37.2% |
-| `psf/requests` | [An HTTP client for making web requests from Python][requests-docs]. | 13 | 10.1% |
-| `encode/httpx` | [An HTTP client supporting synchronous and asynchronous use][httpx-docs]. | 1 | 0.8% |
-| **Total** | | **129** | **100.0%** |
+| `fastapi/fastapi` | [웹 API를 만드는 프레임워크][fastapi-docs] | 67 | 51.9% |
+| `Textualize/rich` | [터미널에 텍스트와 표 등을 보기 좋게 출력하는 라이브러리][rich-code] | 48 | 37.2% |
+| `psf/requests` | [Python에서 웹 요청을 보내는 HTTP 클라이언트][requests-docs] | 13 | 10.1% |
+| `encode/httpx` | [동기·비동기 요청을 모두 지원하는 HTTP 클라이언트][httpx-docs] | 1 | 0.8% |
+| **합계** | | **129** | **100.0%** |
 
 FastAPI와 Rich가 129개 중 115개, 약 89%다. 이 두 저장소에서 성능이 좋아지면 전체 평균도 크게 오를 수 있다. 그러나 그 결과만으로 Requests나 HTTPX에서도 잘 작동한다고 판단하기는 어렵다. 특히 HTTPX는 문제가 하나뿐이다. 저장소가 네 개 포함돼 있다는 것과 네 프로젝트에서 고르게 검증했다는 것은 다르다.
 
@@ -416,25 +417,25 @@ FastAPI와 Rich가 129개 중 115개, 약 89%다. 이 두 저장소에서 성능
 
 ### 6.2 과제 묶음에 들어 있는 것들
 
-| Resource | What to use it for |
+| 파일·디렉터리 | 내용과 용도 |
 |---|---|
-| `tasks.jsonl` | Issue descriptions, repository identities, base commits, reference fixes, and verification patches. |
-| `snapshots/<instance_id>.tgz` | Recreate the exact code the agent is supposed to repair. |
-| `graphs/` | Look up relationships among indexed code symbols. |
-| `embeddings/` | Retrieve symbols similar to an existing indexed symbol. |
-| `wheels/` | Install historical repository dependencies without network access inside the sandbox. |
-| `docker/` and `sandbox/` | Prepare the repository execution environment. |
-| `sample_submission/` | Inspect the organizer's configuration conventions. |
-| `HARNESS_README.md` | Understand the intended execution and submission contract. |
+| `tasks.jsonl` | 이슈 설명, 저장소 정보, 기준 커밋, 기준 수정안, 검증용 패치가 들어 있다. |
+| `snapshots/<instance_id>.tgz` | 에이전트가 수정할 당시 버전의 코드를 복원한다. |
+| `graphs/` | 인덱싱된 코드 심볼 사이의 관계를 조회한다. |
+| `embeddings/` | 이미 인덱싱된 심볼과 비슷한 다른 심볼을 찾는다. |
+| `wheels/` | sandbox에서 네트워크 연결 없이 해당 시점의 의존 패키지를 설치한다. |
+| `docker/`와 `sandbox/` | 저장소의 코드를 실행할 환경을 준비한다. |
+| `sample_submission/` | 주최 측 예제로 에이전트 설정 방식을 살펴본다. |
+| `HARNESS_README.md` | 실행 방식과 제출 규격을 확인한다. |
 
 `.jsonl`은 한 줄마다 JSON 객체 하나를 담는 형식이다. 과제 하나의 데이터에도 용도가 다른 항목이 함께 들어 있으므로 먼저 구분해 두자.
 
-| Information | Examples | Role |
+| 정보의 종류 | 필드 예시 | 용도 |
 |---|---|---|
-| Task input and identity | `instance_id`, `repo`, `base_commit`, `problem_statement`, `hints_text` | Identify and present the issue. |
-| Reference solution | `patch` | Study or train on solutions within the chosen training partition. |
-| Verification material | `test_patch` | Check whether a generated solution resolves the task. |
-| Contextual metadata | `created_at` | Analyze chronology and construct development splits. |
+| 과제 식별 정보와 입력 | `instance_id`, `repo`, `base_commit`, `problem_statement`, `hints_text` | 어떤 과제인지 식별하고 해결할 이슈를 전달한다. |
+| 기준 수정안 | `patch` | 학습용으로 정한 데이터에서 답안을 분석하거나 학습에 사용한다. |
+| 검증 자료 | `test_patch` | 생성한 수정안이 과제를 해결했는지 검사한다. |
+| 부가 메타데이터 | `created_at` | 시간 순서를 분석하고 개발 데이터를 나누는 데 참고한다. |
 
 reference patch는 학습과 실패 분석에 활용할 수 있다. holdout으로 쓸 과제는 패치나 trajectory를 보며 에이전트를 조정하기 전에 분리해 둔다. 평가할 때 정답 자료는 평가기에서만 사용한다. schema에는 힌트 항목이 있지만, 내려받은 공개 기록의 `hints_text`는 모두 비어 있다. baseline도 추가 댓글 없이 이슈 설명과 저장소만으로 작업할 수 있어야 한다.
 
@@ -479,15 +480,15 @@ gemma-4-31b-it-qat-w4a16-ct
 
 체크포인트 이름의 `it`는 instruction tuning, `qat`는 quantization-aware training이다. `w4a16`은 가중치 4비트·activation 16비트, `ct`는 compressed-tensors 패키징을 뜻한다. **양자화**는 일부 수치를 낮은 정밀도로 표현해 자원 사용량을 줄이는 방법이다. 모델 수치의 표현 방식을 바꾼 것이지 다른 소형 모델을 대신 사용해도 된다는 의미는 아니다. adapter를 불러오거나 실험을 재현할 때도 정확히 같은 체크포인트인지 확인해야 한다. [허용 모델 파일][model]
 
-| Constraint | Consequence for the first implementation |
+| 제약 조건 | 설계할 때 고려할 점 |
 |---|---|
-| Four L4 GPUs, 96 GB aggregate VRAM | The hosted runtime is a specific GPU environment; local timing on other hardware needs separate interpretation. |
-| 32,768-token context | Instructions, observations, reasoning, and output must share the available context. Read selectively. |
-| Total unpacked submission below 3 GiB | Package configurations and optional adapters; do not include a full base-model download. |
-| Offline task sandbox | Depend on the supplied environment and wheels, not a network install during a task. |
-| Docker sandbox: 4 GiB RAM and 2 vCPUs | Broad test runs and large analysis processes can exhaust resources independently of model inference. |
-| Restricted declarative agent configuration | Use registered tools and sandboxed skills instead of an arbitrary host-side Python entrypoint. |
-| Twelve hours for all patch generation | Budget across tasks, including sandbox setup; verification time is excluded from this stated limit. |
+| L4 GPU 4대, 총 VRAM 96 GB | Kaggle은 정해진 GPU 환경에서 평가한다. 다른 장비에서 측정한 실행 시간은 구분해서 해석해야 한다. |
+| context 32,768토큰 | 지침, 도구 실행 결과, 추론, 출력이 같은 context 한도를 사용한다. 필요한 코드부터 골라 읽어야 한다. |
+| 제출물의 압축 해제 크기 3 GiB 미만 | 설정과 필요한 adapter를 담는다. base model 전체를 포함하지 않는다. |
+| 네트워크가 차단된 과제 sandbox | 제공된 환경과 wheel을 사용해야 한다. 과제를 푸는 도중 외부에서 패키지를 내려받아 설치할 수 없다. |
+| Docker sandbox: RAM 4 GiB, vCPU 2개 | 전체 테스트나 큰 분석 작업이 sandbox 자원을 소진할 수 있다. 모델 추론에 쓰는 자원과는 별개다. |
+| 허용 범위가 정해진 선언형 에이전트 설정 | 등록된 도구와 sandbox에서 실행하는 skill을 사용한다. 호스트에서 임의의 Python 진입점을 실행하는 방식은 지원하지 않는다. |
+| 전체 패치 생성 시간 12시간 | 모든 과제의 sandbox 준비 시간까지 포함해 계획해야 한다. 문서상 검증 시간은 이 한도에서 제외된다. |
 
 사양의 출처는 [harness 안내서][data]다. 로컬 라이브러리의 기본값과 Kaggle 채점기의 설정은 구분해서 읽어야 한다. Kaggle에서는 라이브러리를 별도로 연동하므로 일부 설정이 로컬 기본값과 다르다.
 
@@ -514,13 +515,13 @@ $$
 
 오른쪽은 패치 생성에 허용된 12시간이고, 왼쪽은 그 안에 처리해야 할 작업들의 소요 시간이다.
 
-| Symbol | Meaning | What to record |
+| 기호 | 의미 | 기록할 내용 |
 |---|---|---|
-| $N$ | Number of tasks in the run. | The fixed task manifest, including failures. |
-| $a_i$ | Actual agent-session time for task $i$. | Session start and end; also retain the configured timeout. |
-| $s_i$ | Preparation and other counted overhead belonging to task $i$. | Setup and cleanup intervals, with retries where applicable. |
-| $h$ | Shared overhead counted by the global timer. | Count it once, outside the task intervals. |
-| $T_{\mathrm{gen}}$ | Total counted patch-generation time. | The complete run's timer, checked against the component records. |
+| $N$ | 이번 실행에 포함한 과제 수 | 실패한 과제까지 포함한 고정 평가 목록 |
+| $a_i$ | 과제 $i$의 실제 에이전트 세션 시간 | 세션 시작·종료 시각과 설정한 timeout |
+| $s_i$ | 과제 $i$의 환경 준비 등 전체 제한 시간에 포함되는 부가 작업 시간 | 준비·정리 시간. 재시도가 있었다면 그 시간도 기록한다. |
+| $h$ | 개별 과제와 별도로 전체 제한 시간에 포함되는 공통 작업 시간 | 과제별 시간과 중복되지 않도록 한 번만 집계한다. |
+| $T_{\mathrm{gen}}$ | 제한 시간에 포함되는 패치 생성의 총 소요 시간 | 전체 실행 시간을 재고, 항목별 기록을 합한 값과 대조한다. |
 
 시간을 합산할 때 같은 구간을 중복해서 더하지 않도록 주의한다. 검증 시간은 이 패치 생성 제한에 포함되지 않는다. 검증까지 왼쪽에 더하면 제한이 적용되는 범위와 다른 시간을 계산하게 된다.
 
@@ -581,11 +582,11 @@ $C_{\mathrm{prompt}}$에는 지침, 이슈 설명, tool schema, 읽어 온 내�
 
 평가 환경을 확인할 때는 실패해야 하는 경우와 통과해야 하는 경우를 모두 실행해 봐야 한다. 선택한 개발 이슈의 수정 전 저장소를 negative control, reference patch를 적용한 저장소를 positive control로 삼을 수 있다. 두 경우 모두 공식 검증 절차로 확인하며, 정답 자료는 채점하는 쪽에서만 사용한다.
 
-| Control | Intended observation | What an unexpected result would make me inspect |
+| 검사할 대상 | 기대하는 결과 | 예상과 다를 때 확인할 것 |
 |---|---|---|
-| Unchanged repository, with the issue's verification tests | The issue is not resolved. | Whether the tests exercise the reported behavior and whether the correct snapshot was loaded. |
-| Reference patch on a fresh copy, with the same verification tests | The issue is resolved. | Dependency versions, patch application, test selection, and environment reconstruction. |
-| Agent patch on another fresh copy | An independently determined pass or fail. | The actual changed code and the verifier output. |
+| 수정 전 저장소에 해당 이슈의 검증 테스트 적용 | 미해결 | 테스트가 보고된 문제를 실제로 검사하는지, 올바른 스냅샷을 불러왔는지 확인한다. |
+| 새로 준비한 저장소에 reference patch를 적용하고 같은 테스트 실행 | 해결 | 의존 패키지 버전, 패치 적용 여부, 테스트 선택, 환경 복원 과정을 확인한다. |
+| 또 다른 새 저장소에 에이전트 패치 적용 | 독립적인 검증으로 통과·실패 판정 | 실제 코드 변경과 verifier 출력을 확인한다. |
 
 표는 각 대조군에서 기대하는 결과다. 실제로는 공개 과제나 로컬 환경에 문제가 있어 다른 결과가 나올 수 있다. reference patch를 적용해도 실패한다면 기록을 남기고 원인부터 조사한다. 수정 전 코드가 통과한다면 이후 에이전트의 통과가 실제 버그 수정 때문인지 다시 확인해야 한다. 대조군으로 평가 문제를 모두 해결할 수는 없지만, 모델 성능을 비교하기 전에 조사할 부분을 찾을 수 있다.
 
@@ -622,12 +623,12 @@ Google의 Agent Development Kit, 즉 **ADK**는 에이전트를 구성하는 기
 
 먼저 어떤 파일을 만드는지 살펴보자. **YAML**은 설정의 이름, 값, 계층 구조를 적는 텍스트 형식이다. harness가 이를 읽어 대회에서 허용한 에이전트와 도구를 구성한다. 프롬프트 파일에는 모델에게 전달할 작업 지침을 적는다. 이 파일들은 호스트에서 독립적으로 실행하는 Python 프로그램이 아니라 harness가 읽어 사용하는 설정이다.
 
-| Design choice | Where the example expresses it | What to look for in the run |
+| 설계할 내용 | 예제에서 설정하는 위치 | 실행 기록에서 확인할 것 |
 |---|---|---|
-| Ask for evidence before editing. | `agent/prompts/system.md` | Does the trace connect the proposed change to a reproduced or inspected behavior? |
-| Give the agent ways to inspect and change files. | The registered tools in `agent/agent.yaml` | Do tool calls succeed, and does the agent use their returned observations? |
-| Bound the work spent on each issue. | `agent/eval_config.yaml` for hosted evaluation; explicit flags for the local CLI. | Actual tool counts and elapsed time, not just the written settings. |
-| Adapt behavior through learning, if later justified. | An optional adapter declaration and its weight files. | A held-out comparison with and without that adapter under the same runtime. |
+| 수정 전에 근거를 확인하게 한다. | `agent/prompts/system.md` | 재현하거나 코드에서 확인한 동작을 근거로 수정안을 정했는가? |
+| 파일을 조사하고 수정할 도구를 제공한다. | `agent/agent.yaml`에 등록한 도구 | 도구 호출이 성공했는가? 반환된 결과를 다음 판단에 활용했는가? |
+| 이슈 하나에 사용할 시간과 호출 수를 제한한다. | Kaggle에서는 `agent/eval_config.yaml`, 로컬 CLI에서는 명시적인 옵션 | 설정값뿐 아니라 실제 도구 호출 수와 소요 시간을 확인한다. |
+| 필요성이 확인되면 추가 학습을 시도한다. | 선택 사항인 adapter 설정과 가중치 파일 | 같은 실행 환경에서 adapter 사용 여부만 바꿔 holdout 성능을 비교한다. |
 
 **baseline**은 앞으로 만든 에이전트의 성능을 비교할 기준 버전이다. 동작을 이해할 수 있고 같은 조건으로 다시 실행할 수 있는 구성이어야 한다. 처음부터 두 번째 에이전트, 그래프 도구, adapter를 모두 추가하면 결과가 달라져도 이유를 파악하기 어렵다. 아래의 작은 패키지로 시작하면 하나씩 바꾸며 효과를 확인하기 쉽다.
 
@@ -676,14 +677,14 @@ generate_content_config:
 
 YAML은 들여쓰기로 구조를 구분한다. `instruction`의 `!include` 경로는 이 설정 파일을 기준으로 찾는다. 여섯 도구는 작업 공간을 다루고 진행 상태와 종료를 관리하는 기본 도구다. 그래프 도구는 기본 실행을 확인한 뒤 추가해 효과를 비교할 수 있다.
 
-| Tool | What the baseline uses it for |
+| 도구 | baseline에서의 용도 |
 |---|---|
-| `run_command` | Run shell commands, searches, and focused tests in the sandbox. |
-| `read_file` | Read a selected line range from a workspace file. |
-| `edit_file` | Replace a matching string in an existing, nonempty file. |
-| `write_file` | Create or overwrite a file inside the workspace. |
-| `get_status` | Inspect consumed and remaining task budgets and patch status. |
-| `submit_patch` | Capture the diff and mark the task ready for verification. |
+| `run_command` | sandbox에서 shell 명령, 검색, 필요한 동작을 확인하는 테스트를 실행한다. |
+| `read_file` | 작업 공간의 파일에서 지정한 줄 범위를 읽는다. |
+| `edit_file` | 내용이 있는 기존 파일에서 일치하는 문자열을 찾아 바꾼다. |
+| `write_file` | 작업 공간에 파일을 새로 만들거나 덮어쓴다. |
+| `get_status` | 사용한 시간·호출 수와 남은 한도, 패치 상태를 확인한다. |
+| `submit_patch` | diff를 수집하고 검증할 준비가 됐음을 알린다. |
 
 sampling 설정은 **baseline을 시작할 때 사용해 볼 예시 값**이다. `temperature`를 낮추면 일반적으로 모델이 높은 확률을 부여한 출력을 더 자주 선택한다. 출력 제한은 응답 한 번에 적용되며, 작업 전체에서 생성할 수 있는 토큰 수를 제한하는 값은 아니다.
 
@@ -809,12 +810,12 @@ python3 -m zipfile -l submission.zip
 
 여기서 “로컬 평가”는 평가 환경을 직접 실행한다는 뜻이다. 개인 노트북일 필요는 없으며 Linux GPU 서버를 사용해도 된다. CPU 컴퓨터에서 패키지를 작성하는 것과 31B 모델을 메모리에 올려 추론하는 것은 다른 작업이다. 구성 요소들이 같은 호스트에 있더라도 각 역할을 구분해 두면 문제를 찾기 쉽다.
 
-| Running component | What it does | What should become observable |
+| 실행 구성 요소 | 역할 | 확인할 수 있어야 하는 결과 |
 |---|---|---|
-| Model server on the GPU host | Loads Gemma and answers model requests. | The expected model name and a successful request/response. |
-| Local evaluator process | Loads the agent package, prepares tasks and coordinates tool calls. | A recorded issue attempt with its full trace and patch. |
-| Repository sandbox | Holds the task's code and executes permitted commands. | File changes, command output and resource/time errors. |
-| Fresh verification sandbox | Reconstructs the task and checks the extracted patch. | Verification logs and a resolved/unresolved outcome. |
+| GPU 호스트의 모델 서버 | Gemma를 불러오고 모델 요청에 응답한다. | 지정한 모델 이름과 정상적인 요청·응답 |
+| 로컬 평가기 프로세스 | 에이전트 패키지를 불러오고 과제를 준비하며 도구 호출을 처리한다. | 과제별 시도 기록, 전체 trace, 패치 |
+| 저장소 sandbox | 과제의 코드를 보관하고 허용된 명령을 실행한다. | 파일 변경, 명령 출력, 자원 부족·시간 초과 오류 |
+| 별도의 검증용 sandbox | 과제 환경을 새로 준비하고 추출한 패치를 검사한다. | 검증 로그와 해결·미해결 판정 |
 
 먼저 수정 전 저장소와 reference patch를 적용한 저장소를 검증해 본다. 이때는 모델을 호출하지 않아도 된다. 평가 환경이 동작하면 모델 서버를 시작하고 에이전트의 실행 기록을 얻는다. 모델 가중치, 과제 데이터, 대조군 검사 스크립트, 결과 로그는 모두 개발용 자료이므로 제출할 에이전트 폴더 밖에 둔다.
 
@@ -878,7 +879,7 @@ print("Example identity:", first["instance_id"], first["repo"], first["base_comm
 
 이 글에서 확인한 [공식 wheelhouse][wheelhouse]의 주요 패키지는 다음 버전이다.
 
-| Package | Version |
+| 패키지 | 버전 |
 |---|---:|
 | `swegemma` | 0.2.7 |
 | `adk-submission` | 0.2.11 |
@@ -1119,15 +1120,15 @@ harness는 결과 폴더에 채점 결과, 패치, 검증 로그, 실행 기록�
 
 이 순서로 보면 환경 설정 때문에 실행이 실패한 경우를 모델의 문제 해결 실패와 구분하기 쉽다. 반대로 실행이 오류 없이 끝났더라도 패치가 맞는지는 검증 결과에서 따로 확인해야 한다.
 
-| Failure seen in the run | First thing to inspect |
+| 실행 중 발생한 문제 | 먼저 확인할 것 |
 |---|---|
-| Connection refused or unknown model | Whether the server is ready, the endpoint is correct, and the served model name matches. |
-| Repository setup failed | Snapshot path, offline wheels, image build context, and dependency logs. |
-| Repeated tool errors | Tool arguments and whether the agent adapts after an error. |
-| No patch | Whether edits reached disk, patch extraction succeeded, or the session ended prematurely. |
-| Patch does not apply | The actual diff and the baseline used for generation. |
-| Tests fail after a valid patch | The implementation hypothesis, missed cases, and regressions. |
-| Task consumes its entire budget | Search scope, repeated reasoning, oversized outputs, and test duration. |
+| 연결이 거부되거나 모델을 찾지 못한다. | 서버 기동이 끝났는지, endpoint가 맞는지, 서빙하는 모델 이름이 일치하는지 확인한다. |
+| 저장소 준비에 실패한다. | 스냅샷 경로, 오프라인 wheel, 이미지 빌드 context, 의존 패키지 로그를 확인한다. |
+| 도구 오류가 반복된다. | 도구에 넘긴 인자와 오류 후 에이전트의 대응을 살펴본다. |
+| 패치가 없다. | 수정이 파일에 저장됐는지, 패치 추출이 성공했는지, 세션이 너무 일찍 끝났는지 확인한다. |
+| 패치를 적용하지 못한다. | 실제 diff와 패치 생성에 사용한 기준 저장소를 확인한다. |
+| 패치는 적용됐지만 테스트에 실패한다. | 수정 방향이 맞았는지, 빠뜨린 경우나 기존 기능을 망가뜨린 부분이 있는지 살펴본다. |
+| 주어진 시간이나 호출 한도를 모두 쓴다. | 검색 범위, 같은 판단의 반복, 지나치게 긴 출력, 테스트 소요 시간을 살펴본다. |
 
 문제별로 ID, 저장소, 해결 여부, 오류 종류를 기록한다. 확인할 수 있는 환경 준비 시간, 에이전트 실행 시간, 토큰·도구 사용량도 남긴다. 패치와 검증 로그 경로를 함께 연결해 두면 결과를 다시 조사하기 쉽다. 실패 기록도 보관해야 한다. 다음에 무엇을 바꿔 볼지 결정할 때 성공한 사례만으로는 알 수 없는 내용이 담겨 있다.
 
@@ -1156,12 +1157,12 @@ $$
 
 12개 문제에서 다음 결과가 나왔다고 가정해 보자. 모두 설명을 위한 **가상의 결과**다.
 
-| Outcome on the same issue | Issues | Effect on the comparison |
+| 같은 문제에서 얻은 결과 | 문제 수 | 비교에 반영되는 차이 |
 |---|---:|---|
-| Both agents resolve it | 2 | No change. |
-| Only the baseline resolves it | 2 | Two regressions, $L=2$. |
-| Only the candidate resolves it | 3 | Three gains, $G=3$. |
-| Neither resolves it | 5 | No change. |
+| 두 에이전트 모두 해결 | 2 | 차이 없음 |
+| baseline만 해결 | 2 | 새 버전에서 놓친 문제 두 개, $L=2$ |
+| 새 버전만 해결 | 3 | 새로 해결한 문제 세 개, $G=3$ |
+| 두 에이전트 모두 미해결 | 5 | 차이 없음 |
 
 새 버전만 푼 문제를 $G$, baseline만 푼 문제를 $L$이라고 하자. 두 버전이 모두 풀었거나 모두 실패한 문제에서는 차이가 0이므로 다음과 같이 계산할 수 있다.
 
@@ -1180,13 +1181,13 @@ baseline은 네 문제, 새 버전은 다섯 문제를 풀었다. 해결률은 �
 
 우선 준비한 평가 집합에서 확인할 수 있는 질문을 고른다.
 
-| Comparison | The question it tests |
+| 비교할 두 설정 | 확인하려는 내용 |
 |---|---|
-| Base prompt vs. a more explicit reproduction step | Does reproducing the issue improve the final fix enough to justify its time? |
-| Workspace tools vs. workspace plus graph tools | Does indexed navigation find useful code sooner, including on incomplete graphs? |
-| Thinking disabled vs. enabled, with the request verified | Does explicit reasoning recover tasks after accounting for output truncation and runtime? |
-| One agent vs. a read-only analyzer | Does delegated investigation improve localization after accounting for extra inference? |
-| No adapter vs. a trained LoRA | Does the learned behavior improve held-out resolution under the same runtime budget? |
+| 기본 프롬프트 / 문제 재현 절차를 더 구체적으로 적은 프롬프트 | 재현에 시간을 더 쓰는 만큼 최종 수정의 성공률이 높아지는가? |
+| 작업 공간 도구만 사용 / 그래프 도구도 함께 사용 | 그래프가 불완전한 경우까지 포함해, 인덱스를 이용하면 필요한 코드를 더 빨리 찾는가? |
+| thinking 모드 끄기 / 켜기 — 실제 요청도 확인 | 출력 잘림과 실행 시간을 고려해도 thinking 모드를 켰을 때 더 많은 과제를 해결하는가? |
+| 에이전트 하나 / 읽기 전용 조사 에이전트 추가 | 추가 추론 비용을 들이는 만큼 관련 코드를 더 잘 찾는가? |
+| adapter 없음 / 학습한 LoRA 사용 | 같은 실행 시간 한도에서 holdout 과제를 더 많이 해결하는가? |
 
 소수의 문제로 설정과 실행을 확인한 뒤 더 넓은 고정 평가 집합에서 비교한다. 최종 로컬 holdout은 프롬프트 선택이나 학습에 사용하지 않는다. sampling에 따른 변동으로 결론이 달라질 수 있다면 반복 실행도 필요하다. 한 번 성공한 것만으로 전반적인 성능이 좋아졌다고 판단하기는 어렵다.
 
@@ -1271,12 +1272,12 @@ $$
 
 **가상의 예**로 $4096\times4096$ 행렬에 $r=16$을 적용하면 다음과 같다.
 
-| What is learned | Shape or calculation | Trainable parameters |
+| 학습할 대상 | 행렬 크기 또는 계산식 | 학습할 parameter 수 |
 |---|---|---:|
-| A full update to the matrix | $4096\times4096$ | 16,777,216 |
-| LoRA matrix $A$ | $16\times4096$ | 65,536 |
-| LoRA matrix $B$ | $4096\times16$ | 65,536 |
-| Both LoRA matrices | $16(4096+4096)$ | **131,072**, about **0.78%** of a full update. |
+| 행렬 전체의 변화량 | $4096\times4096$ | 16,777,216 |
+| LoRA 행렬 $A$ | $16\times4096$ | 65,536 |
+| LoRA 행렬 $B$ | $4096\times16$ | 65,536 |
+| 두 LoRA 행렬의 합계 | $16(4096+4096)$ | **131,072**, 전체 행렬을 학습할 때의 약 **0.78%** |
 
 이는 행렬 하나의 parameter 수를 계산한 예시다. Gemma adapter의 파일 크기나 GPU 메모리 추정값은 아니다. 실제 자원 사용량은 적용할 layer, 저장 정밀도, 메타데이터, activation, optimizer state 등에 따라 달라진다. adapter 파일에는 base model 전체가 아니라 학습한 변화량을 저장한다. 이 대회에서 adapter는 선택 사항이며, 같은 base model을 공유하는 여러 에이전트가 각각 다른 adapter를 사용할 수도 있다.
 
@@ -1361,11 +1362,11 @@ Kaggle 실행으로 로컬에서 발견하지 못한 호환성 문제나 평가 
 
 본 대회는 2026년 9월 23일 시작했다. 공개된 마감 시각은 아래 날짜의 23:59 UTC다. 한국 시각은 UTC보다 9시간 빠르다.
 
-| Milestone | UTC | Korea Standard Time |
+| 마감 항목 | UTC | 한국 시각(KST) |
 |---|---|---|
-| Optional paper submission | November 12, 2026, 23:59 | November 13, 2026, 08:59 |
-| Main entry and team merger | November 25, 2026, 23:59 | November 26, 2026, 08:59 |
-| Main final submission | December 2, 2026, 23:59 | December 3, 2026, 08:59 |
+| Paper Track 논문 제출(선택 사항) | 2026년 11월 12일 23:59 | 2026년 11월 13일 08:59 |
+| 본 대회 참가 신청·팀 병합 | 2026년 11월 25일 23:59 | 2026년 11월 26일 08:59 |
+| 본 대회 최종 제출 | 2026년 12월 2일 23:59 | 2026년 12월 3일 08:59 |
 
 [본 대회][competition]의 총상금은 USD 65,000이며 상위 세 팀에 각각 USD 37,000, USD 18,000, USD 10,000을 수여한다. 한 팀은 최대 다섯 명이다. [별도 Paper Track][paper]은 총상금 USD 35,000으로, 최대 3,000단어의 연구 글을 받는다. 독창성, 연구의 질, 주제 적합성, 검증 가능성, 명료성 등을 심사한다. 본 대회의 예측 부문에 참가하지 않아도 Paper Track에 참여할 수 있다. 일정은 주최 측이 변경할 수 있다.
 
@@ -1379,14 +1380,14 @@ Paper Track에서는 순위와 별개로 실험에서 얻은 결과를 정리할
 
 첫 주에는 아래 순서로 시작할 수 있다. 단계별 소요 기간은 GPU 사용 시간과 준비 상태에 따라 달라진다. 날짜에 맞춰 넘어가기보다 해당 단계에서 확인할 내용을 알아낸 뒤 진행하는 편이 좋다.
 
-| Work session | Question to answer | Concrete result to keep |
+| 진행 단계 | 확인할 내용 | 남겨 둘 결과물 |
 |---|---|---|
-| Understand the contract and inventory | What does the agent receive, what must it produce, and which files are usable? | A task inventory, recorded source versions, and explicit information boundaries. |
-| Explore selected development issues | What observations locate the behavior that needs changing? | Short manual investigation notes, with the tasks marked as used for development. |
-| Check the environment and controls | Does the verifier distinguish an unchanged repository from its reference repair? | Patch-application and test logs for the selected controls. |
-| Run the minimal agent | Can the fixed model complete the tool/edit/patch/verification path? | Full traces, patches, resolved outcomes, and setup-inclusive times. |
-| Read every failure in the small panel | Is the bottleneck localization, understanding, editing, testing, or time? | A failure classification supported by specific trace events. |
-| Change one thing | Does a targeted intervention recover more issues than it loses? | A paired comparison with gains, regressions, and measured runtime. |
+| 대회 조건과 데이터 확인 | 에이전트가 무엇을 입력받고 무엇을 만들어야 하는가? 사용할 수 있는 파일은 무엇인가? | 과제 목록, 자료의 버전, 에이전트에 제공할 정보와 평가기에만 둘 정보의 구분 |
+| 개발용 이슈 직접 조사 | 어떤 단서를 따라가면 수정할 코드를 찾을 수 있는가? | 짧은 조사 기록과 개발에 사용한 과제 목록 |
+| 환경과 대조군 검사 | verifier가 수정 전 코드와 기준 수정안을 구별하는가? | 두 대조군의 패치 적용 기록과 테스트 로그 |
+| 최소 구성의 에이전트 실행 | 지정 모델로 도구 호출·편집·패치 추출·검증까지 진행할 수 있는가? | 전체 trace, 패치, 해결 여부, 환경 준비를 포함한 소요 시간 |
+| 소규모 평가에서 모든 실패 읽기 | 탐색, 코드 이해, 편집, 테스트, 시간 배분 중 어디서 막혔는가? | 구체적인 실행 기록을 근거로 정리한 실패 유형 |
+| 한 가지를 바꿔 비교하기 | 새로 해결한 문제가 오히려 놓친 문제보다 많은가? | 같은 문제끼리 비교한 성공·실패 변화와 실제 실행 시간 |
 
 큰 실험을 시작하기 전에는 실제 하드웨어에서 소규모로 실행해 시간을 재 본다. 지출 한도, 중단할 오류 조건, 중간에 멈췄을 때 완료한 결과를 보관할 방법도 정한다. 설정 문제로 첫 과제조차 시작하지 못한다면 적은 문제로 원인부터 고쳐야 한다. 같은 실행 실패를 전체 과제에서 반복해도 모델의 문제 해결 능력을 알 수는 없다.
 
@@ -1400,16 +1401,16 @@ Paper Track에서는 순위와 별개로 실험에서 얻은 결과를 정리할
 
 baseline을 실행하기 전에 모든 논문을 읽을 필요는 없다. 지금 궁금한 내용에 맞춰 아래 자료를 골라 보면 된다. 처음 읽는 논문에서는 대표 점수보다 어떤 문제를 풀었고, 시스템을 어떻게 구성했으며, 어떤 조건에서 평가했는지부터 살펴보자. GitHub에서는 기능 목록보다 실행 루프와 실제 도구 요청·응답 예제 하나를 읽는 편이 동작을 이해하는 데 도움이 될 수 있다.
 
-| Your next question | Suggested primary reading | What to look for |
+| 궁금한 내용 | 먼저 읽을 자료 | 읽으면서 확인할 점 |
 |---|---|---|
-| How did code evaluation become repository evaluation? | [HumanEval/Codex paper][humaneval-paper] (2021), then [SWE-bench][swebench-paper] (2023/ICLR 2024). | What the system receives, what it must generate, and what execution actually checks. |
-| What makes a model into an agent? | [ReAct][react-paper] (2022/ICLR 2023), then [mini-SWE-agent's code][mini-code] (project released 2025). | The next-action loop and how an observation changes subsequent input. |
-| Does a more complicated agent necessarily work better? | [SWE-agent][sweagent-paper] and [Agentless][agentless-paper] (2024). | Which interface or workflow components were changed in a comparison. |
-| How are model decisions connected to a runtime? | [OpenHands][openhands-paper] (2024/ICLR 2025) and its [repository][openhands-code]. | Boundaries among actions, observations, state, and execution. |
-| What would adapter training require? | [LoRA][lora-paper] (2021), followed by [SWE-Gym][swegym-paper] (2024/ICML 2025) and its [code][swegym-code]. | Parameter updates versus training signals, and why executable training episodes matter. |
-| What does "local Gemma" mean in practice? | Google's [launch article][gemma-launch], [model card][gemma-card], and [AI Edge article][gemma-edge] (2026). | The particular model size, format, hardware, and demonstrated workload. |
-| Why does serving need more memory than the weights? | [PagedAttention][pagedattention-paper] (2023) and [vLLM][vllm-code]. | Persistent model weights versus sequence-dependent attention state. |
-| How does benchmark success relate to developer productivity? | METR's [2025 study][metr-2025] together with its [2026 update][metr-2026]. | Who was studied, how time was measured, and which conclusions the design supports. |
+| 코드 생성 평가는 어떻게 저장소 수정 평가로 넓어졌을까? | [HumanEval/Codex 논문][humaneval-paper] (2021), 이어서 [SWE-bench][swebench-paper] (2023/ICLR 2024) | 시스템의 입력과 출력, 실행 평가에서 실제로 검사하는 동작 |
+| 모델에 무엇을 더해야 에이전트가 될까? | [ReAct][react-paper] (2022/ICLR 2023), 이어서 [mini-SWE-agent 코드][mini-code] (2025년 공개) | 다음 행동을 정하는 반복 과정과 도구 실행 결과가 이후 입력에 반영되는 방식 |
+| 에이전트를 복잡하게 만들면 더 잘할까? | [SWE-agent][sweagent-paper]와 [Agentless][agentless-paper] (2024) | 비교 실험에서 바꾼 인터페이스나 작업 절차 |
+| 모델이 고른 행동은 어떻게 실제로 실행될까? | [OpenHands][openhands-paper] (2024/ICLR 2025)와 [코드 저장소][openhands-code] | 행동 요청, 도구 반환값, 상태 관리, 실제 실행이 나뉘는 지점 |
+| adapter를 학습하려면 무엇이 필요할까? | [LoRA][lora-paper] (2021), 이어서 [SWE-Gym][swegym-paper] (2024/ICML 2025)과 [코드][swegym-code] | 가중치를 바꾸는 방식과 학습 신호의 차이, 명령과 편집을 실제로 실행할 수 있는 학습 환경이 필요한 이유 |
+| Gemma를 직접 실행한다는 것은 구체적으로 무엇을 뜻할까? | Google의 [발표 기사][gemma-launch], [모델 카드][gemma-card], [AI Edge 글][gemma-edge] (2026) | 사용한 모델의 크기·형식, 하드웨어, 실제로 실행한 작업 |
+| 가중치를 올리고도 추가 메모리가 필요한 이유는 무엇일까? | [PagedAttention][pagedattention-paper] (2023)과 [vLLM][vllm-code] | 계속 유지되는 모델 가중치와 입력 시퀀스에 따라 달라지는 attention 상태의 차이 |
+| 벤치마크 성능과 실제 개발 생산성은 어떤 관계일까? | METR의 [2025년 연구][metr-2025]와 [2026년 후속 설명][metr-2026] | 연구 대상, 작업 시간의 측정 방식, 그 실험으로 판단할 수 있는 범위 |
 
 위 자료는 배경을 이해하기 위한 것이다. 구현 범위, 참가 자격, 제출 조건은 아래 대회 자료를 기준으로 확인한다.
 
