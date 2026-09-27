@@ -8,7 +8,6 @@ math: true
 mermaid: false
 image:
   path: /assets/img/casmi-2026-guide/hero.png?v=af0e6fe7c947
-  alt: "A restrained adaptation of the official Enveda CASMI molecular header"
 pin: false
 published: true
 permalink: /posts/CASMI-2026-From-Mass-Spectra-to-Molecular-Structures/
@@ -40,6 +39,10 @@ article .content mjx-container[display="true"] {
 }
 article .content .casmi-figure {
   margin: 2rem 0 2.2rem;
+}
+article .content .casmi-figure > a.img-link {
+  display: block;
+  width: 100%;
 }
 article .content .casmi-figure img {
   display: block;
@@ -76,10 +79,10 @@ article .content table:not(.rouge-table) td {
   padding: 0.65rem 0.8rem;
   vertical-align: top;
 }
-article .content .casmi-cover-credit {
+article .content .casmi-note {
   color: var(--text-muted-color);
-  font-size: 0.8rem;
-  line-height: 1.6;
+  font-size: 0.86rem;
+  line-height: 1.65;
 }
 @media (max-width: 600px) {
   article .content .table-wrapper { overflow-x: auto; }
@@ -91,89 +94,72 @@ article .content .casmi-cover-credit {
 
 [한국어판 읽기]({{ site.baseurl }}/posts/CASMI-2026-From-Mass-Spectra-to-Molecular-Structures-KR/)
 
-<p class="casmi-cover-credit">Cover adapted from the official Enveda CASMI 2026 Kaggle header, with restrained color and background adjustments. The molecular model in the cover is separate from the eugenol example calculated below.</p>
+## Start here: molecular identification as a constrained ranking problem
 
-## Start here: what are we trying to identify?
+[Enveda CASMI 2026][competition] asks us to infer molecular connectivity from tandem mass spectra. A submission must return up to 25 ordered SMILES for each unknown molecule. The evaluation rewards the rank of the first structure whose tautomer-canonical InChIKey14 matches the answer. This is an inverse problem with three coupled difficulties: the observations depend on experimental conditions; different structures can produce similar fragments; and the correct structure may be absent from the candidate database.
 
-Imagine that a laboratory detects an interesting substance in a plant extract. The instrument can measure ions made from that substance and the smaller ions produced when it fragments. The scientist still has a harder question: **which arrangement of atoms produced those measurements?** Answering it connects a chemical signal to a substance that can be studied further—for example, in metabolism, environmental analysis, or drug discovery.
+The practical system is therefore a combination of **candidate retrieval, learned spectral or structural representations, candidate ranking, and—in some cases—structure generation**. The scientific objective of CASMI (*Critical Assessment of Small Molecule Identification*, begun in 2012) is to evaluate how far identification can proceed beyond exact reference matching. The engineering objective is to turn those methods into one offline notebook that handles unknown molecules within the execution limit. [Overview][competition] · [Data][data]
 
-[Enveda CASMI 2026 — Molecule ID From Mass Spectra][competition] turns that identification problem into a Kaggle competition. CASMI means *Critical Assessment of Small Molecule Identification*, an effort that began in 2012. The task here is to turn several tandem mass spectra, or **MS/MS spectra**, of an unknown molecule into an ordered list of at most 25 possible molecular structures. We write structures as **SMILES**, a text representation of atoms and bonds. The score rewards finding the correct structure and placing it early in the list.
+This article assumes undergraduate-level familiarity with probability, optimization, and basic chemistry. We use public experimental **Caffeine** spectra to follow the actual data representation, and **Eugenol/Isoeugenol** to examine same-formula ambiguity. Calculated examples are identified as such; no model scores are inferred from a diagram. Sections 1–6 establish the task and physical evidence, Sections 7–10 develop the modeling choices, and Sections 11–15 connect structure-level OOF validation to training budgets and submission-time model selection.
 
-The scientific motivation is broader than recognizing compounds already measured in a reference library. Some test molecules have a public reference spectrum; others have a known structure but no public spectrum; others are absent from the specified public structure databases. A useful identification system has to make progress as those sources of prior knowledge disappear. That is why this competition connects database search, machine learning, and chemical reasoning. [Competition overview][competition] · [Data description][data]
+The central project question is: **which additional model, candidate source, or observation improves held-out molecular ranking enough to justify its marginal inference cost?** A strong standalone model can be redundant in an ensemble. A weaker model can be valuable if it resolves different molecules. And neither helps a molecule whose correct structure was removed by candidate construction. The public landscape and project status in Section 12 are dated September 27, 2026; the experimental designs that follow are proposals, not newly measured improvements.
 
-### What do we build, submit, and receive back?
+## 1. Inputs and outputs: follow three actual measurements
 
-We build an **inference pipeline**: a sequence of operations that reads the spectra, proposes possible structures, scores the evidence for each, and returns a ranked list for every molecule. A trained neural network can be part of that pipeline, but so can a spectral library, a database index, and a model that combines several scores.
+The prediction unit is a **molecule**. Multiple rows sharing a `molecule_id` produce one ranked SMILES list. The official hidden-test description specifies approximately 1,500 spectra from about 400 molecules, 1–16 spectra per molecule with a median of 3, measured on Bruker timsTOF. [Data description][data]
 
-| Stage | What happens | What it tells us |
-|---|---|---|
-| Development | Use labeled training spectra and permitted external resources to build and test the pipeline. | Whether a method works on our chosen held-out molecules. |
-| Submission | Save and run a notebook version with the required offline inputs, then select that version for a competition submission. | Which complete procedure Kaggle will run. |
-| Hidden evaluation | Kaggle reruns the notebook on hidden spectra; it writes one ranked SMILES list per molecule to <code>submission.csv</code>. | How the procedure handles unknown inputs. |
-| Leaderboard | The public portion provides feedback during the competition; the private portion determines the final ranking. | Performance on those evaluation molecules, under the competition's matching rule. |
-
-These stages explain an easy source of confusion. The downloadable test file is a practice input drawn from training data. Producing a good-looking answer for it checks execution and formatting. A local validation score comes from a separate experiment we design. A leaderboard score comes from Kaggle's hidden evaluation. We will use each for the question it can answer. [Data and evaluation][data]
-
-### The first milestone is one prediction we can explain
-
-For one held-out molecule, we want to follow the whole chain: **what the instrument observed → which structures entered the candidate pool → why one outranked another → what the evaluator accepted**. A *candidate pool* is the larger list we consider before selecting the final 25; a *ranker* is the rule or learned model that orders it.
-
-If the answer never entered that pool, a better ranker cannot recover it. If it entered but lost to a similar structure, adding millions of unrelated molecules may only make the decision harder. This distinction will guide the first experiment, our reading of public notebooks, and the choice of the next model.
-
-The article follows that chain. **Sections 1–3 explain the task and its score. Sections 4–6 introduce the physical chemistry and training data. Sections 7–11 build the modeling and validation ideas. Sections 12–16 ask where the public work stands, what to try first, and how the competition may develop.** Readers already familiar with mass spectrometry can skim the physical background; newcomers need not master every equation before understanding the project.
-
-Rules and public resources were checked on **September 27, 2026**. Public results, our reproduced baseline, and proposed experiments are identified separately. The outlook is an interpretation of the evidence available now, not a description of undisclosed leading solutions.
-
-**Useful starting sources:** the [overview][competition], [data description][data], and [official metric][metric] define the task. The [rules][rules] and [organizer welcome post][welcome] define resource conditions. For implementation, start with [Analog Propagation][analog-notebook] and [Two Rankers, One Engine][two-rankers]; Section 12 explains their place in the public work.
-
-## 1. Inputs and outputs: many observations, one candidate list
-
-The basic unit in CASMI is **a molecule, not a single spectrum**. Multiple test rows can share a <code>molecule_id</code>. We group them to produce one ranked answer.
+To see what this means numerically, use three publicly licensed **Caffeine** measurements from Eawag in MassBank: **EA030309, EA030311, and EA030312**. These are experimental HCD spectra acquired on an LTQ Orbitrap XL, not CASMI observations. The recorded precursor is `[M+H]+` at **m/z 195.0877**, and all three records identify the same connectivity key, `RYYVLZVUVIJVGH`. [30% record][caffeine30] · [60% record][caffeine60] · [75% record][caffeine75]
 
 <figure class="casmi-figure" id="casmi-fig-1">
-  <img src="/assets/img/casmi-2026-guide/molecule-to-ranking.png?v=94c17e4f6ffe" alt="Multiple spectra grouped by molecule identity become one ranked submission row" width="1475" height="1257" loading="lazy">
-  <figcaption><strong>Figure 1.</strong> The prediction unit in CASMI. Preserve each observation's conditions, combine evidence for the molecule, and deduplicate by the structure key to produce one ranked row. Three spectra are shown for illustration, not as a fixed observation count for every molecule.</figcaption>
+  <img src="/assets/img/casmi-2026-guide/molecule-to-ranking.png?v=ed87fd1490cb" alt="Caffeine measurements EA030309, EA030311 and EA030312, grouped into one example answer" width="1870" height="1354" loading="lazy">
+  <figcaption><strong>Figure 1.</strong> Three measured Eawag/MassBank Caffeine records and one illustrative output row. The peaks, record IDs and conditions are real; the local query ID and answer formatting are teaching examples. Nominal percent collision energy is not eV.</figcaption>
 </figure>
 
-According to the [official data description][data], the hidden test contains approximately 1,500 spectra from about 400 molecules. Each molecule has 1–16 spectra, with a median of 3, measured on a Bruker timsTOF. These are published descriptions of the hidden test, not statistics extrapolated from the downloadable example file.
+| MassBank record | Reported collision energy | Number of listed peaks | Intensity near m/z 195.0877 | Intensity near m/z 138.0662 | Intensity near m/z 110.0713 |
+|---|---|---:|---:|---:|---:|
+| EA030309 | 30% nominal | 2 | 1.0000 | 0.03693 | Not listed |
+| EA030311 | 60% nominal | 9 | 0.40994 | 1.0000 | 0.08968 |
+| EA030312 | 75% nominal | 11 | 0.10565 | 1.0000 | 0.21480 |
 
-The main columns can be read as follows. In practice, inspect the Parquet schema alongside the documentation.
+Intensities above were recalculated from the original signal values so each spectrum's base peak is 1. A peak not listed in a processed record is not proof of zero physical abundance. The original records, all peaks, and derivation metadata are available in the [shared example JSON](/assets/img/casmi-2026-guide/data/caffeine-massbank.json).
 
-| Information | Representative columns | Why it matters |
-|---|---|---|
-| Observations of the same molecule | <code>molecule_id</code> | Aggregate test spectra into one prediction |
-| Observation identity | <code>spectrum_id</code> | Trace processing for a particular spectrum |
-| Precursor information | <code>precursor_mz</code>, <code>adduct</code> | Estimate neutral mass and constrain candidates |
-| Fragment ions | <code>ms2_mzs</code>, <code>ms2_normalized_intensities</code> | Supply the main input to retrieval and prediction models |
-| Measurement conditions | <code>ionization_mode</code>, <code>instrument_type</code>, <code>collision_energy_ev</code> | Distinguish polarity, instrument, and collision energy |
-| Training targets and provenance | <code>normalized_smiles</code>, <code>inchikey</code>, <code>ingest_lib</code>, and others | Learn structures and analyze differences between sources |
+Here is the **complete two-peak record** from the 30% measurement, adapted to the relevant CASMI-style fields. The local IDs are illustrative; `source_collision_energy` is additional provenance, not an official competition column. Percent nominal energy cannot be relabeled as eV, so the eV field remains missing.
 
-<code>molecule_id</code> and <code>spectrum_id</code> are test identifiers. The training file inspected here lacks both columns, so training observations need to be grouped using identities calculated from their structures. Collision energy should not be assumed to be a single scalar in every row: inspect arrays and missing values.
+```python
+example = {
+    "molecule_id": "caffeine_demo",
+    "spectrum_id": "EA030309",
+    "precursor_mz": 195.0877,
+    "adduct": "[M+H]+",
+    "ionization_mode": "positive",
+    "instrument_type": "LC-ESI-ITFT",
+    "collision_energy_ev": None,
+    "source_collision_energy": "30% nominal",
+    "ms2_mzs": [138.0661, 195.0877],
+    "ms2_normalized_intensities": [0.0369303417, 1.0],
+}
+```
 
-### Follow one unknown molecule through the pipeline
-
-For a running example, imagine a molecule measured at several collision energies. We will use **eugenol and isoeugenol**, two structures with the same formula, to make the choices concrete. This is a teaching example, not an account of a hidden-test molecule; the numerical chemistry appears in Section 4.
-
-First, the precursor mass and its ion form restrict which neutral structures could fit. Next, library search asks whether a measured spectrum of one of those structures already exists. If no convincing reference match appears, the pipeline can use spectra from related molecules or predict structural features from the unknown spectrum. It might then predict the spectra that eugenol and isoeugenol would produce and ask which candidate better explains the observations.
-
-Finally, it combines the evidence across the molecule's measurements and orders the candidates. The output may contain both structures; their order matters. At each stage, there is a different question: **is the answer available, does the measurement distinguish it, and does our scoring method use that distinction?** We will return to those questions when interpreting public methods and designing experiments.
-
-### The submission CSV is simple; the work before it is not
-
-The output file is <code>submission.csv</code>, with columns <code>molecule_id</code> and <code>smiles</code>. The <code>smiles</code> field contains candidates in decreasing order of confidence, separated by semicolons.
+EA030311 and EA030312 would share `caffeine_demo` but keep their own peak arrays and conditions. An identification procedure must use those three observations to order **structures**, rather than emit three separate answers. Because Caffeine's identity is known in this teaching example, one possible illustrative output is:
 
 ```csv
 molecule_id,smiles
-demo_001,COc1cc(CC=C)ccc1O;COc1cc(C=CC)ccc1O
+caffeine_demo,Cn1c(=O)c2c(ncn2C)n(C)c1=O
 ```
 
-This illustrative row ranks eugenol first and isoeugenol second; it is not actual submission data. Filling all 25 positions is not mandatory, but retaining a sufficiently broad set of plausible answers matters. Repeating equivalent representations of the same structure wastes candidate slots.
+For an unknown molecule, the second field contains up to 25 candidates in decreasing confidence, separated by semicolons. The example demonstrates format and grouping, not a model's identification performance.
 
-### The downloadable test.parquet is not a performance benchmark
+| Information | Competition columns | Concrete interpretation |
+|---|---|---|
+| Query grouping | `molecule_id`, `spectrum_id` | Three Caffeine records become one answer; each observation remains traceable. |
+| Precursor | `precursor_mz`, `adduct` | 195.0877 with `[M+H]+` implies a neutral mass near 194.080424 Da. |
+| Fragment evidence | `ms2_mzs`, `ms2_normalized_intensities` | `[138.0661, 195.0877]` pairs with `[0.03693, 1.0]`. |
+| Conditions | `ionization_mode`, `instrument_type`, `collision_energy_ev` | Preserve polarity and instrument; do not invent an eV conversion. |
+| Training labels and source | `normalized_smiles`, `inchikey`, `ingest_lib` | Identify training structures and audit which libraries supplied their measurements. |
 
-The visible <code>test.parquet</code> is a **format-checking placeholder derived from training data**. Kaggle replaces it with hidden data during scoring. A high retrieval match rate on that file does not establish performance on unknown molecules. [Official data description][data]
+Training lacks the test ID columns in the file inspected here; derive training groups from normalized structures. Inspect the actual schema for energy arrays and missing values. Neither a known molecular formula nor a complete MS1 isotope envelope is supplied as a general test input.
 
-Use it to check that the columns can be read, results are grouped by molecule, and a CSV is produced for every ID. Measure predictive performance on a separate validation split. The **public leaderboard** also scores a hidden public portion of the test, not the downloadable placeholder.
+<p class="casmi-note">Data note: the downloadable <code>test.parquet</code> is a train-derived execution placeholder. Use it for I/O and runtime checks, and a separate molecular holdout for accuracy. Kaggle's public score comes from the hidden evaluation. See the <a href="https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/data">official data description</a>.</p>
 
 ## 2. MRR@25: finding the answer and putting it near the top
 
@@ -216,15 +202,15 @@ We therefore need to measure **whether the answer enters the candidate pool** se
 A retrieval pool of K = 1,000 and the final 25 candidates are different stages. If the answer is absent from the pool, the downstream ranker cannot recover it. If Recall@1,000 is high but the correct structure consistently ranks 50th, the final score remains low.
 
 <figure class="casmi-figure" id="casmi-fig-3">
-  <img src="/assets/img/casmi-2026-guide/candidate-diagnosis.png?v=c8b734cb5af1" alt="Three examples distinguish candidate-pool failure from ranking failure and successful top-25 retrieval" width="1475" height="1164" loading="lazy">
-  <figcaption><strong>Figure 3.</strong> Illustrative cases separating missing candidates from ranking errors. Both an absent answer and one ranked 50th give RR@25 = 0, but require different improvements. An answer at rank 2 contributes 0.5. These are per-molecule contributions, not measured model performance.</figcaption>
+  <img src="/assets/img/casmi-2026-guide/candidate-diagnosis.png?v=189117638ef7" alt="Eugenol and Isoeugenol candidate lists with reciprocal-rank calculations" width="1630" height="914" loading="lazy">
+  <figcaption><strong>Figure 3.</strong> Constructed candidate lists with Eugenol as the known answer. Omitting it gives zero, placing it behind Isoeugenol gives 0.5, and ranking it first gives 1. These lists separate coverage from ordering; they are not model results.</figcaption>
 </figure>
 
 ### What counts as the same molecule?
 
 The competition uses RDKit **2026.03.3** to canonicalize tautomers, then compares the first 14 characters of the InChIKey. **Tautomers** are related structural forms that differ in hydrogen placement and bonding. Canonicalization groups forms that the competition treats as equivalent. Using the first InChIKey block also means that stereochemical differences are not distinguished in the final match. [Official metric code][metric]
 
-This does not mean that matching the molecular formula is enough. Eugenol and isoeugenol have different keys. The E/Z stereoisomers of isoeugenol, however, share the connectivity used by this metric. The competition's answer definition is distinct from complete structural elucidation in a laboratory.
+This does not mean that matching the molecular formula is enough. Eugenol and Isoeugenol have different keys. The E/Z stereoisomers of Isoeugenol, however, share the connectivity used by this metric. The competition's answer definition is distinct from complete structural elucidation in a laboratory.
 
 <details markdown="1">
 <summary>Check it in code: scoring keys and candidate deduplication</summary>
@@ -268,30 +254,50 @@ Generated SMILES that fail parsing should first be recorded and excluded in a se
 
 </details>
 
-## 3. Three kinds of unknown molecule
+### Candidate coverage sets a ceiling, but does not determine the score
 
-“A molecule we have not seen before” can describe several different situations. The organizer's explanation and [classification clarification][metric-discussion] distinguish the following.
+If the final list is drawn only from pool $$C_u$$, the empirical score decomposes as
 
-| Type | Public reference spectra | Public structure databases | Main challenge |
+$$
+\begin{aligned}
+\operatorname{MRR@25}&=\widehat P(y_u\in C_u)\\
+&\quad\times\widehat E\!\left[\frac{\mathbf1\{r_u\leq25\}}{r_u}\;\middle|\;y_u\in C_u\right].
+\end{aligned}
+$$
+
+For example, 80% candidate coverage and conditional mean RR of 0.5 give MRR 0.40. Expanding the database to reach 90% coverage while extra distractors reduce conditional RR to 0.4 gives **0.36**. These are calculated values, not project results. Candidate expansion must be evaluated after reranking, with the changed pool reflected in both factors.
+
+
+## 3. Three kinds of unknown: remove information one layer at a time
+
+The organizer distinguishes molecules by the information available outside the query. A spectral library pairs measured peaks with known structures; a structure database can contain a molecular graph without any measured spectrum. [Class clarification][metric-discussion]
+
+| Type | Correct reference spectrum | Correct structure in public databases | Required ability |
 |---|---|---|---|
-| Class 1 | A spectrum of the correct structure is available | The structure is known | Recognize the molecule across measurement conditions |
-| Class 2 | No spectrum of the correct structure is available | The structure is available | Choose the known structure that best explains the observed spectrum |
-| Class 3 | Not available | The correct structure is absent from PubChem and COCONUT | Propose a structure outside those databases |
+| Class 1 | Available | Known | Match the same structure across measurement conditions. |
+| Class 2 | Unavailable | Available | Rank known structures without their own reference spectra. |
+| Class 3 | Unavailable | Absent from PubChem and COCONUT | Propose a structure outside those databases. |
 
-A **spectral library** stores a measured spectrum paired with a known structure. A **structure database** can list that structure without containing any MS/MS measurement of it.
+### A controlled Caffeine example
 
-As a rough analogy, Class 1 resembles matching a photograph taken under different lighting. In Class 2, we have a name and a drawing but no reference photograph. In Class 3, the object is missing even from the drawing catalog. The analogy is imperfect, but it explains why the cases require different tools.
+Hold **EA030312 (75% nominal CE)** as the query. We can change the available evidence while keeping that measured spectrum fixed:
 
-A pool constructed only from PubChem and COCONUT cannot retrieve a Class 3 answer. When the answer is absent from the fixed pool, structure generation or modification offers a way to propose it. That does not imply allocating all computation to generation from the beginning. Keep official information about class proportions separate from participant estimates, and weigh obtainable performance against computation cost.
+| Controlled setting | What the system receives | What success would demonstrate |
+|---|---|---|
+| Class 1-like | Keep EA030309 and EA030311 in the reference library and Caffeine in the candidate pool. | Retrieve Caffeine despite the energy-dependent changes in peak intensities. |
+| Class 2-like | Remove **all Caffeine reference spectra** and supervised Caffeine examples, but retain its graph among mass-compatible candidates. | Recover the structure using learned fragment/structural evidence or related molecules. |
+| Class 3-like candidate-exclusion test | Also remove Caffeine from every retrieval candidate source. | Generate its graph and place it high enough after candidate deduplication. |
 
-We now know what the system must return and how it is judged. The next question is where the measurements contain the evidence needed to choose that answer. We begin with how mass restricts candidates, then ask how fragment ions can help distinguish similar structures.
+**Caffeine is a known public molecule, so the third row is a controlled surrogate, not an example of an actual Class 3 test compound.** To make the second and third comparisons honest, exclusion must reach all relevant libraries and learned components; deleting two MassBank rows while leaving other Caffeine references would not suffice.
+
+The distinction changes what an experiment can conclude. Perfect ranking on a pool that contains every answer says nothing about generation. Conversely, excluding the answer from a Class 2 pool accidentally tests a harder problem. If a generator requires a molecular formula, that formula must also be inferred from available inputs: supplying the known `C8H10N4O2` is an oracle-formula diagnostic, not an end-to-end test.
 
 ## 4. How do we distinguish molecules with the same mass?
 
-Consider eugenol and isoeugenol. Both have the formula $$\mathrm{C}_{10}\mathrm{H}_{12}\mathrm{O}_{2}$$: ten carbon atoms, twelve hydrogen atoms, and two oxygen atoms. Because their atom counts are identical, their monoisotopic masses are identical too. Their structures can be inspected in PubChem's entries for [eugenol][eugenol] and [isoeugenol][isoeugenol].
+Eugenol and Isoeugenol are constitutional isomers with formula $$\mathrm{C}_{10}\mathrm{H}_{12}\mathrm{O}_{2}$$ and identical monoisotopic mass. Their side-chain bond connectivity differs. Their structures can be inspected in PubChem's entries for [eugenol][eugenol] and [isoeugenol][isoeugenol].
 
 <figure class="casmi-figure" id="casmi-fig-4">
-  <img src="/assets/img/casmi-2026-guide/isomers.png?v=dfebb3cde1f6" alt="Eugenol and isoeugenol: equal formula and exact mass, different connectivity" width="1785" height="1033" loading="lazy">
+  <img src="/assets/img/casmi-2026-guide/isomers.png?v=dfebb3cde1f6" alt="Eugenol and Isoeugenol: equal formula and exact mass, different connectivity" width="1785" height="1033" loading="lazy">
   <figcaption><strong>Figure 4.</strong> The double bond occupies a different position in the two molecules. Structures and masses were calculated from the SMILES below with RDKit 2026.03.3. The 14-character strings are structure keys obtained with the competition's normalization procedure.</figcaption>
 </figure>
 
@@ -319,8 +325,8 @@ from rdkit import Chem
 from rdkit.Chem import Descriptors, rdMolDescriptors
 
 structures = {
-    "eugenol": "COc1cc(CC=C)ccc1O",
-    "isoeugenol": "COc1cc(C=CC)ccc1O",
+    "Eugenol": "COc1cc(CC=C)ccc1O",
+    "Isoeugenol": "COc1cc(C=CC)ccc1O",
 }
 
 for name, smiles in structures.items():
@@ -330,8 +336,8 @@ for name, smiles in structures.items():
 ```
 
 ```text
-eugenol C10H12O2 164.083730
-isoeugenol C10H12O2 164.083730
+Eugenol C10H12O2 164.083730
+Isoeugenol C10H12O2 164.083730
 ```
 
 These values differ from the average molecular weight commonly shown in a composition table. **Exact mass** is calculated for a specified isotopic composition. Here we calculate **monoisotopic mass**, using the most abundant isotope of each element. This is the relevant quantity when working with small mass differences in high-resolution mass spectrometry.
@@ -346,7 +352,7 @@ $$
 m_{\mathrm{exact}}=\sum_e n_e\,m_e.
 $$
 
-Here, $$n_e$$ is the atom count and $$m_e$$ is the mass of the selected isotope. For eugenol, this gives:
+Here, $$n_e$$ is the atom count and $$m_e$$ is the mass of the selected isotope. For Eugenol, this gives:
 
 $$
 \begin{aligned}
@@ -356,7 +362,7 @@ m&=10(12)+12(1.007825032)\\
 \end{aligned}
 $$
 
-Two formulas with different atom counts can share the same integer mass and still differ in their decimal places. Eugenol and isoeugenol, however, have the same formula and cannot be separated this way, regardless of mass accuracy. **More accurate mass measurements constrain composition; they do not directly reveal the order in which atoms are connected.**
+Two formulas with different atom counts can share the same integer mass and still differ in their decimal places. Eugenol and Isoeugenol, however, have the same formula and cannot be separated this way, regardless of mass accuracy. **More accurate mass measurements constrain composition; they do not directly reveal the order in which atoms are connected.**
 
 Isotopes also produce additional spectral peaks. Replacing one $$^{12}\mathrm C$$ atom with $$^{13}\mathrm C$$ adds approximately 1.003355 Da. For ions with the same charge number $$z$$, the corresponding separation in $$m/z$$ is:
 
@@ -378,40 +384,20 @@ $$
 
 The letters denote atom counts; $$X$$ is the total number of halogen atoms such as F, Cl, Br, and I. Divalent oxygen does not appear explicitly in this expression. Relative to a saturated acyclic hydrocarbon, removing two hydrogens allows one ring or one double bond; a triple bond counts as two units.
 
-For eugenol, $$1+10-12/2=5$$. The benzene ring contributes four units—one ring and three double bonds—and the side-chain double bond contributes one. Isoeugenol has the same DBE. The quantity constrains possible structures but does not rank these two isomers.
+For Eugenol, $$1+10-12/2=5$$. The benzene ring contributes four units—one ring and three double bonds—and the side-chain double bond contributes one. Isoeugenol has the same DBE. The quantity constrains possible structures but does not rank these two isomers.
 
 **In CASMI, this knowledge can help check formulas and generated candidates.** It should not become a universal rejection rule for all ions and elements. Charge, radicals, and the multiple valence states of phosphorus and sulfur complicate the interpretation. [Kind and Fiehn's original work on formula filtering][golden-rules] discusses these limitations. Any chemical constraint needs a stated scope and a check on how often it incorrectly removes the true candidate.
 
-## 5. What does an MS/MS spectrum show?
+## 5. From measured peaks to a physical model
 
-A brief walk through the measurement process helps explain the input.
-
-1. **Separate the mixture.** Liquid chromatography (LC) separates components over time.
-2. **Form ions.** Ionization gives the molecules an electrical charge.
-3. **Select an ion.** A precursor ion with a mass-to-charge ratio of interest is selected.
-4. **Induce fragmentation.** Collisions transfer energy to the ion and produce fragment ions.
-5. **Measure the fragments.** The instrument records their peak positions and intensities.
-
-The result is a **tandem mass spectrum**, usually called MS/MS or MS2. CASMI provides these processed measurements in tabular form, so we do not start by processing raw LC data. [MassSpecGym][massspecgym] also describes the computational background and three representative tasks in this area.
+LC separates a mixture, ionization produces gas-phase ions, and a selected precursor fragments before its products are measured. CASMI starts from processed MS/MS peak lists, not raw chromatograms. A spectrum is a sparse pair of arrays: calibrated m/z and detected relative intensity.
 
 <figure class="casmi-figure" id="casmi-fig-5">
-  <img src="/assets/img/casmi-2026-guide/spectrum-anatomy.png?v=92ac36c4af8a" alt="A schematic MS/MS spectrum with peak positions and normalized intensities" width="1777" height="1001" loading="lazy">
-  <figcaption><strong>Figure 5.</strong> A synthetic spectrum illustrating how to read peaks. It is neither a measured spectrum of eugenol nor competition data.</figcaption>
+  <img src="/assets/img/casmi-2026-guide/spectrum-anatomy.png?v=36e95a2ad426" alt="Measured Caffeine HCD spectrum EA030312 at nominal collision energy 75 percent" width="1745" height="1048" loading="lazy">
+  <figcaption><strong>Figure 5.</strong> All 11 listed peaks in EA030312. The base peak is m/z 138.0662; 110.0713 and the residual precursor at 195.0878 have relative intensities 0.21480 and 0.10565. Source: Stravs, Schymanski and Singer, Eawag/MassBank, CC BY.</figcaption>
 </figure>
 
-The horizontal axis is $$m/z$$: ion mass divided by the magnitude of its charge number. The vertical axis gives relative detected intensity. The strongest peak is the **base peak**; the competition's normalized intensities set it to 1. Intensity is a detector signal, not a direct count of the number of distinct fragments.
-
-In software, a spectrum is closer to two arrays than to an image.
-
-```python
-# Synthetic values for illustration
-ms2_mzs = [77.04, 91.05, 123.08]
-ms2_normalized_intensities = [0.42, 1.00, 0.60]
-```
-
-Values at the same position in the two arrays describe one peak. The arrays can vary in length. We can bin peaks into fixed mass intervals to form a vector, or use a model that processes the peak list directly.
-
-The physical background below answers three practical questions: **what quantity was measured, why particular fragments appeared, and which conditions the model needs to retain**. On a first reading, focus on those questions; the equations make the assumptions more precise.
+For example, the full 30% Caffeine record contains `ms2_mzs = [138.0661, 195.0877]` and normalized intensities `[0.0369303417, 1.0]`; the 75% record in Figure 5 has eleven peaks. The strongest is the **base peak**. Array positions pair masses and intensities, but neither the peak count nor a maximum intensity of 1 measures identification certainty. The relevant physics explains which information survives this representation and which conditions alter it.
 
 ### How does an instrument read mass?
 
@@ -441,6 +427,8 @@ We receive peak positions that have already undergone this conversion. Nor shoul
 | Molar activation energy | Reaction barrier expressed per mole, for example kJ/mol | Match the units of <code>R</code> in the Arrhenius equation |
 | Relative intensity | Normalized signal within one spectrum, dimensionless | It does not give an absolute abundance ratio across spectra |
 
+For a numerical scale, an idealized singly charged 195 Da ion accelerated through 5,000 V over a 1 m path takes about **14.22 μs**. Doubling the ion mass increases that time by a factor of √2. These are chosen geometry/voltage values, not timsTOF operating specifications. CASMI already supplies calibrated m/z, so a model needs mass-error handling rather than a flight-time simulator.
+
 ### Precursor m/z is not the neutral molecular mass
 
 A mass analyzer uses electric fields to move and separate ions. The relevant question is therefore **which ionic form enters the instrument**. Electrospray ionization (ESI), widely used in LC-MS, forms gas-phase ions through processes involving charged droplets and solvent removal. It is sufficiently gentle to preserve intact molecular ions in many cases, but molecules differ in ionization efficiency and in the ionic forms they produce. [Agilent's LC/MS introduction][agilent-lcms]
@@ -466,9 +454,11 @@ Several examples for singly charged ions make the conversion concrete.
 | <code>[M+Na]+</code> | Approximately +22.989221 Da | Subtract 22.989221 from precursor m/z |
 | <code>[M-H2O+H]+</code> | Approximately −17.003288 Da | Add 17.003288 to precursor m/z |
 
-If eugenol is observed as <code>[M+H]+</code>, its precursor m/z is approximately 165.091006. Treating that as the neutral mass would cause retrieval to miss the answer. The 1.007276 in the table is also the **proton mass**, not the neutral hydrogen-atom mass of 1.007825. Their difference is approximately one electron mass, 0.000549 Da, or about 3.3 ppm near 164 Da. That matters for a narrow mass window. These are mass-calculation conventions, not instructions to apply a blanket correction to measured peaks.
+If Eugenol is observed as <code>[M+H]+</code>, its precursor m/z is approximately 165.091006. Treating that as the neutral mass would cause retrieval to miss the answer. The 1.007276 in the table is also the **proton mass**, not the neutral hydrogen-atom mass of 1.007825. Their difference is approximately one electron mass, 0.000549 Da, or about 3.3 ppm near 164 Da. That matters for a narrow mass window. These are mass-calculation conventions, not instructions to apply a blanket correction to measured peaks.
 
 Thus even the first step of finding nearby masses requires adduct interpretation. The [data description][data] covers positive and negative ions and water-loss forms; an [update announcement][train-update] also describes corrected water-loss annotations in the training data.
+
+The Caffeine precursor gives a direct check: **195.0877 − 1.0072764666 = 194.0804235334 Da**, consistent with the source's rounded neutral exact mass of 194.0804. A 5 ppm neutral-mass window here is about ±0.0009704 Da. Misreading the adduct as `[M+Na]+` instead shifts the inferred neutral mass by nearly 22 Da; increasing a ppm tolerance cannot repair that categorical error.
 
 ### Where the proton sits can change fragmentation
 
@@ -477,6 +467,8 @@ The notation <code>[M+H]+</code> tells us that a proton has been added, but does
 This also brings in **resonance and conjugation**. Delocalizing charge over several atoms can stabilize a fragment ion. The existence of a stable fragment, however, does not guarantee a pathway that produces much of it within the observation time.
 
 For CASMI, ignoring polarity and adducts would combine different physical processes into one target spectrum for the same neutral structure. A structure-to-spectrum model should use the available measurement conditions, and its limitations should be checked for adducts outside its training support. Solution-phase acidity alone is also insufficient to determine the protonation site of a gas-phase ion.
+
+For a candidate with two plausible protomers, a conditional spectrum model could represent the observation as a mixture, $$p(s\mid c,\theta)=\sum_h p(s\mid c,h,\theta)p(h\mid c,\theta)$$, where $$h$$ indexes protonation states. If two protomers emphasize different fragments, replacing them by one arbitrary protonation site can create a systematic residual. This is a modeling interpretation, not an assertion that the public FPNet explicitly enumerates protomers. In practice, begin by separating supported positive/negative adduct conditions and inspecting their held-out errors.
 
 ### Collision energy is not energy deposited directly into one bond
 
@@ -496,13 +488,15 @@ Here, $$E_{\mathrm{lab}}$$ means **the total kinetic energy of the ion**. If an 
 
 The same 20 eV label on different instruments therefore need not describe identical physical conditions. Collision energy is a useful input, but it should be interpreted with instrument and ion information. Filling missing energy values with zero would also confuse an unknown measurement with the absence of supplied energy.
 
+Our measured records make the units issue concrete: **30%, 60%, and 75% nominal HCD energy** are source settings, not 30, 60, and 75 eV. They support within-series comparison on the same instrument; they cannot calibrate the hidden timsTOF energy scale by numerical equality. A condition encoder should distinguish unit convention and missingness, or use a checkpoint's documented preprocessing when that metadata cannot be supplied.
+
 ### Which fragments become abundant? Stability and reaction rates
 
-Would cutting every bond in a structure once reproduce its spectrum? No. A fragmentation pathway must cross an **activation barrier** and proceed within the observation time. Some pathways involve hydrogen transfer or structural rearrangement. Average bond dissociation energies for neutral molecules cannot simply rank all possible dissociation routes of an ion.
+Single bond-cut enumeration cannot reproduce an ion spectrum: a fragmentation pathway must cross an **activation barrier** and proceed within the observation time. Some pathways involve hydrogen transfer or structural rearrangement. Average bond dissociation energies for neutral molecules cannot simply rank all possible dissociation routes of an ion.
 
 <figure class="casmi-figure" id="casmi-fig-6">
-  <img src="/assets/img/casmi-2026-guide/fragmentation-pathways.png?v=dc4c1a36ec21" alt="Schematic reaction-energy profiles comparing barrier height and product stability" width="1705" height="1094" loading="lazy">
-  <figcaption><strong>Figure 6.</strong> Two schematic dissociation pathways. Path B can lead to a lower-energy product while crossing a higher barrier. Observed abundance also depends on accessible states, reaction time, and secondary fragmentation. These are not calculations for a particular molecule.</figcaption>
+  <img src="/assets/img/casmi-2026-guide/fragmentation-pathways.png?v=9d479ddc90a0" alt="Calculated precursor and product populations for two competing first-order pathways" width="1787" height="1046" loading="lazy">
+  <figcaption><strong>Figure 6.</strong> Analytic populations for kA = 3,000 s⁻¹ and kB = 1,000 s⁻¹, starting from P = 1. Rates are fixed and products do not react further. This numerical example is not fitted to Caffeine or any experimental spectrum.</figcaption>
 </figure>
 
 A simple kinetic example has two competing pathways from an excited precursor ion $$P^{+*}$$:
@@ -546,6 +540,8 @@ There is no need to implement an RRKM calculator before entering CASMI. The usef
 
 </details>
 
+Put numbers into the two-pathway example: $$k_A=3{,}000\ \mathrm{s}^{-1}$$ and $$k_B=1{,}000\ \mathrm{s}^{-1}$$. At 100 μs, the precursor fraction is **0.6703**, while A and B contain **0.2473 and 0.08242** of the initial population. At 1 ms these become **0.01832, 0.7363, and 0.2454**. If A's transmission/detection factor is 0.5 and B's is 1, their detected ratio is 1.5 rather than their formation ratio of 3. This is an analytic example with fixed rates and no secondary reactions, not a fit to Caffeine. It explains why instrument response and reaction time belong in interpreting an intensity target.
+
 ### Neutral losses: reading an undetected fragment from a mass difference
 
 When an ion fragments into a charged product and a neutral product, the charged product is normally the one detected. The mass difference between precursor and product can therefore provide evidence about the **neutral loss**.
@@ -571,9 +567,13 @@ These numbers are **calculated masses for neutral compositions**. A pair of peak
 In CASMI, we can compare neutral-loss lists alongside fragment $$m/z$$ lists, or calculate the fraction of peaks that a candidate's elemental composition can explain. These are useful features to test with other evidence before turning them into hard rejection rules. Mass calculations use the NIST tables above and the [nitrogen isotope table][nist-nitrogen].
 
 <figure class="casmi-figure" id="casmi-fig-7">
-  <img src="/assets/img/casmi-2026-guide/ion-mass-balance.png?v=e7b2f99040e9" alt="Mass bookkeeping from a neutral molecule to a charged precursor and a possible water loss" width="1475" height="1195" loading="lazy">
-  <figcaption><strong>Figure 7.</strong> A mass-balance example linking a neutral molecule, a protonated precursor, and a possible water-loss fragment. Atom composition and charge balance have been checked; this does not establish that the pathway is observed for eugenol. Directly interpreting peak separation as neutral-loss mass requires the same single charge.</figcaption>
+  <img src="/assets/img/casmi-2026-guide/ion-mass-balance.png?v=792453beb8e8" alt="Measured Caffeine peak differences compared with neutral formula masses" width="1636" height="1027" loading="lazy">
+  <figcaption><strong>Figure 7.</strong> Measured peak separations in EA030312 and calculated neutral masses. The ion formulas are tentative annotations from the source. Agreement in composition does not establish sequential fragmentation or identify the atoms lost.</figcaption>
 </figure>
+
+Now use the measured **EA030312** peaks. The source tentatively assigns 138.0662 to `C6H8N3O+` and 110.0713 to `C5H8N3+`. Their difference is **27.9949 Da**, agreeing with the calculated CO mass **27.994915 Da**. The residual precursor peak at **195.0878** minus 138.0662 gives **57.0216 Da**, consistent with neutral `C2H3NO` at **57.021464 Da** and with the source's tentative ion formulas. The selected-precursor metadata are 195.0877; using those instead gives 57.0215, so we must specify which value is subtracted. [Measured record and tentative annotations][caffeine75]
+
+These agreements constrain elemental bookkeeping. They do **not** show that 195 → 138 → 110 is a sequential mechanism, locate the departing atoms, or exclude rearrangements. A model can use both peak-pair residuals as features without pretending they are proved reaction edges.
 
 ### Resolving power and mass accuracy describe different properties
 
@@ -587,13 +587,15 @@ $$
 
 CASMI's <code>ms2_mzs</code> contains peak locations, not a raw peak profile and FWHM for every peak. Many decimal places do not establish measured resolving power. When comparing libraries, use available labeled data to examine precursor and fragment error distributions separately and choose matching tolerances accordingly.
 
+At m/z 200, $$R=30{,}000$$ corresponds to a **0.00667** FWHM, whereas a 5 ppm centroid error is **0.00100**. One number describes a peak's width, the other its displacement. Similarly, fixed 0.01-wide bins can merge distinct nearby peaks; a sparse peak matcher can retain their exact positions. Choose resolution and tolerance from the processing task and measured error distributions, rather than equating decimal precision with instrument resolution.
+
 ### Different collision energies ask different questions about the structure
 
 At lower energies, a molecule may retain more precursor and larger fragment ions. At higher energies, further dissociation can produce smaller fragments. An intermediate fragment can first become more abundant and then decline as it fragments again.
 
 <figure class="casmi-figure" id="casmi-fig-8">
-  <img src="/assets/img/casmi-2026-guide/collision-energy-series.png?v=ad3124ac9723" alt="Three synthetic MS/MS spectra illustrating changes with collision energy" width="1840" height="1539" loading="lazy">
-  <figcaption><strong>Figure 8.</strong> Conceptual spectra for one hypothetical molecule at different energies. Each panel is normalized independently to a maximum intensity of 1, so the vertical axes cannot compare total ion abundance across conditions. These are neither measurements nor model predictions for a real substance.</figcaption>
+  <img src="/assets/img/casmi-2026-guide/collision-energy-series.png?v=aaebd6730dce" alt="Measured Caffeine spectra at nominal HCD energies 30, 60 and 75 percent" width="1840" height="1533" loading="lazy">
+  <figcaption><strong>Figure 8.</strong> EA030309, EA030311 and EA030312 from the same LTQ Orbitrap XL series. Each record is normalized independently; vertical values compare relative spectral shapes, not total ion abundance. Eawag/MassBank, CC BY.</figcaption>
 </figure>
 
 A candidate that explains large fragments at low energy may differ from one that explains smaller fragments at high energy. Agreement across conditions can provide stronger evidence. However, treating nearly duplicate spectra from similar conditions as independent evidence can exaggerate confidence.
@@ -605,6 +607,10 @@ $$
 $$
 
 This preserves the relative shape within a spectrum but removes the absolute intensity scale. Even when <code>base_peak_intensity</code> is supplied separately, it cannot directly represent concentration or prediction confidence without accounting for amplification, ionization efficiency, injection amount, and other effects. Both a sparse spectrum and a rich spectrum can have a maximum normalized peak of 1.
+
+In the actual series, the 138 peak changes from **0.03693 → 1.0000 → 1.0000**, the residual precursor from **1.0000 → 0.40994 → 0.10565**, and the 110 peak from **unlisted → 0.08968 → 0.21480**. These are separately normalized relative signals, not ion yields. The 30% record mainly constrains precursor survival and one fragment; the 75% record contains 11 listed peaks and more fragment evidence. A merged spectrum loses that distinction unless energy-specific observations remain available.
+
+For aggregation, compare a mean over spectra with a mean over distinct condition groups. If one condition has ten near-duplicate measurements and another only one, an unweighted row mean gives the first condition ten times the influence. That may reflect sampling frequency rather than ten independent pieces of structural evidence.
 
 ### Turning the background into a prediction problem
 
@@ -619,15 +625,7 @@ The first term on the right asks whether a structure could plausibly produce the
 
 A forward model supplies evidence related to the first question. Spectral libraries and structure databases determine which candidates we compare. Preference for structures common in training can also introduce a bias resembling the second term. Validation should help distinguish **explaining a spectrum from merely preferring a familiar candidate**.
 
-| Physical-chemistry observation | Consequence for CASMI design |
-|---|---|
-| Isomers with the same formula have the same exact mass | Evaluate mass-based candidate coverage separately from structure ranking |
-| Ion composition and charge change measured mass | Preserve adduct-specific neutral-mass conversion and condition inputs |
-| Fragmentation involves competing and secondary pathways | Separate peak presence from intensity; avoid relying on one bond-cutting rule |
-| Neutral losses provide evidence about undetected products | Test fragment and neutral-loss scores together, without assigning a structure from one peak |
-| Instrument and energy change the signal from the same structure | Aggregate conditions explicitly and validate across instruments |
-| The maximum normalized intensity is always 1 | Keep relative spectral shape distinct from original measurement quality |
-| Only information actually supplied can be used | Check whether full MS1 isotope patterns, CCS, or retention time exist in the input |
+The Bayesian view also clarifies a concrete ambiguity. Eugenol and Isoeugenol pass the same exact-mass constraint; that constraint cannot change their relative odds. A fragment-pattern score can change the likelihood ratio, while a database-frequency feature changes a prior-like preference. On a source-shifted natural-product panel, the latter may fail even if the mass is perfect. Test this with an ablation on the **same candidates**, then examine which same-formula pairs change order.
 
 The input columns now have a physical meaning: they contain evidence gathered under particular conditions. Next we examine which molecules and instruments the training data cover, then connect that evidence to candidate retrieval and ranking.
 
@@ -659,6 +657,17 @@ Weighting every library in proportion to its row count can let the largest sourc
 
 The training file has two roles. Its measured spectra paired with known structures are immediately useful as search references, and those same pairs can train a model of the relationship between spectra and structures. This is why retrieval is a sensible first step even when a large training set is available.
 
+### Match the training weight to the evaluation unit
+
+Suppose one molecule contributes 20 spectra and another contributes 2. A row-averaged loss gives the first ten times the total weight, while MRR gives each molecule one vote. One possible correction is
+
+$$
+\mathcal L=\frac1U\sum_{u=1}^{U}\frac1{n_u}\sum_{i=1}^{n_u}\ell(s_{ui},y_u).
+$$
+
+This weights molecules equally while averaging their observations. Source balancing is an additional choice: equal molecule weights do not make chemical coverage or instrument coverage equal. Compare row sampling, molecule sampling, and source-stratified molecule sampling on the same held-out groups, and report both aggregate MRR and the timsTOF/natural-product-relevant subgroups. The source counts in Figure 9 describe sampling pressure; they do not establish the best weighting.
+
+
 ## 7. Build the candidate pool through retrieval and analogs
 
 **Library search** is a straightforward starting point. Compare the query with reference spectra of known structures, then retrieve the structures associated with similar measurements.
@@ -689,7 +698,7 @@ $$
 
 At 164.083730 Da, ±10 ppm corresponds to approximately ±0.001641 Da. This illustrates the scale of a mass tolerance; it is not a recommended optimum for this competition. A window that is too narrow can discard the answer because of measurement error or incorrect adduct handling. A wide window increases candidate counts and computation.
 
-Passing the mass filter makes a structure eligible for comparison; it does not identify it. Isomers such as eugenol and isoeugenol pass together.
+Passing the mass filter makes a structure eligible for comparison; it does not identify it. Isomers such as Eugenol and Isoeugenol pass together.
 
 ### Using spectra from related molecules: analog propagation
 
@@ -713,7 +722,13 @@ $$
 
 The approach can assign scores to structures without measured spectra. However, the closest spectrum need not come from the closest molecular structure. Analog support is therefore naturally treated as one source of evidence among several.
 
-Retrieving candidates does not finish the decision. If eugenol and isoeugenol both remain, we can next ask which structural features the unknown spectrum supports.
+### Calculate retrieval and analog support on concrete examples
+
+Using all listed peaks from the public Caffeine records, match peaks one-to-one within **10 ppm**, take square roots of base-peak-normalized intensities, and keep unmatched peaks in the vector norms. EA030312 versus EA030311 gives cosine **0.9268**; versus EA030309 it gives **0.3925**. The matching is unambiguous for these tiny records. These are reproducible similarities between measurements of the **same molecule**, not classification scores. Including the strong residual precursor partly explains the low similarity across 30% and 75%; removing it would define a different search policy to test.
+
+Cosine is a transparent worked example. The reproduced engine also uses entropy-based and adduct-shifted search channels. One of its analog features takes a **maximum** of spectral-similarity cubed times fingerprint Tanimoto, rather than the illustrative sum above. If two analog references give `(spectral similarity, Tanimoto)` values `(0.8, 0.6)` and `(0.7, 0.9)`, their supports are **0.3072 and 0.3087**, and the maximum is 0.3087. Summation would give 0.6159 and reward repeated related references differently. These assumed inputs show why aggregation is a modeling choice, not a probability identity.
+
+Retrieving candidates does not finish the decision. If Eugenol and Isoeugenol both remain, we can next ask which structural features the unknown spectrum supports.
 
 ## 8. Predict structural evidence for each candidate
 
@@ -754,6 +769,31 @@ We can combine these with a weighted sum or train a **ranker**, a model that ord
 
 Public notebooks such as [Two Rankers, One Engine][two-rankers] illustrate how these signals can be joined in one inference path. The useful questions are how candidates are formed and which features change their order.
 
+### From Bernoulli likelihood to the code's logit dot product
+
+Separate the terms that depend on a candidate from those common to a query:
+
+$$
+\begin{aligned}
+S_{\mathrm{FP}}(c)&=\sum_j f_j(c)\log\frac{p_j}{1-p_j}\\
+&\quad+\underbrace{\sum_j\log(1-p_j)}_{\mathrm{const.}}.
+\end{aligned}
+$$
+
+Thus a dot product of candidate fingerprint and predicted logits gives the same ranking under this scoring assumption. Clip probabilities or operate directly on finite logits for numerical stability. The reproduced engine uses such a dot product as one ranker feature; it is not a calibrated posterior over all structures.
+
+For a four-bit calculation, take $$p=[0.9,0.2,0.7,0.1]$$, candidate A = `[1,0,1,0]`, and B = `[1,1,0,0]`. Their full log scores are **−0.7905 and −3.0241**. The relative evidence comes from the two differing bits; shared bits cancel in the comparison. These are constructed bit vectors, not chemical annotations for Eugenol and Isoeugenol. In hashed fingerprints, a bit need not correspond uniquely to one named functional group, and related structures can remain hard to separate.
+
+### A ranker's objective is another modeling decision
+
+The public engine's pointwise classifiers learn candidate correctness, rather than optimizing MRR directly. A possible pairwise alternative for a correct candidate $$c^+$$ and a mass-compatible wrong candidate $$c^-$$ is
+
+$$
+\ell_{\mathrm{pair}}=\log\!\left(1+\exp[-(s(c^+)-s(c^-))]\right).
+$$
+
+A score margin of +1 gives loss **0.3133**, while −1 gives **1.3133**. Eugenol versus Isoeugenol is the kind of same-formula pair this objective should learn to order; a random 500 Da negative does not test that decision. The equation describes an alternative training objective, not the current HGB implementation. Queries whose correct candidate is absent require separate coverage accounting; they do not supply an ordinary positive–negative pair inside the pool.
+
 A fingerprint summarizes many structural features, but similar candidates may receive similar fingerprint scores. We can turn the question around: if each candidate were the answer, what spectrum should it produce?
 
 ## 9. Ask whether a candidate explains the observed spectrum
@@ -771,13 +811,13 @@ $$
 
 Here, $$\theta$$ collects measurement conditions such as adduct, collision energy, and instrument.
 
-Return to eugenol and isoeugenol. Mass cannot order them, but the agreement between each candidate's predicted fragments and the observation can add information. Improving **ranking within the same molecular formula** is a concrete reason to test a forward model.
+Return to Eugenol and Isoeugenol. Mass cannot order them, but the agreement between each candidate's predicted fragments and the observation can add information. Improving **ranking within the same molecular formula** is a concrete reason to test a forward model.
 
 Predicted spectra also contain errors. A mismatch between training and target instruments, adducts, or energies can cause the model to miss precisely the peaks that distinguish the candidates. A reasonable first comparison is therefore to add forward similarity as a feature and inspect the per-molecule rank changes.
 
 <figure class="casmi-figure" id="casmi-fig-10">
-  <img src="/assets/img/casmi-2026-guide/evidence-routes.png?v=7755eeda6c70" alt="Direct search, inverse fingerprint prediction and forward spectrum prediction as complementary evidence routes" width="1507" height="1318" loading="lazy">
-  <figcaption><strong>Figure 10.</strong> Three directions of evidence for candidate structures. Direct search compares measurements, inverse prediction estimates structural features, and forward prediction estimates the measurement a candidate would produce. This is not a performance comparison.</figcaption>
+  <img src="/assets/img/casmi-2026-guide/evidence-routes.png?v=75b1063f6c5d" alt="Measured spectral similarity alongside worked fingerprint and forward-prediction examples" width="1630" height="984" loading="lazy">
+  <figcaption><strong>Figure 10.</strong> Three numerical routes to candidate evidence. Direct search uses the measured Caffeine records; the four-bit predictions and forward intensities are explicitly constructed examples. The numbers are not a comparison of trained model performance.</figcaption>
 </figure>
 
 **What does each approach contribute, and where can it fail?** Comparing the three directions with analog propagation and generation clarifies what each experiment is testing.
@@ -800,6 +840,12 @@ As a **design example**, 400 molecules with 100 candidates and 3 observation con
 
 Evaluate added runtime and memory alongside MRR. A method that exceeds the execution limit cannot be used unchanged in the submission, even if it is accurate.
 
+### Separate measured evidence from a hypothetical model output
+
+Use the 75% Caffeine observation at `[138.0662, 110.0713, 195.0878]`: its normalized intensities are `[1.0000, 0.21480, 0.10565]`. Suppose a candidate-conditioned model predicts `[1.0, 0.20, 0.10]` at those masses and a competing prediction gives `[1.0, 0.02, 0.50]`. Both explain the base peak, but the second underpredicts the 110 fragment and overpredicts precursor survival. These **invented predictions** explain what rescoring compares; neither was generated by an actual checkpoint. A real score must also include missing/spurious peaks beyond this three-peak excerpt.
+
+Before testing a downloaded forward model, make its input contract explicit: supported adducts, whether it consumes eV or normalized energy, instrument conditioning, mass range, output bins, and training structures. A checkpoint trained for `[M+H]+` cannot automatically validate negative-mode rescoring. Likewise, a formula-conditioned method cannot be fed the test molecule's unknown formula without adding a formula-estimation stage.
+
 These routes still evaluate structures already proposed. If no database contains the answer, the system also needs a way to propose a new structure that explains the observations.
 
 ## 10. Molecules outside the database: the role of de novo generation
@@ -811,7 +857,7 @@ For Class 3, PubChem and COCONUT do not supply the correct structure. When our c
 A generated candidate must pass several different checks:
 
 1. **Can it be parsed?** Does RDKit accept the SMILES?
-2. **Does its mass and formula fit?** Is it consistent with precursor information?
+2. **Do its mass and formula fit?** Is it consistent with precursor information?
 3. **Is it chemically plausible?** Does it avoid inappropriate structures or bonding?
 4. **Does it explain the spectrum?** Does the fragment evidence support it?
 5. **Is its connectivity correct?** Does its scoring key match the target?
@@ -828,54 +874,61 @@ Before training a large generator, I want to determine whether candidate omissio
 
 Combining retrieval, prediction, and generation creates more ways to obtain a strong local score. We still need to distinguish learning to interpret new molecules from having already seen their answers. The next section defines a comparison that can separate those explanations.
 
-## 11. The most important preparation: did we actually hide the answer?
+### A concrete graph-edit example and its limit
 
-Validation matters as much as modeling here. One molecule can have multiple spectra, and the same structure can appear in several libraries.
+Take Isoeugenol, `COc1cc(C=CC)ccc1O`. Moving the side-chain double bond gives Eugenol, `COc1cc(CC=C)ccc1O`, without changing `C10H12O2`, exact mass, or DBE = 5. Both strings are valid, but their metric keys differ. This is a concrete example of proposing a missing candidate through graph editing; it does not establish which structure a measured spectrum supports. Withholding Eugenol from a known-structure benchmark creates a generation surrogate, not a newly discovered molecule.
 
-Suppose spectrum rows are split randomly. A molecule's 20 eV spectrum might enter training while its 40 eV spectrum enters validation. A strong result could then show recognition of an already seen structure under a different condition, rather than identification of an unseen structure.
+For formula-constrained search, evaluate the formula shortlist first. If it contains the correct formula for 90 of 100 queries, then at most those 90 can be recovered by a search strictly restricted to the shortlist. Graph validity, unique metric-key yield, exact-key recall, rank after fusion, and model-call count should be recorded separately. Increasing a beam from 100 to 1,000 strings can mostly add duplicates, so unique structures and exact recovery matter more than string count.
 
-That is a valid Class 1 question, but it does not answer the Class 2 or Class 3 question. Define the intended evaluation first.
+
+## 11. Structure-level OOF: what must be out of fold?
+
+**Out-of-fold (OOF)** predictions are generated for examples excluded from the corresponding model's training fold. They let us compare models and learn ensemble weights on predictions made without fitting those targets. OOF is a prediction protocol, not an ensemble architecture. Averaging several seeds trained on the same structures does not create OOF predictions. [Grouped cross-validation][groupkfold] · [Stacking][stacking]
+
+### One split must follow a molecule through the entire system
+
+Use the metric's normalized structure key as the group. All Caffeine spectra in our measured example belong to `RYYVLZVUVIJVGH`, so they enter the same outer fold even if their collision energies or source libraries differ. The same applies to a different SMILES or tautomer that canonicalizes to that key. A random row split would let a model train on one Caffeine spectrum and validate on another.
 
 <figure class="casmi-figure" id="casmi-fig-11">
-  <img src="/assets/img/casmi-2026-guide/validation-design.png?v=737879241d8a" alt="Spectrum-row splitting contrasted with holding out all spectra sharing a molecular structure key" width="1630" height="1212" loading="lazy">
-  <figcaption><strong>Figure 11.</strong> Illustrative structures A and B at two collision energies. Splitting rows can leave the same structure on both sides. The right panel holds out all spectra of A. For Class 2, exclude its reference spectra and supervised training labels while retaining its structure as a candidate.</figcaption>
+  <img src="/assets/img/casmi-2026-guide/validation-design.png?v=b60ae0c98424" alt="Caffeine query spectra, reference exclusion and retained structure candidates in a Class 2 holdout" width="1630" height="1023" loading="lazy">
+  <figcaption><strong>Figure 11.</strong> Apply one structure-key exclusion across all references and supervised stages. The query measurements remain prediction inputs, while the graph remains a candidate for Class 2. This is a split design using known records, not a completed validation result.</figcaption>
 </figure>
 
-### Class 2 validation treats structures and spectra differently
+For a Class 2-like comparison, the held-out molecule has three distinct roles. Its **query spectra** are available for prediction; its **reference spectra and supervised training targets** are unavailable; its **structure remains a permissible candidate**. Treating all three as one table and deleting the molecule everywhere silently changes the experiment into candidate exclusion.
 
-To approximate Class 2, first select evaluation structures and remove **all reference spectra of those structures** across every library. Exclude their structure labels from supervised fingerprint-model and ranker training as well.
+| Component | Treatment of an outer-held-out Caffeine structure | Reason |
+|---|---|---|
+| Reference spectral libraries | Remove every matching normalized key across libraries. | Prevent direct recovery from a withheld structure's reference spectrum. |
+| Fingerprint encoder and spectrum predictor | Exclude its supervised examples during fitting; audit fixed pretrained checkpoints separately. | A retrieval exclusion cannot undo memorization in model weights. |
+| Structure candidate database | Retain Caffeine for Class 2; remove it for a Class 3-like generation test. | Candidate availability defines the task. |
+| Ranker rows, calibration, ensemble weights, stopping thresholds | Fit without the outer fold. | Their labels and decisions are part of the learned pipeline. |
+| Masses and fingerprints computed from candidate structures | May include Caffeine as candidate-side information for Class 2. | A deterministic candidate descriptor is not an observed target spectrum. |
 
-However, **leave the correct structures in the candidate database**. That reproduces the situation where a structure is public but its measured spectrum is unavailable. For a Class 3 test, also remove the correct structure from the fixed retrieval pool and evaluate the generation path.
+### Base-model OOF is not an independent score for the stacker
 
-| Validation objective | Reference spectra of the target structure | Correct structure in the candidate pool | Ability being tested |
-|---|---|---|---|
-| Retrieval resembling Class 1 | Separate measurements allowed; identical observations excluded | Included | Recognition across measurement conditions |
-| Retrieval and ranking resembling Class 2 | Excluded across all libraries | Included | Interpretation of spectra from unseen structures |
-| Generation resembling Class 3 | Excluded | Excluded from the fixed retrieval pool | Proposal and ranking of new structures |
+For molecule $$u$$ in fold $$f(u)$$ and candidate $$c$$, let the OOF output of model family $$m$$ be
 
-Group structures using the same normalization procedure as the metric. Splitting by raw SMILES strings or excluding only the <code>enveda-np-examples</code> library is insufficient: the same structure can remain elsewhere. The [discussion of natural-product cross-validation][np-cv] identifies this issue directly.
+$$
+z_{u,c}^{(m)}=s_m^{(-f(u))}(\mathcal S_u,c).
+$$
 
-### Auxiliary models can also have seen the answer
+The superscript means that fitting excluded that fold. Store a candidate table indexed by **molecule key and candidate key**. Candidate A in one model's row 0 must not accidentally align with candidate B in another model's row 0. For models with different pools, explicitly form the union and encode a missing candidate; a rank-based score can assign zero support to an unreturned candidate rather than treating it as rank 1.
 
-Removing the answer from the retrieval library does not ensure that a pretrained model has never learned it. Consider fingerprint predictors, spectrum predictors, rankers, and calibration models.
+Suppose 5 folds contain 1,000 structures each. A fingerprint model makes OOF predictions for all 5,000. If a ranker then fits all 5,000 OOF candidate tables and we report its score on those same tables, the ranker has seen the evaluation labels. The encoder predictions were OOF; the complete pipeline was not.
 
-When a model's training-structure list is unavailable, its results can still help check functionality and compare alternatives. They are harder to interpret as generalization to entirely unseen structures. Record model provenance and training splits.
+A strict design uses an **outer structure split** to estimate the whole pipeline. Inside the outer training structures, generate inner-OOF encoder features to fit the ranker and any calibration. Refit the encoder on the outer training structures, run it on the outer held-out queries, and score those queries with the ranker that never saw their labels. Repeat for each outer fold. If ensemble weights are chosen from these outer predictions, reserve another untouched evaluation panel—or use another outer selection layer—to estimate the selected ensemble without tuning on its own reported result. The extra fitting cost is real; a smaller fixed development/selection/audit split can be a practical alternative.
 
-A stronger test can also hold out related scaffolds. Because that imposes a stricter condition than holding out identical structures, it is best interpreted as a separate robustness evaluation.
+Splitting a globally generated encoder-OOF table again for ranker CV is not automatically independent: encoders that produced ranker-training rows may have used the outer evaluation structures. Regenerate those features entirely within the outer training set. If calibration or a routing gate is learned from ranker scores, distinguish cross-fitted ranker outputs from encoder OOF features. An outer set preserved throughout still provides an independent evaluation of the complete procedure.
 
-### Inspect observation counts and individual molecules too
+Candidate generation must also be fold-correct. Measure retrieval as it actually runs. Injecting the known answer into each validation pool produces a useful **conditional ranking diagnostic**, but not an end-to-end MRR estimate.
 
-Giving validation molecules ten observations when the actual task supplies only a few can make performance look optimistic. Use the official range of 1–16 spectra per molecule and median of 3 as context for testing sensitivity to fewer observations. Those summary statistics do not reconstruct the full hidden-test distribution.
+### A numerical ensemble example
 
-Save more than a single mean score:
+Consider three held-out molecules. In this constructed example, model A ranks the true candidates at `[1, 2, 25]`, model B at `[2, 1, 25]`, and a candidate-aligned blend at `[1, 1, 25]`. Their MRR values are **0.5133, 0.5133, and 0.6800**. The blend result is an assumed outcome for the example, not something that can be deduced from true-answer ranks alone: actual fusion requires the scores or ranks of all competing candidates.
 
-- Whether the correct answer entered the pool, and its final rank.
-- Whether higher-ranked errors share the target formula, and which features favored them.
-- Results by adduct, observation count, mass range, and source.
-- Molecules improved or worsened by the new method.
-- Total runtime and the stage with the highest memory use.
+By contrast, a third model that returns exactly A's order adds no ranking information even if its standalone score is equally strong. On real OOF predictions, inspect both candidate-score dependence and **per-molecule reciprocal-rank changes**. Bootstrap molecules, not their repeated spectra. Report candidate Recall@K, MRR, Top-1, and subgroup results by adduct, mass, instrument/source, and number of observations. A scaffold holdout is a further stress test for chemical extrapolation, not a substitute for specifying the original task.
 
-Comparing methods on the same molecules makes small average differences easier to investigate. When retraining a ranker, check variation across random seeds. Resampling **molecules rather than spectrum rows** also aligns uncertainty estimates with the scoring unit.
+A public pretrained checkpoint with unknown training membership remains an important limitation. Calling the downstream split GroupKFold does not make the upstream representation independent. Record that result as evaluation with a fixed public model unless its relevant training exclusion is established.
 
 ## 12. Where does the public work stand now?
 
@@ -937,25 +990,118 @@ The next unresolved task is a trustworthy local comparison, especially for Class
 | [ICEBERG/GLACIER][ms-pred] | Candidate spectrum prediction and condition inputs | Can same-formula candidates be distinguished more reliably? |
 | [FOAM][foam] | Formula-constrained search and model-call budgets | Can useful new structures be proposed within limited computation? |
 
-## 13. Runtime and external resources: completing the inference system
+## 13. Train efficiently, then choose an ensemble that fits the submission budget
 
-This is a code competition. Kaggle reruns the notebook on hidden data, so creating a CSV for the visible placeholder is not sufficient. The official requirement is a **CPU or GPU notebook that runs without internet access, finishes within 9 hours, and writes <code>submission.csv</code>**. [Code requirements][competition]
+CASMI has the familiar Kaggle problem of selecting complementary models from held-out predictions, with an additional complication: different models can propose different candidate sets and share expensive intermediate computations. The objective is the **MRR of the final candidate order under a runtime and memory budget**, not the sum of standalone model scores.
 
-This rules out live PubChem queries or downloading weights during inference. Structure lists, weights, libraries, and packages need to be prepared in advance and attached as notebook inputs.
+### Three different clocks
 
-### Reducing computation in stages
+| Budget | What it includes | Practical consequence |
+|---|---|---|
+| Offline development | Model training, fold predictions, candidate construction, ranker training, and ensemble selection | A 9-hour inference limit is not a universal 9-hour limit on all prior training. |
+| Kaggle development GPU allocation | Account usage during development and version runs | Official guidance describes 30 hours per week, sometimes more depending on demand and resources. Check the actual allocation. |
+| One submitted notebook | Loading, preprocessing, search, any runtime fitting, inference, fusion, and CSV validation | Both CPU and GPU submissions must finish within **9 hours**, with internet disabled. |
 
-Use mass and adduct to restrict candidates, sort with fast scores, then apply expensive models to a narrower set. Cache query-independent quantities such as structural fingerprints and exact masses. Reuse shared calculations when multiple spectra evaluate the same candidates.
+These are separate constraints. The organizers have explicitly allowed training in a private external cloud environment and bringing the weights back to Kaggle. This does not permit publishing restricted competition data. [Code requirements][competition] · [Kaggle GPU allocation][gpu-quota] · [Host clarification][external-training]
 
-Caches also need provenance. Record the candidate list and normalization version used to produce them so that incompatible files are not combined. Measure data loading, index construction, and final CSV checks alongside model inference.
+As a **budget calculation**, three model families × five folds × two seeds × two GPU-hours per fit already require **60 GPU-hours**, before OOF feature generation or a final refit. Assuming each fit consumes two hours of the selected backend’s quota, under a 30-hour weekly allocation, that equals two full weekly allocations. Parallel GPUs reduce elapsed time but do not remove accelerator-hour cost. This is why validating a new representation on a fixed development panel before expanding to every fold and seed can matter more than shaving seconds off a CSV write.
 
-### Public availability and competition eligibility are different
+### What the reproduced engine actually ensembles
 
-External resources may be allowed, but code licenses, weight licenses, and training-data terms can differ. The organizers place conditions on resources that restrict commercial use or reproduction of winning solutions. Their [pretrained-model clarification][pretrained-rules] distinguishes appropriately licensed models trained on MassSpecGym from models derived from restricted resources such as NIST or METLIN.
+The current public-derived engine loads two FPNet views: a spectrum-level model and a merged-spectrum model. It also fits **16 pointwise gradient-boosting classifiers on one ranking table and 12 on another**, varying seeds and class priors. Their inputs contain 31 and 51 features respectively. Each group averages probabilities, then the two groups contribute mostly through a **0.88/0.12 blend of within-molecule normalized ranks**. This is not a blend of raw probabilities, and the shared-row seed ensembles do not establish whole-pipeline OOF validation. [Public engine lineage][evgen-notebook]
 
-An MIT license on a GitHub repository therefore does not establish that every linked checkpoint is suitable. Check the license and training provenance of the **exact weight file** being considered. In particular, an [earlier permission concerning CFM-ID][cfmid-general] is distinct from a [later question about the METLIN training provenance of CFM-ID 4's default models][cfmid-question]. The later question had no organizer response at this article's verification date.
+Those 28 small classifier fits currently occur during notebook execution, so their cost belongs to the submission budget. Serializing fitted classifiers beforehand could move that cost offline, but the exact data, versions, numerical behavior, and output equivalence would need checking. It is an optimization proposal, not a change already validated in this project.
 
-Competition data are subject to CC BY-NC terms and restrictions on redistribution outside participants. Derived datasets prepared for experiments also require attention to their sharing scope. Spectral figures in this article use synthetic values; only source-level aggregates are shown from training data. The governing references are the [competition rules][rules] and [organizer announcement][welcome].
+### Measure mixed CPU/GPU work before choosing a remedy
+
+Existing project logs provide a concrete scale. Both runs below processed the visible **1,213-spectrum / 400-molecule** input. They are execution measurements, not hidden-set accuracy or runtime guarantees.
+
+<figure class="casmi-figure" id="casmi-fig-12">
+  <img src="/assets/img/casmi-2026-guide/runtime-breakdown.png?v=7bbf3f0f3f47" alt="T4 and CPU notebook intervals from existing visible-input logs" width="1782" height="1183" loading="lazy">
+  <figcaption><strong>Figure 12.</strong> Existing notebook logs on 1,213 spectra and 400 molecules. Intervals combine multiple operations; in particular, MetFrag and GBM fitting are not timed separately. The setup segment is the rounded total less the reported intervals. These are visible-input measurements, not hidden-test forecasts.</figcaption>
+</figure>
+
+| Logged interval | T4 run, minutes | CPU run, minutes | What is actually included |
+|---|---:|---:|---|
+| Test loaded → MetFrag begins | 28.62 | 35.90 | Spectral channels and FPNet; not isolated GPU inference. |
+| MetFrag begins → 12 GBM fits complete | 9.66 | 13.59 | Fragment features **and fitting 12 GBMs**. |
+| 12 GBM fits complete → 16 GBM fits complete | 3.08 | 3.83 | Scoring in that route **and fitting 16 GBMs**. |
+| 16 GBM fits complete → submissions ready | 2.10 | 2.49 | Remaining scoring, deduplication, and submission-table construction. |
+| Reported elapsed time through CSV construction | **49.3** | **63.6** | Manifest elapsed time; excludes later manifest hashing/platform finalization. |
+
+A faster accelerator cannot eliminate CPU-side search, loading, or ranker fitting. Nor should we multiply the entire visible time by a spectrum-count ratio: setup is mostly fixed, spectral inference grows with observations, and candidate scoring grows with the number and density of candidates. The logs motivate finer profiling; they do not isolate the causal speedup of one component.
+
+### Where training compute is best spent
+
+Start with **structurally different model families** that might correct different mistakes: a spectral encoder, a forward predictor, and a ranker using independent evidence. First compare one controlled configuration of each under the same group split and data budget. For expensive training, use a smaller fixed screening panel, then promote only useful configurations to full folds and multiple seeds. Screening scores are selection evidence; retain an untouched audit set for the chosen system.
+
+Store candidate-aligned OOF predictions once for each fixed model, fold, and candidate policy. Weight searches and light ranker comparisons should reuse these outputs rather than retrain the encoder. Shared raw parsing and deterministic candidate descriptors can also be reused. Learned transformations, target-derived reference libraries, and supervised features must respect the fold boundary; caching them globally does not make them safe to share.
+
+Select epochs and early stopping without the outer evaluation labels. Compare improvements at a stated compute budget, including failed or discarded fits. If two extra seeds reproduce the same molecular errors while a new representation resolves them, the latter can be a better use of the next training allocation. The evidence is paired rank improvement, not architectural novelty.
+
+### OOF training does not require deploying every fold model
+
+Five-fold training leaves five checkpoints. At submission time, one can use all five, a validated subset, or one model refitted on all permitted training data. These choices trade inference cost against variance and training-set size. A full-data refit can also change score calibration. A ranker trained on one-fold OOF features may receive a different feature distribution from a five-model average; evaluate the deployment recipe, not only the existence of five checkpoints.
+
+Averaging all five global fold models on a validation molecule is not OOF: four may have trained on it. To evaluate the deployed ensemble, every contributing model must exclude the outer-held-out molecule.
+
+For illustration, with 400 molecules, three spectra each, and five fold replicas of each view, a single-spectrum plus merged-spectrum encoder uses approximately **5 × (1,200 + 400) = 8,000** sequence evaluations. A forward model applied to 100 candidates at all three conditions needs up to **5 × 400 × 100 × 3 = 600,000** candidate–condition evaluations. The operations differ in size, so their count ratio is not a speed ratio. If a measured, batch-amortized forward cost were 10 ms each, that forward stage alone would take 100 minutes. **The 10 ms is an illustrative assumption, not a measurement here.**
+
+### Model selection is a constrained portfolio problem
+
+For a serial execution schedule, write the cost as
+
+$$
+\begin{aligned}
+T(\mathcal M,g)&=T_{\mathrm{load}}+T_{\mathrm{shared}}\\
+&\quad+\sum_{m\in\mathcal M}T_m^{\mathrm{incremental}}(g)\\
+&\quad+T_{\mathrm{runtime\ fit}}+T_{\mathrm{output}}.
+\end{aligned}
+$$
+
+Shared candidate indices or encoder features count once. Incremental cost depends on which other models are already present and on the routing rule $$g$$. With parallel execution, measure the actual dependency path and contention instead of assuming the serial sum predicts wall time.
+
+The selection problem is then
+
+$$
+\begin{aligned}
+\max_{\mathcal M,w,g}\quad &\widehat{\operatorname{MRR}}_{\mathrm{selection}}
+\!\left(\operatorname{Fuse}_{w,g}(\mathcal M)\right)\\
+\text{subject to}\quad &\widehat T_{\mathrm{stress}}(\mathcal M,g)+\Delta\leq9\ \mathrm{h},\\
+&M_{\mathrm{peak}}\leq M_{\mathrm{available}}.
+\end{aligned}
+$$
+
+Here $$w$$ denotes fusion parameters, $$\Delta$$ a measured operational reserve, and the hat indicates an estimate. This does not guarantee performance on unseen workloads; explicit workload limits and complete-run tests are still needed. The selected system's final accuracy is assessed on the untouched audit split from Section 11.
+
+Consider this **constructed example**, where shared work costs 0.75 hours and incremental model costs are A = 2.0, B = 1.5, C = 4.5 hours. The MRR entries represent hypothetical results after actually fusing complete candidate lists; they are not averages of model scores.
+
+| Selected models | Hypothetical selection MRR | Total hours, including shared work | Fits an illustrative 8-hour working budget? |
+|---|---:|---:|---|
+| A | 0.340 | 2.75 | Yes |
+| B | 0.330 | 2.25 | Yes |
+| C | 0.350 | 5.25 | Yes |
+| A + B | 0.360 | 4.25 | Yes |
+| A + C | 0.365 | 7.25 | Yes |
+| A + B + C | 0.367 | 8.75 | No |
+
+With a chosen one-hour reserve, A + C wins among these options even though all three have the highest estimated MRR. The reserve is a design assumption, not a Kaggle rule. A + B is cheaper and could be preferable if workload uncertainty is larger. The ratio of incremental MRR to incremental time is a useful screening statistic, but interactions make greedy selection unreliable as a global optimizer.
+
+### Reduce computation where the model actually spends it
+
+For a fingerprint model, encode each observation once, then score candidate bit vectors against its logits. For a forward model, cache by **structure, supported condition, and model version**, then batch candidate inference. Reusing an unsupported energy or adduct silently changes the prediction problem. A candidate cap K = 100 can remove the answer that ranked 101st in the cheap stage; measure Recall@K before adopting that cap.
+
+Storage format matters too. A 711,705 × 6,930 binary fingerprint matrix occupies about **0.574 GiB bit-packed**, **4.59 GiB as uint8**, or **18.37 GiB as float32**, excluding overhead. Unpacking every candidate at once defeats the memory saving; scoring blocks should bound the working set. CPU thread oversubscription, repeated weight loading, and tiny GPU batches are separate profiling targets.
+
+A selective forward-model gate can use quantities available at inference—such as disagreement between rankers or a narrow score margin. It cannot use “the true answer currently ranks second.” Fix and validate the gate using held-out predictions, including errors on confidently wrong molecules. Stress-test large candidate pools, long peak lists, and molecules with many observations, and record peak RAM/VRAM and total wall time.
+
+A practical execution design first prepares a valid baseline for **every molecule**, then performs bounded expensive reranking. Candidate limits, beam limits, stopping rules, and fallback behavior are part of the evaluated model policy. A timeout workaround that changes which molecules receive which model can change accuracy; it is not merely an implementation detail.
+
+### External resources and reproducibility
+
+A code license does not establish the license or training provenance of linked weights. Check the exact checkpoint. The organizers' [pretrained-model clarification][pretrained-rules] distinguishes eligible resources from models derived from restricted data. An [earlier CFM-ID permission][cfmid-general] does not answer the [later CFM-ID 4/METLIN provenance question][cfmid-question], which remained unanswered at this article's check.
+
+Competition data have CC BY-NC terms and sharing restrictions. The public experimental spectra reproduced here come instead from the three **Eawag/MassBank CC BY records**, with their authors, original files, and transformations retained in the figure provenance. Only source-level aggregate counts are shown from competition training data. [Rules][rules] · [Organizer announcement][welcome]
 
 ## 14. How should the first experiment begin?
 
@@ -1034,6 +1180,15 @@ The following is a proposed sequence of milestones, not a promise that training 
 | Inspect the failures | Candidate misses, same-formula errors, and condition-specific regressions. | Which stage should change first? |
 | Test one change | Paired rank changes, MRR, candidate recall, and total runtime. | Is the new evidence useful enough to keep? |
 
+### Make the next comparison reproducible at the candidate level
+
+For the first forward-model comparison, freeze the query groups, reference exclusions, baseline candidate pool, and base scores. Save rows such as `(outer_fold, molecule_key, candidate_key, baseline_score, forward_score, is_correct)`, plus model/data hashes and condition support. Ground truth belongs in the evaluation table, never in inference-time routing. Preserve a sufficiently deep candidate list, not only the final 25, so fusion can promote candidates that individual models ranked lower.
+
+Generate fold-correct features, fit fusion on development/inner-OOF data, select its configuration on the selection panel, and assess the chosen pipeline on the untouched audit panel. Report **per-molecule ΔRR and aggregate ΔMRR, coverage changes, total and incremental runtime, and peak memory**. If the forward route recovers ten rank-2 answers but demotes ten rank-1 answers to second, its net change is zero before considering any other molecules. Counting recovered cases alone would hide the failure.
+
+This produces an OOF prediction bank for inexpensive combination searches and a measured deployment comparison. It gives a concrete decision: retain the new route, restrict it with a validated gate, or reject it and spend the next training budget elsewhere.
+
+
 ## 15. How I expect the competition to develop
 
 The public work already contains more than a simple spectral lookup: candidate expansion, learned structural features, and multiple ranking signals are available. My expectation is that the next useful gains will depend increasingly on **which uncertainty a method resolves**. The following are possible developments, not reports of undisclosed leading architectures.
@@ -1062,6 +1217,13 @@ A new well-documented candidate resource could change coverage. A permitted chec
 
 Each such event should lead to a specific comparison while preserving the previous control. My present bet is on a system that **knows when a library match is strong, distinguishes close candidates better, and spends expensive computation on the unresolved cases**. I would revise that bet if the held-out evidence showed that candidate coverage or generation, rather than ordering, accounted for most recoverable errors.
 
+### The likely bottleneck is evidence per unit of compute
+
+A plausible next phase is competition between candidate-aligned OOF ensembles, not simply the largest collection of checkpoints. A new encoder needs to show marginal benefit over existing representations; a forward predictor needs to resolve isomers after paying its candidate-by-condition cost; a generator needs to add accepted keys that fixed pools miss. For example, a route adding 0.002 MRR at four extra hours is a different deployment proposition from one adding 0.010 at twenty minutes. Those are hypothetical comparisons; only controlled measurements can place real methods on that curve.
+
+I would track the best independently checked MRR for each feasible runtime range, alongside candidate coverage and subgroup failures. A useful permitted checkpoint, a cheaper distillation, or a validated gate can change that frontier. Repeated leaderboard-only tuning cannot tell us whether the frontier moved or a small public subset was fitted more closely.
+
+
 ## 16. Dates and the first milestone
 
 
@@ -1082,7 +1244,7 @@ The first experiment should show **which molecules retrieval solves, which suffe
 
 The structure and mass calculations, scoring-key examples, and illustrative MRR calculation were checked with RDKit 2026.03.3. Isotope-mass sums, adduct and neutral-loss differences, DBE, and center-of-mass energy examples were also checked numerically. The Parquet example was checked on a small batch from the local training file.
 
-Reaction-energy profiles and spectra at different energies are conceptual illustrations, not experimental measurements or quantum-chemical calculations for a real molecule. The neutral-loss diagram is a mass-balance example; the input, evidence, error, and split diagrams summarize the explanation. All body figures can be regenerated from code, while the supplied official header was edited separately for the cover.
+The Caffeine figures reproduce Eawag/MassBank records EA030309, EA030311 and EA030312 by Stravs M, Schymanski E and Singer H (Department of Environmental Chemistry, Eawag; Copyright 2012 Eawag), each labeled **CC BY** in its source record, without a license version specified. Peak intensities were divided by the original base-peak signal; nominal collision-energy percentages were not converted to eV. Original files, source commit and hashes, transformations, and the plotting code are retained with the [figure provenance](/assets/img/casmi-2026-guide/README.md). The kinetics, candidate orders, four-bit predictions, forward outputs, and ensemble portfolio are labeled calculated or constructed examples. The runtime chart uses existing project logs. All 12 body figures are shared with the Korean edition. [30% source][caffeine30] · [60% source][caffeine60] · [75% source][caffeine75]
 
 The leaderboard distribution was calculated from the full public ranking downloaded on September 27, 2026, at 02:59:30 UTC. Six notebook scores and their version links were checked in the actual score panels that day. Team best scores were not substituted for notebook results; the comparison is not a component-level ablation. The project’s 0.342 comes from a baseline submission completed before this editorial revision.
 
@@ -1133,7 +1295,7 @@ Further reading, grouped by purpose:
 [agilent-lcms]: https://www.agilent.com/en/product/liquid-chromatography-mass-spectrometry-lc-ms/lcms-fundamentals/lcms-instrument-types
 [agilent-ionization]: https://www.agilent.com/library/technicaloverviews/Public/5990--7413EN.pdf
 [iupac-cid]: https://goldbook.iupac.org/terms/view/C01167/pdf
-[iupac-resolution]: https://www.old.goldbook.iupac.org/html/R/R05318.html
+[iupac-resolution]: https://goldbook.iupac.org/terms/view/R05318
 [golden-rules]: https://pmc.ncbi.nlm.nih.gov/articles/PMC1851972/
 [protonation-study]: https://pmc.ncbi.nlm.nih.gov/articles/PMC11492807/
 [masskinetics]: https://pubmed.ncbi.nlm.nih.gov/11312517/
@@ -1147,3 +1309,11 @@ Further reading, grouped by purpose:
 [evgen-notebook]: https://www.kaggle.com/code/evgendvorkin/enveda-casmi-2026?scriptVersionId=352813968
 [ahmed-v3]: https://www.kaggle.com/code/ahmedberatozer/casmi26-v3-inference?scriptVersionId=352190437
 [ahmed-v4f]: https://www.kaggle.com/code/ahmedberatozer/casmi26-v4f-inference?scriptVersionId=352983958
+
+[groupkfold]: https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GroupKFold.html
+[stacking]: https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.StackingClassifier.html
+[gpu-quota]: https://www.kaggle.com/docs/efficient-gpu-usage
+[external-training]: https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/741876#3525815
+[caffeine30]: https://github.com/MassBank/MassBank-data/blob/befc8a1e2f2aef899747797c081a5d80fab12fe7/Eawag/MSBNK-Eawag-EA030309.txt
+[caffeine60]: https://github.com/MassBank/MassBank-data/blob/befc8a1e2f2aef899747797c081a5d80fab12fe7/Eawag/MSBNK-Eawag-EA030311.txt
+[caffeine75]: https://github.com/MassBank/MassBank-data/blob/befc8a1e2f2aef899747797c081a5d80fab12fe7/Eawag/MSBNK-Eawag-EA030312.txt

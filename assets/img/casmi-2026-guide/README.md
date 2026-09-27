@@ -1,35 +1,49 @@
-# CASMI guide figures
+# CASMI guide figures and public example data
 
-Prepared for the English and Korean introductory posts on 2026-09-27.
+Prepared for the English and Korean posts on 2026-09-27. Both posts share the same twelve English-language figures and cover. Captions, alternative text, tables, and body prose are localized. Body image URLs include SHA256 prefixes.
 
-Both posts use this single set of English-language figures and the same cover; there are no language-specific image copies. Captions, alternative text, tables, and surrounding explanations are localized in each manuscript. The 23 displayed equations, seven code examples, and source URLs are kept in agreement. Image URLs include content hashes so local previews can distinguish revised assets from cached images.
+## Public experimental spectra
 
-## Cover
+The three Caffeine records are experimental HCD measurements on LTQ Orbitrap XL, with nominal collision-energy settings of 30%, 60%, and 75%. Percentages are not converted to eV. These are public MassBank examples, not CASMI train/test rows.
 
-- Final asset: `hero.png`.
-- Source: the user-supplied `/Users/pilkwang/Downloads/header.png`, identified by the user as the official Kaggle CASMI header. Competition: <https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra>.
-- Editing method: built-in image generation tool, with the local header as the edit target. The source file was not changed.
-- Changes requested: restrained saturation, softer background highlights and edge decoration, preservation of molecular composition and geometry. The cover is an editorial illustration; it is not the eugenol structure analyzed in the article.
-- No claim of ownership or independent licensing of the source artwork is made here.
+Authors: **Stravs M, Schymanski E, Singer H, Department of Environmental Chemistry, Eawag**. Copyright (C) 2012 Eawag, Duebendorf, Switzerland. Each original record states **CC BY**, without specifying a license version; no particular version is inferred here.
 
-Final editing prompt:
+- [EA030309, 30% nominal](https://github.com/MassBank/MassBank-data/blob/befc8a1e2f2aef899747797c081a5d80fab12fe7/Eawag/MSBNK-Eawag-EA030309.txt)
+- [EA030311, 60% nominal](https://github.com/MassBank/MassBank-data/blob/befc8a1e2f2aef899747797c081a5d80fab12fe7/Eawag/MSBNK-Eawag-EA030311.txt)
+- [EA030312, 75% nominal](https://github.com/MassBank/MassBank-data/blob/befc8a1e2f2aef899747797c081a5d80fab12fe7/Eawag/MSBNK-Eawag-EA030312.txt)
+- [MassBank LICENSE field documentation](https://github.com/MassBank/MassBank-web/blob/dev/Documentation/MassBankRecordFormat.md#215-license)
 
-> Use case: precise-object-edit. Edit target: the provided Kaggle CASMI official header image. Asset type: professional scientific blog cover, wide 2:1 landscape. Make a restrained, subtle editorial adjustment of this exact image. Preserve the central ball-and-stick molecule EXACTLY: all atom positions, bonds, colors and geometry, and preserve the existing composition and subject scale. Preserve the recognizable warm amber/orange character of the supplied artwork. Slightly reduce orange saturation and luminous bokeh intensity, soften the busy out-of-focus edge decorations, and make the background more understated with balanced contrast so the sharp molecule is clearly legible. The final result should look like a lightly refined version of the same official artwork, not a redesign. No new objects, no extra molecules, no text, no logos, no frame, no glitter, no futuristic additions. Opaque background. Keep molecule centered slightly right as in source; natural polished scientific editorial appearance.
+The `data/` directory contains the original three text records and `caffeine-massbank.json`, with all 22 listed peaks, tentative formula annotations, exact source URLs, original intensities, source-file SHA256 values, and metadata. Derived intensity = original intensity / maximum original intensity within that record. Original rounded 0–999 relative intensities are retained separately. The JSON's `collision_energy_ev` is null; the source percent setting has its own field.
 
-## Scientific figures
+EA030312's selected precursor metadata are 195.0877, while its observed residual precursor peak is 195.0878. The measured peak differences shown in Figure 7 use 195.0878. Formula annotations are tentative, and matching neutral masses do not prove sequential reaction pathways.
 
-`tools/casmi_2026_guide_figures.py` generates the eleven PNG/SVG pairs used in the article. It does not overwrite the cover. The figures use a white background, dark gray labels, muted blue-green and brown accents, and explicit captions distinguishing computed quantities, source aggregates, and schematic examples.
+## Figure evidence
 
-- `isomers`: molecular drawings and exact masses computed with RDKit 2026.03.3.
-- `spectrum-anatomy`, `collision-energy-series`: synthetic peaks for explanation.
-- `fragmentation-pathways`: arbitrary schematic energy curves.
-- `ion-mass-balance`: calculated mass bookkeeping; not an observed reaction assignment.
-- `molecule-to-ranking`, `evidence-routes`, `validation-design`: conceptual diagrams of the article's pipeline and evaluation design.
-- `reciprocal-rank`, `candidate-diagnosis`: exact metric arithmetic on illustrative ranks, not measured model results.
-- `training-sources`: previously audited local library-level aggregate counts. No raw competition spectra are included.
+`tools/casmi_2026_guide_figures.py` regenerates twelve PNG/SVG pairs without overwriting the cover.
 
-To regenerate the body figures in the author's environment:
+| Asset | Evidence and interpretation |
+|---|---|
+| molecule-to-ranking | Real three-record Caffeine spectra and metadata; illustrative local query ID and output formatting. |
+| reciprocal-rank | Exact metric arithmetic. |
+| candidate-diagnosis | Constructed candidate lists containing real Eugenol/Isoeugenol structures. |
+| isomers | Molecular graphs and masses calculated with RDKit 2026.03.3. |
+| spectrum-anatomy | All 11 measured EA030312 peaks. |
+| fragmentation-pathways | Analytic fixed-rate first-order kinetics; not fitted to an experiment. |
+| ion-mass-balance | Measured EA030312 peak differences and calculated neutral formula masses. |
+| collision-energy-series | All peaks in the three measured Caffeine records, independently normalized. |
+| training-sources | Previously audited competition source-level counts only; no raw competition spectra. |
+| evidence-routes | Measured cosine comparison plus clearly labeled hypothetical fingerprint/forward predictions. |
+| validation-design | Proposed Class 2-like exclusion using the three known records. |
+| runtime-breakdown | Existing project v1/v2 logs on visible 1,213-spectrum/400-molecule input, not hidden-runtime estimates. |
+
+Runtime intervals combine operations: the MetFrag-to-our-ranker interval includes 12 GBM fits, and the next includes 16 GBM fits. Totals are rounded to 0.1 minutes. Initial setup in the chart is the residual of those rounded totals and displayed intervals. Reported totals end at submission/CSV construction; subsequent manifest hashing and platform finalization are not included. Original project evidence: `artifacts/20260927-public-baseline/kernel_v1_log.json` and `artifacts/20260927-public-baseline-cpu/kernel_v2_log.json` in the CASMI workspace. They are not part of the public example dataset.
+
+To regenerate:
 
 ```sh
 KMP_DUPLICATE_LIB_OK=TRUE /opt/anaconda3/envs/casmi26/bin/python tools/casmi_2026_guide_figures.py
 ```
+
+## Cover provenance
+
+`hero.png` is an editorially adjusted version of the user-supplied official Kaggle CASMI header. Its molecular composition was preserved while saturation and background highlights were restrained. It is not an image of the Eugenol example. No independent license or ownership of the original artwork is claimed. [Competition source](https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra).

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
   "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="531pt" height="430.381187pt" viewBox="0 0 531 430.381187" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="586.8pt" height="369.723442pt" viewBox="0 0 586.8 369.723442" xmlns="http://www.w3.org/2000/svg" version="1.1">
  <metadata>
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2026-09-27T11:30:28.443248</dc:date>
+    <dc:date>2026-09-27T15:11:26.003832</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -21,133 +21,127 @@
  </defs>
  <g id="figure_1">
   <g id="patch_1">
-   <path d="M 0 430.381187
-L 531 430.381187
-L 531 0
+   <path d="M 0 369.723442
+L 586.8 369.723442
+L 586.8 0
 L 0 0
 z
 " style="fill: #ffffff"/>
   </g>
   <g id="axes_1">
-   <g id="patch_2">
-    <path d="M 36.999 137.894147
-L 232.857 137.894147
-L 232.857 68.372387
-L 36.999 68.372387
+   <g id="table_1">
+    <g id="patch_2">
+     <path d="M 14.4 119.167584
+L 232.02 119.167584
+L 232.02 59.292384
+L 14.4 59.292384
 z
-" clip-path="url(#p291e8f5e89)" style="fill: #f4f6f7; stroke: #ced5da; stroke-width: 0.9; stroke-linejoin: miter"/>
-   </g>
-   <g id="patch_3">
-    <path d="M 290.61 137.894147
-L 488.979 137.894147
-L 488.979 68.372387
-L 290.61 68.372387
+" style="fill: #f4f6f7; stroke: #ced5da; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_1">
+     <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #263541" x="36.162" y="92.34764" transform="rotate(-0 36.162 92.34764)">Observed peaks (m/z)</text>
+    </g>
+    <g id="patch_3">
+     <path d="M 232.02 119.167584
+L 371.52 119.167584
+L 371.52 59.292384
+L 232.02 59.292384
 z
-" clip-path="url(#p291e8f5e89)" style="fill: #f4f6f7; stroke: #ced5da; stroke-width: 0.9; stroke-linejoin: miter"/>
-   </g>
-   <g id="patch_4">
-    <path d="M 236.857833 103.133267
-Q 261.734286 103.133267 285.269098 103.133267
-" clip-path="url(#p291e8f5e89)" style="fill: none; stroke: #697680; stroke-width: 1.2; stroke-linecap: round"/>
-    <path d="M 280.069098 100.533267
-L 285.269098 103.133267
-L 280.069098 105.733267
+" style="fill: #f4f6f7; stroke: #ced5da; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_2">
+     <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #263541" x="245.97" y="92.34764" transform="rotate(-0 245.97 92.34764)">Difference (Da)</text>
+    </g>
+    <g id="patch_4">
+     <path d="M 371.52 119.167584
+L 572.4 119.167584
+L 572.4 59.292384
+L 371.52 59.292384
 z
-" clip-path="url(#p291e8f5e89)" style="fill: #697680; stroke: #697680; stroke-width: 1.2; stroke-linecap: round"/>
-   </g>
-   <g id="patch_5">
-    <path d="M 290.61 276.937667
-L 488.979 276.937667
-L 488.979 207.415908
-L 290.61 207.415908
+" style="fill: #f4f6f7; stroke: #ced5da; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_3">
+     <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #263541" x="391.608" y="92.34764" transform="rotate(-0 391.608 92.34764)">Neutral composition</text>
+    </g>
+    <g id="patch_5">
+     <path d="M 14.4 179.042784
+L 232.02 179.042784
+L 232.02 119.167584
+L 14.4 119.167584
 z
-" clip-path="url(#p291e8f5e89)" style="fill: #f4f6f7; stroke: #ced5da; stroke-width: 0.9; stroke-linejoin: miter"/>
-   </g>
-   <g id="patch_6">
-    <path d="M 388.539 141.895553
-Q 388.539 172.654208 388.539 202.071223
-" clip-path="url(#p291e8f5e89)" style="fill: none; stroke: #697680; stroke-width: 1.2; stroke-linecap: round"/>
-    <path d="M 391.139 196.871223
-L 388.539 202.071223
-L 385.939 196.871223
+" style="fill: #ffffff; stroke: #ced5da; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_4">
+     <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #263541" x="36.162" y="152.222371" transform="rotate(-0 36.162 152.222371)">195.0878 − 138.0662</text>
+    </g>
+    <g id="patch_6">
+     <path d="M 232.02 179.042784
+L 371.52 179.042784
+L 371.52 119.167584
+L 232.02 119.167584
 z
-" clip-path="url(#p291e8f5e89)" style="fill: #697680; stroke: #697680; stroke-width: 1.2; stroke-linecap: round"/>
-   </g>
-   <g id="line2d_1">
-    <path d="M 36.999 137.894147
-L 36.999 68.372387
-" clip-path="url(#p291e8f5e89)" style="fill: none; stroke: #326e78; stroke-width: 3"/>
-   </g>
-   <g id="line2d_2">
-    <path d="M 290.61 137.894147
-L 290.61 68.372387
-" clip-path="url(#p291e8f5e89)" style="fill: none; stroke: #326e78; stroke-width: 3"/>
-   </g>
-   <g id="line2d_3">
-    <path d="M 290.61 276.937667
-L 290.61 207.415907
-" clip-path="url(#p291e8f5e89)" style="fill: none; stroke: #326e78; stroke-width: 3"/>
-   </g>
-   <g id="line2d_4">
-    <path d="M 36.999 305.112276
-L 488.979 305.112276
-" clip-path="url(#p291e8f5e89)" style="fill: none; stroke: #ced5da; stroke-width: 0.9; stroke-linecap: square"/>
-   </g>
-   <g id="text_1">
-    <text style="font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #263541" x="48.0474" y="87.791896" transform="rotate(-0 48.0474 87.791896)">Neutral molecule M</text>
-   </g>
-   <g id="text_2">
-    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #697680" transform="translate(48.0474 107.212072)">C10H12O2</text>
-    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #697680" transform="translate(48.0474 125.212072)">164.083730 Da</text>
-   </g>
-   <g id="text_3">
-    <text style="font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #263541" x="301.6584" y="87.791896" transform="rotate(-0 301.6584 87.791896)">Precursor [M+H]+</text>
-   </g>
-   <g id="text_4">
-    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #697680" transform="translate(301.6584 107.212072)">C10H13O2+</text>
-    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #697680" transform="translate(301.6584 124.740509)">m/z 165.091006</text>
-   </g>
-   <g id="text_5">
-    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #326e78" x="261.4824" y="82.276739" transform="rotate(-0 261.4824 82.276739)">+ H+</text>
-   </g>
-   <g id="text_6">
-    <text style="font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #263541" x="301.6584" y="226.835416" transform="rotate(-0 301.6584 226.835416)">Possible fragment</text>
-   </g>
-   <g id="text_7">
-    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #697680" transform="translate(301.6584 246.255592)">C10H11O+</text>
-    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #697680" transform="translate(301.6584 263.784029)">m/z 147.080441</text>
-   </g>
-   <g id="text_8">
-    <text style="font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #a26641" x="401.094" y="177.023554" transform="rotate(-0 401.094 177.023554)">− H2O</text>
-   </g>
-   <g id="text_9">
-    <text style="font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #263541" x="42.021" y="201.927347" transform="rotate(-0 42.021 201.927347)">Charge is conserved</text>
+" style="fill: #ffffff; stroke: #ced5da; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_5">
+     <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #263541" x="245.97" y="152.222371" transform="rotate(-0 245.97 152.222371)">57.0216</text>
+    </g>
+    <g id="patch_7">
+     <path d="M 371.52 179.042784
+L 572.4 179.042784
+L 572.4 119.167584
+L 371.52 119.167584
+z
+" style="fill: #ffffff; stroke: #ced5da; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_6">
+     <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #263541" x="391.608" y="152.222371" transform="rotate(-0 391.608 152.222371)">C2H3NO: 57.021464</text>
+    </g>
+    <g id="patch_8">
+     <path d="M 14.4 238.917984
+L 232.02 238.917984
+L 232.02 179.042784
+L 14.4 179.042784
+z
+" style="fill: #ffffff; stroke: #ced5da; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_7">
+     <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #263541" x="36.162" y="212.097571" transform="rotate(-0 36.162 212.097571)">138.0662 − 110.0713</text>
+    </g>
+    <g id="patch_9">
+     <path d="M 232.02 238.917984
+L 371.52 238.917984
+L 371.52 179.042784
+L 232.02 179.042784
+z
+" style="fill: #ffffff; stroke: #ced5da; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_8">
+     <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #263541" x="245.97" y="212.097571" transform="rotate(-0 245.97 212.097571)">27.9949</text>
+    </g>
+    <g id="patch_10">
+     <path d="M 371.52 238.917984
+L 572.4 238.917984
+L 572.4 179.042784
+L 371.52 179.042784
+z
+" style="fill: #ffffff; stroke: #ced5da; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_9">
+     <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #263541" x="391.608" y="212.097571" transform="rotate(-0 391.608 212.097571)">CO: 27.994915</text>
+    </g>
    </g>
    <g id="text_10">
-    <text style="font-size: 17px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #326e78" x="42.021" y="233.029187" transform="rotate(-0 42.021 233.029187)">+1 → +1 + 0</text>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #697680" x="14.4" y="277.836864" transform="rotate(-0 14.4 277.836864)">Tentative ion formulas in the source:</text>
    </g>
    <g id="text_11">
-    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #697680" transform="translate(42.021 254.611607)">The neutral is not detected</text>
-    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #697680" transform="translate(42.021 271.449107)">as a charged fragment.</text>
+    <text style="font-size: 16px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #326e78" x="14.4" y="307.774464" transform="rotate(-0 14.4 307.774464)">C8H11N4O2+       C6H8N3O+       C5H8N3+</text>
    </g>
    <g id="text_12">
-    <text style="font-size: 17px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #263541" x="42.021" y="327.066515" transform="rotate(-0 42.021 327.066515)">165.091006 − 147.080441 = 18.010565 Da</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #697680" x="14.4" y="352.680864" transform="rotate(-0 14.4 352.680864)">Mass agreement supports composition. It does not establish a reaction sequence or atom mapping.</text>
    </g>
    <g id="text_13">
-    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #263541" x="42.021" y="355.241123" transform="rotate(-0 42.021 355.241123)">Same unit charge: peak separation equals neutral-loss mass.</text>
-   </g>
-   <g id="text_14">
-    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #697680" transform="translate(42.021 378.256467)">Mass bookkeeping only: it does not establish that this ion or pathway is observed.</text>
-    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #697680" transform="translate(42.021 395.856467)">Values rounded to six decimals; no competition spectrum is used.</text>
-   </g>
-   <g id="text_15">
-    <text style="font-size: 18px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #263541" x="14.4" y="28.077187" transform="rotate(-0 14.4 28.077187)">From neutral mass to a possible neutral loss</text>
+    <text style="font-size: 17px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #263541" x="14.4" y="27.317344" transform="rotate(-0 14.4 27.317344)">Caffeine EA030312: measured gaps and formula balance</text>
    </g>
   </g>
  </g>
- <defs>
-  <clipPath id="p291e8f5e89">
-   <rect x="14.4" y="50.077187" width="502.2" height="365.904"/>
-  </clipPath>
- </defs>
 </svg>
