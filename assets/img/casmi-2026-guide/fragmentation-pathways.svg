@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="614.506071pt" height="394.079531pt" viewBox="0 0 614.506071 394.079531" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-09-27T11:30:28.247607</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M -0 394.079531
+L 614.506071 394.079531
+L 614.506071 0
+L -0 0
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 32.142054 323.277188
+L 590.142054 323.277188
+L 590.142054 46.077188
+L 32.142054 46.077188
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path id="mf128d0800e" d="M 0 0
+L 0 3.5
+" style="stroke: #697680; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#mf128d0800e" x="42.770625" y="323.277188" style="fill: #697680; stroke: #697680; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #697680" x="42.770625" y="339.394375" transform="rotate(-0 42.770625 339.394375)">Precursor</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use xlink:href="#mf128d0800e" x="308.484911" y="323.277188" style="fill: #697680; stroke: #697680; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #697680" x="308.484911" y="339.395313" transform="rotate(-0 308.484911 339.395313)">Transition region</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_3">
+      <g>
+       <use xlink:href="#mf128d0800e" x="574.199196" y="323.277188" style="fill: #697680; stroke: #697680; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #697680" x="574.199196" y="339.395313" transform="rotate(-0 574.199196 339.395313)">Products</text>
+     </g>
+    </g>
+    <g id="text_4">
+     <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #263541" x="311.142054" y="355.39625" transform="rotate(-0 311.142054 355.39625)">Reaction coordinate (schematic)</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="text_5">
+     <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #263541" x="25.259241" y="184.677188" transform="rotate(-90 25.259241 184.677188)">Relative energy (arbitrary units)</text>
+    </g>
+   </g>
+   <g id="line2d_4">
+    <path d="M 42.770625 269.277188
+L 48.084911 269.174183
+L 53.399196 268.865575
+L 58.713482 268.352582
+L 64.027768 267.637229
+L 69.342054 266.722338
+L 74.656339 265.61152
+L 79.970625 264.30916
+L 86.613482 262.419753
+L 93.256339 260.250793
+L 99.899196 257.815655
+L 106.542054 255.12935
+L 113.184911 252.208441
+L 119.827768 249.070936
+L 127.799196 245.047346
+L 135.770625 240.775492
+L 145.070625 235.528574
+L 155.699196 229.263035
+L 170.313482 220.354853
+L 196.884911 204.095575
+L 207.513482 197.861086
+L 216.813482 192.651251
+L 224.784911 188.418196
+L 232.756339 184.439521
+L 239.399196 181.343829
+L 246.042054 178.468444
+L 252.684911 175.831096
+L 259.327768 173.448043
+L 265.970625 171.333979
+L 272.613482 169.501936
+L 277.927768 168.247009
+L 283.242054 167.184792
+L 288.556339 166.319478
+L 293.870625 165.654481
+L 299.184911 165.192426
+L 304.499196 164.935136
+L 309.813482 164.882073
+L 316.456339 165.052934
+L 323.099196 165.466858
+L 329.742054 166.121294
+L 336.384911 167.012207
+L 343.027768 168.134104
+L 349.670625 169.480069
+L 356.313482 171.041802
+L 362.956339 172.809675
+L 370.927768 175.187796
+L 378.899196 177.825892
+L 386.870625 180.700547
+L 396.170625 184.319147
+L 405.470625 188.181219
+L 416.099196 192.833191
+L 429.384911 198.897499
+L 470.570625 217.891209
+L 481.199196 222.455211
+L 490.499196 226.218491
+L 498.470625 229.236797
+L 506.442054 232.035334
+L 514.413482 234.589264
+L 522.384911 236.875916
+L 529.027768 238.562572
+L 535.670625 240.03908
+L 542.313482 241.296336
+L 548.956339 242.326591
+L 555.599196 243.123491
+L 562.242054 243.682124
+L 568.884911 243.999046
+L 574.199196 244.077188
+L 574.199196 244.077188
+" clip-path="url(#p34e5343f7e)" style="fill: none; stroke: #326e78; stroke-width: 3; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_5">
+    <path d="M 42.770625 269.277188
+L 46.756339 269.185269
+L 50.742054 268.909718
+L 54.727768 268.451146
+L 58.713482 267.810572
+L 62.699196 266.989417
+L 66.684911 265.989505
+L 70.670625 264.813055
+L 75.984911 262.974413
+L 81.299196 260.833871
+L 86.613482 258.399877
+L 91.927768 255.682037
+L 97.242054 252.691077
+L 102.556339 249.438801
+L 107.870625 245.938045
+L 113.184911 242.202624
+L 119.827768 237.225892
+L 126.470625 231.936277
+L 133.113482 226.366392
+L 141.084911 219.361033
+L 149.056339 212.063795
+L 159.684911 201.99236
+L 174.299196 187.777753
+L 194.227768 168.414927
+L 204.856339 158.429688
+L 212.827768 151.222662
+L 220.799196 144.328558
+L 227.442054 138.866753
+L 234.084911 133.698481
+L 240.727768 128.855608
+L 246.042054 125.235733
+L 251.356339 121.85755
+L 256.670625 118.734391
+L 261.984911 115.878582
+L 267.299196 113.301393
+L 272.613482 111.012996
+L 277.927768 109.022422
+L 283.242054 107.337526
+L 287.227768 106.278502
+L 291.213482 105.397539
+L 295.199196 104.696593
+L 299.184911 104.17722
+L 303.170625 103.840574
+L 307.156339 103.687402
+L 311.142054 103.726038
+L 315.127768 103.982371
+L 319.113482 104.457832
+L 323.099196 105.151364
+L 327.084911 106.061428
+L 331.070625 107.186003
+L 335.056339 108.522592
+L 339.042054 110.068228
+L 343.027768 111.81948
+L 347.013482 113.772457
+L 350.999196 115.922826
+L 356.313482 119.088723
+L 361.627768 122.584505
+L 366.942054 126.396376
+L 372.256339 130.509293
+L 377.570625 134.907024
+L 382.884911 139.572213
+L 389.527768 145.751668
+L 396.170625 152.282087
+L 402.813482 159.12321
+L 410.784911 167.683178
+L 420.084911 178.056889
+L 430.713482 190.269197
+L 465.256339 230.297307
+L 474.556339 240.562847
+L 482.527768 249.002239
+L 489.170625 255.72404
+L 495.813482 262.11879
+L 501.127768 266.972544
+L 506.442054 271.572554
+L 511.756339 275.900666
+L 517.070625 279.939798
+L 522.384911 283.67401
+L 527.699196 287.088564
+L 533.013482 290.169985
+L 536.999196 292.255066
+L 540.984911 294.141261
+L 544.970625 295.824384
+L 548.956339 297.300696
+L 552.942054 298.56692
+L 556.927768 299.620246
+L 560.913482 300.458333
+L 564.899196 301.079322
+L 568.884911 301.481834
+L 572.870625 301.664974
+L 574.199196 301.677188
+L 574.199196 301.677188
+" clip-path="url(#p34e5343f7e)" style="fill: none; stroke: #a26641; stroke-width: 3; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_6">
+    <path d="M 32.142054 269.277188
+L 590.142054 269.277188
+" clip-path="url(#p34e5343f7e)" style="fill: none; stroke-dasharray: 3.7,1.6; stroke-dashoffset: 0; stroke: #697680; stroke-opacity: 0.5"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 32.142054 323.277188
+L 32.142054 46.077188
+" style="fill: none; stroke: #697680; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 32.142054 323.277188
+L 590.142054 323.277188
+" style="fill: none; stroke: #697680; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 215.768354 147.874668
+Q 261.143386 156.195619 305.418723 164.314905
+" style="fill: none; stroke: #326e78; stroke-linecap: round"/>
+    <path d="M 301.487713 161.357344
+L 305.418723 164.314905
+L 300.694068 165.685176
+" style="fill: none; stroke: #326e78; stroke-linecap: round"/>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #326e78" x="138.427768" y="143.277188" transform="rotate(-0 138.427768 143.277188)">Lower barrier</text>
+   </g>
+   <g id="patch_6">
+    <path d="M 486.217045 306.800682
+Q 523.895282 304.305073 560.457931 301.883356
+" style="fill: none; stroke: #a26641; stroke-linecap: round"/>
+    <path d="M 555.922153 299.978962
+L 560.457931 301.883356
+L 556.212948 304.369342
+" style="fill: none; stroke: #a26641; stroke-linecap: round"/>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #a26641" x="361.627768" y="313.917188" transform="rotate(-0 361.627768 313.917188)">Lower product energy</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 18px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #263541" x="32.142054" y="28.077188" transform="rotate(-0 32.142054 28.077188)">A stable product can still be difficult to form</text>
+   </g>
+   <g id="legend_1">
+    <g id="line2d_7">
+     <path d="M 42.042054 60.485469
+L 53.042054 60.485469
+L 64.042054 60.485469
+" style="fill: none; stroke: #326e78; stroke-width: 3; stroke-linecap: square"/>
+    </g>
+    <g id="text_9">
+     <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #263541" x="72.842054" y="64.335469" transform="rotate(-0 72.842054 64.335469)">Path A: lower barrier</text>
+    </g>
+    <g id="line2d_8">
+     <path d="M 42.042054 76.986328
+L 53.042054 76.986328
+L 64.042054 76.986328
+" style="fill: none; stroke: #a26641; stroke-width: 3; stroke-linecap: square"/>
+    </g>
+    <g id="text_10">
+     <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #263541" x="72.842054" y="80.836328" transform="rotate(-0 72.842054 80.836328)">Path B: lower-energy product</text>
+    </g>
+   </g>
+  </g>
+  <g id="text_11">
+   <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #697680" x="35.742054" y="377.277188" transform="rotate(-0 35.742054 377.277188)">Illustration only. Product yield also depends on reaction rates, time, and secondary fragmentation.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p34e5343f7e">
+   <rect x="32.142054" y="46.077188" width="558" height="277.2"/>
+  </clipPath>
+ </defs>
+</svg>

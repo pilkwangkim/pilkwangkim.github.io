@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="531pt" height="419.293188pt" viewBox="0 0 531 419.293188" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-09-27T11:30:28.577767</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 419.293188
+L 531 419.293188
+L 531 -0
+L 0 -0
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 26.955 176.036867
+L 504.045 176.036867
+L 504.045 96.203267
+L 26.955 96.203267
+z
+" clip-path="url(#p0f4a01db4c)" style="fill: #f4f6f7; stroke: #ced5da; stroke-width: 0.9; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 26.955 277.159427
+L 504.045 277.159427
+L 504.045 197.325828
+L 26.955 197.325828
+z
+" clip-path="url(#p0f4a01db4c)" style="fill: #f4f6f7; stroke: #ced5da; stroke-width: 0.9; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 26.955 378.281988
+L 504.045 378.281988
+L 504.045 298.448387
+L 26.955 298.448387
+z
+" clip-path="url(#p0f4a01db4c)" style="fill: #f4f6f7; stroke: #ced5da; stroke-width: 0.9; stroke-linejoin: miter"/>
+   </g>
+   <g id="line2d_1">
+    <path d="M 26.955 176.036867
+L 26.955 96.203267
+" clip-path="url(#p0f4a01db4c)" style="fill: none; stroke: #a26641; stroke-width: 3"/>
+   </g>
+   <g id="line2d_2">
+    <path d="M 26.955 277.159427
+L 26.955 197.325827
+" clip-path="url(#p0f4a01db4c)" style="fill: none; stroke: #697680; stroke-width: 3"/>
+   </g>
+   <g id="line2d_3">
+    <path d="M 26.955 378.281988
+L 26.955 298.448387
+" clip-path="url(#p0f4a01db4c)" style="fill: none; stroke: #326e78; stroke-width: 3"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #697680" x="26.955" y="69.592067" transform="rotate(-0 26.955 69.592067)">Where is the correct structure?</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #263541" x="38.0034" y="115.356664" transform="rotate(-0 38.0034 115.356664)">A  Missing from the pool</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #697680" x="38.0034" y="162.542165" transform="rotate(-0 38.0034 162.542165)">Improve candidate coverage</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #697680" x="358.407" y="118.556675" transform="rotate(-0 358.407 118.556675)">Pool</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #a26641" x="358.407" y="142.684163" transform="rotate(-0 358.407 142.684163)">Absent</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #697680" x="448.803" y="118.556675" transform="rotate(-0 448.803 118.556675)">RR@25</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 22px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #a26641" x="448.803" y="146.941955" transform="rotate(-0 448.803 146.941955)">0</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #263541" x="38.0034" y="216.479224" transform="rotate(-0 38.0034 216.479224)">B  In the pool, ranked #50</text>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #697680" x="38.0034" y="263.664726" transform="rotate(-0 38.0034 263.664726)">Improve scoring / reranking</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #697680" x="358.407" y="219.679235" transform="rotate(-0 358.407 219.679235)">Pool</text>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #697680" x="358.407" y="243.806723" transform="rotate(-0 358.407 243.806723)">Present</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #697680" x="448.803" y="219.679235" transform="rotate(-0 448.803 219.679235)">RR@25</text>
+   </g>
+   <g id="text_13">
+    <text style="font-size: 22px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #697680" x="448.803" y="248.064515" transform="rotate(-0 448.803 248.064515)">0</text>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #263541" x="38.0034" y="317.601784" transform="rotate(-0 38.0034 317.601784)">C  Ranked #2 in the output</text>
+   </g>
+   <g id="text_15">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #697680" x="38.0034" y="364.787285" transform="rotate(-0 38.0034 364.787285)">Move a correct answer nearer the top</text>
+   </g>
+   <g id="text_16">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #697680" x="358.407" y="320.801796" transform="rotate(-0 358.407 320.801796)">Pool</text>
+   </g>
+   <g id="text_17">
+    <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #326e78" x="358.407" y="344.929283" transform="rotate(-0 358.407 344.929283)">Present</text>
+   </g>
+   <g id="text_18">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #697680" x="448.803" y="320.801796" transform="rotate(-0 448.803 320.801796)">RR@25</text>
+   </g>
+   <g id="text_19">
+    <text style="font-size: 22px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #326e78" x="448.803" y="349.187075" transform="rotate(-0 448.803 349.187075)">0.5</text>
+   </g>
+   <g id="text_20">
+    <text style="font-size: 18px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #263541" x="14.4" y="28.077187" transform="rotate(-0 14.4 28.077187)">Candidate coverage and ranking are separate failures</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p0f4a01db4c">
+   <rect x="14.4" y="50.077187" width="502.2" height="354.816"/>
+  </clipPath>
+ </defs>
+</svg>
