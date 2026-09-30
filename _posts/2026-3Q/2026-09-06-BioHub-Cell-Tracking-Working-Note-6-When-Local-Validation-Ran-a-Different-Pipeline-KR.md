@@ -7,7 +7,7 @@ math: true
 last_modified_at: 2026-09-23
 pin: false
 hide: false
-published: true
+published: false
 image:
   path: /assets/img/posts/2026-09-06-biohub-working-note-6/cover.png
   alt: "BioHub Cell Tracking 작업 기록 6: 로컬 검증이 제출 파이프라인과 달랐던 문제"

@@ -9,7 +9,7 @@ pin: false
 image:
   path: /assets/img/posts/2026-07-14-biohub-working-note-2/cover.png
   alt: "BioHub Cell Tracking Working Note 2: From a Leaderboard Plateau to OOF Structural Diagnostics"
-published: true
+published: false
 ---
 
 <style>
