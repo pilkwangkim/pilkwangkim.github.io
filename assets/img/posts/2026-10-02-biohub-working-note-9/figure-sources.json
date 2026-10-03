@@ -1,0 +1,1593 @@
+{
+  "date": "2026-10-02",
+  "author": "Pilkwang Kim",
+  "generator": "_draft/_figures/biohub_note9_figures.py",
+  "generator_sha256": "f2799babb2dd9378ec00dce9c3d3ca9a4a16de830a10af3cef31a2f9e76b34ee",
+  "scope": "Original explanatory artwork, an experiment-design schematic and a Private-only plot; no measured optimization landscape or score claim for an unrun alternative.",
+  "mobile_variants": "Layout-only adaptations of the same Private scores, verdicts, and composition schematic; intended for a picture source below 620 px.",
+  "sources": [
+    {
+      "role": "cover artwork",
+      "attribution": "Pilkwang Kim, original series illustration; reused without modifying the source file",
+      "path": "_draft/_figures/artwork/clean/biohub_tree.png",
+      "sha256": "8f93a9e61d4892a2b86142458331c309e240ec4aae10505e9248bcc342ee69dd"
+    },
+    {
+      "role": "cover style reference",
+      "path": "_draft/_figures/biohub_covers.py",
+      "sha256": "8e0f6250bd503f918b98b8c7e0e9c71a0300366f9cc35913fd5f9d4f1e0f996e"
+    },
+    {
+      "role": "Private score and selection audit",
+      "path": "_draft/postcompetition-review-20261002/references/own-outcome-audit-20261002.json",
+      "sha256": "a61d839c4957328dfb612ccad714f2a9863fcf88becc95270d5a7d911648f793"
+    },
+    {
+      "role": "Private score full receipt",
+      "path": "_draft/postcompetition-review-20261002/references/own-submissions-20261002.json",
+      "sha256": "927dfd7b60ae05dd39b20c57f9c49dd1dd9830cc7ff04aa6ea19d3ef494408db"
+    },
+    {
+      "role": "research-verdict interpretation",
+      "path": "_draft/postcompetition-review-20261002/analysis/research-retrospective.en.md",
+      "sha256": "5ed70e67dfc584d1e3f6cb4f79c7f5f069104cdb175cb42802a7f9edb9a6af12"
+    },
+    {
+      "role": "component versus compatible-composition schematic",
+      "path": "_draft/_reviews/20261002-note9/note9-research-depth.en.md",
+      "sha256": "1b757c83fc518a390ba1a12acf3ae9d0c6b936d6bfba33d7a48e6280fb504471"
+    },
+    {
+      "role": "leading-solution primary research evidence",
+      "path": "_draft/_reviews/20261002-note9/winner-research-evidence.md",
+      "sha256": "a415529efccda2f5235f07f26eafe95510be31908e08ddc4d8f7902fdba0d6f7"
+    }
+  ],
+  "layout_checks": [
+    {
+      "name": "fig-01-private-submissions",
+      "dimensions_px": [
+        1800,
+        1030
+      ],
+      "text_bounds": [
+        {
+          "text": "BIOHUB CELL TRACKING / NOTE 9",
+          "bounds_px": [
+            90.0,
+            56.0,
+            526.75,
+            80.0
+          ]
+        },
+        {
+          "text": "What the final Private scores showed",
+          "bounds_px": [
+            90.0,
+            110.0,
+            938.0,
+            155.0
+          ]
+        },
+        {
+          "text": "Five submitted configurations; final selections highlighted",
+          "bounds_px": [
+            90.0,
+            177.0,
+            882.75,
+            206.0
+          ]
+        },
+        {
+          "text": "0.910",
+          "bounds_px": [
+            331.25,
+            817.0,
+            398.75,
+            841.0
+          ]
+        },
+        {
+          "text": "0.912",
+          "bounds_px": [
+            507.08333333333326,
+            817.0,
+            574.5833333333333,
+            841.0
+          ]
+        },
+        {
+          "text": "0.914",
+          "bounds_px": [
+            682.9166666666666,
+            817.0,
+            750.4166666666666,
+            841.0
+          ]
+        },
+        {
+          "text": "0.916",
+          "bounds_px": [
+            858.75,
+            817.0,
+            926.25,
+            841.0
+          ]
+        },
+        {
+          "text": "0.918",
+          "bounds_px": [
+            1034.5833333333333,
+            817.0,
+            1102.0833333333333,
+            841.0
+          ]
+        },
+        {
+          "text": "0.920",
+          "bounds_px": [
+            1210.4166666666667,
+            817.0,
+            1277.9166666666667,
+            841.0
+          ]
+        },
+        {
+          "text": "0.922",
+          "bounds_px": [
+            1386.25,
+            817.0,
+            1453.75,
+            841.0
+          ]
+        },
+        {
+          "text": "PRIVATE",
+          "bounds_px": [
+            1555.625,
+            278.0,
+            1660.375,
+            301.0
+          ]
+        },
+        {
+          "text": "v94",
+          "bounds_px": [
+            90.0,
+            334.0,
+            153.375,
+            368.0
+          ]
+        },
+        {
+          "text": "Diagnostic",
+          "bounds_px": [
+            194.0,
+            342.0,
+            316.75,
+            366.0
+          ]
+        },
+        {
+          "text": "0.92050",
+          "bounds_px": [
+            1546.625,
+            336.0,
+            1669.375,
+            367.0
+          ]
+        },
+        {
+          "text": "v93",
+          "bounds_px": [
+            90.0,
+            435.0,
+            153.375,
+            469.0
+          ]
+        },
+        {
+          "text": "Selected A",
+          "bounds_px": [
+            194.0,
+            443.0,
+            320.125,
+            467.0
+          ]
+        },
+        {
+          "text": "0.91920",
+          "bounds_px": [
+            1546.625,
+            437.0,
+            1669.375,
+            468.0
+          ]
+        },
+        {
+          "text": "v92",
+          "bounds_px": [
+            90.0,
+            536.0,
+            153.375,
+            570.0
+          ]
+        },
+        {
+          "text": "Selected B",
+          "bounds_px": [
+            194.0,
+            544.0,
+            321.0,
+            568.0
+          ]
+        },
+        {
+          "text": "0.91418",
+          "bounds_px": [
+            1546.625,
+            538.0,
+            1669.375,
+            569.0
+          ]
+        },
+        {
+          "text": "v89",
+          "bounds_px": [
+            90.0,
+            637.0,
+            153.375,
+            671.0
+          ]
+        },
+        {
+          "text": "Not selected",
+          "bounds_px": [
+            194.0,
+            645.0,
+            341.125,
+            669.0
+          ]
+        },
+        {
+          "text": "0.91752",
+          "bounds_px": [
+            1546.625,
+            639.0,
+            1669.375,
+            670.0
+          ]
+        },
+        {
+          "text": "v90",
+          "bounds_px": [
+            90.0,
+            738.0,
+            153.375,
+            772.0
+          ]
+        },
+        {
+          "text": "Not selected",
+          "bounds_px": [
+            194.0,
+            746.0,
+            341.125,
+            770.0
+          ]
+        },
+        {
+          "text": "0.91217",
+          "bounds_px": [
+            1546.625,
+            740.0,
+            1669.375,
+            771.0
+          ]
+        },
+        {
+          "text": "Private score (axis shown from 0.910 to 0.922)",
+          "bounds_px": [
+            603.1875,
+            864.0,
+            1181.8125,
+            890.0
+          ]
+        },
+        {
+          "text": "Source: official submission and selection receipts, captured 2 October 2026.",
+          "bounds_px": [
+            90.0,
+            958.0,
+            943.0,
+            981.0
+          ]
+        }
+      ],
+      "out_of_bounds": [],
+      "text_intersections": []
+    },
+    {
+      "name": "fig-02-research-verdicts",
+      "dimensions_px": [
+        1800,
+        1210
+      ],
+      "text_bounds": [
+        {
+          "text": "BIOHUB CELL TRACKING / NOTE 9",
+          "bounds_px": [
+            90.0,
+            54.0,
+            526.75,
+            78.0
+          ]
+        },
+        {
+          "text": "Four findings, four different next actions",
+          "bounds_px": [
+            90.0,
+            108.0,
+            975.5,
+            152.0
+          ]
+        },
+        {
+          "text": "A conceptual map of evidence scope, not measured effect sizes",
+          "bounds_px": [
+            90.0,
+            174.0,
+            976.75,
+            203.0
+          ]
+        },
+        {
+          "text": "Negative graph result",
+          "bounds_px": [
+            120.0,
+            296.0,
+            509.625,
+            330.5
+          ]
+        },
+        {
+          "text": "The measured composition loses.",
+          "bounds_px": [
+            120.0,
+            379.0,
+            601.0,
+            408.0
+          ]
+        },
+        {
+          "text": "Reject that composition; inspect\nwhere the loss occurs.",
+          "bounds_px": [
+            120.0,
+            453.0,
+            581.375,
+            516.75
+          ]
+        },
+        {
+          "text": "Training insufficient",
+          "bounds_px": [
+            960.0,
+            296.0,
+            1322.125,
+            330.5
+          ]
+        },
+        {
+          "text": "The model did not learn enough.",
+          "bounds_px": [
+            960.0,
+            379.0,
+            1424.0,
+            408.0
+          ]
+        },
+        {
+          "text": "Check exposure and convergence;\njustify any change in support.",
+          "bounds_px": [
+            960.0,
+            453.0,
+            1456.5,
+            516.75
+          ]
+        },
+        {
+          "text": "Execution incomplete",
+          "bounds_px": [
+            120.0,
+            665.0,
+            513.75,
+            699.0
+          ]
+        },
+        {
+          "text": "The run did not reach scoring.",
+          "bounds_px": [
+            120.0,
+            748.0,
+            548.625,
+            777.0
+          ]
+        },
+        {
+          "text": "Repair the blocked execution;\nmeasure before judging quality.",
+          "bounds_px": [
+            120.0,
+            822.0,
+            566.0,
+            885.75
+          ]
+        },
+        {
+          "text": "Bounded diagnostic",
+          "bounds_px": [
+            960.0,
+            665.0,
+            1325.5,
+            699.5
+          ]
+        },
+        {
+          "text": "The probe answers a narrow question.",
+          "bounds_px": [
+            960.0,
+            748.0,
+            1507.25,
+            777.0
+          ]
+        },
+        {
+          "text": "Use it to choose the next test;\nkeep its interpretation within scope.",
+          "bounds_px": [
+            960.0,
+            822.0,
+            1468.375,
+            885.75
+          ]
+        },
+        {
+          "text": "Search exhaustion needs broader evidence",
+          "bounds_px": [
+            90.0,
+            1031.0,
+            893.375,
+            1067.0
+          ]
+        },
+        {
+          "text": "Across viable alternatives, training support, and complete pipelines.",
+          "bounds_px": [
+            90.0,
+            1094.0,
+            995.875,
+            1122.0
+          ]
+        }
+      ],
+      "out_of_bounds": [],
+      "text_intersections": []
+    },
+    {
+      "name": "fig-01-private-submissions-mobile",
+      "dimensions_px": [
+        760,
+        1030
+      ],
+      "text_bounds": [
+        {
+          "text": "BIOHUB / NOTE 9",
+          "bounds_px": [
+            30.0,
+            30.0,
+            256.375,
+            54.0
+          ]
+        },
+        {
+          "text": "Final Private scores",
+          "bounds_px": [
+            30.0,
+            83.0,
+            436.25,
+            123.0
+          ]
+        },
+        {
+          "text": "Five submitted configurations",
+          "bounds_px": [
+            30.0,
+            144.0,
+            439.5,
+            173.0
+          ]
+        },
+        {
+          "text": "0.910",
+          "bounds_px": [
+            163.125,
+            819.0,
+            240.875,
+            848.0
+          ]
+        },
+        {
+          "text": "0.916",
+          "bounds_px": [
+            320.125,
+            819.0,
+            397.875,
+            848.0
+          ]
+        },
+        {
+          "text": "0.922",
+          "bounds_px": [
+            477.125,
+            819.0,
+            554.875,
+            848.0
+          ]
+        },
+        {
+          "text": "PRIVATE",
+          "bounds_px": [
+            593.5,
+            220.0,
+            706.5,
+            244.0
+          ]
+        },
+        {
+          "text": "v94",
+          "bounds_px": [
+            30.0,
+            267.0,
+            103.5,
+            307.0
+          ]
+        },
+        {
+          "text": "Diagnostic",
+          "bounds_px": [
+            30.0,
+            324.0,
+            158.0,
+            348.0
+          ]
+        },
+        {
+          "text": "0.92050",
+          "bounds_px": [
+            579.6875,
+            274.0,
+            720.3125,
+            310.0
+          ]
+        },
+        {
+          "text": "v93",
+          "bounds_px": [
+            30.0,
+            390.0,
+            103.5,
+            430.0
+          ]
+        },
+        {
+          "text": "Selected A",
+          "bounds_px": [
+            30.0,
+            447.0,
+            161.0,
+            471.0
+          ]
+        },
+        {
+          "text": "0.91920",
+          "bounds_px": [
+            579.375,
+            397.0,
+            720.625,
+            433.0
+          ]
+        },
+        {
+          "text": "v92",
+          "bounds_px": [
+            30.0,
+            513.0,
+            103.5,
+            553.0
+          ]
+        },
+        {
+          "text": "Selected B",
+          "bounds_px": [
+            30.0,
+            570.0,
+            162.125,
+            594.0
+          ]
+        },
+        {
+          "text": "0.91418",
+          "bounds_px": [
+            579.375,
+            520.0,
+            720.625,
+            556.0
+          ]
+        },
+        {
+          "text": "v89",
+          "bounds_px": [
+            30.0,
+            636.0,
+            103.5,
+            676.0
+          ]
+        },
+        {
+          "text": "Not\nselected",
+          "bounds_px": [
+            30.0,
+            693.0,
+            132.0,
+            745.75
+          ]
+        },
+        {
+          "text": "0.91752",
+          "bounds_px": [
+            579.6875,
+            643.0,
+            720.3125,
+            679.0
+          ]
+        },
+        {
+          "text": "v90",
+          "bounds_px": [
+            30.0,
+            759.0,
+            103.5,
+            799.0
+          ]
+        },
+        {
+          "text": "Not\nselected",
+          "bounds_px": [
+            30.0,
+            816.0,
+            132.0,
+            868.75
+          ]
+        },
+        {
+          "text": "0.91217",
+          "bounds_px": [
+            579.6875,
+            766.0,
+            720.3125,
+            802.0
+          ]
+        },
+        {
+          "text": "Private score",
+          "bounds_px": [
+            268.625,
+            868.0,
+            449.375,
+            897.0
+          ]
+        },
+        {
+          "text": "Official submission and selection receipts\nCaptured 2 October 2026",
+          "bounds_px": [
+            30.0,
+            952.0,
+            509.875,
+            1004.75
+          ]
+        }
+      ],
+      "out_of_bounds": [],
+      "text_intersections": []
+    },
+    {
+      "name": "fig-02-research-verdicts-mobile",
+      "dimensions_px": [
+        760,
+        1765
+      ],
+      "text_bounds": [
+        {
+          "text": "BIOHUB / NOTE 9",
+          "bounds_px": [
+            30.0,
+            30.000000000000455,
+            256.375,
+            54.000000000000455
+          ]
+        },
+        {
+          "text": "Four findings,\nfour different next actions",
+          "bounds_px": [
+            30.0,
+            83.00000000000045,
+            548.125,
+            167.50000000000045
+          ]
+        },
+        {
+          "text": "Conceptual map of evidence scope",
+          "bounds_px": [
+            30.0,
+            202.00000000000045,
+            489.875,
+            228.00000000000045
+          ]
+        },
+        {
+          "text": "Negative graph result",
+          "bounds_px": [
+            58.0,
+            294.00000000000045,
+            426.625,
+            327.00000000000045
+          ]
+        },
+        {
+          "text": "The measured\ncomposition loses.",
+          "bounds_px": [
+            58.0,
+            367.00000000000045,
+            334.875,
+            435.00000000000045
+          ]
+        },
+        {
+          "text": "Reject that composition; inspect\nwhere the loss occurs.",
+          "bounds_px": [
+            58.0,
+            466.00000000000045,
+            505.125,
+            529.7500000000005
+          ]
+        },
+        {
+          "text": "Training insufficient",
+          "bounds_px": [
+            58.0,
+            610.0000000000005,
+            400.25,
+            643.0000000000005
+          ]
+        },
+        {
+          "text": "The model did not\nlearn enough.",
+          "bounds_px": [
+            58.0,
+            683.0000000000005,
+            326.0,
+            751.0000000000005
+          ]
+        },
+        {
+          "text": "Check exposure and convergence;\njustify any change in support.",
+          "bounds_px": [
+            58.0,
+            782.0000000000002,
+            540.0,
+            845.7500000000002
+          ]
+        },
+        {
+          "text": "Execution incomplete",
+          "bounds_px": [
+            58.0,
+            926.0000000000002,
+            430.375,
+            959.0000000000002
+          ]
+        },
+        {
+          "text": "The run did not\nreach scoring.",
+          "bounds_px": [
+            58.0,
+            999.0000000000002,
+            282.25,
+            1067.0000000000002
+          ]
+        },
+        {
+          "text": "Repair the blocked execution;\nmeasure before judging quality.",
+          "bounds_px": [
+            58.0,
+            1098.0000000000002,
+            491.25,
+            1161.7500000000002
+          ]
+        },
+        {
+          "text": "Bounded diagnostic",
+          "bounds_px": [
+            58.0,
+            1242.0000000000002,
+            404.0,
+            1275.0000000000002
+          ]
+        },
+        {
+          "text": "The probe answers\na narrow question.",
+          "bounds_px": [
+            58.0,
+            1315.0000000000002,
+            340.5,
+            1383.0000000000002
+          ]
+        },
+        {
+          "text": "Use it to choose the next test;\nkeep its interpretation within scope.",
+          "bounds_px": [
+            58.0,
+            1414.0000000000002,
+            550.625,
+            1477.7500000000002
+          ]
+        },
+        {
+          "text": "Search exhaustion needs\nbroader evidence",
+          "bounds_px": [
+            30.0,
+            1582.0,
+            464.0,
+            1654.5
+          ]
+        },
+        {
+          "text": "Across alternatives, training support,\nand complete pipelines.",
+          "bounds_px": [
+            30.0,
+            1685.0,
+            504.125,
+            1742.0
+          ]
+        }
+      ],
+      "out_of_bounds": [],
+      "text_intersections": []
+    },
+    {
+      "name": "cover",
+      "dimensions_px": [
+        2200,
+        1240
+      ],
+      "text_bounds": [
+        {
+          "text": "BIOHUB CELL TRACKING",
+          "bounds_px": [
+            110.0,
+            96.0,
+            493.75,
+            125.0
+          ]
+        },
+        {
+          "text": "LINEAGE RECONSTRUCTION UNDER SPARSE ANNOTATION",
+          "bounds_px": [
+            110.0,
+            140.0,
+            691.125,
+            159.0
+          ]
+        },
+        {
+          "text": "WORKING NOTE 9 / RETROSPECTIVE",
+          "bounds_px": [
+            110.0,
+            236.0,
+            580.125,
+            260.0
+          ]
+        },
+        {
+          "text": "A Big Plan\nand a Weak Start",
+          "bounds_px": [
+            106.0,
+            294.0,
+            725.25,
+            449.75
+          ]
+        },
+        {
+          "text": "How early choices made changing course harder:\nmodels, experiments and the lessons I learned",
+          "bounds_px": [
+            110.0,
+            590.0,
+            816.875,
+            653.75
+          ]
+        },
+        {
+          "text": "01  MODELS",
+          "bounds_px": [
+            110.0,
+            770.0,
+            234.75,
+            789.0
+          ]
+        },
+        {
+          "text": "Learn the missing signal",
+          "bounds_px": [
+            110.0,
+            822.0,
+            473.75,
+            851.0
+          ]
+        },
+        {
+          "text": "Examine targets, support and errors\nbefore judging a model family.",
+          "bounds_px": [
+            110.0,
+            885.0,
+            526.75,
+            937.75
+          ]
+        },
+        {
+          "text": "02  COMPOSITION",
+          "bounds_px": [
+            805.0,
+            770.0,
+            989.125,
+            789.0
+          ]
+        },
+        {
+          "text": "Give new evidence a usable role",
+          "bounds_px": [
+            805.0,
+            822.0,
+            1280.75,
+            851.0
+          ]
+        },
+        {
+          "text": "Train and calibrate a compatible\npath to a complete graph.",
+          "bounds_px": [
+            805.0,
+            885.0,
+            1175.5,
+            937.75
+          ]
+        },
+        {
+          "text": "03  RESEARCH",
+          "bounds_px": [
+            1490.0,
+            770.0,
+            1642.5,
+            789.0
+          ]
+        },
+        {
+          "text": "Make the next experiment count",
+          "bounds_px": [
+            1490.0,
+            822.0,
+            1962.5,
+            851.0
+          ]
+        },
+        {
+          "text": "Prepare a runnable question\nand decide from its predictions.",
+          "bounds_px": [
+            1490.0,
+            885.0,
+            1856.625,
+            937.75
+          ]
+        },
+        {
+          "text": "PILKWANG KIM / 2 OCTOBER 2026",
+          "bounds_px": [
+            110.0,
+            1134.0,
+            442.25,
+            1153.0
+          ]
+        },
+        {
+          "text": "SERIES · PART 9",
+          "bounds_px": [
+            1929.25,
+            1134.0,
+            2090.0,
+            1153.0
+          ]
+        }
+      ],
+      "out_of_bounds": [],
+      "text_intersections": []
+    },
+    {
+      "name": "fig-03-component-and-composition",
+      "dimensions_px": [
+        1800,
+        1310
+      ],
+      "text_bounds": [
+        {
+          "text": "BIOHUB CELL TRACKING / NOTE 9",
+          "bounds_px": [
+            90.0,
+            54.0,
+            526.75,
+            78.0
+          ]
+        },
+        {
+          "text": "Two comparisons, two different questions",
+          "bounds_px": [
+            90.0,
+            108.0,
+            1029.375,
+            151.5
+          ]
+        },
+        {
+          "text": "A: detector · B: association · C: graph policy · D: new evidence",
+          "bounds_px": [
+            90.0,
+            179.0,
+            957.5,
+            208.0
+          ]
+        },
+        {
+          "text": "1  PLUG-IN COMPARISON",
+          "bounds_px": [
+            120.0,
+            303.0,
+            452.375,
+            327.0
+          ]
+        },
+        {
+          "text": "Keep the incumbent settings",
+          "bounds_px": [
+            120.0,
+            353.0,
+            640.875,
+            387.5
+          ]
+        },
+        {
+          "text": "$P_0 = (A_0, B_0, C_0)$",
+          "bounds_px": [
+            150.0,
+            445.0,
+            474.7323822021485,
+            488.20000000000005
+          ]
+        },
+        {
+          "text": "Incumbent training and fitted $\\theta_0$",
+          "bounds_px": [
+            150.0,
+            510.0,
+            576.8369598388672,
+            543.0
+          ]
+        },
+        {
+          "text": "Add D; retain $\\theta_0$",
+          "bounds_px": [
+            507.0,
+            579.0,
+            723.9891662597656,
+            611.1
+          ]
+        },
+        {
+          "text": "$P_D$: $P_0$ with D",
+          "bounds_px": [
+            150.0,
+            654.0,
+            413.44978485107424,
+            695.2
+          ]
+        },
+        {
+          "text": "Same inherited path and settings",
+          "bounds_px": [
+            150.0,
+            719.0,
+            592.25,
+            747.0
+          ]
+        },
+        {
+          "text": "Score both final graphs",
+          "bounds_px": [
+            290.1875,
+            837.0,
+            669.8125,
+            868.21875
+          ]
+        },
+        {
+          "text": "Evidence: D at the inherited $\\theta_0$",
+          "bounds_px": [
+            120.0,
+            935.0,
+            584.4755706787109,
+            968.4
+          ]
+        },
+        {
+          "text": "Retain or reject this plug-in;\nkeep the verdict within that scope.",
+          "bounds_px": [
+            120.0,
+            993.0,
+            596.0,
+            1056.75
+          ]
+        },
+        {
+          "text": "2  COMPATIBLE COMPOSITION",
+          "bounds_px": [
+            960.0,
+            303.0,
+            1363.875,
+            327.0
+          ]
+        },
+        {
+          "text": "Declare the candidate's own path",
+          "bounds_px": [
+            960.0,
+            353.0,
+            1561.5,
+            387.0
+          ]
+        },
+        {
+          "text": "$P_D$ at adapted $\\theta_D$",
+          "bounds_px": [
+            990.0,
+            445.0,
+            1305.7099609375,
+            488.0
+          ]
+        },
+        {
+          "text": "or a separate pipeline $P_1$ at $\\theta_1$",
+          "bounds_px": [
+            990.0,
+            505.0,
+            1434.2390411376953,
+            542.0
+          ]
+        },
+        {
+          "text": "Train and calibrate this path",
+          "bounds_px": [
+            990.0,
+            654.0,
+            1468.625,
+            687.0
+          ]
+        },
+        {
+          "text": "Support, fitting and settings declared first",
+          "bounds_px": [
+            990.0,
+            719.0,
+            1527.125,
+            745.0
+          ]
+        },
+        {
+          "text": "Compare complete final graphs",
+          "bounds_px": [
+            1065.75,
+            837.0,
+            1574.25,
+            868.21875
+          ]
+        },
+        {
+          "text": "Evidence: a compatible, trained path",
+          "bounds_px": [
+            960.0,
+            935.0,
+            1516.75,
+            964.0
+          ]
+        },
+        {
+          "text": "Use the complete incumbent as reference;\njudge the frozen composition.",
+          "bounds_px": [
+            960.0,
+            993.0,
+            1546.75,
+            1056.75
+          ]
+        },
+        {
+          "text": "A conditional loss does not establish family exhaustion",
+          "bounds_px": [
+            90.0,
+            1170.0,
+            1116.375,
+            1206.75
+          ]
+        },
+        {
+          "text": "Adaptation belongs on training-side data; no promise that an alternative will win.",
+          "bounds_px": [
+            90.0,
+            1233.0,
+            1164.875,
+            1261.0
+          ]
+        }
+      ],
+      "out_of_bounds": [],
+      "text_intersections": []
+    },
+    {
+      "name": "fig-03-component-and-composition-mobile",
+      "dimensions_px": [
+        760,
+        2070
+      ],
+      "text_bounds": [
+        {
+          "text": "BIOHUB / NOTE 9",
+          "bounds_px": [
+            30.0,
+            30.0,
+            256.375,
+            54.0
+          ]
+        },
+        {
+          "text": "Two comparisons,\ntwo different questions",
+          "bounds_px": [
+            30.0,
+            83.0,
+            502.875,
+            171.375
+          ]
+        },
+        {
+          "text": "A: detector · B: association\nC: graph policy · D: new evidence",
+          "bounds_px": [
+            30.0,
+            203.0,
+            481.125,
+            264.5
+          ]
+        },
+        {
+          "text": "1  PLUG-IN COMPARISON",
+          "bounds_px": [
+            58.0,
+            336.0,
+            390.375,
+            360.0
+          ]
+        },
+        {
+          "text": "Keep incumbent settings",
+          "bounds_px": [
+            58.0,
+            388.0,
+            521.375,
+            424.75
+          ]
+        },
+        {
+          "text": "$P_0 = (A_0, B_0, C_0)$",
+          "bounds_px": [
+            86.0,
+            487.0,
+            388.38002014160156,
+            527.9000000000001
+          ]
+        },
+        {
+          "text": "Incumbent training and fitted $\\theta_0$",
+          "bounds_px": [
+            86.0,
+            548.0,
+            512.8369598388672,
+            581.0
+          ]
+        },
+        {
+          "text": "$P_D$: $P_0$ with D",
+          "bounds_px": [
+            86.0,
+            669.0,
+            331.31175994873047,
+            708.9000000000001
+          ]
+        },
+        {
+          "text": "Add D; retain the inherited $\\theta_0$",
+          "bounds_px": [
+            86.0,
+            730.0,
+            465.0057678222656,
+            760.5999999999999
+          ]
+        },
+        {
+          "text": "Score both final graphs",
+          "bounds_px": [
+            184.875,
+            832.0,
+            575.125,
+            865.0
+          ]
+        },
+        {
+          "text": "Evidence: D at inherited $\\theta_0$",
+          "bounds_px": [
+            58.0,
+            908.0,
+            478.2381591796875,
+            943.7
+          ]
+        },
+        {
+          "text": "Retain or reject this plug-in;\nkeep the verdict within that scope.",
+          "bounds_px": [
+            58.0,
+            959.0,
+            518.625,
+            1020.5
+          ]
+        },
+        {
+          "text": "2 COMPATIBLE COMPOSITION",
+          "bounds_px": [
+            58.0,
+            1110.0,
+            454.375,
+            1134.0
+          ]
+        },
+        {
+          "text": "Declare its own path",
+          "bounds_px": [
+            58.0,
+            1162.0,
+            437.0,
+            1198.25
+          ]
+        },
+        {
+          "text": "$P_D$ at adapted $\\theta_D$",
+          "bounds_px": [
+            86.0,
+            1261.0,
+            401.7099609375,
+            1304.0
+          ]
+        },
+        {
+          "text": "or a separate $P_1$ at $\\theta_1$",
+          "bounds_px": [
+            86.0,
+            1322.0,
+            377.2089904785156,
+            1355.0
+          ]
+        },
+        {
+          "text": "Train and calibrate",
+          "bounds_px": [
+            86.0,
+            1443.0,
+            439.625,
+            1479.0
+          ]
+        },
+        {
+          "text": "Declare support, fitting and settings",
+          "bounds_px": [
+            86.0,
+            1504.0,
+            548.25,
+            1530.0
+          ]
+        },
+        {
+          "text": "Compare complete graphs",
+          "bounds_px": [
+            159.5625,
+            1606.0,
+            600.4375,
+            1639.0
+          ]
+        },
+        {
+          "text": "Evidence: a compatible path",
+          "bounds_px": [
+            58.0,
+            1682.0,
+            503.125,
+            1713.21875
+          ]
+        },
+        {
+          "text": "Use the complete incumbent as reference;\njudge the frozen composition.",
+          "bounds_px": [
+            58.0,
+            1733.0,
+            625.5,
+            1794.5
+          ]
+        },
+        {
+          "text": "A conditional loss does not\nestablish family exhaustion",
+          "bounds_px": [
+            30.0,
+            1910.0,
+            500.625,
+            1982.5
+          ]
+        },
+        {
+          "text": "Training-side adaptation; no promised win.",
+          "bounds_px": [
+            30.0,
+            2010.0,
+            581.5,
+            2036.0
+          ]
+        }
+      ],
+      "out_of_bounds": [],
+      "text_intersections": []
+    }
+  ],
+  "outputs": [
+    {
+      "file": "cover.png",
+      "sha256": "a3ef7423b8db3cb1ff08e1db28ab4ee6b1274070311c50e9d515bf65970945e9"
+    },
+    {
+      "file": "fig-01-private-submissions-mobile.png",
+      "sha256": "5477ac31e139873014d618d5cb0c5f18accdcbc348c05cc327bbcbc8be97a9cc"
+    },
+    {
+      "file": "fig-01-private-submissions.png",
+      "sha256": "7663b97f998c991dfb3bd746b17994da26a308be6bf32154c1691a4757444c5d"
+    },
+    {
+      "file": "fig-02-research-verdicts-mobile.png",
+      "sha256": "edceded37e126b647af6e03b33321b0faeaba593abf5cfa8771ad1ffc426ebe5"
+    },
+    {
+      "file": "fig-02-research-verdicts.png",
+      "sha256": "29b04b56f94f449a07b39c65174adaf36c5f45e54b7a13e478de681fbadf7827"
+    },
+    {
+      "file": "fig-03-component-and-composition-mobile.png",
+      "sha256": "9061502684d4a5c0b08a2f69bfbe9e96d4f76a94d9043c5201463e96ea98fcf8"
+    },
+    {
+      "file": "fig-03-component-and-composition.png",
+      "sha256": "ce142e053151a04f494dc16e348a7922cda10eb29fbb784f311325bfea3ab0ed"
+    },
+    {
+      "file": "cover.svg",
+      "sha256": "1d348cc3754ef90dc6cbc2f88208b3dca92800bbce3de82d8a7afa58ec252060"
+    },
+    {
+      "file": "fig-01-private-submissions-mobile.svg",
+      "sha256": "d17a8482f6356d087f8141fe2680c99a20318d393ee9545ec4f873358eca92c4"
+    },
+    {
+      "file": "fig-01-private-submissions.svg",
+      "sha256": "0f513ac07376e125d0e49433486de134c82bf4bbf835ab526a85fe1e3bd9aceb"
+    },
+    {
+      "file": "fig-02-research-verdicts-mobile.svg",
+      "sha256": "43d5e6ded00c492a659ae36f4d86992504de71d440c010ac887cc16c026d4639"
+    },
+    {
+      "file": "fig-02-research-verdicts.svg",
+      "sha256": "6f3cc1dfe9676c7e699b7e22cc5e99fd232e350f5adebdca70c90ee34417fab4"
+    },
+    {
+      "file": "fig-03-component-and-composition-mobile.svg",
+      "sha256": "db7ac73fabd21e0e06c85476a9c4fc50c0873b30d66239319c94e6ee2388b1ab"
+    },
+    {
+      "file": "fig-03-component-and-composition.svg",
+      "sha256": "660a2d23832917bb53d6fa8ac6c0e4bb3eef88fef4d9c97b1e9ca83c4cd58fd8"
+    }
+  ],
+  "visual_review": {
+    "status": "passed",
+    "method": "Direct view_image inspection of all three original PNGs and all three 760-pixel-wide previews after the final generation.",
+    "findings": "No overlapping labels or clipping. White figures use compact layouts; plot grid, exact scores, statuses and verdict actions remain legible at 760 pixels. Cover matches the earlier dark title-card typography and line art; its small footer/summary text remains secondary to the title.",
+    "preview_paths": [
+      "_qa/cover-760px.png",
+      "_qa/fig-01-private-submissions-760px.png",
+      "_qa/fig-02-research-verdicts-760px.png"
+    ],
+    "font_fix": "Used the explicit Arial bold face for bold labels because the macOS Helvetica Neue TTC resolved to a regular face in the initial Matplotlib output.",
+    "limits": "Figure layout and embedded EN/KR page rendering, tables and MathJax verified at 1280×900 and 390×844 on 2026-10-03; scope is presentation, not model-performance validation."
+  },
+  "mobile_visual_review": {
+    "status": "passed",
+    "method": "Direct view_image inspection of both full 760-pixel mobile PNGs and their 360-pixel-wide previews after final generation.",
+    "findings": "All five exact scores, versions and selection/diagnostic statuses are readable at 360 pixels. The four verdicts are stacked with readable observations and actions; no labels overlap or clip. Narrow page margins and card spacing leave no large empty bands.",
+    "preview_paths": [
+      "_qa/fig-01-private-submissions-mobile-360px.png",
+      "_qa/fig-02-research-verdicts-mobile-360px.png"
+    ],
+    "desktop_preservation": "Ran the generator with --mobile-only; existing cover and desktop PNG/SVG files were not written.",
+    "limits": "Figure layout and embedded EN/KR page rendering, tables and MathJax verified at 1280×900 and 390×844 on 2026-10-03; scope is presentation, not model-performance validation."
+  },
+  "research_revision_visual_review": "Passed: directly inspected revised cover and both composition PNG layouts at article-scale widths; no text overlaps or excessive unused space found. P0/PD/P1 matches the narrative definitions.",
+  "article_order": {
+    "figure_1": "fig-03-component-and-composition",
+    "figure_2": "fig-02-research-verdicts",
+    "appendix_figure_3": "fig-01-private-submissions"
+  },
+  "writeup_revision": {
+    "date": "2026-10-02",
+    "scope": "Prose and primary evidence expanded. Existing PNG/SVG assets were not regenerated; prior visual QA applies to those unchanged bytes. Embedded page rendering checked separately.",
+    "asset_sha256": {
+      "cover.png": "0fa8fb42c24e2fc495249f891ab5c107bcfe81b099eed523a5d52b369048a8ab",
+      "cover.svg": "2376d014511a1858f8b985a91adc76a1b219f264224061bb470163ffc6d2277c",
+      "fig-01-private-submissions-mobile.png": "5477ac31e139873014d618d5cb0c5f18accdcbc348c05cc327bbcbc8be97a9cc",
+      "fig-01-private-submissions-mobile.svg": "d17a8482f6356d087f8141fe2680c99a20318d393ee9545ec4f873358eca92c4",
+      "fig-01-private-submissions.png": "7663b97f998c991dfb3bd746b17994da26a308be6bf32154c1691a4757444c5d",
+      "fig-01-private-submissions.svg": "0f513ac07376e125d0e49433486de134c82bf4bbf835ab526a85fe1e3bd9aceb",
+      "fig-02-research-verdicts-mobile.png": "edceded37e126b647af6e03b33321b0faeaba593abf5cfa8771ad1ffc426ebe5",
+      "fig-02-research-verdicts-mobile.svg": "43d5e6ded00c492a659ae36f4d86992504de71d440c010ac887cc16c026d4639",
+      "fig-02-research-verdicts.png": "29b04b56f94f449a07b39c65174adaf36c5f45e54b7a13e478de681fbadf7827",
+      "fig-02-research-verdicts.svg": "6f3cc1dfe9676c7e699b7e22cc5e99fd232e350f5adebdca70c90ee34417fab4",
+      "fig-03-component-and-composition-mobile.png": "62ea0aa961223dbaaee8df7cc939f5890a4374fb44208e2cf0fc7602b9aefd01",
+      "fig-03-component-and-composition-mobile.svg": "74a88719e2911021e44c06acec3415c131c2df027b2bc8ad5849fdfab39cfa5c",
+      "fig-03-component-and-composition.png": "1ffd21ae5d9752a126c1aa6efb10cf68bec340a6704b9c33cd347868dcb5c336",
+      "fig-03-component-and-composition.svg": "a69fd53519e6ba9ac54b9d4ebc7abf5857b6678befe26353baeb47896ec4f70d"
+    }
+  },
+  "narrative_revision": {
+    "date": "2026-10-03",
+    "scope": "Cover retitled; desktop/mobile composition schematic uses P0, PD and P1 with defined roles and operating choices. Private and verdict plots unchanged. Text bounds and direct image inspection passed; embedded page rendering checked separately.",
+    "asset_sha256": {
+      "cover.png": "a3ef7423b8db3cb1ff08e1db28ab4ee6b1274070311c50e9d515bf65970945e9",
+      "cover.svg": "1d348cc3754ef90dc6cbc2f88208b3dca92800bbce3de82d8a7afa58ec252060",
+      "fig-01-private-submissions-mobile.png": "5477ac31e139873014d618d5cb0c5f18accdcbc348c05cc327bbcbc8be97a9cc",
+      "fig-01-private-submissions-mobile.svg": "d17a8482f6356d087f8141fe2680c99a20318d393ee9545ec4f873358eca92c4",
+      "fig-01-private-submissions.png": "7663b97f998c991dfb3bd746b17994da26a308be6bf32154c1691a4757444c5d",
+      "fig-01-private-submissions.svg": "0f513ac07376e125d0e49433486de134c82bf4bbf835ab526a85fe1e3bd9aceb",
+      "fig-02-research-verdicts-mobile.png": "edceded37e126b647af6e03b33321b0faeaba593abf5cfa8771ad1ffc426ebe5",
+      "fig-02-research-verdicts-mobile.svg": "43d5e6ded00c492a659ae36f4d86992504de71d440c010ac887cc16c026d4639",
+      "fig-02-research-verdicts.png": "29b04b56f94f449a07b39c65174adaf36c5f45e54b7a13e478de681fbadf7827",
+      "fig-02-research-verdicts.svg": "6f3cc1dfe9676c7e699b7e22cc5e99fd232e350f5adebdca70c90ee34417fab4",
+      "fig-03-component-and-composition-mobile.png": "9061502684d4a5c0b08a2f69bfbe9e96d4f76a94d9043c5201463e96ea98fcf8",
+      "fig-03-component-and-composition-mobile.svg": "db7ac73fabd21e0e06c85476a9c4fc50c0873b30d66239319c94e6ee2388b1ab",
+      "fig-03-component-and-composition.png": "ce142e053151a04f494dc16e348a7922cda10eb29fbb784f311325bfea3ab0ed",
+      "fig-03-component-and-composition.svg": "660a2d23832917bb53d6fa8ac6c0e4bb3eef88fef4d9c97b1e9ca83c4cd58fd8"
+    }
+  }
+}

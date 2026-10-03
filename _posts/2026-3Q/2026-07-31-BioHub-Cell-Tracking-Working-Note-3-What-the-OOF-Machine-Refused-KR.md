@@ -7,7 +7,7 @@ math: true
 last_modified_at: 2026-09-23
 pin: false
 hide: false
-published: false
+published: true
 image:
   path: /assets/img/posts/2026-07-31-biohub-working-note-3/cover.png
   alt: "BioHub Cell Tracking 작업 기록 3: OOF에 기반한 판단들"

@@ -7,7 +7,7 @@ math: true
 last_modified_at: 2026-09-23
 pin: false
 hide: false
-published: false
+published: true
 image:
   path: /assets/img/posts/2026-08-28-biohub-working-note-5/cover.png
   alt: "BioHub Cell Tracking 작업 기록 5: 고정된 그래프가 시험하지 못한 것들"

@@ -4,10 +4,10 @@ date: 2026-09-18 21:00:00 +0900
 categories: [AI, Kaggle]
 tags: [kaggle, biohub, cell-tracking, microscopy, lineage-reconstruction, final-selection, stage-jitter, registration, association-head, embryo-out, selection-bias, oof, working-note, korean]
 math: true
-last_modified_at: 2026-09-23
+last_modified_at: 2026-10-02
 pin: false
 hide: false
-published: false
+published: true
 image:
   path: /assets/img/posts/2026-09-18-biohub-working-note-8/cover.png
   alt: "BioHub Cell Tracking 작업 기록 8: 최종 제출을 고를 때 고민한 것들"
@@ -519,3 +519,5 @@ v93과 v92를 선택했다. H1은 embryo-out 평가에서 K5의 다섯 조건을
 - [6편: 로컬 검증이 제출 파이프라인과 달랐던 문제]({{ site.baseurl }}/posts/BioHub-Cell-Tracking-Working-Note-6-When-Local-Validation-Ran-a-Different-Pipeline-KR/)
 - [7편: 같은 코드로도 검증이 어긋나는 이유]({{ site.baseurl }}/posts/BioHub-Cell-Tracking-Working-Note-7-Deciding-by-Logic-and-What-Validation-Must-Reproduce-KR/)
 - **8편: 최종 제출을 고를 때 고민한 것들**
+
+> **대회 종료 후 회고 · 2026-10-02:** [작업 기록 9: 큰 계획에 비해 허술했던 시작]({{ site.baseurl }}/posts/BioHub-Cell-Tracking-Working-Note-9-Final-Results-and-the-Decision-to-Stop-Searching-KR/)에서 Private 결과와 종료 후 공개된 해법을 바탕으로 초기 실행과 학습의 기반, 이후 방향을 바꾸기 어려웠던 과정을 돌아본다.

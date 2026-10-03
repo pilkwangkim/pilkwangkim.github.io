@@ -7,7 +7,7 @@ math: true
 last_modified_at: 2026-09-23
 pin: false
 hide: false
-published: false
+published: true
 image:
   path: /assets/img/posts/2026-08-28-biohub-working-note-5/cover.png
   alt: "BioHub Cell Tracking Working Note 5: What a Frozen Graph Left Untested"

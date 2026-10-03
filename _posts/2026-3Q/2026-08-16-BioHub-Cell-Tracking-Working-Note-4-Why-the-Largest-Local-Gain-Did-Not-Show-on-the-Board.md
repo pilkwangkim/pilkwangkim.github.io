@@ -7,7 +7,7 @@ math: true
 last_modified_at: 2026-09-23
 pin: false
 hide: false
-published: false
+published: true
 image:
   path: /assets/img/posts/2026-08-16-biohub-working-note-4/cover.png
   alt: "BioHub Cell Tracking Working Note 4: Three Gaps in Local Validation"

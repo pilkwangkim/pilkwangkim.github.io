@@ -1,0 +1,308 @@
+{
+  "date": "2026-10-02",
+  "revision": "Solo retrospective: weak initial execution and learning-task foundations, difficult course correction, write-up development lessons, engineering/domain learning and staged comparisons",
+  "evidence_memos": [
+    {
+      "memo": "early-research-evidence.md",
+      "memo_sha256": "16800ca08b7c77904b05dbca18e53b019a9c3c86b07138bfb704568779d1e005",
+      "local_source_files": []
+    },
+    {
+      "memo": "search-policy-evidence.md",
+      "memo_sha256": "b523f6a62316626694dcdec8bfad3904fefa5339ad7f0b748affaf5ccab173c4",
+      "local_source_files": [
+        {
+          "path": "docs/strategy_20260715_oof_structural_roadmap.md",
+          "sha256": "843ab9df21a22bc20c9be156e6a11b2802e912343b63d393bcfb3c24b0037332"
+        },
+        {
+          "path": "docs/EXPERIMENT_SEARCH_OPERATING_SYSTEM.md",
+          "sha256": "c5ca6d870405b4a71935c74a6a04d7ca81058c89a94b9696e3865c77179337de"
+        },
+        {
+          "path": "docs/BIDIRECTIONAL_SUBMISSION_PORTFOLIO_20260803.md",
+          "sha256": "cfccdf77f3ea91021d302932eb2960f70c6e79c90ecd8bb81e516019d94218cc"
+        },
+        {
+          "path": "docs/FINAL_PICK_EVIDENCE_20260915.md",
+          "sha256": "91eae95720c08294619e08f9fc45b8434955f727bb315e3060682e21af62a778"
+        },
+        {
+          "path": "docs/HANDOVER_20260812_STRATEGY_RESET.md",
+          "sha256": "74716c67089101135514b9454991ab60d5aed65796bbe97da26af8f9f913a355"
+        },
+        {
+          "path": "docs/HANDOVER_20260828_CURRENT_BIOHUB_SEARCH_STATE.md",
+          "sha256": "ebe783ffd8febc1930ed9a37f35b10688eab9f3150cc5571a818039df1210f7d"
+        },
+        {
+          "path": "docs/D2_DIVISION_RESCORER_PROBE_RESULT_20260917.md",
+          "sha256": "5f4b27e68c8c5dd414dfc203d5b12b8d7924b703fd30c454274044d17260b368"
+        },
+        {
+          "path": "docs/HOCT_FIXED_NODE_STRUCTURAL_DIAGNOSTIC_20260810.md",
+          "sha256": "48ed0577280f171a8c7abee9ff81a65568d82a3fe869a6720c76d8dc9d42aedd"
+        },
+        {
+          "path": "results/hoct_adapted_head/hoct_adapted_288d_reciprocal_full177_capture_v5/FULL_CAPTURE_MANIFEST.json",
+          "sha256": "0c7cc8f81bfbddeef4d9a932b3980e3241694aa7a4f13a8afbd4fd5cf11074c1"
+        },
+        {
+          "path": "results/hoct_adapted_head/hoct_shiftcorr_bound_p2_capacity_remediation_v1/benchmark_20260823T054710Z/HOCT_SHIFTCORR_P2_CAPACITY_REMEDIATION_DECISION.json",
+          "sha256": "9984935139eddc84a22d7340f8b250902d507692af03465b56425aed9a3bb19b"
+        },
+        {
+          "path": "docs/A2_STANDALONE_RECIPROCAL4_RESULT_20260912.md",
+          "sha256": "0c5b84bca75c29470d53c2b7519fd2477df471e3c8f4ef80f455ac5da96b4f73"
+        },
+        {
+          "path": "docs/REEXAMINATION_20260917.md",
+          "sha256": "bb0f7dd731e76f6a37879d97a8917ea89b7220d05e402bc40d0a218dddce0186"
+        },
+        {
+          "path": "docs/GO2_GEOMETRY_CORRECTOR_EO199_RESULT_20260918.md",
+          "sha256": "ce0efb206e544527a11360d1c7841051c82a1681069a3f3f7ea44b58014b54fd"
+        },
+        {
+          "path": "docs/EVALUATION_PROTOCOL_STATUS_20260810.md",
+          "sha256": "b23529feb6f85970ffdee6728d37ad6e5b0f3e0c2ad117f034b97a7104509a19"
+        },
+        {
+          "path": "docs/DETECTION_CEILING_20260807.md",
+          "sha256": "bbac8033ab6f30e866917959624e1f634c63e639bbbc9c3cf09d8c9d36607f6e"
+        },
+        {
+          "path": "docs/BROAD_EXPLORATION_PLAN_20260914.md",
+          "sha256": "5fc8215e853d19285e956b103cde38c2856cb9aea243319e7da796be17caeab4"
+        }
+      ]
+    },
+    {
+      "memo": "winner-research-evidence.md",
+      "memo_sha256": "a415529efccda2f5235f07f26eafe95510be31908e08ddc4d8f7902fdba0d6f7",
+      "local_source_files": []
+    },
+    {
+      "memo": "winner-supervision-gap.md",
+      "memo_sha256": "66b851990715a8cbda9574b7a1c6605cf55a22d992ff8e53ce6f5005c46030b7",
+      "local_source_files": [
+        {
+          "path": "docs/CANDIDATE_PU3D_NIGHTLY_HANDOFF_20260727.md",
+          "sha256": "4d012fc0ba8aaed061e54eda62dc471fca577645e55250fbfbc57d66963c47d5"
+        },
+        {
+          "path": "docs/CLAUDE_SESSION_LOG.md",
+          "sha256": "0d774b674ec0547bcdd34c4ffb3d142c24eda6d2ac3a7f93d194dda6907c9294"
+        },
+        {
+          "path": "docs/DIVISION_HYPEREDGE_OOF.md",
+          "sha256": "7d5bfcf321cf6be85a2615fe90780d5c66b34110cdcd13baf66826179fc99028"
+        },
+        {
+          "path": "docs/LB_SCORE_LEDGER_20260726.md",
+          "sha256": "6ecf348c8d86afaa3bab8cc302590af0bb0810d1e33871ec8aac4eb71788703d"
+        },
+        {
+          "path": "docs/MULTIFRAME_DIVISION_CONTEXT_OOF.md",
+          "sha256": "2aae93137b997b8bbdcba5ac329ce7bd352042dc02ea971cae9f9dccfda97c60"
+        },
+        {
+          "path": "docs/MULTI_HYPOTHESIS_GRAPH_UNION_20260730.md",
+          "sha256": "e3fcfc29b6ff53f6ab97687f04b0228d9a88ca21f2ceb2980428e19e36967862"
+        },
+        {
+          "path": "docs/STRICT_DIVISION_RANK_ENSEMBLE.md",
+          "sha256": "3f5fddd91cf401e875447768e53b3b20a1db019516c2620543e0919507846384"
+        },
+        {
+          "path": "docs/TEMPORAL_DAUGHTER_PROPOSAL_RESULT_20260913.md",
+          "sha256": "28e3cbdec809de8bc99a3ef2f5b187eb95a8a2da5076ae3385a38123793b1627"
+        },
+        {
+          "path": "docs/TEMPORAL_EMBEDDING_AFFINITY_HYPOTHESES.md",
+          "sha256": "56116cf6488400428c3e15acb8ae55f3539ee33ba8e9629582dea60fef9a9d11"
+        },
+        {
+          "path": "docs/strategy_20260715_oof_structural_roadmap.md",
+          "sha256": "843ab9df21a22bc20c9be156e6a11b2802e912343b63d393bcfb3c24b0037332"
+        }
+      ]
+    },
+    {
+      "memo": "winner-research-decisions-gap.md",
+      "memo_sha256": "5c01530e127823a5bd7a453b3d0fa6435b83289c44e5a9ff59753e4fcf9bee62",
+      "local_source_files": [
+        {
+          "path": "docs/BROAD_EXPLORATION_PLAN_20260914.md",
+          "sha256": "5fc8215e853d19285e956b103cde38c2856cb9aea243319e7da796be17caeab4"
+        },
+        {
+          "path": "docs/D2_DIVISION_RESCORER_PROBE_RESULT_20260917.md",
+          "sha256": "5f4b27e68c8c5dd414dfc203d5b12b8d7924b703fd30c454274044d17260b368"
+        },
+        {
+          "path": "docs/REEXAMINATION_20260917.md",
+          "sha256": "bb0f7dd731e76f6a37879d97a8917ea89b7220d05e402bc40d0a218dddce0186"
+        },
+        {
+          "path": "docs/SCORE_UPSIDE_RESEARCH_20260728.md",
+          "sha256": "bad2e3a86596fedf2c1e1782840f2bbf68ce7ae2b2531b38b7edff0a7f120165"
+        },
+        {
+          "path": "docs/TEMPORAL_EMBEDDING_AFFINITY_HYPOTHESES.md",
+          "sha256": "56116cf6488400428c3e15acb8ae55f3539ee33ba8e9629582dea60fef9a9d11"
+        },
+        {
+          "path": "docs/TEMPORAL_EMBEDDING_OOF_ADAPTER.md",
+          "sha256": "56fc1e7c8375586d6ec84d566804b74d442eb7cca1eb78dba8e1ec52b34da921"
+        }
+      ]
+    }
+  ],
+  "postcompetition_author_accounts": [
+    {
+      "private_rank": 1,
+      "source_url": "https://www.kaggle.com/competitions/biohub-cell-tracking-during-development/discussion/744801",
+      "saved_text_path": "_draft/postcompetition-review-20261002/writeups/en/private-001.md",
+      "saved_text_sha256": "6bc4c698c1d868d49b70c8ab2a3388390468ec75ba99bfcc923caa9840270c41"
+    },
+    {
+      "private_rank": 2,
+      "source_url": "https://www.kaggle.com/competitions/biohub-cell-tracking-during-development/discussion/744723",
+      "saved_text_path": "_draft/postcompetition-review-20261002/writeups/en/private-002.md",
+      "saved_text_sha256": "26ad8bd8d631fc0775b28f41b5f3bebb846011287709422c7416d4c89467e97b"
+    },
+    {
+      "private_rank": 3,
+      "source_url": "https://www.kaggle.com/competitions/biohub-cell-tracking-during-development/discussion/744484",
+      "saved_text_path": "_draft/postcompetition-review-20261002/writeups/en/private-003.md",
+      "saved_text_sha256": "a55e618413ddf3940309c608f14bfc07fa00b5443e0a2da2fab35bfb61cad50c"
+    },
+    {
+      "private_rank": 4,
+      "source_url": "https://www.kaggle.com/competitions/biohub-cell-tracking-during-development/discussion/744673",
+      "saved_text_path": "_draft/postcompetition-review-20261002/writeups/en/private-004.md",
+      "saved_text_sha256": "e9154febb109ff9997e1168920f3e6452fdcb26685c33fc7751335219fe41a53"
+    },
+    {
+      "private_rank": 5,
+      "source_url": "https://www.kaggle.com/competitions/biohub-cell-tracking-during-development/discussion/744549",
+      "saved_text_path": "_draft/postcompetition-review-20261002/writeups/en/private-005.md",
+      "saved_text_sha256": "356438e5d2b26557b6f812ae4aa665038085b1159ef7855132e4cdfc566311fc"
+    },
+    {
+      "private_rank": 6,
+      "source_url": "https://www.kaggle.com/competitions/biohub-cell-tracking-during-development/discussion/744582",
+      "saved_text_path": "_draft/postcompetition-review-20261002/writeups/en/private-006.md",
+      "saved_text_sha256": "ac5ac16cfe6a7638daa9be9ab1e8563fcaf7b29d027807d0490d0c973e495dd5"
+    },
+    {
+      "private_rank": 7,
+      "source_url": "https://www.kaggle.com/competitions/biohub-cell-tracking-during-development/discussion/744937",
+      "saved_text_path": "_draft/postcompetition-review-20261002/writeups/en/private-007.md",
+      "saved_text_sha256": "d6daf7b7a93f3c1c6037e8ce2aad3715b10f5e2ea5f807d23dc4741934b93cf9"
+    },
+    {
+      "private_rank": 9,
+      "source_url": "https://www.kaggle.com/competitions/biohub-cell-tracking-during-development/discussion/744835",
+      "saved_text_path": "_draft/postcompetition-review-20261002/writeups/en/private-009.md",
+      "saved_text_sha256": "2d4edf7b56aef899a6a3c45d7e53db1916794ea89363d3556d3335974724aca3"
+    },
+    {
+      "private_rank": 10,
+      "source_url": "https://www.kaggle.com/competitions/biohub-cell-tracking-during-development/discussion/744980",
+      "saved_text_path": "_draft/postcompetition-review-20261002/writeups/en/private-010.md",
+      "saved_text_sha256": "26746a792fbb5f1cdbf1deb8b2ba310eb29745c6f43211b173941249a2224803"
+    },
+    {
+      "private_rank": 12,
+      "source_url": "https://www.kaggle.com/competitions/biohub-cell-tracking-during-development/discussion/744501",
+      "saved_text_path": "_draft/postcompetition-review-20261002/writeups/en/private-012.md",
+      "saved_text_sha256": "32f25669c9b4245ac9be19cd7a0fe5252dc9747c284a2ac1c9de6649b5366f17"
+    },
+    {
+      "private_rank": 14,
+      "source_url": "https://www.kaggle.com/competitions/biohub-cell-tracking-during-development/discussion/744486",
+      "saved_text_path": "_draft/postcompetition-review-20261002/writeups/en/private-014.md",
+      "saved_text_sha256": "cce6ded8f149dee6086ec428d86334378d90517f508ec70216a373dace10bc3b"
+    },
+    {
+      "private_rank": 16,
+      "source_url": "https://www.kaggle.com/competitions/biohub-cell-tracking-during-development/discussion/744671",
+      "saved_text_path": "_draft/postcompetition-review-20261002/writeups/en/private-016.md",
+      "saved_text_sha256": "57a7fbd94893c2b25873b1aad7020e4d30e5d6981869606f4e9d07964e846229"
+    },
+    {
+      "private_rank": 17,
+      "source_url": "https://www.kaggle.com/competitions/biohub-cell-tracking-during-development/discussion/744930",
+      "saved_text_path": "_draft/postcompetition-review-20261002/writeups/en/private-017.md",
+      "saved_text_sha256": "9306d251eae27064762e8df05e6194f1abe8867b0ffc4680fc0d24dc699eb3bf"
+    },
+    {
+      "private_rank": 18,
+      "source_url": "https://www.kaggle.com/competitions/biohub-cell-tracking-during-development/discussion/744531",
+      "saved_text_path": "_draft/postcompetition-review-20261002/writeups/en/private-018.md",
+      "saved_text_sha256": "a9aabce95769d32c0125424b03ddfbeaf8aef64a25c821871083db9183d7cc67"
+    },
+    {
+      "private_rank": 95,
+      "source_url": "https://www.kaggle.com/competitions/biohub-cell-tracking-during-development/discussion/744912",
+      "saved_text_path": "_draft/postcompetition-review-20261002/writeups/en/private-095-public-012.md",
+      "saved_text_sha256": "103b35b255601a1f1ace025f4fc73cf7d214a29d176e375d5feaa6d9e48d7df8"
+    }
+  ],
+  "historical_policy_checks": [
+    {
+      "document": "docs/strategy_20260715_oof_structural_roadmap.md",
+      "commit": "3f738057",
+      "date_kst": "2026-07-16 00:43:01 +0900",
+      "finding": "Anchor-optimized blend test does not establish the blend optimum."
+    },
+    {
+      "document": "docs/EXPERIMENT_SEARCH_OPERATING_SYSTEM.md",
+      "commit": "f3b05595",
+      "date_kst": "2026-08-06 12:28:59 +0900",
+      "finding": "Independent representation and structured-decision search were already explicit."
+    }
+  ],
+  "interpretation_limits": [
+    "No new training, inference or Kaggle submissions were run for this revision.",
+    "Top-solution methods and local numbers are attributed to their authors, not independent reproductions.",
+    "The first ten days and token cost are autobiographical; logs establish particular failures and concurrent healthy training.",
+    "A restrictive conditional search is supported; inevitable failure or an unrun gold-winning recipe is not established."
+  ],
+  "figure_order": {
+    "1": "fig-03-component-and-composition",
+    "2": "fig-02-research-verdicts",
+    "appendix_3": "fig-01-private-submissions"
+  },
+  "revised_manuscripts": [
+    {
+      "language": "en",
+      "source": "_draft/_reviews/20261002-note9/note9-research-depth.en.md",
+      "sha256": "1b757c83fc518a390ba1a12acf3ae9d0c6b936d6bfba33d7a48e6280fb504471"
+    },
+    {
+      "language": "ko",
+      "source": "_draft/_reviews/20261002-note9/note9-research-depth.ko.md",
+      "sha256": "1dc447a92f5158261057fbb74c4db7f256194026c8c9159345bcf1e9826c20a1"
+    }
+  ],
+  "writeup_comparison_limits": [
+    "The author actually trained identity/division models, tried alternative detectors and graph hypotheses, used external microscopy and completed human candidate labeling.",
+    "The proposed successor experiments are retrospective investment decisions justified by contemporaneous signals, not proof of unrun winning recipes.",
+    "D2 cross-embryo operating-pool evaluation changed both candidate distribution and evaluation domain; endpoint correspondence is 0.813 to 0.5752 and 0.912 to 0.6922.",
+    "No downloaded winner code or model was executed for this editorial comparison."
+  ],
+  "author_voice_revision": {
+    "date": "2026-10-03",
+    "scope": "Solo first-person authorial voice in English and Korean. Medal framing removed; title and cover changed. Existing scientific measurements and primary attribution retained."
+  },
+  "hand_label_revision": {
+    "date": "2026-10-03",
+    "evidence": "_draft/assets/img/posts/2026-10-02-biohub-working-note-9/handlabel-evidence.json",
+    "sha256": "5dffdbcf211973779447d79421a871d714b9fd9b149275e09996fe0863d459f2",
+    "scope": "September 4–6 labeling, verifier refit and cue features; official v83/v85/v86/v87 Public and Private scores; September 14 S4 diagnostic kept separate from training.",
+    "limits": "Local verifier comparisons, final submission scores, uncertain labels, historical hypotheses and unrun successor experiments remain distinct."
+  }
+}

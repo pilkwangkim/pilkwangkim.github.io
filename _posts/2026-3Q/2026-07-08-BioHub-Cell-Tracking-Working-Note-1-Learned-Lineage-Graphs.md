@@ -9,7 +9,7 @@ pin: false
 image:
   path: /assets/img/posts/2026-07-08-biohub-working-note-1/cover.png
   alt: "BioHub Cell Tracking Working Note 1: Learned Lineage Graphs and Metric-Aware Repair"
-published: false
+published: true
 ---
 
 <style>

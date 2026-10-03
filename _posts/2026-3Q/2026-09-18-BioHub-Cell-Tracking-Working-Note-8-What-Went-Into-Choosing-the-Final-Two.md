@@ -4,10 +4,10 @@ date: 2026-09-18 21:00:00 +0900
 categories: [AI, Kaggle]
 tags: [kaggle, biohub, cell-tracking, microscopy, lineage-reconstruction, final-selection, stage-jitter, registration, association-head, embryo-out, selection-bias, oof, working-note]
 math: true
-last_modified_at: 2026-09-23
+last_modified_at: 2026-10-02
 pin: false
 hide: false
-published: false
+published: true
 image:
   path: /assets/img/posts/2026-09-18-biohub-working-note-8/cover.png
   alt: "BioHub Cell Tracking Working Note 8: What Went Into Choosing the Final Two"
@@ -561,3 +561,5 @@ Series:
 - [Part 6: When Local Validation Ran a Different Pipeline]({{ site.baseurl }}/posts/BioHub-Cell-Tracking-Working-Note-6-When-Local-Validation-Ran-a-Different-Pipeline/)
 - [Part 7: When the Same Code Was Not the Same Experiment]({{ site.baseurl }}/posts/BioHub-Cell-Tracking-Working-Note-7-Deciding-by-Logic-and-What-Validation-Must-Reproduce/)
 - **Part 8: What Went Into Choosing the Final Two**
+
+> **Postcompetition follow-up · 2026-10-02:** [Working Note 9: A Big Plan and a Weak Start]({{ site.baseurl }}/posts/BioHub-Cell-Tracking-Working-Note-9-Final-Results-and-the-Decision-to-Stop-Searching/) revisits the early execution and learning foundations, and why changing course later became difficult, using the Private results and postcompetition solution write-ups.

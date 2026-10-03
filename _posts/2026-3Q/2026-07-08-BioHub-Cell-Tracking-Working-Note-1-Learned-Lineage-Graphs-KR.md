@@ -9,7 +9,7 @@ pin: false
 image:
   path: /assets/img/posts/2026-07-08-biohub-working-note-1/cover.png
   alt: "BioHub Cell Tracking 작업 기록 1: Lineage Graph 학습과 평가지표에 맞춘 후처리"
-published: false
+published: true
 ---
 
 <style>
