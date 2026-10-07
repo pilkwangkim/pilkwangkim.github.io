@@ -8,6 +8,7 @@ pin: false
 topic: essays
 lang: en
 translation_key: the-paradox-of-benevolence
+article_version: compact
 ---
 
 **Subtitle: Good intentions are morally relevant, but they are not morally sufficient**

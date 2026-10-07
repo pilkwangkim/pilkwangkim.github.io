@@ -8,6 +8,7 @@ pin: false
 topic: essays
 lang: en
 translation_key: the-mirage-of-merit
+article_version: compact
 ---
 
 **Subtitle: Why competence alone rarely explains who receives opportunity**

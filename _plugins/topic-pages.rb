@@ -112,13 +112,28 @@ module Jekyll
 
     def group_articles(posts)
       posts.group_by { |post| post.data['translation_key'] || post.url }.map do |key, versions|
-        versions.sort_by! { |post| [post.data['lang'] == 'en' ? 0 : 1, post.url] }
+        versions.sort_by! do |post|
+          [post.data['lang'] == 'en' ? 0 : 1, edition_order(post.data['article_version']), post.url]
+        end
+        article_versions = versions.map do |post|
+          { 'title' => post.data['title'], 'url' => post.url, 'lang' => post.data['lang'],
+            'article_version' => post.data['article_version'] }
+        end
+        preferred_versions = article_versions.group_by { |version| version['lang'] }.values.map(&:first)
+        editions = if versions.any? { |post| post.data['article_version'] }
+                     article_versions.group_by { |version| version['article_version'] }
+                                     .sort_by { |edition, _| edition_order(edition) }
+                                     .map do |edition, members|
+                       { 'id' => edition, 'label' => edition == 'original' ? 'Original' : 'Compact',
+                         'versions' => members, 'languages' => members.map { |version| version['lang'] }.uniq }
+                     end
+                   end
         {
           'translation_key' => key,
-          'versions' => versions.map do |post|
-            { 'title' => post.data['title'], 'url' => post.url, 'lang' => post.data['lang'] }
-          end,
-          'languages' => versions.map { |post| post.data['lang'] },
+          'versions' => article_versions,
+          'preferred_versions' => preferred_versions,
+          'editions' => editions,
+          'languages' => versions.map { |post| post.data['lang'] }.uniq,
           'primary_language' => versions.first.data['lang'],
           'topic' => versions.first.data['topic'],
           'series' => versions.first.data['series'],
@@ -127,6 +142,10 @@ module Jekyll
           'modified_at' => versions.map { |post| modified_at(post) }.max
         }
       end.sort_by { |article| [-article['date'].to_f, article['translation_key'].to_s] }
+    end
+
+    def edition_order(edition)
+      edition == 'compact' ? 1 : 0
     end
 
     def article_groups(articles, group_topics: false)

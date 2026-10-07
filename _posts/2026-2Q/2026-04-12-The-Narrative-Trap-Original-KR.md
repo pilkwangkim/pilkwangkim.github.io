@@ -8,7 +8,8 @@ pin: false
 topic: essays
 lang: ko
 translation_key: the-narrative-trap
-article_version: compact
+article_version: original
+original_source_commit: "ed12d9407721ce6c0206bc3b18dc804ffee286f1"
 ---
 
 # **서사적 인과율의 함정: '체호프의 총'은 현실에서 발사되지 않는다**

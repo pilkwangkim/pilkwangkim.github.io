@@ -8,7 +8,8 @@ pin: false
 topic: essays
 lang: ko
 translation_key: the-paradox-of-benevolence
-article_version: compact
+article_version: original
+original_source_commit: "ed12d9407721ce6c0206bc3b18dc804ffee286f1"
 ---
 
 # **선의의 역설: 도덕적 나르시시즘을 넘어 결과적 책임으로**

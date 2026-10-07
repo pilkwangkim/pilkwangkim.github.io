@@ -8,6 +8,7 @@ pin: false
 topic: essays
 lang: en
 translation_key: the-narrative-trap
+article_version: compact
 ---
 
 **Subtitle: The danger of applying fictional causality to probabilistic reality**

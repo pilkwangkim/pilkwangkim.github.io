@@ -198,6 +198,25 @@ html:not([data-navigation-ready='true']) .topic-latest-posts { display: none; }
   font-size: 0.9rem;
 }
 
+.topic-edition-links,
+.post-edition-links { display: flex; flex-wrap: wrap; gap: 0.6rem 1.2rem; }
+
+.topic-edition-group,
+.post-edition-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 0.7rem;
+  padding: 0.2rem 0.65rem;
+  border: 1px solid var(--guide-border);
+  border-radius: 0.5rem;
+}
+
+.article-edition-label { color: var(--text-muted-color); font-size: 0.85rem; font-weight: 600; }
+.post-edition-links { margin-top: 0.85rem; }
+.post-edition-group a { display: inline-flex; align-items: center; min-height: 2.5rem; }
+.post-edition-group [aria-current='page'] { color: var(--text-color); font-weight: 700; }
+
 .post-guide-path { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.5rem; }
 .post-guide-separator { color: var(--text-muted-color); }
 

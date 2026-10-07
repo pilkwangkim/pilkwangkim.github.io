@@ -8,7 +8,8 @@ pin: false
 topic: essays
 lang: ko
 translation_key: the-mirage-of-merit
-article_version: compact
+article_version: original
+original_source_commit: "ed12d9407721ce6c0206bc3b18dc804ffee286f1"
 ---
 
 # **능력주의의 신기루: 포지셔닝의 지정학**

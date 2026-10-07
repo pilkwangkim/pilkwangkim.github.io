@@ -11,6 +11,9 @@
 <script defer src="{{ '/assets/js/blog-navigation.js' | relative_url }}?v={{ site.data.blog_asset_version }}"></script>
 {% if page.translation_key %}
   {% assign alternate_posts = site.posts | where: 'translation_key', page.translation_key | where_exp: 'post', 'post.hidden != true' %}
+  {% if page.article_version %}
+    {% assign alternate_posts = alternate_posts | where: 'article_version', page.article_version %}
+  {% endif %}
   {% for alternate in alternate_posts %}
     <link rel="alternate" hreflang="{{ alternate.lang }}" href="{{ alternate.url | absolute_url }}">
   {% endfor %}

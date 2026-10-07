@@ -40,7 +40,7 @@ asset_paths = %w[assets/js/blog-navigation.js assets/css/jekyll-theme-chirpy.scs
 asset_fingerprint = Digest::SHA256.hexdigest(asset_paths.sort.map do |path|
   path + "\0" + File.binread(File.join(source, path)) + "\0"
 end.join)[0, 12]
-urls = metadata.fetch('original_urls')
+urls = metadata['post_urls'] || metadata.fetch('original_urls')
 read_yaml = ->(path) { YAML.safe_load(File.read(path), permitted_classes: [Date, Time], aliases: true) }
 topics = read_yaml.call(File.join(source, '_data', 'topics.yml'))
 topics_by_id = topics.to_h { |topic| [topic['id'], topic] }
@@ -49,10 +49,10 @@ topic_groups = read_yaml.call(File.join(source, '_data', 'topic_groups.yml'))
 registered_series = read_yaml.call(File.join(source, '_data', 'series.yml')).to_h { |series| [series['id'], series] }
 aliases = read_yaml.call(File.join(source, '_data', 'tag_aliases.yml'))
 
-posts = baseline.map do |item|
-  parts = File.binread(File.join(source, item['path'])).split(/^---\s*$\n?/, 3)
+posts = urls.map do |path, url|
+  parts = File.binread(File.join(source, path)).split(/^---\s*$\n?/, 3)
   read_yaml_data = YAML.safe_load(parts[1], permitted_classes: [Date, Time], aliases: true)
-  read_yaml_data.merge('path' => item['path'], 'url' => urls.fetch(item['path']))
+  read_yaml_data.merge('path' => path, 'url' => url)
 end
 visible_posts = posts.reject { |post| post['hidden'] || post['published'] == false }
 date_epoch = lambda do |post|
@@ -86,19 +86,26 @@ asset_nodes = lambda do |html, selector, attribute, path|
   end
 end
 normalized_text = ->(node) { node&.text.to_s.gsub(/\s+/, ' ').strip }
-language_name = { 'ko' => 'Korean', 'en' => 'English' }
+language_name = { 'ko' => '한국어', 'en' => 'English' }
+legacy_language_name = { 'ko' => 'Korean', 'en' => 'English' }
+preferred_version = lambda do |members, language|
+  candidates = members.select { |post| post['lang'] == language }
+  candidates = members if candidates.empty?
+  candidates.min_by { |post| [post['lang'] == 'en' ? 0 : 1, post['article_version'] == 'original' ? 0 : 1, post['url']] }
+end
 inherited_language = lambda do |node|
   (node ? [node, *node.ancestors] : []).find { |ancestor| ancestor.element? && ancestor.key?('lang') }&.[]('lang')
 end
 english_ui = lambda do |node, url, label|
   check.call(!node.nil?, "#{url}: #{label} is missing")
   next unless node
+  next if node.matches?('a[hreflang="ko"]')
 
   check.call(inherited_language.call(node) == 'en', "#{url}: #{label} does not identify its English UI language")
   english_content = node.dup
-  # The Korean article filter button is the only localized label inside
-  # otherwise English discovery/navigation UI.
-  english_content.css('button[data-language-filter="ko"]').remove
+  # Korean language choices identify themselves as 한국어; the surrounding
+  # discovery/navigation interface stays in English.
+  english_content.css('button[data-language-filter="ko"], a[hreflang="ko"]').remove
   values = [normalized_text.call(english_content), node['aria-label'].to_s, node['title'].to_s, node['placeholder'].to_s]
   check.call(values.none? { |value| value.match?(/\p{Hangul}/) }, "#{url}: #{label} contains Korean UI text")
 end
@@ -110,7 +117,7 @@ rescue ArgumentError
 end
 
 urls.each do |path, url|
-  next if baseline.find { |item| item['path'] == path }.dig('front_matter', 'published') == false
+  next if posts.find { |item| item['path'] == path }['published'] == false
 
   html = html_for.call(url)
   next unless html
@@ -231,7 +238,7 @@ guide_entries.each do |topic|
 
       links = row.css('a[data-post-language]')
       check.call(hrefs.call(links).sort == members.map { |post| post['url'] }.sort, "#{label}: row #{key} merges or loses article versions")
-      check.call(row['data-post-languages'].to_s.split.sort == members.map { |post| post['lang'] }.sort, "#{label}: row #{key} has incorrect language metadata")
+      check.call(row['data-post-languages'].to_s.split.sort == members.map { |post| post['lang'] }.uniq.sort, "#{label}: row #{key} has incorrect language metadata")
       rendered_date = iso_epoch.call(row['data-article-date'], "#{label} article #{key}")
       expected_date = members.map { |post| date_epoch.call(post) }.max
       check.call(rendered_date && (rendered_date - expected_date).abs < 0.001, "#{label}: article #{key} date metadata differs from publication date")
@@ -240,15 +247,15 @@ guide_entries.each do |topic|
       end
       check.call(row['data-series-order'] == members.first['series_order']&.to_s, "#{label}: article #{key} must preserve its actual series order without assigning a new part number")
 
-      # Titles retain their content language; picker labels use English while
-      # hreflang describes the destination. English is the server-side primary.
+      # Each language has one preferred title, linking to Original when present.
+      # Language-choice labels identify themselves; English remains primary.
       titles = row.css('[data-post-title-language]')
-      check.call(titles.map { |title| title['data-post-title-language'] }.sort == members.map { |post| post['lang'] }.sort, "#{label}: article #{key} title languages differ from its versions")
+      check.call(titles.map { |title| title['data-post-title-language'] }.sort == members.map { |post| post['lang'] }.uniq.sort, "#{label}: article #{key} must have one title per language")
       primary_language = members.any? { |post| post['lang'] == 'en' } ? 'en' : members.first['lang']
       primary_titles = titles.reject { |title| title.key?('hidden') || title['aria-hidden'] == 'true' }
       check.call(primary_titles.length == 1 && primary_titles.first['data-post-title-language'] == primary_language, "#{label}: article #{key} must show its English primary title or available-language fallback")
       titles.each do |title|
-        version = members.find { |post| post['lang'] == title['data-post-title-language'] }
+        version = preferred_version.call(members, title['data-post-title-language'])
         check.call(version && title['lang'] == version['lang'], "#{label}: article #{key} title language differs from its content")
         check.call(version && normalized_text.call(title) == version['title'].to_s.gsub(/\s+/, ' ').strip, "#{label}: article #{key} title differs from source title")
         title_link = title.at_css('a')
@@ -258,9 +265,18 @@ guide_entries.each do |topic|
         version = members.find { |post| post['url'] == hrefs.call([link]).first }
         next unless version
 
-        check.call(link['lang'] == 'en' && link['hreflang'] == version['lang'] && link['data-post-language'] == version['lang'], "#{label}: version picker must separate English label language from destination language")
-        check.call(normalized_text.call(link) == language_name[version['lang']], "#{label}: version picker label must use its English language name")
+        check.call(link['lang'] == version['lang'] && link['hreflang'] == version['lang'] && link['data-post-language'] == version['lang'], "#{label}: language picker must identify its label and destination language")
+        check.call(normalized_text.call(link) == language_name[version['lang']], "#{label}: version picker label must use English or 한국어")
         english_ui.call(link, url, 'article language picker')
+      end
+      if members.any? { |member| member['article_version'] }
+        editions = row.css('[data-article-version]')
+        check.call(editions.map { |edition| edition['data-article-version'] } == %w[original compact], "#{label}: #{key} must expose Original before Compact")
+        editions.each do |edition|
+          version = edition['data-article-version']
+          expected_edition = members.select { |member| member['article_version'] == version }
+          check.call(hrefs.call(edition.css('a[data-post-language]')).sort == expected_edition.map { |member| member['url'] }.sort, "#{label}: #{key}/#{version} links mix versions or languages")
+        end
       end
     end
 
@@ -344,16 +360,33 @@ visible_posts.each do |post|
   html = html_for.call(post['url'])
   next unless html
 
-  counterparts = visible_posts.select { |other| other['translation_key'] == post['translation_key'] && other['url'] != post['url'] }
+  counterparts = visible_posts.select { |other| other['translation_key'] == post['translation_key'] && (post['article_version'] || other['url'] != post['url']) }
   check.call(hrefs.call(html.css('.post-guide-translation')).sort == counterparts.map { |other| other['url'] }.sort, "#{post['url']}: translation link differs from counterpart")
   html.css('.post-guide-translation').each do |link|
     counterpart = counterparts.find { |other| other['url'] == hrefs.call([link]).first }
     next unless counterpart
 
-    check.call(link['lang'] == 'en' && link['hreflang'] == counterpart['lang'], "#{post['url']}: translation label language must be English and hreflang must identify its target")
-    check.call(normalized_text.call(link) == "Read in #{language_name[counterpart['lang']]}", "#{post['url']}: translation link must use an English label")
+    expected_label = post['article_version'] ? language_name[counterpart['lang']] : "Read in #{legacy_language_name[counterpart['lang']]}"
+    expected_language = post['article_version'] ? counterpart['lang'] : 'en'
+    check.call(link['lang'] == expected_language && link['hreflang'] == counterpart['lang'], "#{post['url']}: translation link must identify its label and destination language")
+    check.call(normalized_text.call(link) == expected_label, "#{post['url']}: translation link has the wrong language label")
     english_ui.call(link, post['url'], 'translation picker')
   end
+  if post['article_version']
+    selected = html.css('.post-guide-translation[aria-current="page"]')
+    check.call(hrefs.call(selected) == [post['url']], "#{post['url']}: version selector must mark only the current page")
+    editions = html.css('.post-guide [data-article-version]')
+    check.call(editions.map { |edition| edition['data-article-version'] } == %w[original compact], "#{post['url']}: post guide must show Original then Compact")
+    editions.each do |edition|
+      version = edition['data-article-version']
+      expected_edition = counterparts.select { |member| member['article_version'] == version }
+      check.call(hrefs.call(edition.css('.post-guide-translation')).sort == expected_edition.map { |member| member['url'] }.sort, "#{post['url']}: #{version} selector must preserve version/language pairing")
+    end
+  end
+  alternates = html.css('link[rel="alternate"][hreflang]')
+  expected_alternates = visible_posts.select { |other| other['translation_key'] == post['translation_key'] && other['article_version'] == post['article_version'] }
+  actual_alternates = alternates.map { |link| [link['hreflang'], URI.parse(link['href']).path.delete_prefix(baseurl)] }
+  check.call(actual_alternates.sort == expected_alternates.map { |other| [other['lang'], other['url']] }.sort, "#{post['url']}: hreflang alternates must stay within the same version")
   parent = category_by_topic[post['topic']]
   expected_category = parent ? ["/topics/#{parent['id']}/"] : []
   check.call(hrefs.call(html.css('.post-guide-category')) == expected_category, "#{post['url']}: post guide category differs from topic membership")
@@ -555,8 +588,7 @@ html_cache.each do |url, html|
     keys << key
     check.call(link.ancestors('li').first&.[]('data-translation-key') == key, "#{url}: recent update row key differs from its article")
     members = visible_translation_groups.fetch(key)
-    primary = members.min_by { |member| [member['lang'] == 'ko' ? 0 : 1, member['url']] }
-    selected = members.find { |member| member['lang'] == page_language } || primary
+    selected = preferred_version.call(members, page_language)
     check.call(target == selected['url'], "#{url}: recent update #{key} does not use page language #{page_language} or its primary fallback")
     check.call(link['lang'] == selected['lang'] && link['hreflang'] == selected['lang'], "#{url}: recent update #{key} has incorrect language attributes")
   end
@@ -601,7 +633,9 @@ end
 
 report = {
   'status' => errors.empty? ? 'passed' : 'failed',
-  'original_post_routes' => urls.length,
+  'original_post_routes' => metadata.fetch('original_urls').length,
+  'all_post_routes' => urls.length,
+  'versioned_articles' => visible_posts.select { |post| post['article_version'] }.map { |post| post['translation_key'] }.uniq.length,
   'original_tag_routes' => original_tag_slugs.length,
   'topic_pages' => active_topics.length,
   'topic_category_pages' => active_categories.length,

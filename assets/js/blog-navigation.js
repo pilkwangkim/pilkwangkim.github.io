@@ -149,6 +149,9 @@
       row.querySelectorAll('[data-post-language]').forEach((link) => {
         link.hidden = selected !== 'all' && link.dataset.postLanguage !== selected;
       });
+      row.querySelectorAll('[data-edition-languages]').forEach((group) => {
+        group.hidden = selected !== 'all' && !group.dataset.editionLanguages.split(/\s+/).includes(selected);
+      });
       const titles = [...row.querySelectorAll('[data-post-title-language]')];
       const preferred = selected === 'all' ? (available.includes('en') ? 'en' : 'ko') : selected;
       titles.forEach((title) => { title.hidden = title.dataset.postTitleLanguage !== preferred; });

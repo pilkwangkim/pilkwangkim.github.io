@@ -115,6 +115,12 @@ posts.each do |post|
   end
   check.call((tags & %w[korean english ko kr en]).empty?, "#{path}: language belongs in lang, not tags")
   check.call(data['translation_key'].is_a?(String) && !data['translation_key'].empty?, "#{path}: missing translation_key")
+  if data.key?('article_version')
+    check.call(%w[original compact].include?(data['article_version']), "#{path}: article_version must be original or compact")
+  end
+  if data['article_version'] == 'original'
+    check.call(data['original_source_commit'].is_a?(String) && data['original_source_commit'].match?(/\A[0-9a-f]{40}\z/), "#{path}: original version must identify its source commit")
+  end
   membership = data['topic']
   check.call(topic_by_id.key?(membership), "#{path}: unknown topic #{membership.inspect}")
   topic = topic_by_id[membership]
@@ -131,8 +137,15 @@ groups = posts.group_by { |post| post['front_matter']['translation_key'] }
 groups.each do |key, members|
   next unless key
 
-  languages = members.map { |post| post['front_matter']['lang'] }
-  check.call(languages.uniq == languages, "Translation #{key}: duplicate language")
+  versions = members.map { |post| post['front_matter']['article_version'] }
+  slots = members.map { |post| [post['front_matter']['article_version'], post['front_matter']['lang']] }
+  check.call(slots.uniq == slots, "Translation #{key}: duplicate version/language")
+  if versions.any?
+    check.call(versions.none?(&:nil?) && versions.uniq.sort == %w[compact original], "Translation #{key}: versioned articles must contain both Original and Compact without unlabelled members")
+    members.group_by { |post| post['front_matter']['article_version'] }.each do |version, edition|
+      check.call(edition.any? { |post| post['front_matter']['lang'] == 'en' }, "Translation #{key}/#{version}: English version is missing")
+    end
+  end
   next unless members.length > 1
 
   %w[tags topic series series_order].each do |field|
@@ -144,10 +157,10 @@ end
 
 posts.select { |post| post['front_matter']['series'] }.group_by do |post|
   data = post['front_matter']
-  [data['series'], data['lang']]
-end.each do |(id, language), members|
+  [data['series'], data['lang'], data['article_version']]
+end.each do |(id, language, version), members|
   orders = members.map { |post| post['front_matter']['series_order'] }
-  check.call(orders.uniq == orders, "Series #{id}/#{language}: duplicate order")
+  check.call(orders.uniq == orders, "Series #{id}/#{language}/#{version}: duplicate order")
   check.call(orders.all? { |order| order.is_a?(Integer) && order.positive? }, "Series #{id}/#{language}: invalid order")
 end
 
@@ -160,10 +173,16 @@ aliases.each do |legacy, target|
 end
 
 original_urls = {}
+post_urls = {}
 if options[:baseline]
   baseline = JSON.parse(File.read(options[:baseline]))
   baseline_by_path = baseline.to_h { |post| [post['path'], post] }
-  check.call(posts.map { |post| post['path'] }.sort == baseline_by_path.keys.sort, 'Post source paths changed')
+  check.call((baseline_by_path.keys - posts.map { |post| post['path'] }).empty?, 'Existing post source paths were removed')
+  added = posts.reject { |post| baseline_by_path.key?(post['path']) }
+  baseline_keys = baseline.map { |post| post['front_matter']['translation_key'] }.uniq
+  added.each do |post|
+    check.call(post['front_matter']['article_version'] == 'original' && baseline_keys.include?(post['front_matter']['translation_key']), "#{post['path']}: added post must be an Original version of an existing article")
+  end
   posts.each do |post|
     original = baseline_by_path[post['path']]
     next unless original
@@ -190,6 +209,7 @@ if options[:baseline]
   site.reset
   site.read
   current_docs = site.posts.docs.to_h { |post| [post.relative_path, post] }
+  post_urls = current_docs.transform_values(&:url)
   baseline.each do |original|
     path = original['path']
     old = Jekyll::Document.new(File.join(source, path), site: site, collection: site.posts)
@@ -209,7 +229,8 @@ report = {
   'posts' => posts.length,
   'canonical_tags' => current_tags.length,
   'translation_groups' => groups.length,
-  'bilingual_pairs' => groups.count { |_, members| members.length == 2 },
+  'bilingual_pairs' => groups.count { |_, members| members.map { |post| post['front_matter']['lang'] }.uniq.sort == %w[en ko] },
+  'versioned_articles' => groups.count { |_, members| members.any? { |post| post['front_matter']['article_version'] } },
   'topics' => topics.length,
   'topic_categories' => topic_categories.length,
   'categorized_ai_topics' => assigned_ai_topics.length,
@@ -217,8 +238,9 @@ report = {
   'tag_aliases' => aliases.length,
   'body_and_metadata_preservation_checked' => !!options[:baseline],
   'original_urls' => original_urls,
+  'post_urls' => post_urls,
   'errors' => errors
 }
 File.write(options[:output], JSON.pretty_generate(report) + "\n") if options[:output]
-puts JSON.pretty_generate(report.reject { |key, _| key == 'original_urls' })
+puts JSON.pretty_generate(report.reject { |key, _| %w[original_urls post_urls].include?(key) })
 exit(errors.empty? ? 0 : 1)

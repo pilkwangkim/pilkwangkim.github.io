@@ -3,17 +3,33 @@
     <li class="topic-post-row" data-article-key="{{ article.translation_key | escape }}" data-article-date="{{ article.date | date_to_xmlschema }}"{% if article.series_order %} data-series-order="{{ article.series_order }}"{% endif %} data-post-languages="{{ article.languages | join: ' ' }}">
       <div class="topic-post-heading">
         {% if include.series_part %}<h4>{% else %}<h3>{% endif %}
-          {% for version in article.versions %}
+          {% assign article_titles = article.preferred_versions | default: article.versions %}
+          {% for version in article_titles %}
             <span data-post-title-language="{{ version.lang }}" lang="{{ version.lang }}"{% if version.lang != article.primary_language %} hidden{% endif %}><a class="topic-title-link" href="{{ version.url | relative_url }}" hreflang="{{ version.lang }}">{{ version.title | escape }}</a></span>
           {% endfor %}
         {% if include.series_part %}</h4>{% else %}</h3>{% endif %}
         <time datetime="{{ article.date | date_to_xmlschema }}">{{ article.date | date: '%Y.%m.%d' }}</time>
       </div>
-      <div class="topic-language-links">
-        {% for version in article.versions %}
-          <a href="{{ version.url | relative_url }}" data-post-language="{{ version.lang }}" lang="en" hreflang="{{ version.lang }}" aria-label="Read this article in {% if version.lang == 'ko' %}Korean{% else %}English{% endif %}">{% if version.lang == 'ko' %}Korean{% else %}English{% endif %} <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
-        {% endfor %}
-      </div>
+      {% if article.editions %}
+        <div class="topic-edition-links" aria-label="Article versions">
+          {% for edition in article.editions %}
+            <div class="topic-edition-group" data-edition-languages="{{ edition.languages | join: ' ' }}" data-article-version="{{ edition.id }}">
+              <span class="article-edition-label">{{ edition.label }}</span>
+              <div class="topic-language-links">
+                {% for version in edition.versions %}
+                  <a href="{{ version.url | relative_url }}" data-post-language="{{ version.lang }}" lang="{{ version.lang }}" hreflang="{{ version.lang }}" aria-label="Read {{ edition.label }} in {% if version.lang == 'ko' %}Korean{% else %}English{% endif %}">{% if version.lang == 'ko' %}한국어{% else %}English{% endif %} <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+                {% endfor %}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="topic-language-links">
+          {% for version in article.versions %}
+            <a href="{{ version.url | relative_url }}" data-post-language="{{ version.lang }}" lang="{{ version.lang }}" hreflang="{{ version.lang }}" aria-label="Read this article in {% if version.lang == 'ko' %}Korean{% else %}English{% endif %}">{% if version.lang == 'ko' %}한국어{% else %}English{% endif %} <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+          {% endfor %}
+        </div>
+      {% endif %}
     </li>
   {% endfor %}
 </ul>

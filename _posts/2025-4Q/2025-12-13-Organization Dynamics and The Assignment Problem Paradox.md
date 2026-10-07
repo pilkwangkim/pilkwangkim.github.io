@@ -8,6 +8,7 @@ pin: false
 topic: essays
 lang: en
 translation_key: organization-dynamics-and-the-assignment-problem-paradox
+article_version: compact
 ---
 
 **Subtitle: Why top talent can be rationally sidelined by short-term assignment logic**

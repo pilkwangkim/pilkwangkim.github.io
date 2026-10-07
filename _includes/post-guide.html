@@ -20,12 +20,32 @@
           {% endif %}
         </div>
       {% endif %}
-      {% for translation in guide_translations %}
-        {% if translation.url != page.url %}
-          <a class="post-guide-translation" href="{{ translation.url | relative_url }}" lang="en" hreflang="{{ translation.lang }}">Read in {% if translation.lang == 'ko' %}Korean{% else %}English{% endif %} <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
-        {% endif %}
-      {% endfor %}
+      {% unless page.article_version %}
+        {% for translation in guide_translations %}
+          {% if translation.url != page.url %}
+            <a class="post-guide-translation" href="{{ translation.url | relative_url }}" lang="en" hreflang="{{ translation.lang }}">Read in {% if translation.lang == 'ko' %}Korean{% else %}English{% endif %} <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+          {% endif %}
+        {% endfor %}
+      {% endunless %}
     </div>
+    {% if page.article_version %}
+      {% assign guide_editions = 'original,compact' | split: ',' %}
+      <nav class="post-edition-links" aria-label="Article versions">
+        {% for edition in guide_editions %}
+          {% assign edition_posts = guide_translations | where: 'article_version', edition | sort: 'lang' %}
+          {% if edition_posts.size > 0 %}
+            <div class="post-edition-group" data-article-version="{{ edition }}">
+              <span class="article-edition-label">{% if edition == 'original' %}Original{% else %}Compact{% endif %}</span>
+              <div class="post-guide-links">
+                {% for translation in edition_posts %}
+                  <a class="post-guide-translation" href="{{ translation.url | relative_url }}" lang="{{ translation.lang }}" hreflang="{{ translation.lang }}" aria-label="Read {% if edition == 'original' %}Original{% else %}Compact{% endif %} in {% if translation.lang == 'ko' %}Korean{% else %}English{% endif %}"{% if translation.url == page.url %} aria-current="page"{% endif %}>{% if translation.lang == 'ko' %}한국어{% else %}English{% endif %}{% if translation.url != page.url %} <i class="fas fa-arrow-right" aria-hidden="true"></i>{% endif %}</a>
+                {% endfor %}
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </nav>
+    {% endif %}
     {% if guide_series %}
       {% assign guide_parts = site.posts | where: 'series', page.series | where: 'lang', page.lang | where_exp: 'post', 'post.hidden != true' | sort: 'series_order' %}
       <details class="series-toc">
