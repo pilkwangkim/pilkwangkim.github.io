@@ -38,6 +38,7 @@ urls = metadata.fetch('original_urls')
 read_yaml = ->(path) { YAML.safe_load(File.read(path), permitted_classes: [Date, Time], aliases: true) }
 topics = read_yaml.call(File.join(source, '_data', 'topics.yml'))
 topic_categories = read_yaml.call(File.join(source, '_data', 'topic_categories.yml'))
+topic_groups = read_yaml.call(File.join(source, '_data', 'topic_groups.yml'))
 aliases = read_yaml.call(File.join(source, '_data', 'tag_aliases.yml'))
 
 posts = baseline.map do |item|
@@ -171,11 +172,10 @@ guide_entries.each do |topic|
     expected.find { |post| post['url'] == first_url }&.fetch('translation_key')
   end
   check.call(emitted_order == article_order, "#{url}: full articles must be newest first, with translation_key ordering for equal dates")
-  recommended = html.css('.reading-path-list .topic-post-row').map do |row|
-    first_url = hrefs.call(row.css('a[data-post-language]')).first
-    expected.find { |post| post['url'] == first_url }&.fetch('translation_key')
-  end
-  check.call(recommended == Array(topic['recommended']), "#{url}: recommended reading order changed")
+  check.call(html.css('.reading-path, .reading-path-list').empty?, "#{url}: recommendation lists must not appear in topic details")
+  latest_lists = html.css('.topic-all-posts')
+  check.call(latest_lists.length == 1, "#{url}: topic detail must have exactly one latest article list")
+  check.call(normalized_text.call(latest_lists.first&.at_css('h2')) == 'Latest articles', "#{url}: chronological article list must be headed Latest articles")
   if topic['topics']
     member_guides = html.css('details.topic-member-guides')
     check.call(member_guides.length == 1 && !member_guides.first.key?('open'), "#{url}: member topic guides must start collapsed")
@@ -183,11 +183,7 @@ guide_entries.each do |topic|
     cards = html.css('.topic-member-guides .topic-card')
     check.call(cards.map { |card| card['data-topic-entry'] } == expected_members, "#{url}: member guide cards differ from category topics or their order")
     check.call(hrefs.call(cards) == expected_members.map { |id| "/topics/#{id}/" }, "#{url}: member guide URLs differ from preserved topic routes")
-    if Array(topic['recommended']).any?
-      check.call(html.at_css('ul.reading-path-list'), "#{url}: category recommendations must be an unordered selection")
-    end
-  elsif Array(topic['recommended']).any?
-    check.call(html.at_css('ol.reading-path-list'), "#{url}: legacy recommendations must retain their ordered reading path")
+    check.call(html.css('.topic-all-posts, details.topic-member-guides').first == latest_lists.first, "#{url}: latest articles must appear before the competition guide disclosure")
   end
   parent = category_by_topic[topic['id']]
   expected_back = parent ? "/topics/#{parent['id']}/" : '/topics/'
@@ -307,7 +303,7 @@ check.call(language_controls_checked == guide_entries.length + 1, 'Language sele
 # are valid content and must not be treated as interface translations.
 english_ui_pages_checked = 0
 sidebar_tab_labels = %w[home topics categories tags archives about]
-sidebar_group_labels = { 'ai' => 'AI · Kaggle', 'physics' => 'Physics', 'essays' => 'Essays' }
+sidebar_group_labels = topic_groups.to_h { |group| [group['id'], group['title']] }
 guide_by_id = guide_entries.to_h { |entry| [entry['id'], entry] }
 html_cache.each do |url, html|
   english_ui_pages_checked += 1
@@ -356,7 +352,7 @@ html_cache.each do |url, html|
   selectors = [
     '#search-cancel', '#sidebar .sidebar-bottom button', '#panel-wrapper h2.panel-heading',
     '.discovery-header', '.discovery-eyebrow', '.discovery-note', '.topic-back-link',
-    '.topic-member-guides > summary', '.reading-path > h2', '.reading-path > p',
+    '.topic-member-guides > summary',
     '.topic-all-posts > h2', '[data-language-empty]', '.post-guide-topic',
     '.post-guide-category', '.series-toc > summary', '.series-nav-label', '.series-nav-boundary'
   ]

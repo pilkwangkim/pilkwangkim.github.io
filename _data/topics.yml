@@ -3,126 +3,81 @@
   title: AI Agent Security
   description: Explore attack surfaces and evaluation methods for tool-using AI, from public scores to private results.
   tag: ai-agent-security
-  recommended:
-  - ai-agent-security-01
-  - ai-agent-security-02
-  - ai-agent-security-12
 - id: biohub
   group: ai
   title: BioHub Cell Tracking
   description: Follow cell tracking in microscopy images through lineage graph learning, validation, and a competition retrospective.
   tag: biohub
-  recommended:
-  - biohub-01
-  - biohub-02
-  - biohub-09
 - id: rogii
   group: ai
   title: ROGII Geosteering
   description: Study TVT recovery through stratigraphic alignment, error analysis, and competition results.
   tag: rogii
-  recommended:
-  - rogii-tvt-alignment
-  - rogii-error-anatomy
-  - rogii-retrospective
 - id: arc-agi-3
   group: ai
   title: ARC-AGI-3
   description: Explore an interactive reasoning benchmark, experimental limits, and program-as-policy research.
   tag: arc-agi-3
-  recommended:
-  - arc-agi-3-introduction
-  - arc-agi-3-part-2
-  - arc-agi-3-research-r1
 - id: gemma-4
   group: ai
   title: Gemma 4 Developer Agent
   description: Learn how the competition works and how to build coding agents that find bugs and verify patches.
   tag: gemma-4
-  recommended:
-  - gemma-4-developer-agent
 - id: casmi-2026
   group: ai
   title: Enveda CASMI 2026
   description: Explore molecular structure identification from mass spectra, candidate retrieval, and evaluation.
   tag: casmi-2026
-  recommended:
-  - casmi-2026-molecular-structures
 - id: rsna-knee
   group: ai
   title: RSNA Knee MRI
   description: Understand the data and task design behind predicting multiple findings from knee MRI scans and radiology reports.
   tag: rsna-knee
-  recommended:
-  - rsna-knee-competition-structure
 - id: birdclef-2026
   group: ai
   title: BirdCLEF 2026
   description: Learn about bioacoustic classification ensembles and PCEN calibration guided by out-of-fold validation.
   tag: birdclef-2026
-  recommended:
-  - birdclef-2026-eos9-pcen
 - id: playground-series
   group: ai
   title: Playground Series
   description: Browse data analysis, feature engineering, cross-validation, and prediction pipelines across competition rounds.
   tag: playground-series
-  recommended:
-  - playground-s6e2-eda
-  - playground-s6e2-prediction
-  - playground-s6e5-driver-features
-  - playground-s6e6-stellar-classification
 - id: march-machine-learning-mania
   group: ai
   title: March Machine Learning Mania
   description: Build a baseline pipeline that predicts college basketball win probabilities while controlling data leakage.
   tag: march-machine-learning-mania
-  recommended:
-  - mmlm-2026-baseline
 - id: orbit-wars
   group: ai
   title: Orbit Wars
   description: Explore game AI that separates physics, world modeling, and strategy around arrival times.
   tag: orbit-wars
-  recommended:
-  - orbit-wars-structured-baseline
 - id: maze-crawler
   group: ai
   title: Maze Crawler
   description: Study a rule-based game agent that prioritizes survival and pathfinding.
   tag: maze-crawler
-  recommended:
-  - maze-crawler-structured-baseline
 - id: pokemon-tcg
   group: ai
   title: Pokémon TCG AI Battle
   description: Follow the transition from a rule-based card game agent to a reinforcement learning pilot.
   tag: pokemon-tcg
-  recommended:
-  - pokemon-tcg-working-note-1
 - id: kaggriculture
   group: ai
   title: Kaggriculture
   description: Explore game AI design through farming economics, market structure, and replay analysis.
   tag: kaggriculture
-  recommended:
-  - kaggriculture-working-note-1
 - id: quantum-transport
   group: physics
   title: Quantum Transport
   description: Derive NEGF and Landauer current from first principles, moving from closed quantum systems to open transport.
   tag: quantum-transport
-  recommended:
-  - quantum-transport-negf
 - id: essays
   group: essays
   title: Essays
-  description: Read reflections on leadership, organizations, decision-making, and uncertainty.
+  description: Thoughts on everyday life.
   tag: essay
-  recommended:
-  - the-essence-of-leadership
-  - the-paradox-of-benevolence
-  - the-station-of-uncertainty
 - id: reference
   group: reference
   title: Markdown & Chirpy

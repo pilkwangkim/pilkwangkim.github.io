@@ -3,17 +3,15 @@
 {% assign sidebar_current_navigation_id = page.category_entry.id | default: sidebar_current_parent.id | default: sidebar_current_topic_id %}
 {% if page.hidden %}{% assign sidebar_current_navigation_id = nil %}{% endif %}
 {% assign sidebar_current_navigation = site.data.topic_navigation | where: 'id', sidebar_current_navigation_id | first %}
-{% assign sidebar_group_ids = 'ai,physics,essays' | split: ',' %}
-{% assign sidebar_group_labels = 'AI · Kaggle,Physics,Essays' | split: ',' %}
 
 <section class="sidebar-topics" aria-labelledby="sidebar-topics-label" lang="en">
   <h2 id="sidebar-topics-label">Explore topics</h2>
-  {% for sidebar_group_id in sidebar_group_ids %}
-    {% assign sidebar_group_topics = site.data.topic_navigation | where: 'group', sidebar_group_id %}
+  {% for sidebar_group in site.data.topic_groups %}
+    {% assign sidebar_group_topics = site.data.topic_navigation | where: 'group', sidebar_group.id %}
     {% if sidebar_group_topics.size > 0 %}
-      <details class="sidebar-topic-group" data-topic-group="{{ sidebar_group_id }}"{% if sidebar_current_navigation.group == sidebar_group_id %} open{% endif %}>
+      <details class="sidebar-topic-group" data-topic-group="{{ sidebar_group.id }}"{% if sidebar_current_navigation.group == sidebar_group.id %} open{% endif %}>
         <summary>
-          <span>{{ sidebar_group_labels[forloop.index0] }}</span>
+          <span>{{ sidebar_group.title | escape }}</span>
           <i class="fas fa-angle-right sidebar-topic-chevron" aria-hidden="true"></i>
         </summary>
         <ul>

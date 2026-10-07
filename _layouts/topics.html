@@ -6,20 +6,19 @@ layout: default
   <header class="discovery-header">
     <p class="discovery-eyebrow">EXPLORE BY TOPIC</p>
     <h1 data-toc-skip>Topics</h1>
-    <p class="discovery-intro">Start with a subject that interests you. Each guide brings together the main ideas, suggested reading, and related articles.</p>
+    <p class="discovery-intro">Explore a subject that interests you. Each topic brings together related articles, with the newest first.</p>
   </header>
 
   {% include language-controls.html %}
   <p class="discovery-note">Korean and English versions are grouped as one article. The article language filter applies across topic guides.</p>
 
-  {% assign group_ids = 'ai,physics,essays' | split: ',' %}
-  {% assign group_titles = 'AI · Kaggle,Physics,Essays' | split: ',' %}
-  {% for group_id in group_ids %}
-    {% assign group_topics = site.data.topic_navigation | where: 'group', group_id %}
+  {% for group in site.data.topic_groups %}
+    {% assign group_topics = site.data.topic_navigation | where: 'group', group.id %}
     {% if group_topics.size > 0 %}
       <section class="topic-group" data-language-section>
-        <h2>{{ group_titles[forloop.index0] }}</h2>
-        <div class="topic-grid{% if group_id == 'ai' %} topic-category-grid{% endif %}">
+        <h2>{{ group.title | escape }}</h2>
+        {% if group.description %}<p class="discovery-note">{{ group.description | escape }}</p>{% endif %}
+        <div class="topic-grid{% if group.id == 'ai' %} topic-category-grid{% endif %}">
           {% include topic-cards.html topics=group_topics %}
         </div>
       </section>

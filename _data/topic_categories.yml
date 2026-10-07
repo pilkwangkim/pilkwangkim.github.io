@@ -6,10 +6,6 @@
   - gemma-4
   - ai-agent-security
   - arc-agi-3
-  recommended:
-  - gemma-4-developer-agent
-  - ai-agent-security-01
-  - arc-agi-3-introduction
 - id: tabular
   group: ai
   title: Tabular & Predictive Modeling
@@ -22,11 +18,6 @@
   - casmi-2026
   - rsna-knee
   - birdclef-2026
-  recommended:
-  - playground-s6e2-eda
-  - mmlm-2026-baseline
-  - rogii-tvt-alignment
-  - biohub-01
 - id: reinforcement-learning
   group: ai
   title: Reinforcement Learning & Game Agents
@@ -36,8 +27,3 @@
   - pokemon-tcg
   - kaggriculture
   - maze-crawler
-  recommended:
-  - orbit-wars-structured-baseline
-  - pokemon-tcg-working-note-1
-  - kaggriculture-working-note-1
-  - maze-crawler-structured-baseline

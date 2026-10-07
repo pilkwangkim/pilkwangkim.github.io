@@ -98,18 +98,6 @@ topic_categories.each do |category|
     check.call(ai_topic_ids.include?(member), "Category #{id}: unknown or non-AI topic #{member.inspect}")
   end
   assigned_ai_topics.concat(members)
-  eligible_keys = posts.filter_map do |post|
-    data = post['front_matter']
-    data['translation_key'] if members.include?(data['topic']) && !data['hidden'] && data['published'] != false
-  end.uniq
-  recommended = category['recommended']
-  check.call(recommended.is_a?(Array), "Category #{id}: recommended must be a list")
-  next unless recommended.is_a?(Array)
-
-  check.call(recommended.uniq == recommended, "Category #{id}: duplicate recommended article")
-  recommended.each do |key|
-    check.call(eligible_keys.include?(key), "Category #{id}: recommended article #{key.inspect} is not a public member")
-  end
 end
 check.call(assigned_ai_topics.tally == ai_topic_ids.tally, 'Every legacy AI topic must belong to exactly one navigation category')
 

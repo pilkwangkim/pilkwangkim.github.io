@@ -1,4 +1,4 @@
-{% if include.ordered %}<ol class="topic-post-list reading-path-list">{% else %}<ul class="topic-post-list{% if include.recommended %} reading-path-list{% endif %}">{% endif %}
+<ul class="topic-post-list">
   {% for article in include.articles %}
     <li class="topic-post-row" data-post-languages="{{ article.languages | join: ' ' }}">
       <div class="topic-post-heading">
@@ -16,4 +16,4 @@
       </div>
     </li>
   {% endfor %}
-{% if include.ordered %}</ol>{% else %}</ul>{% endif %}
+</ul>

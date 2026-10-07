@@ -133,8 +133,7 @@ html[data-navigation-ready='true'] .discovery-language-controls { display: flex;
 .topic-card-heading i { color: var(--link-color); font-size: 0.8rem; flex-shrink: 0; margin-top: 0.3rem; }
 .topic-post-heading { display: flex; flex-direction: column; gap: 0.2rem; }
 
-.topic-post-list,
-.reading-path { padding-left: 0; list-style: none; }
+.topic-post-list { padding-left: 0; list-style: none; }
 
 .topic-post-row {
   padding: 1.05rem 0;
@@ -152,20 +151,6 @@ html[data-navigation-ready='true'] .discovery-language-controls { display: flex;
   min-height: 2.5rem;
   font-size: 0.9rem;
 }
-
-.reading-path {
-  border: 1px solid var(--guide-border);
-  border-radius: 0.9rem;
-  padding: 0.2rem 1rem;
-  background: var(--guide-surface);
-  margin-top: 1.8rem;
-  h2 { margin-top: 1rem; font-size: 1.35rem; }
-  > p { color: var(--text-muted-color); font-size: 0.92rem; }
-}
-
-ol.reading-path-list { list-style: decimal; padding-left: 1.5rem; }
-ol.reading-path-list li::marker { color: var(--text-muted-color); font-weight: 600; }
-.reading-path-list .topic-post-row:last-child { border-bottom: 0; }
 
 .post-guide-path { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.5rem; }
 .post-guide-separator { color: var(--text-muted-color); }

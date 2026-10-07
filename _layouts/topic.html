@@ -16,6 +16,12 @@ layout: default
 
   {% include language-controls.html %}
 
+  <section class="topic-all-posts" data-language-section>
+    <h2>Latest articles</h2>
+    <p class="discovery-note">Newest first. Korean and English versions share one entry.</p>
+    {% include topic-posts.html articles=page.articles %}
+  </section>
+
   {% if page.category_entry and page.member_topics.size > 0 %}
     <details class="topic-member-guides" data-language-section>
       <summary>Competition guides ({{ page.member_topics.size }})</summary>
@@ -25,24 +31,5 @@ layout: default
     </details>
   {% endif %}
 
-  {% if page.recommended_articles.size > 0 %}
-    <section class="reading-path" data-language-section>
-      {% if page.category_entry %}
-        <h2>Recommended starting points</h2>
-        <p>Articles that introduce the main problems and approaches in this area. Choose a language to start reading.</p>
-        {% include topic-posts.html articles=page.recommended_articles recommended=true %}
-      {% else %}
-        <h2>Suggested reading order</h2>
-        <p>Follow this sequence to explore the topic. Choose an available language for each article.</p>
-        {% include topic-posts.html articles=page.recommended_articles ordered=true %}
-      {% endif %}
-    </section>
-  {% endif %}
-
-  <section class="topic-all-posts" data-language-section>
-    <h2>All articles</h2>
-    <p class="discovery-note">Newest first. Korean and English versions share one entry.</p>
-    {% include topic-posts.html articles=page.articles %}
-  </section>
   <p data-language-empty hidden role="status">No articles are available in the selected language.</p>
 </article>

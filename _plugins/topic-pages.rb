@@ -23,14 +23,13 @@ module Jekyll
         next if topic_posts.empty?
 
         articles = group_articles(topic_posts)
-        recommended = recommended_articles(topic, articles)
         url = "/topics/#{topic['id']}/"
         page = PageWithoutAFile.new(site, site.source, "topics/#{topic['id']}", 'index.html')
         page.data.merge!(
           'layout' => 'topic', 'title' => topic['title'],
           'description' => topic['description'], 'permalink' => url,
           'lang' => 'en', 'topic_entry' => topic, 'articles' => articles,
-          'recommended_articles' => recommended, 'post_count' => topic_posts.size,
+          'post_count' => topic_posts.size,
           'parent_category' => parent_by_id[topic['id']]
         )
         site.pages << page
@@ -79,22 +78,13 @@ module Jekyll
           'layout' => 'topic', 'title' => category['title'],
           'description' => category['description'], 'permalink' => url,
           'lang' => 'en', 'category_entry' => category, 'member_topics' => members,
-          'articles' => articles, 'recommended_articles' => recommended_articles(category, articles),
+          'articles' => articles,
           'post_count' => category_posts.size
         )
         site.pages << page
         category.merge('url' => url, 'article_count' => articles.size,
                        'post_count' => category_posts.size,
                        'languages' => category_posts.map { |post| post.data['lang'] }.uniq.sort)
-      end
-    end
-
-    def recommended_articles(entry, articles)
-      by_key = articles.to_h { |article| [article['translation_key'], article] }
-      Array(entry['recommended']).map do |key|
-        by_key.fetch(key) do
-          raise Errors::FatalException, "Topic #{entry['id']}: unknown recommended translation_key #{key}"
-        end
       end
     end
 
