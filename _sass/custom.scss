@@ -154,16 +154,6 @@ html:not([data-navigation-ready='true']) .topic-latest-posts { display: none; }
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
 }
 
-.topic-member-guides {
-  margin: 1.5rem 0;
-  border: 1px solid var(--guide-border);
-  border-radius: 0.8rem;
-  background: var(--guide-surface);
-
-  summary { cursor: pointer; padding: 1rem; font-weight: 600; }
-  .topic-grid { padding: 0 1rem 1rem; margin-bottom: 0; }
-}
-
 .topic-card {
   border: 1px solid var(--guide-border);
   border-radius: 0.9rem;
@@ -248,7 +238,8 @@ html:not([data-navigation-ready='true']) .topic-latest-posts { display: none; }
 .series-nav p { margin-bottom: 0; }
 
 .discovery-hub a:focus-visible,
-.topic-member-guides summary:focus-visible,
+.topic-series summary:focus-visible,
+.article-view-controls button:focus-visible,
 .post-guide a:focus-visible,
 .discovery-language-controls button:focus-visible,
 #desktop-sidebar-toggle:focus-visible {

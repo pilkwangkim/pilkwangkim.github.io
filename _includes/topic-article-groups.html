@@ -2,7 +2,7 @@
   {% for article_group in include.groups %}
     <li data-article-group="{{ article_group.key | escape }}" data-group-date="{{ article_group.date | date_to_xmlschema }}">
       {% if article_group.series_id %}
-        <details class="topic-series" id="{% if include.view == 'latest' %}latest-{% endif %}series-{{ article_group.series_id }}" data-series-id="{{ article_group.series_id }}" data-post-languages="{{ article_group.languages | join: ' ' }}"{% if include.view == 'latest' %} open{% endif %}>
+        <details class="topic-series" id="{% if include.view == 'latest' %}latest-{% endif %}series-{{ article_group.series_id }}" data-series-id="{{ article_group.series_id }}" data-post-languages="{{ article_group.languages | join: ' ' }}">
           <summary>
             <span class="topic-series-heading">{{ article_group.title | escape }}</span>
             <span class="topic-series-meta"><span data-series-count>{{ article_group.articles.size }}</span> articles <span aria-hidden="true">·</span> <time datetime="{{ article_group.date | date_to_xmlschema }}">{{ article_group.date | date: '%Y.%m.%d' }}</time></span>

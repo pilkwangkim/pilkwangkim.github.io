@@ -86,7 +86,7 @@ module Jekyll
         page.data.merge!(
           'layout' => 'topic', 'title' => category['title'],
           'description' => category['description'], 'permalink' => url,
-          'lang' => 'en', 'category_entry' => category, 'member_topics' => members,
+          'lang' => 'en', 'category_entry' => category,
           'articles' => articles,
           'article_groups' => article_groups(articles),
           'post_count' => category_posts.size

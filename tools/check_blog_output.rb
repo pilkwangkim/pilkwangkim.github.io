@@ -123,7 +123,6 @@ active_categories = topic_categories.select do |category|
 end
 navigation_entries = active_categories + active_topics.reject { |topic| topic['group'] == 'ai' }
 guide_entries = active_topics + active_categories
-legacy_topic_by_id = active_topics.to_h { |topic| [topic['id'], topic] }
 category_by_topic = active_categories.each_with_object({}) do |category, parents|
   category['topics'].each { |id| parents[id] = category }
 end
@@ -286,7 +285,7 @@ guide_entries.each do |topic|
       topic_series_bundles_checked += 1
       prefix = view == 'latest' ? 'latest-series-' : 'series-'
       check.call(details['id'] == "#{prefix}#{series_id}", "#{label}: series #{series_id} disclosure ID differs from its view")
-      check.call(details.key?('open') == (view == 'latest'), "#{label}: series disclosures must start open in Latest and collapsed in All")
+      check.call(!details.key?('open'), "#{label}: every series disclosure must start collapsed")
       check.call(normalized_text.call(details.at_css('.topic-series-heading')) == registered_series[series_id]['title'], "#{label}: series #{series_id} title differs from its registered metadata")
       series_article_count = catalog.fetch("series:#{series_id}").length
       check.call(normalized_text.call(details.at_css('[data-series-count]')) == series_article_count.to_s, "#{label}: series #{series_id} must count logical parts rather than language versions")
@@ -298,14 +297,9 @@ guide_entries.each do |topic|
   end
   check.call(html.css('.reading-path, .reading-path-list').empty?, "#{url}: recommendation lists must not appear in topic details")
   check.call(html.css('.topic-latest-posts').length == 1 && html.css('.topic-all-posts').length == 1, "#{url}: Latest and All must each have one dedicated article list")
-  if topic['topics']
-    member_guides = html.css('details.topic-member-guides')
-    check.call(member_guides.length == 1 && !member_guides.first.key?('open'), "#{url}: member topic guides must start collapsed")
-    expected_members = topic['topics'].select { |id| legacy_topic_by_id.key?(id) }
-    cards = html.css('.topic-member-guides .topic-card')
-    check.call(cards.map { |card| card['data-topic-entry'] } == expected_members, "#{url}: member guide cards differ from category topics or their order")
-    check.call(hrefs.call(cards) == expected_members.map { |id| "/topics/#{id}/" }, "#{url}: member guide URLs differ from preserved topic routes")
-  end
+  check.call(html.css('.topic-member-guides').empty?, "#{url}: separate competition guide blocks must not appear")
+  check.call(html.css('.topic-detail .topic-card').empty?, "#{url}: topic details must use the unified article catalog instead of separate competition cards")
+  check.call(html.css('.topic-detail summary').none? { |summary| normalized_text.call(summary).start_with?('Competition guides') }, "#{url}: Competition guides navigation must not appear")
   parent = category_by_topic[topic['id']]
   expected_back = parent ? "/topics/#{parent['id']}/" : '/topics/'
   check.call(hrefs.call(html.css('.topic-back-link')) == [expected_back], "#{url}: back link does not return to its parent category or hub")
@@ -475,7 +469,7 @@ html_cache.each do |url, html|
   selectors = [
     '#search-cancel', '#sidebar .sidebar-bottom button', '#panel-wrapper h2.panel-heading',
     '.discovery-header', '.discovery-eyebrow', '.discovery-note', '.topic-back-link',
-    '.topic-member-guides > summary', '[data-series-id] > summary',
+    '[data-series-id] > summary',
     '.topic-latest-posts > h2', '.topic-all-posts > h2', '[data-article-view-controls]', '[data-language-empty]', '.post-guide-topic',
     '.post-guide-category', '.series-toc > summary', '.series-nav-label', '.series-nav-boundary'
   ]

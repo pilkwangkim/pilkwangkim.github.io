@@ -25,14 +25,5 @@ layout: default
     {% include topic-article-groups.html groups=page.article_groups view='all' %}
   </section>
 
-  {% if page.category_entry and page.member_topics.size > 0 %}
-    <details class="topic-member-guides" data-language-section>
-      <summary>Competition guides ({{ page.member_topics.size }})</summary>
-      <div class="topic-grid">
-        {% include topic-cards.html topics=page.member_topics %}
-      </div>
-    </details>
-  {% endif %}
-
   <p data-language-empty hidden role="status">No articles are available in the selected language.</p>
 </article>

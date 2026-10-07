@@ -175,6 +175,7 @@
     scope.addEventListener('click', (event) => {
       const button = event.target.closest('[data-article-view]');
       if (button) {
+        scope.querySelectorAll('details[data-series-id]').forEach((bundle) => { bundle.open = false; });
         applyView(button.dataset.articleView, true);
         return;
       }

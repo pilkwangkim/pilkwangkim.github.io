@@ -52,13 +52,13 @@ series_order: 1
 
 AI · Kaggle의 첫 화면과 사이드바에는 `_data/topic_categories.yml`에 정의한 세 분류만 표시합니다. AI Agent Harness Engineering은 Gemma 4, AI Agent Security, ARC-AGI-3를 묶습니다. Tabular & Predictive Modeling은 Playground·March Machine Learning Mania 등 표형 데이터 예측과 영상·음향·분자·지층 데이터의 예측 모델링을 함께 모읍니다. Reinforcement Learning & Game Agents는 Orbit Wars, Pokémon TCG, Kaggriculture, Maze Crawler의 강화학습 및 게임 에이전트 연구를 묶습니다. 각 분류의 `topics`에 대회별 주제 ID를 적으며 모든 AI 주제를 정확히 한 분류에 배정합니다.
 
-글의 `topic`과 기존 대회별 안내 URL은 유지합니다. 상위 분류 페이지는 해당 글들을 자동으로 모으고, 최신 글 목록 아래에서 대회별 안내 카드들을 접힌 메뉴 안에 제공합니다. 글과 대회별 안내에서도 상위 분류로 이동할 수 있습니다. 물리·수학·알고리즘과 에세이는 기존 하위 주제 구성을 사용합니다.
+글의 `topic`과 기존 대회별 안내 URL은 유지합니다. 상위 분류의 `All articles`는 해당 분류에 속한 모든 글과 시리즈를 한 목록에 제공합니다. 별도의 `Competition guides` 메뉴나 대회별 카드 목록은 표시하지 않습니다. 글과 기존 대회별 안내에서도 상위 분류로 이동할 수 있습니다. 물리·수학·알고리즘과 에세이는 기존 하위 주제 구성을 사용합니다.
 
-`_data/series.yml`은 `id`, `title`, `topic`을 갖는 목록입니다. 현재 AI Agent Security 1–12편, BioHub 1–9편, ROGII 1–3편, ARC-AGI-3 본편 1–2편이 등록되어 있습니다. 주제 목록에서도 실제 시리즈를 한 묶음으로 표시합니다. 최신 보기에는 최근 5편에 포함된 편만 최신순으로 표시하며 `View full series`로 전체 시리즈를 펼칩니다. 전체 보기에서는 모든 편을 제공하고 시리즈는 처음에 접혀 있으며, 펼친 목차는 `series_order` 순서입니다. ARC-AGI-3 Research Note R1은 본편 3편으로 취급하지 않습니다. Playground의 서로 다른 회차나 단일 Working Note에 임의의 연속 순번을 붙이지 않습니다.
+`_data/series.yml`은 `id`, `title`, `topic`을 갖는 목록입니다. 현재 AI Agent Security 1–12편, BioHub 1–9편, ROGII 1–3편, ARC-AGI-3 본편 1–2편이 등록되어 있습니다. 주제 목록에서도 실제 시리즈를 한 묶음으로 표시합니다. 최신 보기에는 최근 5편에 포함된 편만 최신순으로 표시하며 `View full series`로 전체 시리즈를 펼칩니다. 모든 시리즈는 최신 보기와 전체 보기 모두 기본으로 접혀 있습니다. Latest/All 버튼으로 보기를 바꿀 때도 접힌 상태로 돌아가고, 사용자가 시리즈나 전체 시리즈 링크를 직접 선택했을 때 펼칩니다. 전체 보기의 펼친 목차는 `series_order` 순서입니다. ARC-AGI-3 Research Note R1은 본편 3편으로 취급하지 않습니다. Playground의 서로 다른 회차나 단일 Working Note에 임의의 연속 순번을 붙이지 않습니다.
 
 새 글을 추가한 뒤 메타데이터 검사와 Jekyll 빌드를 실행하고, 주제 목록·번역 링크·시리즈 순서가 실제 화면에서 맞는지 확인합니다.
 
-AI 상위 분류 카드와 사이드바는 `_data/topic_categories.yml` 순서, 분류 안의 대회 카드는 해당 분류의 `topics` 순서를 따릅니다. 물리·수학·알고리즘과 에세이는 `_data/topics.yml` 순서입니다. 주제 목록의 묶음은 최신 편의 발행일순, 시리즈 안의 목차는 `series_order` 순입니다. 최신 5편은 언어 필터를 적용한 뒤 발행일의 내림차순·같은 날짜의 `translation_key` 순으로 선택합니다. 옛 태그 모음도 최신순이며 같은 날짜·번역 키의 글은 한국어판을 먼저 표시합니다.
+AI 상위 분류 카드와 사이드바는 `_data/topic_categories.yml` 순서를 따릅니다. 물리·수학·알고리즘과 에세이는 `_data/topics.yml` 순서입니다. 주제 목록의 묶음은 최신 편의 발행일순, 시리즈 안의 목차는 `series_order` 순입니다. 최신 5편은 언어 필터를 적용한 뒤 발행일의 내림차순·같은 날짜의 `translation_key` 순으로 선택합니다. 옛 태그 모음도 최신순이며 같은 날짜·번역 키의 글은 한국어판을 먼저 표시합니다.
 
 오른쪽 최근 업데이트는 수정 시각의 최신순이며, 같은 수정 시각이면 발행일의 최신순으로 정렬합니다. 한·영 번역 쌍은 한 편으로 묶고, 현재 페이지의 언어에 맞는 버전을 우선 연결합니다. 해당 언어가 없으면 한국어판, 영어판 순으로 선택합니다. 숨김 글은 이 목록에서도 제외합니다.
 
