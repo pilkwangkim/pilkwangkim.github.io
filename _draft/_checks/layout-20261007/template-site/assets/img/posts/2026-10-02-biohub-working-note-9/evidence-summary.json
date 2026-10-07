@@ -1,0 +1,192 @@
+{
+  "article": "BioHub Cell Tracking Working Note 9",
+  "captured_date": "2026-10-02",
+  "scope": "Read-only official Kaggle queries and dated project records; no new model run, hidden-test replay, submission or selection mutation.",
+  "official_submission_history": {
+    "source": "Official account CLI history plus SDK SUBMISSION_GROUP_SELECTED query",
+    "captured_at": "2026-10-02T14:30:27.566817+09:00",
+    "returned_count": 175,
+    "complete_with_private_score_count": 162,
+    "selected_refs": [
+      56244158,
+      56205331
+    ],
+    "five_relevant_versions": [
+      {
+        "version": "v89",
+        "submission_ref": 56137804,
+        "public": "0.94326",
+        "private": "0.91752",
+        "selected": false
+      },
+      {
+        "version": "v90",
+        "submission_ref": 56153345,
+        "public": "0.94662",
+        "private": "0.91217",
+        "selected": false
+      },
+      {
+        "version": "v92",
+        "submission_ref": 56205331,
+        "public": "0.94569",
+        "private": "0.91418",
+        "selected": true,
+        "slot": "B"
+      },
+      {
+        "version": "v93",
+        "submission_ref": 56244158,
+        "public": "0.94921",
+        "private": "0.91920",
+        "selected": true,
+        "slot": "A"
+      },
+      {
+        "version": "v94",
+        "submission_ref": 56277131,
+        "public": "0.94811",
+        "private": "0.92050",
+        "selected": false,
+        "role": "Disclosed H4X diagnostic; local admission failed"
+      }
+    ],
+    "maximum_complete_private_score": "0.92050",
+    "best_selected_private_score": "0.91920",
+    "retrospective_selection_loss": "0.00130",
+    "query_audit_sha256": "a61d839c4957328dfb612ccad714f2a9863fcf88becc95270d5a7d911648f793",
+    "scope_limit": "COMPLETE and a score do not separately certify all competition-rule eligibility requirements. Private is an aggregate over a different subset from Public."
+  },
+  "final_leaderboard": {
+    "primary_url": "https://www.kaggle.com/competitions/biohub-cell-tracking-during-development/leaderboard",
+    "own_final_rank": 445,
+    "own_final_score": "0.91920",
+    "query_method": "Contiguous first 600 rows in official default-Private leaderboard order. This covers all rows needed for the rank and boundary comparisons.",
+    "official_listed_team_count": 3947,
+    "own_score_only_replacement": {
+      "private_score": "0.92050",
+      "higher_current_team_count": 345,
+      "equal_current_team_count": 0,
+      "implied_position_if_own_selection_replaced_by_v94": 346,
+      "rank_method": "Replaceownselectedscore0.91920withdiagnosticv94score0.92050;345currentteamsstrictlyhigher,noties;nootherteamschanged",
+      "adjacent_rows": [
+        {
+          "rank": 344,
+          "teamId": 16690735,
+          "teamName": "biodegradable kagglers",
+          "score": "0.92053",
+          "submissionDate": "2026-09-29T09:14:42.096000"
+        },
+        {
+          "rank": 345,
+          "teamId": 16833282,
+          "teamName": "skomuro",
+          "score": "0.92053",
+          "submissionDate": "2026-09-29T15:32:36.513000"
+        },
+        {
+          "rank": 346,
+          "teamId": 16533628,
+          "teamName": "Joseph Adamski",
+          "score": "0.92046",
+          "submissionDate": "2026-09-29T10:47:15.040000"
+        },
+        {
+          "rank": 347,
+          "teamId": 16496891,
+          "teamName": "Juyong",
+          "score": "0.92042",
+          "submissionDate": "2026-09-29T01:45:56.323000"
+        }
+      ],
+      "above_current_rule_based_bronze_score": "0.00053",
+      "current_selected_gap_below_current_rule_based_bronze_score": "0.00077",
+      "comparison_to_author4017_team_count_case": {
+        "derived_bronze_rank": 401,
+        "rank401score": "0.91974",
+        "v94_above_rank401score": "0.00076"
+      },
+      "conditional_medal_implication": "Its scored position346fallsinsidebothderived394and401bronzeranges. Subjecttoactualmedaleligibility/finalawardrules,thiscouldhavematteredforbronze. Do not claim v94couldnotmedal orcertifyactualaward.",
+      "limits": [
+        "v94wasdiagnosticanddidnotpasslocaladmissiongates;Privateoutcome doesnotretroactivelycleanthosegates.",
+        "COMPLETEandscoredo notindependentlyproveeverycompetition-ruleeligibilityrequirement.",
+        "Thisisanexisting scoredcandidate selectioncounterfactualonly;notunrunmodel goldcounterfactual."
+      ]
+    },
+    "calculated_bronze_rank": 394,
+    "calculated_boundary_score": "0.91997",
+    "progression_primary_url": "https://www.kaggle.com/progression/competitions",
+    "rule": "For 1000+ teams: Bronze top 10%, percentages rounded down.",
+    "limit": "Boundary derived by applying the published rule to the API team count, not read from an award badge. No award is certified for the unselected v94. Team eligibility and actual award decisions remain unverified.",
+    "leaderboard_receipt_sha256": "d8348ff0b4cfbdf637d252ecab1bd1f3fad3f88ad82a82101700073ce117d0cd"
+  },
+  "postcompetition_writeups": [
+    {
+      "private_rank": 9,
+      "title": "9th Place Solution: Own Detectors + Public Tracker + Restored Divisions",
+      "primary_url": "https://www.kaggle.com/competitions/biohub-cell-tracking-during-development/discussion/744835",
+      "posted_utc": "2026-10-01T05:59:36.237Z",
+      "author_name": "yuto083",
+      "archived_primary_topic_sha256": "e64cb14a1f5531db5af61e5f6bee35a85eabb382f00861dd484900144ead4af3",
+      "verification": "Downloaded first-party topic text reviewed; official rank refreshed. Authors' methods and ablations were not re-executed for this article."
+    },
+    {
+      "private_rank": 12,
+      "title": "12th Place Solution",
+      "primary_url": "https://www.kaggle.com/competitions/biohub-cell-tracking-during-development/discussion/744501",
+      "posted_utc": "2026-09-30T03:24:02.512Z",
+      "author_name": "Corwin",
+      "archived_primary_topic_sha256": "f2be513858aa72c00535ec1dce03c78bce75075ad87ea6522726f7aec0903e8d",
+      "verification": "Downloaded first-party topic text reviewed; official rank refreshed. Authors' methods and ablations were not re-executed for this article."
+    },
+    {
+      "private_rank": 18,
+      "title": "18th Place Solution: Lineage Graph Refinement Focused on Cell Divisions",
+      "primary_url": "https://www.kaggle.com/competitions/biohub-cell-tracking-during-development/discussion/744531",
+      "posted_utc": "2026-09-30T06:39:40.894Z",
+      "author_name": "ymg_aq",
+      "archived_primary_topic_sha256": "6cd4437ecee8ce4edb3d8ee5cc0d9eb290efe38e9522c6b6bf2eef43cd529fd4",
+      "verification": "Downloaded first-party topic text reviewed; official rank refreshed. Authors' methods and ablations were not re-executed for this article."
+    },
+    {
+      "private_rank": 95,
+      "title": "From 12th Public to 95th Private: Our Biohub Cell Tracking Solution",
+      "primary_url": "https://www.kaggle.com/competitions/biohub-cell-tracking-during-development/discussion/744912",
+      "posted_utc": "2026-10-01T11:27:17.795Z",
+      "author_name": "Chekhlov Dmitrii",
+      "archived_primary_topic_sha256": "f0cec2fb584be88065453becce749c6b215d252fadbbf6ec700894f87d9f3d99",
+      "verification": "Downloaded first-party topic text reviewed; official rank refreshed. Authors' methods and ablations were not re-executed for this article."
+    }
+  ],
+  "historical_local_evidence": [
+    {
+      "label": "Frozen-action filter",
+      "record": "results/bottleneck_audit/shiftcorr_selected_action_audit_20260824_a3/FROZEN_SHIFTCORR_SELECTED_ACTION_AUDIT.json",
+      "record_sha256": "6a8bda001aafc735b904c8069696948238c4e0fd28332e7f4d84b9a0ebecf132",
+      "summary": "GT-assisted subset from 3,178 frozen actions, selected by individual fixed-matching TP/FP improvement; aggregate gain +0.000365. Not an exhaustive interacting-subset or model-family upper bound."
+    },
+    {
+      "label": "A2 reciprocal4",
+      "record": "docs/A2_STANDALONE_RECIPROCAL4_RESULT_20260912.md.txt",
+      "record_sha256": "0c5b84bca75c29470d53c2b7519fd2477df471e3c8f4ef80f455ac5da96b4f73",
+      "summary": "GT control 0.7458697865, clean pseudo student 0.7252788784; reported official aggregate delta -0.0205909080. Each arm supplies its own detection and association. Historical reused four-movie panel; composition_not_admitted, automatic_full199:false; no model-family closure."
+    },
+    {
+      "label": "Spotiflow readiness",
+      "record": "docs/HANDOVER_20260828_CURRENT_BIOHUB_SEARCH_STATE.md.txt",
+      "record_sha256": "ebe783ffd8febc1930ed9a37f35b10688eab9f3150cc5571a818039df1210f7d",
+      "summary": "Exposure256 readiness completed sampling but failed detector/readout and candidate coverage floors. Association head not fitted; no held-out graph scoring. The dated record calls the attempt training insufficient, not a scored mature-model failure."
+    },
+    {
+      "label": "M8 screen",
+      "record": "results/broad_exploration_20260914/stage0/M8_kernel.json",
+      "record_sha256": "8ab53681ed5b82782768c542d000c967533a54fc14e1329eb69e50e588ba51f9",
+      "summary": "Distance-only reference AUC 0.99538784; required improvement 0.03 would exceed the maximum AUC of one. The simple screen does not test a learned contextual appearance model."
+    }
+  ],
+  "general_limits": [
+    "The selection loss compares existing scored submissions after Private became known. It does not estimate an unrun detector or extra week of research.",
+    "The four postcompetition writeups appeared after the deadline; finished recipes are not presumed available at early research closeout.",
+    "Qualitative GPU-idle recollection is not converted into a whole-month utilization percentage or score estimate."
+  ]
+}

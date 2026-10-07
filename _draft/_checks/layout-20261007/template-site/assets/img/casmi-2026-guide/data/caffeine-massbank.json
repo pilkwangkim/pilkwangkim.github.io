@@ -1,0 +1,412 @@
+[
+  {
+    "accession": "MSBNK-Eawag-EA030309",
+    "compound_name": "Caffeine",
+    "molecular_formula": "C8H10N4O2",
+    "smiles": "c12c(n(c(=O)n(c1=O)C)C)ncn2C",
+    "inchikey": "RYYVLZVUVIJVGH-UHFFFAOYSA-N",
+    "neutral_exact_mass_as_reported_Da": 194.0804,
+    "precursor_mz": 195.0877,
+    "precursor_type": "[M+H]+",
+    "ion_mode": "positive",
+    "instrument": "LTQ Orbitrap XL Thermo Scientific",
+    "instrument_type": "LC-ESI-ITFT",
+    "fragmentation_mode": "HCD",
+    "resolution_as_reported": 15000,
+    "collision_energy_ev": null,
+    "source_collision_energy": "30 % (nominal)",
+    "collision_energy_nominal_percent": 30,
+    "authors": "Stravs M, Schymanski E, Singer H, Department of Environmental Chemistry, Eawag",
+    "license_literal": "CC BY",
+    "license_version": null,
+    "license_source_url": "https://github.com/MassBank/MassBank-data/blob/befc8a1e2f2aef899747797c081a5d80fab12fe7/Eawag/MSBNK-Eawag-EA030309.txt",
+    "license_format_documentation": "https://github.com/MassBank/MassBank-web/blob/dev/Documentation/MassBankRecordFormat.md#215-license",
+    "copyright": "Copyright (C) 2012 Eawag, Duebendorf, Switzerland",
+    "source_url": "https://github.com/MassBank/MassBank-data/blob/befc8a1e2f2aef899747797c081a5d80fab12fe7/Eawag/MSBNK-Eawag-EA030309.txt",
+    "source_raw_url": "https://raw.githubusercontent.com/MassBank/MassBank-data/befc8a1e2f2aef899747797c081a5d80fab12fe7/Eawag/MSBNK-Eawag-EA030309.txt",
+    "source_commit": "befc8a1e2f2aef899747797c081a5d80fab12fe7",
+    "source_sha256": "4ef24822341901719ca2c4b1006093b038b5929fa2332d1da62607c8e388d348",
+    "peaks": [
+      {
+        "mz": 138.0661,
+        "intensity_as_reported": 63831.3,
+        "relative_intensity_as_reported_999": 36,
+        "relative_intensity_percent_derived": 3.6930341699083957,
+        "intensity_normalized_basepeak_1": 0.036930341699083956
+      },
+      {
+        "mz": 195.0877,
+        "intensity_as_reported": 1728424.3,
+        "relative_intensity_as_reported_999": 999,
+        "relative_intensity_percent_derived": 100.0,
+        "intensity_normalized_basepeak_1": 1.0
+      }
+    ],
+    "peak_annotations": [
+      {
+        "mz": 138.0661,
+        "tentative_formula": "C6H8N3O+",
+        "formula_count": 1,
+        "calculated_mass_as_reported": 138.0662,
+        "error_ppm_as_reported": -0.64
+      },
+      {
+        "mz": 195.0877,
+        "tentative_formula": "C8H11N4O2+",
+        "formula_count": 1,
+        "calculated_mass_as_reported": 195.0877,
+        "error_ppm_as_reported": 0.14
+      }
+    ],
+    "annotations_status": "tentative_formula, as reported in PK$ANNOTATION",
+    "usage_boundary": "Open public measured reference spectrum; no claim of CASMI test membership or novelty class."
+  },
+  {
+    "accession": "MSBNK-Eawag-EA030311",
+    "compound_name": "Caffeine",
+    "molecular_formula": "C8H10N4O2",
+    "smiles": "c12c(n(c(=O)n(c1=O)C)C)ncn2C",
+    "inchikey": "RYYVLZVUVIJVGH-UHFFFAOYSA-N",
+    "neutral_exact_mass_as_reported_Da": 194.0804,
+    "precursor_mz": 195.0877,
+    "precursor_type": "[M+H]+",
+    "ion_mode": "positive",
+    "instrument": "LTQ Orbitrap XL Thermo Scientific",
+    "instrument_type": "LC-ESI-ITFT",
+    "fragmentation_mode": "HCD",
+    "resolution_as_reported": 15000,
+    "collision_energy_ev": null,
+    "source_collision_energy": "60 % (nominal)",
+    "collision_energy_nominal_percent": 60,
+    "authors": "Stravs M, Schymanski E, Singer H, Department of Environmental Chemistry, Eawag",
+    "license_literal": "CC BY",
+    "license_version": null,
+    "license_source_url": "https://github.com/MassBank/MassBank-data/blob/befc8a1e2f2aef899747797c081a5d80fab12fe7/Eawag/MSBNK-Eawag-EA030311.txt",
+    "license_format_documentation": "https://github.com/MassBank/MassBank-web/blob/dev/Documentation/MassBankRecordFormat.md#215-license",
+    "copyright": "Copyright (C) 2012 Eawag, Duebendorf, Switzerland",
+    "source_url": "https://github.com/MassBank/MassBank-data/blob/befc8a1e2f2aef899747797c081a5d80fab12fe7/Eawag/MSBNK-Eawag-EA030311.txt",
+    "source_raw_url": "https://raw.githubusercontent.com/MassBank/MassBank-data/befc8a1e2f2aef899747797c081a5d80fab12fe7/Eawag/MSBNK-Eawag-EA030311.txt",
+    "source_commit": "befc8a1e2f2aef899747797c081a5d80fab12fe7",
+    "source_sha256": "207064b9dd5bf1ae1e153374ba938035cf6f66011ce8befce5703e31ef3bf856",
+    "peaks": [
+      {
+        "mz": 56.0494,
+        "intensity_as_reported": 3965.3,
+        "relative_intensity_as_reported_999": 4,
+        "relative_intensity_percent_derived": 0.458909791526053,
+        "intensity_normalized_basepeak_1": 0.00458909791526053
+      },
+      {
+        "mz": 69.0447,
+        "intensity_as_reported": 22340.6,
+        "relative_intensity_as_reported_999": 25,
+        "relative_intensity_percent_derived": 2.5855093154532924,
+        "intensity_normalized_basepeak_1": 0.02585509315453292
+      },
+      {
+        "mz": 83.0603,
+        "intensity_as_reported": 21132.0,
+        "relative_intensity_as_reported_999": 24,
+        "relative_intensity_percent_derived": 2.4456363237405876,
+        "intensity_normalized_basepeak_1": 0.024456363237405878
+      },
+      {
+        "mz": 109.0395,
+        "intensity_as_reported": 4392.6,
+        "relative_intensity_as_reported_999": 5,
+        "relative_intensity_percent_derived": 0.5083618264084283,
+        "intensity_normalized_basepeak_1": 0.005083618264084283
+      },
+      {
+        "mz": 110.0712,
+        "intensity_as_reported": 77493.1,
+        "relative_intensity_as_reported_999": 89,
+        "relative_intensity_percent_derived": 8.968386342952003,
+        "intensity_normalized_basepeak_1": 0.08968386342952003
+      },
+      {
+        "mz": 111.0551,
+        "intensity_as_reported": 4531.6,
+        "relative_intensity_as_reported_999": 5,
+        "relative_intensity_percent_derived": 0.5244484935009865,
+        "intensity_normalized_basepeak_1": 0.005244484935009865
+      },
+      {
+        "mz": 123.0429,
+        "intensity_as_reported": 8418.3,
+        "relative_intensity_as_reported_999": 9,
+        "relative_intensity_percent_derived": 0.9742617955775784,
+        "intensity_normalized_basepeak_1": 0.009742617955775783
+      },
+      {
+        "mz": 138.0662,
+        "intensity_as_reported": 864069.6,
+        "relative_intensity_as_reported_999": 999,
+        "relative_intensity_percent_derived": 100.0,
+        "intensity_normalized_basepeak_1": 1.0
+      },
+      {
+        "mz": 195.0876,
+        "intensity_as_reported": 354215.1,
+        "relative_intensity_as_reported_999": 409,
+        "relative_intensity_percent_derived": 40.99381577595138,
+        "intensity_normalized_basepeak_1": 0.4099381577595138
+      }
+    ],
+    "peak_annotations": [
+      {
+        "mz": 56.0494,
+        "tentative_formula": "C3H6N+",
+        "formula_count": 1,
+        "calculated_mass_as_reported": 56.0495,
+        "error_ppm_as_reported": -1.71
+      },
+      {
+        "mz": 69.0447,
+        "tentative_formula": "C3H5N2+",
+        "formula_count": 1,
+        "calculated_mass_as_reported": 69.0447,
+        "error_ppm_as_reported": 0.08
+      },
+      {
+        "mz": 83.0603,
+        "tentative_formula": "C4H7N2+",
+        "formula_count": 1,
+        "calculated_mass_as_reported": 83.0604,
+        "error_ppm_as_reported": -0.3
+      },
+      {
+        "mz": 109.0395,
+        "tentative_formula": "C5H5N2O+",
+        "formula_count": 1,
+        "calculated_mass_as_reported": 109.0396,
+        "error_ppm_as_reported": -1.18
+      },
+      {
+        "mz": 110.0712,
+        "tentative_formula": "C5H8N3+",
+        "formula_count": 1,
+        "calculated_mass_as_reported": 110.0713,
+        "error_ppm_as_reported": -0.31
+      },
+      {
+        "mz": 111.0551,
+        "tentative_formula": "C5H7N2O+",
+        "formula_count": 1,
+        "calculated_mass_as_reported": 111.0553,
+        "error_ppm_as_reported": -1.52
+      },
+      {
+        "mz": 123.0429,
+        "tentative_formula": "C5H5N3O+",
+        "formula_count": 1,
+        "calculated_mass_as_reported": 123.0427,
+        "error_ppm_as_reported": 1.6
+      },
+      {
+        "mz": 138.0662,
+        "tentative_formula": "C6H8N3O+",
+        "formula_count": 1,
+        "calculated_mass_as_reported": 138.0662,
+        "error_ppm_as_reported": 0.01
+      },
+      {
+        "mz": 195.0876,
+        "tentative_formula": "C8H11N4O2+",
+        "formula_count": 1,
+        "calculated_mass_as_reported": 195.0877,
+        "error_ppm_as_reported": -0.27
+      }
+    ],
+    "annotations_status": "tentative_formula, as reported in PK$ANNOTATION",
+    "usage_boundary": "Open public measured reference spectrum; no claim of CASMI test membership or novelty class."
+  },
+  {
+    "accession": "MSBNK-Eawag-EA030312",
+    "compound_name": "Caffeine",
+    "molecular_formula": "C8H10N4O2",
+    "smiles": "c12c(n(c(=O)n(c1=O)C)C)ncn2C",
+    "inchikey": "RYYVLZVUVIJVGH-UHFFFAOYSA-N",
+    "neutral_exact_mass_as_reported_Da": 194.0804,
+    "precursor_mz": 195.0877,
+    "precursor_type": "[M+H]+",
+    "ion_mode": "positive",
+    "instrument": "LTQ Orbitrap XL Thermo Scientific",
+    "instrument_type": "LC-ESI-ITFT",
+    "fragmentation_mode": "HCD",
+    "resolution_as_reported": 15000,
+    "collision_energy_ev": null,
+    "source_collision_energy": "75 % (nominal)",
+    "collision_energy_nominal_percent": 75,
+    "authors": "Stravs M, Schymanski E, Singer H, Department of Environmental Chemistry, Eawag",
+    "license_literal": "CC BY",
+    "license_version": null,
+    "license_source_url": "https://github.com/MassBank/MassBank-data/blob/befc8a1e2f2aef899747797c081a5d80fab12fe7/Eawag/MSBNK-Eawag-EA030312.txt",
+    "license_format_documentation": "https://github.com/MassBank/MassBank-web/blob/dev/Documentation/MassBankRecordFormat.md#215-license",
+    "copyright": "Copyright (C) 2012 Eawag, Duebendorf, Switzerland",
+    "source_url": "https://github.com/MassBank/MassBank-data/blob/befc8a1e2f2aef899747797c081a5d80fab12fe7/Eawag/MSBNK-Eawag-EA030312.txt",
+    "source_raw_url": "https://raw.githubusercontent.com/MassBank/MassBank-data/befc8a1e2f2aef899747797c081a5d80fab12fe7/Eawag/MSBNK-Eawag-EA030312.txt",
+    "source_commit": "befc8a1e2f2aef899747797c081a5d80fab12fe7",
+    "source_sha256": "5f2eaec9261a6483ecec44e4b2f35da0587880914b2aa7aad355cf9e03b2d043",
+    "peaks": [
+      {
+        "mz": 56.0495,
+        "intensity_as_reported": 12227.0,
+        "relative_intensity_as_reported_999": 22,
+        "relative_intensity_percent_derived": 2.2710092032801197,
+        "intensity_normalized_basepeak_1": 0.022710092032801197
+      },
+      {
+        "mz": 69.0447,
+        "intensity_as_reported": 49888.6,
+        "relative_intensity_as_reported_999": 92,
+        "relative_intensity_percent_derived": 9.26617074824246,
+        "intensity_normalized_basepeak_1": 0.09266170748242461
+      },
+      {
+        "mz": 81.0447,
+        "intensity_as_reported": 4956.9,
+        "relative_intensity_as_reported_999": 9,
+        "relative_intensity_percent_derived": 0.9206809127127851,
+        "intensity_normalized_basepeak_1": 0.009206809127127851
+      },
+      {
+        "mz": 83.0604,
+        "intensity_as_reported": 52865.0,
+        "relative_intensity_as_reported_999": 98,
+        "relative_intensity_percent_derived": 9.81899906202695,
+        "intensity_normalized_basepeak_1": 0.09818999062026951
+      },
+      {
+        "mz": 97.0396,
+        "intensity_as_reported": 3145.1,
+        "relative_intensity_as_reported_999": 5,
+        "relative_intensity_percent_derived": 0.5841621857558112,
+        "intensity_normalized_basepeak_1": 0.005841621857558112
+      },
+      {
+        "mz": 109.0396,
+        "intensity_as_reported": 18895.6,
+        "relative_intensity_as_reported_999": 35,
+        "relative_intensity_percent_derived": 3.509616545473119,
+        "intensity_normalized_basepeak_1": 0.03509616545473119
+      },
+      {
+        "mz": 110.0713,
+        "intensity_as_reported": 115646.2,
+        "relative_intensity_as_reported_999": 214,
+        "relative_intensity_percent_derived": 21.479805718849544,
+        "intensity_normalized_basepeak_1": 0.21479805718849543
+      },
+      {
+        "mz": 111.0553,
+        "intensity_as_reported": 11738.8,
+        "relative_intensity_as_reported_999": 21,
+        "relative_intensity_percent_derived": 2.180332283917941,
+        "intensity_normalized_basepeak_1": 0.02180332283917941
+      },
+      {
+        "mz": 123.0426,
+        "intensity_as_reported": 37109.4,
+        "relative_intensity_as_reported_999": 68,
+        "relative_intensity_percent_derived": 6.892597442398239,
+        "intensity_normalized_basepeak_1": 0.06892597442398239
+      },
+      {
+        "mz": 138.0662,
+        "intensity_as_reported": 538395.0,
+        "relative_intensity_as_reported_999": 999,
+        "relative_intensity_percent_derived": 100.0,
+        "intensity_normalized_basepeak_1": 1.0
+      },
+      {
+        "mz": 195.0878,
+        "intensity_as_reported": 56881.3,
+        "relative_intensity_as_reported_999": 105,
+        "relative_intensity_percent_derived": 10.564975529118955,
+        "intensity_normalized_basepeak_1": 0.10564975529118956
+      }
+    ],
+    "peak_annotations": [
+      {
+        "mz": 56.0495,
+        "tentative_formula": "C3H6N+",
+        "formula_count": 1,
+        "calculated_mass_as_reported": 56.0495,
+        "error_ppm_as_reported": 0.08
+      },
+      {
+        "mz": 69.0447,
+        "tentative_formula": "C3H5N2+",
+        "formula_count": 1,
+        "calculated_mass_as_reported": 69.0447,
+        "error_ppm_as_reported": -0.07
+      },
+      {
+        "mz": 81.0447,
+        "tentative_formula": "C4H5N2+",
+        "formula_count": 1,
+        "calculated_mass_as_reported": 81.0447,
+        "error_ppm_as_reported": -0.06
+      },
+      {
+        "mz": 83.0604,
+        "tentative_formula": "C4H7N2+",
+        "formula_count": 1,
+        "calculated_mass_as_reported": 83.0604,
+        "error_ppm_as_reported": 0.06
+      },
+      {
+        "mz": 97.0396,
+        "tentative_formula": "C4H5N2O+",
+        "formula_count": 1,
+        "calculated_mass_as_reported": 97.0396,
+        "error_ppm_as_reported": -0.3
+      },
+      {
+        "mz": 109.0396,
+        "tentative_formula": "C5H5N2O+",
+        "formula_count": 1,
+        "calculated_mass_as_reported": 109.0396,
+        "error_ppm_as_reported": -0.45
+      },
+      {
+        "mz": 110.0713,
+        "tentative_formula": "C5H8N3+",
+        "formula_count": 1,
+        "calculated_mass_as_reported": 110.0713,
+        "error_ppm_as_reported": -0.22
+      },
+      {
+        "mz": 111.0553,
+        "tentative_formula": "C5H7N2O+",
+        "formula_count": 1,
+        "calculated_mass_as_reported": 111.0553,
+        "error_ppm_as_reported": -0.17
+      },
+      {
+        "mz": 123.0426,
+        "tentative_formula": "C5H5N3O+",
+        "formula_count": 1,
+        "calculated_mass_as_reported": 123.0427,
+        "error_ppm_as_reported": -0.51
+      },
+      {
+        "mz": 138.0662,
+        "tentative_formula": "C6H8N3O+",
+        "formula_count": 1,
+        "calculated_mass_as_reported": 138.0662,
+        "error_ppm_as_reported": 0.16
+      },
+      {
+        "mz": 195.0878,
+        "tentative_formula": "C8H11N4O2+",
+        "formula_count": 1,
+        "calculated_mass_as_reported": 195.0877,
+        "error_ppm_as_reported": 0.66
+      }
+    ],
+    "annotations_status": "tentative_formula, as reported in PK$ANNOTATION",
+    "usage_boundary": "Open public measured reference spectrum; no claim of CASMI test membership or novelty class."
+  }
+]

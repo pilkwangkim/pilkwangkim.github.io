@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="586.8pt" height="354.407688pt" viewBox="0 0 586.8 354.407688" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-09-27T15:11:26.280551</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 354.407688
+L 586.8 354.407688
+L 586.8 0
+L 0 0
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="table_1">
+    <g id="patch_2">
+     <path d="M 14.4 110.578544
+L 142.74 110.578544
+L 142.74 49.317344
+L 14.4 49.317344
+z
+" style="fill: #f4f6f7; stroke: #ced5da; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_1">
+     <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #263541" x="27.234" y="82.805366" transform="rotate(-0 27.234 82.805366)">Route</text>
+    </g>
+    <g id="patch_3">
+     <path d="M 142.74 110.578544
+L 410.58 110.578544
+L 410.58 49.317344
+L 142.74 49.317344
+z
+" style="fill: #f4f6f7; stroke: #ced5da; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_2">
+     <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #263541" x="169.524" y="82.805795" transform="rotate(-0 169.524 82.805795)">Concrete comparison</text>
+    </g>
+    <g id="patch_4">
+     <path d="M 410.58 110.578544
+L 572.4 110.578544
+L 572.4 49.317344
+L 410.58 49.317344
+z
+" style="fill: #f4f6f7; stroke: #ced5da; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_3">
+     <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #263541" x="426.762" y="82.805795" transform="rotate(-0 426.762 82.805795)">Meaning</text>
+    </g>
+    <g id="patch_5">
+     <path d="M 14.4 171.839744
+L 142.74 171.839744
+L 142.74 110.578544
+L 14.4 110.578544
+z
+" style="fill: #ffffff; stroke: #ced5da; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_4">
+     <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #263541" x="27.234" y="144.066995" transform="rotate(-0 27.234 144.066995)">Direct search</text>
+    </g>
+    <g id="patch_6">
+     <path d="M 142.74 171.839744
+L 410.58 171.839744
+L 410.58 110.578544
+L 142.74 110.578544
+z
+" style="fill: #ffffff; stroke: #ced5da; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_5">
+     <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #263541" transform="translate(169.524 137.183187)">EA030312 vs EA030311</text>
+     <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #263541" transform="translate(169.524 150.949945)">cosine = 0.9268 (10 ppm, √I)</text>
+    </g>
+    <g id="patch_7">
+     <path d="M 410.58 171.839744
+L 572.4 171.839744
+L 572.4 110.578544
+L 410.58 110.578544
+z
+" style="fill: #ffffff; stroke: #ced5da; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_6">
+     <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #263541" transform="translate(426.762 137.465491)">Measured Caffeine</text>
+     <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #263541" transform="translate(426.762 150.668499)">references</text>
+    </g>
+    <g id="patch_8">
+     <path d="M 14.4 233.100944
+L 142.74 233.100944
+L 142.74 171.839744
+L 14.4 171.839744
+z
+" style="fill: #ffffff; stroke: #ced5da; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_7">
+     <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #263541" x="27.234" y="205.328195" transform="rotate(-0 27.234 205.328195)">Inverse fingerprint</text>
+    </g>
+    <g id="patch_9">
+     <path d="M 142.74 233.100944
+L 410.58 233.100944
+L 410.58 171.839744
+L 142.74 171.839744
+z
+" style="fill: #ffffff; stroke: #ced5da; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_8">
+     <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #263541" transform="translate(169.524 198.726691)">p = [0.9, 0.2, 0.7, 0.1]</text>
+     <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #263541" transform="translate(169.524 211.929699)">log scores: A −0.7905, B −3.0241</text>
+    </g>
+    <g id="patch_10">
+     <path d="M 410.58 233.100944
+L 572.4 233.100944
+L 572.4 171.839744
+L 410.58 171.839744
+z
+" style="fill: #ffffff; stroke: #ced5da; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_9">
+     <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #263541" transform="translate(426.762 198.726691)">Constructed four-bit</text>
+     <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #263541" transform="translate(426.762 211.929699)">example</text>
+    </g>
+    <g id="patch_11">
+     <path d="M 14.4 294.362144
+L 142.74 294.362144
+L 142.74 233.100944
+L 14.4 233.100944
+z
+" style="fill: #ffffff; stroke: #ced5da; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_10">
+     <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #263541" x="27.234" y="266.589395" transform="rotate(-0 27.234 266.589395)">Forward prediction</text>
+    </g>
+    <g id="patch_12">
+     <path d="M 142.74 294.362144
+L 410.58 294.362144
+L 410.58 233.100944
+L 142.74 233.100944
+z
+" style="fill: #ffffff; stroke: #ced5da; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_11">
+     <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #263541" transform="translate(169.524 259.987891)">Measured [1, 0.2148, 0.1056]</text>
+     <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #263541" transform="translate(169.524 273.190899)">prediction [1, 0.20, 0.10]</text>
+    </g>
+    <g id="patch_13">
+     <path d="M 410.58 294.362144
+L 572.4 294.362144
+L 572.4 233.100944
+L 410.58 233.100944
+z
+" style="fill: #ffffff; stroke: #ced5da; stroke-linejoin: miter"/>
+    </g>
+    <g id="text_12">
+     <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #263541" transform="translate(426.762 259.988321)">Constructed prediction at</text>
+     <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #263541" transform="translate(426.762 273.19047)">138 / 110 / 195 m/z</text>
+    </g>
+   </g>
+   <g id="text_13">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #697680" x="14.4" y="337.605344" transform="rotate(-0 14.4 337.605344)">Only the first route uses two measured spectra. Toy predictions explain scoring, not model accuracy.</text>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 17px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #263541" x="14.4" y="27.317344" transform="rotate(-0 14.4 27.317344)">Put numbers behind each source of ranking evidence</text>
+   </g>
+  </g>
+ </g>
+</svg>

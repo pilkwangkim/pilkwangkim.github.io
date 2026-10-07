@@ -1,0 +1,123 @@
+{
+  "status": "passed",
+  "checked_at_utc": "2026-10-07T06:52:26Z",
+  "commit": "7a7e42297f422b19dc2c3dea5908f67f518a55ea",
+  "pages_run": "37583615866",
+  "request_cache_control": "no-cache",
+  "responses": {
+    "/topics/": {
+      "url": "https://pilkwangkim.github.io/topics/?verify=7a7e422",
+      "status": 200,
+      "etag": "\"6ac5ebb7-4c02\""
+    },
+    "/topics/essays/": {
+      "url": "https://pilkwangkim.github.io/topics/essays/?verify=7a7e422",
+      "status": 200,
+      "etag": "\"6ac5ebb7-5c73\""
+    },
+    "/topics/harness-engineering/": {
+      "url": "https://pilkwangkim.github.io/topics/harness-engineering/?verify=7a7e422",
+      "status": 200,
+      "etag": "\"6ac5ebb7-867f\""
+    },
+    "/assets/css/jekyll-theme-chirpy.css": {
+      "url": "https://pilkwangkim.github.io/assets/css/jekyll-theme-chirpy.css?verify=7a7e422",
+      "status": 200,
+      "etag": "\"6ac5ebb7-1cd4b\""
+    },
+    "/assets/js/blog-navigation.js": {
+      "url": "https://pilkwangkim.github.io/assets/js/blog-navigation.js?verify=7a7e422",
+      "status": 200,
+      "etag": "\"6ac5ebb7-1075\""
+    }
+  },
+  "pages": {
+    "/topics/": {
+      "group_titles": [
+        "AI · Kaggle",
+        "Physics, Mathematics & Algorithms",
+        "Essays"
+      ],
+      "essay_description": "Thoughts on everyday life."
+    },
+    "/topics/essays/": {
+      "headings": [
+        "Latest articles"
+      ],
+      "article_count": 10,
+      "first_article": {
+        "key": "the-language-that-faces-the-future",
+        "date": "2026-05-24T20:30:00+09:00",
+        "display_date": "2026.05.24",
+        "urls": [
+          "/posts/The-Language-That-Faces-the-Future-KR/",
+          "/posts/The-Language-That-Faces-the-Future/"
+        ]
+      },
+      "article_keys": [
+        "the-language-that-faces-the-future",
+        "the-corporate-hallucinator",
+        "the-mirage-of-merit",
+        "the-narrative-trap",
+        "the-credentialist-illusion",
+        "the-station-of-uncertainty",
+        "the-paradox-of-benevolence",
+        "the-portfolio-theory-of-existence",
+        "organization-dynamics-and-the-assignment-problem-paradox",
+        "the-essence-of-leadership"
+      ],
+      "chronological": true
+    },
+    "/topics/harness-engineering/": {
+      "headings": [
+        "Latest articles"
+      ],
+      "article_count": 16,
+      "first_article": {
+        "key": "gemma-4-developer-agent",
+        "date": "2026-09-25T06:00:00+09:00",
+        "display_date": "2026.09.25",
+        "urls": [
+          "/posts/Gemma-4-Developer-Agent-From-Issue-to-Verified-Patch-KR/",
+          "/posts/Gemma-4-Developer-Agent-From-Issue-to-Verified-Patch/"
+        ]
+      },
+      "article_keys": [
+        "gemma-4-developer-agent",
+        "ai-agent-security-12",
+        "ai-agent-security-11",
+        "ai-agent-security-10",
+        "ai-agent-security-09",
+        "ai-agent-security-08",
+        "arc-agi-3-research-r1",
+        "arc-agi-3-part-2",
+        "ai-agent-security-07",
+        "ai-agent-security-06",
+        "ai-agent-security-05",
+        "ai-agent-security-04",
+        "ai-agent-security-03",
+        "arc-agi-3-introduction",
+        "ai-agent-security-02",
+        "ai-agent-security-01"
+      ],
+      "chronological": true
+    }
+  },
+  "assets": {
+    "/assets/css/jekyll-theme-chirpy.css": {
+      "live_sha256": "9ee1e9bd4fb6041c31e556c64887f1fb973aeaeeb4895a9a345b3a8093e083bb",
+      "local_sha256": "9ee1e9bd4fb6041c31e556c64887f1fb973aeaeeb4895a9a345b3a8093e083bb",
+      "equal": true,
+      "live_bytes": 118091,
+      "local_bytes": 118091
+    },
+    "/assets/js/blog-navigation.js": {
+      "live_sha256": "bdd439d02eff171caaeddd37f3c0e112d0f35aa3dfa4213e9e3ffffe3a308f68",
+      "local_sha256": "bdd439d02eff171caaeddd37f3c0e112d0f35aa3dfa4213e9e3ffffe3a308f68",
+      "equal": true,
+      "live_bytes": 4213,
+      "local_bytes": 4213
+    }
+  },
+  "errors": []
+}

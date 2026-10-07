@@ -1,0 +1,45 @@
+{
+  "commit": "acde6ba",
+  "hub_entries": [
+    "harness-engineering",
+    "tabular",
+    "reinforcement-learning",
+    "quantum-transport",
+    "essays"
+  ],
+  "categories": {
+    "harness-engineering": {
+      "members": [
+        "gemma-4",
+        "ai-agent-security",
+        "arc-agi-3"
+      ],
+      "rows_including_recommendations": 19
+    },
+    "tabular": {
+      "members": [
+        "playground-series",
+        "march-machine-learning-mania",
+        "rogii",
+        "biohub",
+        "casmi-2026",
+        "rsna-knee",
+        "birdclef-2026"
+      ],
+      "rows_including_recommendations": 24
+    },
+    "reinforcement-learning": {
+      "members": [
+        "orbit-wars",
+        "pokemon-tcg",
+        "kaggriculture",
+        "maze-crawler"
+      ],
+      "rows_including_recommendations": 8
+    }
+  },
+  "assets": {
+    "/assets/css/jekyll-theme-chirpy.css": "7b40ed855bc1d45878a8417616ddbc1351babafebc803711b822025e4c3bbd80",
+    "/assets/js/blog-navigation.js": "f3af57c7c5b5e85830e0cbbdb7088c7e4d9eb9a21a31fac319d2ee524b30e4a8"
+  }
+}

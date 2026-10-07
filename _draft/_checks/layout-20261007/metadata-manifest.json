@@ -1,0 +1,1933 @@
+{
+  "posts": 96,
+  "pairs": 44,
+  "singles": 8,
+  "languages": {
+    "en": 51,
+    "ko": 45
+  },
+  "topics": {
+    "essays": 15,
+    "playground-series": 6,
+    "march-machine-learning-mania": 2,
+    "orbit-wars": 2,
+    "maze-crawler": 2,
+    "birdclef-2026": 2,
+    "rogii": 6,
+    "ai-agent-security": 24,
+    "arc-agi-3": 6,
+    "pokemon-tcg": 2,
+    "biohub": 18,
+    "quantum-transport": 2,
+    "kaggriculture": 2,
+    "rsna-knee": 2,
+    "gemma-4": 2,
+    "casmi-2026": 2,
+    "reference": 1
+  },
+  "series": {
+    "ai-agent-security": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "biohub": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "rogii": [
+      1,
+      2,
+      3
+    ],
+    "arc-agi-3-main": [
+      1,
+      2
+    ]
+  },
+  "before_unique_tags": 188,
+  "after_unique_tags": 181,
+  "changed_tag_lists": 96,
+  "body_bytes_preserved": 96,
+  "hidden_posts_preserved": 1,
+  "aliases": {
+    "playground": "playground-series",
+    "cv": "cross-validation",
+    "mmlm": "march-machine-learning-mania",
+    "benchmarks": "benchmark",
+    "agents": "ai-agents",
+    "auc": "roc-auc",
+    "birdclef": "birdclef-2026",
+    "rsna": "rsna-knee",
+    "casmi": "casmi-2026",
+    "retrospective": "competition-retrospective"
+  },
+  "posts_manifest": [
+    {
+      "path": "_posts/2025-4Q/2025-12-12-The Essence of Leadership.md",
+      "topic": "essays",
+      "lang": "en",
+      "translation_key": "the-essence-of-leadership",
+      "series": null,
+      "series_order": null,
+      "tags": [
+        "essay",
+        "leadership",
+        "management",
+        "organization"
+      ],
+      "body_sha256_after_separator_line": "927e53f8e29029b5739d61db8b8d828b29574f26835649de4811462a07e2ed60"
+    },
+    {
+      "path": "_posts/2025-4Q/2025-12-13-Organization Dynamics and The Assignment Problem Paradox.md",
+      "topic": "essays",
+      "lang": "en",
+      "translation_key": "organization-dynamics-and-the-assignment-problem-paradox",
+      "series": null,
+      "series_order": null,
+      "tags": [
+        "essay",
+        "leadership",
+        "operations-research",
+        "organization"
+      ],
+      "body_sha256_after_separator_line": "e55535c694182298545e598abab5298d1ee5b510794af3bc8a3dd0924d889b19"
+    },
+    {
+      "path": "_posts/2026-1Q/2026-01-12-The-Portfolio-Theory-of-Existence.md",
+      "topic": "essays",
+      "lang": "en",
+      "translation_key": "the-portfolio-theory-of-existence",
+      "series": null,
+      "series_order": null,
+      "tags": [
+        "essay",
+        "decision-making",
+        "life",
+        "portfolio",
+        "risk"
+      ],
+      "body_sha256_after_separator_line": "dbc2468437b54338f21a71608cefffa6ed9c6747d36ee912d1797a20c9892f59"
+    },
+    {
+      "path": "_posts/2026-1Q/2026-01-30-The Paradox of Benevolence.md",
+      "topic": "essays",
+      "lang": "en",
+      "translation_key": "the-paradox-of-benevolence",
+      "series": null,
+      "series_order": null,
+      "tags": [
+        "essay",
+        "ethics",
+        "leadership",
+        "moral",
+        "paradox"
+      ],
+      "body_sha256_after_separator_line": "b9506dce11fea9feda844b92cfcee30a4a63a01216159cf149e3ad7f237e2c89"
+    },
+    {
+      "path": "_posts/2026-1Q/2026-01-30-The-Paradox-of-Benevolence-KR.md",
+      "topic": "essays",
+      "lang": "ko",
+      "translation_key": "the-paradox-of-benevolence",
+      "series": null,
+      "series_order": null,
+      "tags": [
+        "essay",
+        "ethics",
+        "leadership",
+        "moral",
+        "paradox"
+      ],
+      "body_sha256_after_separator_line": "095ed39a7706ace8f583b718e0b69fdcc901133fabd24101add86c34a78cf6ab"
+    },
+    {
+      "path": "_posts/2026-1Q/2026-02-14-S6E2-EDA.md",
+      "topic": "playground-series",
+      "lang": "en",
+      "translation_key": "playground-s6e2-eda",
+      "series": null,
+      "series_order": null,
+      "tags": [
+        "kaggle",
+        "playground-series",
+        "binary-classification",
+        "eda"
+      ],
+      "body_sha256_after_separator_line": "c524e8070f8d52508ee3f7f2be228e6e95b4acf90682410ca27cda57b3879311"
+    },
+    {
+      "path": "_posts/2026-1Q/2026-02-18-S6E2-PRED.md",
+      "topic": "playground-series",
+      "lang": "en",
+      "translation_key": "playground-s6e2-prediction",
+      "series": null,
+      "series_order": null,
+      "tags": [
+        "kaggle",
+        "playground-series",
+        "boosting",
+        "cross-validation",
+        "optuna",
+        "prediction"
+      ],
+      "body_sha256_after_separator_line": "1b4cf78dfdfd76554b507a2c588cc5261fd00f9948c617d1fa42270cdb19f632"
+    },
+    {
+      "path": "_posts/2026-1Q/2026-03-14-The-Station-of-Uncertainty.md",
+      "topic": "essays",
+      "lang": "en",
+      "translation_key": "the-station-of-uncertainty",
+      "series": null,
+      "series_order": null,
+      "tags": [
+        "essay",
+        "decision-making",
+        "organization",
+        "uncertainty",
+        "work"
+      ],
+      "body_sha256_after_separator_line": "2d51a950f631f57bf001be14e68cc4a505624e10c3cfd1ee61bb98405f1e7c0b"
+    },
+    {
+      "path": "_posts/2026-1Q/2026-03-21-The-Credentialist-Illusion-KR.md",
+      "topic": "essays",
+      "lang": "ko",
+      "translation_key": "the-credentialist-illusion",
+      "series": null,
+      "series_order": null,
+      "tags": [
+        "essay",
+        "credentials",
+        "hiring",
+        "meritocracy",
+        "organization"
+      ],
+      "body_sha256_after_separator_line": "c37aac3e0e102f4926f523606fb245ec982346b1ad24ab9538e727004705f2ae"
+    },
+    {
+      "path": "_posts/2026-1Q/2026-03-21-The-Credentialist-Illusion.md",
+      "topic": "essays",
+      "lang": "en",
+      "translation_key": "the-credentialist-illusion",
+      "series": null,
+      "series_order": null,
+      "tags": [
+        "essay",
+        "credentials",
+        "hiring",
+        "meritocracy",
+        "organization"
+      ],
+      "body_sha256_after_separator_line": "35cc1b3808929b85acd654e1cd2559c91e0be4e3549941be829e923a62891818"
+    },
+    {
+      "path": "_posts/2026-2Q/2026-04-01-MMLM-KR.md",
+      "topic": "march-machine-learning-mania",
+      "lang": "ko",
+      "translation_key": "mmlm-2026-baseline",
+      "series": null,
+      "series_order": null,
+      "tags": [
+        "kaggle",
+        "march-machine-learning-mania",
+        "basketball",
+        "prediction"
+      ],
+      "body_sha256_after_separator_line": "0232e8e6285e25faca12a2bf8e920b03b2f38cc2d482b524410cf91f93b5820b"
+    },
+    {
+      "path": "_posts/2026-2Q/2026-04-01-MMLM.md",
+      "topic": "march-machine-learning-mania",
+      "lang": "en",
+      "translation_key": "mmlm-2026-baseline",
+      "series": null,
+      "series_order": null,
+      "tags": [
+        "kaggle",
+        "march-machine-learning-mania",
+        "basketball",
+        "prediction"
+      ],
+      "body_sha256_after_separator_line": "516515dea8f6bf2ef1fa3c607d15b2a8373c99a8a3791c79f7add98979a70202"
+    },
+    {
+      "path": "_posts/2026-2Q/2026-04-12-The-Narrative-Trap-KR.md",
+      "topic": "essays",
+      "lang": "ko",
+      "translation_key": "the-narrative-trap",
+      "series": null,
+      "series_order": null,
+      "tags": [
+        "essay",
+        "cognition",
+        "decision-making",
+        "literature"
+      ],
+      "body_sha256_after_separator_line": "b3e9ff52b6f7a5d31260bb6cba34a34655722aa085f4e97e8c0aabad2aadedf9"
+    },
+    {
+      "path": "_posts/2026-2Q/2026-04-12-The-Narrative-Trap.md",
+      "topic": "essays",
+      "lang": "en",
+      "translation_key": "the-narrative-trap",
+      "series": null,
+      "series_order": null,
+      "tags": [
+        "essay",
+        "cognition",
+        "decision-making",
+        "literature"
+      ],
+      "body_sha256_after_separator_line": "57d1c3bf4e77348161d244bda3196a795bb522cf9b3af4843c4fb76c2253ca28"
+    },
+    {
+      "path": "_posts/2026-2Q/2026-04-19-The-Mirage-of-Merit-KR.md",
+      "topic": "essays",
+      "lang": "ko",
+      "translation_key": "the-mirage-of-merit",
+      "series": null,
+      "series_order": null,
+      "tags": [
+        "essay",
+        "career",
+        "leadership",
+        "organization"
+      ],
+      "body_sha256_after_separator_line": "4720b5cc2a4a6e6f2b4ce2d9cfad6f0f236b272b098ea2134c39eeabdcc8ff68"
+    },
+    {
+      "path": "_posts/2026-2Q/2026-04-19-The-Mirage-of-Merit.md",
+      "topic": "essays",
+      "lang": "en",
+      "translation_key": "the-mirage-of-merit",
+      "series": null,
+      "series_order": null,
+      "tags": [
+        "essay",
+        "career",
+        "leadership",
+        "organization"
+      ],
+      "body_sha256_after_separator_line": "2966789359cb7998268ce475d34eded91dae8803c7f0af4ac779b8a1b17a500a"
+    },
+    {
+      "path": "_posts/2026-2Q/2026-04-26-Orbit-Wars-Structured-Baseline-KR.md",
+      "topic": "orbit-wars",
+      "lang": "ko",
+      "translation_key": "orbit-wars-structured-baseline",
+      "series": null,
+      "series_order": null,
+      "tags": [
+        "kaggle",
+        "orbit-wars",
+        "game-ai",
+        "reinforcement-learning",
+        "simulation"
+      ],
+      "body_sha256_after_separator_line": "5f76d3fce575382802dcd803bf128dc9816dd0ef3eb75c1c67cde1cd2c8f297b"
+    },
+    {
+      "path": "_posts/2026-2Q/2026-04-26-Orbit-Wars-Structured-Baseline.md",
+      "topic": "orbit-wars",
+      "lang": "en",
+      "translation_key": "orbit-wars-structured-baseline",
+      "series": null,
+      "series_order": null,
+      "tags": [
+        "kaggle",
+        "orbit-wars",
+        "game-ai",
+        "reinforcement-learning",
+        "simulation"
+      ],
+      "body_sha256_after_separator_line": "7d395dbc2304ce54dccba60bd1a8da42c5b6b121f498f61f0a5b750779c277cb"
+    },
+    {
+      "path": "_posts/2026-2Q/2026-05-02-The-Corporate-Hallucinator.md",
+      "topic": "essays",
+      "lang": "en",
+      "translation_key": "the-corporate-hallucinator",
+      "series": null,
+      "series_order": null,
+      "tags": [
+        "essay",
+        "ai",
+        "corporate-culture",
+        "hallucination",
+        "organization"
+      ],
+      "body_sha256_after_separator_line": "57e35cbf13cb2527c19558e4e69d0f36ddb28e69af0a018c4961e091e6fd4f17"
+    },
+    {
+      "path": "_posts/2026-2Q/2026-05-03-S6E5-Drivers-High-Driver-Feature-Engineering-KR.md",
+      "topic": "playground-series",
+      "lang": "ko",
+      "translation_key": "playground-s6e5-driver-features",
+      "series": null,
+      "series_order": null,
+      "tags": [
+        "kaggle",
+        "playground-series",
+        "cross-validation",
+        "feature-engineering",
+        "formula1",
+        "roc-auc"
+      ],
+      "body_sha256_after_separator_line": "35905a9e762e3a30d2bfef9a917b8106c8e7fa45dd47080a9b44085868e3b713"
+    },
+    {
+      "path": "_posts/2026-2Q/2026-05-03-S6E5-Drivers-High-Driver-Feature-Engineering.md",
+      "topic": "playground-series",
+      "lang": "en",
+      "translation_key": "playground-s6e5-driver-features",
+      "series": null,
+      "series_order": null,
+      "tags": [
+        "kaggle",
+        "playground-series",
+        "cross-validation",
+        "feature-engineering",
+        "formula1",
+        "roc-auc"
+      ],
+      "body_sha256_after_separator_line": "e5b04cbb650a8a776f11f3473f45d4ba72946ee843e2aa95c5b76a7fd857b099"
+    },
+    {
+      "path": "_posts/2026-2Q/2026-05-17-Maze-Crawler-Structure-Baseline-KR.md",
+      "topic": "maze-crawler",
+      "lang": "ko",
+      "translation_key": "maze-crawler-structured-baseline",
+      "series": null,
+      "series_order": null,
+      "tags": [
+        "kaggle",
+        "maze-crawler",
+        "game-ai",
+        "pathfinding",
+        "rule-based-agent",
+        "simulation"
+      ],
+      "body_sha256_after_separator_line": "9a2d53a3ae27a012a307a761bd15191f4198149557dcf1a4208d6681d10cb199"
+    },
+    {
+      "path": "_posts/2026-2Q/2026-05-17-Maze-Crawler-Structure-Baseline.md",
+      "topic": "maze-crawler",
+      "lang": "en",
+      "translation_key": "maze-crawler-structured-baseline",
+      "series": null,
+      "series_order": null,
+      "tags": [
+        "kaggle",
+        "maze-crawler",
+        "game-ai",
+        "pathfinding",
+        "rule-based-agent",
+        "simulation"
+      ],
+      "body_sha256_after_separator_line": "932702cfba1b624d6ba82c1d3d11f607685db2f44a7c5192fca338c6ee0c6db5"
+    },
+    {
+      "path": "_posts/2026-2Q/2026-05-24-The-Language-That-Faces-the-Future-KR.md",
+      "topic": "essays",
+      "lang": "ko",
+      "translation_key": "the-language-that-faces-the-future",
+      "series": null,
+      "series_order": null,
+      "tags": [
+        "essay",
+        "decision-making",
+        "future-thinking",
+        "leadership",
+        "organization"
+      ],
+      "body_sha256_after_separator_line": "59e6ac9015e6999da2887fd28a305cd2d5c2cb787ddc71a659a085631735b818"
+    },
+    {
+      "path": "_posts/2026-2Q/2026-05-24-The-Language-That-Faces-the-Future.md",
+      "topic": "essays",
+      "lang": "en",
+      "translation_key": "the-language-that-faces-the-future",
+      "series": null,
+      "series_order": null,
+      "tags": [
+        "essay",
+        "decision-making",
+        "future-thinking",
+        "leadership",
+        "organization"
+      ],
+      "body_sha256_after_separator_line": "c71be14667e650626f969a37a68bf4f895d4b32722edc61c58420f1a5bf04525"
+    },
+    {
+      "path": "_posts/2026-2Q/2026-05-30-BirdCLEF-2026-EoS9-OOF-Gated-PCEN-KR.md",
+      "topic": "birdclef-2026",
+      "lang": "ko",
+      "translation_key": "birdclef-2026-eos9-pcen",
+      "series": null,
+      "series_order": null,
+      "tags": [
+        "kaggle",
+        "birdclef-2026",
+        "audio-classification",
+        "ensemble",
+        "oof",
+        "pcen",
+        "sidecar",
+        "taxonomy"
+      ],
+      "body_sha256_after_separator_line": "b9632ef0e55ef3d38c07d67ba40ab436b25c6cf4da3cc0c2d56dd2e7d0391566"
+    },
+    {
+      "path": "_posts/2026-2Q/2026-05-30-BirdCLEF-2026-EoS9-OOF-Gated-PCEN.md",
+      "topic": "birdclef-2026",
+      "lang": "en",
+      "translation_key": "birdclef-2026-eos9-pcen",
+      "series": null,
+      "series_order": null,
+      "tags": [
+        "kaggle",
+        "birdclef-2026",
+        "audio-classification",
+        "ensemble",
+        "oof",
+        "pcen",
+        "sidecar",
+        "taxonomy"
+      ],
+      "body_sha256_after_separator_line": "86965c0a46c527d034d8f403b362eab7facd7cc15532b7dcb46582df576a2ce3"
+    },
+    {
+      "path": "_posts/2026-2Q/2026-06-02-PG-S6E6-EDA-GBDT-Bases-And-Artifact-Blend-KR.md",
+      "topic": "playground-series",
+      "lang": "ko",
+      "translation_key": "playground-s6e6-stellar-classification",
+      "series": null,
+      "series_order": null,
+      "tags": [
+        "kaggle",
+        "playground-series",
+        "artifact-blend",
+        "balanced-accuracy",
+        "eda",
+        "gbdt",
+        "stellar-classification"
+      ],
+      "body_sha256_after_separator_line": "fb95888252f98159b9959f0d387b6356f8cc1404d73cb92c6cea64556d97e7a7"
+    },
+    {
+      "path": "_posts/2026-2Q/2026-06-02-PG-S6E6-EDA-GBDT-Bases-And-Artifact-Blend.md",
+      "topic": "playground-series",
+      "lang": "en",
+      "translation_key": "playground-s6e6-stellar-classification",
+      "series": null,
+      "series_order": null,
+      "tags": [
+        "kaggle",
+        "playground-series",
+        "artifact-blend",
+        "balanced-accuracy",
+        "eda",
+        "gbdt",
+        "stellar-classification"
+      ],
+      "body_sha256_after_separator_line": "45fd48da65804dd1fc97487678b9af41d654e1a63d187217f0ef8b7b872208e2"
+    },
+    {
+      "path": "_posts/2026-2Q/2026-06-10-ROGII-Target-Free-Stratigraphic-Alignment-for-TVT-KR.md",
+      "topic": "rogii",
+      "lang": "ko",
+      "translation_key": "rogii-tvt-alignment",
+      "series": "rogii",
+      "series_order": 1,
+      "tags": [
+        "kaggle",
+        "rogii",
+        "ensemble",
+        "geosteering",
+        "leakage-control",
+        "stratigraphy",
+        "target-free-alignment",
+        "tvt"
+      ],
+      "body_sha256_after_separator_line": "00675f6322cb0ad4aaab37cabde136a299929f03eeb23e4acef1ff4b0180b59b"
+    },
+    {
+      "path": "_posts/2026-2Q/2026-06-10-ROGII-Target-Free-Stratigraphic-Alignment-for-TVT.md",
+      "topic": "rogii",
+      "lang": "en",
+      "translation_key": "rogii-tvt-alignment",
+      "series": "rogii",
+      "series_order": 1,
+      "tags": [
+        "kaggle",
+        "rogii",
+        "ensemble",
+        "geosteering",
+        "leakage-control",
+        "stratigraphy",
+        "target-free-alignment",
+        "tvt"
+      ],
+      "body_sha256_after_separator_line": "b96d06f976c826293b0c094875c11a71aa3cb7a2fcce0c91a03f86b42a6be2ec"
+    },
+    {
+      "path": "_posts/2026-2Q/2026-06-13-AI-Agent-Security-Part-1-The-Replay-Benchmark-and-Trajectory-Search-EDA-KR.md",
+      "topic": "ai-agent-security",
+      "lang": "ko",
+      "translation_key": "ai-agent-security-01",
+      "series": "ai-agent-security",
+      "series_order": 1,
+      "tags": [
+        "kaggle",
+        "ai-agent-security",
+        "agent-safety",
+        "eda",
+        "exfiltration",
+        "go-explore",
+        "prompt-injection",
+        "red-teaming",
+        "tool-attacks"
+      ],
+      "body_sha256_after_separator_line": "c22f7b208540a11ed683973e40ace69a11eb957cdb5ac25d7fa226295fd23cf5"
+    },
+    {
+      "path": "_posts/2026-2Q/2026-06-13-AI-Agent-Security-Part-1-The-Replay-Benchmark-and-Trajectory-Search-EDA.md",
+      "topic": "ai-agent-security",
+      "lang": "en",
+      "translation_key": "ai-agent-security-01",
+      "series": "ai-agent-security",
+      "series_order": 1,
+      "tags": [
+        "kaggle",
+        "ai-agent-security",
+        "agent-safety",
+        "eda",
+        "exfiltration",
+        "go-explore",
+        "prompt-injection",
+        "red-teaming",
+        "tool-attacks"
+      ],
+      "body_sha256_after_separator_line": "e10f186d8f43db1bac7d5afb76a20c38e2a67a232ae5845037a89a6e22fa2189"
+    },
+    {
+      "path": "_posts/2026-2Q/2026-06-19-AI-Agent-Security-Part-2-The-Linear-Score-Law-and-the-Replay-Ceiling-KR.md",
+      "topic": "ai-agent-security",
+      "lang": "ko",
+      "translation_key": "ai-agent-security-02",
+      "series": "ai-agent-security",
+      "series_order": 2,
+      "tags": [
+        "kaggle",
+        "ai-agent-security",
+        "agent-safety",
+        "egress-filter",
+        "exfiltration",
+        "guardrail",
+        "prompt-injection",
+        "red-teaming",
+        "reverse-engineering",
+        "scoring"
+      ],
+      "body_sha256_after_separator_line": "f5d29ae6df4e90eb01cc79b9b9b7e6157866894dbad24f695a6c0dd28eac8ae3"
+    },
+    {
+      "path": "_posts/2026-2Q/2026-06-19-AI-Agent-Security-Part-2-The-Linear-Score-Law-and-the-Replay-Ceiling.md",
+      "topic": "ai-agent-security",
+      "lang": "en",
+      "translation_key": "ai-agent-security-02",
+      "series": "ai-agent-security",
+      "series_order": 2,
+      "tags": [
+        "kaggle",
+        "ai-agent-security",
+        "agent-safety",
+        "egress-filter",
+        "exfiltration",
+        "guardrail",
+        "prompt-injection",
+        "red-teaming",
+        "reverse-engineering",
+        "scoring"
+      ],
+      "body_sha256_after_separator_line": "36712e4267dbe824e31c81bc6191bc49fd3b36725053a4a0f8ee5559ec938b0b"
+    },
+    {
+      "path": "_posts/2026-2Q/2026-06-24-arc-agi-3-the-benchmark-nobody-has-solved-KR.md",
+      "topic": "arc-agi-3",
+      "lang": "ko",
+      "translation_key": "arc-agi-3-introduction",
+      "series": "arc-agi-3-main",
+      "series_order": 1,
+      "tags": [
+        "arc-agi-3",
+        "agi",
+        "ai-agents",
+        "arc-agi",
+        "benchmark",
+        "reinforcement-learning",
+        "world-models"
+      ],
+      "body_sha256_after_separator_line": "fac57ccd4a49983e9a8889e7844daf46bc148e745efa7188d06ec94b2b00646f"
+    },
+    {
+      "path": "_posts/2026-2Q/2026-06-24-arc-agi-3-the-benchmark-nobody-has-solved.md",
+      "topic": "arc-agi-3",
+      "lang": "en",
+      "translation_key": "arc-agi-3-introduction",
+      "series": "arc-agi-3-main",
+      "series_order": 1,
+      "tags": [
+        "arc-agi-3",
+        "agi",
+        "ai-agents",
+        "arc-agi",
+        "benchmark",
+        "reinforcement-learning",
+        "world-models"
+      ],
+      "body_sha256_after_separator_line": "77757d0716585c04cb346b0527ef62333c3a07709741f838daaa14ca65f118c9"
+    },
+    {
+      "path": "_posts/2026-2Q/2026-06-30-AI-Agent-Security-Part-3-Multi-Predicate-Stacking-and-the-Broken-Ceiling-KR.md",
+      "topic": "ai-agent-security",
+      "lang": "ko",
+      "translation_key": "ai-agent-security-03",
+      "series": "ai-agent-security",
+      "series_order": 3,
+      "tags": [
+        "kaggle",
+        "ai-agent-security",
+        "agent-safety",
+        "exfiltration",
+        "guardrail",
+        "prompt-injection",
+        "red-teaming",
+        "reverse-engineering",
+        "scoring",
+        "throughput"
+      ],
+      "body_sha256_after_separator_line": "8c37629eeec554381d2abbb1f36c1e4cf17ec138e299627ef7048ab2d1cb765d"
+    },
+    {
+      "path": "_posts/2026-2Q/2026-06-30-AI-Agent-Security-Part-3-Multi-Predicate-Stacking-and-the-Broken-Ceiling.md",
+      "topic": "ai-agent-security",
+      "lang": "en",
+      "translation_key": "ai-agent-security-03",
+      "series": "ai-agent-security",
+      "series_order": 3,
+      "tags": [
+        "kaggle",
+        "ai-agent-security",
+        "agent-safety",
+        "exfiltration",
+        "guardrail",
+        "prompt-injection",
+        "red-teaming",
+        "reverse-engineering",
+        "scoring",
+        "throughput"
+      ],
+      "body_sha256_after_separator_line": "2ea3780d3bdbd66dc589f03d4601d6ac59b0866dc7fcd6f5ccf5eb84e93dc3d9"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-07-02-Pokemon-TCG-AI-Battle-Working-Note-1-Meta-Intelligence-and-the-Pilot-Gap-KR.md",
+      "topic": "pokemon-tcg",
+      "lang": "ko",
+      "translation_key": "pokemon-tcg-working-note-1",
+      "series": null,
+      "series_order": null,
+      "tags": [
+        "kaggle",
+        "pokemon-tcg",
+        "behavior-cloning",
+        "benchmark",
+        "game-ai",
+        "offline-rl",
+        "reinforcement-learning",
+        "self-play",
+        "working-note"
+      ],
+      "body_sha256_after_separator_line": "9398c52f3204726128693801f959dc551302bce49682b41dd9fa75bea5633fc9"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-07-02-Pokemon-TCG-AI-Battle-Working-Note-1-Meta-Intelligence-and-the-Pilot-Gap.md",
+      "topic": "pokemon-tcg",
+      "lang": "en",
+      "translation_key": "pokemon-tcg-working-note-1",
+      "series": null,
+      "series_order": null,
+      "tags": [
+        "kaggle",
+        "pokemon-tcg",
+        "behavior-cloning",
+        "benchmark",
+        "game-ai",
+        "offline-rl",
+        "reinforcement-learning",
+        "self-play",
+        "working-note"
+      ],
+      "body_sha256_after_separator_line": "cc89b45cb8c896cfbe3804d59debddb0a321ec0fee442043fed6d2cdc0491715"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-07-03-ROGII-Working-Note-2-Target-Free-TVT-Geosteering-KR.md",
+      "topic": "rogii",
+      "lang": "ko",
+      "translation_key": "rogii-error-anatomy",
+      "series": "rogii",
+      "series_order": 2,
+      "tags": [
+        "kaggle",
+        "rogii",
+        "error-anatomy",
+        "geosteering",
+        "stratigraphy",
+        "target-free-alignment",
+        "tvt",
+        "working-note"
+      ],
+      "body_sha256_after_separator_line": "50d835f12262266c11c4150a9db7409c57d738f4d5f1eeb40ba8cb326f92dd1a"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-07-03-ROGII-Working-Note-2-Target-Free-TVT-Geosteering.md",
+      "topic": "rogii",
+      "lang": "en",
+      "translation_key": "rogii-error-anatomy",
+      "series": "rogii",
+      "series_order": 2,
+      "tags": [
+        "kaggle",
+        "rogii",
+        "error-anatomy",
+        "geosteering",
+        "stratigraphy",
+        "target-free-alignment",
+        "tvt",
+        "working-note"
+      ],
+      "body_sha256_after_separator_line": "33d814910f6641a52b8134822a8baa53017df7d2482bb3b8a585a6344dbe7405"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-07-08-BioHub-Cell-Tracking-Working-Note-1-Learned-Lineage-Graphs-KR.md",
+      "topic": "biohub",
+      "lang": "ko",
+      "translation_key": "biohub-01",
+      "series": "biohub",
+      "series_order": 1,
+      "tags": [
+        "kaggle",
+        "biohub",
+        "cell-tracking",
+        "graph-repair",
+        "ilp",
+        "lineage-reconstruction",
+        "microscopy",
+        "unet",
+        "working-note"
+      ],
+      "body_sha256_after_separator_line": "9c879606a57ce04584b4a655a840dd2ee060fe7615b9c675f5a8f22ff428b387"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-07-08-BioHub-Cell-Tracking-Working-Note-1-Learned-Lineage-Graphs.md",
+      "topic": "biohub",
+      "lang": "en",
+      "translation_key": "biohub-01",
+      "series": "biohub",
+      "series_order": 1,
+      "tags": [
+        "kaggle",
+        "biohub",
+        "cell-tracking",
+        "graph-repair",
+        "ilp",
+        "lineage-reconstruction",
+        "microscopy",
+        "unet",
+        "working-note"
+      ],
+      "body_sha256_after_separator_line": "e2c8a644fca525d7ebecadb0adc080ca13964147963f79220af9ceed36ee38e6"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-07-14-BioHub-Cell-Tracking-Working-Note-2-OOF-Structural-Diagnostics-KR.md",
+      "topic": "biohub",
+      "lang": "ko",
+      "translation_key": "biohub-02",
+      "series": "biohub",
+      "series_order": 2,
+      "tags": [
+        "kaggle",
+        "biohub",
+        "cell-tracking",
+        "error-anatomy",
+        "graph-repair",
+        "lineage-reconstruction",
+        "microscopy",
+        "model-calibration",
+        "oof",
+        "working-note"
+      ],
+      "body_sha256_after_separator_line": "72f87421a4c49b0bfe57bf8a2122413e46831101978c4401cf815eae62b25247"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-07-14-BioHub-Cell-Tracking-Working-Note-2-OOF-Structural-Diagnostics.md",
+      "topic": "biohub",
+      "lang": "en",
+      "translation_key": "biohub-02",
+      "series": "biohub",
+      "series_order": 2,
+      "tags": [
+        "kaggle",
+        "biohub",
+        "cell-tracking",
+        "error-anatomy",
+        "graph-repair",
+        "lineage-reconstruction",
+        "microscopy",
+        "model-calibration",
+        "oof",
+        "working-note"
+      ],
+      "body_sha256_after_separator_line": "cbdced8520d1ea705fd99a4717ca2bfd43e3566f81e5748db083d4e52c3e0a62"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-07-15-AI-Agent-Security-Part-4-Past-the-Framing-Plateau-KR.md",
+      "topic": "ai-agent-security",
+      "lang": "ko",
+      "translation_key": "ai-agent-security-04",
+      "series": "ai-agent-security",
+      "series_order": 4,
+      "tags": [
+        "kaggle",
+        "ai-agent-security",
+        "agent-safety",
+        "exfiltration",
+        "per-model",
+        "prompt-injection",
+        "red-teaming",
+        "replay",
+        "reverse-engineering",
+        "scoring",
+        "throughput",
+        "variance"
+      ],
+      "body_sha256_after_separator_line": "eda228877feeb2a866b36647401a2e7d48fb1882c86c28d65ef211d6abb0516f"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-07-15-AI-Agent-Security-Part-4-Past-the-Framing-Plateau.md",
+      "topic": "ai-agent-security",
+      "lang": "en",
+      "translation_key": "ai-agent-security-04",
+      "series": "ai-agent-security",
+      "series_order": 4,
+      "tags": [
+        "kaggle",
+        "ai-agent-security",
+        "agent-safety",
+        "exfiltration",
+        "per-model",
+        "prompt-injection",
+        "red-teaming",
+        "replay",
+        "reverse-engineering",
+        "scoring",
+        "throughput",
+        "variance"
+      ],
+      "body_sha256_after_separator_line": "b1a7fb4229e375e23030b130262018400fdf2b1953fc2baea85f7dddc41dbf63"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-07-21-AI-Agent-Security-Part-5-The-Raw-Wall-from-the-Inside-KR.md",
+      "topic": "ai-agent-security",
+      "lang": "ko",
+      "translation_key": "ai-agent-security-05",
+      "series": "ai-agent-security",
+      "series_order": 5,
+      "tags": [
+        "kaggle",
+        "ai-agent-security",
+        "agent-safety",
+        "exfiltration",
+        "guardrail",
+        "per-model",
+        "predicates",
+        "prompt-injection",
+        "red-teaming",
+        "replay",
+        "reverse-engineering",
+        "scoring",
+        "throughput"
+      ],
+      "body_sha256_after_separator_line": "e18fd26b10fb389e76cd8484b5b6164f52936e15611d94977a468bd920bc35e2"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-07-21-AI-Agent-Security-Part-5-The-Raw-Wall-from-the-Inside.md",
+      "topic": "ai-agent-security",
+      "lang": "en",
+      "translation_key": "ai-agent-security-05",
+      "series": "ai-agent-security",
+      "series_order": 5,
+      "tags": [
+        "kaggle",
+        "ai-agent-security",
+        "agent-safety",
+        "exfiltration",
+        "guardrail",
+        "per-model",
+        "predicates",
+        "prompt-injection",
+        "red-teaming",
+        "replay",
+        "reverse-engineering",
+        "scoring",
+        "throughput"
+      ],
+      "body_sha256_after_separator_line": "ae48e7cc5478854aa986f5c42c8a274fef228721369d85a27ffe637a739057fc"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-07-22-From-Closed-to-Open-Quantum-Transport-with-NEGF-KR.md",
+      "topic": "quantum-transport",
+      "lang": "ko",
+      "translation_key": "quantum-transport-negf",
+      "series": null,
+      "series_order": null,
+      "tags": [
+        "kaggle",
+        "quantum-transport",
+        "green-functions",
+        "landauer",
+        "negf",
+        "open-quantum-systems",
+        "physics",
+        "python",
+        "resonant-tunneling",
+        "self-energy",
+        "tight-binding"
+      ],
+      "body_sha256_after_separator_line": "0d241fcb37467f327f912fc7912e7414ae2c690cb9e4cb6c421de9c211879eb9"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-07-22-From-Closed-to-Open-Quantum-Transport-with-NEGF.md",
+      "topic": "quantum-transport",
+      "lang": "en",
+      "translation_key": "quantum-transport-negf",
+      "series": null,
+      "series_order": null,
+      "tags": [
+        "kaggle",
+        "quantum-transport",
+        "green-functions",
+        "landauer",
+        "negf",
+        "open-quantum-systems",
+        "physics",
+        "python",
+        "resonant-tunneling",
+        "self-energy",
+        "tight-binding"
+      ],
+      "body_sha256_after_separator_line": "d5f15509661615b5914bf8df79bd11986807d423ec64ef2c1aeebfbbf60ebfba"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-07-26-AI-Agent-Security-Part-6-Throughput-Working-Note-Established-Closed-Open-KR.md",
+      "topic": "ai-agent-security",
+      "lang": "ko",
+      "translation_key": "ai-agent-security-06",
+      "series": "ai-agent-security",
+      "series_order": 6,
+      "tags": [
+        "kaggle",
+        "ai-agent-security",
+        "agent-safety",
+        "decode",
+        "exfiltration",
+        "kv-cache",
+        "prompt-injection",
+        "red-teaming",
+        "throughput",
+        "working-note"
+      ],
+      "body_sha256_after_separator_line": "8ca5c9efeb51f6a0a2b94669290c3a20d8c264b6170df09a21fe07cbe7285c27"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-07-26-AI-Agent-Security-Part-6-Throughput-Working-Note-Established-Closed-Open.md",
+      "topic": "ai-agent-security",
+      "lang": "en",
+      "translation_key": "ai-agent-security-06",
+      "series": "ai-agent-security",
+      "series_order": 6,
+      "tags": [
+        "kaggle",
+        "ai-agent-security",
+        "agent-safety",
+        "decode",
+        "exfiltration",
+        "kv-cache",
+        "prompt-injection",
+        "red-teaming",
+        "throughput",
+        "working-note"
+      ],
+      "body_sha256_after_separator_line": "085e568c0c4b45dec33213df4f82a3d60f7ab82e5c833c20383923568cf7ffd0"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-07-31-BioHub-Cell-Tracking-Working-Note-3-What-the-OOF-Machine-Refused-KR.md",
+      "topic": "biohub",
+      "lang": "ko",
+      "translation_key": "biohub-03",
+      "series": "biohub",
+      "series_order": 3,
+      "tags": [
+        "kaggle",
+        "biohub",
+        "cell-tracking",
+        "cross-fitting",
+        "deployment-constraints",
+        "division-recovery",
+        "lineage-reconstruction",
+        "microscopy",
+        "oof",
+        "working-note"
+      ],
+      "body_sha256_after_separator_line": "56176fc9c8008b9cc72432ac21c780813af22ae402348b217536cb1779c28f5c"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-07-31-BioHub-Cell-Tracking-Working-Note-3-What-the-OOF-Machine-Refused.md",
+      "topic": "biohub",
+      "lang": "en",
+      "translation_key": "biohub-03",
+      "series": "biohub",
+      "series_order": 3,
+      "tags": [
+        "kaggle",
+        "biohub",
+        "cell-tracking",
+        "cross-fitting",
+        "deployment-constraints",
+        "division-recovery",
+        "lineage-reconstruction",
+        "microscopy",
+        "oof",
+        "working-note"
+      ],
+      "body_sha256_after_separator_line": "00109dee8cf624e53b2bfe56c1964953e3181ee92c784bc5cea800922bbc3400"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-08-01-AI-Agent-Security-Part-7-The-Transfer-Game-New-Surfaces-and-Private-Safe-KR.md",
+      "topic": "ai-agent-security",
+      "lang": "ko",
+      "translation_key": "ai-agent-security-07",
+      "series": "ai-agent-security",
+      "series_order": 7,
+      "tags": [
+        "kaggle",
+        "ai-agent-security",
+        "agent-safety",
+        "portfolio-design",
+        "private-leaderboard",
+        "prompt-injection",
+        "provenance",
+        "quality-diversity",
+        "red-teaming",
+        "transfer"
+      ],
+      "body_sha256_after_separator_line": "19c8a4a6f850e1d1bba0301c895567269a6f589e4f09f890c0d34a791c41f2ed"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-08-01-AI-Agent-Security-Part-7-The-Transfer-Game-New-Surfaces-and-Private-Safe.md",
+      "topic": "ai-agent-security",
+      "lang": "en",
+      "translation_key": "ai-agent-security-07",
+      "series": "ai-agent-security",
+      "series_order": 7,
+      "tags": [
+        "kaggle",
+        "ai-agent-security",
+        "agent-safety",
+        "portfolio-design",
+        "private-leaderboard",
+        "prompt-injection",
+        "provenance",
+        "quality-diversity",
+        "red-teaming",
+        "transfer"
+      ],
+      "body_sha256_after_separator_line": "db8698e5e8417c1d2bb155b52c3e276ae9050bab211cf39aa687a659144aaa90"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-08-03-Kaggriculture-Working-Note-1-A-Farming-Economy-and-the-Replay-Meta-KR.md",
+      "topic": "kaggriculture",
+      "lang": "ko",
+      "translation_key": "kaggriculture-working-note-1",
+      "series": null,
+      "series_order": null,
+      "tags": [
+        "kaggle",
+        "kaggriculture",
+        "behavior-cloning",
+        "game-ai",
+        "market-design",
+        "paired-benchmark",
+        "reverse-engineering",
+        "simulation",
+        "working-note"
+      ],
+      "body_sha256_after_separator_line": "2322753783b9a26920eb51b464bc6941b7bda43dc3895dc555a0d24586254a3c"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-08-03-Kaggriculture-Working-Note-1-A-Farming-Economy-and-the-Replay-Meta.md",
+      "topic": "kaggriculture",
+      "lang": "en",
+      "translation_key": "kaggriculture-working-note-1",
+      "series": null,
+      "series_order": null,
+      "tags": [
+        "kaggle",
+        "kaggriculture",
+        "behavior-cloning",
+        "game-ai",
+        "market-design",
+        "paired-benchmark",
+        "reverse-engineering",
+        "simulation",
+        "working-note"
+      ],
+      "body_sha256_after_separator_line": "2c40128748bfacb7bdf36be928ab9e65b047c2043c1193e5c5fc1ff774b2e10e"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-08-04-arc-agi-3-part-2-where-a-perfect-idea-died-KR.md",
+      "topic": "arc-agi-3",
+      "lang": "ko",
+      "translation_key": "arc-agi-3-part-2",
+      "series": "arc-agi-3-main",
+      "series_order": 2,
+      "tags": [
+        "kaggle",
+        "arc-agi-3",
+        "ai-agents",
+        "arc-agi",
+        "benchmark",
+        "working-note",
+        "world-models"
+      ],
+      "body_sha256_after_separator_line": "46ccd64eec99244a286c02a9bcd8176ad9f8cde499c9912719420e205649a52f"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-08-04-arc-agi-3-part-2-where-a-perfect-idea-died.md",
+      "topic": "arc-agi-3",
+      "lang": "en",
+      "translation_key": "arc-agi-3-part-2",
+      "series": "arc-agi-3-main",
+      "series_order": 2,
+      "tags": [
+        "kaggle",
+        "arc-agi-3",
+        "ai-agents",
+        "arc-agi",
+        "benchmark",
+        "working-note",
+        "world-models"
+      ],
+      "body_sha256_after_separator_line": "212017e2e666b09a59444c6eb4f1f03000853014aa283debe645e6d8e7297324"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-08-05-arc-agi-3-research-note-1-program-as-policy-KR.md",
+      "topic": "arc-agi-3",
+      "lang": "ko",
+      "translation_key": "arc-agi-3-research-r1",
+      "series": null,
+      "series_order": null,
+      "tags": [
+        "kaggle",
+        "arc-agi-3",
+        "ai-agents",
+        "arc-agi",
+        "program-synthesis",
+        "research-note",
+        "world-models"
+      ],
+      "body_sha256_after_separator_line": "6c54cdf5b9d0c1666b5e892b2ccc33eb182fb3d3584dfa1b47a4a36c063f176e"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-08-05-arc-agi-3-research-note-1-program-as-policy.md",
+      "topic": "arc-agi-3",
+      "lang": "en",
+      "translation_key": "arc-agi-3-research-r1",
+      "series": null,
+      "series_order": null,
+      "tags": [
+        "kaggle",
+        "arc-agi-3",
+        "ai-agents",
+        "arc-agi",
+        "program-synthesis",
+        "research-note",
+        "world-models"
+      ],
+      "body_sha256_after_separator_line": "07d9eed52e761fb10436c2c029fe8636c0364c50ab37c42d152840096e4633b8"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-08-06-ROGII-Competition-Retrospective-Public-Private-Shake-Up-KR.md",
+      "topic": "rogii",
+      "lang": "ko",
+      "translation_key": "rogii-retrospective",
+      "series": "rogii",
+      "series_order": 3,
+      "tags": [
+        "kaggle",
+        "rogii",
+        "competition-retrospective",
+        "geosteering",
+        "public-private-gap",
+        "silver-medal",
+        "stratigraphy",
+        "tvt"
+      ],
+      "body_sha256_after_separator_line": "78f17cc25175e7f06ac4606b5c92660aab4205d01aeae952f12c5fb5c7eb14d2"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-08-06-ROGII-Competition-Retrospective-Public-Private-Shake-Up.md",
+      "topic": "rogii",
+      "lang": "en",
+      "translation_key": "rogii-retrospective",
+      "series": "rogii",
+      "series_order": 3,
+      "tags": [
+        "kaggle",
+        "rogii",
+        "competition-retrospective",
+        "geosteering",
+        "public-private-gap",
+        "silver-medal",
+        "stratigraphy",
+        "tvt"
+      ],
+      "body_sha256_after_separator_line": "fcee1fad934c4f138af7ca01bdc4f91cc5c101807cfd5fe4406cf573a3552a72"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-08-09-RSNA-Knee-Twelve-Findings-From-One-MRI-KR.md",
+      "topic": "rsna-knee",
+      "lang": "ko",
+      "translation_key": "rsna-knee-competition-structure",
+      "series": null,
+      "series_order": null,
+      "tags": [
+        "kaggle",
+        "rsna-knee",
+        "dicom",
+        "dinov2",
+        "knee-mri",
+        "medical-imaging",
+        "multilingual",
+        "nyquist",
+        "roc-auc",
+        "weak-supervision"
+      ],
+      "body_sha256_after_separator_line": "10ca0f8524b2dc3f4bf0a6773d847988cdf5609646c598aa25945802512eafb3"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-08-09-RSNA-Knee-Twelve-Findings-From-One-MRI.md",
+      "topic": "rsna-knee",
+      "lang": "en",
+      "translation_key": "rsna-knee-competition-structure",
+      "series": null,
+      "series_order": null,
+      "tags": [
+        "kaggle",
+        "rsna-knee",
+        "dicom",
+        "dinov2",
+        "knee-mri",
+        "medical-imaging",
+        "multilingual",
+        "nyquist",
+        "roc-auc",
+        "weak-supervision"
+      ],
+      "body_sha256_after_separator_line": "0147ebc72b116f20a79af1e15b318f0435a1734dc49622c09be5f43f2d5f5803"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-08-12-AI-Agent-Security-Part-8-The-Evaluation-Reset-and-the-Search-for-a-Discrete-Lever-KR.md",
+      "topic": "ai-agent-security",
+      "lang": "ko",
+      "translation_key": "ai-agent-security-08",
+      "series": "ai-agent-security",
+      "series_order": 8,
+      "tags": [
+        "kaggle",
+        "ai-agent-security",
+        "agent-safety",
+        "diversity",
+        "evaluation",
+        "packing",
+        "partial-scoring",
+        "red-teaming",
+        "static-replay",
+        "throughput",
+        "working-note"
+      ],
+      "body_sha256_after_separator_line": "5fa19bc66095dd2aa9e149dea82837f95864257077ff761f8007439f4e507f00"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-08-12-AI-Agent-Security-Part-8-The-Evaluation-Reset-and-the-Search-for-a-Discrete-Lever.md",
+      "topic": "ai-agent-security",
+      "lang": "en",
+      "translation_key": "ai-agent-security-08",
+      "series": "ai-agent-security",
+      "series_order": 8,
+      "tags": [
+        "kaggle",
+        "ai-agent-security",
+        "agent-safety",
+        "diversity",
+        "evaluation",
+        "packing",
+        "partial-scoring",
+        "red-teaming",
+        "static-replay",
+        "throughput",
+        "working-note"
+      ],
+      "body_sha256_after_separator_line": "6a93500ad38d50225b5fe06be6ff417070c3ad7f411799fcb2566dc40f0262f0"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-08-16-BioHub-Cell-Tracking-Working-Note-4-Why-the-Largest-Local-Gain-Did-Not-Show-on-the-Board-KR.md",
+      "topic": "biohub",
+      "lang": "ko",
+      "translation_key": "biohub-04",
+      "series": "biohub",
+      "series_order": 4,
+      "tags": [
+        "kaggle",
+        "biohub",
+        "cell-tracking",
+        "hold-in-vs-embryo-out",
+        "leakage",
+        "lineage-reconstruction",
+        "microscopy",
+        "oof",
+        "retraction",
+        "transfer",
+        "working-note"
+      ],
+      "body_sha256_after_separator_line": "040362d93c91e2519c444f2f499001ef8eafb675f8f254950036f8abb54bca10"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-08-16-BioHub-Cell-Tracking-Working-Note-4-Why-the-Largest-Local-Gain-Did-Not-Show-on-the-Board.md",
+      "topic": "biohub",
+      "lang": "en",
+      "translation_key": "biohub-04",
+      "series": "biohub",
+      "series_order": 4,
+      "tags": [
+        "kaggle",
+        "biohub",
+        "cell-tracking",
+        "hold-in-vs-embryo-out",
+        "leakage",
+        "lineage-reconstruction",
+        "microscopy",
+        "oof",
+        "retraction",
+        "transfer",
+        "working-note"
+      ],
+      "body_sha256_after_separator_line": "889545b1fd32e5eee16a0683656ea2ef003c8b17201d6eab4193f41172046568"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-08-23-AI-Agent-Security-Part-9-From-Firing-to-Density-Chains-Gates-and-the-Per-K-Frontier-KR.md",
+      "topic": "ai-agent-security",
+      "lang": "ko",
+      "translation_key": "ai-agent-security-09",
+      "series": "ai-agent-security",
+      "series_order": 9,
+      "tags": [
+        "kaggle",
+        "ai-agent-security",
+        "agent-safety",
+        "density",
+        "evaluation",
+        "gemma",
+        "gpt-oss",
+        "rainbow-teaming",
+        "red-teaming",
+        "t4",
+        "throughput",
+        "tool-use",
+        "working-note"
+      ],
+      "body_sha256_after_separator_line": "86ef1552574ba7ef72440906ae5097a87e9509bbcf5e57fe83840fadabae7331"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-08-23-AI-Agent-Security-Part-9-From-Firing-to-Density-Chains-Gates-and-the-Per-K-Frontier.md",
+      "topic": "ai-agent-security",
+      "lang": "en",
+      "translation_key": "ai-agent-security-09",
+      "series": "ai-agent-security",
+      "series_order": 9,
+      "tags": [
+        "kaggle",
+        "ai-agent-security",
+        "agent-safety",
+        "density",
+        "evaluation",
+        "gemma",
+        "gpt-oss",
+        "rainbow-teaming",
+        "red-teaming",
+        "t4",
+        "throughput",
+        "tool-use",
+        "working-note"
+      ],
+      "body_sha256_after_separator_line": "87cbffefae2b8d0aac7b21499f81091544028e1efd148ad68ff97257f27eeb37"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-08-28-BioHub-Cell-Tracking-Working-Note-5-A-Local-Optimum-Built-One-Step-at-a-Time-KR.md",
+      "topic": "biohub",
+      "lang": "ko",
+      "translation_key": "biohub-05",
+      "series": "biohub",
+      "series_order": 5,
+      "tags": [
+        "kaggle",
+        "biohub",
+        "candidate-coverage",
+        "cell-tracking",
+        "division-recovery",
+        "lineage-reconstruction",
+        "microscopy",
+        "objective-design",
+        "process-debt",
+        "working-note"
+      ],
+      "body_sha256_after_separator_line": "2177ad05cd02a49a2da71fd73ba8f5dccbd4071caa9313cce1bbaa60b63cad0a"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-08-28-BioHub-Cell-Tracking-Working-Note-5-A-Local-Optimum-Built-One-Step-at-a-Time.md",
+      "topic": "biohub",
+      "lang": "en",
+      "translation_key": "biohub-05",
+      "series": "biohub",
+      "series_order": 5,
+      "tags": [
+        "kaggle",
+        "biohub",
+        "candidate-coverage",
+        "cell-tracking",
+        "division-recovery",
+        "lineage-reconstruction",
+        "microscopy",
+        "objective-design",
+        "process-debt",
+        "working-note"
+      ],
+      "body_sha256_after_separator_line": "25b5d1d7e0c16035b3f5f2a24bbd4ba5dcae23d2074b339152aa06b866e667fe"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-09-01-AI-Agent-Security-Part-10-From-Public-Density-to-Private-Transfer-KR.md",
+      "topic": "ai-agent-security",
+      "lang": "ko",
+      "translation_key": "ai-agent-security-10",
+      "series": "ai-agent-security",
+      "series_order": 10,
+      "tags": [
+        "kaggle",
+        "ai-agent-security",
+        "agent-safety",
+        "private-leaderboard",
+        "rainbow-teaming",
+        "red-teaming",
+        "throughput",
+        "tool-calling",
+        "transfer"
+      ],
+      "body_sha256_after_separator_line": "55085890d8e37129a0a6cec3efa72d8b36ac325b8afec20ac80e96473e17362c"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-09-01-AI-Agent-Security-Part-10-From-Public-Density-to-Private-Transfer.md",
+      "topic": "ai-agent-security",
+      "lang": "en",
+      "translation_key": "ai-agent-security-10",
+      "series": "ai-agent-security",
+      "series_order": 10,
+      "tags": [
+        "kaggle",
+        "ai-agent-security",
+        "agent-safety",
+        "private-leaderboard",
+        "rainbow-teaming",
+        "red-teaming",
+        "throughput",
+        "tool-calling",
+        "transfer"
+      ],
+      "body_sha256_after_separator_line": "66b56ae60f612bbac1c2c38c0055ba271154881e633a30cae8ccd04941418fbe"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-09-02-AI-Agent-Security-Part-11-When-the-Mechanism-Did-Not-Transfer-KR.md",
+      "topic": "ai-agent-security",
+      "lang": "ko",
+      "translation_key": "ai-agent-security-11",
+      "series": "ai-agent-security",
+      "series_order": 11,
+      "tags": [
+        "kaggle",
+        "ai-agent-security",
+        "agent-safety",
+        "competition-retrospective",
+        "private-leaderboard",
+        "public-private-gap",
+        "rainbow-teaming",
+        "red-teaming",
+        "silver-medal"
+      ],
+      "body_sha256_after_separator_line": "3ea2b09874658c2e254e7a76c108752cdce7bb79f811db4c30f157d5c72cfe3d"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-09-02-AI-Agent-Security-Part-11-When-the-Mechanism-Did-Not-Transfer.md",
+      "topic": "ai-agent-security",
+      "lang": "en",
+      "translation_key": "ai-agent-security-11",
+      "series": "ai-agent-security",
+      "series_order": 11,
+      "tags": [
+        "kaggle",
+        "ai-agent-security",
+        "agent-safety",
+        "competition-retrospective",
+        "private-leaderboard",
+        "public-private-gap",
+        "rainbow-teaming",
+        "red-teaming",
+        "silver-medal"
+      ],
+      "body_sha256_after_separator_line": "0f2e0d498b5c30910138e02eb3cb34fcd06a31c47687526e0c8910d7978b5f4e"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-09-05-AI-Agent-Security-Part-12-What-the-Writeups-Changed-About-Our-Search-KR.md",
+      "topic": "ai-agent-security",
+      "lang": "ko",
+      "translation_key": "ai-agent-security-12",
+      "series": "ai-agent-security",
+      "series_order": 12,
+      "tags": [
+        "kaggle",
+        "ai-agent-security",
+        "competition-retrospective",
+        "evaluation",
+        "experimental-design",
+        "throughput",
+        "transfer"
+      ],
+      "body_sha256_after_separator_line": "fb1c46ec48eb696a143bdcd51a75e233bff7b2911e1c5f4bb692b02564055751"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-09-05-AI-Agent-Security-Part-12-What-the-Writeups-Changed-About-Our-Search.md",
+      "topic": "ai-agent-security",
+      "lang": "en",
+      "translation_key": "ai-agent-security-12",
+      "series": "ai-agent-security",
+      "series_order": 12,
+      "tags": [
+        "kaggle",
+        "ai-agent-security",
+        "competition-retrospective",
+        "evaluation",
+        "experimental-design",
+        "throughput",
+        "transfer"
+      ],
+      "body_sha256_after_separator_line": "4a5d0cefa37050bc6ca3731649924078d36cde29c2b64a65d228c3175debb260"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-09-06-BioHub-Cell-Tracking-Working-Note-6-When-Local-Validation-Ran-a-Different-Pipeline-KR.md",
+      "topic": "biohub",
+      "lang": "ko",
+      "translation_key": "biohub-06",
+      "series": "biohub",
+      "series_order": 6,
+      "tags": [
+        "kaggle",
+        "biohub",
+        "cell-tracking",
+        "detector-augmentation",
+        "leakage",
+        "lineage-reconstruction",
+        "microscopy",
+        "oof",
+        "transfer-ratio",
+        "universe-mismatch",
+        "working-note"
+      ],
+      "body_sha256_after_separator_line": "ae20d5225f85c55e81618f5747cb6c2779aceda6dff00fb13661a021b412dddb"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-09-06-BioHub-Cell-Tracking-Working-Note-6-When-Local-Validation-Ran-a-Different-Pipeline.md",
+      "topic": "biohub",
+      "lang": "en",
+      "translation_key": "biohub-06",
+      "series": "biohub",
+      "series_order": 6,
+      "tags": [
+        "kaggle",
+        "biohub",
+        "cell-tracking",
+        "detector-augmentation",
+        "leakage",
+        "lineage-reconstruction",
+        "microscopy",
+        "oof",
+        "transfer-ratio",
+        "universe-mismatch",
+        "working-note"
+      ],
+      "body_sha256_after_separator_line": "1f28446d60247c2f998703c00be326287ce2d0e1b718a8650fa833ef1942d4b3"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-09-12-BioHub-Cell-Tracking-Working-Note-7-Deciding-by-Logic-and-What-Validation-Must-Reproduce-KR.md",
+      "topic": "biohub",
+      "lang": "ko",
+      "translation_key": "biohub-07",
+      "series": "biohub",
+      "series_order": 7,
+      "tags": [
+        "kaggle",
+        "biohub",
+        "cell-tracking",
+        "deployment-regime",
+        "hand-labels",
+        "label-convention",
+        "leakage",
+        "lineage-reconstruction",
+        "logit-alignment",
+        "microscopy",
+        "oof",
+        "pseudo-labels",
+        "working-note"
+      ],
+      "body_sha256_after_separator_line": "b31f5bf5a02fb3a3cba50d29c8afd558e95584439c2de186db401196230e2383"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-09-12-BioHub-Cell-Tracking-Working-Note-7-Deciding-by-Logic-and-What-Validation-Must-Reproduce.md",
+      "topic": "biohub",
+      "lang": "en",
+      "translation_key": "biohub-07",
+      "series": "biohub",
+      "series_order": 7,
+      "tags": [
+        "kaggle",
+        "biohub",
+        "cell-tracking",
+        "deployment-regime",
+        "hand-labels",
+        "label-convention",
+        "leakage",
+        "lineage-reconstruction",
+        "logit-alignment",
+        "microscopy",
+        "oof",
+        "pseudo-labels",
+        "working-note"
+      ],
+      "body_sha256_after_separator_line": "1b250725acff8e44fb138cfa0421a0ded2a7bd18f50af5d2f4104ff4f6580fe2"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-09-18-BioHub-Cell-Tracking-Working-Note-8-What-Went-Into-Choosing-the-Final-Two-KR.md",
+      "topic": "biohub",
+      "lang": "ko",
+      "translation_key": "biohub-08",
+      "series": "biohub",
+      "series_order": 8,
+      "tags": [
+        "kaggle",
+        "biohub",
+        "association-head",
+        "cell-tracking",
+        "embryo-out",
+        "final-selection",
+        "lineage-reconstruction",
+        "microscopy",
+        "oof",
+        "registration",
+        "selection-bias",
+        "stage-jitter",
+        "working-note"
+      ],
+      "body_sha256_after_separator_line": "0d07bb1b804cc4131dcd3e475507f77dccd5a638c663bbeb831e32e886a3365f"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-09-18-BioHub-Cell-Tracking-Working-Note-8-What-Went-Into-Choosing-the-Final-Two.md",
+      "topic": "biohub",
+      "lang": "en",
+      "translation_key": "biohub-08",
+      "series": "biohub",
+      "series_order": 8,
+      "tags": [
+        "kaggle",
+        "biohub",
+        "association-head",
+        "cell-tracking",
+        "embryo-out",
+        "final-selection",
+        "lineage-reconstruction",
+        "microscopy",
+        "oof",
+        "registration",
+        "selection-bias",
+        "stage-jitter",
+        "working-note"
+      ],
+      "body_sha256_after_separator_line": "ed99b3dd190a843dce7fa349a0bd13d7536549c7e9080034a5ee3ac3deaaed16"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-09-25-Gemma-4-Developer-Agent-From-Issue-to-Verified-Patch-KR.md",
+      "topic": "gemma-4",
+      "lang": "ko",
+      "translation_key": "gemma-4-developer-agent",
+      "series": null,
+      "series_order": null,
+      "tags": [
+        "kaggle",
+        "gemma-4",
+        "adk",
+        "coding-agents",
+        "evaluation",
+        "lora",
+        "software-engineering",
+        "working-note"
+      ],
+      "body_sha256_after_separator_line": "f00fc86676faaabc4f4c5f2d9ea0e6d09f4043f860284c7d171c26c14146fa91"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-09-25-Gemma-4-Developer-Agent-From-Issue-to-Verified-Patch.md",
+      "topic": "gemma-4",
+      "lang": "en",
+      "translation_key": "gemma-4-developer-agent",
+      "series": null,
+      "series_order": null,
+      "tags": [
+        "kaggle",
+        "gemma-4",
+        "adk",
+        "coding-agents",
+        "evaluation",
+        "lora",
+        "software-engineering",
+        "working-note"
+      ],
+      "body_sha256_after_separator_line": "f6b9ab1918ff57764076ba71fe8d5aab6c5d39f04f27ea68340fcb7df9a605df"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-09-27-CASMI-2026-From-Mass-Spectra-to-Molecular-Structures-KR.md",
+      "topic": "casmi-2026",
+      "lang": "ko",
+      "translation_key": "casmi-2026-molecular-structures",
+      "series": null,
+      "series_order": null,
+      "tags": [
+        "kaggle",
+        "casmi-2026",
+        "cheminformatics",
+        "mass-spectrometry",
+        "metabolomics",
+        "molecular-identification",
+        "working-note"
+      ],
+      "body_sha256_after_separator_line": "0babb0d829131be05cf7459b8f5eb76b029b20cd6535896c560b2b97d8faf241"
+    },
+    {
+      "path": "_posts/2026-3Q/2026-09-27-CASMI-2026-From-Mass-Spectra-to-Molecular-Structures.md",
+      "topic": "casmi-2026",
+      "lang": "en",
+      "translation_key": "casmi-2026-molecular-structures",
+      "series": null,
+      "series_order": null,
+      "tags": [
+        "kaggle",
+        "casmi-2026",
+        "cheminformatics",
+        "mass-spectrometry",
+        "metabolomics",
+        "molecular-identification",
+        "working-note"
+      ],
+      "body_sha256_after_separator_line": "cae412c3923d5ab096efd300c02c3e18bfee336739158f25b81032f321b68838"
+    },
+    {
+      "path": "_posts/2026-4Q/2026-10-02-BioHub-Cell-Tracking-Working-Note-9-Final-Results-and-the-Decision-to-Stop-Searching-KR.md",
+      "topic": "biohub",
+      "lang": "ko",
+      "translation_key": "biohub-09",
+      "series": "biohub",
+      "series_order": 9,
+      "tags": [
+        "kaggle",
+        "biohub",
+        "ai-agents",
+        "cell-tracking",
+        "competition-retrospective",
+        "lineage-reconstruction",
+        "microscopy",
+        "model-portfolio",
+        "oof",
+        "research-methods",
+        "working-note"
+      ],
+      "body_sha256_after_separator_line": "da4ba820b9c6ef560b4a9bbc1aeb5ae9bc3d1389f4644d7f58ede21c145e5d93"
+    },
+    {
+      "path": "_posts/2026-4Q/2026-10-02-BioHub-Cell-Tracking-Working-Note-9-Final-Results-and-the-Decision-to-Stop-Searching.md",
+      "topic": "biohub",
+      "lang": "en",
+      "translation_key": "biohub-09",
+      "series": "biohub",
+      "series_order": 9,
+      "tags": [
+        "kaggle",
+        "biohub",
+        "ai-agents",
+        "cell-tracking",
+        "competition-retrospective",
+        "lineage-reconstruction",
+        "microscopy",
+        "model-portfolio",
+        "oof",
+        "research-methods",
+        "working-note"
+      ],
+      "body_sha256_after_separator_line": "a66833fe8cdaed70159087bedae4de50d702ae116c5cf1a140c54c1241fb0197"
+    },
+    {
+      "path": "_posts/Testrun/2025-12-12-md-cheat-sheet.md",
+      "topic": "reference",
+      "lang": "ko",
+      "translation_key": "markdown-chirpy-cheat-sheet",
+      "series": null,
+      "series_order": null,
+      "tags": [
+        "cheat-sheet",
+        "latex",
+        "markdown"
+      ],
+      "body_sha256_after_separator_line": "10be7082aa53645a686d87afc21b163cb8ff99237bba42f13ac22b49be43606c"
+    }
+  ]
+}

@@ -1,0 +1,162 @@
+{
+  "status": "passed",
+  "checked_at_utc": "2026-10-07T07:37:45Z",
+  "commit": "b12ad266167f8d9f58f79de6759816fde977bfa2",
+  "pages_run": "37588197126",
+  "request_cache_control": "no-cache",
+  "network_timeouts_seconds": {
+    "open": 10,
+    "read": 20
+  },
+  "responses": {
+    "/topics/harness-engineering/": {
+      "url": "https://pilkwangkim.github.io/topics/harness-engineering/?verify=b12ad26",
+      "status": 200,
+      "etag": "\"6ac5f671-ffe6\""
+    },
+    "/assets/css/jekyll-theme-chirpy.css": {
+      "url": "https://pilkwangkim.github.io/assets/css/jekyll-theme-chirpy.css?v=592a34ffc4b2",
+      "status": 200,
+      "etag": "\"6ac5f672-1d395\""
+    },
+    "/assets/js/blog-navigation.js": {
+      "url": "https://pilkwangkim.github.io/assets/js/blog-navigation.js?v=592a34ffc4b2",
+      "status": 200,
+      "etag": "\"6ac5f671-2500\""
+    }
+  },
+  "pages": {
+    "/topics/": {
+      "language_button_order": [
+        "en",
+        "ko",
+        "all"
+      ],
+      "default_language": "en",
+      "primary_title_languages": [],
+      "duplicate_ids": false
+    },
+    "/topics/harness-engineering/": {
+      "language_button_order": [
+        "en",
+        "ko",
+        "all"
+      ],
+      "default_language": "en",
+      "primary_title_languages": [
+        "en"
+      ],
+      "duplicate_ids": false,
+      "view_button_labels": [
+        "Latest articles",
+        "All articles (16)"
+      ],
+      "server_panel_row_counts": {
+        "latest": 16,
+        "all": 16
+      },
+      "both_server_panels_visible": true,
+      "latest_limit": 5,
+      "series": {
+        "ai-agent-security": {
+          "part_count": 12,
+          "all_part_orders": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "all_id": "series-ai-agent-security",
+          "latest_id": "latest-series-ai-agent-security"
+        },
+        "arc-agi-3-main": {
+          "part_count": 2,
+          "all_part_orders": [
+            1,
+            2
+          ],
+          "all_id": "series-arc-agi-3-main",
+          "latest_id": "latest-series-arc-agi-3-main"
+        }
+      }
+    },
+    "/topics/essays/": {
+      "language_button_order": [
+        "en",
+        "ko",
+        "all"
+      ],
+      "default_language": "en",
+      "primary_title_languages": [
+        "en"
+      ],
+      "duplicate_ids": false,
+      "view_button_labels": [
+        "Latest articles",
+        "All articles (10)"
+      ],
+      "server_panel_row_counts": {
+        "latest": 10,
+        "all": 10
+      },
+      "both_server_panels_visible": true,
+      "latest_limit": 5,
+      "series": {}
+    }
+  },
+  "assets": {
+    "/assets/css/jekyll-theme-chirpy.css": {
+      "url": "https://pilkwangkim.github.io/assets/css/jekyll-theme-chirpy.css?v=592a34ffc4b2",
+      "local_url": "/assets/css/jekyll-theme-chirpy.css?v=592a34ffc4b2",
+      "fingerprint": "592a34ffc4b2",
+      "local_fingerprint": "592a34ffc4b2",
+      "live_sha256": "df468b6f2163870fea7dd74df38e995ea708280a6479a7581c0a5ba982506f89",
+      "local_sha256": "df468b6f2163870fea7dd74df38e995ea708280a6479a7581c0a5ba982506f89",
+      "equal": true,
+      "live_bytes": 119701,
+      "local_bytes": 119701
+    },
+    "/assets/js/blog-navigation.js": {
+      "url": "https://pilkwangkim.github.io/assets/js/blog-navigation.js?v=592a34ffc4b2",
+      "local_url": "/assets/js/blog-navigation.js?v=592a34ffc4b2",
+      "fingerprint": "592a34ffc4b2",
+      "local_fingerprint": "592a34ffc4b2",
+      "live_sha256": "f4a7063ba373b92d81dae46d883c4a94e9f8004a36696abca0dc4806cccee1eb",
+      "local_sha256": "f4a7063ba373b92d81dae46d883c4a94e9f8004a36696abca0dc4806cccee1eb",
+      "equal": true,
+      "live_bytes": 9472,
+      "local_bytes": 9472
+    }
+  },
+  "errors": [],
+  "asset_fingerprint": "592a34ffc4b2",
+  "final_verification_scope": [
+    "/topics/harness-engineering/",
+    "/assets/css/jekyll-theme-chirpy.css",
+    "/assets/js/blog-navigation.js"
+  ],
+  "page_check_commits": {
+    "/topics/": "2d763ed6766f67522109ba340d062fb3903f75b7",
+    "/topics/harness-engineering/": "b12ad266167f8d9f58f79de6759816fde977bfa2",
+    "/topics/essays/": "2d763ed6766f67522109ba340d062fb3903f75b7"
+  },
+  "previous_page_checks_at_utc": "2026-10-07T07:25:40Z",
+  "local_asset_fingerprint": "592a34ffc4b2",
+  "asset_fingerprint_matches_local": true,
+  "asset_fingerprint_validation": "Live HTML and local HTML both emit v=592a34ffc4b2; fetched the exact live CSS/JS URLs and verified identical bytes.",
+  "previous_fingerprint_check": {
+    "commit": "42bae9d58733c127c1e07f86de3c016b05537c18",
+    "asset_fingerprint": "2932e3d4f384",
+    "local_asset_fingerprint": "7968c7c5dc64",
+    "asset_fingerprint_matches_local": false,
+    "checked_at_utc": "2026-10-07T07:33:02Z"
+  }
+}

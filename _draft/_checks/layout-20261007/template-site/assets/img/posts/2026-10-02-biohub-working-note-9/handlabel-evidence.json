@@ -1,0 +1,515 @@
+{
+  "review_date": "2026-10-03",
+  "scope": "Editorial reconstruction of completed labeling and adjudication; no models or experiments rerun.",
+  "official_submission_query_date": "2026-10-02",
+  "submissions": [
+    {
+      "version": 83,
+      "submission_ref": 55967504,
+      "description": "modern-universe-verifier-refit-exact-v83-shaff9af4c0 (p/dv/v4 policy v12 bindings v7 thr0.75 cap50)",
+      "Public": "0.94437",
+      "Private": "0.91331"
+    },
+    {
+      "version": 85,
+      "submission_ref": 56022669,
+      "description": "hand-label-verifier-exact-v85-sha00062d88",
+      "Public": "0.93996",
+      "Private": "0.91373"
+    },
+    {
+      "version": 86,
+      "submission_ref": 56030957,
+      "description": "batch2-hand-verifier-precision-frontier-exact-v86-sha23b39ba1",
+      "Public": "0.94347",
+      "Private": "0.90877"
+    },
+    {
+      "version": 87,
+      "submission_ref": 56038152,
+      "description": "runtime-v2-features-batch2-0.90-exact-v87-shae07add44 (probe vs v86)",
+      "Public": "0.94662",
+      "Private": "0.91217"
+    }
+  ],
+  "comparisons": [
+    {
+      "comparator": 83,
+      "candidate": 85,
+      "Public_delta": "-0.00441",
+      "Private_delta": "0.00042"
+    },
+    {
+      "comparator": 83,
+      "candidate": 86,
+      "Public_delta": "-0.00090",
+      "Private_delta": "-0.00454"
+    },
+    {
+      "comparator": 86,
+      "candidate": 87,
+      "Public_delta": "0.00315",
+      "Private_delta": "0.00340"
+    },
+    {
+      "comparator": 83,
+      "candidate": 87,
+      "Public_delta": "0.00225",
+      "Private_delta": "-0.00114"
+    }
+  ],
+  "selection": {
+    "batch1": {
+      "items": 500,
+      "blind_gold": 50,
+      "minimum_score": 0.5
+    },
+    "batch2": {
+      "items": 500,
+      "blind_gold": 50,
+      "minimum_score": 0.4
+    },
+    "presentation": "Scores hidden; t-1,t,t+1,t+2 XY z-slab max projections, zoom and an x-z side view at t+1."
+  },
+  "actual_ingestion": {
+    "v85": {
+      "labeled": 250,
+      "y": 66,
+      "n": 86,
+      "s": 98,
+      "gold_judged": 16,
+      "gold_tp": 7,
+      "gold_fp": 1,
+      "gold_fn": 1,
+      "gold_tn": 7,
+      "labeler_precision_on_gold": 0.875,
+      "labeler_recall_on_gold": 0.875,
+      "labeler_accuracy_on_gold": 0.875,
+      "new_rows": 136,
+      "new_positives": 58,
+      "base_rows": 527448,
+      "base_positives": 174
+    },
+    "v86_and_v87": {
+      "labeled": 500,
+      "y": 97,
+      "n": 207,
+      "s": 196,
+      "gold_judged": 39,
+      "gold_tp": 18,
+      "gold_fp": 0,
+      "gold_fn": 4,
+      "gold_tn": 17,
+      "labeler_precision_on_gold": 1.0,
+      "labeler_recall_on_gold": 0.818,
+      "labeler_accuracy_on_gold": 0.897,
+      "new_rows": 265,
+      "new_positives": 79,
+      "base_rows": 527448,
+      "base_positives": 174
+    }
+  },
+  "final_review": {
+    "batches": [
+      {
+        "batch": 1,
+        "path": "results/hand_labels/batch1/hand_labels_batch1_final.json",
+        "counts": {
+          "n": 156,
+          "s": 250,
+          "y": 94
+        }
+      },
+      {
+        "batch": 2,
+        "path": "results/hand_labels/batch2/hand_labels_batch2_final.json",
+        "counts": {
+          "s": 236,
+          "n": 167,
+          "y": 97
+        }
+      }
+    ],
+    "unknown_total": 486,
+    "non_gold_n_to_s_changes": 60,
+    "gold_gt_positive_labeled_negative": 7,
+    "user_correction": "Negative judgments were not distance-driven; depth-ambiguous cases were moved to unknown. The distance-heuristic account is a historical hypothesis, not a confirmed cause."
+  },
+  "local_scope": "Verifier fit on one embryo prefix including its hand rows and applied to the other over 199 movies with fixed upstream replay assets; reused development evidence, not complete independently selected whole-pipeline OOF.",
+  "local_v85": {
+    "universe": "modern_oof_v1 a000 replay (deployed stack, twofold e200 pair, embryo-out), fork-free base 0.7489 (44b6 0.8095 / 6bba 0.7383)",
+    "protocol": "kernel-faithful: the SHIPPED runtime module (scripts/run_runtime_verifier_oof.py) fit prefix-pure (train one embryo prefix incl. its _hand rows, apply the other), official scorer, 199 movies; cap 50",
+    "table": "v83 union table (527,448 rows, 174 positives) + labeling batch 1 items 1-250 hand-judged (y 66 / n 86 / s 98; gold agreement 14/16; 136 non-gold rows ingested: 58 positives, 78 negatives) = 232 positives",
+    "deployed_v83_table_same_protocol": {
+      "0.75": {
+        "overall": 0.7535,
+        "44b6": 0.8161,
+        "6bba": 0.7425,
+        "div_tp": 8,
+        "div_fp": 19
+      }
+    },
+    "hand_label_table_sweep": {
+      "0.65": {
+        "overall": 0.7583,
+        "44b6": 0.8206,
+        "6bba": 0.7475,
+        "div_tp": 24,
+        "div_fp": 96
+      },
+      "0.70": {
+        "overall": 0.7575,
+        "44b6": 0.8184,
+        "6bba": 0.7469,
+        "div_tp": 21,
+        "div_fp": 86
+      },
+      "0.75": {
+        "overall": 0.7573,
+        "44b6": 0.8163,
+        "6bba": 0.7469,
+        "div_tp": 19,
+        "div_fp": 71
+      },
+      "0.85": {
+        "overall": 0.755,
+        "44b6": 0.8169,
+        "6bba": 0.7442,
+        "div_tp": 12,
+        "div_fp": 43
+      },
+      "alltrain_in_sample_0.75": {
+        "overall": 0.7646,
+        "44b6": 0.8279,
+        "6bba": 0.7535,
+        "div_tp": 40,
+        "div_fp": 100
+      }
+    },
+    "chosen_operating_point": {
+      "threshold": 0.65,
+      "max_per_movie": 50,
+      "delta_vs_deployed_table": 0.0048,
+      "44b6_delta": 0.0045,
+      "6bba_delta": 0.005,
+      "rule": "predeclared: >= +0.001 over the deployed point with both prefixes non-negative; monotone 0.65 > 0.70 > 0.75 > 0.85"
+    },
+    "label_learning_curve": "random GT positives: 43 -> 0.7495, 86 -> 0.7510, 128 -> 0.7515, 174 -> 0.7535 (+0.003 per 100, linear); boundary-band hand positives: +58 -> +0.0038 at 0.75",
+    "hidden_context": "v83 (this verifier family at 0.75, 174 positives) = public 0.944, local +0.0065 -> public +0.007 (transfer ~1.1x)",
+    "measured": "2026-09-05, pod:results/division_p1/{handlabel_price_partial250,label_curve_v1}"
+  },
+  "local_v87": {
+    "universe": "modern_oof_v1 a000 replay (deployed stack, twofold e200 pair, embryo-out), fork-free base 0.7489 (44b6 0.8095 / 6bba 0.7383)",
+    "protocol": "kernel-faithful: the SHIPPED runtime module (v2, sha d16d5686) fit prefix-pure (train one embryo prefix incl. its _hand rows, apply the other), official scorer, 199 movies; cap 50",
+    "runtime_v2": "28 features = the 25 of v1 + the labeler's cue: q_t_node_um (nearest detection at t to the candidate daughter, excl. the parent and its predecessor), q_t_bright_rel / q_tm1_bright_rel (appearance z-score at the daughter's position sampled at t / t-1 minus at t+1). Absent values (old-universe training rows) are median-imputed at fit; NaN routing cost 8 TP in the in-table ablation.",
+    "table": "v83 union table (527,448 rows, 174 positives) + labeling BATCH 2 (79 hand positives, 186 negatives; gold precision 1.00) = 253 positives; 284,555 modern/hand rows carry the v2 columns",
+    "deployed_v83_table_v1_runtime": {
+      "0.75": {
+        "overall": 0.7535,
+        "44b6": 0.8161,
+        "6bba": 0.7425,
+        "div_tp": 8,
+        "div_fp": 19,
+        "picks_199_movies": 2242,
+        "expected_pick_precision": 0.41
+      }
+    },
+    "v86_v1_runtime_batch2_table": {
+      "0.90": {
+        "overall": 0.7591,
+        "44b6": 0.8167,
+        "6bba": 0.7491,
+        "div_tp": 18,
+        "div_fp": 25,
+        "picks_199_movies": 2324,
+        "expected_pick_precision": 0.825
+      }
+    },
+    "v2_runtime_batch2_table_sweep": {
+      "0.95": {
+        "overall": 0.7569,
+        "44b6": 0.8131,
+        "6bba": 0.7472,
+        "div_tp": 14,
+        "div_fp": 23,
+        "picks_199_movies": 1148,
+        "expected_pick_precision": 0.85
+      },
+      "0.90": {
+        "overall": 0.7609,
+        "44b6": 0.8165,
+        "6bba": 0.7513,
+        "div_tp": 23,
+        "div_fp": 40,
+        "picks_199_movies": 2704,
+        "expected_pick_precision": 0.821
+      },
+      "0.85": {
+        "overall": 0.7612,
+        "44b6": 0.816,
+        "6bba": 0.7517,
+        "div_tp": 25,
+        "div_fp": 51,
+        "picks_199_movies": 3880,
+        "expected_pick_precision": 0.7
+      },
+      "0.75": {
+        "overall": 0.761,
+        "44b6": 0.823,
+        "6bba": 0.7502,
+        "div_tp": 29,
+        "div_fp": 84
+      }
+    },
+    "control_v83_table_v2_runtime": {
+      "0.75": {
+        "overall": 0.7536,
+        "div_tp": 8,
+        "div_fp": 18
+      },
+      "0.90": {
+        "overall": 0.7489,
+        "div_tp": 0,
+        "div_fp": 3
+      },
+      "note": "v2 features add nothing without the hand labels"
+    },
+    "hand_row_oof_precision_by_band_v2": {
+      "[0.95,1]": 0.85,
+      "[0.90,0.95)": 0.8,
+      "[0.85,0.90)": 0.42,
+      "[0.75,0.85)": 0.29,
+      "[0.65,0.75)": 0.12,
+      "cumulative_>=0.90": 0.83
+    },
+    "chosen_operating_point": {
+      "threshold": 0.9,
+      "max_per_movie": 50,
+      "local_delta_vs_v83_table": 0.0074,
+      "44b6_delta": 0.0004,
+      "6bba_delta": 0.0088,
+      "rule": "precision frontier: expected pick precision 0.82 (= v86) with 16% more picks (2,704 vs 2,324 over 199 movies); v85 (0.65, precision ~0.5) lost 0.005 public"
+    },
+    "measured": "2026-09-05, pod:results/division_p1/handlabel_price_{b2_v2i,v83_v2i}/chain.log; scripts/{hand_band_precision,pick_population_precision,v2_feature_ablation_quick}.py"
+  },
+  "missed_gt_6bba": {
+    "held_out_gt_events_with_candidate": 126,
+    "found": 25,
+    "missed": 101,
+    "missed_score_pct": [
+      0.023,
+      0.084,
+      0.368
+    ]
+  },
+  "same_recipe_more_labels": {
+    "batch2_v2_thr090": {
+      "score": 0.7609,
+      "TP": 23,
+      "FP": 40
+    },
+    "cleaned_batch1_plus_batch2_v2_thr090": {
+      "score": 0.7602,
+      "TP": 25,
+      "FP": 67
+    }
+  },
+  "equal_fp_example": {
+    "v1_thr085": {
+      "TP": 22,
+      "FP": 40
+    },
+    "v2_thr090": {
+      "TP": 23,
+      "FP": 40
+    }
+  },
+  "S4": {
+    "purpose": "Blinded crossing-swap diagnostic, never training data.",
+    "label_counts": {
+      "a": 28,
+      "b": 22,
+      "u": 48,
+      "x": 2
+    },
+    "controls": {
+      "agreement": {
+        "ci90": [
+          0.5444175959982525,
+          0.8959191640898638
+        ],
+        "k": 15,
+        "n": 20,
+        "share": 0.75
+      },
+      "counts": {
+        "gt": 15,
+        "missing": 0,
+        "other": 0,
+        "u": 5,
+        "x": 0
+      },
+      "missing": 0,
+      "n": 20,
+      "neither_x": {
+        "ci90": [
+          0.0,
+          0.13910834066826522
+        ],
+        "k": 0,
+        "n": 20,
+        "share": 0.0
+      },
+      "unsure_or_neither": {
+        "ci90": [
+          0.10408083591013584,
+          0.455582404001749
+        ],
+        "k": 5,
+        "n": 20,
+        "share": 0.25
+      },
+      "unsure_u": {
+        "ci90": [
+          0.10408083591013584,
+          0.455582404001749
+        ],
+        "k": 5,
+        "n": 20,
+        "share": 0.25
+      },
+      "wrong_letter": {
+        "ci90": [
+          0.0,
+          0.13910834066826522
+        ],
+        "k": 0,
+        "n": 20,
+        "share": 0.0
+      }
+    },
+    "rule": {
+      "applied_to": "point estimates",
+      "ceiling": "pooled gt_supported < 0.35",
+      "gt_noise_material": "pooled prediction_supported >= 0.15",
+      "labeler_trusted": "control_agreement >= 0.85",
+      "mixed": "otherwise",
+      "resolvable": "pooled gt_supported >= 0.5"
+    },
+    "verdict": {
+      "gt_noise_material": null,
+      "labeler_trusted": false,
+      "note": "control_agreement < 0.85: the batch is inconclusive and the swap shares are not read",
+      "status": "complete",
+      "swap_class": null,
+      "verdict": "inconclusive"
+    },
+    "not_done": "No labels enter any table, model or threshold. No second batch unless inconclusive, and then only by user decision."
+  },
+  "limits": [
+    "Private differences are observed whole-verifier-package results, not per-cue causal estimates; Private error labels are unavailable.",
+    "v83 to v85 and v85 to v86 change both labels and threshold; v86 to v87 keeps judgments, row composition, threshold and upstream models fixed while adding features, imputation and refit.",
+    "The final review JSONs are not the label set deployed in v87.",
+    "Label noise, population conflict and classifier capacity were not experimentally separated.",
+    "A failed promotion gate does not exhaust annotation, alternative representations or existing-candidate learning.",
+    "Unrun successor experiments do not establish a counterfactual medal."
+  ],
+  "sources": [
+    {
+      "path": "_draft/postcompetition-review-20261002/references/own-submissions-20261002.json",
+      "sha256": "927dfd7b60ae05dd39b20c57f9c49dd1dd9830cc7ff04aa6ea19d3ef494408db"
+    },
+    {
+      "path": "_draft/postcompetition-review-20261002/references/own-outcome-audit-20261002.json",
+      "sha256": "a61d839c4957328dfb612ccad714f2a9863fcf88becc95270d5a7d911648f793"
+    },
+    {
+      "path": "scripts/select_labeling_batch.py",
+      "sha256": "1e1f2c09ea15e9f6d4792e5dbc6fad0eed026a1f981cd867e8b526c658ccd74b"
+    },
+    {
+      "path": "scripts/ingest_hand_labels.py",
+      "sha256": "d9e388fd30c40e436b71698166bb202cecf5599f9a91a5a95be454dbf80ebee3"
+    },
+    {
+      "path": "scripts/render_labeling_crops.py",
+      "sha256": "5ef597a781bb341a100ef367102ee1dbe3579df1d8bc3d6761a829778362df0d"
+    },
+    {
+      "path": "results/hand_labels/batch1/batch1.csv",
+      "sha256": "c25109f52ff8d4ab2b9faa30862f82565aec244d854a2b9a1a3e25307f891bdc"
+    },
+    {
+      "path": "results/hand_labels/batch2/batch2.csv",
+      "sha256": "e436534af8e0358ae31348a9e3ab3606118ef55f282ba0b901838d4bae33a3a0"
+    },
+    {
+      "path": "results/division_p1/deploy_v4_modern_alltrain/DIVISION_VERIFIER_CONFIG.json",
+      "sha256": "e0107bb1743cc814bcb9916e1a679585c3016e49ca0441bf6bccc34c9fe92c06"
+    },
+    {
+      "path": "results/division_p1/deploy_v5_hand_p1/DIVISION_VERIFIER_CONFIG.json",
+      "sha256": "8064e2732a0921aaed4338585e194db2a4a379d207ed2580a372c02082d9ddcb"
+    },
+    {
+      "path": "results/division_p1/deploy_v6_hand_b2/DIVISION_VERIFIER_CONFIG.json",
+      "sha256": "494d2989c788141866ec90cac2e6b664a341b064b0584191fe963a41358a4e0a"
+    },
+    {
+      "path": "results/division_p1/deploy_v7_v2feat_b2/DIVISION_VERIFIER_CONFIG.json",
+      "sha256": "6940ac7d47ab115bb8a3c88bda03ac25b95f222d85bad9a87fcc52e5a5a5eb66"
+    },
+    {
+      "path": "results/division_p1/deploy_v5_hand_partial250/INGEST_REPORT.json",
+      "sha256": "af8b3a340b31fa7422dd1e51e49aadf98c84404e16e383c8f0f253ceda5d0b1d"
+    },
+    {
+      "path": "results/division_p1/deploy_v5_hand_batch2only/INGEST_REPORT.json",
+      "sha256": "0014089a3eb2bdd5472598655865eb0ab84177df52602ecc3af9e1b01fe69851"
+    },
+    {
+      "path": "results/division_p1/v85_oof_evidence.json",
+      "sha256": "b9a11d347502e82850a9f57c86d9d0cc11b22153a7d2ea0586bbe7dcf8a729da"
+    },
+    {
+      "path": "results/division_p1/v87_oof_evidence.json",
+      "sha256": "a78b0ad5b7507ccf7af92bae7e24273e351a0a8d1cb0b7081451fa3a3ea2d69c"
+    },
+    {
+      "path": "results/division_p1/missed_gt_diag_v1/report.json",
+      "sha256": "4477eab1b588d00c750487e03889d081dad6cb195a6d33c5e4fbe583fc5ba08a"
+    },
+    {
+      "path": "results/hand_labels/batch1/hand_labels_batch1_final.json",
+      "sha256": "ca4cbf1799171cf76829df407d1f118c84b2d230e4f0112cce790094de862ec0"
+    },
+    {
+      "path": "results/hand_labels/batch2/hand_labels_batch2_final.json",
+      "sha256": "3d5211acc40fddc31e9851da22bbeb53b6d21afa8d1adfbdf681891cd79514fd"
+    },
+    {
+      "path": "results/swap_adjudication_20260914/preparation/CARD_S4.json",
+      "sha256": "2a5f05d6e2ce26c5b8a5407ab8773d93b19e198f1d3e72f3841c071d64a311ac"
+    },
+    {
+      "path": "results/swap_adjudication_20260914/batch1/RESULT.json",
+      "sha256": "ba238833a4d1688ab300f3c8afa9e12809bb9e9f68280409356f141f4091327b"
+    },
+    {
+      "path": "results/swap_adjudication_20260914/batch1/labels/LABELER_REPORT.json",
+      "sha256": "76089c837a30bc3cd7c7653be9788ab5870a272171660e89ccdeeb6232bc3f9f"
+    },
+    {
+      "path": "results/swap_adjudication_20260914/batch1/EXPLORATORY_BETWEEN_GEOMETRY.json",
+      "sha256": "b320d5b5d906193b6460ab631be35cc1d8b9f9b8e24428be089e7ec15f734fe0"
+    },
+    {
+      "path": "docs/CLAUDE_SESSION_LOG.md",
+      "sha256": "0d774b674ec0547bcdd34c4ffb3d142c24eda6d2ac3a7f93d194dda6907c9294"
+    },
+    {
+      "path": "results/kaggle_outputs/v87/division_verifier_v7_runtime/runtime/biohub/division_verifier_runtime.py",
+      "sha256": "d16d5686dff739f2688f7d5f16a3e08c7bf8b72e39a6623a2323aa13e3e65ede"
+    }
+  ]
+}

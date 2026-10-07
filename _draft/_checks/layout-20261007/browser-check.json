@@ -1,0 +1,103 @@
+{
+  "status": "passed",
+  "checks": [
+    {
+      "test": "fractional-mobile-breakpoint",
+      "desktopMenu": "none",
+      "mobileMenu": "block",
+      "overflow": false,
+      "sidebarLeft": -260,
+      "topbar": "주제별 보기",
+      "width": 849
+    },
+    {
+      "test": "desktop-breakpoint-collapsed",
+      "collapsed": "true",
+      "mainLeft": 0,
+      "overflow": false,
+      "width": 850
+    },
+    {
+      "test": "wide-collapsed",
+      "mainWidth": 1050,
+      "overflow": false,
+      "sidebarVisibility": "hidden",
+      "width": 1700
+    },
+    {
+      "test": "preferences-persist-on-topic-navigation",
+      "collapsed": "true",
+      "enLinks": 12,
+      "inert": true,
+      "koLinks": 0,
+      "rows": 9,
+      "selected": "en",
+      "topbar": "BioHub Cell Tracking"
+    },
+    {
+      "test": "mobile-topic-with-desktop-preference",
+      "desktopCollapsed": "true",
+      "overflow": false,
+      "sidebarInert": false,
+      "sidebarLeft": -260,
+      "topbar": "BioHub Cell Tracking",
+      "width": 355
+    },
+    {
+      "test": "direct-language-link-persistence",
+      "koLinks": 0,
+      "selected": "en",
+      "url": "http://127.0.0.1:4181/topics/biohub/"
+    },
+    {
+      "test": "sidebar-keyboard-group-expansion",
+      "open": true,
+      "overflow": false,
+      "publicLinks": 16,
+      "scrollable": "auto"
+    },
+    {
+      "test": "topic-auto-open-group",
+      "current": "biohub",
+      "currentMeaning": "page",
+      "open": [
+        "ai"
+      ]
+    },
+    {
+      "test": "short-mobile-sidebar-scroll",
+      "footerVisible": true,
+      "height": 591,
+      "menuOpen": true,
+      "navContentHeight": 1099,
+      "navHeight": 374,
+      "sidebarInert": false,
+      "width": 355
+    },
+    {
+      "test": "korean-series-and-math",
+      "contents": 9,
+      "current": "BioHub Cell Tracking 작업 기록 2: Public 점수가 멈췄을 때 — OOF 기반 오류 분석",
+      "mathErrors": 0,
+      "mathRendered": 88,
+      "next": "/posts/BioHub-Cell-Tracking-Working-Note-3-What-the-OOF-Machine-Refused-KR/",
+      "overflow": false,
+      "prev": "/posts/BioHub-Cell-Tracking-Working-Note-1-Learned-Lineage-Graphs-KR/",
+      "sidebarCurrent": "location"
+    },
+    {
+      "test": "same-language-series-navigation",
+      "current": "BioHub Cell Tracking 작업 기록 3: OOF에 기반한 판단들",
+      "lang": "ko",
+      "url": "/posts/BioHub-Cell-Tracking-Working-Note-3-What-the-OOF-Machine-Refused-KR/"
+    },
+    {
+      "test": "final-desktop-keyboard-collapse",
+      "collapsed": "true",
+      "inert": true,
+      "mainLeft": 0,
+      "overflow": false,
+      "width": 1527
+    }
+  ]
+}

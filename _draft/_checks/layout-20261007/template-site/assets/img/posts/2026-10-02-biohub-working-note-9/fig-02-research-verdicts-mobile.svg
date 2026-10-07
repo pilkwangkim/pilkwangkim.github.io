@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="547.2pt" height="1270.8pt" viewBox="0 0 547.2 1270.8" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-10-02T19:31:31.518754</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.6, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 1270.8 
+L 547.2 1270.8 
+L 547.2 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 30.24 193.68 
+L 516.96 193.68 
+Q 525.6 193.68 525.6 202.32 
+L 525.6 395.28 
+Q 525.6 403.92 516.96 403.92 
+L 30.24 403.92 
+Q 21.6 403.92 21.6 395.28 
+L 21.6 202.32 
+Q 21.6 193.68 30.24 193.68 
+z
+" clip-path="url(#pe793ba4423)" style="fill: #f7f9fa; stroke: #dce3e7; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 21.6 206.64 
+L 25.92 206.64 
+L 25.92 390.96 
+L 21.6 390.96 
+z
+" clip-path="url(#pe793ba4423)" style="fill: #b55332"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 30.24 421.2 
+L 516.96 421.2 
+Q 525.6 421.2 525.6 429.84 
+L 525.6 622.8 
+Q 525.6 631.44 516.96 631.44 
+L 30.24 631.44 
+Q 21.6 631.44 21.6 622.8 
+L 21.6 429.84 
+Q 21.6 421.2 30.24 421.2 
+z
+" clip-path="url(#pe793ba4423)" style="fill: #f7f9fa; stroke: #dce3e7; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 21.6 434.16 
+L 25.92 434.16 
+L 25.92 618.48 
+L 21.6 618.48 
+z
+" clip-path="url(#pe793ba4423)" style="fill: #087f8c"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 30.24 648.72 
+L 516.96 648.72 
+Q 525.6 648.72 525.6 657.36 
+L 525.6 850.32 
+Q 525.6 858.96 516.96 858.96 
+L 30.24 858.96 
+Q 21.6 858.96 21.6 850.32 
+L 21.6 657.36 
+Q 21.6 648.72 30.24 648.72 
+z
+" clip-path="url(#pe793ba4423)" style="fill: #f7f9fa; stroke: #dce3e7; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 21.6 661.68 
+L 25.92 661.68 
+L 25.92 846 
+L 21.6 846 
+z
+" clip-path="url(#pe793ba4423)" style="fill: #687887"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 30.24 876.24 
+L 516.96 876.24 
+Q 525.6 876.24 525.6 884.88 
+L 525.6 1077.84 
+Q 525.6 1086.48 516.96 1086.48 
+L 30.24 1086.48 
+Q 21.6 1086.48 21.6 1077.84 
+L 21.6 884.88 
+Q 21.6 876.24 30.24 876.24 
+z
+" clip-path="url(#pe793ba4423)" style="fill: #f7f9fa; stroke: #dce3e7; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 21.6 889.2 
+L 25.92 889.2 
+L 25.92 1073.52 
+L 21.6 1073.52 
+z
+" clip-path="url(#pe793ba4423)" style="fill: #716394"/>
+   </g>
+   <g id="line2d_1">
+    <path d="M 21.6 1117.44 
+L 525.6 1117.44 
+" clip-path="url(#pe793ba4423)" style="fill: none; stroke: #1d252d; stroke-width: 1.5; stroke-linecap: square"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 19.44px; font-family: 'Arial'; text-anchor: start; fill: #087f8c" x="21.6" y="35.514788" transform="rotate(-0 21.6 35.514788)">BIOHUB / NOTE 9</text>
+   </g>
+   <g id="text_2">
+    <text style="font-weight: 700; font-size: 30.24px; font-family: 'Arial'; fill: #1d252d" transform="translate(21.6 81.773775)">Four findings,</text>
+    <text style="font-weight: 700; font-size: 30.24px; font-family: 'Arial'; fill: #1d252d" transform="translate(21.6 115.194881)">four different next actions</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 20.88px; font-family: 'Helvetica Neue'; text-anchor: start; fill: #586570" x="21.6" y="160.701975" transform="rotate(-0 21.6 160.701975)">Conceptual map of evidence scope</text>
+   </g>
+   <g id="text_4">
+    <text style="font-weight: 700; font-size: 25.92px; font-family: 'Arial'; text-anchor: start; fill: #b55332" x="41.76" y="230.23305" transform="rotate(-0 41.76 230.23305)">Negative graph result</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 23.76px; font-family: 'Helvetica Neue'; fill: #1d252d" transform="translate(41.76 281.206125)">The measured</text>
+    <text style="font-size: 23.76px; font-family: 'Helvetica Neue'; fill: #1d252d" transform="translate(41.76 307.095244)">composition loses.</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 22.32px; font-family: 'Helvetica Neue'; fill: #586570" transform="translate(41.76 351.457875)">Reject that composition; inspect</text>
+    <text style="font-size: 22.32px; font-family: 'Helvetica Neue'; fill: #586570" transform="translate(41.76 375.777956)">where the loss occurs.</text>
+   </g>
+   <g id="text_7">
+    <text style="font-weight: 700; font-size: 25.92px; font-family: 'Arial'; text-anchor: start; fill: #087f8c" x="41.76" y="458.06895" transform="rotate(-0 41.76 458.06895)">Training insufficient</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 23.76px; font-family: 'Helvetica Neue'; fill: #1d252d" transform="translate(41.76 508.726125)">The model did not</text>
+    <text style="font-size: 23.76px; font-family: 'Helvetica Neue'; fill: #1d252d" transform="translate(41.76 534.615244)">learn enough.</text>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 22.32px; font-family: 'Helvetica Neue'; fill: #586570" transform="translate(41.76 579.354525)">Check exposure and convergence;</text>
+    <text style="font-size: 22.32px; font-family: 'Helvetica Neue'; fill: #586570" transform="translate(41.76 604.165472)">justify any change in support.</text>
+   </g>
+   <g id="text_10">
+    <text style="font-weight: 700; font-size: 25.92px; font-family: 'Arial'; text-anchor: start; fill: #687887" x="41.76" y="685.27305" transform="rotate(-0 41.76 685.27305)">Execution incomplete</text>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 23.76px; font-family: 'Helvetica Neue'; fill: #1d252d" transform="translate(41.76 736.246125)">The run did not</text>
+    <text style="font-size: 23.76px; font-family: 'Helvetica Neue'; fill: #1d252d" transform="translate(41.76 762.135244)">reach scoring.</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 22.32px; font-family: 'Helvetica Neue'; fill: #586570" transform="translate(41.76 806.497875)">Repair the blocked execution;</text>
+    <text style="font-size: 22.32px; font-family: 'Helvetica Neue'; fill: #586570" transform="translate(41.76 831.040284)">measure before judging quality.</text>
+   </g>
+   <g id="text_13">
+    <text style="font-weight: 700; font-size: 25.92px; font-family: 'Arial'; text-anchor: start; fill: #716394" x="41.76" y="912.79305" transform="rotate(-0 41.76 912.79305)">Bounded diagnostic</text>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 23.76px; font-family: 'Helvetica Neue'; fill: #1d252d" transform="translate(41.76 963.766125)">The probe answers</text>
+    <text style="font-size: 23.76px; font-family: 'Helvetica Neue'; fill: #1d252d" transform="translate(41.76 989.655244)">a narrow question.</text>
+   </g>
+   <g id="text_15">
+    <text style="font-size: 22.32px; font-family: 'Helvetica Neue'; fill: #586570" transform="translate(41.76 1034.017875)">Use it to choose the next test;</text>
+    <text style="font-size: 22.32px; font-family: 'Helvetica Neue'; fill: #586570" transform="translate(41.76 1058.337956)">keep its interpretation within scope.</text>
+   </g>
+   <g id="text_16">
+    <text style="font-weight: 700; font-size: 25.92px; font-family: 'Arial'; fill: #1d252d" transform="translate(21.6 1157.59305)">Search exhaustion needs</text>
+    <text style="font-weight: 700; font-size: 25.92px; font-family: 'Arial'; fill: #1d252d" transform="translate(21.6 1185.899513)">broader evidence</text>
+   </g>
+   <g id="text_17">
+    <text style="font-size: 20.88px; font-family: 'Helvetica Neue'; fill: #586570" transform="translate(21.6 1228.109625)">Across alternatives, training support,</text>
+    <text style="font-size: 20.88px; font-family: 'Helvetica Neue'; fill: #586570" transform="translate(21.6 1251.111881)">and complete pipelines.</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pe793ba4423">
+   <rect x="0" y="0" width="547.2" height="1270.8"/>
+  </clipPath>
+ </defs>
+</svg>

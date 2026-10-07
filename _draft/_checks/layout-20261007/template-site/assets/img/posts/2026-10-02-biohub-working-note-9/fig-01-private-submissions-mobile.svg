@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="547.2pt" height="741.6pt" viewBox="0 0 547.2 741.6" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-10-02T19:31:31.455110</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.6, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 741.6 
+L 547.2 741.6 
+L 547.2 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="line2d_1">
+    <path d="M 21.6 142.56 
+L 525.6 142.56 
+" clip-path="url(#pa8290d936c)" style="fill: none; stroke: #1d252d; stroke-width: 1.6; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_2">
+    <path d="M 145.44 183.6 
+L 145.44 576.72 
+" clip-path="url(#pa8290d936c)" style="fill: none; stroke: #e3e8eb; stroke-width: 1.1; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_3">
+    <path d="M 258.48 183.6 
+L 258.48 576.72 
+" clip-path="url(#pa8290d936c)" style="fill: none; stroke: #e3e8eb; stroke-width: 1.1; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_4">
+    <path d="M 371.52 183.6 
+L 371.52 576.72 
+" clip-path="url(#pa8290d936c)" style="fill: none; stroke: #e3e8eb; stroke-width: 1.1; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_5">
+    <path d="M 145.44 212.4 
+L 371.52 212.4 
+" clip-path="url(#pa8290d936c)" style="fill: none; stroke: #eef1f3; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_6">
+    <path d="M 145.44 300.96 
+L 371.52 300.96 
+" clip-path="url(#pa8290d936c)" style="fill: none; stroke: #eef1f3; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_7">
+    <path d="M 145.44 389.52 
+L 371.52 389.52 
+" clip-path="url(#pa8290d936c)" style="fill: none; stroke: #eef1f3; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_8">
+    <path d="M 145.44 478.08 
+L 371.52 478.08 
+" clip-path="url(#pa8290d936c)" style="fill: none; stroke: #eef1f3; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_9">
+    <path d="M 145.44 566.64 
+L 371.52 566.64 
+" clip-path="url(#pa8290d936c)" style="fill: none; stroke: #eef1f3; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_10">
+    <path d="M 21.6 666 
+L 525.6 666 
+" clip-path="url(#pa8290d936c)" style="fill: none; stroke: #dbe2e7; stroke-width: 1.4; stroke-linecap: square"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 19.44px; font-family: 'Arial'; text-anchor: start; fill: #087f8c" x="21.6" y="35.514788" transform="rotate(-0 21.6 35.514788)">BIOHUB / NOTE 9</text>
+   </g>
+   <g id="text_2">
+    <text style="font-weight: 700; font-size: 30.96px; font-family: 'Arial'; text-anchor: start; fill: #1d252d" x="21.6" y="81.920588" transform="rotate(-0 21.6 81.920588)">Final Private scores</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 22.32px; font-family: 'Helvetica Neue'; text-anchor: start; fill: #586570" x="21.6" y="119.795737" transform="rotate(-0 21.6 119.795737)">Five submitted configurations</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 22.32px; font-family: 'Helvetica Neue'; text-anchor: middle; fill: #586570" x="145.44" y="605.617875" transform="rotate(-0 145.44 605.617875)">0.910</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 22.32px; font-family: 'Helvetica Neue'; text-anchor: middle; fill: #586570" x="258.48" y="605.617875" transform="rotate(-0 258.48 605.617875)">0.916</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 22.32px; font-family: 'Helvetica Neue'; text-anchor: middle; fill: #586570" x="371.52" y="605.617875" transform="rotate(-0 371.52 605.617875)">0.922</text>
+   </g>
+   <g id="text_7">
+    <text style="font-weight: 700; font-size: 19.44px; font-family: 'Arial'; text-anchor: middle; fill: #586570" x="468" y="172.314787" transform="rotate(-0 468 172.314787)">PRIVATE</text>
+   </g>
+   <g id="text_8">
+    <text style="font-weight: 700; font-size: 31.68px; font-family: 'Arial'; text-anchor: start; fill: #b55332" x="21.6" y="214.91595" transform="rotate(-0 21.6 214.91595)">v94</text>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 19.44px; font-family: 'Helvetica Neue'; text-anchor: start; fill: #b55332" x="21.6" y="247.161375" transform="rotate(-0 21.6 247.161375)">Diagnostic</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 28.08px; font-family: 'Helvetica Neue'; text-anchor: middle; fill: #b55332" x="468" y="217.330875" transform="rotate(-0 468 217.330875)">0.92050</text>
+   </g>
+   <g id="text_11">
+    <text style="font-weight: 700; font-size: 31.68px; font-family: 'Arial'; text-anchor: start; fill: #087f8c" x="21.6" y="303.47595" transform="rotate(-0 21.6 303.47595)">v93</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 19.44px; font-family: 'Helvetica Neue'; text-anchor: start; fill: #087f8c" x="21.6" y="335.721375" transform="rotate(-0 21.6 335.721375)">Selected A</text>
+   </g>
+   <g id="text_13">
+    <text style="font-weight: 700; font-size: 28.08px; font-family: 'Arial'; text-anchor: middle; fill: #087f8c" x="468" y="305.939137" transform="rotate(-0 468 305.939137)">0.91920</text>
+   </g>
+   <g id="text_14">
+    <text style="font-weight: 700; font-size: 31.68px; font-family: 'Arial'; text-anchor: start; fill: #087f8c" x="21.6" y="392.03595" transform="rotate(-0 21.6 392.03595)">v92</text>
+   </g>
+   <g id="text_15">
+    <text style="font-size: 19.44px; font-family: 'Helvetica Neue'; text-anchor: start; fill: #087f8c" x="21.6" y="424.281375" transform="rotate(-0 21.6 424.281375)">Selected B</text>
+   </g>
+   <g id="text_16">
+    <text style="font-weight: 700; font-size: 28.08px; font-family: 'Arial'; text-anchor: middle; fill: #087f8c" x="468" y="394.499137" transform="rotate(-0 468 394.499137)">0.91418</text>
+   </g>
+   <g id="text_17">
+    <text style="font-weight: 700; font-size: 31.68px; font-family: 'Arial'; text-anchor: start; fill: #687887" x="21.6" y="480.59595" transform="rotate(-0 21.6 480.59595)">v89</text>
+   </g>
+   <g id="text_18">
+    <text style="font-size: 19.44px; font-family: 'Helvetica Neue'; fill: #687887" transform="translate(21.6 512.841375)">Not</text>
+    <text style="font-size: 19.44px; font-family: 'Helvetica Neue'; fill: #687887" transform="translate(21.6 534.023381)">selected</text>
+   </g>
+   <g id="text_19">
+    <text style="font-size: 28.08px; font-family: 'Helvetica Neue'; text-anchor: middle; fill: #687887" x="468" y="483.010875" transform="rotate(-0 468 483.010875)">0.91752</text>
+   </g>
+   <g id="text_20">
+    <text style="font-weight: 700; font-size: 31.68px; font-family: 'Arial'; text-anchor: start; fill: #687887" x="21.6" y="569.15595" transform="rotate(-0 21.6 569.15595)">v90</text>
+   </g>
+   <g id="text_21">
+    <text style="font-size: 19.44px; font-family: 'Helvetica Neue'; fill: #687887" transform="translate(21.6 601.401375)">Not</text>
+    <text style="font-size: 19.44px; font-family: 'Helvetica Neue'; fill: #687887" transform="translate(21.6 622.583381)">selected</text>
+   </g>
+   <g id="text_22">
+    <text style="font-size: 28.08px; font-family: 'Helvetica Neue'; text-anchor: middle; fill: #687887" x="468" y="571.570875" transform="rotate(-0 468 571.570875)">0.91217</text>
+   </g>
+   <g id="text_23">
+    <text style="font-size: 22.32px; font-family: 'Helvetica Neue'; text-anchor: middle; fill: #586570" x="258.48" y="640.897875" transform="rotate(-0 258.48 640.897875)">Private score</text>
+   </g>
+   <g id="text_24">
+    <text style="font-size: 18.72px; font-family: 'Helvetica Neue'; fill: #586570" transform="translate(21.6 699.12315)">Official submission and selection receipts</text>
+    <text style="font-size: 18.72px; font-family: 'Helvetica Neue'; fill: #586570" transform="translate(21.6 719.915512)">Captured 2 October 2026</text>
+   </g>
+   <g id="PathCollection_1">
+    <defs>
+     <path id="md3a9eba996" d="M -0 8.660254 
+L 8.660254 0 
+L 0 -8.660254 
+L -8.660254 -0 
+z
+" style="stroke: #b55332; stroke-width: 2.4"/>
+    </defs>
+    <g clip-path="url(#pa8290d936c)">
+     <use xlink:href="#md3a9eba996" x="343.26" y="212.4" style="fill: #b55332; stroke: #b55332; stroke-width: 2.4"/>
+    </g>
+   </g>
+   <g id="PathCollection_2">
+    <defs>
+     <path id="m1c18ba7a8e" d="M 0 7.245688 
+C 1.921579 7.245688 3.764714 6.482237 5.123475 5.123475 
+C 6.482237 3.764714 7.245688 1.921579 7.245688 0 
+C 7.245688 -1.921579 6.482237 -3.764714 5.123475 -5.123475 
+C 3.764714 -6.482237 1.921579 -7.245688 0 -7.245688 
+C -1.921579 -7.245688 -3.764714 -6.482237 -5.123475 -5.123475 
+C -6.482237 -3.764714 -7.245688 -1.921579 -7.245688 0 
+C -7.245688 1.921579 -6.482237 3.764714 -5.123475 5.123475 
+C -3.764714 6.482237 -1.921579 7.245688 0 7.245688 
+z
+" style="stroke: #087f8c; stroke-width: 2.4"/>
+    </defs>
+    <g clip-path="url(#pa8290d936c)">
+     <use xlink:href="#m1c18ba7a8e" x="318.768" y="300.96" style="fill: #087f8c; stroke: #087f8c; stroke-width: 2.4"/>
+    </g>
+   </g>
+   <g id="PathCollection_3">
+    <g clip-path="url(#pa8290d936c)">
+     <use xlink:href="#m1c18ba7a8e" x="224.1912" y="389.52" style="fill: #087f8c; stroke: #087f8c; stroke-width: 2.4"/>
+    </g>
+   </g>
+   <g id="PathCollection_4">
+    <defs>
+     <path id="m2c1197d93c" d="M 0 6.123724 
+C 1.624031 6.123724 3.181764 5.47849 4.330127 4.330127 
+C 5.47849 3.181764 6.123724 1.624031 6.123724 0 
+C 6.123724 -1.624031 5.47849 -3.181764 4.330127 -4.330127 
+C 3.181764 -5.47849 1.624031 -6.123724 0 -6.123724 
+C -1.624031 -6.123724 -3.181764 -5.47849 -4.330127 -4.330127 
+C -5.47849 -3.181764 -6.123724 -1.624031 -6.123724 0 
+C -6.123724 1.624031 -5.47849 3.181764 -4.330127 4.330127 
+C -3.181764 5.47849 -1.624031 6.123724 0 6.123724 
+z
+" style="stroke: #687887; stroke-width: 2.4"/>
+    </defs>
+    <g clip-path="url(#pa8290d936c)">
+     <use xlink:href="#m2c1197d93c" x="287.1168" y="478.08" style="fill: #ffffff; stroke: #687887; stroke-width: 2.4"/>
+    </g>
+   </g>
+   <g id="PathCollection_5">
+    <g clip-path="url(#pa8290d936c)">
+     <use xlink:href="#m2c1197d93c" x="186.3228" y="566.64" style="fill: #ffffff; stroke: #687887; stroke-width: 2.4"/>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pa8290d936c">
+   <rect x="0" y="0" width="547.2" height="741.6"/>
+  </clipPath>
+ </defs>
+</svg>

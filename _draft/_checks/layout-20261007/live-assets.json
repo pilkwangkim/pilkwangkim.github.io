@@ -1,0 +1,17 @@
+{
+  "commit": "984f4374b6e39325c2c7f7506c0b0f30f906d157",
+  "assets": [
+    {
+      "asset": "assets/css/jekyll-theme-chirpy.css",
+      "status": 200,
+      "sha256": "8fd7bc575ec8711dc0b0e0d6d990387d55e58419b20fc3d39b13f5854141784c",
+      "matches_local": true
+    },
+    {
+      "asset": "assets/js/blog-navigation.js",
+      "status": 200,
+      "sha256": "f3af57c7c5b5e85830e0cbbdb7088c7e4d9eb9a21a31fac319d2ee524b30e4a8",
+      "matches_local": true
+    }
+  ]
+}
