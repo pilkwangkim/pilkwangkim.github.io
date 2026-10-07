@@ -4,7 +4,7 @@
       {% if article_group.bundle_id %}
         <details class="topic-series" id="{% if include.view == 'latest' %}latest-{% endif %}series-{{ article_group.bundle_id }}" data-bundle-id="{{ article_group.bundle_id }}" data-topic-id="{{ article_group.topic_id }}" data-post-languages="{{ article_group.languages | join: ' ' }}">
           <summary>
-            <span class="topic-series-heading">{% include discovery-title.html title=article_group.title title_ko=article_group.title_ko %}</span>
+            <span class="topic-series-heading" lang="en">{{ article_group.title | escape }}</span>
             <span class="topic-series-meta"><span data-bundle-count>{{ article_group.articles.size }}</span> <span data-bundle-count-label>{% if article_group.articles.size == 1 %}article{% else %}articles{% endif %}</span> <span aria-hidden="true">·</span> <time datetime="{{ article_group.date | date_to_xmlschema }}">{{ article_group.date | date: '%Y.%m.%d' }}</time></span>
             <i class="fas fa-angle-right" aria-hidden="true"></i>
           </summary>

@@ -143,9 +143,8 @@ module Jekyll
         end
         bundle_id = group_topics ? (series && series['id']) || topic_id : series && series['id']
         title = group_topics ? @topics_by_id.fetch(topic_id)['title'] : series && series['title']
-        title_ko = group_topics ? @topics_by_id.fetch(topic_id)['title_ko'] : series && series['title_ko']
         {
-          'key' => key, 'bundle_id' => bundle_id, 'topic_id' => topic_id, 'title' => title, 'title_ko' => title_ko,
+          'key' => key, 'bundle_id' => bundle_id, 'topic_id' => topic_id, 'title' => title,
           'articles' => reading_order(members),
           'latest_articles' => members.sort_by { |article| [-article['date'].to_f, article['translation_key'].to_s] },
           'languages' => members.flat_map { |article| article['languages'] }.uniq,

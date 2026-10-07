@@ -96,32 +96,11 @@ english_ui = lambda do |node, url, label|
 
   check.call(inherited_language.call(node) == 'en', "#{url}: #{label} does not identify its English UI language")
   english_content = node.dup
-  # Only the explicit Korean content-title variant and Korean filter button
-  # may be localized inside otherwise English discovery/navigation UI.
-  english_content.css('[data-discovery-title-language="ko"], button[data-language-filter="ko"]').remove
+  # The Korean article filter button is the only localized label inside
+  # otherwise English discovery/navigation UI.
+  english_content.css('button[data-language-filter="ko"]').remove
   values = [normalized_text.call(english_content), node['aria-label'].to_s, node['title'].to_s, node['placeholder'].to_s]
   check.call(values.none? { |value| value.match?(/\p{Hangul}/) }, "#{url}: #{label} contains Korean UI text")
-end
-discovery_title = lambda do |container, entry, url, label|
-  wrappers = container ? container.css('[data-discovery-title]') : []
-  check.call(wrappers.length == 1, "#{url}: #{label} must contain exactly one localized discovery title")
-  wrapper = wrappers.first
-  next unless wrapper
-
-  titles = wrapper.css('[data-discovery-title-language]')
-  expected_titles = { 'en' => entry['title'] }
-  expected_titles['ko'] = entry['title_ko'] if entry['title_ko']
-  check.call(titles.map { |title| title['data-discovery-title-language'] }.sort == expected_titles.keys.sort, "#{url}: #{label} must provide each metadata title language exactly once")
-  titles.each do |title|
-    language = title['data-discovery-title-language']
-    check.call(title['lang'] == language, "#{url}: #{label} title must identify its content language")
-    check.call(normalized_text.call(title) == expected_titles[language].to_s.gsub(/\s+/, ' ').strip, "#{url}: #{label} #{language} title differs from its metadata")
-    if language == 'en'
-      check.call(!title.key?('hidden') && title['aria-hidden'] != 'true', "#{url}: #{label} English title must be the server-side default")
-    else
-      check.call(title.key?('hidden'), "#{url}: #{label} Korean title must wait for the Korean article filter")
-    end
-  end
 end
 iso_epoch = lambda do |value, label|
   Time.iso8601(value.to_s).to_f
@@ -217,9 +196,9 @@ guide_entries.each do |topic|
     series = registered_series.values.find { |definition| members.any? { |post| post['series'] == definition['id'] } }
     if group_id.start_with?('topic:')
       topic_entry = topics_by_id.fetch(topic_id)
-      collection[group_id] = { 'id' => series&.fetch('id') || topic_id, 'topic' => topic_id, 'title' => topic_entry['title'], 'title_ko' => topic_entry['title_ko'] }
+      collection[group_id] = { 'id' => series&.fetch('id') || topic_id, 'topic' => topic_id, 'title' => topic_entry['title'] }
     elsif group_id.start_with?('series:')
-      collection[group_id] = { 'id' => series.fetch('id'), 'topic' => topic_id, 'title' => series.fetch('title'), 'title_ko' => series['title_ko'] }
+      collection[group_id] = { 'id' => series.fetch('id'), 'topic' => topic_id, 'title' => series.fetch('title') }
     end
   end
   catalog_order = catalog.sort_by do |group_id, group_articles|
@@ -331,7 +310,10 @@ guide_entries.each do |topic|
       check.call(details['data-bundle-id'] == bundle_id && details['id'] == "#{prefix}#{bundle_id}", "#{label}: bundle #{group_id} must preserve its registered series anchor or topic ID")
       check.call(details['data-topic-id'] == bundle['topic'], "#{label}: bundle #{group_id} must identify its actual topic")
       check.call(!details.key?('open'), "#{label}: every topic and series disclosure must start collapsed, including single-article topics")
-      discovery_title.call(details.at_css('.topic-series-heading'), bundle, url, "#{view} bundle #{group_id}")
+      bundle_heading = details.at_css('.topic-series-heading')
+      check.call(normalized_text.call(bundle_heading) == bundle['title'].to_s.gsub(/\s+/, ' ').strip, "#{label}: bundle #{group_id} must always use its original English title")
+      check.call(bundle_heading && bundle_heading['lang'] == 'en', "#{label}: bundle #{group_id} heading must identify its English language")
+      check.call(bundle_heading && !bundle_heading.key?('data-discovery-title') && !bundle_heading.key?('data-discovery-title-language') && bundle_heading.css('[data-discovery-title], [data-discovery-title-language]').empty?, "#{label}: bundle #{group_id} heading must not contain bilingual title variants")
       check.call(details['data-post-languages'].to_s.split.sort == group_articles.values.flatten.map { |post| post['lang'] }.uniq.sort, "#{label}: bundle #{group_id} languages differ from its public articles")
       article_count = group_articles.length
       check.call(normalized_text.call(details.at_css('[data-bundle-count]')) == article_count.to_s, "#{label}: bundle #{group_id} must count logical articles rather than language versions")
@@ -536,7 +518,10 @@ html_cache.each do |url, html|
     entry = guide_by_id[card['data-topic-entry']]
     next unless entry
 
-    discovery_title.call(card.at_css('h3'), entry, url, "topic card #{entry['id']}")
+    card_heading = card.at_css('h3')
+    check.call(normalized_text.call(card_heading) == entry['title'].to_s.gsub(/\s+/, ' ').strip, "#{url}: topic card #{entry['id']} must always use its original English title")
+    check.call(inherited_language.call(card_heading) == 'en', "#{url}: topic card #{entry['id']} heading must identify its English language")
+    check.call(card.css('[data-discovery-title], [data-discovery-title-language]').empty?, "#{url}: topic card #{entry['id']} must not contain bilingual title variants")
     count = guide_posts.call(entry).map { |post| post['translation_key'] }.uniq.length
     count_label = "#{count} #{count == 1 ? 'article' : 'articles'}"
     check.call(normalized_text.call(card.at_css('.topic-card-meta')).match?(/\A#{Regexp.escape(count_label)}(?:\s|$)/), "#{url}: topic card count must use English article units and group translations")
