@@ -17,10 +17,7 @@
     const collapsed = root.dataset.sidebarCollapsed === 'true';
     if (sidebar) sidebar.inert = desktop.matches && collapsed;
     if (!toggle) return;
-    const korean = root.lang.startsWith('ko');
-    const label = korean
-      ? (collapsed ? '사이드바 펼치기' : '사이드바 접기')
-      : (collapsed ? 'Expand sidebar' : 'Collapse sidebar');
+    const label = collapsed ? 'Expand sidebar' : 'Collapse sidebar';
     toggle.setAttribute('aria-expanded', String(!collapsed));
     toggle.setAttribute('aria-label', label);
     toggle.title = label;

@@ -1,7 +1,7 @@
 - id: ai-agent-security
   group: ai
   title: AI Agent Security
-  description: 도구를 사용하는 AI의 공격 표면과 평가 체계, 공개 점수와 비공개 결과를 따라갑니다.
+  description: Explore attack surfaces and evaluation methods for tool-using AI, from public scores to private results.
   tag: ai-agent-security
   recommended:
   - ai-agent-security-01
@@ -10,7 +10,7 @@
 - id: biohub
   group: ai
   title: BioHub Cell Tracking
-  description: 현미경 영상의 세포 추적부터 계보 그래프 학습과 검증, 대회 회고까지 이어지는 기록입니다.
+  description: Follow cell tracking in microscopy images through lineage graph learning, validation, and a competition retrospective.
   tag: biohub
   recommended:
   - biohub-01
@@ -19,7 +19,7 @@
 - id: rogii
   group: ai
   title: ROGII Geosteering
-  description: 지층 대비를 이용한 TVT 복원과 오차 분석, 대회 결과를 차례로 살펴봅니다.
+  description: Study TVT recovery through stratigraphic alignment, error analysis, and competition results.
   tag: rogii
   recommended:
   - rogii-tvt-alignment
@@ -28,7 +28,7 @@
 - id: arc-agi-3
   group: ai
   title: ARC-AGI-3
-  description: 상호작용형 추론 벤치마크를 소개하고, 실험의 한계와 program-as-policy 연구를 기록합니다.
+  description: Explore an interactive reasoning benchmark, experimental limits, and program-as-policy research.
   tag: arc-agi-3
   recommended:
   - arc-agi-3-introduction
@@ -37,35 +37,35 @@
 - id: gemma-4
   group: ai
   title: Gemma 4 Developer Agent
-  description: 버그를 찾고 패치를 검증하는 코딩 에이전트의 대회 구조와 개발 과정을 안내합니다.
+  description: Learn how the competition works and how to build coding agents that find bugs and verify patches.
   tag: gemma-4
   recommended:
   - gemma-4-developer-agent
 - id: casmi-2026
   group: ai
   title: Enveda CASMI 2026
-  description: 질량스펙트럼에서 분자 구조를 찾는 문제와 후보 검색, 평가의 기본 구조를 다룹니다.
+  description: Explore molecular structure identification from mass spectra, candidate retrieval, and evaluation.
   tag: casmi-2026
   recommended:
   - casmi-2026-molecular-structures
 - id: rsna-knee
   group: ai
   title: RSNA Knee MRI
-  description: 무릎 MRI와 판독문으로 여러 소견을 예측하는 대회의 데이터와 문제 구조를 살펴봅니다.
+  description: Understand the data and task design behind predicting multiple findings from knee MRI scans and radiology reports.
   tag: rsna-knee
   recommended:
   - rsna-knee-competition-structure
 - id: birdclef-2026
   group: ai
   title: BirdCLEF 2026
-  description: 생물 음향 분류의 앙상블과 OOF 검증에 기반한 PCEN 보정을 설명합니다.
+  description: Learn about bioacoustic classification ensembles and PCEN calibration guided by out-of-fold validation.
   tag: birdclef-2026
   recommended:
   - birdclef-2026-eos9-pcen
 - id: playground-series
   group: ai
   title: Playground Series
-  description: 회차별 데이터 분석과 피처 설계, 교차 검증 및 예측 파이프라인을 모았습니다.
+  description: Browse data analysis, feature engineering, cross-validation, and prediction pipelines across competition rounds.
   tag: playground-series
   recommended:
   - playground-s6e2-eda
@@ -75,49 +75,49 @@
 - id: march-machine-learning-mania
   group: ai
   title: March Machine Learning Mania
-  description: 대학 농구 경기의 승률을 예측하는 누수 없는 베이스라인 파이프라인을 안내합니다.
+  description: Build a baseline pipeline that predicts college basketball win probabilities while controlling data leakage.
   tag: march-machine-learning-mania
   recommended:
   - mmlm-2026-baseline
 - id: orbit-wars
   group: ai
   title: Orbit Wars
-  description: 도착 시점을 기준으로 물리 모델, 월드 모델과 전략을 분리한 게임 AI 설계를 다룹니다.
+  description: Explore game AI that separates physics, world modeling, and strategy around arrival times.
   tag: orbit-wars
   recommended:
   - orbit-wars-structured-baseline
 - id: maze-crawler
   group: ai
   title: Maze Crawler
-  description: 생존과 경로 탐색을 우선하는 규칙 기반 게임 에이전트의 구조를 설명합니다.
+  description: Study a rule-based game agent that prioritizes survival and pathfinding.
   tag: maze-crawler
   recommended:
   - maze-crawler-structured-baseline
 - id: pokemon-tcg
   group: ai
   title: Pokémon TCG AI Battle
-  description: 규칙 기반 카드게임 에이전트에서 강화학습 파일럿으로 넘어가는 작업 기록입니다.
+  description: Follow the transition from a rule-based card game agent to a reinforcement learning pilot.
   tag: pokemon-tcg
   recommended:
   - pokemon-tcg-working-note-1
 - id: kaggriculture
   group: ai
   title: Kaggriculture
-  description: 농장 경제와 시장 구조, 리플레이 메타를 바탕으로 게임 AI를 설계하는 과정을 기록합니다.
+  description: Explore game AI design through farming economics, market structure, and replay analysis.
   tag: kaggriculture
   recommended:
   - kaggriculture-working-note-1
 - id: quantum-transport
   group: physics
   title: Quantum Transport
-  description: 닫힌 양자계에서 열린 수송계로 넘어가며 NEGF와 Landauer 전류를 처음부터 유도합니다.
+  description: Derive NEGF and Landauer current from first principles, moving from closed quantum systems to open transport.
   tag: quantum-transport
   recommended:
   - quantum-transport-negf
 - id: essays
   group: essays
   title: Essays
-  description: 리더십, 조직, 의사결정과 불확실성에 관한 생각을 모았습니다.
+  description: Read reflections on leadership, organizations, decision-making, and uncertainty.
   tag: essay
   recommended:
   - the-essence-of-leadership
@@ -126,5 +126,5 @@
 - id: reference
   group: reference
   title: Markdown & Chirpy
-  description: Markdown 문법과 Chirpy 테마 사용법을 정리한 참고 자료입니다.
+  description: A reference guide to Markdown syntax and the Chirpy theme.
   tag: cheat-sheet

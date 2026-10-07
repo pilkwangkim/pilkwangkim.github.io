@@ -8,26 +8,26 @@
     {% if part.series_order < page.series_order %}{% assign series_previous = part %}{% endif %}
     {% if part.series_order > page.series_order and series_next == nil %}{% assign series_next = part %}{% endif %}
   {% endfor %}
-  <nav class="series-nav post-navigation" aria-label="{% if page.lang == 'ko' %}시리즈 이전 글과 다음 글{% else %}Previous and next in series{% endif %}">
+  <nav class="series-nav post-navigation" aria-label="Previous and next in series" lang="en">
     {% if series_previous %}
       <a href="{{ series_previous.url | relative_url }}" class="btn btn-outline-primary" rel="prev">
-        <span class="series-nav-label">{% if page.lang == 'ko' %}이전 편{% else %}Previous part{% endif %}</span>
-        <p>{{ series_previous.title | escape }}</p>
+        <span class="series-nav-label">Previous part</span>
+        <p lang="{{ series_previous.lang }}">{{ series_previous.title | escape }}</p>
       </a>
     {% else %}
-      <div class="series-nav-boundary text-muted">{% if page.lang == 'ko' %}시리즈 첫 글입니다.{% else %}First part of this series.{% endif %}</div>
+      <div class="series-nav-boundary text-muted">First part of this series.</div>
     {% endif %}
     {% if series_next %}
       <a href="{{ series_next.url | relative_url }}" class="btn btn-outline-primary" rel="next">
-        <span class="series-nav-label">{% if page.lang == 'ko' %}다음 편{% else %}Next part{% endif %}</span>
-        <p>{{ series_next.title | escape }}</p>
+        <span class="series-nav-label">Next part</span>
+        <p lang="{{ series_next.lang }}">{{ series_next.title | escape }}</p>
       </a>
     {% else %}
-      <div class="series-nav-boundary text-muted">{% if page.lang == 'ko' %}시리즈 마지막 글입니다.{% else %}Last part of this series.{% endif %}</div>
+      <div class="series-nav-boundary text-muted">Last part of this series.</div>
     {% endif %}
   </nav>
 {% else %}
-<nav class="post-navigation d-flex justify-content-between" aria-label="Post Navigation">
+<nav class="post-navigation d-flex justify-content-between" aria-label="Post Navigation" lang="en">
   {% assign previous = site.data.locales[include.lang].post.button.previous %}
   {% assign next = site.data.locales[include.lang].post.button.next %}
 
@@ -37,7 +37,7 @@
       class="btn btn-outline-primary"
       aria-label="{{ previous }}"
     >
-      <p>{{ page.previous.title }}</p>
+      <p lang="{{ page.previous.lang | default: 'en' }}">{{ page.previous.title }}</p>
     </a>
   {% else %}
     <div class="btn btn-outline-primary disabled" aria-label="{{ previous }}">
@@ -51,7 +51,7 @@
       class="btn btn-outline-primary"
       aria-label="{{ next }}"
     >
-      <p>{{ page.next.title }}</p>
+      <p lang="{{ page.next.lang | default: 'en' }}">{{ page.next.title }}</p>
     </a>
   {% else %}
     <div class="btn btn-outline-primary disabled" aria-label="{{ next }}">

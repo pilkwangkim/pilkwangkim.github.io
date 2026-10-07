@@ -2,18 +2,18 @@
 layout: default
 ---
 
-<article class="px-1 discovery-hub">
+<article class="px-1 discovery-hub" lang="en">
   <header class="discovery-header">
     <p class="discovery-eyebrow">EXPLORE BY TOPIC</p>
-    <h1 data-toc-skip>주제별 보기</h1>
-    <p class="discovery-intro">관심 있는 주제에서 시작해 보세요. 각 안내 페이지에서 글의 흐름과 추천 읽기 순서를 살펴보고, 관련 글을 한곳에서 읽을 수 있습니다.</p>
+    <h1 data-toc-skip>Topics</h1>
+    <p class="discovery-intro">Start with a subject that interests you. Each guide brings together the main ideas, suggested reading, and related articles.</p>
   </header>
 
   {% include language-controls.html %}
-  <p class="discovery-note">한국어와 영어로 함께 쓴 글은 한 편으로 묶었습니다. 언어 선택은 주제 목록과 각 주제의 전체 글 목록에 함께 적용됩니다.</p>
+  <p class="discovery-note">Korean and English versions are grouped as one article. The article language filter applies across topic guides.</p>
 
   {% assign group_ids = 'ai,physics,essays' | split: ',' %}
-  {% assign group_titles = 'AI · Kaggle,물리,에세이' | split: ',' %}
+  {% assign group_titles = 'AI · Kaggle,Physics,Essays' | split: ',' %}
   {% for group_id in group_ids %}
     {% assign group_topics = site.data.topic_navigation | where: 'group', group_id %}
     {% if group_topics.size > 0 %}
@@ -25,5 +25,5 @@ layout: default
       </section>
     {% endif %}
   {% endfor %}
-  <p data-language-empty hidden role="status">선택한 언어로 볼 수 있는 주제가 없습니다.</p>
+  <p data-language-empty hidden role="status">No topics have articles in the selected language.</p>
 </article>

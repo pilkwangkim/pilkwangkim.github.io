@@ -4,14 +4,10 @@
 {% if page.hidden %}{% assign sidebar_current_navigation_id = nil %}{% endif %}
 {% assign sidebar_current_navigation = site.data.topic_navigation | where: 'id', sidebar_current_navigation_id | first %}
 {% assign sidebar_group_ids = 'ai,physics,essays' | split: ',' %}
-{% if include.lang == 'ko' or include.lang == 'ko-KR' %}
-  {% assign sidebar_group_labels = 'AI · Kaggle,물리,에세이' | split: ',' %}
-{% else %}
-  {% assign sidebar_group_labels = 'AI · Kaggle,Physics,Essays' | split: ',' %}
-{% endif %}
+{% assign sidebar_group_labels = 'AI · Kaggle,Physics,Essays' | split: ',' %}
 
-<section class="sidebar-topics" aria-labelledby="sidebar-topics-label">
-  <h2 id="sidebar-topics-label">{% if include.lang == 'ko' or include.lang == 'ko-KR' %}주제 탐색{% else %}Explore topics{% endif %}</h2>
+<section class="sidebar-topics" aria-labelledby="sidebar-topics-label" lang="en">
+  <h2 id="sidebar-topics-label">Explore topics</h2>
   {% for sidebar_group_id in sidebar_group_ids %}
     {% assign sidebar_group_topics = site.data.topic_navigation | where: 'group', sidebar_group_id %}
     {% if sidebar_group_topics.size > 0 %}
@@ -25,7 +21,7 @@
             <li>
               <a href="{{ sidebar_topic.url | relative_url }}" data-topic-id="{{ sidebar_topic.id }}"{% if sidebar_topic.id == sidebar_current_navigation_id %} class="sidebar-topic-current" aria-current="{% if sidebar_topic.url == page.url %}page{% else %}location{% endif %}"{% endif %}>
                 <span class="sidebar-topic-title">{{ sidebar_topic.title | escape }}</span>
-                <span class="sidebar-topic-count" aria-label="{{ sidebar_topic.article_count }}{% if include.lang == 'ko' or include.lang == 'ko-KR' %}편{% else %} articles{% endif %}">{{ sidebar_topic.article_count }}</span>
+                <span class="sidebar-topic-count" aria-label="{{ sidebar_topic.article_count }} {% if sidebar_topic.article_count == 1 %}article{% else %}articles{% endif %}">{{ sidebar_topic.article_count }}</span>
               </a>
             </li>
           {% endfor %}

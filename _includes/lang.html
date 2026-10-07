@@ -1,0 +1,9 @@
+{% comment %}
+  Interface language follows the site configuration. page.lang describes the
+  article's content and must not change navigation or other interface labels.
+{% endcomment %}
+{% if site.data.locales[site.lang] %}
+  {% assign lang = site.lang %}
+{% else %}
+  {% assign lang = 'en' %}
+{% endif %}

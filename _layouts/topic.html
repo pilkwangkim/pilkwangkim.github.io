@@ -2,23 +2,23 @@
 layout: default
 ---
 
-<article class="px-1 discovery-hub topic-detail">
+<article class="px-1 discovery-hub topic-detail" lang="en">
   <header class="discovery-header">
     {% if page.parent_category %}
       <a class="topic-back-link" href="{{ page.parent_category.url | relative_url }}"><i class="fas fa-arrow-left" aria-hidden="true"></i> {{ page.parent_category.title | escape }}</a>
     {% else %}
-      <a class="topic-back-link" href="{{ '/topics/' | relative_url }}"><i class="fas fa-arrow-left" aria-hidden="true"></i> 주제별 보기</a>
+      <a class="topic-back-link" href="{{ '/topics/' | relative_url }}"><i class="fas fa-arrow-left" aria-hidden="true"></i> Topics</a>
     {% endif %}
     <h1 data-toc-skip>{{ page.title | escape }}</h1>
     <p class="discovery-intro">{{ page.description | escape }}</p>
-    <p class="topic-summary">{{ page.articles.size }}편의 글 <span aria-hidden="true">·</span> {{ page.post_count }}개의 언어별 버전</p>
+    <p class="topic-summary">{{ page.articles.size }} {% if page.articles.size == 1 %}article{% else %}articles{% endif %} <span aria-hidden="true">·</span> {{ page.post_count }} language {% if page.post_count == 1 %}version{% else %}versions{% endif %}</p>
   </header>
 
   {% include language-controls.html %}
 
   {% if page.category_entry and page.member_topics.size > 0 %}
     <details class="topic-member-guides" data-language-section>
-      <summary>대회별 글 모음 보기 ({{ page.member_topics.size }})</summary>
+      <summary>Competition guides ({{ page.member_topics.size }})</summary>
       <div class="topic-grid">
         {% include topic-cards.html topics=page.member_topics %}
       </div>
@@ -28,21 +28,21 @@ layout: default
   {% if page.recommended_articles.size > 0 %}
     <section class="reading-path" data-language-section>
       {% if page.category_entry %}
-        <h2>시작하기 좋은 글</h2>
-        <p>분류의 주요 문제와 접근법을 살펴볼 수 있는 글입니다. 원하는 언어를 선택해 읽어 보세요.</p>
+        <h2>Recommended starting points</h2>
+        <p>Articles that introduce the main problems and approaches in this area. Choose a language to start reading.</p>
         {% include topic-posts.html articles=page.recommended_articles recommended=true %}
       {% else %}
-        <h2>추천 읽기 순서</h2>
-        <p>주제의 흐름을 파악할 수 있도록 아래 순서로 골랐습니다. 각 글에서 원하는 언어를 선택해 읽을 수 있습니다.</p>
+        <h2>Suggested reading order</h2>
+        <p>Follow this sequence to explore the topic. Choose an available language for each article.</p>
         {% include topic-posts.html articles=page.recommended_articles ordered=true %}
       {% endif %}
     </section>
   {% endif %}
 
   <section class="topic-all-posts" data-language-section>
-    <h2>전체 글</h2>
-    <p class="discovery-note">최근 글부터 표시합니다. 한국어와 영어 버전은 같은 행에 모았습니다.</p>
+    <h2>All articles</h2>
+    <p class="discovery-note">Newest first. Korean and English versions share one entry.</p>
     {% include topic-posts.html articles=page.articles %}
   </section>
-  <p data-language-empty hidden role="status">선택한 언어로 읽을 수 있는 글이 없습니다.</p>
+  <p data-language-empty hidden role="status">No articles are available in the selected language.</p>
 </article>

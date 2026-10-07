@@ -29,7 +29,7 @@ module Jekyll
         page.data.merge!(
           'layout' => 'topic', 'title' => topic['title'],
           'description' => topic['description'], 'permalink' => url,
-          'lang' => 'ko', 'topic_entry' => topic, 'articles' => articles,
+          'lang' => 'en', 'topic_entry' => topic, 'articles' => articles,
           'recommended_articles' => recommended, 'post_count' => topic_posts.size,
           'parent_category' => parent_by_id[topic['id']]
         )
@@ -78,7 +78,7 @@ module Jekyll
         page.data.merge!(
           'layout' => 'topic', 'title' => category['title'],
           'description' => category['description'], 'permalink' => url,
-          'lang' => 'ko', 'category_entry' => category, 'member_topics' => members,
+          'lang' => 'en', 'category_entry' => category, 'member_topics' => members,
           'articles' => articles, 'recommended_articles' => recommended_articles(category, articles),
           'post_count' => category_posts.size
         )
@@ -102,7 +102,7 @@ module Jekyll
       locales = site.data['locales'] || {}
       # Chirpy ships Korean as ko-KR; posts use the standard short language code.
       locales['ko'] ||= locales['ko-KR']
-      { 'en' => 'Topics', 'ko' => '주제별 보기', 'ko-KR' => '주제별 보기' }.each do |locale, label|
+      { 'en' => 'Topics', 'ko' => 'Topics', 'ko-KR' => 'Topics' }.each do |locale, label|
         next unless locales[locale].is_a?(Hash)
 
         (locales[locale]['tabs'] ||= {})['topics'] = label
@@ -140,7 +140,7 @@ module Jekyll
         add_tag_alias(site, occupied, legacy_slug, canonical_tag, alias_posts)
       end
       korean_posts = posts.select { |post| post.data['lang'] == 'ko' }
-      add_tag_alias(site, occupied, 'korean', '한국어 글', korean_posts, 'ko')
+      add_tag_alias(site, occupied, 'korean', 'Korean articles', korean_posts, 'en')
     end
 
     def add_tag_alias(site, occupied, slug, title, posts, lang = nil)

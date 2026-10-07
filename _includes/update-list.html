@@ -1,5 +1,5 @@
 <!-- Recent updates share the topic index's bilingual grouping and hidden filter. -->
-{% assign update_language = include.lang | split: '-' | first %}
+{% assign update_language = include.article_lang | default: site.alt_lang | default: site.lang | split: '-' | first %}
 {% if site.data.recently_updated.size > 0 %}
   <section id="access-lastmod">
     <h2 class="panel-heading">{{- site.data.locales[include.lang].panel.lastmod -}}</h2>

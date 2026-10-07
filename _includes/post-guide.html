@@ -7,7 +7,7 @@
 {% endif %}
 {% assign guide_series = site.data.series | where: 'id', page.series | first %}
 {% if guide_topic or guide_translations.size > 1 or guide_series %}
-  <aside class="post-guide" aria-label="{% if page.lang == 'ko' %}주제와 시리즈 안내{% else %}Topic and series guide{% endif %}" data-toc-skip>
+  <aside class="post-guide" aria-label="Topic and series guide" data-toc-skip lang="en">
     <div class="post-guide-links">
       {% if guide_topic and guide_topic.group != 'reference' %}
         <div class="post-guide-path">
@@ -16,23 +16,23 @@
             <span class="post-guide-separator" aria-hidden="true">›</span>
             <a class="post-guide-topic" href="{{ '/topics/' | append: guide_topic.id | append: '/' | relative_url }}">{{ guide_topic.title | escape }}</a>
           {% else %}
-            <a class="post-guide-topic" href="{{ '/topics/' | append: guide_topic.id | append: '/' | relative_url }}">{% if page.lang == 'ko' %}주제{% else %}Topic{% endif %}: {{ guide_topic.title | escape }}</a>
+            <a class="post-guide-topic" href="{{ '/topics/' | append: guide_topic.id | append: '/' | relative_url }}">Topic: {{ guide_topic.title | escape }}</a>
           {% endif %}
         </div>
       {% endif %}
       {% for translation in guide_translations %}
         {% if translation.url != page.url %}
-          <a class="post-guide-translation" href="{{ translation.url | relative_url }}" lang="{{ translation.lang }}" hreflang="{{ translation.lang }}">{% if translation.lang == 'ko' %}한국어로 읽기{% else %}Read in English{% endif %} <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+          <a class="post-guide-translation" href="{{ translation.url | relative_url }}" lang="en" hreflang="{{ translation.lang }}">Read in {% if translation.lang == 'ko' %}Korean{% else %}English{% endif %} <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
         {% endif %}
       {% endfor %}
     </div>
     {% if guide_series %}
       {% assign guide_parts = site.posts | where: 'series', page.series | where: 'lang', page.lang | where_exp: 'post', 'post.hidden != true' | sort: 'series_order' %}
       <details class="series-toc">
-        <summary>{{ guide_series.title | escape }} <span>{% if page.lang == 'ko' %}{{ page.series_order }} / {{ guide_parts.size }}편 · 시리즈 목차{% else %}Part {{ page.series_order }} of {{ guide_parts.size }} · Contents{% endif %}</span></summary>
+        <summary>{{ guide_series.title | escape }} <span>Part {{ page.series_order }} of {{ guide_parts.size }} · Contents</span></summary>
         <ol>
           {% for part in guide_parts %}
-            <li><a href="{{ part.url | relative_url }}"{% if part.url == page.url %} aria-current="page"{% endif %}>{{ part.title | escape }}</a></li>
+            <li><a href="{{ part.url | relative_url }}" lang="{{ part.lang }}"{% if part.url == page.url %} aria-current="page"{% endif %}>{{ part.title | escape }}</a></li>
           {% endfor %}
         </ol>
       </details>

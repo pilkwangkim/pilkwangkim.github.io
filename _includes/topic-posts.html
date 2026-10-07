@@ -11,7 +11,7 @@
       </div>
       <div class="topic-language-links">
         {% for version in article.versions %}
-          <a href="{{ version.url | relative_url }}" data-post-language="{{ version.lang }}" lang="{{ version.lang }}" hreflang="{{ version.lang }}" aria-label="{{ version.title | escape }} — {% if version.lang == 'ko' %}한국어{% else %}English{% endif %}">{% if version.lang == 'ko' %}한국어{% else %}English{% endif %} <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+          <a href="{{ version.url | relative_url }}" data-post-language="{{ version.lang }}" lang="en" hreflang="{{ version.lang }}" aria-label="Read this article in {% if version.lang == 'ko' %}Korean{% else %}English{% endif %}">{% if version.lang == 'ko' %}Korean{% else %}English{% endif %} <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
         {% endfor %}
       </div>
     </li>

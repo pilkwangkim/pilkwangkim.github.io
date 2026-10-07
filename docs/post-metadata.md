@@ -72,4 +72,6 @@ bundle exec htmlproofer _site --disable-external
 
 주제 목록의 언어 선택도 저장되고, `?lang=ko` 또는 `?lang=en` 링크로 특정 언어를 바로 열 수 있습니다. 직접 링크로 선택한 언어도 이후 주제 탐색에 유지됩니다. JavaScript를 사용할 수 없으면 전체 목록과 언어별 링크를 그대로 제공하고, 그룹 접기는 기본 HTML 기능으로 동작합니다.
 
-로컬 레이아웃과 스타일은 Chirpy 7.6.0을 기준으로 작성되어 `Gemfile`에 버전을 고정했습니다. 테마를 올릴 때는 `_layouts/post.html`, `_includes/sidebar.html`, `_includes/topbar.html`, `_includes/post-nav.html`, `_includes/update-list.html`, `assets/css/jekyll-theme-chirpy.scss`와 새 테마의 원본을 비교한 뒤 PC·모바일 화면을 확인합니다. `_sass/custom.scss`에는 화면 확대율이 만드는 소수 픽셀 너비에서도 메뉴 버튼이 사라지지 않도록 전환 경계를 보완한 스타일이 있습니다.
+메뉴와 주제 안내 UI는 사이트 설정의 영어를 사용합니다. `_includes/lang.html`은 글의 `page.lang` 대신 `site.lang`으로 UI 언어를 결정합니다. 글의 실제 언어 정보는 HTML의 `lang`과 번역 대상 링크의 `hreflang`에 유지합니다. `Article language`의 `All`, `Korean`, `English` 버튼은 글 목록을 거르는 기능이며 메뉴 언어를 바꾸지 않습니다. 주제 페이지 자체의 소개와 안내는 영어입니다. 최근 업데이트는 UI 언어와 별도로 현재 글의 언어를 우선하므로 캐시 키에도 `article_lang`을 포함합니다.
+
+로컬 레이아웃과 스타일은 Chirpy 7.6.0을 기준으로 작성되어 `Gemfile`에 버전을 고정했습니다. 테마를 올릴 때는 `_layouts/default.html`, `_layouts/post.html`, `_includes/lang.html`, `_includes/sidebar.html`, `_includes/topbar.html`, `_includes/post-nav.html`, `_includes/update-list.html`, `assets/css/jekyll-theme-chirpy.scss`와 새 테마의 원본을 비교한 뒤 PC·모바일 화면을 확인합니다. `_sass/custom.scss`에는 화면 확대율이 만드는 소수 픽셀 너비에서도 메뉴 버튼이 사라지지 않도록 전환 경계를 보완한 스타일이 있습니다.

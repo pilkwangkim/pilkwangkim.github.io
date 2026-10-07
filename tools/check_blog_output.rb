@@ -65,6 +65,19 @@ html_for = lambda do |url|
   html_cache[url] ||= Nokogiri::HTML(File.read(path))
 end
 hrefs = ->(nodes) { nodes.map { |node| node['href'].delete_prefix(baseurl) } }
+normalized_text = ->(node) { node&.text.to_s.gsub(/\s+/, ' ').strip }
+language_name = { 'ko' => 'Korean', 'en' => 'English' }
+inherited_language = lambda do |node|
+  (node ? [node, *node.ancestors] : []).find { |ancestor| ancestor.element? && ancestor.key?('lang') }&.[]('lang')
+end
+english_ui = lambda do |node, url, label|
+  check.call(!node.nil?, "#{url}: #{label} is missing")
+  next unless node
+
+  check.call(inherited_language.call(node) == 'en', "#{url}: #{label} does not identify its English UI language")
+  values = [normalized_text.call(node), node['aria-label'].to_s, node['title'].to_s, node['placeholder'].to_s]
+  check.call(values.none? { |value| value.match?(/\p{Hangul}/) }, "#{url}: #{label} contains Korean UI text")
+end
 
 urls.each do |path, url|
   next if baseline.find { |item| item['path'] == path }.dig('front_matter', 'published') == false
@@ -94,7 +107,7 @@ guide_posts = lambda do |guide|
   visible_posts.select { |post| ids.include?(post['topic']) }
 end
 if hub
-  check.call(hub.at_css('html')['lang'] == 'ko', 'Topics hub must identify its Korean prose language')
+  check.call(hub.at_css('html')['lang'] == 'en', 'Topics hub must identify its English prose language')
   check.call(hrefs.call(hub.css('.topic-card')) == navigation_entries.map { |entry| "/topics/#{entry['id']}/" }, 'Topics hub cards differ from navigation categories or YAML order')
   check.call(hub.css('.topic-card').map { |card| card['data-topic-entry'] } == navigation_entries.map { |entry| entry['id'] }, 'Topics hub entry IDs differ from navigation categories')
   check.call(hub.css('.topic-category-grid .topic-card').map { |card| card['data-topic-entry'] } == active_categories.map { |category| category['id'] }, 'AI navigation must show only the three category cards')
@@ -104,7 +117,8 @@ if hub
     members = guide_posts.call(entry)
     check.call(card['data-post-languages'].to_s.split.sort == members.map { |post| post['lang'] }.uniq.sort, "Hub #{entry['id']}: card languages differ from public members")
     count = members.map { |post| post['translation_key'] }.uniq.length
-    check.call(card.at_css('.topic-card-meta')&.text.to_s.strip.match?(/\A#{count}편(?:\s|$)/), "Hub #{entry['id']}: article count is not grouped by translation key")
+    count_label = "#{count} #{count == 1 ? 'article' : 'articles'}"
+    check.call(normalized_text.call(card.at_css('.topic-card-meta')).match?(/\A#{Regexp.escape(count_label)}(?:\s|$)/), "Hub #{entry['id']}: English article count is not grouped by translation key")
   end
   check.call(hub.css('[data-language-controls] button[data-language-filter]').map { |button| button['data-language-filter'] }.sort == %w[all en ko], 'Topics hub language controls missing')
 end
@@ -114,7 +128,7 @@ guide_entries.each do |topic|
   html = html_for.call(url)
   next unless html
 
-  check.call(html.at_css('html')['lang'] == 'ko', "#{url}: topic introduction language must be Korean")
+  check.call(html.at_css('html')['lang'] == 'en', "#{url}: topic introduction language must be English")
   check.call(html.css('[data-language-controls]').length == 1, "#{url}: exactly one language selector is required")
   expected = guide_posts.call(topic)
   groups = expected.group_by { |post| post['translation_key'] }
@@ -126,6 +140,28 @@ guide_entries.each do |topic|
     members = expected.select { |post| row_urls.include?(post['url']) }
     check.call(members.map { |post| post['translation_key'] }.uniq.length == 1, "#{url}: row merges different articles")
     check.call(row['data-post-languages'].split.sort == members.map { |post| post['lang'] }.sort, "#{url}: incorrect row language metadata")
+  end
+  # Article titles keep their content language. The version-picker labels are
+  # English UI, while hreflang still describes each destination article.
+  html.css('.topic-post-row').each do |row|
+    links = row.css('a[data-post-language]')
+    members = expected.select { |post| hrefs.call(links).include?(post['url']) }
+    titles = row.css('[data-post-title-language]')
+    check.call(titles.map { |title| title['data-post-title-language'] }.sort == members.map { |post| post['lang'] }.sort, "#{url}: article title languages differ from row versions")
+    titles.each do |title|
+      version = members.find { |post| post['lang'] == title['data-post-title-language'] }
+      check.call(version && title['lang'] == version['lang'], "#{url}: article title language differs from its content")
+      check.call(version && normalized_text.call(title) == version['title'].to_s.gsub(/\s+/, ' ').strip, "#{url}: article title differs from source title")
+    end
+    links.each do |link|
+      target = hrefs.call([link]).first
+      version = members.find { |post| post['url'] == target }
+      next unless version
+
+      check.call(link['lang'] == 'en' && link['hreflang'] == version['lang'] && link['data-post-language'] == version['lang'], "#{url}: version picker must separate English label language from destination language")
+      check.call(normalized_text.call(link) == language_name[version['lang']], "#{url}: version picker label must use its English language name")
+      english_ui.call(link, url, 'article language picker')
+    end
   end
   article_order = groups.sort_by do |key, members|
     [-members.map { |post| date_epoch.call(post) }.max, key.to_s]
@@ -164,6 +200,14 @@ visible_posts.each do |post|
 
   counterparts = visible_posts.select { |other| other['translation_key'] == post['translation_key'] && other['url'] != post['url'] }
   check.call(hrefs.call(html.css('.post-guide-translation')).sort == counterparts.map { |other| other['url'] }.sort, "#{post['url']}: translation link differs from counterpart")
+  html.css('.post-guide-translation').each do |link|
+    counterpart = counterparts.find { |other| other['url'] == hrefs.call([link]).first }
+    next unless counterpart
+
+    check.call(link['lang'] == 'en' && link['hreflang'] == counterpart['lang'], "#{post['url']}: translation label language must be English and hreflang must identify its target")
+    check.call(normalized_text.call(link) == "Read in #{language_name[counterpart['lang']]}", "#{post['url']}: translation link must use an English label")
+    english_ui.call(link, post['url'], 'translation picker')
+  end
   parent = category_by_topic[post['topic']]
   expected_category = parent ? ["/topics/#{parent['id']}/"] : []
   check.call(hrefs.call(html.css('.post-guide-category')) == expected_category, "#{post['url']}: post guide category differs from topic membership")
@@ -249,9 +293,84 @@ html_cache.each do |url, html|
     classes = control['class'].to_s.split
     check.call(classes.include?('discovery-language-controls'), "#{url}: language controls lack their dedicated styling class")
     check.call(!(control.name == 'div' && control['class'].to_s.start_with?('language-')), "#{url}: language controls collide with Chirpy's code-block selector")
+    check.call(control['lang'] == 'en' && control['aria-label'] == 'Filter articles by language', "#{url}: article language filter must identify its English UI purpose")
+    check.call(normalized_text.call(control.at_css('.language-label')) == 'Article language', "#{url}: article language filter heading must be English")
+    buttons = control.css('button[data-language-filter]')
+    check.call(buttons.length == 3 && buttons.to_h { |button| [button['data-language-filter'], normalized_text.call(button)] } == { 'all' => 'All', 'ko' => 'Korean', 'en' => 'English' }, "#{url}: article language filter labels must be All, Korean, and English")
+    english_ui.call(control, url, 'article language filter')
   end
 end
 check.call(language_controls_checked == guide_entries.length + 1, 'Language selectors must cover the Topics hub and every legacy/category guide exactly once')
+
+# UI language is independent of article language. Select only navigation labels
+# and helper prose here: Korean article titles, tag/category names, and contents
+# are valid content and must not be treated as interface translations.
+english_ui_pages_checked = 0
+sidebar_tab_labels = %w[home topics categories tags archives about]
+sidebar_group_labels = { 'ai' => 'AI · Kaggle', 'physics' => 'Physics', 'essays' => 'Essays' }
+guide_by_id = guide_entries.to_h { |entry| [entry['id'], entry] }
+html_cache.each do |url, html|
+  english_ui_pages_checked += 1
+  check.call(html.at_css('html')['data-ui-language'] == 'en', "#{url}: document UI language must remain English")
+  check.call(html.at_css('body')&.[]('lang') == 'en', "#{url}: body must identify its English interface language")
+  %w[#sidebar #topbar-wrapper #panel-wrapper #tail-wrapper].each do |selector|
+    wrapper = html.at_css(selector)
+    check.call(wrapper && inherited_language.call(wrapper) == 'en', "#{url}: #{selector} must inherit the English UI language")
+  end
+  main = html.at_css('main')
+  check.call(main && inherited_language.call(main) == html.at_css('html')['lang'], "#{url}: main content language must match the document content language")
+
+  tabs = html.css('#sidebar .sidebar-navigation > ul.nav > li.nav-item > a.nav-link > span')
+  check.call(tabs.map { |tab| normalized_text.call(tab).downcase } == sidebar_tab_labels, "#{url}: sidebar tabs must use the six English navigation labels")
+  tabs.each { |tab| english_ui.call(tab, url, 'sidebar tab') }
+  heading = html.at_css('#sidebar-topics-label')
+  check.call(normalized_text.call(heading) == 'Explore topics', "#{url}: sidebar topic heading must be English")
+  english_ui.call(heading, url, 'sidebar topic heading')
+  html.css('.sidebar-topic-group').each do |group|
+    label = group.at_css('summary > span')
+    check.call(normalized_text.call(label) == sidebar_group_labels[group['data-topic-group']], "#{url}: sidebar topic group label must be English")
+    english_ui.call(label, url, 'sidebar topic group label')
+  end
+  html.css('.sidebar-topics a[data-topic-id]').each do |link|
+    entry = navigation_by_id[link['data-topic-id']]
+    next unless entry
+
+    count = guide_posts.call(entry).map { |post| post['translation_key'] }.uniq.length
+    count_label = "#{count} #{count == 1 ? 'article' : 'articles'}"
+    check.call(link.at_css('.sidebar-topic-count')&.[]('aria-label') == count_label, "#{url}: sidebar article count must use an English label and group translations")
+    english_ui.call(link, url, 'sidebar topic link')
+  end
+  breadcrumb_home = html.at_css('#breadcrumb > span:first-child')
+  check.call(normalized_text.call(breadcrumb_home) == 'Home', "#{url}: first breadcrumb must remain Home")
+  english_ui.call(breadcrumb_home, url, 'home breadcrumb')
+  search = html.at_css('#search-input')
+  check.call(search&.[]('placeholder') == 'Search...', "#{url}: search placeholder must remain English")
+  english_ui.call(search, url, 'search field')
+  toggle = html.at_css('#desktop-sidebar-toggle')
+  check.call(toggle&.[]('aria-label') == 'Collapse sidebar' && toggle&.[]('title') == 'Collapse sidebar', "#{url}: initial desktop sidebar toggle label must remain English")
+  english_ui.call(toggle, url, 'desktop sidebar toggle')
+  recent_heading = html.at_css('#access-lastmod > h2.panel-heading')
+  check.call(normalized_text.call(recent_heading) == 'Recently Updated', "#{url}: recent updates heading must remain English")
+  english_ui.call(recent_heading, url, 'recent updates heading')
+
+  selectors = [
+    '#search-cancel', '#sidebar .sidebar-bottom button', '#panel-wrapper h2.panel-heading',
+    '.discovery-header', '.discovery-eyebrow', '.discovery-note', '.topic-back-link',
+    '.topic-member-guides > summary', '.reading-path > h2', '.reading-path > p',
+    '.topic-all-posts > h2', '[data-language-empty]', '.post-guide-topic',
+    '.post-guide-category', '.series-toc > summary', '.series-nav-label', '.series-nav-boundary'
+  ]
+  html.css(selectors.join(', ')).each { |node| english_ui.call(node, url, 'navigation or guide label') }
+  html.css('.topic-card').each do |card|
+    english_ui.call(card, url, 'topic card')
+    entry = guide_by_id[card['data-topic-entry']]
+    next unless entry
+
+    count = guide_posts.call(entry).map { |post| post['translation_key'] }.uniq.length
+    count_label = "#{count} #{count == 1 ? 'article' : 'articles'}"
+    check.call(normalized_text.call(card.at_css('.topic-card-meta')).match?(/\A#{Regexp.escape(count_label)}(?:\s|$)/), "#{url}: topic card count must use English article units and group translations")
+  end
+end
 
 # Recent updates are grouped globally, but each page picks its own language.
 # Do not infer modification order from source dates: the Git hook supplies live
@@ -317,6 +436,7 @@ report = {
   'sidebar_topic_pages_checked' => sidebar_pages_checked,
   'sidebar_navigation_entries' => navigation_entries.length,
   'language_control_blocks_checked' => language_controls_checked,
+  'english_ui_pages_checked' => english_ui_pages_checked,
   'topic_article_order_pages_checked' => guide_entries.length,
   'recent_updates_pages_checked' => recent_updates_pages_checked,
   'recent_article_keys' => recent_article_keys,

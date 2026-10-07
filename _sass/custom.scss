@@ -216,6 +216,7 @@ ol.reading-path-list li::marker { color: var(--text-muted-color); font-weight: 6
 }
 
 @media (max-width: 575px) {
+  .discovery-language-controls .language-label { flex-basis: 100%; margin-right: 0; }
   .topic-grid { grid-template-columns: 1fr; }
   .topic-category-grid .topic-card-heading { min-height: 3.25rem; }
   .topic-card { padding: 1rem; }
