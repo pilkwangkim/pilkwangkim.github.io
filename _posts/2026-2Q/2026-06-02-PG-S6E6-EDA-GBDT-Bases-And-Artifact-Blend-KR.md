@@ -8,6 +8,13 @@ pin: false
 topic: playground-series
 lang: ko
 translation_key: playground-s6e6-stellar-classification
+image:
+  path: /assets/img/posts/2026-06-02-pg-s6e6-eda-gbdt-artifact-blend/fig-04-photometric-geometry.png
+  alt: "별·은하·퀘이사의 구분과 겹치는 영역을 보여주는 적색편이와 u-z 색지수 산점도."
+  hide_caption: true
+  fit: contain
+  width: 889
+  height: 590
 ---
 
 # PG S6E6: 적색편이와 색지수로 풀어내는 천체 분류 — OOF Artifact 블렌딩까지

@@ -8,6 +8,10 @@ pin: false
 topic: playground-series
 lang: ko
 translation_key: playground-s6e5-driver-features
+image:
+  path: /assets/img/technical-covers/playground-s6e5-driver-features/cover.webp
+  alt: "주행 상태와 드라이버 범주의 표본 수 피처를 같은 OOF 조건에서 비교하는 트리 모델 구성."
+  hide_caption: true
 ---
 
 # S6E5 Driver's High: Driver 피처의 잔여 신호 — OOF Ladder 검증

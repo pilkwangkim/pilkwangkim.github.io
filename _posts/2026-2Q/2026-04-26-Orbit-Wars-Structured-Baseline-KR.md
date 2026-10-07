@@ -8,6 +8,10 @@ pin: false
 topic: orbit-wars
 lang: ko
 translation_key: orbit-wars-structured-baseline
+image:
+  path: /assets/img/technical-covers/orbit-wars-structured-baseline/cover.webp
+  alt: "태양을 가로지르는 경로는 거부하고 움직이는 행성의 도착 시점 위치로 함대를 직선 발사하며, 물리·월드 모델·전략과 발사 기록으로 에이전트를 구성한다."
+  hide_caption: true
 ---
 
 # Orbit Wars: 도착 시점을 기준으로 — 물리·월드·전략 분리 설계

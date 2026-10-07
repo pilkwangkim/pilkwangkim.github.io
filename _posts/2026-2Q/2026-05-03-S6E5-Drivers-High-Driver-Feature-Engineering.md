@@ -8,6 +8,10 @@ pin: false
 topic: playground-series
 lang: en
 translation_key: playground-s6e5-driver-features
+image:
+  path: /assets/img/technical-covers/playground-s6e5-driver-features/cover.webp
+  alt: "Race-state and driver-category support features enter a controlled out-of-fold tree-model comparison."
+  hide_caption: true
 ---
 
 # 🏎️ S6E5 Driver's High: Driver Feature Engineering

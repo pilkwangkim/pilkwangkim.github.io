@@ -10,6 +10,13 @@ lang: en
 translation_key: rogii-tvt-alignment
 series: rogii
 series_order: 1
+image:
+  path: /assets/img/posts/2026-06-04-rogii-target-free-tvt-alignment/fig-13.png
+  alt: "Gamma-ray motifs from the horizontal well are aligned with a vertical typewell to infer hidden TVT coordinates."
+  hide_caption: true
+  fit: contain
+  width: 1672
+  height: 941
 ---
 
 # ROGII: Leakage-Controlled TVT Recovery Through Target-Free Stratigraphic Alignment

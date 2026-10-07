@@ -16,6 +16,12 @@ module Jekyll
       asset_content = asset_sources.map do |path|
         path + "\0" + File.binread(File.join(site.source, path)) + "\0"
       end.join
+      contained_covers = site.posts.docs.filter_map do |post|
+        image = post.data['image']
+        image['path'] if image.is_a?(Hash) && image['fit'] == 'contain'
+      end.uniq.sort
+      site.data['contained_cover_paths'] = contained_covers
+      asset_content += "contained-covers\0" + contained_covers.join("\0")
       site.data['blog_asset_version'] = Digest::SHA256.hexdigest(asset_content)[0, 12]
       add_topic_labels(site)
       posts = site.posts.docs.reject { |post| post.data['hidden'] == true }

@@ -8,6 +8,10 @@ pin: false
 topic: pokemon-tcg
 lang: ko
 translation_key: pokemon-tcg-working-note-1
+image:
+  path: /assets/img/technical-covers/pokemon-tcg-working-note-1/cover.webp
+  alt: "리플레이로 학습한 행동 모방 모델과 규칙 기반 대안이 공개된 카드판을 보고 합법적 선택지를 평가하며, 이후 전체 게임으로 파일럿을 검증한다."
+  hide_caption: true
 ---
 
 # Pokémon TCG AI Battle Working Note (1편): 규칙 기반에서 RL 파일럿까지

@@ -10,6 +10,13 @@ lang: ko
 translation_key: rogii-tvt-alignment
 series: rogii
 series_order: 1
+image:
+  path: /assets/img/posts/2026-06-04-rogii-target-free-tvt-alignment/fig-13.png
+  alt: "수평정의 감마선 패턴을 수직 기준정과 대비해 숨겨진 TVT 좌표를 추정하는 과정."
+  hide_caption: true
+  fit: contain
+  width: 1672
+  height: 941
 ---
 
 # ROGII: Target-Free 지층 대비로 TVT 복원하기 — 데이터 누수 통제 설계

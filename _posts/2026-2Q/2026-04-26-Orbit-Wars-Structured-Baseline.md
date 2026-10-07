@@ -8,6 +8,10 @@ pin: false
 topic: orbit-wars
 lang: en
 translation_key: orbit-wars-structured-baseline
+image:
+  path: /assets/img/technical-covers/orbit-wars-structured-baseline/cover.webp
+  alt: "A straight fleet launch intercepts a moving planet at arrival, while a sun-crossing shot is rejected; physics, world model, strategy, and committed launches organize the agent."
+  hide_caption: true
 ---
 
 # 🛰️ Orbit Wars: Structured Baseline Methodology

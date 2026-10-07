@@ -10,6 +10,13 @@ lang: en
 translation_key: arc-agi-3-introduction
 series: arc-agi-3-main
 series_order: 1
+image:
+  path: /assets/img/arc-agi-3/arc-agi-3-banner.jpg
+  alt: "ARC-AGI-3 title above a collage of interactive colored-grid game environments."
+  hide_caption: true
+  fit: contain
+  width: 559
+  height: 235
 ---
 
 <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/arc-agi-3.css?v=20260625-3">

@@ -8,6 +8,13 @@ pin: false
 topic: maze-crawler
 lang: ko
 translation_key: maze-crawler-structured-baseline
+image:
+  path: /assets/img/posts/2026-05-17-maze-crawler-structure-baseline/cover.png
+  alt: "남쪽의 소실 경계를 피해 북쪽 안전 경로를 확보하고, 정찰과 벽 제거를 분담하는 로봇 대열."
+  hide_caption: true
+  fit: contain
+  width: 1916
+  height: 821
 ---
 
 # Maze Crawler: 먼저 살아남기 — 구조적 Rule-Based 베이스라인

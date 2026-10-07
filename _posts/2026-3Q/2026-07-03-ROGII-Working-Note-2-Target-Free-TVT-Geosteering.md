@@ -10,6 +10,13 @@ lang: en
 translation_key: rogii-error-anatomy
 series: rogii
 series_order: 2
+image:
+  path: /assets/img/posts/2026-07-03-rogii-working-note-target-free-tvt-geosteering/fig-06-error-anatomy.png
+  alt: "Three sources of hidden-tail TVT error: datum offset, stratigraphic-mode ambiguity, and shape or slope error."
+  hide_caption: true
+  fit: contain
+  width: 1672
+  height: 941
 ---
 
 # ROGII Working Note (Part 2): Error Anatomy of Target-Free TVT Geosteering

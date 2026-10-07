@@ -10,6 +10,13 @@ lang: ko
 translation_key: arc-agi-3-introduction
 series: arc-agi-3-main
 series_order: 1
+image:
+  path: /assets/img/arc-agi-3/arc-agi-3-banner.jpg
+  alt: "여러 색상 격자 게임 환경을 모은 배경 위에 표시된 ARC-AGI-3 제목."
+  hide_caption: true
+  fit: contain
+  width: 559
+  height: 235
 ---
 
 <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/arc-agi-3.css?v=20260625-3">

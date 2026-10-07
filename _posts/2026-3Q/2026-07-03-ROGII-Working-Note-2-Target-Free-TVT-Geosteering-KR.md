@@ -10,6 +10,13 @@ lang: ko
 translation_key: rogii-error-anatomy
 series: rogii
 series_order: 2
+image:
+  path: /assets/img/posts/2026-07-03-rogii-working-note-target-free-tvt-geosteering/fig-06-error-anatomy.png
+  alt: "숨겨진 구간의 TVT 오차를 기준 위치의 편차, 지층 모드의 불확실성, 형태와 기울기 오차로 나눈 그림."
+  hide_caption: true
+  fit: contain
+  width: 1672
+  height: 941
 ---
 
 # ROGII Working Note (2편): Target-Free TVT Geosteering의 오차 해부

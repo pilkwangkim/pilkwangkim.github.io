@@ -8,6 +8,13 @@ pin: false
 topic: maze-crawler
 lang: en
 translation_key: maze-crawler-structured-baseline
+image:
+  path: /assets/img/posts/2026-05-17-maze-crawler-structure-baseline/cover.png
+  alt: "A factory convoy follows a safe northward route while scouts and workers handle resources and walls."
+  hide_caption: true
+  fit: contain
+  width: 1916
+  height: 821
 ---
 
 # Maze Crawler: Structure Baseline

@@ -8,6 +8,10 @@ pin: false
 topic: pokemon-tcg
 lang: en
 translation_key: pokemon-tcg-working-note-1
+image:
+  path: /assets/img/technical-covers/pokemon-tcg-working-note-1/cover.webp
+  alt: "Replay-based behavior cloning and a rule fallback rank legal trading-card choices from the visible board before full-game evaluation."
+  hide_caption: true
 ---
 
 # Pokémon TCG AI Battle Working Note (Part 1): From Rules to an RL Pilot

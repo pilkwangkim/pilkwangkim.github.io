@@ -8,6 +8,13 @@ pin: false
 topic: quantum-transport
 lang: ko
 translation_key: quantum-transport-negf
+image:
+  path: /assets/img/posts/2026-07-22-negf-from-scratch/fig-03-exact-lead-elimination.png
+  alt: "반무한 리드의 좌표를 정확히 소거해 유한한 소자에 에너지 의존 자기 에너지로 반영하는 과정."
+  hide_caption: true
+  fit: contain
+  width: 1329
+  height: 390
 ---
 
 # 닫힌 양자계에서 열린 양자 수송으로: NEGF를 처음부터 유도하기

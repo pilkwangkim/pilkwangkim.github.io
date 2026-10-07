@@ -8,6 +8,13 @@ pin: false
 topic: quantum-transport
 lang: en
 translation_key: quantum-transport-negf
+image:
+  path: /assets/img/posts/2026-07-22-negf-from-scratch/fig-03-exact-lead-elimination.png
+  alt: "Exact lead elimination replaces explicit semi-infinite lead coordinates with energy-dependent self-energy on the finite device."
+  hide_caption: true
+  fit: contain
+  width: 1329
+  height: 390
 ---
 
 # From Closed to Open Quantum Transport with NEGF: A Derivation from Scratch

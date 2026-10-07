@@ -8,6 +8,10 @@ pin: false
 topic: arc-agi-3
 lang: en
 translation_key: arc-agi-3-research-r1
+image:
+  path: /assets/img/technical-covers/arc-agi-3-research-r1/cover.webp
+  alt: "Conceptual grid-game agent workflow: observe, build a world model, verify predictions, and execute batched actions with a mismatch stop."
+  hide_caption: true
 ---
 
 # ARC-AGI-3 Research Note R1: The Unit Cost of Thinking, and Program-as-Policy — From Design to First Results

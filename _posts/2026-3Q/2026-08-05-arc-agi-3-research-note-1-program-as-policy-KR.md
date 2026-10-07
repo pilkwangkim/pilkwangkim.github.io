@@ -8,6 +8,10 @@ pin: false
 topic: arc-agi-3
 lang: ko
 translation_key: arc-agi-3-research-r1
+image:
+  path: /assets/img/technical-covers/arc-agi-3-research-r1/cover.webp
+  alt: "격자 게임을 관찰하고 월드 모델을 만든 뒤 예측을 검증해 행동 묶음을 실행하며, 불일치가 발생하면 멈추는 개념적 에이전트 흐름."
+  hide_caption: true
 ---
 
 # ARC-AGI-3 Research Note R1: 한 수의 값, 그리고 program-as-policy — 설계에서 첫 실측까지

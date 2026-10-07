@@ -15,3 +15,13 @@
 /* append your custom style below */
 @use 'custom';
 @use 'sidebar-topics';
+
+/* Preserve complete scientific figures, including axes and outer panels. */
+{% for cover_path in site.data.contained_cover_paths %}
+.preview-img > img[src$="{{ cover_path }}"] { object-fit: contain; }
+article > header .preview-img:has(> img[src$="{{ cover_path }}"]) {
+  aspect-ratio: auto;
+  height: auto;
+}
+article > header .preview-img > img[src$="{{ cover_path }}"] { height: auto; }
+{% endfor %}

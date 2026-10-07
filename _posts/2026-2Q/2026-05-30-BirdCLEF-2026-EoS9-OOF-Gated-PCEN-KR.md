@@ -8,6 +8,13 @@ pin: false
 topic: birdclef-2026
 lang: ko
 translation_key: birdclef-2026-eos9-pcen
+image:
+  path: /assets/img/posts/2026-05-30-birdclef-eos-oof-gated-pcen/fig-02-oof-gate.svg
+  alt: "앵커와 사이드카 순위를 개연성 마스크, 클래스 게이트와 이동 예산으로 제한하는 OOF 보정 흐름."
+  hide_caption: true
+  fit: contain
+  width: 1600
+  height: 900
 ---
 
 # BirdCLEF 2026: EoS9 Anchor 먼저 — OOF-Gated PCEN 보정은 그 다음

@@ -8,6 +8,13 @@ pin: false
 topic: playground-series
 lang: en
 translation_key: playground-s6e6-stellar-classification
+image:
+  path: /assets/img/posts/2026-06-02-pg-s6e6-eda-gbdt-artifact-blend/fig-04-photometric-geometry.png
+  alt: "Observed redshift and u-z color distributions distinguish stars, galaxies, and quasars with overlapping regions."
+  hide_caption: true
+  fit: contain
+  width: 889
+  height: 590
 ---
 
 # PG S6E6: Redshift, Color Geometry, and OOF Artifact Blending

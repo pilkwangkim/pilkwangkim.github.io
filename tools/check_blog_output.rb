@@ -37,9 +37,9 @@ baseline = JSON.parse(File.read(options[:baseline]))
 config = YAML.safe_load(File.read(File.join(source, '_config.yml')), permitted_classes: [Date, Time], aliases: true)
 baseurl = config['baseurl'].to_s.delete_suffix('/')
 asset_paths = %w[assets/js/blog-navigation.js assets/css/jekyll-theme-chirpy.scss Gemfile] + Dir.glob('_sass/**/*.scss', base: source)
-asset_fingerprint = Digest::SHA256.hexdigest(asset_paths.sort.map do |path|
+asset_content = asset_paths.sort.map do |path|
   path + "\0" + File.binread(File.join(source, path)) + "\0"
-end.join)[0, 12]
+end.join
 urls = metadata['post_urls'] || metadata.fetch('original_urls')
 read_yaml = ->(path) { YAML.safe_load(File.read(path), permitted_classes: [Date, Time], aliases: true) }
 topics = read_yaml.call(File.join(source, '_data', 'topics.yml'))
@@ -54,6 +54,11 @@ posts = urls.map do |path, url|
   read_yaml_data = YAML.safe_load(parts[1], permitted_classes: [Date, Time], aliases: true)
   read_yaml_data.merge('path' => path, 'url' => url)
 end
+contained_covers = posts.filter_map do |post|
+  image = post['image']
+  image['path'] if image.is_a?(Hash) && image['fit'] == 'contain'
+end.uniq.sort
+asset_fingerprint = Digest::SHA256.hexdigest(asset_content + "contained-covers\0" + contained_covers.join("\0"))[0, 12]
 visible_posts = posts.reject { |post| post['hidden'] || post['published'] == false }
 date_epoch = lambda do |post|
   date = post.fetch('date')

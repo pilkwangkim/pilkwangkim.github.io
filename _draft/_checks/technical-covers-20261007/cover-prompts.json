@@ -1,0 +1,344 @@
+{
+  "date": "2026-10-07",
+  "scope": "Previously coverless visible Kaggle and Physics articles",
+  "logical_articles": 14,
+  "source_pages": 26,
+  "reused_body_figures": 8,
+  "generated_covers": 6,
+  "generation_method": "Built-in image_gen imagegen tool; no CLI fallback",
+  "policy": "Existing body figures reused unchanged where suitable. Generated covers depict conceptual workflows, not measured results. EN and KO share one asset per article. Article bodies and existing cover assets preserved.",
+  "covers": [
+    {
+      "translation_key": "arc-agi-3-introduction",
+      "path": "/assets/img/arc-agi-3/arc-agi-3-banner.jpg",
+      "dimensions": [
+        559,
+        235
+      ],
+      "rationale": "The article introduces ARC-AGI-3 as instruction-free interactive grid games, so the existing title banner and collage of game environments provide an immediately recognizable, faithful cover. It is already the hero figure in both article bodies; reuse preserves the actual environment imagery instead of inventing benchmark screens or results. Its native size is 559 by 235 pixels, so it should remain unaltered and should not be presented as a newly generated high-resolution asset.",
+      "alt_en": "ARC-AGI-3 title above a collage of interactive colored-grid game environments.",
+      "alt_ko": "여러 색상 격자 게임 환경을 모은 배경 위에 표시된 ARC-AGI-3 제목.",
+      "mode": "reused-body-image",
+      "source_path": "/Users/pilkwang/Documents/VSDocs/blog/pilkwangkim.github.io/assets/img/arc-agi-3/arc-agi-3-banner.jpg",
+      "source_posts": [
+        "_posts/2026-2Q/2026-06-24-arc-agi-3-the-benchmark-nobody-has-solved-KR.md",
+        "_posts/2026-2Q/2026-06-24-arc-agi-3-the-benchmark-nobody-has-solved.md"
+      ],
+      "sha256": "48ac32efbeb55d11d0a6d094ca96da0fb198cbff33eec4616775d68b329f3006",
+      "prompt": null,
+      "inspection": "Full English article and candidate body figures visually reviewed; original figure reused unchanged.",
+      "bytes": 56720,
+      "title": "ARC-AGI-3: The Benchmark Nobody Has Solved Yet"
+    },
+    {
+      "translation_key": "arc-agi-3-research-r1",
+      "mode": "built-in imagegen",
+      "path": "/assets/img/technical-covers/arc-agi-3-research-r1/cover.webp",
+      "source_path": "/Users/pilkwang/.codex/generated_images/01a11488-4ce3-7963-a9fb-ca0e30a9fc58/exec-97ae7db3-7bd2-4610-8297-ccf67d1778f9.png",
+      "source_posts": [
+        "_posts/2026-3Q/2026-08-05-arc-agi-3-research-note-1-program-as-policy.md",
+        "_posts/2026-3Q/2026-08-05-arc-agi-3-research-note-1-program-as-policy-KR.md"
+      ],
+      "rationale": "The article has no body figures. A conceptual grid-game architecture shows observation, executable-model construction, replay verification, batched actions and a mismatch gate. It depicts the proposed mechanically enforced workflow, without depicting measured success or fabricating benchmark results.",
+      "alt_en": "Conceptual grid-game agent workflow: observe, build a world model, verify predictions, and execute batched actions with a mismatch stop.",
+      "alt_ko": "격자 게임을 관찰하고 월드 모델을 만든 뒤 예측을 검증해 행동 묶음을 실행하며, 불일치가 발생하면 멈추는 개념적 에이전트 흐름.",
+      "dimensions": [
+        1729,
+        910
+      ],
+      "prompt": "Create a professional technical editorial cover illustration for a research article about ARC-AGI-3 agents, titled in the article 'The Unit Cost of Thinking, and Program-as-Policy'. This is a CONCEPTUAL ARCHITECTURE DIAGRAM, not a chart of measured performance, not an official game screenshot. Wide landscape, approximately 1.9:1 aspect ratio. Crisp professional scientific illustration, very light warm-white background, slate/navy outlines, teal and muted blue modules, one restrained amber safety gate, ample whitespace. Concrete message: move from repeated single-action LLM deliberation toward a mechanically enforced workflow that observes a grid game, writes an executable world model, verifies recorded transitions, and then runs a batch plan with a mismatch stop. Layout as four clearly separated left-to-right modules with thin directional arrows: 1 OBSERVE, a small clean 6x6 pixel-grid environment containing a blue player square, teal target square and dark obstacle cells; 2 MODEL, a compact Python-like code document with a tiny connected-state diagram, do not print fake code or equations; 3 VERIFY, two matching miniature grid frames, one for predicted state and one for observed state, a visible amber comparator/gate between them; 4 ACT, a small sequence of five discrete directional action tiles feeding a second grid board. Draw a short amber branch downward from the verification gate to a stop bar labelled MISMATCH so it is clear plans must halt when predictions disagree. Only text labels exactly OBSERVE, MODEL, VERIFY, ACT, MISMATCH; use elegant legible sans serif. The large majority of the image should be the concrete diagrams rather than text. No title text, no scores, no percentages, no benchmarks, no equations, no claims of successful experiment, no photorealistic robots, no brains, no abstract ribbons, no glowing neon, no decoration, no gradients. Polished research-publication-quality schematic with carefully aligned elements and strong thumbnail readability. Fully opaque.",
+      "bytes": 62832,
+      "sha256": "cee9bd0502deb2232a9baed7862037672c922304d1256fc7e74cac762d0523f5",
+      "title": "ARC-AGI-3 Research Note R1: The Unit Cost of Thinking, and Program-as-Policy"
+    },
+    {
+      "translation_key": "birdclef-2026-eos9-pcen",
+      "mode": "reused-body-image",
+      "path": "/assets/img/posts/2026-05-30-birdclef-eos-oof-gated-pcen/fig-02-oof-gate.svg",
+      "source_path": "/Users/pilkwang/Documents/VSDocs/blog/pilkwangkim.github.io/assets/img/posts/2026-05-30-birdclef-eos-oof-gated-pcen/fig-02-oof-gate.svg",
+      "rationale": "The article's distinctive mechanism is preserving the EoS9 anchor while allowing only plausible, class-gated and budget-limited sidecar corrections. The existing six-block OOF-gate diagram communicates this more clearly than the much denser original cover and overall branch map. Rendered the standalone SVG to a temporary inspection PNG and checked complete 1600x900 viewBox: all blocks, arrows, title, and safeguards are inside the canvas, with large labels. Reuse the full unmodified SVG; no invented results and no cropped empirical data.",
+      "alt_en": "Anchor and sidecar ranks pass a plausibility mask, class gate, and movement budget before acceptance.",
+      "alt_ko": "앵커와 사이드카 순위를 개연성 마스크, 클래스 게이트와 이동 예산으로 제한하는 OOF 보정 흐름.",
+      "source_posts": [
+        "_posts/2026-2Q/2026-05-30-BirdCLEF-2026-EoS9-OOF-Gated-PCEN.md",
+        "_posts/2026-2Q/2026-05-30-BirdCLEF-2026-EoS9-OOF-Gated-PCEN-KR.md"
+      ],
+      "dimensions": [
+        1600,
+        900
+      ],
+      "inspection_render_path": "/tmp/birdclef-oof-gate-cover-inspection.png",
+      "standalone_svg_valid": true,
+      "inspected": true,
+      "asset_bytes": 3046,
+      "asset_sha256": "b62267f622b171e18e9d042c6fdb28b923a1c96fde499767339e547203a8d652",
+      "native_aspect_ratio": 1.7777777777777777,
+      "bytes": 3046,
+      "sha256": "b62267f622b171e18e9d042c6fdb28b923a1c96fde499767339e547203a8d652",
+      "title": "BirdCLEF 2026: EoS9 + OOF-Gated PCEN"
+    },
+    {
+      "translation_key": "maze-crawler-structured-baseline",
+      "mode": "reused-body-image",
+      "path": "/assets/img/posts/2026-05-17-maze-crawler-structure-baseline/cover.png",
+      "source_path": "/Users/pilkwang/Documents/VSDocs/blog/pilkwangkim.github.io/assets/img/posts/2026-05-17-maze-crawler-structure-baseline/cover.png",
+      "rationale": "The existing wide cover already communicates the article's actual themes: a factory convoy navigating walls, resource collection, remembered map regions, and an advancing southern loss boundary. Its central survival corridor and planner/safety symbols remain identifiable at reduced size, with no dense text or measured scores. Reuse the full original illustration without changing the game depiction or any body figures.",
+      "alt_en": "A factory convoy follows a safe northward route while scouts and workers handle resources and walls.",
+      "alt_ko": "남쪽의 소실 경계를 피해 북쪽 안전 경로를 확보하고, 정찰과 벽 제거를 분담하는 로봇 대열.",
+      "source_posts": [
+        "_posts/2026-2Q/2026-05-17-Maze-Crawler-Structure-Baseline.md",
+        "_posts/2026-2Q/2026-05-17-Maze-Crawler-Structure-Baseline-KR.md"
+      ],
+      "dimensions": [
+        1916,
+        821
+      ],
+      "inspected": true,
+      "asset_bytes": 2371805,
+      "asset_sha256": "4f6f1c93216bf722c6308f2d356772f41ad4f9664211daa14b8c145980484608",
+      "native_aspect_ratio": 2.3337393422655297,
+      "bytes": 2371805,
+      "sha256": "4f6f1c93216bf722c6308f2d356772f41ad4f9664211daa14b8c145980484608",
+      "title": "Maze Crawler: Structure Baseline"
+    },
+    {
+      "translation_key": "mmlm-2026-baseline",
+      "mode": "built-in imagegen",
+      "path": "/assets/img/technical-covers/mmlm-2026-baseline/cover.webp",
+      "source_path": "/Users/pilkwang/.codex/generated_images/01a115b1-8632-7283-824b-4d1f61408292/exec-3ef23fb2-7d92-4b90-bb2c-d1bc45ac0636.png",
+      "rationale": "Full English article read (774 lines). A basketball/court and season tables make the sports forecasting problem explicit. Team features feed separate core and expanded logistic regressions, merge into matchup probabilities, and sit above a chronology for season-forward validation. Initial generated gender-versus-gender output was corrected to neutral TeamLow and TeamHigh team badges, preserving the article's same-league pair orientation. No leaderboard or validation scores are depicted.",
+      "alt_en": "Basketball season data becomes team features, two logistic-regression views, and blended matchup probabilities, with season-forward validation below.",
+      "alt_ko": "농구 시즌 데이터에서 팀 특성을 만들고 두 로지스틱 회귀 모델의 예측을 합쳐 대진별 승률을 구하며, 아래에는 시즌 순서를 지키는 검증을 표시한다.",
+      "source_posts": [
+        "_posts/2026-2Q/2026-04-01-MMLM.md",
+        "_posts/2026-2Q/2026-04-01-MMLM-KR.md"
+      ],
+      "dimensions": [
+        1728,
+        910
+      ],
+      "prompt": "Use case: scientific-educational.\nAsset type: professional technical blog cover for a Kaggle basketball forecasting baseline; wide landscape approximately 1.9:1.\nPrimary request: show a clear, concrete NCAA basketball matchup probability pipeline, not an abstract illustration. A small recognizable basketball with accurate curved seam lines sits beside a simple half-court outline and a tidy season-results table on the left. The table flows by crisp arrows into a merged team-feature table in the middle, then into two compact parallel model blocks that merge into one matchup-probability output card on the right. Under this pipeline a small horizontal timeline visibly separates earlier training seasons from one subsequent validation season, communicating validation forward in time.\nConcept accuracy: this article uses men and women season data, an aligned current-season cutoff, one merged team feature store, pairwise team differences, two logistic-regression feature views called core and expanded, a weighted probability blend, season-forward validation, and a checked submission. The cover should convey basketball forecasting plus auditable time-respecting data flow. Do not depict a predicted bracket as certainty or imply that the feature table alone picks a tournament winner.\nText (verbatim), only these five labels: \"Season data\", \"Team features\", \"Core + Expanded\", \"Matchup probabilities\", \"Season-forward validation\". Put each label beside its corresponding clear object; the last label accompanies the lower chronology strip. No other lettering or numbers, no percentages, no score, no rank, no fabricated game results.\nStyle/medium: polished flat technical editorial illustration, clean scientific figure craftsmanship, precise linework, simple concrete data/table/model objects, no glossy 3D. White/off-white #F7F8F7 background, slate #334A5A fine outlines, restrained teal #488A8A and muted blue #658CB2 accents. Only a very small muted basketball-colour accent if useful. No paper grain or painterly texture.\nComposition/framing: one coherent left-to-right pipeline, central safe composition with generous margins, horizontal 1.9:1 cover intended for 1200-by-630 display. Large legible restrained English labels, sparing arrows, clear whitespace. A basketball/court identifies the problem immediately; simple tables and two parallel blocks identify the approach. The lower validation strip is secondary and not a chart of results.\nConstraints: no long title, no logos, no brand marks, no watermark, no dense code, no tiny illegible text, no leaderboard, no trophies, no stock-photo humans, no decorative neural network, no glowing sci-fi effects, no clutter, no screenshot UI, no invented quantitative performance. Deliver one finished cover image.",
+      "revision_prompt": "Use case: precise-object-edit.\nEdit only the gender symbols in this technical basketball forecasting cover. Critical correction: NCAA men's and women's tournaments are separate datasets; the output must depict two teams within one league, never a man-versus-woman matchup.\nIn the rightmost \"Matchup probabilities\" card, replace the male and female symbols with two simple neutral team badges, each just a plain outlined shield without ornament. Place the exact labels \"TeamLow\" and \"TeamHigh\" beneath the respective badges, keeping the small \"vs\" between them. The two teams are basketball teams, not genders.\nIn the central \"Team features\" table, replace all male and female glyphs with identical tiny neutral circular team markers. Preserve the table's rows and colours.\nKeep everything else unchanged: entire canvas aspect ratio and composition, basketball, court, season table, arrows, the two logistic-regression blocks, blend junction, lower season-forward validation timeline, all existing section labels, white background, blue/teal/slate palette, linework, and clarity. No new numbers, fabricated probabilities, performance statistics, logos, watermark, title, decoration, or extra objects. This is a narrowly targeted semantic correction.",
+      "initial_source_path": "/Users/pilkwang/.codex/generated_images/01a115b1-8632-7283-824b-4d1f61408292/exec-b3304a12-d803-432b-90d7-70437bb302e9.png",
+      "encoding": "cwebp -q 90 -m 6",
+      "quality_review": "Generated source and final WebP inspected. Labels legible, no invented quantitative scores, no men-versus-women matchup, no logos, restrained technical palette.",
+      "bytes": 86584,
+      "sha256": "9919da6149eb6b2f492da3a6813349b492f3e3a16ecf914c086b3995b935341e",
+      "title": "March Machine Learning Mania 2026 - Baseline Pipeline"
+    },
+    {
+      "translation_key": "orbit-wars-structured-baseline",
+      "mode": "built-in imagegen",
+      "path": "/assets/img/technical-covers/orbit-wars-structured-baseline/cover.webp",
+      "source_path": "/Users/pilkwang/.codex/generated_images/01a115b1-8632-7283-824b-4d1f61408292/exec-2fa9d52d-64af-4c1a-9701-fba84ab5424a.png",
+      "rationale": "Full English article read (1,352 lines). The concrete board depicts an illegal snapshot shot hitting the sun and a legal straight-line fleet intercept at the rotating target's future position. A faint short arc denotes only planet motion. The adjacent deterministic Physics -> World model -> Strategy modules and committed-launches ledger capture the architecture and future-arrival update. Generated geometry was corrected twice: rejected line now actually hits the sun, and both target positions lie at the same orbital radius. No curved fleet flight, waypoint detour, learned-RL policy claim, or game result is shown.",
+      "alt_en": "A straight fleet launch intercepts a moving planet at arrival, while a sun-crossing shot is rejected; physics, world model, strategy, and committed launches organize the agent.",
+      "alt_ko": "태양을 가로지르는 경로는 거부하고 움직이는 행성의 도착 시점 위치로 함대를 직선 발사하며, 물리·월드 모델·전략과 발사 기록으로 에이전트를 구성한다.",
+      "source_posts": [
+        "_posts/2026-2Q/2026-04-26-Orbit-Wars-Structured-Baseline.md",
+        "_posts/2026-2Q/2026-04-26-Orbit-Wars-Structured-Baseline-KR.md"
+      ],
+      "dimensions": [
+        1729,
+        910
+      ],
+      "prompt": "Use case: scientific-educational.\nAsset type: clear, professional technical blog cover for the Orbit Wars game-AI structured baseline; wide landscape approximately 1.9:1.\nPrimary request: concretely show safe straight-line fleet interception of a moving planet, together with a small three-layer agent architecture. The main left two-thirds is a clean top-down square strategy board on white. One blue source planet appears at left; a muted ochre sun sits near the centre-lower part of the board. The same target planet is shown at two positions around the sun: a pale outlined ghost lower-right labelled \"Now\" and a solid teal circle upper-right labelled \"At arrival\". A faint dotted circular orbit arc links the two target positions, showing planet motion only. One crisp straight teal fleet arrow goes from the source boundary directly to the future target's boundary, passing clearly above and outside the sun. A short row of tiny triangular fleet markers sits along this single straight line. A separate faint muted-red straight candidate line from the same source toward the current target crosses the sun and is stopped with a small cross at the sun, showing the rejected shot.\nRight one-third: three clean stacked modules labelled exactly \"Physics\", \"World model\", \"Strategy\", connected downward by short crisp arrows. A small lower \"Committed launches\" ledger icon feeds a narrow return arrow into \"World model\", showing that accepted launches update the future-arrival forecast.\nConcept accuracy: the baseline is deterministic planning, not a learned RL policy. Fleets travel in straight lines after launch; only planets rotate. The physics layer validates a direct, sun-safe shot and ETA; world model predicts owner/garrison at arrival; strategy ranks valid mission families; committed launches become future arrivals. Do not draw curving fleet trajectories or waypoint detours.\nText (verbatim), only these eight short labels: \"Now\", \"At arrival\", \"Sun\", \"Direct shot\", \"Physics\", \"World model\", \"Strategy\", \"Committed launches\". The first four belong to the clear board elements and direct route; the last four belong to the architecture. No title, coordinates, game score, quantitative results, ship counts, or additional text.\nStyle/medium: polished flat technical editorial illustration, crisp schematic geometry, clear circles and triangle fleets, subtle board outline, restrained white/off-white #F7F8F7 backdrop, slate #334A5A outlines, muted blue #658CB2 and teal #488A8A. Tiny warm ochre sun and muted red rejection accent are acceptable. No painterly texture, glossy 3D, photorealism, glow, nebula, or dramatic sci-fi scenery.\nComposition/framing: wide horizontal 1.9:1 image intended for 1200-by-630 blog display, generous margins, simple large legible English labels, safe central framing and a well-separated board and architecture. No dense tables or code. The valid launch and target's future position should be the dominant focal point. Deliver one finished cover image; no screenshot UI, logo, watermark, border, or fabricated performance statistics.",
+      "revision_prompts": [
+        "Use case: precise-object-edit.\nMake one essential geometry correction in the LEFT board of this Orbit Wars technical cover. The red rejected shot currently misses the sun, which is physically incorrect. Reposition the pale target labelled \"Now\" to the right of the sun on the same horizontal level as the sun's centre. Its straight red candidate line from the blue source must visibly intersect the sun disk. Put the rejection cross precisely where that red line hits the sun, and stop the red line there. Keep the teal \"At arrival\" target above-right and the straight teal fleet route unchanged: that route must pass well above the sun and remain clearly legal.\nRedraw the faint dotted circular planet orbit so it is centred exactly on the sun and passes through both target centres: the ghost \"Now\" target at the rightmost point of the orbit, and the teal \"At arrival\" target above-right. The two positions represent the SAME rotating planet, at the SAME orbital radius. A gentle dotted arc with small motion arrowheads is acceptable; it describes only the planet's rotation, never a fleet path. Keep the source planet outside this orbital circle. Adjust the ghost target's label placement so \"Now\" remains readable within the board.\nPreserve all right-side architecture blocks and their icons, labels, down arrows, and \"Committed launches\" feedback into \"World model\"; preserve the canvas aspect ratio, white background, muted palette, crisp linework, board outline, visible labels \"Sun\", \"Direct shot\", \"Now\", \"At arrival\", and teal straight-line fleet triangles. No new text, numbers, statistics, curved fleet arrows, detours, logos, watermarks, or decoration. Only repair the left board's physical geometry; the blocked route must actually cross the sun.",
+        "Use case: precise-object-edit.\nSimplify and correct ONLY the faint planet orbit geometry in the left board of this cover. Keep the sun, blue source, ghost \"Now\" target, blocked horizontal red line and rejection cross, board, right-hand architecture, all labels, palette, and composition unchanged.\nRemove the existing full dotted orbital ellipse. Instead draw only ONE short faint dotted circular ARC from the ghost \"Now\" target clockwise/upward to the teal future target. This arc must be centred on the sun and both target centres must lie at the exact same radius from the sun. The ghost \"Now\" centre is the fixed rightmost point of that circular arc. Move the teal \"At arrival\" planet slightly downward (about 60 image pixels) to sit on that radius, still in the upper-right quadrant; move its label with it. Redraw the single straight teal direct-shot line and its triangular fleet markers from the blue source to the relocated teal target, so it remains safely above the sun. The teal fleet route must remain perfectly straight, never following the curved planet-motion arc.\nAvoid drawing a full circle; the short arc is sufficient. Preserve every architecture module and arrow at right, including the committed-launches feedback. No added text, numbers, icons, decoration, or statistics. Only repair the planet orbit geometry and update the endpoint of the same straight safe route."
+      ],
+      "initial_source_path": "/Users/pilkwang/.codex/generated_images/01a115b1-8632-7283-824b-4d1f61408292/exec-dfacfd7a-81a0-47ff-be29-dfc29e5bef0b.png",
+      "first_revision_source_path": "/Users/pilkwang/.codex/generated_images/01a115b1-8632-7283-824b-4d1f61408292/exec-b95035f2-7075-42da-92bc-8d7cfe394da6.png",
+      "encoding": "cwebp -q 90 -m 6",
+      "quality_review": "Final generated source and encoded WebP inspected. Straight legal route, rejected route intersects sun, same-radius target positions with faint planet-motion arc, clear architecture labels and commitment feedback.",
+      "bytes": 69502,
+      "sha256": "54e8c4eefe87c08b1b9de2153bbe0e3592b278c1b068fe29945001cdcb88a4f8",
+      "title": "Orbit Wars: Structured Baseline Methodology"
+    },
+    {
+      "translation_key": "playground-s6e2-eda",
+      "mode": "reused-body-image",
+      "path": "/assets/img/posts/2026-02-17-s6e2-eda/fig-01-class-balance-train-vs-original.png",
+      "source_path": "/Users/pilkwang/Documents/VSDocs/blog/pilkwangkim.github.io/assets/img/posts/2026-02-17-s6e2-eda/fig-01-class-balance-train-vs-original.png",
+      "rationale": "The article begins from the heart-disease target distribution and checks prior shift before modeling. This existing four-bar comparison is compact, readable, and shows the actual near-aligned original/train class balance. Reuse the complete empirical figure without cropping, redrawing, or altering any values; more complex multi-panel feature plots are too dense for a header.",
+      "alt_en": "Original and competition-training heart-disease class proportions shown side by side.",
+      "source_posts": [
+        "_posts/2026-1Q/2026-02-14-S6E2-EDA.md"
+      ],
+      "dimensions": [
+        689,
+        409
+      ],
+      "inspected": true,
+      "asset_bytes": 29748,
+      "asset_sha256": "257a435942171863cf4bb44e6af4b25b5d2a61344b598eb7dd5068bf313e090e",
+      "native_aspect_ratio": 1.684596577017115,
+      "bytes": 29748,
+      "sha256": "257a435942171863cf4bb44e6af4b25b5d2a61344b598eb7dd5068bf313e090e",
+      "title": "Playground S6E2 EDA: Statistical Insights and Modeling Guidance"
+    },
+    {
+      "translation_key": "playground-s6e2-prediction",
+      "mode": "built-in imagegen",
+      "path": "/assets/img/technical-covers/playground-s6e2-prediction/cover.webp",
+      "source_path": "/Users/pilkwang/.codex/generated_images/01a115b0-feab-7aa0-bb98-65604bcc8038/exec-4e532561-dc6a-46c6-b6f5-843c096e3ba6.png",
+      "rationale": "The article's central mechanism is a shared five-fold validation protocol for boosted-tree model comparisons. Its only body figure is a low-resolution near-square confusion matrix (484x389), suitable for the evaluation section but weak as a wide header. The new scientific cover presents data, holdout separation, boosted trees, and prediction objects without invented scores or diagnostic outcomes. Existing measured confusion-matrix image stays untouched.",
+      "alt_en": "Tabular heart-disease data, five-fold validation, boosted trees, and probability predictions.",
+      "source_posts": [
+        "_posts/2026-1Q/2026-02-18-S6E2-PRED.md"
+      ],
+      "dimensions": [
+        1728,
+        910
+      ],
+      "prompt": "Use case: scientific-educational\nAsset type: wide landscape cover for a technical machine-learning article, approximately 1.9:1 aspect ratio.\nPrimary request: a clear professional scientific illustration of a fixed cross-validation protocol for heart-disease tabular classification using gradient-boosted trees. This is a conceptual modeling workflow, not a chart of measured results.\nScene/backdrop: clean white or very pale off-white background, no scenery.\nSubject and topology: a compact tabular-data grid at the left flows into a cross-validation strip in the middle composed of exactly five equal rectangles, four pale slate rectangles and one teal held-out rectangle. Below that strip are three modest branching decision-tree diagrams representing boosted-tree model families. Their outputs merge into one clean prediction table at the right, with a small unlabeled column of teal probability bars inside the table. Use the five-fold strip to show holdout separation, not a performance comparison. A small thin ECG trace can appear next to the input table as a quiet domain cue, never as a diagnostic result.\nStyle/medium: refined technical editorial illustration, crisp flat shapes, precise linework, restrained scientific-figure design with no playful mascots or cartoon people.\nComposition/framing: landscape about 1.9:1, four simple stages along a readable horizontal flow, ample white space, the workflow centered with clear visual hierarchy. Big shapes remain legible when reduced to a blog thumbnail.\nPalette: white/off-white, deep slate #32465A, muted blue #7298B5, restrained teal #458D8B. Low saturation, clean and professional.\nText: only the exact large labels \"Data\", \"5-fold CV\", \"Boosting\", and \"Predictions\"; one label per stage. No other words, digits, formulas or annotations.\nConstraints: no AUC scores, accuracy numbers, invented measurements, winner badge, diagnostic claims, heart anatomy, copied Kaggle logo, logos, watermarks, borders, tiny text, dense dashboards, photographic setting, glossy 3D, fireworks or abstract essay metaphors. Deliver one finished cover illustration, not a mockup.",
+      "inspected": true,
+      "asset_bytes": 49504,
+      "asset_sha256": "c00150bc8098db64f520611add41fc7a93d11671996ee1ee1a2d7a5a0765f661",
+      "native_aspect_ratio": 1.8989010989010988,
+      "bytes": 49504,
+      "sha256": "c00150bc8098db64f520611add41fc7a93d11671996ee1ee1a2d7a5a0765f661",
+      "title": "Playground S6E2 PRED: CV-Tuned Boosting Pipeline"
+    },
+    {
+      "translation_key": "playground-s6e5-driver-features",
+      "mode": "built-in imagegen",
+      "path": "/assets/img/technical-covers/playground-s6e5-driver-features/cover.webp",
+      "source_path": "/Users/pilkwang/.codex/generated_images/01a115b0-feab-7aa0-bb98-65604bcc8038/exec-20699261-d234-4ceb-9606-5fef17206750.png",
+      "rationale": "The article tests small marginal signal from Driver category support after race/tyre-state features under a fixed OOF counterfactual. The existing body cover is a crowded character/telemetry montage with unrelated numeric displays, so a clean technical overview is clearer and avoids implying unsupported measured performance. A neutral race car and race-state plus category-count cards feed a five-fold comparison. The targeted edit replaced assistance-team icons with category-frequency rows and removed the weather symbol; all existing body imagery remains unchanged.",
+      "alt_en": "Race-state and driver-category support features enter a controlled out-of-fold tree-model comparison.",
+      "alt_ko": "주행 상태와 드라이버 범주의 표본 수 피처를 같은 OOF 조건에서 비교하는 트리 모델 구성.",
+      "source_posts": [
+        "_posts/2026-2Q/2026-05-03-S6E5-Drivers-High-Driver-Feature-Engineering.md",
+        "_posts/2026-2Q/2026-05-03-S6E5-Drivers-High-Driver-Feature-Engineering-KR.md"
+      ],
+      "dimensions": [
+        1727,
+        911
+      ],
+      "prompt": "Use case: scientific-educational\nAsset type: wide landscape cover for a technical machine-learning article, approximately 1.9:1 aspect ratio.\nPrimary request: a clear professional scientific illustration of driver-feature engineering for Formula 1 pit-stop prediction, emphasizing controlled out-of-fold comparison instead of driver skill or glamorous racing.\nScene/backdrop: clean white or pale off-white background, no circuit scenery.\nSubject and topology: at the left, one modest technically recognizable top-down open-wheel racing car, drawn as a precise slate-blue silhouette with four distinct tyres and no livery. Beside the car, two compact feature cards: one headed \"Race state\" showing three unlabeled rows with small tyre/lap pictograms; one headed \"Driver support\" showing a simple category-count glyph, not a portrait. Thin arrows from both cards converge into one clean five-segment held-out validation strip at center-right, four pale slate segments and one teal segment. Below that strip, one pair of visually identical small branching-tree models side by side evokes a controlled counterfactual comparison; do not show either model winning. Above the strip use the single label \"OOF validation\".\nStyle/medium: refined technical editorial illustration with crisp flat shapes, precise scientific linework, sparse annotations; a cover concept, not an empirical dashboard.\nComposition/framing: wide horizontal canvas around 1.9:1, car and features on the first half, validation on the second half, clear hierarchy, ample white space, visually coherent rather than a collage. Large labels and recognisable car/tyres remain readable when reduced.\nPalette: white/off-white, deep slate #32465A, muted blue #7298B5, restrained teal #458D8B. Professional and low saturation.\nText: only the exact three large labels \"Race state\", \"Driver support\", and \"OOF validation\". No other text or numbers.\nConstraints: no invented lap times, driver names, IDs, scores, percentages, measured curves, performance ranking, victory claim, championship trophy, copied F1 or Kaggle logo, logos, watermark, dense dashboards, tiny labels, people, ducks, mascots, glamorous rendering, glossy 3D or abstract essay metaphors. Deliver one finished cover illustration, not a page mockup.",
+      "editing_prompt": "Use case: precise-object-edit.\nImage 1 is the edit target. Keep the wide composition, racing car, all arrows, five-part validation strip, both tree models, palette, white background, and the exact three existing text labels unchanged.\nChange only the pictograms inside the two feature cards so they correctly represent statistical features. In the card titled \"Driver support\", remove the gear, wrench and laptop and their connecting branches; replace all of them with a simple category-frequency table glyph: three clean horizontal rows, each with one small empty square category token and a short muted-blue horizontal support-count bar, no letters or numbers. Here \"support\" means the number of dataset rows per driver category, never mechanics assisting a driver.\nIn the card titled \"Race state\", keep the tyre pictogram and the checkered lap/progress pictogram; replace the rain-cloud pictogram in the bottom row with a simple pair of stacked tyres representing a stint/tyre-state variable. Do not add weather variables.\nThis remains a conceptual scientific illustration, not an empirical chart; do not add values, performance results, new labels, icons outside the cards, watermarks or logos. Everything outside these two card pictograms must be preserved.",
+      "initial_generated_path": "/Users/pilkwang/.codex/generated_images/01a115b0-feab-7aa0-bb98-65604bcc8038/exec-db8a5d60-fd61-4843-910a-e2ba9a6426a5.png",
+      "inspected": true,
+      "asset_bytes": 78748,
+      "asset_sha256": "ae6a85c253dc503de53cda4191290c9490b975b54b5866310076521f1fa523dc",
+      "native_aspect_ratio": 1.8957189901207465,
+      "bytes": 78748,
+      "sha256": "ae6a85c253dc503de53cda4191290c9490b975b54b5866310076521f1fa523dc",
+      "title": "S6E5 Driver's High: Driver Feature Engineering"
+    },
+    {
+      "translation_key": "playground-s6e6-stellar-classification",
+      "mode": "reused-body-image",
+      "path": "/assets/img/posts/2026-06-02-pg-s6e6-eda-gbdt-artifact-blend/fig-04-photometric-geometry.png",
+      "source_path": "/Users/pilkwang/Documents/VSDocs/blog/pilkwangkim.github.io/assets/img/posts/2026-06-02-pg-s6e6-eda-gbdt-artifact-blend/fig-04-photometric-geometry.png",
+      "rationale": "The actual redshift versus u-z scatter summarizes the article's dominant physical class-separation signal, showing the overlap that motivates nonlinear models and calibrated blending. It has one panel, sparse labels, and a clear class legend, making it a stronger scientific header than the decorative character cover or dense executive dashboard. Preserve the complete empirical scatter, axis ranges, legend, points, and aspect ratio without cropping or inventing results.",
+      "alt_en": "Observed redshift and u-z color distributions distinguish stars, galaxies, and quasars with overlapping regions.",
+      "alt_ko": "별·은하·퀘이사의 구분과 겹치는 영역을 보여주는 적색편이와 u-z 색지수 산점도.",
+      "source_posts": [
+        "_posts/2026-2Q/2026-06-02-PG-S6E6-EDA-GBDT-Bases-And-Artifact-Blend.md",
+        "_posts/2026-2Q/2026-06-02-PG-S6E6-EDA-GBDT-Bases-And-Artifact-Blend-KR.md"
+      ],
+      "dimensions": [
+        889,
+        590
+      ],
+      "inspected": true,
+      "asset_bytes": 411940,
+      "asset_sha256": "d8d0599b570c77acdeed8e9564977ffdc697aef353d700215f37486ce7c80761",
+      "native_aspect_ratio": 1.506779661016949,
+      "bytes": 411940,
+      "sha256": "d8d0599b570c77acdeed8e9564977ffdc697aef353d700215f37486ce7c80761",
+      "title": "PG S6E6: Redshift, Color Geometry, and OOF Artifact Blending"
+    },
+    {
+      "translation_key": "pokemon-tcg-working-note-1",
+      "mode": "built-in imagegen",
+      "path": "/assets/img/technical-covers/pokemon-tcg-working-note-1/cover.webp",
+      "source_path": "/Users/pilkwang/.codex/generated_images/01a115b1-8632-7283-824b-4d1f61408292/exec-a51a2402-0b85-4045-a3f2-fc0b298990ee.png",
+      "rationale": "Full English article read (1,027 lines). Concrete face-up creature cards and energy tokens identify the trading-card game. Official replay logs feed behavior cloning, visible board information feeds legal-option ranking, a validated rule fallback joins the same decision surface, and the policy is evaluated in full games. This highlights the article's distinction between offline imitation accuracy and full-game pilot strength. Offline RL and population self-play remain planned in the article, so no completed RL loop, reward chart, benchmark score, or claimed win improvement is depicted.",
+      "alt_en": "Replay-based behavior cloning and a rule fallback rank legal trading-card choices from the visible board before full-game evaluation.",
+      "alt_ko": "리플레이로 학습한 행동 모방 모델과 규칙 기반 대안이 공개된 카드판을 보고 합법적 선택지를 평가하며, 이후 전체 게임으로 파일럿을 검증한다.",
+      "source_posts": [
+        "_posts/2026-3Q/2026-07-02-Pokemon-TCG-AI-Battle-Working-Note-1-Meta-Intelligence-and-the-Pilot-Gap.md",
+        "_posts/2026-3Q/2026-07-02-Pokemon-TCG-AI-Battle-Working-Note-1-Meta-Intelligence-and-the-Pilot-Gap-KR.md"
+      ],
+      "dimensions": [
+        1730,
+        909
+      ],
+      "prompt": "Use case: scientific-educational.\nAsset type: professional technical blog cover for a Pokémon trading-card game AI working note, wide landscape approximately 1.9:1.\nPrimary request: clearly show a card-game pilot that learns from replays, ranks the currently legal choices, retains a rule fallback, and is tested in complete games. This is a concrete technical architecture for trading-card decisions, not a fantasy battle poster and not an abstract essay illustration.\nMain scene: at left, a small neat tabletop showing a face-up active creature trading card, a partially visible benched creature card, and two small attached-energy counters. The illustrated card portraits can be simple original friendly monster shapes, one ghost-like and one insect-like, rendered as restrained flat line art. The cards have no printed name, HP, damage, attack cost, rules text, or numbers; they are schematic, not replicas of real card faces. A visible-board arrow leads into a central clean legal-choice menu with three rows labelled \"Attach\", \"Attack\", and \"Switch\". Show a short unnumbered blue ranking bar in each row, and highlight one chosen legal row in teal; do not claim it is optimal or a winning move. To the right, show two modest facing card mats and a checklist icon for full-game evaluation, without a score, trophy, result chart, or victory indicator.\nLearning and safety architecture: a secondary upper row contains a small replay-log stack labelled \"Replays\" feeding a compact \"Behavior cloning\" model block, with a downward arrow into the central menu's ranker. A secondary lower \"Rule fallback\" block connects into that same central decision point, showing a safe alternative when model coverage or confidence is low. Both learning and fallback rank only choices already supplied by the engine. The training row is separate from the runtime visible-board flow.\nText (verbatim), only these nine short labels: \"Replays\", \"Behavior cloning\", \"Visible board\", \"Legal-option ranking\", \"Attach\", \"Attack\", \"Switch\", \"Rule fallback\", \"Full-game evaluation\". No long title or other text.\nConcept accuracy: the article is about variable-length legal-option ranking under partial observability, BC followed by hybrid rule/model pilots, faithful opponents, temporal evaluation, and an untouched holdout. BC is supervised imitation, not reinforcement learning; offline RL and population self-play are still planned, so do not draw a completed PPO/RL feedback loop, reward curve, success badge, or claimed improvement. Do not show hidden opponent cards being fed into the model. Do not display invented win rates or card statistics, and do not depict a fixed class head tied permanently to action index.\nStyle/medium: polished flat technical editorial diagram, crisp slate #334A5A linework and simple concrete card/table/model objects, white/off-white #F7F8F7 background, restrained teal #488A8A and blue #658CB2. Very small muted creature-colour accents are acceptable, but no vivid trading-card foil, glossy 3D, painterly grain, fireworks, saturated fantasy background, or decorative network mesh.\nComposition/framing: wide horizontal 1.9:1 cover for 1200-by-630 blog display; a balanced readable main left-to-right flow with compact upper learning branch and lower fallback branch, generous whitespace and safe central margins. English labels must be large and clean. No logo, copyrighted card graphics, brand wordmark, watermark, border, dense code, or screenshot UI. Deliver one finished technical cover.",
+      "encoding": "cwebp -q 90 -m 6",
+      "quality_review": "Generated source and final WebP inspected: legible labels, concrete cards and current choices, no invented card names/HP/damage, no hidden-opponent-state input, separate BC training and runtime flow, rule fallback, full-game evaluation without scores.",
+      "bytes": 103710,
+      "sha256": "bbd378bad17dfa306a3bae90be181437445f6a32188b828ff165f9d56f52fb9c",
+      "title": "Pokémon TCG AI Battle Working Note (Part 1): From Rules to an RL Pilot"
+    },
+    {
+      "translation_key": "quantum-transport-negf",
+      "path": "/assets/img/posts/2026-07-22-negf-from-scratch/fig-03-exact-lead-elimination.png",
+      "dimensions": [
+        1329,
+        390
+      ],
+      "rationale": "Exact elimination of the semi-infinite leads is the conceptual spine of the NEGF derivation: a finite device retains their effect as energy-dependent contact self-energy. The existing professionally drawn lead-elimination schematic shows the explicit system, the reduced device with feedback, and the surface-response recursion. It is more directly relevant to the title than a later NDR or transmission result. Preserve the complete three-panel figure at its native wide aspect ratio, without cropping or altering equations.",
+      "alt_en": "Exact lead elimination replaces explicit semi-infinite lead coordinates with energy-dependent self-energy on the finite device.",
+      "alt_ko": "반무한 리드의 좌표를 정확히 소거해 유한한 소자에 에너지 의존 자기 에너지로 반영하는 과정.",
+      "mode": "reused-body-image",
+      "source_path": "/Users/pilkwang/Documents/VSDocs/blog/pilkwangkim.github.io/assets/img/posts/2026-07-22-negf-from-scratch/fig-03-exact-lead-elimination.png",
+      "source_posts": [
+        "_posts/2026-3Q/2026-07-22-From-Closed-to-Open-Quantum-Transport-with-NEGF-KR.md",
+        "_posts/2026-3Q/2026-07-22-From-Closed-to-Open-Quantum-Transport-with-NEGF.md"
+      ],
+      "sha256": "d6660244d9d7e88eb7eed02ff6de77d0ef6fa90bf2b522d8e9afa38f17006d0d",
+      "prompt": null,
+      "inspection": "Full English article and candidate body figures visually reviewed; original figure reused unchanged.",
+      "bytes": 53783,
+      "title": "From Closed to Open Quantum Transport with NEGF: A Derivation from Scratch"
+    },
+    {
+      "translation_key": "rogii-error-anatomy",
+      "path": "/assets/img/posts/2026-07-03-rogii-working-note-target-free-tvt-geosteering/fig-06-error-anatomy.png",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "rationale": "The article explicitly separates remaining TVT error into datum offset, stratigraphic-mode ambiguity, and shape or slope error. Its existing three-panel landscape schematic is the clearest statement of that message and maps each error to a different estimator family. Reusing the unaltered figure preserves the original conceptual comparisons and avoids replacing scientific information with decoration.",
+      "alt_en": "Three sources of hidden-tail TVT error: datum offset, stratigraphic-mode ambiguity, and shape or slope error.",
+      "alt_ko": "숨겨진 구간의 TVT 오차를 기준 위치의 편차, 지층 모드의 불확실성, 형태와 기울기 오차로 나눈 그림.",
+      "mode": "reused-body-image",
+      "source_path": "/Users/pilkwang/Documents/VSDocs/blog/pilkwangkim.github.io/assets/img/posts/2026-07-03-rogii-working-note-target-free-tvt-geosteering/fig-06-error-anatomy.png",
+      "source_posts": [
+        "_posts/2026-3Q/2026-07-03-ROGII-Working-Note-2-Target-Free-TVT-Geosteering-KR.md",
+        "_posts/2026-3Q/2026-07-03-ROGII-Working-Note-2-Target-Free-TVT-Geosteering.md"
+      ],
+      "sha256": "b07aaf4740a2b996008d914ddfb85540dd0361c1d5be39ffca1505c01351d3f3",
+      "prompt": null,
+      "inspection": "Full English article and candidate body figures visually reviewed; original figure reused unchanged.",
+      "bytes": 1224691,
+      "title": "ROGII Working Note (Part 2): Error Anatomy of Target-Free TVT Geosteering"
+    },
+    {
+      "translation_key": "rogii-tvt-alignment",
+      "path": "/assets/img/posts/2026-06-04-rogii-target-free-tvt-alignment/fig-13.png",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "rationale": "The article frames TVT recovery as target-free stratigraphic alignment rather than independent row regression. This existing sparse landscape figure directly shows horizontal gamma-ray motifs matched to a vertical typewell, including a missing-data gap. It conveys the central physical signal more clearly at cover size than the dense full pipeline overview. The entire body figure is reused without crop, redraw, or data alteration.",
+      "alt_en": "Gamma-ray motifs from the horizontal well are aligned with a vertical typewell to infer hidden TVT coordinates.",
+      "alt_ko": "수평정의 감마선 패턴을 수직 기준정과 대비해 숨겨진 TVT 좌표를 추정하는 과정.",
+      "mode": "reused-body-image",
+      "source_path": "/Users/pilkwang/Documents/VSDocs/blog/pilkwangkim.github.io/assets/img/posts/2026-06-04-rogii-target-free-tvt-alignment/fig-13.png",
+      "source_posts": [
+        "_posts/2026-2Q/2026-06-10-ROGII-Target-Free-Stratigraphic-Alignment-for-TVT-KR.md",
+        "_posts/2026-2Q/2026-06-10-ROGII-Target-Free-Stratigraphic-Alignment-for-TVT.md"
+      ],
+      "sha256": "f4a445b6e06ee67d93a531638812b963c8411ef65e9361070fc76a7c62c3279b",
+      "prompt": null,
+      "inspection": "Full English article and candidate body figures visually reviewed; original figure reused unchanged.",
+      "bytes": 842435,
+      "title": "ROGII: Leakage-Controlled TVT Recovery Through Target-Free Stratigraphic Alignment"
+    }
+  ]
+}

@@ -8,6 +8,13 @@ pin: false
 topic: birdclef-2026
 lang: en
 translation_key: birdclef-2026-eos9-pcen
+image:
+  path: /assets/img/posts/2026-05-30-birdclef-eos-oof-gated-pcen/fig-02-oof-gate.svg
+  alt: "Anchor and sidecar ranks pass a plausibility mask, class gate, and movement budget before acceptance."
+  hide_caption: true
+  fit: contain
+  width: 1600
+  height: 900
 ---
 
 # BirdCLEF 2026: EoS9 + OOF-Gated PCEN
