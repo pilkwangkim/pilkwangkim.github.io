@@ -76,6 +76,6 @@ bundle exec htmlproofer _site --disable-external
 
 메뉴와 주제 안내 UI는 사이트 설정의 영어를 사용합니다. `_includes/lang.html`은 글의 `page.lang` 대신 `site.lang`으로 UI 언어를 결정합니다. 글의 실제 언어 정보는 HTML의 `lang`과 번역 대상 링크의 `hreflang`에 유지합니다. `Article language`의 `All`, `Korean`, `English` 버튼은 글 목록을 거르는 기능이며 메뉴 언어를 바꾸지 않습니다. 주제 페이지 자체의 소개와 안내는 영어입니다. 최근 업데이트는 UI 언어와 별도로 현재 글의 언어를 우선하므로 캐시 키에도 `article_lang`을 포함합니다.
 
-페이지가 이전 PWA 캐시의 탐색 스크립트·스타일과 섞이지 않도록, 로컬 스타일 소스·탐색 JavaScript·Gemfile.lock의 내용으로 만든 공통 버전을 두 파일 URL의 `v` 매개변수에 붙입니다. `_layouts/default.html`은 테마 head를 그대로 사용하면서 CSS URL만 버전으로 구분합니다. 같은 소스는 로컬과 배포 빌드에서 같은 버전을 사용합니다.
+페이지가 이전 PWA 캐시의 탐색 스크립트·스타일과 섞이지 않도록, 로컬 스타일 소스·탐색 JavaScript·테마 버전을 고정한 Gemfile의 내용으로 만든 공통 버전을 두 파일 URL의 `v` 매개변수에 붙입니다. `_layouts/default.html`은 테마 head를 그대로 사용하면서 CSS URL만 버전으로 구분합니다. 같은 소스는 로컬과 배포 빌드에서 같은 버전을 사용합니다. 빌드 중 환경별로 생성되는 Gemfile.lock은 버전 계산에서 제외합니다.
 
 로컬 레이아웃과 스타일은 Chirpy 7.6.0을 기준으로 작성되어 `Gemfile`에 버전을 고정했습니다. 테마를 올릴 때는 `_layouts/default.html`, `_layouts/post.html`, `_includes/lang.html`, `_includes/sidebar.html`, `_includes/topbar.html`, `_includes/post-nav.html`, `_includes/update-list.html`, `assets/css/jekyll-theme-chirpy.scss`와 새 테마의 원본을 비교한 뒤 PC·모바일 화면을 확인합니다. `_sass/custom.scss`에는 화면 확대율이 만드는 소수 픽셀 너비에서도 메뉴 버튼이 사라지지 않도록 전환 경계를 보완한 스타일이 있습니다.

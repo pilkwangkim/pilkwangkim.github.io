@@ -11,7 +11,7 @@ module Jekyll
     priority :lowest
 
     def generate(site)
-      asset_sources = ['assets/js/blog-navigation.js', 'assets/css/jekyll-theme-chirpy.scss', 'Gemfile.lock',
+      asset_sources = ['assets/js/blog-navigation.js', 'assets/css/jekyll-theme-chirpy.scss', 'Gemfile',
                        *Dir.glob('_sass/**/*.scss', base: site.source)].sort
       asset_content = asset_sources.map do |path|
         path + "\0" + File.binread(File.join(site.source, path)) + "\0"

@@ -36,7 +36,7 @@ abort 'Metadata report must pass first' unless metadata['status'] == 'passed'
 baseline = JSON.parse(File.read(options[:baseline]))
 config = YAML.safe_load(File.read(File.join(source, '_config.yml')), permitted_classes: [Date, Time], aliases: true)
 baseurl = config['baseurl'].to_s.delete_suffix('/')
-asset_paths = %w[assets/js/blog-navigation.js assets/css/jekyll-theme-chirpy.scss Gemfile.lock] + Dir.glob('_sass/**/*.scss', base: source)
+asset_paths = %w[assets/js/blog-navigation.js assets/css/jekyll-theme-chirpy.scss Gemfile] + Dir.glob('_sass/**/*.scss', base: source)
 asset_fingerprint = Digest::SHA256.hexdigest(asset_paths.sort.map do |path|
   path + "\0" + File.binread(File.join(source, path)) + "\0"
 end.join)[0, 12]
