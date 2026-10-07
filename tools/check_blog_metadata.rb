@@ -57,19 +57,61 @@ end.compact
 topics_path = File.join(source, '_data', 'topics.yml')
 series_path = File.join(source, '_data', 'series.yml')
 aliases_path = File.join(source, '_data', 'tag_aliases.yml')
+categories_path = File.join(source, '_data', 'topic_categories.yml')
 topics = File.file?(topics_path) ? read_yaml.call(topics_path) : []
 series = File.file?(series_path) ? read_yaml.call(series_path) : []
 aliases = File.file?(aliases_path) ? read_yaml.call(aliases_path) : {}
+topic_categories = File.file?(categories_path) ? read_yaml.call(categories_path) : []
 check.call(topics.is_a?(Array) && !topics.empty?, 'Topics must be a nonempty list')
 check.call(series.is_a?(Array), 'Series must be a list')
 check.call(aliases.is_a?(Hash), 'Tag aliases must be a mapping')
-exit 1 unless topics.is_a?(Array) && series.is_a?(Array) && aliases.is_a?(Hash)
+check.call(topic_categories.is_a?(Array), 'Topic categories must be a list')
+exit 1 unless topics.is_a?(Array) && series.is_a?(Array) && aliases.is_a?(Hash) && topic_categories.is_a?(Array)
 
 topic_by_id = topics.to_h { |item| [item['id'], item] }
 series_by_id = series.to_h { |item| [item['id'], item] }
 check.call(topic_by_id.length == topics.length, 'Topic IDs must be unique')
 check.call(series_by_id.length == series.length, 'Series IDs must be unique')
 check.call(topic_by_id.keys.all? { |id| id.is_a?(String) && id.match?(/\A[a-z0-9]+(?:-[a-z0-9]+)*\z/) }, 'Topic IDs must be canonical slugs')
+
+category_ids = topic_categories.filter_map { |category| category['id'] if category.is_a?(Hash) }
+check.call(category_ids.length == topic_categories.length, 'Every topic category must be a record')
+check.call(category_ids.uniq == category_ids, 'Topic category IDs must be unique')
+check.call(category_ids.sort_by(&:to_s) == %w[harness-engineering reinforcement-learning tabular], 'AI navigation must contain exactly Harness Engineering, Tabular, and RL')
+check.call((category_ids & topic_by_id.keys).empty?, 'Topic category URLs must not replace existing topic URLs')
+ai_topic_ids = topics.select { |topic| topic['group'] == 'ai' }.map { |topic| topic['id'] }
+assigned_ai_topics = []
+topic_categories.each do |category|
+  next unless category.is_a?(Hash)
+
+  id = category['id']
+  check.call(category['group'] == 'ai', "Category #{id}: group must be ai")
+  %w[title description].each do |field|
+    check.call(category[field].is_a?(String) && !category[field].strip.empty?, "Category #{id}: missing #{field}")
+  end
+  members = category['topics']
+  check.call(members.is_a?(Array) && !members.empty?, "Category #{id}: topics must be a nonempty list")
+  next unless members.is_a?(Array)
+
+  check.call(members.uniq == members, "Category #{id}: duplicate member topic")
+  members.each do |member|
+    check.call(ai_topic_ids.include?(member), "Category #{id}: unknown or non-AI topic #{member.inspect}")
+  end
+  assigned_ai_topics.concat(members)
+  eligible_keys = posts.filter_map do |post|
+    data = post['front_matter']
+    data['translation_key'] if members.include?(data['topic']) && !data['hidden'] && data['published'] != false
+  end.uniq
+  recommended = category['recommended']
+  check.call(recommended.is_a?(Array), "Category #{id}: recommended must be a list")
+  next unless recommended.is_a?(Array)
+
+  check.call(recommended.uniq == recommended, "Category #{id}: duplicate recommended article")
+  recommended.each do |key|
+    check.call(eligible_keys.include?(key), "Category #{id}: recommended article #{key.inspect} is not a public member")
+  end
+end
+check.call(assigned_ai_topics.tally == ai_topic_ids.tally, 'Every legacy AI topic must belong to exactly one navigation category')
 
 posts.each do |post|
   data = post['front_matter']
@@ -181,6 +223,8 @@ report = {
   'translation_groups' => groups.length,
   'bilingual_pairs' => groups.count { |_, members| members.length == 2 },
   'topics' => topics.length,
+  'topic_categories' => topic_categories.length,
+  'categorized_ai_topics' => assigned_ai_topics.length,
   'series' => series.length,
   'tag_aliases' => aliases.length,
   'body_and_metadata_preservation_checked' => !!options[:baseline],

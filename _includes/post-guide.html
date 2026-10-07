@@ -1,5 +1,6 @@
 {% unless page.hidden %}
 {% assign guide_topic = site.data.topics | where: 'id', page.topic | first %}
+{% assign guide_category = site.data.topic_category_by_id[page.topic] %}
 {% assign guide_translations = '' | split: ',' %}
 {% if page.translation_key %}
   {% assign guide_translations = site.posts | where: 'translation_key', page.translation_key | where_exp: 'post', 'post.hidden != true' %}
@@ -9,7 +10,15 @@
   <aside class="post-guide" aria-label="{% if page.lang == 'ko' %}주제와 시리즈 안내{% else %}Topic and series guide{% endif %}" data-toc-skip>
     <div class="post-guide-links">
       {% if guide_topic and guide_topic.group != 'reference' %}
-        <a class="post-guide-topic" href="{{ '/topics/' | append: guide_topic.id | append: '/' | relative_url }}">{% if page.lang == 'ko' %}주제{% else %}Topic{% endif %}: {{ guide_topic.title | escape }}</a>
+        <div class="post-guide-path">
+          {% if guide_category %}
+            <a class="post-guide-category" href="{{ guide_category.url | relative_url }}">{{ guide_category.title | escape }}</a>
+            <span class="post-guide-separator" aria-hidden="true">›</span>
+            <a class="post-guide-topic" href="{{ '/topics/' | append: guide_topic.id | append: '/' | relative_url }}">{{ guide_topic.title | escape }}</a>
+          {% else %}
+            <a class="post-guide-topic" href="{{ '/topics/' | append: guide_topic.id | append: '/' | relative_url }}">{% if page.lang == 'ko' %}주제{% else %}Topic{% endif %}: {{ guide_topic.title | escape }}</a>
+          {% endif %}
+        </div>
       {% endif %}
       {% for translation in guide_translations %}
         {% if translation.url != page.url %}

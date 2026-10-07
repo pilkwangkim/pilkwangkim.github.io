@@ -13,6 +13,9 @@ module Jekyll
       add_topic_labels(site)
       posts = site.posts.docs.reject { |post| post.data['hidden'] == true }
       topics = Array(site.data['topics'])
+      categories = Array(site.data['topic_categories'])
+      parent_by_id = category_parents(categories)
+      site.data['topic_category_by_id'] = parent_by_id
       index = topics.filter_map do |topic|
         next if topic['group'] == 'reference'
 
@@ -20,19 +23,15 @@ module Jekyll
         next if topic_posts.empty?
 
         articles = group_articles(topic_posts)
-        by_key = articles.to_h { |article| [article['translation_key'], article] }
-        recommended = Array(topic['recommended']).map do |key|
-          by_key.fetch(key) do
-            raise Errors::FatalException, "Topic #{topic['id']}: unknown recommended translation_key #{key}"
-          end
-        end
+        recommended = recommended_articles(topic, articles)
         url = "/topics/#{topic['id']}/"
         page = PageWithoutAFile.new(site, site.source, "topics/#{topic['id']}", 'index.html')
         page.data.merge!(
           'layout' => 'topic', 'title' => topic['title'],
           'description' => topic['description'], 'permalink' => url,
           'lang' => 'ko', 'topic_entry' => topic, 'articles' => articles,
-          'recommended_articles' => recommended, 'post_count' => topic_posts.size
+          'recommended_articles' => recommended, 'post_count' => topic_posts.size,
+          'parent_category' => parent_by_id[topic['id']]
         )
         site.pages << page
         topic.merge('url' => url, 'article_count' => articles.size,
@@ -40,6 +39,8 @@ module Jekyll
                     'languages' => topic_posts.map { |post| post.data['lang'] }.uniq.sort)
       end
       site.data['topic_index'] = index
+      category_index = generate_categories(site, categories, index, posts)
+      site.data['topic_navigation'] = category_index + index.reject { |topic| topic['group'] == 'ai' }
       site.data['recently_updated'] = group_articles(posts).sort_by do |article|
         [-article['modified_at'].to_f, -article['date'].to_f, article['translation_key'].to_s]
       end.first(5)
@@ -47,6 +48,55 @@ module Jekyll
     end
 
     private
+
+    def category_parents(categories)
+      categories.each_with_object({}) do |category, parents|
+        parent = category.slice('id', 'title', 'group').merge('url' => "/topics/#{category['id']}/")
+        Array(category['topics']).each do |id|
+          if parents.key?(id)
+            raise Errors::FatalException, "Topic #{id}: assigned to multiple navigation categories"
+          end
+
+          parents[id] = parent
+        end
+      end
+    end
+
+    def generate_categories(site, categories, topic_index, posts)
+      topics_by_id = topic_index.to_h { |topic| [topic['id'], topic] }
+      categories.map do |category|
+        member_ids = Array(category['topics'])
+        members = member_ids.map do |id|
+          topics_by_id.fetch(id) do
+            raise Errors::FatalException, "Category #{category['id']}: unknown or empty topic #{id}"
+          end
+        end
+        category_posts = posts.select { |post| member_ids.include?(post.data['topic']) }
+        articles = group_articles(category_posts)
+        url = "/topics/#{category['id']}/"
+        page = PageWithoutAFile.new(site, site.source, "topics/#{category['id']}", 'index.html')
+        page.data.merge!(
+          'layout' => 'topic', 'title' => category['title'],
+          'description' => category['description'], 'permalink' => url,
+          'lang' => 'ko', 'category_entry' => category, 'member_topics' => members,
+          'articles' => articles, 'recommended_articles' => recommended_articles(category, articles),
+          'post_count' => category_posts.size
+        )
+        site.pages << page
+        category.merge('url' => url, 'article_count' => articles.size,
+                       'post_count' => category_posts.size,
+                       'languages' => category_posts.map { |post| post.data['lang'] }.uniq.sort)
+      end
+    end
+
+    def recommended_articles(entry, articles)
+      by_key = articles.to_h { |article| [article['translation_key'], article] }
+      Array(entry['recommended']).map do |key|
+        by_key.fetch(key) do
+          raise Errors::FatalException, "Topic #{entry['id']}: unknown recommended translation_key #{key}"
+        end
+      end
+    end
 
     def add_topic_labels(site)
       locales = site.data['locales'] || {}

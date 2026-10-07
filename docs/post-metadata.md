@@ -48,11 +48,15 @@ series_order: 1
 
 `_data/topics.yml`은 `id`, `group`, `title`, `description`, `tag`를 갖는 목록입니다. `group`은 `ai`, `physics`, `essays`, `reference` 중 하나입니다. 주제의 소개와 추천 읽기 순서는 이 파일에서 관리하고, 전체 글 목록은 각 글의 `topic`에서 자동으로 모읍니다. `recommended`에는 URL 대신 `translation_key`를 적어 언어별 링크를 선택할 수 있게 합니다.
 
+AI · Kaggle의 첫 화면과 사이드바에는 `_data/topic_categories.yml`에 정의한 세 분류만 표시합니다. Harness Engineering은 Gemma 4, AI Agent Security, ARC-AGI-3를 묶습니다. Tabular는 Playground·March Machine Learning Mania 등 표형 데이터 예측과 영상·음향·분자·지층 데이터의 예측 모델링을 함께 모읍니다. RL은 Orbit Wars, Pokémon TCG, Kaggriculture, Maze Crawler의 강화학습 및 게임 에이전트 연구를 묶습니다. 각 분류의 `topics`에 대회별 주제 ID를 적으며 모든 AI 주제를 정확히 한 분류에 배정합니다. 분류의 `recommended`에는 해당 분류 안에서 시작하기 좋은 글을 고릅니다.
+
+글의 `topic`과 기존 대회별 안내 URL은 유지합니다. 상위 분류 페이지는 해당 글들을 자동으로 모으고, 대회별 안내 카드들은 접힌 메뉴 안에 제공합니다. 글과 대회별 안내에서도 상위 분류로 이동할 수 있습니다. 물리와 에세이는 기존 주제 구성을 사용합니다.
+
 `_data/series.yml`은 `id`, `title`, `topic`을 갖는 목록입니다. 현재 AI Agent Security 1–12편, BioHub 1–9편, ROGII 1–3편, ARC-AGI-3 본편 1–2편이 등록되어 있습니다. ARC-AGI-3 Research Note R1은 본편 3편으로 취급하지 않습니다. Playground의 서로 다른 회차나 단일 Working Note에 임의의 연속 순번을 붙이지 않습니다.
 
 새 글을 추가한 뒤 메타데이터 검사와 Jekyll 빌드를 실행하고, 주제 목록·번역 링크·시리즈 순서가 실제 화면에서 맞는지 확인합니다.
 
-주제 카드와 사이드바의 주제 순서는 `_data/topics.yml`에 적은 순서를 함께 따릅니다. 추천 목록은 `recommended`에 적은 순서, 전체 글 목록은 최신순, 시리즈 목차는 `series_order` 순입니다. 전체 글의 날짜가 같으면 `translation_key` 순으로 정렬합니다. 옛 태그 모음도 최신순이며 같은 날짜·번역 키의 글은 한국어판을 먼저 표시합니다.
+AI 상위 분류 카드와 사이드바는 `_data/topic_categories.yml` 순서, 분류 안의 대회 카드는 해당 분류의 `topics` 순서를 따릅니다. 물리와 에세이는 `_data/topics.yml` 순서입니다. 추천 목록은 각 데이터의 `recommended` 순서, 전체 글 목록은 최신순, 시리즈 목차는 `series_order` 순입니다. 전체 글의 날짜가 같으면 `translation_key` 순으로 정렬합니다. 옛 태그 모음도 최신순이며 같은 날짜·번역 키의 글은 한국어판을 먼저 표시합니다.
 
 오른쪽 최근 업데이트는 수정 시각의 최신순이며, 같은 수정 시각이면 발행일의 최신순으로 정렬합니다. 한·영 번역 쌍은 한 편으로 묶고, 현재 페이지의 언어에 맞는 버전을 우선 연결합니다. 해당 언어가 없으면 한국어판, 영어판 순으로 선택합니다. 숨김 글은 이 목록에서도 제외합니다.
 

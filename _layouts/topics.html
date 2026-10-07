@@ -15,21 +15,12 @@ layout: default
   {% assign group_ids = 'ai,physics,essays' | split: ',' %}
   {% assign group_titles = 'AI · Kaggle,물리,에세이' | split: ',' %}
   {% for group_id in group_ids %}
-    {% assign group_topics = site.data.topic_index | where: 'group', group_id %}
+    {% assign group_topics = site.data.topic_navigation | where: 'group', group_id %}
     {% if group_topics.size > 0 %}
       <section class="topic-group" data-language-section>
         <h2>{{ group_titles[forloop.index0] }}</h2>
-        <div class="topic-grid">
-          {% for topic in group_topics %}
-            <a class="topic-card" href="{{ topic.url | relative_url }}" data-post-languages="{{ topic.languages | join: ' ' }}">
-              <div class="topic-card-heading">
-                <h3>{{ topic.title | escape }}</h3>
-                <i class="fas fa-arrow-right" aria-hidden="true"></i>
-              </div>
-              <p>{{ topic.description | escape }}</p>
-              <span class="topic-card-meta">{{ topic.article_count }}편 <span aria-hidden="true">·</span> {% if topic.languages contains 'ko' %}한국어{% endif %}{% if topic.languages contains 'ko' and topic.languages contains 'en' %} / {% endif %}{% if topic.languages contains 'en' %}English{% endif %}</span>
-            </a>
-          {% endfor %}
+        <div class="topic-grid{% if group_id == 'ai' %} topic-category-grid{% endif %}">
+          {% include topic-cards.html topics=group_topics %}
         </div>
       </section>
     {% endif %}

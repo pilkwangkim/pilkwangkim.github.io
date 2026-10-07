@@ -94,6 +94,20 @@ html[data-navigation-ready='true'] .discovery-language-controls { display: flex;
   margin-bottom: 2rem;
 }
 
+.topic-category-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+}
+
+.topic-member-guides {
+  margin: 1.5rem 0;
+  border: 1px solid var(--guide-border);
+  border-radius: 0.8rem;
+  background: var(--guide-surface);
+
+  summary { cursor: pointer; padding: 1rem; font-weight: 600; }
+  .topic-grid { padding: 0 1rem 1rem; margin-bottom: 0; }
+}
+
 .topic-card {
   border: 1px solid var(--guide-border);
   border-radius: 0.9rem;
@@ -150,7 +164,10 @@ html[data-navigation-ready='true'] .discovery-language-controls { display: flex;
 
 ol.reading-path-list { list-style: decimal; padding-left: 1.5rem; }
 ol.reading-path-list li::marker { color: var(--text-muted-color); font-weight: 600; }
-ol.reading-path-list .topic-post-row:last-child { border-bottom: 0; }
+.reading-path-list .topic-post-row:last-child { border-bottom: 0; }
+
+.post-guide-path { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.5rem; }
+.post-guide-separator { color: var(--text-muted-color); }
 
 .post-guide {
   margin: 1.5rem 0;
@@ -189,6 +206,7 @@ ol.reading-path-list .topic-post-row:last-child { border-bottom: 0; }
 .series-nav p { margin-bottom: 0; }
 
 .discovery-hub a:focus-visible,
+.topic-member-guides summary:focus-visible,
 .post-guide a:focus-visible,
 .discovery-language-controls button:focus-visible,
 #desktop-sidebar-toggle:focus-visible {

@@ -4,7 +4,11 @@ layout: default
 
 <article class="px-1 discovery-hub topic-detail">
   <header class="discovery-header">
-    <a class="topic-back-link" href="{{ '/topics/' | relative_url }}"><i class="fas fa-arrow-left" aria-hidden="true"></i> 주제별 보기</a>
+    {% if page.parent_category %}
+      <a class="topic-back-link" href="{{ page.parent_category.url | relative_url }}"><i class="fas fa-arrow-left" aria-hidden="true"></i> {{ page.parent_category.title | escape }}</a>
+    {% else %}
+      <a class="topic-back-link" href="{{ '/topics/' | relative_url }}"><i class="fas fa-arrow-left" aria-hidden="true"></i> 주제별 보기</a>
+    {% endif %}
     <h1 data-toc-skip>{{ page.title | escape }}</h1>
     <p class="discovery-intro">{{ page.description | escape }}</p>
     <p class="topic-summary">{{ page.articles.size }}편의 글 <span aria-hidden="true">·</span> {{ page.post_count }}개의 언어별 버전</p>
@@ -12,11 +16,26 @@ layout: default
 
   {% include language-controls.html %}
 
+  {% if page.category_entry and page.member_topics.size > 0 %}
+    <details class="topic-member-guides" data-language-section>
+      <summary>대회별 글 모음 보기 ({{ page.member_topics.size }})</summary>
+      <div class="topic-grid">
+        {% include topic-cards.html topics=page.member_topics %}
+      </div>
+    </details>
+  {% endif %}
+
   {% if page.recommended_articles.size > 0 %}
     <section class="reading-path" data-language-section>
-      <h2>추천 읽기 순서</h2>
-      <p>주제의 흐름을 파악할 수 있도록 아래 순서로 골랐습니다. 각 글에서 원하는 언어를 선택해 읽을 수 있습니다.</p>
-      {% include topic-posts.html articles=page.recommended_articles ordered=true %}
+      {% if page.category_entry %}
+        <h2>시작하기 좋은 글</h2>
+        <p>분류의 주요 문제와 접근법을 살펴볼 수 있는 글입니다. 원하는 언어를 선택해 읽어 보세요.</p>
+        {% include topic-posts.html articles=page.recommended_articles recommended=true %}
+      {% else %}
+        <h2>추천 읽기 순서</h2>
+        <p>주제의 흐름을 파악할 수 있도록 아래 순서로 골랐습니다. 각 글에서 원하는 언어를 선택해 읽을 수 있습니다.</p>
+        {% include topic-posts.html articles=page.recommended_articles ordered=true %}
+      {% endif %}
     </section>
   {% endif %}
 
