@@ -1,81 +1,97 @@
 - id: ai-agent-security
   group: ai
   title: AI Agent Security
+  title_ko: AI 에이전트 보안
   description: Explore attack surfaces and evaluation methods for tool-using AI, from public scores to private results.
   tag: ai-agent-security
 - id: biohub
   group: ai
   title: BioHub Cell Tracking
+  title_ko: BioHub 세포 추적
   description: Follow cell tracking in microscopy images through lineage graph learning, validation, and a competition retrospective.
   tag: biohub
 - id: rogii
   group: ai
   title: ROGII Geosteering
+  title_ko: ROGII 지오스티어링
   description: Study TVT recovery through stratigraphic alignment, error analysis, and competition results.
   tag: rogii
 - id: arc-agi-3
   group: ai
   title: ARC-AGI-3
+  title_ko: ARC-AGI-3 연구
   description: Explore an interactive reasoning benchmark, experimental limits, and program-as-policy research.
   tag: arc-agi-3
 - id: gemma-4
   group: ai
   title: Gemma 4 Developer Agent
+  title_ko: Gemma 4 개발 에이전트
   description: Learn how the competition works and how to build coding agents that find bugs and verify patches.
   tag: gemma-4
 - id: casmi-2026
   group: ai
   title: Enveda CASMI 2026
+  title_ko: Enveda CASMI 2026 분자 구조 식별
   description: Explore molecular structure identification from mass spectra, candidate retrieval, and evaluation.
   tag: casmi-2026
 - id: rsna-knee
   group: ai
   title: RSNA Knee MRI
+  title_ko: RSNA 무릎 MRI
   description: Understand the data and task design behind predicting multiple findings from knee MRI scans and radiology reports.
   tag: rsna-knee
 - id: birdclef-2026
   group: ai
   title: BirdCLEF 2026
+  title_ko: BirdCLEF 2026 생물 음향 분류
   description: Learn about bioacoustic classification ensembles and PCEN calibration guided by out-of-fold validation.
   tag: birdclef-2026
 - id: playground-series
   group: ai
   title: Playground Series
+  title_ko: Playground 시리즈
   description: Browse data analysis, feature engineering, cross-validation, and prediction pipelines across competition rounds.
   tag: playground-series
 - id: march-machine-learning-mania
   group: ai
   title: March Machine Learning Mania
+  title_ko: March Machine Learning Mania 대학 농구 예측
   description: Build a baseline pipeline that predicts college basketball win probabilities while controlling data leakage.
   tag: march-machine-learning-mania
 - id: orbit-wars
   group: ai
   title: Orbit Wars
+  title_ko: Orbit Wars 게임 AI
   description: Explore game AI that separates physics, world modeling, and strategy around arrival times.
   tag: orbit-wars
 - id: maze-crawler
   group: ai
   title: Maze Crawler
+  title_ko: Maze Crawler 게임 AI
   description: Study a rule-based game agent that prioritizes survival and pathfinding.
   tag: maze-crawler
 - id: pokemon-tcg
   group: ai
   title: Pokémon TCG AI Battle
+  title_ko: Pokémon TCG AI 대전
   description: Follow the transition from a rule-based card game agent to a reinforcement learning pilot.
   tag: pokemon-tcg
 - id: kaggriculture
   group: ai
   title: Kaggriculture
+  title_ko: Kaggriculture 농장 게임 AI
   description: Explore game AI design through farming economics, market structure, and replay analysis.
   tag: kaggriculture
 - id: quantum-transport
   group: physics
   title: Quantum Transport
+  title_ko: 양자 수송
   description: Derive NEGF and Landauer current from first principles, moving from closed quantum systems to open transport.
   tag: quantum-transport
 - id: essays
   group: essays
   title: Essays
+  title_ko: 일상의 생각들
   description: Thoughts on everyday life.
   tag: essay
 - id: reference

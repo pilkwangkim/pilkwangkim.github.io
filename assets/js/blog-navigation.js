@@ -153,6 +153,11 @@
       const preferred = selected === 'all' ? (available.includes('en') ? 'en' : 'ko') : selected;
       titles.forEach((title) => { title.hidden = title.dataset.postTitleLanguage !== preferred; });
     });
+    document.querySelectorAll('[data-discovery-title]').forEach((heading) => {
+      const titles = [...heading.querySelectorAll('[data-discovery-title-language]')];
+      const preferred = selected === 'ko' && titles.some((title) => title.dataset.discoveryTitleLanguage === 'ko') ? 'ko' : 'en';
+      titles.forEach((title) => { title.hidden = title.dataset.discoveryTitleLanguage !== preferred; });
+    });
     document.querySelectorAll('[data-language-section]').forEach((section) => {
       section.hidden = ![...section.querySelectorAll('[data-post-languages]')].some((row) => !row.hidden);
     });

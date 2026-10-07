@@ -1,6 +1,7 @@
 - id: harness-engineering
   group: ai
   title: AI Agent Harness Engineering
+  title_ko: AI 에이전트 하네스 엔지니어링
   description: Explore AI agent runtimes, tool integration, security, and evaluation for interactive reasoning.
   topics:
   - gemma-4
@@ -9,6 +10,7 @@
 - id: tabular
   group: ai
   title: Tabular & Predictive Modeling
+  title_ko: 정형 데이터·예측 모델링
   description: Explore tabular prediction alongside modeling and validation for imaging, audio, mass spectra, and stratigraphic data.
   topics:
   - playground-series
@@ -21,6 +23,7 @@
 - id: reinforcement-learning
   group: ai
   title: Reinforcement Learning & Game Agents
+  title_ko: 강화학습·게임 에이전트
   description: Explore game agents through reinforcement learning, rule-based strategies, environment analysis, and replays.
   topics:
   - orbit-wars

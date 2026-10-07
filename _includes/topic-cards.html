@@ -1,7 +1,7 @@
 {% for topic_card in include.topics %}
   <a class="topic-card" href="{{ topic_card.url | relative_url }}" data-topic-entry="{{ topic_card.id }}" data-post-languages="{{ topic_card.languages | join: ' ' }}" lang="en">
     <div class="topic-card-heading">
-      <h3>{{ topic_card.title | escape }}</h3>
+      <h3>{% include discovery-title.html title=topic_card.title title_ko=topic_card.title_ko %}</h3>
       <i class="fas fa-arrow-right" aria-hidden="true"></i>
     </div>
     <p>{{ topic_card.description | escape }}</p>

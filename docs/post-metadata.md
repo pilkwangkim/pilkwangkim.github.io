@@ -46,7 +46,7 @@ series_order: 1
 
 ## 주제와 시리즈 관리
 
-`_data/topics.yml`은 `id`, `group`, `title`, `description`, `tag`를 갖는 목록입니다. `group`은 `ai`, `physics`, `essays`, `reference` 중 하나입니다. 주제의 소개는 이 파일에서 관리하고, 글 목록은 각 글의 `topic`에서 자동으로 모읍니다. 모든 주제 페이지는 언어 선택 아래에 `Latest articles`와 `All articles` 버튼을 제공합니다. 기본 화면은 선택한 언어의 최신 5편이며, 전체 보기 버튼의 편수도 선택한 언어를 기준으로 계산합니다. 추천 목록은 따로 표시하지 않습니다.
+`_data/topics.yml`은 `id`, `group`, `title`, `description`, `tag`를 갖는 목록이며, 공개 주제에는 `title_ko`도 등록합니다. `title`은 기본 영어 제목이며 `title_ko`는 한국어 필터에서 표시할 주제 제목입니다. `group`은 `ai`, `physics`, `essays`, `reference` 중 하나입니다. 주제의 소개는 이 파일에서 관리하고, 글 목록은 각 글의 `topic`에서 자동으로 모읍니다. 모든 주제 페이지는 언어 선택 아래에 `Latest articles`와 `All articles` 버튼을 제공합니다. 기본 화면은 선택한 언어의 최신 5편이며, 전체 보기 버튼의 편수도 선택한 언어를 기준으로 계산합니다. 추천 목록은 따로 표시하지 않습니다. 상위 분류의 카드 제목도 `_data/topic_categories.yml`의 `title`과 `title_ko`로 관리합니다.
 
 `_data/topic_groups.yml`에서 사이드바와 Topics 화면의 상위 그룹 이름·설명·표시 순서를 함께 관리합니다. `physics` 그룹의 표시 이름은 `Physics, Mathematics & Algorithms`이며 물리·수학·알고리즘의 개념, 유도 과정, 계산 방법을 다룹니다. 현재 하위 주제인 Quantum Transport의 이름과 설명은 실제 글의 범위에 맞게 유지합니다. Essays의 설명은 `Thoughts on everyday life.`입니다.
 
@@ -74,9 +74,9 @@ bundle exec htmlproofer _site --disable-external
 
 사이드바의 PC 접기 기능은 모바일 기본 메뉴와 따로 동작하며 선택을 브라우저에 저장합니다. 사이드바 안의 AI·Kaggle, 물리·수학·알고리즘, 에세이 그룹은 각각 접고 펼칠 수 있고, 글이나 주제 안내를 읽을 때는 해당 그룹이 자동으로 열립니다. 주제 링크는 공개 주제 데이터에서 자동 생성합니다. 메뉴가 화면보다 길면 메뉴 영역 안에서 스크롤합니다.
 
-주제 목록은 영어가 기본입니다. 영어 기본값을 도입하기 전 브라우저에 저장된 한글·전체 선택은 새 설정에 넘기지 않고, 이후 명시적으로 고른 언어는 `pilkwang:language:v2`에 저장합니다. `?lang=ko` 또는 `?lang=en` 링크로 특정 언어를 바로 열 수 있고 `All`에서도 영어 제목을 우선 표시합니다. `?view=all`이나 `#all-articles`로 전체 글을 바로 열 수 있습니다. JavaScript를 사용할 수 없으면 전체 목록과 언어별 링크를 제공하고, 그룹 접기는 기본 HTML 기능으로 동작합니다.
+주제 목록은 영어가 기본입니다. `English`와 `All`은 카드·주제 묶음·글 제목을 영어로 표시하며, `한국어`를 선택하면 카드와 묶음은 `title_ko`, 글 제목은 해당 글의 기존 한국어판 제목을 표시합니다. 번역 글이 없으면 해당 언어의 목록에서 제외합니다. 영어 기본값을 도입하기 전 브라우저에 저장된 한글·전체 선택은 새 설정에 넘기지 않고, 이후 명시적으로 고른 언어는 `pilkwang:language:v2`에 저장합니다. `?lang=ko` 또는 `?lang=en` 링크로 특정 언어를 바로 열 수 있습니다. `?view=all`이나 `#all-articles`로 전체 글을 바로 열 수 있습니다. JavaScript를 사용할 수 없으면 영어 제목의 전체 목록과 언어별 링크를 제공하고, 그룹 접기는 기본 HTML 기능으로 동작합니다. 글의 원문 제목과 본문은 수정하지 않습니다.
 
-메뉴와 주제 안내 UI는 사이트 설정의 영어를 사용합니다. `_includes/lang.html`은 글의 `page.lang` 대신 `site.lang`으로 UI 언어를 결정합니다. 글의 실제 언어 정보는 HTML의 `lang`과 번역 대상 링크의 `hreflang`에 유지합니다. `Article language`의 `All`, `Korean`, `English` 버튼은 글 목록을 거르는 기능이며 메뉴 언어를 바꾸지 않습니다. 주제 페이지 자체의 소개와 안내는 영어입니다. 최근 업데이트는 UI 언어와 별도로 현재 글의 언어를 우선하므로 캐시 키에도 `article_lang`을 포함합니다.
+메뉴와 주제 안내 UI는 사이트 설정의 영어를 사용합니다. `_includes/lang.html`은 글의 `page.lang` 대신 `site.lang`으로 UI 언어를 결정합니다. 글의 실제 언어 정보는 HTML의 `lang`과 번역 대상 링크의 `hreflang`에 유지합니다. `Article language`의 `English`, `한국어`, `All` 버튼은 글 목록과 목록 제목을 선택하며 메뉴 언어를 바꾸지 않습니다. 한국어 버튼과 한국어 목록 제목에만 `lang="ko"`를 적용합니다. 사이드바·상단 메뉴·페이지의 제목과 소개·목록 보조 문구는 영어로 유지합니다. 글 버전 링크의 `Korean`·`English`와 본문의 번역 링크 `Read in Korean`도 영어 안내를 유지합니다. 최근 업데이트는 UI 언어와 별도로 현재 글의 언어를 우선하므로 캐시 키에도 `article_lang`을 포함합니다.
 
 페이지가 이전 PWA 캐시의 탐색 스크립트·스타일과 섞이지 않도록, 로컬 스타일 소스·탐색 JavaScript·테마 버전을 고정한 Gemfile의 내용으로 만든 공통 버전을 두 파일 URL의 `v` 매개변수에 붙입니다. `_layouts/default.html`은 테마 head를 그대로 사용하면서 CSS URL만 버전으로 구분합니다. 같은 소스는 로컬과 배포 빌드에서 같은 버전을 사용합니다. 빌드 중 환경별로 생성되는 Gemfile.lock은 버전 계산에서 제외합니다.
 
