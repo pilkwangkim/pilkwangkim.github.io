@@ -46,7 +46,7 @@ series_order: 1
 
 ## 주제와 시리즈 관리
 
-`_data/topics.yml`은 `id`, `group`, `title`, `description`, `tag`를 갖는 목록입니다. `group`은 `ai`, `physics`, `essays`, `reference` 중 하나입니다. 주제의 소개는 이 파일에서 관리하고, 글 목록은 각 글의 `topic`에서 자동으로 모읍니다. 모든 주제 페이지는 언어 선택 아래에 `Latest articles`를 표시하고, 발행일의 최신순으로 정렬합니다. 추천 목록은 따로 표시하지 않습니다.
+`_data/topics.yml`은 `id`, `group`, `title`, `description`, `tag`를 갖는 목록입니다. `group`은 `ai`, `physics`, `essays`, `reference` 중 하나입니다. 주제의 소개는 이 파일에서 관리하고, 글 목록은 각 글의 `topic`에서 자동으로 모읍니다. 모든 주제 페이지는 언어 선택 아래에 `Latest articles`와 `All articles` 버튼을 제공합니다. 기본 화면은 선택한 언어의 최신 5편이며, 전체 보기 버튼의 편수도 선택한 언어를 기준으로 계산합니다. 추천 목록은 따로 표시하지 않습니다.
 
 `_data/topic_groups.yml`에서 사이드바와 Topics 화면의 상위 그룹 이름·설명·표시 순서를 함께 관리합니다. `physics` 그룹의 표시 이름은 `Physics, Mathematics & Algorithms`이며 물리·수학·알고리즘의 개념, 유도 과정, 계산 방법을 다룹니다. 현재 하위 주제인 Quantum Transport의 이름과 설명은 실제 글의 범위에 맞게 유지합니다. Essays의 설명은 `Thoughts on everyday life.`입니다.
 
@@ -54,11 +54,11 @@ AI · Kaggle의 첫 화면과 사이드바에는 `_data/topic_categories.yml`에
 
 글의 `topic`과 기존 대회별 안내 URL은 유지합니다. 상위 분류 페이지는 해당 글들을 자동으로 모으고, 최신 글 목록 아래에서 대회별 안내 카드들을 접힌 메뉴 안에 제공합니다. 글과 대회별 안내에서도 상위 분류로 이동할 수 있습니다. 물리·수학·알고리즘과 에세이는 기존 하위 주제 구성을 사용합니다.
 
-`_data/series.yml`은 `id`, `title`, `topic`을 갖는 목록입니다. 현재 AI Agent Security 1–12편, BioHub 1–9편, ROGII 1–3편, ARC-AGI-3 본편 1–2편이 등록되어 있습니다. ARC-AGI-3 Research Note R1은 본편 3편으로 취급하지 않습니다. Playground의 서로 다른 회차나 단일 Working Note에 임의의 연속 순번을 붙이지 않습니다.
+`_data/series.yml`은 `id`, `title`, `topic`을 갖는 목록입니다. 현재 AI Agent Security 1–12편, BioHub 1–9편, ROGII 1–3편, ARC-AGI-3 본편 1–2편이 등록되어 있습니다. 주제 목록에서도 실제 시리즈를 한 묶음으로 표시합니다. 최신 보기에는 최근 5편에 포함된 편만 최신순으로 표시하며 `View full series`로 전체 시리즈를 펼칩니다. 전체 보기에서는 모든 편을 제공하고 시리즈는 처음에 접혀 있으며, 펼친 목차는 `series_order` 순서입니다. ARC-AGI-3 Research Note R1은 본편 3편으로 취급하지 않습니다. Playground의 서로 다른 회차나 단일 Working Note에 임의의 연속 순번을 붙이지 않습니다.
 
 새 글을 추가한 뒤 메타데이터 검사와 Jekyll 빌드를 실행하고, 주제 목록·번역 링크·시리즈 순서가 실제 화면에서 맞는지 확인합니다.
 
-AI 상위 분류 카드와 사이드바는 `_data/topic_categories.yml` 순서, 분류 안의 대회 카드는 해당 분류의 `topics` 순서를 따릅니다. 물리·수학·알고리즘과 에세이는 `_data/topics.yml` 순서입니다. 글 목록은 최신순, 시리즈 목차는 `series_order` 순입니다. 글의 날짜가 같으면 `translation_key` 순으로 정렬합니다. 옛 태그 모음도 최신순이며 같은 날짜·번역 키의 글은 한국어판을 먼저 표시합니다.
+AI 상위 분류 카드와 사이드바는 `_data/topic_categories.yml` 순서, 분류 안의 대회 카드는 해당 분류의 `topics` 순서를 따릅니다. 물리·수학·알고리즘과 에세이는 `_data/topics.yml` 순서입니다. 주제 목록의 묶음은 최신 편의 발행일순, 시리즈 안의 목차는 `series_order` 순입니다. 최신 5편은 언어 필터를 적용한 뒤 발행일의 내림차순·같은 날짜의 `translation_key` 순으로 선택합니다. 옛 태그 모음도 최신순이며 같은 날짜·번역 키의 글은 한국어판을 먼저 표시합니다.
 
 오른쪽 최근 업데이트는 수정 시각의 최신순이며, 같은 수정 시각이면 발행일의 최신순으로 정렬합니다. 한·영 번역 쌍은 한 편으로 묶고, 현재 페이지의 언어에 맞는 버전을 우선 연결합니다. 해당 언어가 없으면 한국어판, 영어판 순으로 선택합니다. 숨김 글은 이 목록에서도 제외합니다.
 
@@ -72,7 +72,7 @@ bundle exec htmlproofer _site --disable-external
 
 사이드바의 PC 접기 기능은 모바일 기본 메뉴와 따로 동작하며 선택을 브라우저에 저장합니다. 사이드바 안의 AI·Kaggle, 물리·수학·알고리즘, 에세이 그룹은 각각 접고 펼칠 수 있고, 글이나 주제 안내를 읽을 때는 해당 그룹이 자동으로 열립니다. 주제 링크는 공개 주제 데이터에서 자동 생성합니다. 메뉴가 화면보다 길면 메뉴 영역 안에서 스크롤합니다.
 
-주제 목록의 언어 선택도 저장되고, `?lang=ko` 또는 `?lang=en` 링크로 특정 언어를 바로 열 수 있습니다. 직접 링크로 선택한 언어도 이후 주제 탐색에 유지됩니다. JavaScript를 사용할 수 없으면 전체 목록과 언어별 링크를 그대로 제공하고, 그룹 접기는 기본 HTML 기능으로 동작합니다.
+주제 목록은 영어가 기본입니다. 영어 기본값을 도입하기 전 브라우저에 저장된 한글·전체 선택은 새 설정에 넘기지 않고, 이후 명시적으로 고른 언어는 `pilkwang:language:v2`에 저장합니다. `?lang=ko` 또는 `?lang=en` 링크로 특정 언어를 바로 열 수 있고 `All`에서도 영어 제목을 우선 표시합니다. `?view=all`이나 `#all-articles`로 전체 글을 바로 열 수 있습니다. JavaScript를 사용할 수 없으면 전체 목록과 언어별 링크를 제공하고, 그룹 접기는 기본 HTML 기능으로 동작합니다.
 
 메뉴와 주제 안내 UI는 사이트 설정의 영어를 사용합니다. `_includes/lang.html`은 글의 `page.lang` 대신 `site.lang`으로 UI 언어를 결정합니다. 글의 실제 언어 정보는 HTML의 `lang`과 번역 대상 링크의 `hreflang`에 유지합니다. `Article language`의 `All`, `Korean`, `English` 버튼은 글 목록을 거르는 기능이며 메뉴 언어를 바꾸지 않습니다. 주제 페이지 자체의 소개와 안내는 영어입니다. 최근 업데이트는 UI 언어와 별도로 현재 글의 언어를 우선하므로 캐시 키에도 `article_lang`을 포함합니다.
 

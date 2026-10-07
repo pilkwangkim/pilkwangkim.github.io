@@ -5,6 +5,6 @@
       <i class="fas fa-arrow-right" aria-hidden="true"></i>
     </div>
     <p>{{ topic_card.description | escape }}</p>
-    <span class="topic-card-meta">{{ topic_card.article_count }} {% if topic_card.article_count == 1 %}article{% else %}articles{% endif %} <span aria-hidden="true">·</span> {% if topic_card.languages contains 'ko' %}Korean{% endif %}{% if topic_card.languages contains 'ko' and topic_card.languages contains 'en' %} / {% endif %}{% if topic_card.languages contains 'en' %}English{% endif %}</span>
+    <span class="topic-card-meta">{{ topic_card.article_count }} {% if topic_card.article_count == 1 %}article{% else %}articles{% endif %}</span>
   </a>
 {% endfor %}

@@ -39,6 +39,7 @@ read_yaml = ->(path) { YAML.safe_load(File.read(path), permitted_classes: [Date,
 topics = read_yaml.call(File.join(source, '_data', 'topics.yml'))
 topic_categories = read_yaml.call(File.join(source, '_data', 'topic_categories.yml'))
 topic_groups = read_yaml.call(File.join(source, '_data', 'topic_groups.yml'))
+registered_series = read_yaml.call(File.join(source, '_data', 'series.yml')).to_h { |series| [series['id'], series] }
 aliases = read_yaml.call(File.join(source, '_data', 'tag_aliases.yml'))
 
 posts = baseline.map do |item|
@@ -65,7 +66,7 @@ html_for = lambda do |url|
 
   html_cache[url] ||= Nokogiri::HTML(File.read(path))
 end
-hrefs = ->(nodes) { nodes.map { |node| node['href'].delete_prefix(baseurl) } }
+hrefs = ->(nodes) { nodes.map { |node| node['href'].to_s.delete_prefix(baseurl) } }
 normalized_text = ->(node) { node&.text.to_s.gsub(/\s+/, ' ').strip }
 language_name = { 'ko' => 'Korean', 'en' => 'English' }
 inherited_language = lambda do |node|
@@ -78,6 +79,12 @@ english_ui = lambda do |node, url, label|
   check.call(inherited_language.call(node) == 'en', "#{url}: #{label} does not identify its English UI language")
   values = [normalized_text.call(node), node['aria-label'].to_s, node['title'].to_s, node['placeholder'].to_s]
   check.call(values.none? { |value| value.match?(/\p{Hangul}/) }, "#{url}: #{label} contains Korean UI text")
+end
+iso_epoch = lambda do |value, label|
+  Time.iso8601(value.to_s).to_f
+rescue ArgumentError
+  check.call(false, "#{label}: missing or invalid ISO 8601 date")
+  nil
 end
 
 urls.each do |path, url|
@@ -122,8 +129,11 @@ if hub
     check.call(normalized_text.call(card.at_css('.topic-card-meta')).match?(/\A#{Regexp.escape(count_label)}(?:\s|$)/), "Hub #{entry['id']}: English article count is not grouped by translation key")
   end
   check.call(hub.css('[data-language-controls] button[data-language-filter]').map { |button| button['data-language-filter'] }.sort == %w[all en ko], 'Topics hub language controls missing')
+  check.call(hub.css('[data-article-view-controls]').empty?, 'Topics hub must not display article-list view controls')
 end
 
+topic_article_panels_checked = 0
+topic_series_bundles_checked = 0
 guide_entries.each do |topic|
   url = "/topics/#{topic['id']}/"
   html = html_for.call(url)
@@ -132,50 +142,145 @@ guide_entries.each do |topic|
   check.call(html.at_css('html')['lang'] == 'en', "#{url}: topic introduction language must be English")
   check.call(html.css('[data-language-controls]').length == 1, "#{url}: exactly one language selector is required")
   expected = guide_posts.call(topic)
-  groups = expected.group_by { |post| post['translation_key'] }
-  rows = html.css('.topic-all-posts .topic-post-row')
-  check.call(rows.length == groups.length, "#{url}: bilingual articles are not grouped correctly")
-  check.call(hrefs.call(rows.css('a[data-post-language]')).sort == expected.map { |post| post['url'] }.sort, "#{url}: full article links differ from published topic posts")
-  rows.each do |row|
-    row_urls = hrefs.call(row.css('a[data-post-language]'))
-    members = expected.select { |post| row_urls.include?(post['url']) }
-    check.call(members.map { |post| post['translation_key'] }.uniq.length == 1, "#{url}: row merges different articles")
-    check.call(row['data-post-languages'].split.sort == members.map { |post| post['lang'] }.sort, "#{url}: incorrect row language metadata")
-  end
-  # Article titles keep their content language. The version-picker labels are
-  # English UI, while hreflang still describes each destination article.
-  html.css('.topic-post-row').each do |row|
-    links = row.css('a[data-post-language]')
-    members = expected.select { |post| hrefs.call(links).include?(post['url']) }
-    titles = row.css('[data-post-title-language]')
-    check.call(titles.map { |title| title['data-post-title-language'] }.sort == members.map { |post| post['lang'] }.sort, "#{url}: article title languages differ from row versions")
-    titles.each do |title|
-      version = members.find { |post| post['lang'] == title['data-post-title-language'] }
-      check.call(version && title['lang'] == version['lang'], "#{url}: article title language differs from its content")
-      check.call(version && normalized_text.call(title) == version['title'].to_s.gsub(/\s+/, ' ').strip, "#{url}: article title differs from source title")
+  articles = expected.group_by { |post| post['translation_key'] }
+  view_controls = html.css('[data-article-view-controls]')
+  check.call(view_controls.length == 1, "#{url}: exactly one Latest/All view selector is required")
+  if (control = view_controls.first)
+    check.call(control['class'].to_s.split.include?('article-view-controls') && control['role'] == 'group' && control['aria-label'] == 'Article view' && control['lang'] == 'en', "#{url}: article view controls must identify their English UI purpose")
+    view_buttons = control.css('button[data-article-view]')
+    check.call(view_buttons.map { |button| button['data-article-view'] } == %w[latest all], "#{url}: view controls must contain Latest and All exactly once")
+    view_buttons.each do |button|
+      view = button['data-article-view']
+      check.call(button['aria-controls'] == "#{view}-articles", "#{url}: #{view} view button must control its corresponding article panel")
+      check.call(button['aria-pressed'] == (view == 'latest' ? 'true' : 'false'), "#{url}: Latest must be the initially selected article view")
+      label = view == 'latest' ? 'Latest articles' : "All articles (#{articles.length})"
+      check.call(normalized_text.call(button) == label, "#{url}: view button must be labelled #{label}")
     end
-    links.each do |link|
-      target = hrefs.call([link]).first
-      version = members.find { |post| post['url'] == target }
-      next unless version
-
-      check.call(link['lang'] == 'en' && link['hreflang'] == version['lang'] && link['data-post-language'] == version['lang'], "#{url}: version picker must separate English label language from destination language")
-      check.call(normalized_text.call(link) == language_name[version['lang']], "#{url}: version picker label must use its English language name")
-      english_ui.call(link, url, 'article language picker')
-    end
+    all_count = control.css('[data-article-view="all"] [data-article-count]')
+    check.call(all_count.length == 1 && normalized_text.call(all_count.first) == articles.length.to_s, "#{url}: All articles count must use logical articles rather than versions or series bundles")
+    english_ui.call(control, url, 'article view selector')
   end
-  article_order = groups.sort_by do |key, members|
-    [-members.map { |post| date_epoch.call(post) }.max, key.to_s]
+  catalog = articles.each_with_object({}) do |(key, members), collection|
+    series_id = members.first['series']
+    group_id = registered_series.key?(series_id) ? "series:#{series_id}" : "article:#{key}"
+    (collection[group_id] ||= {})[key] = members
+  end
+  catalog_order = catalog.sort_by do |group_id, group_articles|
+    [-group_articles.values.flatten.map { |post| date_epoch.call(post) }.max, group_id]
   end.map(&:first)
-  emitted_order = rows.map do |row|
-    first_url = hrefs.call(row.css('a[data-post-language]')).first
-    expected.find { |post| post['url'] == first_url }&.fetch('translation_key')
+  check.call(html.css('[data-article-panel]').length == 2, "#{url}: exactly two article view panels are required")
+  { 'latest' => ['#latest-articles', '.topic-latest-posts', 'Latest articles'],
+    'all' => ['#all-articles', '.topic-all-posts', 'All articles'] }.each do |view, (selector, css_class, heading)|
+    panels = html.css(selector)
+    check.call(panels.length == 1, "#{url}: exactly one #{view} article panel is required")
+    panel = panels.first
+    next unless panel
+
+    topic_article_panels_checked += 1
+    label = "#{url} #{view}"
+    check.call(panel['data-article-panel'] == view && panel.matches?(css_class), "#{label}: article panel metadata or class differs from its view")
+    check.call(!panel.key?('hidden') && panel['aria-hidden'] != 'true' && !panel['class'].to_s.split.include?('d-none'), "#{label}: the full server-rendered panel must remain accessible without JavaScript")
+    check.call(normalized_text.call(panel.at_css('h2')) == heading, "#{label}: article panel must be headed #{heading}")
+    check.call(panel['data-article-limit'] == '5', "#{label}: latest view must declare its five-article limit") if view == 'latest'
+    rows = panel.css('.topic-post-row')
+    check.call(rows.length == articles.length, "#{label}: server-rendered rows must contain every logical article exactly once")
+    emitted_keys = rows.map { |row| row['data-article-key'] }
+    check.call(emitted_keys.sort_by(&:to_s) == articles.keys.sort_by(&:to_s), "#{label}: article keys are missing, duplicated, or unknown")
+    check.call(hrefs.call(rows.css('a[data-post-language]')).sort == expected.map { |post| post['url'] }.sort, "#{label}: article version links differ from published topic posts")
+    rows.each do |row|
+      key = row['data-article-key']
+      members = articles[key]
+      check.call(!members.nil?, "#{label}: unknown logical article #{key.inspect}")
+      next unless members
+
+      links = row.css('a[data-post-language]')
+      check.call(hrefs.call(links).sort == members.map { |post| post['url'] }.sort, "#{label}: row #{key} merges or loses article versions")
+      check.call(row['data-post-languages'].to_s.split.sort == members.map { |post| post['lang'] }.sort, "#{label}: row #{key} has incorrect language metadata")
+      rendered_date = iso_epoch.call(row['data-article-date'], "#{label} article #{key}")
+      expected_date = members.map { |post| date_epoch.call(post) }.max
+      check.call(rendered_date && (rendered_date - expected_date).abs < 0.001, "#{label}: article #{key} date metadata differs from publication date")
+      if row.key?('data-series-order')
+        check.call(row['data-series-order'].match?(/\A[1-9]\d*\z/) && members.all? { |post| post['series_order'].to_s == row['data-series-order'] }, "#{label}: article #{key} has incorrect series-order metadata")
+      end
+
+      # Titles retain their content language; picker labels use English while
+      # hreflang describes the destination. English is the server-side primary.
+      titles = row.css('[data-post-title-language]')
+      check.call(titles.map { |title| title['data-post-title-language'] }.sort == members.map { |post| post['lang'] }.sort, "#{label}: article #{key} title languages differ from its versions")
+      primary_language = members.any? { |post| post['lang'] == 'en' } ? 'en' : members.first['lang']
+      primary_titles = titles.reject { |title| title.key?('hidden') || title['aria-hidden'] == 'true' }
+      check.call(primary_titles.length == 1 && primary_titles.first['data-post-title-language'] == primary_language, "#{label}: article #{key} must show its English primary title or available-language fallback")
+      titles.each do |title|
+        version = members.find { |post| post['lang'] == title['data-post-title-language'] }
+        check.call(version && title['lang'] == version['lang'], "#{label}: article #{key} title language differs from its content")
+        check.call(version && normalized_text.call(title) == version['title'].to_s.gsub(/\s+/, ' ').strip, "#{label}: article #{key} title differs from source title")
+        title_link = title.at_css('a')
+        check.call(version && title_link && hrefs.call([title_link]) == [version['url']], "#{label}: article #{key} title must link to its own language version")
+      end
+      links.each do |link|
+        version = members.find { |post| post['url'] == hrefs.call([link]).first }
+        next unless version
+
+        check.call(link['lang'] == 'en' && link['hreflang'] == version['lang'] && link['data-post-language'] == version['lang'], "#{label}: version picker must separate English label language from destination language")
+        check.call(normalized_text.call(link) == language_name[version['lang']], "#{label}: version picker label must use its English language name")
+        english_ui.call(link, url, 'article language picker')
+      end
+    end
+
+    blocks = panel.css('[data-article-group]')
+    check.call(blocks.map { |block| block['data-article-group'] } == catalog_order, "#{label}: article groups must be newest first, with group-key ordering for equal dates")
+    blocks.each do |block|
+      group_id = block['data-article-group']
+      group_articles = catalog[group_id]
+      next unless group_articles
+
+      group_date = iso_epoch.call(block['data-group-date'], "#{label} group #{group_id}")
+      expected_group_date = group_articles.values.flatten.map { |post| date_epoch.call(post) }.max
+      check.call(group_date && (group_date - expected_group_date).abs < 0.001, "#{label}: group #{group_id} date must identify its newest article")
+      expected_part_keys = if group_id.start_with?('series:')
+                             group_articles.sort_by do |key, members|
+                               if view == 'latest'
+                                 [-members.map { |post| date_epoch.call(post) }.max, key.to_s]
+                               else
+                                 [members.first['series_order'], key.to_s]
+                               end
+                             end.map(&:first)
+                           else
+                             group_articles.keys
+                           end
+      actual_part_keys = block.css('.topic-post-row').map { |row| row['data-article-key'] }
+      part_order = view == 'latest' ? 'latest date order' : 'series reading order'
+      check.call(actual_part_keys == expected_part_keys, "#{label}: group #{group_id} must contain exactly its own articles in #{part_order}")
+      if group_id.start_with?('series:')
+        series_id = group_id.delete_prefix('series:')
+        details = block.css('details[data-series-id]')
+        check.call(details.length == 1 && details.first['data-series-id'] == series_id, "#{label}: group #{group_id} must use its registered native series disclosure")
+      else
+        check.call(block.css('details[data-series-id]').empty?, "#{label}: standalone articles must not acquire an invented series")
+      end
+    end
+    series_details = panel.css('details[data-series-id]')
+    expected_series_ids = catalog.keys.grep(/\Aseries:/).map { |id| id.delete_prefix('series:') }
+    check.call(series_details.map { |details| details['data-series-id'] }.sort == expected_series_ids.sort, "#{label}: series disclosures are missing, duplicated, or not registered")
+    series_details.each do |details|
+      series_id = details['data-series-id']
+      next unless registered_series.key?(series_id)
+
+      topic_series_bundles_checked += 1
+      prefix = view == 'latest' ? 'latest-series-' : 'series-'
+      check.call(details['id'] == "#{prefix}#{series_id}", "#{label}: series #{series_id} disclosure ID differs from its view")
+      check.call(details.key?('open') == (view == 'latest'), "#{label}: series disclosures must start open in Latest and collapsed in All")
+      check.call(normalized_text.call(details.at_css('.topic-series-heading')) == registered_series[series_id]['title'], "#{label}: series #{series_id} title differs from its registered metadata")
+      series_article_count = catalog.fetch("series:#{series_id}").length
+      check.call(normalized_text.call(details.at_css('[data-series-count]')) == series_article_count.to_s, "#{label}: series #{series_id} must count logical parts rather than language versions")
+      if view == 'latest'
+        full_series_links = details.css('a[data-open-series]')
+        check.call(full_series_links.length == 1 && full_series_links.first['data-open-series'] == series_id && full_series_links.first['href'] == "#series-#{series_id}", "#{label}: full series link must target its All-view disclosure")
+      end
+    end
   end
-  check.call(emitted_order == article_order, "#{url}: full articles must be newest first, with translation_key ordering for equal dates")
   check.call(html.css('.reading-path, .reading-path-list').empty?, "#{url}: recommendation lists must not appear in topic details")
-  latest_lists = html.css('.topic-all-posts')
-  check.call(latest_lists.length == 1, "#{url}: topic detail must have exactly one latest article list")
-  check.call(normalized_text.call(latest_lists.first&.at_css('h2')) == 'Latest articles', "#{url}: chronological article list must be headed Latest articles")
+  check.call(html.css('.topic-latest-posts').length == 1 && html.css('.topic-all-posts').length == 1, "#{url}: Latest and All must each have one dedicated article list")
   if topic['topics']
     member_guides = html.css('details.topic-member-guides')
     check.call(member_guides.length == 1 && !member_guides.first.key?('open'), "#{url}: member topic guides must start collapsed")
@@ -183,7 +288,6 @@ guide_entries.each do |topic|
     cards = html.css('.topic-member-guides .topic-card')
     check.call(cards.map { |card| card['data-topic-entry'] } == expected_members, "#{url}: member guide cards differ from category topics or their order")
     check.call(hrefs.call(cards) == expected_members.map { |id| "/topics/#{id}/" }, "#{url}: member guide URLs differ from preserved topic routes")
-    check.call(html.css('.topic-all-posts, details.topic-member-guides').first == latest_lists.first, "#{url}: latest articles must appear before the competition guide disclosure")
   end
   parent = category_by_topic[topic['id']]
   expected_back = parent ? "/topics/#{parent['id']}/" : '/topics/'
@@ -293,6 +397,8 @@ html_cache.each do |url, html|
     check.call(normalized_text.call(control.at_css('.language-label')) == 'Article language', "#{url}: article language filter heading must be English")
     buttons = control.css('button[data-language-filter]')
     check.call(buttons.length == 3 && buttons.to_h { |button| [button['data-language-filter'], normalized_text.call(button)] } == { 'all' => 'All', 'ko' => 'Korean', 'en' => 'English' }, "#{url}: article language filter labels must be All, Korean, and English")
+    check.call(buttons.map { |button| button['data-language-filter'] } == %w[en ko all], "#{url}: article language controls must present English first")
+    check.call(buttons.all? { |button| button['aria-pressed'] == (button['data-language-filter'] == 'en' ? 'true' : 'false') }, "#{url}: English must be the initially selected article language")
     english_ui.call(control, url, 'article language filter')
   end
 end
@@ -352,8 +458,8 @@ html_cache.each do |url, html|
   selectors = [
     '#search-cancel', '#sidebar .sidebar-bottom button', '#panel-wrapper h2.panel-heading',
     '.discovery-header', '.discovery-eyebrow', '.discovery-note', '.topic-back-link',
-    '.topic-member-guides > summary',
-    '.topic-all-posts > h2', '[data-language-empty]', '.post-guide-topic',
+    '.topic-member-guides > summary', '[data-series-id] > summary',
+    '.topic-latest-posts > h2', '.topic-all-posts > h2', '[data-article-view-controls]', '[data-language-empty]', '.post-guide-topic',
     '.post-guide-category', '.series-toc > summary', '.series-nav-label', '.series-nav-boundary'
   ]
   html.css(selectors.join(', ')).each { |node| english_ui.call(node, url, 'navigation or guide label') }
@@ -434,6 +540,8 @@ report = {
   'language_control_blocks_checked' => language_controls_checked,
   'english_ui_pages_checked' => english_ui_pages_checked,
   'topic_article_order_pages_checked' => guide_entries.length,
+  'topic_article_panels_checked' => topic_article_panels_checked,
+  'topic_series_bundles_checked' => topic_series_bundles_checked,
   'recent_updates_pages_checked' => recent_updates_pages_checked,
   'recent_article_keys' => recent_article_keys,
   'generated_javascript_syntax_checks' => syntax_sources.length,

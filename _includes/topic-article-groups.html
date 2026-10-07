@@ -1,0 +1,27 @@
+<ul class="topic-article-groups">
+  {% for article_group in include.groups %}
+    <li data-article-group="{{ article_group.key | escape }}" data-group-date="{{ article_group.date | date_to_xmlschema }}">
+      {% if article_group.series_id %}
+        <details class="topic-series" id="{% if include.view == 'latest' %}latest-{% endif %}series-{{ article_group.series_id }}" data-series-id="{{ article_group.series_id }}" data-post-languages="{{ article_group.languages | join: ' ' }}"{% if include.view == 'latest' %} open{% endif %}>
+          <summary>
+            <span class="topic-series-heading">{{ article_group.title | escape }}</span>
+            <span class="topic-series-meta"><span data-series-count>{{ article_group.articles.size }}</span> articles <span aria-hidden="true">·</span> <time datetime="{{ article_group.date | date_to_xmlschema }}">{{ article_group.date | date: '%Y.%m.%d' }}</time></span>
+            <i class="fas fa-angle-right" aria-hidden="true"></i>
+          </summary>
+          <div class="topic-series-content">
+            {% if include.view == 'latest' %}
+              {% include topic-posts.html articles=article_group.latest_articles series_part=true %}
+            {% else %}
+              {% include topic-posts.html articles=article_group.articles series_part=true %}
+            {% endif %}
+            {% if include.view == 'latest' %}
+              <a class="topic-series-all" href="#series-{{ article_group.series_id }}" data-open-series="{{ article_group.series_id }}">View full series ({{ article_group.articles.size }}) <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+            {% endif %}
+          </div>
+        </details>
+      {% else %}
+        {% include topic-posts.html articles=article_group.articles %}
+      {% endif %}
+    </li>
+  {% endfor %}
+</ul>

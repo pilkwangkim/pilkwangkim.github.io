@@ -1,6 +1,12 @@
 <div class="discovery-language-controls" data-language-controls role="group" aria-label="Filter articles by language" lang="en">
   <span class="language-label">Article language</span>
-  <button type="button" data-language-filter="all" aria-pressed="true">All</button>
+  <button type="button" data-language-filter="en" aria-pressed="true">English</button>
   <button type="button" data-language-filter="ko" aria-pressed="false">Korean</button>
-  <button type="button" data-language-filter="en" aria-pressed="false">English</button>
+  <button type="button" data-language-filter="all" aria-pressed="false">All</button>
 </div>
+{% if page.layout == 'topic' %}
+  <div class="article-view-controls" data-article-view-controls role="group" aria-label="Article view" lang="en">
+    <button type="button" data-article-view="latest" aria-controls="latest-articles" aria-pressed="true">Latest articles</button>
+    <button type="button" data-article-view="all" aria-controls="all-articles" aria-pressed="false">All articles (<span data-article-count>{{ page.articles.size }}</span>)</button>
+  </div>
+{% endif %}

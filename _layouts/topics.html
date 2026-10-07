@@ -10,7 +10,6 @@ layout: default
   </header>
 
   {% include language-controls.html %}
-  <p class="discovery-note">Korean and English versions are grouped as one article. The article language filter applies across topic guides.</p>
 
   {% for group in site.data.topic_groups %}
     {% assign group_topics = site.data.topic_navigation | where: 'group', group.id %}

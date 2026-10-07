@@ -1,12 +1,12 @@
 <ul class="topic-post-list">
   {% for article in include.articles %}
-    <li class="topic-post-row" data-post-languages="{{ article.languages | join: ' ' }}">
+    <li class="topic-post-row" data-article-key="{{ article.translation_key | escape }}" data-article-date="{{ article.date | date_to_xmlschema }}"{% if article.series_order %} data-series-order="{{ article.series_order }}"{% endif %} data-post-languages="{{ article.languages | join: ' ' }}">
       <div class="topic-post-heading">
-        <h3>
+        {% if include.series_part %}<h4>{% else %}<h3>{% endif %}
           {% for version in article.versions %}
-            <span data-post-title-language="{{ version.lang }}" lang="{{ version.lang }}"{% if version.lang != article.primary_language %} hidden{% endif %}>{{ version.title | escape }}</span>
+            <span data-post-title-language="{{ version.lang }}" lang="{{ version.lang }}"{% if version.lang != article.primary_language %} hidden{% endif %}><a class="topic-title-link" href="{{ version.url | relative_url }}" hreflang="{{ version.lang }}">{{ version.title | escape }}</a></span>
           {% endfor %}
-        </h3>
+        {% if include.series_part %}</h4>{% else %}</h3>{% endif %}
         <time datetime="{{ article.date | date_to_xmlschema }}">{{ article.date | date: '%Y.%m.%d' }}</time>
       </div>
       <div class="topic-language-links">

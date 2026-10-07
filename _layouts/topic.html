@@ -2,7 +2,7 @@
 layout: default
 ---
 
-<article class="px-1 discovery-hub topic-detail" lang="en">
+<article class="px-1 discovery-hub topic-detail" data-article-scope lang="en">
   <header class="discovery-header">
     {% if page.parent_category %}
       <a class="topic-back-link" href="{{ page.parent_category.url | relative_url }}"><i class="fas fa-arrow-left" aria-hidden="true"></i> {{ page.parent_category.title | escape }}</a>
@@ -11,15 +11,18 @@ layout: default
     {% endif %}
     <h1 data-toc-skip>{{ page.title | escape }}</h1>
     <p class="discovery-intro">{{ page.description | escape }}</p>
-    <p class="topic-summary">{{ page.articles.size }} {% if page.articles.size == 1 %}article{% else %}articles{% endif %} <span aria-hidden="true">·</span> {{ page.post_count }} language {% if page.post_count == 1 %}version{% else %}versions{% endif %}</p>
   </header>
 
   {% include language-controls.html %}
 
-  <section class="topic-all-posts" data-language-section>
+  <section id="latest-articles" class="topic-latest-posts" data-article-panel="latest" data-article-limit="5">
     <h2>Latest articles</h2>
-    <p class="discovery-note">Newest first. Korean and English versions share one entry.</p>
-    {% include topic-posts.html articles=page.articles %}
+    {% include topic-article-groups.html groups=page.article_groups view='latest' %}
+  </section>
+
+  <section id="all-articles" class="topic-all-posts" data-article-panel="all">
+    <h2>All articles</h2>
+    {% include topic-article-groups.html groups=page.article_groups view='all' %}
   </section>
 
   {% if page.category_entry and page.member_topics.size > 0 %}

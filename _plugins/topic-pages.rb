@@ -14,6 +14,7 @@ module Jekyll
       posts = site.posts.docs.reject { |post| post.data['hidden'] == true }
       topics = Array(site.data['topics'])
       categories = Array(site.data['topic_categories'])
+      @series_by_id = Array(site.data['series']).to_h { |series| [series['id'], series] }
       parent_by_id = category_parents(categories)
       site.data['topic_category_by_id'] = parent_by_id
       index = topics.filter_map do |topic|
@@ -29,6 +30,7 @@ module Jekyll
           'layout' => 'topic', 'title' => topic['title'],
           'description' => topic['description'], 'permalink' => url,
           'lang' => 'en', 'topic_entry' => topic, 'articles' => articles,
+          'article_groups' => article_groups(articles),
           'post_count' => topic_posts.size,
           'parent_category' => parent_by_id[topic['id']]
         )
@@ -79,6 +81,7 @@ module Jekyll
           'description' => category['description'], 'permalink' => url,
           'lang' => 'en', 'category_entry' => category, 'member_topics' => members,
           'articles' => articles,
+          'article_groups' => article_groups(articles),
           'post_count' => category_posts.size
         )
         site.pages << page
@@ -101,7 +104,7 @@ module Jekyll
 
     def group_articles(posts)
       posts.group_by { |post| post.data['translation_key'] || post.url }.map do |key, versions|
-        versions.sort_by! { |post| [post.data['lang'] == 'ko' ? 0 : 1, post.url] }
+        versions.sort_by! { |post| [post.data['lang'] == 'en' ? 0 : 1, post.url] }
         {
           'translation_key' => key,
           'versions' => versions.map do |post|
@@ -109,10 +112,28 @@ module Jekyll
           end,
           'languages' => versions.map { |post| post.data['lang'] },
           'primary_language' => versions.first.data['lang'],
+          'series' => versions.first.data['series'],
+          'series_order' => versions.first.data['series_order'],
           'date' => versions.map(&:date).max,
           'modified_at' => versions.map { |post| modified_at(post) }.max
         }
       end.sort_by { |article| [-article['date'].to_f, article['translation_key'].to_s] }
+    end
+
+    def article_groups(articles)
+      articles.group_by do |article|
+        article['series'] ? "series:#{article['series']}" : "article:#{article['translation_key']}"
+      end.map do |key, members|
+        series_id = members.first['series']
+        series = @series_by_id.fetch(series_id) if series_id
+        {
+          'key' => key, 'series_id' => series_id, 'title' => series && series['title'],
+          'articles' => series_id ? members.sort_by { |article| article['series_order'] } : members,
+          'latest_articles' => members.sort_by { |article| [-article['date'].to_f, article['translation_key'].to_s] },
+          'languages' => members.flat_map { |article| article['languages'] }.uniq,
+          'date' => members.map { |article| article['date'] }.max
+        }
+      end.sort_by { |group| [-group['date'].to_f, group['key']] }
     end
 
     def modified_at(post)
