@@ -1,0 +1,15 @@
+<!-- Recent updates share the topic index's bilingual grouping and hidden filter. -->
+{% assign update_language = include.lang | split: '-' | first %}
+{% if site.data.recently_updated.size > 0 %}
+  <section id="access-lastmod">
+    <h2 class="panel-heading">{{- site.data.locales[include.lang].panel.lastmod -}}</h2>
+    <ul class="content list-unstyled ps-0 pb-1 ms-1 mt-2">
+      {% for article in site.data.recently_updated %}
+        {% assign update_version = article.versions | where: 'lang', update_language | first | default: article.versions.first %}
+        <li class="text-truncate lh-lg" data-translation-key="{{ article.translation_key | escape }}">
+          <a href="{{ update_version.url | relative_url }}" lang="{{ update_version.lang }}" hreflang="{{ update_version.lang }}">{{ update_version.title | escape }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
+{% endif %}

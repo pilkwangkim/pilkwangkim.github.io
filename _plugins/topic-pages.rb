@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'time'
+
 module Jekyll
   # Keep the hand-written topic introduction separate from automatically grouped
   # posts. Only the Topics document belongs to the tabs collection.
@@ -38,6 +40,9 @@ module Jekyll
                     'languages' => topic_posts.map { |post| post.data['lang'] }.uniq.sort)
       end
       site.data['topic_index'] = index
+      site.data['recently_updated'] = group_articles(posts).sort_by do |article|
+        [-article['modified_at'].to_f, -article['date'].to_f, article['translation_key'].to_s]
+      end.first(5)
       generate_tag_aliases(site, posts)
     end
 
@@ -64,9 +69,16 @@ module Jekyll
           end,
           'languages' => versions.map { |post| post.data['lang'] },
           'primary_language' => versions.first.data['lang'],
-          'date' => versions.map(&:date).max
+          'date' => versions.map(&:date).max,
+          'modified_at' => versions.map { |post| modified_at(post) }.max
         }
       end.sort_by { |article| [-article['date'].to_f, article['translation_key'].to_s] }
+    end
+
+    def modified_at(post)
+      Time.parse(post.data['last_modified_at'].to_s)
+    rescue ArgumentError
+      post.date
     end
 
     # Preserve incoming links to old tag slugs while the current Tags page only

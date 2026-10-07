@@ -54,6 +54,8 @@ series_order: 1
 
 주제 카드와 사이드바의 주제 순서는 `_data/topics.yml`에 적은 순서를 함께 따릅니다. 추천 목록은 `recommended`에 적은 순서, 전체 글 목록은 최신순, 시리즈 목차는 `series_order` 순입니다. 전체 글의 날짜가 같으면 `translation_key` 순으로 정렬합니다. 옛 태그 모음도 최신순이며 같은 날짜·번역 키의 글은 한국어판을 먼저 표시합니다.
 
+오른쪽 최근 업데이트는 수정 시각의 최신순이며, 같은 수정 시각이면 발행일의 최신순으로 정렬합니다. 한·영 번역 쌍은 한 편으로 묶고, 현재 페이지의 언어에 맞는 버전을 우선 연결합니다. 해당 언어가 없으면 한국어판, 영어판 순으로 선택합니다. 숨김 글은 이 목록에서도 제외합니다.
+
 ```sh
 bundle exec ruby tools/check_blog_metadata.rb
 JEKYLL_ENV=production bundle exec jekyll build
@@ -66,4 +68,4 @@ bundle exec htmlproofer _site --disable-external
 
 주제 목록의 언어 선택도 저장되고, `?lang=ko` 또는 `?lang=en` 링크로 특정 언어를 바로 열 수 있습니다. 직접 링크로 선택한 언어도 이후 주제 탐색에 유지됩니다. JavaScript를 사용할 수 없으면 전체 목록과 언어별 링크를 그대로 제공하고, 그룹 접기는 기본 HTML 기능으로 동작합니다.
 
-로컬 레이아웃과 스타일은 Chirpy 7.6.0을 기준으로 작성되어 `Gemfile`에 버전을 고정했습니다. 테마를 올릴 때는 `_layouts/post.html`, `_includes/sidebar.html`, `_includes/topbar.html`, `_includes/post-nav.html`, `assets/css/jekyll-theme-chirpy.scss`와 새 테마의 원본을 비교한 뒤 PC·모바일 화면을 확인합니다. `_sass/custom.scss`에는 화면 확대율이 만드는 소수 픽셀 너비에서도 메뉴 버튼이 사라지지 않도록 전환 경계를 보완한 스타일이 있습니다.
+로컬 레이아웃과 스타일은 Chirpy 7.6.0을 기준으로 작성되어 `Gemfile`에 버전을 고정했습니다. 테마를 올릴 때는 `_layouts/post.html`, `_includes/sidebar.html`, `_includes/topbar.html`, `_includes/post-nav.html`, `_includes/update-list.html`, `assets/css/jekyll-theme-chirpy.scss`와 새 테마의 원본을 비교한 뒤 PC·모바일 화면을 확인합니다. `_sass/custom.scss`에는 화면 확대율이 만드는 소수 픽셀 너비에서도 메뉴 버튼이 사라지지 않도록 전환 경계를 보완한 스타일이 있습니다.

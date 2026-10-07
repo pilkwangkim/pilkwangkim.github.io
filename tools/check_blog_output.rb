@@ -206,6 +206,43 @@ html_cache.each do |url, html|
 end
 check.call(language_controls_checked == active_topics.length + 1, 'Language selectors must cover the Topics hub and every topic guide exactly once')
 
+# Recent updates are grouped globally, but each page picks its own language.
+# Do not infer modification order from source dates: the Git hook supplies live
+# last_modified_at values, which are absent from the preservation snapshot.
+visible_translation_groups = visible_posts.group_by { |post| post['translation_key'] }
+expected_recent_count = [visible_translation_groups.length, 5].min
+recent_updates_pages_checked = 0
+recent_article_keys = nil
+html_cache.each do |url, html|
+  panel = html.at_css('#access-lastmod')
+  check.call(!panel.nil?, "#{url}: recent updates panel is missing")
+  next unless panel
+
+  recent_updates_pages_checked += 1
+  links = panel.css('li a')
+  check.call(links.length == expected_recent_count, "#{url}: recent updates must contain #{expected_recent_count} distinct articles")
+  page_language = html.at_css('html')['lang'].to_s.split('-').first
+  keys = []
+  links.each do |link|
+    target = hrefs.call([link]).first
+    post = post_by_url[target]
+    check.call(post && !post['hidden'] && post['published'] != false, "#{url}: recent updates contain a hidden, unpublished, or unknown post #{target}")
+    next unless post && !post['hidden'] && post['published'] != false
+
+    key = post['translation_key']
+    keys << key
+    check.call(link.ancestors('li').first&.[]('data-translation-key') == key, "#{url}: recent update row key differs from its article")
+    members = visible_translation_groups.fetch(key)
+    primary = members.min_by { |member| [member['lang'] == 'ko' ? 0 : 1, member['url']] }
+    selected = members.find { |member| member['lang'] == page_language } || primary
+    check.call(target == selected['url'], "#{url}: recent update #{key} does not use page language #{page_language} or its primary fallback")
+    check.call(link['lang'] == selected['lang'] && link['hreflang'] == selected['lang'], "#{url}: recent update #{key} has incorrect language attributes")
+  end
+  check.call(keys.uniq == keys, "#{url}: recent updates repeat a bilingual article")
+  recent_article_keys ||= keys
+  check.call(keys == recent_article_keys, "#{url}: recent article groups or their global order differ across pages")
+end
+
 # Validate the emitted inline hook, where production HTML compression can alter
 # JavaScript comments, as well as the standalone navigation script.
 inline_hooks = html_cache.values.flat_map do |html|
@@ -233,6 +270,8 @@ report = {
   'sidebar_public_topics' => active_topics.length,
   'language_control_blocks_checked' => language_controls_checked,
   'topic_article_order_pages_checked' => active_topics.length,
+  'recent_updates_pages_checked' => recent_updates_pages_checked,
+  'recent_article_keys' => recent_article_keys,
   'generated_javascript_syntax_checks' => syntax_sources.length,
   'errors' => errors
 }

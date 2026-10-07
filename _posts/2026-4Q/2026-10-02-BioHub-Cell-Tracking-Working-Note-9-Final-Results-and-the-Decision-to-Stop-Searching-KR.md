@@ -14,7 +14,6 @@ image:
   path: /assets/img/posts/2026-10-02-biohub-working-note-9/cover.png?v=a3ef7423b8db
   alt: "BioHub Cell Tracking 작업 기록 9: 큰 계획에 비해 허술했던 시작"
 topic: biohub
-lang: ko
 translation_key: biohub-09
 series: biohub
 series_order: 9

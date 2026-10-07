@@ -14,7 +14,6 @@ image:
   path: /assets/img/posts/2026-10-02-biohub-working-note-9/cover.png?v=a3ef7423b8db
   alt: "BioHub Cell Tracking Working Note 9: A Big Plan and a Weak Start"
 topic: biohub
-lang: en
 translation_key: biohub-09
 series: biohub
 series_order: 9

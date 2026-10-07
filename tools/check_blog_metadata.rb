@@ -41,6 +41,12 @@ posts = Dir.glob(File.join(source, '_posts', '**', '*.{md,markdown,html}')).sort
     errors << "Missing front matter: #{path}"
     next
   end
+  yaml_root = YAML.parse(parts[1]).root
+  if yaml_root.is_a?(Psych::Nodes::Mapping)
+    keys = yaml_root.children.each_slice(2).map { |key, _| key.value }
+    duplicates = keys.tally.select { |_, count| count > 1 }.keys
+    check.call(duplicates.empty?, "#{path}: duplicate front matter keys: #{duplicates.join(', ')}")
+  end
   {
     'path' => path.delete_prefix("#{source}/"),
     'front_matter' => YAML.safe_load(parts[1], permitted_classes: [Date, Time], aliases: true),
