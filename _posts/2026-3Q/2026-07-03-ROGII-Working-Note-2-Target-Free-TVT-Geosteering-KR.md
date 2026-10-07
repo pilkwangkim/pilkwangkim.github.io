@@ -2,9 +2,14 @@
 title: "ROGII Working Note (2편): Target-Free TVT Geosteering의 오차 해부"
 date: 2026-07-03 21:00:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, rogii, geosteering, stratigraphy, tvt, working-note, error-anatomy, target-free-alignment, korean]
+tags: [kaggle, rogii, error-anatomy, geosteering, stratigraphy, target-free-alignment, tvt, working-note]
 math: true
 pin: false
+topic: rogii
+lang: ko
+translation_key: rogii-error-anatomy
+series: rogii
+series_order: 2
 ---
 
 # ROGII Working Note (2편): Target-Free TVT Geosteering의 오차 해부

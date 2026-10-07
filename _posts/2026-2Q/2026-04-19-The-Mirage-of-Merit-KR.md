@@ -2,9 +2,12 @@
 title: "능력주의의 신기루: 포지셔닝의 지정학 (KR)"
 date: 2026-04-19 20:30:00 +0900
 categories: [Essay, Misc]
-tags: [essay, organization, leadership, career, korean]
+tags: [essay, career, leadership, organization]
 math: true
 pin: false
+topic: essays
+lang: ko
+translation_key: the-mirage-of-merit
 ---
 
 # **능력주의의 신기루: 포지셔닝의 지정학**

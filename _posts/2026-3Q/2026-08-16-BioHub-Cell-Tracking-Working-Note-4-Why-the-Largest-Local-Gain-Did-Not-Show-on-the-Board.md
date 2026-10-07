@@ -2,7 +2,7 @@
 title: "BioHub Cell Tracking Working Note 4: Three Gaps in Local Validation"
 date: 2026-08-16 21:00:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, biohub, cell-tracking, microscopy, lineage-reconstruction, oof, leakage, retraction, hold-in-vs-embryo-out, transfer, working-note]
+tags: [kaggle, biohub, cell-tracking, hold-in-vs-embryo-out, leakage, lineage-reconstruction, microscopy, oof, retraction, transfer, working-note]
 math: true
 last_modified_at: 2026-09-23
 pin: false
@@ -11,6 +11,11 @@ published: true
 image:
   path: /assets/img/posts/2026-08-16-biohub-working-note-4/cover.png
   alt: "BioHub Cell Tracking Working Note 4: Three Gaps in Local Validation"
+topic: biohub
+lang: en
+translation_key: biohub-04
+series: biohub
+series_order: 4
 ---
 
 <style>

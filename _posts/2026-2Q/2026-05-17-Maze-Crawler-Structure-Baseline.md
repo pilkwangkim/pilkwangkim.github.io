@@ -2,9 +2,12 @@
 title: "Maze Crawler: Structure Baseline"
 date: 2026-05-17 21:00:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, maze-crawler, game-ai, rule-based-agent, pathfinding, simulation]
+tags: [kaggle, maze-crawler, game-ai, pathfinding, rule-based-agent, simulation]
 math: true
 pin: false
+topic: maze-crawler
+lang: en
+translation_key: maze-crawler-structured-baseline
 ---
 
 # Maze Crawler: Structure Baseline

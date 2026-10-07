@@ -2,9 +2,12 @@
 title: "능력주의의 환상과 책임의 외주화: 현대 기업은 왜 간판에 집착하는가 (KR)"
 date: 2026-03-21 21:00:00 +0900
 categories: [Essay, Misc]
-tags: [essay, organization, hiring, credentials, meritocracy, korean]
+tags: [essay, credentials, hiring, meritocracy, organization]
 math: true
 pin: false
+topic: essays
+lang: ko
+translation_key: the-credentialist-illusion
 ---
 
 # **능력주의의 환상과 책임의 외주화: 현대 기업은 왜 간판에 집착하는가**

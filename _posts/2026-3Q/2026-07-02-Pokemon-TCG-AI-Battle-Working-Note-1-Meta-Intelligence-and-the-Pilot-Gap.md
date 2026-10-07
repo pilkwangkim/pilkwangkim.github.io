@@ -2,9 +2,12 @@
 title: "Pokémon TCG AI Battle Working Note (Part 1): From Rules to an RL Pilot"
 date: 2026-07-02 21:30:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, pokemon-tcg, game-ai, reinforcement-learning, behavior-cloning, offline-rl, self-play, benchmark, working-note]
+tags: [kaggle, pokemon-tcg, behavior-cloning, benchmark, game-ai, offline-rl, reinforcement-learning, self-play, working-note]
 math: true
 pin: false
+topic: pokemon-tcg
+lang: en
+translation_key: pokemon-tcg-working-note-1
 ---
 
 # Pokémon TCG AI Battle Working Note (Part 1): From Rules to an RL Pilot

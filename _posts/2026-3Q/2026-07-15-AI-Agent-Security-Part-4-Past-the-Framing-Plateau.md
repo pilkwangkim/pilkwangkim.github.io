@@ -2,7 +2,7 @@
 title: "AI Agent Security (Part 4): Past the Framing Plateau"
 date: 2026-07-15 22:00:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, ai-agent-security, red-teaming, agent-safety, exfiltration, prompt-injection, scoring, reverse-engineering, throughput, per-model, replay, variance]
+tags: [kaggle, ai-agent-security, agent-safety, exfiltration, per-model, prompt-injection, red-teaming, replay, reverse-engineering, scoring, throughput, variance]
 math: true
 pin: false
 hide: false
@@ -10,6 +10,11 @@ published: true
 image:
   path: /assets/img/posts/2026-07-15-ai-agent-security-part-4/cover.png
   alt: "Part 4 cover: model routing, the replay cliff, and reasoning collapse"
+topic: ai-agent-security
+lang: en
+translation_key: ai-agent-security-04
+series: ai-agent-security
+series_order: 4
 ---
 
 # AI Agent Security (Part 4): Past the Framing Plateau

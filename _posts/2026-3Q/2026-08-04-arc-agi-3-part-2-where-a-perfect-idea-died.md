@@ -2,12 +2,17 @@
 title: "ARC-AGI-3 Part 2: Where a Mathematically Perfect Idea Went to Die"
 date: 2026-08-04 21:00:00 +0900
 categories: [AI, Kaggle]
-tags: [arc-agi, arc-agi-3, benchmarks, agents, world-models, kaggle, working-note]
+tags: [kaggle, arc-agi-3, ai-agents, arc-agi, benchmark, working-note, world-models]
 math: true
 pin: false
 image:
   path: /assets/img/posts/2026-08-04-arc-agi-3-part-2/cover.png
   alt: "ARC-AGI-3 — an agent cycling through observe, hypothesize, act, feedback"
+topic: arc-agi-3
+lang: en
+translation_key: arc-agi-3-part-2
+series: arc-agi-3-main
+series_order: 2
 ---
 
 # ARC-AGI-3 Working Note 2: Where a Mathematically Perfect Idea Went to Die

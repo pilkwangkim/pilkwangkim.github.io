@@ -2,7 +2,7 @@
 title: "AI Agent Security (11편): 공격 방식이 비공개 평가에서 통하지 않았을 때 — 최종 리더보드와 두 장의 제출권"
 date: 2026-09-02 09:00:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, ai-agent-security, red-teaming, agent-safety, competition-retrospective, public-private-gap, private-leaderboard, rainbow-teaming, silver-medal, korean]
+tags: [kaggle, ai-agent-security, agent-safety, competition-retrospective, private-leaderboard, public-private-gap, rainbow-teaming, red-teaming, silver-medal]
 math: true
 pin: false
 hide: false
@@ -10,6 +10,11 @@ published: true
 image:
   path: /assets/img/posts/2026-09-02-ai-agent-security-part-11/cover.png
   alt: "겉모습이 다른 여러 공개 공격 구성이 하나의 메커니즘으로 모여 비공개 가드레일을 만나는 구조"
+topic: ai-agent-security
+lang: ko
+translation_key: ai-agent-security-11
+series: ai-agent-security
+series_order: 11
 ---
 
 # AI Agent Security (11편): 공격 방식이 비공개 평가에서 통하지 않았을 때 — 최종 리더보드와 두 장의 제출권

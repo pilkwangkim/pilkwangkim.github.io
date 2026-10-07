@@ -2,9 +2,12 @@
 title: "BirdCLEF 2026: EoS9 Anchor 먼저 — OOF-Gated PCEN 보정은 그 다음"
 date: 2026-05-30 21:00:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, birdclef, audio-classification, ensemble, sidecar, oof, pcen, taxonomy, korean]
+tags: [kaggle, birdclef-2026, audio-classification, ensemble, oof, pcen, sidecar, taxonomy]
 math: true
 pin: false
+topic: birdclef-2026
+lang: ko
+translation_key: birdclef-2026-eos9-pcen
 ---
 
 # BirdCLEF 2026: EoS9 Anchor 먼저 — OOF-Gated PCEN 보정은 그 다음

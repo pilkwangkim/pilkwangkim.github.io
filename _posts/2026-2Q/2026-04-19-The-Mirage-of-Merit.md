@@ -2,9 +2,12 @@
 title: "The Mirage of Merit: The Geopolitics of Positioning"
 date: 2026-04-19 20:30:00 +0900
 categories: [Essay, Misc]
-tags: [essay, organization, leadership, career]
+tags: [essay, career, leadership, organization]
 math: true
 pin: false
+topic: essays
+lang: en
+translation_key: the-mirage-of-merit
 ---
 
 **Subtitle: Why competence alone rarely explains who receives opportunity**

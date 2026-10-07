@@ -2,9 +2,12 @@
 title: "Orbit Wars: 도착 시점을 기준으로 — 물리·월드·전략 분리 설계"
 date: 2026-04-26 19:00:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, orbit-wars, game-ai, simulation, reinforcement-learning, korean]
+tags: [kaggle, orbit-wars, game-ai, reinforcement-learning, simulation]
 math: true
 pin: false
+topic: orbit-wars
+lang: ko
+translation_key: orbit-wars-structured-baseline
 ---
 
 # Orbit Wars: 도착 시점을 기준으로 — 물리·월드·전략 분리 설계

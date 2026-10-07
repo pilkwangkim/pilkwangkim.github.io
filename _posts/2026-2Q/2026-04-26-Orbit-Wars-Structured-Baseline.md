@@ -2,9 +2,12 @@
 title: "Orbit Wars: Structured Baseline Methodology"
 date: 2026-04-26 19:00:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, orbit-wars, game-ai, simulation, reinforcement-learning]
+tags: [kaggle, orbit-wars, game-ai, reinforcement-learning, simulation]
 math: true
 pin: false
+topic: orbit-wars
+lang: en
+translation_key: orbit-wars-structured-baseline
 ---
 
 # 🛰️ Orbit Wars: Structured Baseline Methodology

@@ -2,9 +2,14 @@
 title: "ROGII: Target-Free 지층 대비로 TVT 복원하기 — 데이터 누수 통제 설계"
 date: 2026-06-10 21:00:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, rogii, geosteering, stratigraphy, tvt, leakage-control, target-free-alignment, ensemble, korean]
+tags: [kaggle, rogii, ensemble, geosteering, leakage-control, stratigraphy, target-free-alignment, tvt]
 math: true
 pin: false
+topic: rogii
+lang: ko
+translation_key: rogii-tvt-alignment
+series: rogii
+series_order: 1
 ---
 
 # ROGII: Target-Free 지층 대비로 TVT 복원하기 — 데이터 누수 통제 설계

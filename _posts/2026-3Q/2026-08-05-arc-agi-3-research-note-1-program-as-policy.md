@@ -2,9 +2,12 @@
 title: "ARC-AGI-3 Research Note R1: The Unit Cost of Thinking, and Program-as-Policy"
 date: 2026-08-05 21:00:00 +0900
 categories: [AI, Kaggle]
-tags: [arc-agi, arc-agi-3, agents, world-models, program-synthesis, research-note, kaggle]
+tags: [kaggle, arc-agi-3, ai-agents, arc-agi, program-synthesis, research-note, world-models]
 math: true
 pin: false
+topic: arc-agi-3
+lang: en
+translation_key: arc-agi-3-research-r1
 ---
 
 # ARC-AGI-3 Research Note R1: The Unit Cost of Thinking, and Program-as-Policy — From Design to First Results

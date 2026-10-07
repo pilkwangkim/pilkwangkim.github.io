@@ -2,7 +2,7 @@
 title: "BioHub Cell Tracking 작업 기록 8: 최종 제출을 고를 때 고민한 것들"
 date: 2026-09-18 21:00:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, biohub, cell-tracking, microscopy, lineage-reconstruction, final-selection, stage-jitter, registration, association-head, embryo-out, selection-bias, oof, working-note, korean]
+tags: [kaggle, biohub, association-head, cell-tracking, embryo-out, final-selection, lineage-reconstruction, microscopy, oof, registration, selection-bias, stage-jitter, working-note]
 math: true
 last_modified_at: 2026-10-02
 pin: false
@@ -11,6 +11,11 @@ published: true
 image:
   path: /assets/img/posts/2026-09-18-biohub-working-note-8/cover.png
   alt: "BioHub Cell Tracking 작업 기록 8: 최종 제출을 고를 때 고민한 것들"
+topic: biohub
+lang: ko
+translation_key: biohub-08
+series: biohub
+series_order: 8
 ---
 
 <style>

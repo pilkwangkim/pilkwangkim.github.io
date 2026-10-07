@@ -2,7 +2,7 @@
 title: "AI Agent Security (Part 5): The Raw Wall from the Inside"
 date: 2026-07-21 21:00:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, ai-agent-security, red-teaming, agent-safety, exfiltration, prompt-injection, scoring, reverse-engineering, throughput, per-model, replay, guardrail, predicates]
+tags: [kaggle, ai-agent-security, agent-safety, exfiltration, guardrail, per-model, predicates, prompt-injection, red-teaming, replay, reverse-engineering, scoring, throughput]
 math: true
 pin: false
 hide: false
@@ -10,6 +10,11 @@ published: true
 image:
   path: /assets/img/posts/2026-07-21-ai-agent-security-part-5/cover.png
   alt: "Part 5 cover: greedy decoding, taint memory, and the raw-score frontier"
+topic: ai-agent-security
+lang: en
+translation_key: ai-agent-security-05
+series: ai-agent-security
+series_order: 5
 ---
 
 # AI Agent Security (Part 5): The Raw Wall from the Inside

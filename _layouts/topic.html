@@ -1,0 +1,29 @@
+---
+layout: default
+---
+
+<article class="px-1 discovery-hub topic-detail">
+  <header class="discovery-header">
+    <a class="topic-back-link" href="{{ '/topics/' | relative_url }}"><i class="fas fa-arrow-left" aria-hidden="true"></i> 주제별 보기</a>
+    <h1 data-toc-skip>{{ page.title | escape }}</h1>
+    <p class="discovery-intro">{{ page.description | escape }}</p>
+    <p class="topic-summary">{{ page.articles.size }}편의 글 <span aria-hidden="true">·</span> {{ page.post_count }}개의 언어별 버전</p>
+  </header>
+
+  {% include language-controls.html %}
+
+  {% if page.recommended_articles.size > 0 %}
+    <section class="reading-path" data-language-section>
+      <h2>추천 읽기 순서</h2>
+      <p>주제의 흐름을 파악할 수 있도록 아래 순서로 골랐습니다. 각 글에서 원하는 언어를 선택해 읽을 수 있습니다.</p>
+      {% include topic-posts.html articles=page.recommended_articles ordered=true %}
+    </section>
+  {% endif %}
+
+  <section class="topic-all-posts" data-language-section>
+    <h2>전체 글</h2>
+    <p class="discovery-note">최근 글부터 표시합니다. 한국어와 영어 버전은 같은 행에 모았습니다.</p>
+    {% include topic-posts.html articles=page.articles %}
+  </section>
+  <p data-language-empty hidden role="status">선택한 언어로 읽을 수 있는 글이 없습니다.</p>
+</article>

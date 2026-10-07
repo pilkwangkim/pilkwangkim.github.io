@@ -2,9 +2,12 @@
 title: "The Language That Faces the Future"
 date: 2026-05-24 20:30:00 +0900
 categories: [Essay, Misc]
-tags: [essay, leadership, organization, decision-making, future-thinking]
+tags: [essay, decision-making, future-thinking, leadership, organization]
 math: false
 pin: false
+topic: essays
+lang: en
+translation_key: the-language-that-faces-the-future
 ---
 
 **Subtitle: Why leadership must stop defending yesterday and organize around tomorrow**

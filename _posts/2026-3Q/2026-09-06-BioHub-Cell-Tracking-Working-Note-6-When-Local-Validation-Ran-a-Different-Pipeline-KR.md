@@ -2,7 +2,7 @@
 title: "BioHub Cell Tracking 작업 기록 6: 로컬 검증이 제출 파이프라인과 달랐던 문제"
 date: 2026-09-06 21:00:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, biohub, cell-tracking, microscopy, lineage-reconstruction, universe-mismatch, transfer-ratio, detector-augmentation, leakage, oof, working-note, korean]
+tags: [kaggle, biohub, cell-tracking, detector-augmentation, leakage, lineage-reconstruction, microscopy, oof, transfer-ratio, universe-mismatch, working-note]
 math: true
 last_modified_at: 2026-09-23
 pin: false
@@ -11,6 +11,11 @@ published: true
 image:
   path: /assets/img/posts/2026-09-06-biohub-working-note-6/cover.png
   alt: "BioHub Cell Tracking 작업 기록 6: 로컬 검증이 제출 파이프라인과 달랐던 문제"
+topic: biohub
+lang: ko
+translation_key: biohub-06
+series: biohub
+series_order: 6
 ---
 
 <style>

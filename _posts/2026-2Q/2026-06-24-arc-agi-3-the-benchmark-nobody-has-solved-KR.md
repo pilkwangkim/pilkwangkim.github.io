@@ -2,9 +2,14 @@
 title: "ARC-AGI-3: 아직 아무도 풀지 못한 벤치마크 (KR)"
 date: 2026-06-24 21:00:00 +0900
 categories: [AI, Kaggle]
-tags: [arc-agi, arc-agi-3, benchmarks, reinforcement-learning, agents, world-models, agi, korean]
+tags: [arc-agi-3, agi, ai-agents, arc-agi, benchmark, reinforcement-learning, world-models]
 math: true
 pin: false
+topic: arc-agi-3
+lang: ko
+translation_key: arc-agi-3-introduction
+series: arc-agi-3-main
+series_order: 1
 ---
 
 <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/arc-agi-3.css?v=20260625-3">

@@ -1,0 +1,17 @@
+<!-- Restore the desktop reading preference before the first paint. -->
+<script>
+  try {
+    if (localStorage.getItem('pilkwang:sidebar') === 'collapsed') {
+      document.documentElement.dataset.sidebarCollapsed = 'true';
+    }
+  } catch (_) {
+    /* Navigation remains usable when browser storage is unavailable. */
+  }
+</script>
+<script defer src="{{ '/assets/js/blog-navigation.js' | relative_url }}"></script>
+{% if page.translation_key %}
+  {% assign alternate_posts = site.posts | where: 'translation_key', page.translation_key | where_exp: 'post', 'post.hidden != true' %}
+  {% for alternate in alternate_posts %}
+    <link rel="alternate" hreflang="{{ alternate.lang }}" href="{{ alternate.url | absolute_url }}">
+  {% endfor %}
+{% endif %}

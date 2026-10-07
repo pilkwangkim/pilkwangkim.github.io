@@ -2,7 +2,7 @@
 title: "AI Agent Security (2편): 선형 점수식과 리플레이 한계, 그리고 비공개 가드레일"
 date: 2026-06-19 21:00:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, ai-agent-security, red-teaming, agent-safety, exfiltration, prompt-injection, scoring, reverse-engineering, guardrail, egress-filter, korean]
+tags: [kaggle, ai-agent-security, agent-safety, egress-filter, exfiltration, guardrail, prompt-injection, red-teaming, reverse-engineering, scoring]
 math: true
 pin: false
 hide: false
@@ -10,6 +10,11 @@ published: true
 image:
   path: /assets/img/posts/2026-06-19-ai-agent-security-part-2/cover.png
   alt: "2편 표지: K=1 단일 POST 점수식, 리플레이 절벽, 판별기 간 차이"
+topic: ai-agent-security
+lang: ko
+translation_key: ai-agent-security-02
+series: ai-agent-security
+series_order: 2
 ---
 
 # AI Agent Security (2편): 선형 점수식과 리플레이 한계, 그리고 비공개 가드레일

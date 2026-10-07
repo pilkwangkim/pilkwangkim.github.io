@@ -2,9 +2,12 @@
 title: "Markdown 문법 & Chirpy 테마 치트시트"
 date: 2025-12-12 16:00:00 +0900
 categories: [Reference, Private]
-tags: [markdown, latex, cheat sheet]
+tags: [cheat-sheet, latex, markdown]
 math: true
 hidden: true
+topic: reference
+lang: ko
+translation_key: markdown-chirpy-cheat-sheet
 ---
 
 이 글은 `hidden: true` 설정이 되어 있어 블로그 목록에는 뜨지 않습니다.

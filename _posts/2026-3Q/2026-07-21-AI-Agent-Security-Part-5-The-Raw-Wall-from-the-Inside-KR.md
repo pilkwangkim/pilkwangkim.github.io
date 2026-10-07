@@ -2,7 +2,7 @@
 title: "AI Agent Security (5편): 소스에서 확인한 원점수의 한계"
 date: 2026-07-21 21:00:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, ai-agent-security, red-teaming, agent-safety, exfiltration, prompt-injection, scoring, reverse-engineering, throughput, per-model, replay, guardrail, predicates, korean]
+tags: [kaggle, ai-agent-security, agent-safety, exfiltration, guardrail, per-model, predicates, prompt-injection, red-teaming, replay, reverse-engineering, scoring, throughput]
 math: true
 pin: false
 hide: false
@@ -10,6 +10,11 @@ published: true
 image:
   path: /assets/img/posts/2026-07-21-ai-agent-security-part-5/cover.png
   alt: "5편 표지: 탐욕 디코딩, 오염 이력, 원점수 한계"
+topic: ai-agent-security
+lang: ko
+translation_key: ai-agent-security-05
+series: ai-agent-security
+series_order: 5
 ---
 
 # AI Agent Security (5편): 소스에서 확인한 원점수의 한계

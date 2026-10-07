@@ -2,9 +2,12 @@
 title: "S6E5 Driver's High: Driver Feature Engineering"
 date: 2026-05-03 21:00:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, playground-series, feature-engineering, cross-validation, auc, formula1]
+tags: [kaggle, playground-series, cross-validation, feature-engineering, formula1, roc-auc]
 math: true
 pin: false
+topic: playground-series
+lang: en
+translation_key: playground-s6e5-driver-features
 ---
 
 # 🏎️ S6E5 Driver's High: Driver Feature Engineering

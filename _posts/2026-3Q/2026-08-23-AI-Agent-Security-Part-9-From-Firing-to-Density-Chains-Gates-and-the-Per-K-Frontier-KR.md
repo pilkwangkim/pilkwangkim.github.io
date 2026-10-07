@@ -2,7 +2,7 @@
 title: "AI Agent Security (9편): 작동 여부에서 점수 밀도로 — 연쇄 호출, 선택 기준, 그리고 K별 성능 한계"
 date: 2026-08-23 09:00:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, ai-agent-security, red-teaming, agent-safety, tool-use, evaluation, throughput, density, gemma, gpt-oss, t4, rainbow-teaming, working-note, korean]
+tags: [kaggle, ai-agent-security, agent-safety, density, evaluation, gemma, gpt-oss, rainbow-teaming, red-teaming, t4, throughput, tool-use, working-note]
 math: true
 pin: false
 hide: false
@@ -10,6 +10,11 @@ published: true
 image:
   path: /assets/img/posts/2026-08-23-ai-agent-security-part-9/cover.png
   alt: "9편 표지: 정확한 연쇄 호출, 밀도 게이트, K별 구문 한계"
+topic: ai-agent-security
+lang: ko
+translation_key: ai-agent-security-09
+series: ai-agent-security
+series_order: 9
 ---
 
 # AI Agent Security (9편): 작동 여부에서 점수 밀도로 — 연쇄 호출, 선택 기준, 그리고 K별 성능 한계

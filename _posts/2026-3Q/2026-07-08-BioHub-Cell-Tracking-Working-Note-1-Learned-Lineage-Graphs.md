@@ -2,7 +2,7 @@
 title: "BioHub Cell Tracking Working Note 1: Learned Lineage Graphs and Metric-Aware Repair"
 date: 2026-07-11 21:00:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, biohub, cell-tracking, microscopy, lineage-reconstruction, unet, ilp, graph-repair, working-note]
+tags: [kaggle, biohub, cell-tracking, graph-repair, ilp, lineage-reconstruction, microscopy, unet, working-note]
 math: true
 last_modified_at: 2026-09-23
 pin: false
@@ -10,6 +10,11 @@ image:
   path: /assets/img/posts/2026-07-08-biohub-working-note-1/cover.png
   alt: "BioHub Cell Tracking Working Note 1: Learned Lineage Graphs and Metric-Aware Repair"
 published: true
+topic: biohub
+lang: en
+translation_key: biohub-01
+series: biohub
+series_order: 1
 ---
 
 <style>

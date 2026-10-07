@@ -2,7 +2,7 @@
 title: "BioHub Cell Tracking 작업 기록 1: Lineage Graph 학습과 평가지표에 맞춘 후처리"
 date: 2026-07-11 21:00:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, biohub, cell-tracking, microscopy, lineage-reconstruction, unet, ilp, graph-repair, working-note, korean]
+tags: [kaggle, biohub, cell-tracking, graph-repair, ilp, lineage-reconstruction, microscopy, unet, working-note]
 math: true
 last_modified_at: 2026-09-23
 pin: false
@@ -10,6 +10,11 @@ image:
   path: /assets/img/posts/2026-07-08-biohub-working-note-1/cover.png
   alt: "BioHub Cell Tracking 작업 기록 1: Lineage Graph 학습과 평가지표에 맞춘 후처리"
 published: true
+topic: biohub
+lang: ko
+translation_key: biohub-01
+series: biohub
+series_order: 1
 ---
 
 <style>

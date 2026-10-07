@@ -2,7 +2,7 @@
 title: "AI Agent Security (Part 11): When the Mechanism Did Not Transfer — The Private Reveal and the Cost of Two Slots"
 date: 2026-09-02 09:00:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, ai-agent-security, red-teaming, agent-safety, competition-retrospective, public-private-gap, private-leaderboard, rainbow-teaming, silver-medal]
+tags: [kaggle, ai-agent-security, agent-safety, competition-retrospective, private-leaderboard, public-private-gap, rainbow-teaming, red-teaming, silver-medal]
 math: true
 pin: false
 hide: false
@@ -10,6 +10,11 @@ published: true
 image:
   path: /assets/img/posts/2026-09-02-ai-agent-security-part-11/cover.png
   alt: "Several public attack constructions converging on one shared mechanism before a held-out guardrail"
+topic: ai-agent-security
+lang: en
+translation_key: ai-agent-security-11
+series: ai-agent-security
+series_order: 11
 ---
 
 # AI Agent Security (Part 11): When the Mechanism Did Not Transfer — The Private Reveal and the Cost of Two Slots

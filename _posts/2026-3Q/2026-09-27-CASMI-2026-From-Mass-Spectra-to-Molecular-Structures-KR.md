@@ -3,7 +3,7 @@ title: "Enveda CASMI 2026: 질량스펙트럼에서 분자 구조를 찾아내�
 description: "CASMI 2026은 어떤 대회이며 무엇부터 시작해야 할까? 미지 분자 하나의 식별 과정을 따라 물리화학, 데이터와 평가, 공개 노트북·리더보드의 현재 수준, 첫 실험과 향후 전략을 연결한다."
 date: 2026-09-27 09:00:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, casmi, mass-spectrometry, metabolomics, molecular-identification, cheminformatics, working-note, korean]
+tags: [kaggle, casmi-2026, cheminformatics, mass-spectrometry, metabolomics, molecular-identification, working-note]
 math: true
 mermaid: false
 image:
@@ -11,6 +11,9 @@ image:
 pin: false
 published: true
 permalink: /posts/CASMI-2026-From-Mass-Spectra-to-Molecular-Structures-KR/
+topic: casmi-2026
+lang: ko
+translation_key: casmi-2026-molecular-structures
 ---
 
 <style>

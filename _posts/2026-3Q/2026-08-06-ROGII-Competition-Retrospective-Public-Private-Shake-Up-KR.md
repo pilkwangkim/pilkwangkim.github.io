@@ -2,12 +2,17 @@
 title: "ROGII 대회 회고: Silver Medal까지의 여정과 Public/Private 격차의 교훈"
 date: 2026-08-06 09:00:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, rogii, geosteering, stratigraphy, tvt, competition-retrospective, public-private-gap, silver-medal, korean]
+tags: [kaggle, rogii, competition-retrospective, geosteering, public-private-gap, silver-medal, stratigraphy, tvt]
 math: true
 pin: false
 image:
   path: /assets/img/posts/2026-08-06-rogii-competition-retrospective/cover.png
   alt: "ROGII 지층 정렬과 TVT 예측을 설명하는 geosteering 개요도"
+topic: rogii
+lang: ko
+translation_key: rogii-retrospective
+series: rogii
+series_order: 3
 ---
 
 # ROGII 대회 회고: Silver Medal까지의 여정과 Public/Private 격차의 교훈

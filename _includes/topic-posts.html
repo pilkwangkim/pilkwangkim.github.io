@@ -1,0 +1,19 @@
+{% if include.ordered %}<ol class="topic-post-list reading-path-list">{% else %}<ul class="topic-post-list">{% endif %}
+  {% for article in include.articles %}
+    <li class="topic-post-row" data-post-languages="{{ article.languages | join: ' ' }}">
+      <div class="topic-post-heading">
+        <h3>
+          {% for version in article.versions %}
+            <span data-post-title-language="{{ version.lang }}" lang="{{ version.lang }}"{% if version.lang != article.primary_language %} hidden{% endif %}>{{ version.title | escape }}</span>
+          {% endfor %}
+        </h3>
+        <time datetime="{{ article.date | date_to_xmlschema }}">{{ article.date | date: '%Y.%m.%d' }}</time>
+      </div>
+      <div class="topic-language-links">
+        {% for version in article.versions %}
+          <a href="{{ version.url | relative_url }}" data-post-language="{{ version.lang }}" lang="{{ version.lang }}" hreflang="{{ version.lang }}" aria-label="{{ version.title | escape }} — {% if version.lang == 'ko' %}한국어{% else %}English{% endif %}">{% if version.lang == 'ko' %}한국어{% else %}English{% endif %} <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+        {% endfor %}
+      </div>
+    </li>
+  {% endfor %}
+{% if include.ordered %}</ol>{% else %}</ul>{% endif %}

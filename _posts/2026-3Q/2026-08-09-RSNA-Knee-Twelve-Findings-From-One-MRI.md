@@ -2,12 +2,15 @@
 title: "RSNA Knee: Twelve Findings From One MRI, and the Reports That Label Them"
 date: 2026-08-09 09:00:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, rsna, knee-mri, medical-imaging, dicom, weak-supervision, multilingual, dinov2, roc-auc, nyquist]
+tags: [kaggle, rsna-knee, dicom, dinov2, knee-mri, medical-imaging, multilingual, nyquist, roc-auc, weak-supervision]
 math: true
 pin: false
 image:
   path: /assets/img/posts/2026-08-09-rsna-knee-report-labels/cover.png
   alt: "Knee MRI slot sampling and the twelve per-study diagnoses"
+topic: rsna-knee
+lang: en
+translation_key: rsna-knee-competition-structure
 ---
 
 # RSNA Knee: Twelve Findings From One MRI, and the Reports That Label Them

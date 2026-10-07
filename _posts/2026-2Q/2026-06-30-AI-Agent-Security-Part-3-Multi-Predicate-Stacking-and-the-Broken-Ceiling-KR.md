@@ -2,7 +2,7 @@
 title: "AI Agent Security (3편): v3.1.2 리셋과 처리량의 벽"
 date: 2026-06-30 21:00:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, ai-agent-security, red-teaming, agent-safety, exfiltration, prompt-injection, scoring, reverse-engineering, guardrail, throughput, korean]
+tags: [kaggle, ai-agent-security, agent-safety, exfiltration, guardrail, prompt-injection, red-teaming, reverse-engineering, scoring, throughput]
 math: true
 pin: false
 hide: false
@@ -10,6 +10,11 @@ published: true
 image:
   path: /assets/img/posts/2026-06-30-ai-agent-security-part-3/cover.png
   alt: "3편 표지: 두 모델 행, 서로 다른 시간 예산, 홉별 비용"
+topic: ai-agent-security
+lang: ko
+translation_key: ai-agent-security-03
+series: ai-agent-security
+series_order: 3
 ---
 
 # AI Agent Security (3편): v3.1.2 리셋과 처리량의 벽

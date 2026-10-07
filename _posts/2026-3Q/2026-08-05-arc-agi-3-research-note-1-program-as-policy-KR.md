@@ -2,9 +2,12 @@
 title: "ARC-AGI-3 Research Note R1: 한 수의 값, 그리고 program-as-policy (KR)"
 date: 2026-08-05 21:00:00 +0900
 categories: [AI, Kaggle]
-tags: [arc-agi, arc-agi-3, agents, world-models, program-synthesis, research-note, kaggle, korean]
+tags: [kaggle, arc-agi-3, ai-agents, arc-agi, program-synthesis, research-note, world-models]
 math: true
 pin: false
+topic: arc-agi-3
+lang: ko
+translation_key: arc-agi-3-research-r1
 ---
 
 # ARC-AGI-3 Research Note R1: 한 수의 값, 그리고 program-as-policy — 설계에서 첫 실측까지

@@ -2,7 +2,8 @@
 
 source "https://rubygems.org"
 
-gem "jekyll-theme-chirpy", "~> 7.4", ">= 7.4.1"
+# Local layout overrides are based on this release; review them before upgrading.
+gem "jekyll-theme-chirpy", "7.6.0"
 
 gem "html-proofer", "~> 5.0", group: :test
 

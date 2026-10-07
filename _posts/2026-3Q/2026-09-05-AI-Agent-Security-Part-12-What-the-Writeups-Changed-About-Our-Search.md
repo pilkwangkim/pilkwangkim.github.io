@@ -2,7 +2,7 @@
 title: "AI Agent Security (Part 12): What the Write-ups Changed About Our Search"
 date: 2026-09-05 09:00:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, ai-agent-security, competition-retrospective, experimental-design, evaluation, throughput, transfer]
+tags: [kaggle, ai-agent-security, competition-retrospective, evaluation, experimental-design, throughput, transfer]
 math: true
 pin: false
 hide: false
@@ -10,6 +10,11 @@ published: true
 image:
   path: /assets/img/posts/2026-09-05-ai-agent-security-part-12/cover.png
   alt: "Five published solutions examined together after the competition"
+topic: ai-agent-security
+lang: en
+translation_key: ai-agent-security-12
+series: ai-agent-security
+series_order: 12
 ---
 
 <style>

@@ -3,7 +3,7 @@ title: "BioHub Cell Tracking Working Note 9: A Big Plan and a Weak Start"
 date: 2026-10-02 19:00:00 +0900
 last_modified_at: 2026-10-03
 categories: [AI, Kaggle]
-tags: [kaggle, biohub, cell-tracking, microscopy, lineage-reconstruction, retrospective, model-portfolio, ai-agents, research-methods, oof, working-note]
+tags: [kaggle, biohub, ai-agents, cell-tracking, competition-retrospective, lineage-reconstruction, microscopy, model-portfolio, oof, research-methods, working-note]
 lang: en
 slug: BioHub-Cell-Tracking-Working-Note-9-Final-Results-and-the-Decision-to-Stop-Searching
 math: true
@@ -13,6 +13,11 @@ published: true
 image:
   path: /assets/img/posts/2026-10-02-biohub-working-note-9/cover.png?v=a3ef7423b8db
   alt: "BioHub Cell Tracking Working Note 9: A Big Plan and a Weak Start"
+topic: biohub
+lang: en
+translation_key: biohub-09
+series: biohub
+series_order: 9
 ---
 
 <style>

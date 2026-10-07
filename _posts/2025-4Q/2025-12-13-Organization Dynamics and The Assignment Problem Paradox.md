@@ -2,9 +2,12 @@
 title: "Organizational Dynamics & The Assignment Problem Paradox"
 date: 2025-12-13 16:10:00 +0900
 categories: [Essay, Misc]
-tags: [essay, leadership, organization, operations-research]
+tags: [essay, leadership, operations-research, organization]
 math: true
 pin: false
+topic: essays
+lang: en
+translation_key: organization-dynamics-and-the-assignment-problem-paradox
 ---
 
 **Subtitle: Why top talent can be rationally sidelined by short-term assignment logic**

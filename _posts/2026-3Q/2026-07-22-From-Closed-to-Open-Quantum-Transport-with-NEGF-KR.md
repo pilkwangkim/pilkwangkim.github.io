@@ -2,9 +2,12 @@
 title: "닫힌 양자계에서 열린 양자 수송으로: NEGF를 처음부터 유도하기"
 date: 2026-07-22 09:00:00 +0900
 categories: [Physics, Quantum Transport]
-tags: [physics, quantum-transport, negf, green-functions, tight-binding, open-quantum-systems, self-energy, landauer, resonant-tunneling, python, kaggle, korean]
+tags: [kaggle, quantum-transport, green-functions, landauer, negf, open-quantum-systems, physics, python, resonant-tunneling, self-energy, tight-binding]
 math: true
 pin: false
+topic: quantum-transport
+lang: ko
+translation_key: quantum-transport-negf
 ---
 
 # 닫힌 양자계에서 열린 양자 수송으로: NEGF를 처음부터 유도하기

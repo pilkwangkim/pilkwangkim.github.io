@@ -2,7 +2,7 @@
 title: "AI Agent Security (12편): 공개된 해법을 읽고 돌아본 우리의 선택"
 date: 2026-09-05 09:00:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, ai-agent-security, competition-retrospective, experimental-design, evaluation, throughput, transfer, korean]
+tags: [kaggle, ai-agent-security, competition-retrospective, evaluation, experimental-design, throughput, transfer]
 math: true
 pin: false
 hide: false
@@ -10,6 +10,11 @@ published: true
 image:
   path: /assets/img/posts/2026-09-05-ai-agent-security-part-12/cover.png
   alt: "다섯 편의 해법을 읽고 대회를 돌아보는 글의 표지"
+topic: ai-agent-security
+lang: ko
+translation_key: ai-agent-security-12
+series: ai-agent-security
+series_order: 12
 ---
 
 <style>

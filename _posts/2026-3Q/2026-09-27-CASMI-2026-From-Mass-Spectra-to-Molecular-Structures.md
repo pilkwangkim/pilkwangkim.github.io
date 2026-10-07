@@ -3,7 +3,7 @@ title: "Enveda CASMI 2026: From Mass Spectra to Molecular Structures"
 description: "What is CASMI 2026 asking us to build, and where should we begin? Follow one molecule from spectra to ranked structures, through the physical chemistry, public baselines and leaderboard, first experiments, and likely next directions."
 date: 2026-09-27 09:00:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, casmi, mass-spectrometry, metabolomics, molecular-identification, cheminformatics, working-note]
+tags: [kaggle, casmi-2026, cheminformatics, mass-spectrometry, metabolomics, molecular-identification, working-note]
 math: true
 mermaid: false
 image:
@@ -11,6 +11,9 @@ image:
 pin: false
 published: true
 permalink: /posts/CASMI-2026-From-Mass-Spectra-to-Molecular-Structures/
+topic: casmi-2026
+lang: en
+translation_key: casmi-2026-molecular-structures
 ---
 
 <style>

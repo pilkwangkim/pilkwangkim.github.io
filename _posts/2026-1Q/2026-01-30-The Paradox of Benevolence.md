@@ -2,9 +2,12 @@
 title: "The Paradox of Benevolence: Escaping Moral Narcissism for the Discipline of Consequence"
 date: 2026-01-30 19:00:00 +0900
 categories: [Essay, Misc]
-tags: [essay, paradox, moral, ethics, leadership]
+tags: [essay, ethics, leadership, moral, paradox]
 math: true
 pin: false
+topic: essays
+lang: en
+translation_key: the-paradox-of-benevolence
 ---
 
 **Subtitle: Good intentions are morally relevant, but they are not morally sufficient**

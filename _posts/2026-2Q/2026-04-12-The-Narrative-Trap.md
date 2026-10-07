@@ -2,9 +2,12 @@
 title: "The Narrative Trap: Why Chekhov’s Gun Rarely Fires in Real Life"
 date: 2026-04-12 19:00:00 +0900
 categories: [Essay, Misc]
-tags: [essay, literature, cognition, decision-making]
+tags: [essay, cognition, decision-making, literature]
 math: true
 pin: false
+topic: essays
+lang: en
+translation_key: the-narrative-trap
 ---
 
 **Subtitle: The danger of applying fictional causality to probabilistic reality**

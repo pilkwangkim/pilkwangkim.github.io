@@ -3,13 +3,16 @@ title: "Gemma 4 Developer Agent: Learning to Fix a Codebase, One Verified Patch 
 description: "From code completion to autonomous debugging: the research behind Google's Gemma 4 competition, how its agents are evaluated, and a practical route to a first meaningful experiment."
 date: 2026-09-25 06:00:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, gemma-4, coding-agents, software-engineering, adk, lora, evaluation, working-note]
+tags: [kaggle, gemma-4, adk, coding-agents, evaluation, lora, software-engineering, working-note]
 math: true
 mermaid: true
 image:
   path: /assets/img/gemma4-developer-agent/hero.png
 pin: false
 published: true
+topic: gemma-4
+lang: en
+translation_key: gemma-4-developer-agent
 ---
 
 <style>

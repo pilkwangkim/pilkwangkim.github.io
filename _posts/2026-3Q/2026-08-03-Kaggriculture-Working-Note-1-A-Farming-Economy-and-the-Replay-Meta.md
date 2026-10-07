@@ -2,12 +2,15 @@
 title: "Kaggriculture Working Note (Part 1): A Farming Economy and the Replay Meta"
 date: 2026-08-03 21:00:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, kaggriculture, game-ai, simulation, market-design, reverse-engineering, behavior-cloning, paired-benchmark, working-note]
+tags: [kaggle, kaggriculture, behavior-cloning, game-ai, market-design, paired-benchmark, reverse-engineering, simulation, working-note]
 math: true
 pin: false
 image:
   path: /assets/img/posts/2026-08-03-kaggriculture-working-note-1/cover.png
   alt: "Kaggriculture — a two-player farming economy on Kaggle"
+topic: kaggriculture
+lang: en
+translation_key: kaggriculture-working-note-1
 ---
 
 # Kaggriculture Working Note (Part 1): A Farming Economy and the Replay Meta

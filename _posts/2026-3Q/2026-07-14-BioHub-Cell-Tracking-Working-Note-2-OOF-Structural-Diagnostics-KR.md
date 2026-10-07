@@ -2,7 +2,7 @@
 title: "BioHub Cell Tracking 작업 기록 2: Public 점수가 멈췄을 때 — OOF 기반 오류 분석"
 date: 2026-07-14 21:00:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, biohub, cell-tracking, microscopy, lineage-reconstruction, oof, error-anatomy, graph-repair, model-calibration, working-note, korean]
+tags: [kaggle, biohub, cell-tracking, error-anatomy, graph-repair, lineage-reconstruction, microscopy, model-calibration, oof, working-note]
 math: true
 last_modified_at: 2026-09-23
 pin: false
@@ -10,6 +10,11 @@ image:
   path: /assets/img/posts/2026-07-14-biohub-working-note-2/cover.png
   alt: "BioHub Cell Tracking 작업 기록 2: Public 점수가 멈췄을 때 — OOF 기반 오류 분석"
 published: true
+topic: biohub
+lang: ko
+translation_key: biohub-02
+series: biohub
+series_order: 2
 ---
 
 <style>

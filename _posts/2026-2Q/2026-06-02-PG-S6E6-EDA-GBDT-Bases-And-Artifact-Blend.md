@@ -2,9 +2,12 @@
 title: "PG S6E6: Redshift, Color Geometry, and OOF Artifact Blending"
 date: 2026-06-02 21:00:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, playground-series, stellar-classification, eda, gbdt, artifact-blend, balanced-accuracy]
+tags: [kaggle, playground-series, artifact-blend, balanced-accuracy, eda, gbdt, stellar-classification]
 math: true
 pin: false
+topic: playground-series
+lang: en
+translation_key: playground-s6e6-stellar-classification
 ---
 
 # PG S6E6: Redshift, Color Geometry, and OOF Artifact Blending

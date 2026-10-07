@@ -2,7 +2,7 @@
 title: "AI Agent Security (Part 6): Throughput as an Experimental System — Costs, Cliffs, and Corrected Instruments"
 date: 2026-07-26 18:00:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, ai-agent-security, red-teaming, agent-safety, exfiltration, prompt-injection, throughput, kv-cache, decode, working-note]
+tags: [kaggle, ai-agent-security, agent-safety, decode, exfiltration, kv-cache, prompt-injection, red-teaming, throughput, working-note]
 math: true
 pin: false
 hide: false
@@ -10,6 +10,11 @@ published: true
 image:
   path: /assets/img/posts/2026-07-26-ai-agent-security-part-6/cover.png
   alt: "Part 6 cover: throughput equations, cache layout, and corrected instruments"
+topic: ai-agent-security
+lang: en
+translation_key: ai-agent-security-06
+series: ai-agent-security
+series_order: 6
 ---
 
 # AI Agent Security (Part 6): Throughput as an Experimental System — Costs, Cliffs, and Corrected Instruments

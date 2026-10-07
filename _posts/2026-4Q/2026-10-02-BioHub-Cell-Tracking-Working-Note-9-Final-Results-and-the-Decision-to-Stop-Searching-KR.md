@@ -3,7 +3,7 @@ title: "BioHub Cell Tracking 작업 기록 9: 큰 계획에 비해 허술했던 
 date: 2026-10-02 19:00:00 +0900
 last_modified_at: 2026-10-03
 categories: [AI, Kaggle]
-tags: [kaggle, biohub, cell-tracking, microscopy, lineage-reconstruction, retrospective, model-portfolio, ai-agents, research-methods, oof, working-note, korean]
+tags: [kaggle, biohub, ai-agents, cell-tracking, competition-retrospective, lineage-reconstruction, microscopy, model-portfolio, oof, research-methods, working-note]
 lang: ko
 slug: BioHub-Cell-Tracking-Working-Note-9-Final-Results-and-the-Decision-to-Stop-Searching-KR
 math: true
@@ -13,6 +13,11 @@ published: true
 image:
   path: /assets/img/posts/2026-10-02-biohub-working-note-9/cover.png?v=a3ef7423b8db
   alt: "BioHub Cell Tracking 작업 기록 9: 큰 계획에 비해 허술했던 시작"
+topic: biohub
+lang: ko
+translation_key: biohub-09
+series: biohub
+series_order: 9
 ---
 
 <style>

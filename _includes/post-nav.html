@@ -1,0 +1,62 @@
+<!-- Navigation buttons at the bottom of the post. -->
+
+{% if page.series %}
+  {% assign series_parts = site.posts | where: 'series', page.series | where: 'lang', page.lang | where_exp: 'post', 'post.hidden != true' | sort: 'series_order' %}
+  {% assign series_previous = nil %}
+  {% assign series_next = nil %}
+  {% for part in series_parts %}
+    {% if part.series_order < page.series_order %}{% assign series_previous = part %}{% endif %}
+    {% if part.series_order > page.series_order and series_next == nil %}{% assign series_next = part %}{% endif %}
+  {% endfor %}
+  <nav class="series-nav post-navigation" aria-label="{% if page.lang == 'ko' %}시리즈 이전 글과 다음 글{% else %}Previous and next in series{% endif %}">
+    {% if series_previous %}
+      <a href="{{ series_previous.url | relative_url }}" class="btn btn-outline-primary" rel="prev">
+        <span class="series-nav-label">{% if page.lang == 'ko' %}이전 편{% else %}Previous part{% endif %}</span>
+        <p>{{ series_previous.title | escape }}</p>
+      </a>
+    {% else %}
+      <div class="series-nav-boundary text-muted">{% if page.lang == 'ko' %}시리즈 첫 글입니다.{% else %}First part of this series.{% endif %}</div>
+    {% endif %}
+    {% if series_next %}
+      <a href="{{ series_next.url | relative_url }}" class="btn btn-outline-primary" rel="next">
+        <span class="series-nav-label">{% if page.lang == 'ko' %}다음 편{% else %}Next part{% endif %}</span>
+        <p>{{ series_next.title | escape }}</p>
+      </a>
+    {% else %}
+      <div class="series-nav-boundary text-muted">{% if page.lang == 'ko' %}시리즈 마지막 글입니다.{% else %}Last part of this series.{% endif %}</div>
+    {% endif %}
+  </nav>
+{% else %}
+<nav class="post-navigation d-flex justify-content-between" aria-label="Post Navigation">
+  {% assign previous = site.data.locales[include.lang].post.button.previous %}
+  {% assign next = site.data.locales[include.lang].post.button.next %}
+
+  {% if page.previous.url %}
+    <a
+      href="{{ site.baseurl }}{{ page.previous.url }}"
+      class="btn btn-outline-primary"
+      aria-label="{{ previous }}"
+    >
+      <p>{{ page.previous.title }}</p>
+    </a>
+  {% else %}
+    <div class="btn btn-outline-primary disabled" aria-label="{{ previous }}">
+      <p>-</p>
+    </div>
+  {% endif %}
+
+  {% if page.next.url %}
+    <a
+      href="{{ site.baseurl }}{{page.next.url}}"
+      class="btn btn-outline-primary"
+      aria-label="{{ next }}"
+    >
+      <p>{{ page.next.title }}</p>
+    </a>
+  {% else %}
+    <div class="btn btn-outline-primary disabled" aria-label="{{ next }}">
+      <p>-</p>
+    </div>
+  {% endif %}
+</nav>
+{% endif %}

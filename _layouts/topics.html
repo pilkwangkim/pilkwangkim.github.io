@@ -1,0 +1,38 @@
+---
+layout: default
+---
+
+<article class="px-1 discovery-hub">
+  <header class="discovery-header">
+    <p class="discovery-eyebrow">EXPLORE BY TOPIC</p>
+    <h1 data-toc-skip>주제별 보기</h1>
+    <p class="discovery-intro">관심 있는 주제에서 시작해 보세요. 각 안내 페이지에서 글의 흐름과 추천 읽기 순서를 살펴보고, 관련 글을 한곳에서 읽을 수 있습니다.</p>
+  </header>
+
+  {% include language-controls.html %}
+  <p class="discovery-note">한국어와 영어로 함께 쓴 글은 한 편으로 묶었습니다. 언어 선택은 주제 목록과 각 주제의 전체 글 목록에 함께 적용됩니다.</p>
+
+  {% assign group_ids = 'ai,physics,essays' | split: ',' %}
+  {% assign group_titles = 'AI · Kaggle,물리,에세이' | split: ',' %}
+  {% for group_id in group_ids %}
+    {% assign group_topics = site.data.topic_index | where: 'group', group_id %}
+    {% if group_topics.size > 0 %}
+      <section class="topic-group" data-language-section>
+        <h2>{{ group_titles[forloop.index0] }}</h2>
+        <div class="topic-grid">
+          {% for topic in group_topics %}
+            <a class="topic-card" href="{{ topic.url | relative_url }}" data-post-languages="{{ topic.languages | join: ' ' }}">
+              <div class="topic-card-heading">
+                <h3>{{ topic.title | escape }}</h3>
+                <i class="fas fa-arrow-right" aria-hidden="true"></i>
+              </div>
+              <p>{{ topic.description | escape }}</p>
+              <span class="topic-card-meta">{{ topic.article_count }}편 <span aria-hidden="true">·</span> {% if topic.languages contains 'ko' %}한국어{% endif %}{% if topic.languages contains 'ko' and topic.languages contains 'en' %} / {% endif %}{% if topic.languages contains 'en' %}English{% endif %}</span>
+            </a>
+          {% endfor %}
+        </div>
+      </section>
+    {% endif %}
+  {% endfor %}
+  <p data-language-empty hidden role="status">선택한 언어로 볼 수 있는 주제가 없습니다.</p>
+</article>

@@ -2,9 +2,12 @@
 title: "Maze Crawler: 먼저 살아남기 — 구조적 Rule-Based 베이스라인"
 date: 2026-05-17 21:00:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, maze-crawler, game-ai, rule-based-agent, pathfinding, simulation, korean]
+tags: [kaggle, maze-crawler, game-ai, pathfinding, rule-based-agent, simulation]
 math: true
 pin: false
+topic: maze-crawler
+lang: ko
+translation_key: maze-crawler-structured-baseline
 ---
 
 # Maze Crawler: 먼저 살아남기 — 구조적 Rule-Based 베이스라인

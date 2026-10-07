@@ -2,9 +2,12 @@
 title: "서사적 인과율의 함정: '체호프의 총'은 현실에서 발사되지 않는다 (KR)"
 date: 2026-04-12 19:00:00 +0900
 categories: [Essay, Misc]
-tags: [essay, literature, cognition, decision-making, korean]
+tags: [essay, cognition, decision-making, literature]
 math: true
 pin: false
+topic: essays
+lang: ko
+translation_key: the-narrative-trap
 ---
 
 # **서사적 인과율의 함정: '체호프의 총'은 현실에서 발사되지 않는다**

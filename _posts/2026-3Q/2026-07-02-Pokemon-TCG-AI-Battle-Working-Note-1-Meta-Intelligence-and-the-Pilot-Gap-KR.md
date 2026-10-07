@@ -2,9 +2,12 @@
 title: "Pokémon TCG AI Battle Working Note (1편): 규칙 기반에서 RL 파일럿까지"
 date: 2026-07-02 21:30:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, pokemon-tcg, game-ai, reinforcement-learning, behavior-cloning, offline-rl, self-play, benchmark, working-note, korean]
+tags: [kaggle, pokemon-tcg, behavior-cloning, benchmark, game-ai, offline-rl, reinforcement-learning, self-play, working-note]
 math: true
 pin: false
+topic: pokemon-tcg
+lang: ko
+translation_key: pokemon-tcg-working-note-1
 ---
 
 # Pokémon TCG AI Battle Working Note (1편): 규칙 기반에서 RL 파일럿까지

@@ -2,7 +2,7 @@
 title: "AI Agent Security (7편): 공개 성능에서 비공개 전이로 — 홀드아웃 방어와 포트폴리오 설계"
 date: 2026-08-01 18:00:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, ai-agent-security, red-teaming, agent-safety, prompt-injection, provenance, transfer, quality-diversity, private-leaderboard, portfolio-design, korean]
+tags: [kaggle, ai-agent-security, agent-safety, portfolio-design, private-leaderboard, prompt-injection, provenance, quality-diversity, red-teaming, transfer]
 math: true
 pin: false
 hide: false
@@ -10,6 +10,11 @@ published: true
 image:
   path: /assets/img/posts/2026-08-01-ai-agent-security-part-7/cover.png
   alt: "7편 표지: 공개 점수 밀도, 작동 방식의 범위, 홀드아웃 전이"
+topic: ai-agent-security
+lang: ko
+translation_key: ai-agent-security-07
+series: ai-agent-security
+series_order: 7
 ---
 
 # AI Agent Security (7편): 공개 성능에서 비공개 전이로 — 홀드아웃 방어와 포트폴리오 설계

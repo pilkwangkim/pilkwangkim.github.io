@@ -2,12 +2,17 @@
 title: "ARC-AGI-3 2편: 수학적으로 완벽한 아이디어가 죽은 자리 (KR)"
 date: 2026-08-04 21:00:00 +0900
 categories: [AI, Kaggle]
-tags: [arc-agi, arc-agi-3, benchmarks, agents, world-models, kaggle, working-note, korean]
+tags: [kaggle, arc-agi-3, ai-agents, arc-agi, benchmark, working-note, world-models]
 math: true
 pin: false
 image:
   path: /assets/img/posts/2026-08-04-arc-agi-3-part-2/cover.png
   alt: "ARC-AGI-3 — 관찰, 가설, 행동, 피드백 루프를 도는 에이전트"
+topic: arc-agi-3
+lang: ko
+translation_key: arc-agi-3-part-2
+series: arc-agi-3-main
+series_order: 2
 ---
 
 # ARC-AGI-3 워킹노트 2: 수학적으로 완벽한 아이디어가 죽은 자리

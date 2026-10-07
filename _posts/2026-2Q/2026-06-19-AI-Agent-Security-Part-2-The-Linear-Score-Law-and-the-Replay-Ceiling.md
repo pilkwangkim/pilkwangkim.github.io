@@ -2,7 +2,7 @@
 title: "AI Agent Security (Part 2): The Linear Score Law, the Replay Ceiling, and What Survives the Private Guardrail"
 date: 2026-06-19 21:00:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, ai-agent-security, red-teaming, agent-safety, exfiltration, prompt-injection, scoring, reverse-engineering, guardrail, egress-filter]
+tags: [kaggle, ai-agent-security, agent-safety, egress-filter, exfiltration, guardrail, prompt-injection, red-teaming, reverse-engineering, scoring]
 math: true
 pin: false
 hide: false
@@ -10,6 +10,11 @@ published: true
 image:
   path: /assets/img/posts/2026-06-19-ai-agent-security-part-2/cover.png
   alt: "Part 2 cover: the K=1 single-post score law, replay cliff, and recognizer gap"
+topic: ai-agent-security
+lang: en
+translation_key: ai-agent-security-02
+series: ai-agent-security
+series_order: 2
 ---
 
 # AI Agent Security (Part 2): The Linear Score Law, the Replay Ceiling, and What Survives the Private Guardrail

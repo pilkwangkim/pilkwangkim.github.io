@@ -2,9 +2,12 @@
 title: "선의의 역설: 도덕적 나르시시즘을 넘어 결과적 책임으로 (KR)"
 date: 2026-01-30 19:00:00 +0900
 categories: [Essay, Misc]
-tags: [essay, paradox, moral, ethics, leadership, korean]
+tags: [essay, ethics, leadership, moral, paradox]
 math: true
 pin: false
+topic: essays
+lang: ko
+translation_key: the-paradox-of-benevolence
 ---
 
 # **선의의 역설: 도덕적 나르시시즘을 넘어 결과적 책임으로**

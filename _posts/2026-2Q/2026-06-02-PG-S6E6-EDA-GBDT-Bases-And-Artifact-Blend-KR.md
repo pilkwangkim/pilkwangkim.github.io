@@ -2,9 +2,12 @@
 title: "PG S6E6: 적색편이와 색지수로 풀어내는 천체 분류 — OOF Artifact 블렌딩까지"
 date: 2026-06-02 21:00:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, playground-series, stellar-classification, eda, gbdt, artifact-blend, balanced-accuracy, korean]
+tags: [kaggle, playground-series, artifact-blend, balanced-accuracy, eda, gbdt, stellar-classification]
 math: true
 pin: false
+topic: playground-series
+lang: ko
+translation_key: playground-s6e6-stellar-classification
 ---
 
 # PG S6E6: 적색편이와 색지수로 풀어내는 천체 분류 — OOF Artifact 블렌딩까지

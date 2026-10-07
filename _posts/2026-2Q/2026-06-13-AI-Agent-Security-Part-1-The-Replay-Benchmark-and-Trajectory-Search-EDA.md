@@ -2,7 +2,7 @@
 title: "AI Agent Security (Part 1): The Replay Benchmark and Trajectory-Search EDA"
 date: 2026-06-13 21:00:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, ai-agent-security, red-teaming, agent-safety, prompt-injection, tool-attacks, exfiltration, go-explore, eda]
+tags: [kaggle, ai-agent-security, agent-safety, eda, exfiltration, go-explore, prompt-injection, red-teaming, tool-attacks]
 math: true
 pin: false
 hide: false
@@ -10,6 +10,11 @@ published: true
 image:
   path: /assets/img/posts/2026-06-13-ai-agent-security-part-1/cover.png
   alt: "Part 1 cover: the replay contract, trace-cell geometry, and trajectory search"
+topic: ai-agent-security
+lang: en
+translation_key: ai-agent-security-01
+series: ai-agent-security
+series_order: 1
 ---
 
 # AI Agent Security (Part 1): The Replay Benchmark and Trajectory-Search EDA

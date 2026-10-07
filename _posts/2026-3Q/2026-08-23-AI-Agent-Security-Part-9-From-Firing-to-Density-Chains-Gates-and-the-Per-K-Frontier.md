@@ -2,7 +2,7 @@
 title: "AI Agent Security (Part 9): From Firing to Density — Chains, Gates, and the Per-K Frontier"
 date: 2026-08-23 09:00:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, ai-agent-security, red-teaming, agent-safety, tool-use, evaluation, throughput, density, gemma, gpt-oss, t4, rainbow-teaming, working-note]
+tags: [kaggle, ai-agent-security, agent-safety, density, evaluation, gemma, gpt-oss, rainbow-teaming, red-teaming, t4, throughput, tool-use, working-note]
 math: true
 pin: false
 hide: false
@@ -10,6 +10,11 @@ published: true
 image:
   path: /assets/img/posts/2026-08-23-ai-agent-security-part-9/cover.png
   alt: "Part 9 cover: exact chains, density gates, and the per-K syntax frontier"
+topic: ai-agent-security
+lang: en
+translation_key: ai-agent-security-09
+series: ai-agent-security
+series_order: 9
 ---
 
 # AI Agent Security (Part 9): From Firing to Density — Chains, Gates, and the Per-K Frontier

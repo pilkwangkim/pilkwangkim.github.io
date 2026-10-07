@@ -2,12 +2,15 @@
 title: "주석은 58건, 판독문은 4,407건 — RSNA Knee 대회의 구조"
 date: 2026-08-09 09:00:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, rsna, knee-mri, medical-imaging, dicom, weak-supervision, multilingual, dinov2, roc-auc, nyquist, korean]
+tags: [kaggle, rsna-knee, dicom, dinov2, knee-mri, medical-imaging, multilingual, nyquist, roc-auc, weak-supervision]
 math: true
 pin: false
 image:
   path: /assets/img/posts/2026-08-09-rsna-knee-report-labels/cover.png
   alt: "무릎 MRI 슬롯 샘플링과 스터디 단위 열두 개 진단"
+topic: rsna-knee
+lang: ko
+translation_key: rsna-knee-competition-structure
 ---
 
 # 주석은 58건, 판독문은 4,407건 — RSNA Knee 대회의 구조

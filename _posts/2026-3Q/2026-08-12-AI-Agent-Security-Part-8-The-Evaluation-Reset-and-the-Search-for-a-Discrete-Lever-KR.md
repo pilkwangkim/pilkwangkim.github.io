@@ -2,7 +2,7 @@
 title: "AI Agent Security (8편): 평가 체계 재설정 — 부분 점수 보존과 불연속적 도약의 원인 찾기"
 date: 2026-08-12 23:30:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, ai-agent-security, red-teaming, agent-safety, evaluation, partial-scoring, throughput, packing, static-replay, diversity, working-note, korean]
+tags: [kaggle, ai-agent-security, agent-safety, diversity, evaluation, packing, partial-scoring, red-teaming, static-replay, throughput, working-note]
 math: true
 pin: false
 hide: false
@@ -10,6 +10,11 @@ published: true
 image:
   path: /assets/img/posts/2026-08-12-ai-agent-security-part-8/cover.png
   alt: "8편 표지: 부분 뱅킹, 두 개의 시간 제한, 불연속적인 점수 간격"
+topic: ai-agent-security
+lang: ko
+translation_key: ai-agent-security-08
+series: ai-agent-security
+series_order: 8
 ---
 
 # AI Agent Security (8편): 평가 체계 재설정 — 부분 점수 보존과 불연속적 도약의 원인 찾기

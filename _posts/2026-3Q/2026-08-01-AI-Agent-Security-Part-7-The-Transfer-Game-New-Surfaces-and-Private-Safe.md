@@ -2,7 +2,7 @@
 title: "AI Agent Security (Part 7): The Transfer Game — Held-Out Defenses and Portfolio Design"
 date: 2026-08-01 18:00:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, ai-agent-security, red-teaming, agent-safety, prompt-injection, provenance, transfer, quality-diversity, private-leaderboard, portfolio-design]
+tags: [kaggle, ai-agent-security, agent-safety, portfolio-design, private-leaderboard, prompt-injection, provenance, quality-diversity, red-teaming, transfer]
 math: true
 pin: false
 hide: false
@@ -10,6 +10,11 @@ published: true
 image:
   path: /assets/img/posts/2026-08-01-ai-agent-security-part-7/cover.png
   alt: "Part 7 cover: public density, mechanism coverage, and held-out transfer"
+topic: ai-agent-security
+lang: en
+translation_key: ai-agent-security-07
+series: ai-agent-security
+series_order: 7
 ---
 
 # AI Agent Security (Part 7): The Transfer Game — Held-Out Defenses and Portfolio Design

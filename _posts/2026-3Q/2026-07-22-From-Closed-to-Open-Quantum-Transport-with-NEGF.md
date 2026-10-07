@@ -2,9 +2,12 @@
 title: "From Closed to Open Quantum Transport with NEGF: A Derivation from Scratch"
 date: 2026-07-22 09:00:00 +0900
 categories: [Physics, Quantum Transport]
-tags: [physics, quantum-transport, negf, green-functions, tight-binding, open-quantum-systems, self-energy, landauer, resonant-tunneling, python, kaggle]
+tags: [kaggle, quantum-transport, green-functions, landauer, negf, open-quantum-systems, physics, python, resonant-tunneling, self-energy, tight-binding]
 math: true
 pin: false
+topic: quantum-transport
+lang: en
+translation_key: quantum-transport-negf
 ---
 
 # From Closed to Open Quantum Transport with NEGF: A Derivation from Scratch

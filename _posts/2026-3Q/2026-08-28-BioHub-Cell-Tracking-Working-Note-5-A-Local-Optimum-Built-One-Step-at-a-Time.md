@@ -2,7 +2,7 @@
 title: "BioHub Cell Tracking Working Note 5: What a Frozen Graph Left Untested"
 date: 2026-08-28 21:00:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, biohub, cell-tracking, microscopy, lineage-reconstruction, objective-design, candidate-coverage, process-debt, division-recovery, working-note]
+tags: [kaggle, biohub, candidate-coverage, cell-tracking, division-recovery, lineage-reconstruction, microscopy, objective-design, process-debt, working-note]
 math: true
 last_modified_at: 2026-09-23
 pin: false
@@ -11,6 +11,11 @@ published: true
 image:
   path: /assets/img/posts/2026-08-28-biohub-working-note-5/cover.png
   alt: "BioHub Cell Tracking Working Note 5: What a Frozen Graph Left Untested"
+topic: biohub
+lang: en
+translation_key: biohub-05
+series: biohub
+series_order: 5
 ---
 
 <style>

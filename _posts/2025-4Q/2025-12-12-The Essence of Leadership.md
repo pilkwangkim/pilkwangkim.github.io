@@ -2,9 +2,12 @@
 title: "The Essence of Leadership: Functional Commitment and Strategic Sublimation"
 date: 2025-12-12 19:36:00 +0900
 categories: [Essay, Misc]
-tags: [essay, leadership, organization, management]
+tags: [essay, leadership, management, organization]
 math: true
 pin: false
+topic: essays
+lang: en
+translation_key: the-essence-of-leadership
 ---
 
 **Subtitle: Leadership begins when the desire for recognition is converted into responsibility for collective results**

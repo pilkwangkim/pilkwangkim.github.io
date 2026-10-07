@@ -3,13 +3,16 @@ title: "Gemma 4 Developer Agent: 버그 하나를 끝까지 고치는 AI 만들�
 description: "코드 한 줄을 생성하는 모델에서 저장소를 탐색하고 버그를 고치는 에이전트까지. 대회의 배경과 채점 방식, 실행 제약, 첫 실험을 준비하는 과정을 차근차근 살펴본다."
 date: 2026-09-25 06:00:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, gemma-4, coding-agents, software-engineering, adk, lora, evaluation, working-note, korean]
+tags: [kaggle, gemma-4, adk, coding-agents, evaluation, lora, software-engineering, working-note]
 math: true
 mermaid: true
 image:
   path: /assets/img/gemma4-developer-agent/hero.png
 pin: false
 published: true
+topic: gemma-4
+lang: ko
+translation_key: gemma-4-developer-agent
 ---
 
 <style>

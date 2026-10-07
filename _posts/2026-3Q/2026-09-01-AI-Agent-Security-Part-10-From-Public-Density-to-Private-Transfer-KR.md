@@ -2,7 +2,7 @@
 title: "AI Agent Security (10편): 공개 점수 밀도에서 비공개 평가까지 — 아티팩트 식별, 후보 뱅크의 순서, 포트폴리오 설계"
 date: 2026-09-01 21:00:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, ai-agent-security, red-teaming, agent-safety, throughput, tool-calling, rainbow-teaming, private-leaderboard, transfer, korean]
+tags: [kaggle, ai-agent-security, agent-safety, private-leaderboard, rainbow-teaming, red-teaming, throughput, tool-calling, transfer]
 math: true
 pin: false
 hide: false
@@ -10,6 +10,11 @@ published: true
 image:
   path: /assets/img/posts/2026-09-01-ai-agent-security-part-10/cover.png
   alt: "10편 표지: 공개 점수의 계단, 아티팩트 식별, 두 자리 포트폴리오"
+topic: ai-agent-security
+lang: ko
+translation_key: ai-agent-security-10
+series: ai-agent-security
+series_order: 10
 ---
 
 # AI Agent Security (10편): 공개 점수 밀도에서 비공개 평가까지 — 아티팩트 식별, 후보 뱅크의 순서, 포트폴리오 설계

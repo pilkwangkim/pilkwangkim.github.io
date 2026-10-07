@@ -2,9 +2,12 @@
 title: "The Corporate Hallucinator: A Chronicle of Institutional Impotence"
 date: 2026-05-02 21:10:00 +0900
 categories: [Essay, Misc]
-tags: [essay, ai, hallucination, organization, corporate-culture]
+tags: [essay, ai, corporate-culture, hallucination, organization]
 math: false
 pin: false
+topic: essays
+lang: en
+translation_key: the-corporate-hallucinator
 ---
 
 # **The Corporate Hallucinator**

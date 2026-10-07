@@ -2,9 +2,12 @@
 title: "The Credentialist Illusion: Why modern firms outsource responsibility to pedigree"
 date: 2026-03-21 21:00:00 +0900
 categories: [Essay, Misc]
-tags: [essay, organization, hiring, credentials, meritocracy]
+tags: [essay, credentials, hiring, meritocracy, organization]
 math: true
 pin: false
+topic: essays
+lang: en
+translation_key: the-credentialist-illusion
 ---
 
 # **The Credentialist Illusion: Why modern firms outsource responsibility to pedigree**

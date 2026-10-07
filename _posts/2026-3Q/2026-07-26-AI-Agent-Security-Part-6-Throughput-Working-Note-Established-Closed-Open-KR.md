@@ -2,7 +2,7 @@
 title: "AI Agent Security (6편): 처리량을 실험 시스템으로 다루기 — 비용과 절벽, 그리고 바로잡은 측정법"
 date: 2026-07-26 18:00:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, ai-agent-security, red-teaming, agent-safety, exfiltration, prompt-injection, throughput, kv-cache, decode, working-note, korean]
+tags: [kaggle, ai-agent-security, agent-safety, decode, exfiltration, kv-cache, prompt-injection, red-teaming, throughput, working-note]
 math: true
 pin: false
 hide: false
@@ -10,6 +10,11 @@ published: true
 image:
   path: /assets/img/posts/2026-07-26-ai-agent-security-part-6/cover.png
   alt: "6편 표지: 처리량 방정식, 캐시 활용 방식, 바로잡은 계측법"
+topic: ai-agent-security
+lang: ko
+translation_key: ai-agent-security-06
+series: ai-agent-security
+series_order: 6
 ---
 
 # AI Agent Security (6편): 처리량을 실험 시스템으로 다루기 — 비용과 절벽, 그리고 바로잡은 측정법

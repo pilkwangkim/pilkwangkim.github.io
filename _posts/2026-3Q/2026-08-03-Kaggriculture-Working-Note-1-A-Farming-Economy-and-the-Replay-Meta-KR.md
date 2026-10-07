@@ -2,12 +2,15 @@
 title: "Kaggriculture Working Note (1편): 농장 경제 설계, 그리고 리플레이 메타"
 date: 2026-08-03 21:00:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, kaggriculture, game-ai, simulation, market-design, reverse-engineering, behavior-cloning, paired-benchmark, working-note, korean]
+tags: [kaggle, kaggriculture, behavior-cloning, game-ai, market-design, paired-benchmark, reverse-engineering, simulation, working-note]
 math: true
 pin: false
 image:
   path: /assets/img/posts/2026-08-03-kaggriculture-working-note-1/cover.png
   alt: "Kaggriculture — Kaggle의 2인용 농장 경제 게임"
+topic: kaggriculture
+lang: ko
+translation_key: kaggriculture-working-note-1
 ---
 
 # Kaggriculture Working Note (1편): 농장 경제 설계, 그리고 리플레이 메타

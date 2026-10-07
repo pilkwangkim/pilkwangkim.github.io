@@ -2,12 +2,17 @@
 title: "ROGII Competition Retrospective: A Silver Medal and Lessons from the Public-Private Gap"
 date: 2026-08-06 09:00:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, rogii, geosteering, stratigraphy, tvt, competition-retrospective, public-private-gap, silver-medal]
+tags: [kaggle, rogii, competition-retrospective, geosteering, public-private-gap, silver-medal, stratigraphy, tvt]
 math: true
 pin: false
 image:
   path: /assets/img/posts/2026-08-06-rogii-competition-retrospective/cover.png
   alt: "ROGII geosteering workflow for target-free TVT prediction and trajectory reasoning"
+topic: rogii
+lang: en
+translation_key: rogii-retrospective
+series: rogii
+series_order: 3
 ---
 
 # ROGII Competition Retrospective: A Silver Medal and Lessons from the Public-Private Gap

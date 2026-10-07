@@ -2,7 +2,7 @@
 title: "AI Agent Security (4편): 프레이밍 고원을 넘어서"
 date: 2026-07-15 22:00:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, ai-agent-security, red-teaming, agent-safety, exfiltration, prompt-injection, scoring, reverse-engineering, throughput, per-model, replay, variance, korean]
+tags: [kaggle, ai-agent-security, agent-safety, exfiltration, per-model, prompt-injection, red-teaming, replay, reverse-engineering, scoring, throughput, variance]
 math: true
 pin: false
 hide: false
@@ -10,6 +10,11 @@ published: true
 image:
   path: /assets/img/posts/2026-07-15-ai-agent-security-part-4/cover.png
   alt: "4편 표지: 모델별 분기, 리플레이 절벽, 추론 구간 축소"
+topic: ai-agent-security
+lang: ko
+translation_key: ai-agent-security-04
+series: ai-agent-security
+series_order: 4
 ---
 
 # AI Agent Security (4편): 프레이밍 고원을 넘어서

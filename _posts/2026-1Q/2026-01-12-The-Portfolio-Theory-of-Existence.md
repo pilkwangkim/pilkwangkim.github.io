@@ -2,9 +2,12 @@
 title: "The Portfolio Theory of Existence"
 date: 2026-01-12 19:00:00 +0900
 categories: [Essay, Misc]
-tags: [essay, life, decision-making, risk, portfolio]
+tags: [essay, decision-making, life, portfolio, risk]
 math: true
 pin: false
+topic: essays
+lang: en
+translation_key: the-portfolio-theory-of-existence
 ---
 
 **Subtitle: A life should not be optimized as a single asset**

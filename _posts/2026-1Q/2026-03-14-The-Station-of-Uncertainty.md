@@ -2,9 +2,12 @@
 title: "The Station of Uncertainty: Active Detachment in Opaque Systems"
 date: 2026-03-14 19:00:00 +0900
 categories: [Essay, Misc]
-tags: [essay, organization, work, uncertainty, decision-making]
+tags: [essay, decision-making, organization, uncertainty, work]
 math: true
 pin: false
+topic: essays
+lang: en
+translation_key: the-station-of-uncertainty
 ---
 
 **Subtitle: Corporate fatigue is often caused less by labor itself than by uncertainty engineered around labor**

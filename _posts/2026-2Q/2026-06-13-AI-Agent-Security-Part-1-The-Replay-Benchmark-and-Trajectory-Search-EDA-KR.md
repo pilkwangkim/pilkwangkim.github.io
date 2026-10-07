@@ -2,7 +2,7 @@
 title: "AI Agent Security (1편): Replay 벤치마크와 Trajectory-Search EDA"
 date: 2026-06-13 21:00:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, ai-agent-security, red-teaming, agent-safety, prompt-injection, tool-attacks, exfiltration, go-explore, eda, korean]
+tags: [kaggle, ai-agent-security, agent-safety, eda, exfiltration, go-explore, prompt-injection, red-teaming, tool-attacks]
 math: true
 pin: false
 hide: false
@@ -10,6 +10,11 @@ published: true
 image:
   path: /assets/img/posts/2026-06-13-ai-agent-security-part-1/cover.png
   alt: "1편 표지: 리플레이 규칙, 트레이스 셀 구조, 트래젝터리 탐색"
+topic: ai-agent-security
+lang: ko
+translation_key: ai-agent-security-01
+series: ai-agent-security
+series_order: 1
 ---
 
 # AI Agent Security (1편): Replay 벤치마크와 Trajectory-Search EDA

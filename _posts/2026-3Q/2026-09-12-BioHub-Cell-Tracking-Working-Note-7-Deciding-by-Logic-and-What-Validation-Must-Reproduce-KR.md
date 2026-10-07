@@ -2,7 +2,7 @@
 title: "BioHub Cell Tracking 작업 기록 7: 같은 코드로도 검증이 어긋나는 이유"
 date: 2026-09-12 21:00:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, biohub, cell-tracking, microscopy, lineage-reconstruction, hand-labels, label-convention, pseudo-labels, logit-alignment, deployment-regime, leakage, oof, working-note, korean]
+tags: [kaggle, biohub, cell-tracking, deployment-regime, hand-labels, label-convention, leakage, lineage-reconstruction, logit-alignment, microscopy, oof, pseudo-labels, working-note]
 math: true
 last_modified_at: 2026-09-23
 pin: false
@@ -11,6 +11,11 @@ published: true
 image:
   path: /assets/img/posts/2026-09-12-biohub-working-note-7/cover.png
   alt: "BioHub Cell Tracking 작업 기록 7: 같은 코드로도 검증이 어긋나는 이유"
+topic: biohub
+lang: ko
+translation_key: biohub-07
+series: biohub
+series_order: 7
 ---
 
 <style>

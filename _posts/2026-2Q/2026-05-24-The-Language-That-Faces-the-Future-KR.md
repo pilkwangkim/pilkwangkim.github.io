@@ -2,9 +2,12 @@
 title: "리더의 언어는 왜 미래를 향해야 하는가: 과거의 덫과 조직의 동력 (KR)"
 date: 2026-05-24 20:30:00 +0900
 categories: [Essay, Misc]
-tags: [essay, leadership, organization, decision-making, future-thinking, korean]
+tags: [essay, decision-making, future-thinking, leadership, organization]
 math: false
 pin: false
+topic: essays
+lang: ko
+translation_key: the-language-that-faces-the-future
 ---
 
 # **리더의 언어는 왜 미래를 향해야 하는가: 과거의 덫과 조직의 동력**

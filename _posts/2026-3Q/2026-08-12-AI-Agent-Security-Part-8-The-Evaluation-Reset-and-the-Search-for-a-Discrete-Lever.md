@@ -2,7 +2,7 @@
 title: "AI Agent Security (Part 8): The Evaluation Reset — Partial Banking and the Search for a Discrete Lever"
 date: 2026-08-12 23:30:00 +0900
 categories: [AI, Kaggle]
-tags: [kaggle, ai-agent-security, red-teaming, agent-safety, evaluation, partial-scoring, throughput, packing, static-replay, diversity, working-note]
+tags: [kaggle, ai-agent-security, agent-safety, diversity, evaluation, packing, partial-scoring, red-teaming, static-replay, throughput, working-note]
 math: true
 pin: false
 hide: false
@@ -10,6 +10,11 @@ published: true
 image:
   path: /assets/img/posts/2026-08-12-ai-agent-security-part-8/cover.png
   alt: "Part 8 cover: partial banking, two clocks, and a discrete leaderboard gap"
+topic: ai-agent-security
+lang: en
+translation_key: ai-agent-security-08
+series: ai-agent-security
+series_order: 8
 ---
 
 # AI Agent Security (Part 8): The Evaluation Reset — Partial Banking and the Search for a Discrete Lever
