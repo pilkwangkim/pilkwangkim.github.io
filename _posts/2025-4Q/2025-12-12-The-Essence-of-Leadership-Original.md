@@ -10,6 +10,10 @@ lang: en
 translation_key: the-essence-of-leadership
 article_version: original
 original_source_commit: 92fc75a2502183260a97ad6469379b76f2056e35
+image:
+  path: /assets/img/essays/the-essence-of-leadership/cover.webp
+  alt: "A quiet arch supports three figures, turning leadership into shared capability."
+  hide_caption: true
 ---
 
 ## 1. Introduction: Natural Expectations vs. Realistic Responsibilities

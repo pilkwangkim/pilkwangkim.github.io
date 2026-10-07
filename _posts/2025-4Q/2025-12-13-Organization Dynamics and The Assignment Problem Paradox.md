@@ -9,6 +9,10 @@ topic: essays
 lang: en
 translation_key: organization-dynamics-and-the-assignment-problem-paradox
 article_version: compact
+image:
+  path: /assets/img/essays/organization-dynamics-and-the-assignment-problem-paradox/cover.webp
+  alt: "A large support carries the platform while a smaller form receives the spotlight."
+  hide_caption: true
 ---
 
 **Subtitle: Why top talent can be rationally sidelined by short-term assignment logic**

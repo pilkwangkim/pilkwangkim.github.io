@@ -9,6 +9,10 @@ topic: essays
 lang: en
 translation_key: the-paradox-of-benevolence
 article_version: compact
+image:
+  path: /assets/img/essays/the-paradox-of-benevolence/cover.webp
+  alt: "A gentle offering hand casts a pointed shadow toward an unintended recipient."
+  hide_caption: true
 ---
 
 **Subtitle: Good intentions are morally relevant, but they are not morally sufficient**

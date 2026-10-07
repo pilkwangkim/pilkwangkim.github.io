@@ -8,6 +8,10 @@ pin: false
 topic: essays
 lang: ko
 translation_key: the-credentialist-illusion
+image:
+  path: /assets/img/essays/the-credentialist-illusion/cover.webp
+  alt: "방패처럼 생긴 빈 증서가 단단하게 쌓인 파란 블록을 일부 가리고 있다."
+  hide_caption: true
 ---
 
 # **능력주의의 환상과 책임의 외주화: 현대 기업은 왜 간판에 집착하는가**

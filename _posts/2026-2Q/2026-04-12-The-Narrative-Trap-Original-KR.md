@@ -10,6 +10,10 @@ lang: ko
 translation_key: the-narrative-trap
 article_version: original
 original_source_commit: "ed12d9407721ce6c0206bc3b18dc804ffee286f1"
+image:
+  path: /assets/img/essays/the-narrative-trap/cover.webp
+  alt: "펼쳐진 책에서 실 한 가닥이 밖으로 이어지며 매듭짓지 않은 끝을 남긴다."
+  hide_caption: true
 ---
 
 # **서사적 인과율의 함정: '체호프의 총'은 현실에서 발사되지 않는다**

@@ -9,6 +9,10 @@ topic: essays
 lang: en
 translation_key: the-essence-of-leadership
 article_version: compact
+image:
+  path: /assets/img/essays/the-essence-of-leadership/cover.webp
+  alt: "A quiet arch supports three figures, turning leadership into shared capability."
+  hide_caption: true
 ---
 
 **Subtitle: Leadership begins when the desire for recognition is converted into responsibility for collective results**

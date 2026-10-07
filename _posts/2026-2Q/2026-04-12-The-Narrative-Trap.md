@@ -9,6 +9,10 @@ topic: essays
 lang: en
 translation_key: the-narrative-trap
 article_version: compact
+image:
+  path: /assets/img/essays/the-narrative-trap/cover.webp
+  alt: "A loose thread escapes a blank open book, leaving the story unfinished."
+  hide_caption: true
 ---
 
 **Subtitle: The danger of applying fictional causality to probabilistic reality**

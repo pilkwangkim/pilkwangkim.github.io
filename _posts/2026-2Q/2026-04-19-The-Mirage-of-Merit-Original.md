@@ -10,6 +10,10 @@ lang: en
 translation_key: the-mirage-of-merit
 article_version: original
 original_source_commit: "92fc75a2502183260a97ad6469379b76f2056e35"
+image:
+  path: /assets/img/essays/the-mirage-of-merit/cover.webp
+  alt: "A small token stands in a spotlight while a taller token remains outside it."
+  hide_caption: true
 ---
 
 In the modern corporate lexicon, "**meritocracy**" is revered as a sacred ideal. The principle—that talent and effort should be the sole determinants of reward—is treated as a synonym for justice. Yet, in the practice of management, this ideal is a **double-edged sword**. A purist’s pursuit of meritocracy inevitably plunges an organization into a Hobbesian "*war of all against all*." Overheated internal competition fosters not healthy ambition, but a **corrosive culture of politicking and short-termism**, where long-term vision is sacrificed for immediate metrics. Furthermore, the relentless pressure to prove one’s worth drives key talent into **burnout**, undermining the organization’s sustainability. Of course, the alternative—a seniority-based gerontocracy—is no panacea; it breeds complacency and accelerates the **exodus of high-performers** who refuse to wait their turn. The burden therefore falls on management to find a delicate "*calibration*" between the ruthlessness of merit and the stability of tenure.

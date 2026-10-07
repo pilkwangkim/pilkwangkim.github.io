@@ -9,6 +9,10 @@ topic: essays
 lang: ko
 translation_key: the-paradox-of-benevolence
 article_version: compact
+image:
+  path: /assets/img/essays/the-paradox-of-benevolence/cover.webp
+  alt: "부드럽게 무언가를 건네는 손의 뾰족한 그림자가 다른 대상에 닿는 모습으로 선의와 결과의 간극을 표현한다."
+  hide_caption: true
 ---
 
 # **선의의 역설: 도덕적 나르시시즘을 넘어 결과적 책임으로**

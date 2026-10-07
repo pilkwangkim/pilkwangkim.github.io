@@ -8,6 +8,10 @@ pin: false
 topic: essays
 lang: en
 translation_key: the-credentialist-illusion
+image:
+  path: /assets/img/essays/the-credentialist-illusion/cover.webp
+  alt: "A blank certificate shaped like a shield partly conceals a solid construction of blue blocks."
+  hide_caption: true
 ---
 
 # **The Credentialist Illusion: Why modern firms outsource responsibility to pedigree**

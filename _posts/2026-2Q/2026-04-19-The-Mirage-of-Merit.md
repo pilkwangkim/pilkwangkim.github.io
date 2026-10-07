@@ -9,6 +9,10 @@ topic: essays
 lang: en
 translation_key: the-mirage-of-merit
 article_version: compact
+image:
+  path: /assets/img/essays/the-mirage-of-merit/cover.webp
+  alt: "A small token stands in a spotlight while a taller token remains outside it."
+  hide_caption: true
 ---
 
 **Subtitle: Why competence alone rarely explains who receives opportunity**

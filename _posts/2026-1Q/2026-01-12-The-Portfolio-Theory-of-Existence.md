@@ -8,6 +8,10 @@ pin: false
 topic: essays
 lang: en
 translation_key: the-portfolio-theory-of-existence
+image:
+  path: /assets/img/essays/the-portfolio-theory-of-existence/cover.webp
+  alt: "A balanced mobile of distinct shapes, suggesting a life supported by several meaningful commitments"
+  hide_caption: true
 ---
 
 **Subtitle: A life should not be optimized as a single asset**

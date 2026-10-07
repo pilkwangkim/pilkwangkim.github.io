@@ -8,6 +8,10 @@ pin: false
 topic: essays
 lang: en
 translation_key: the-language-that-faces-the-future
+image:
+  path: /assets/img/essays/the-language-that-faces-the-future/cover.webp
+  alt: "Three separate islands are connected by fine paths to one shared continent."
+  hide_caption: true
 ---
 
 **Subtitle: Why leadership must stop defending yesterday and organize around tomorrow**

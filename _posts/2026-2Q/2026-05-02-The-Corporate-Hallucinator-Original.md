@@ -10,6 +10,10 @@ lang: en
 translation_key: the-corporate-hallucinator
 article_version: original
 original_source_commit: "5c20f8292488a940d1e8bd807a6fab2a9137aea9"
+image:
+  path: /assets/img/essays/the-corporate-hallucinator/cover.webp
+  alt: "An empty speech bubble rises above a podium suspended just clear of its foundation."
+  hide_caption: true
 ---
 
 # **The Corporate Hallucinator**

@@ -9,6 +9,10 @@ topic: essays
 lang: ko
 translation_key: the-mirage-of-merit
 article_version: compact
+image:
+  path: /assets/img/essays/the-mirage-of-merit/cover.webp
+  alt: "작은 말에 조명이 비추고, 더 큰 말은 조명 밖에 서 있다."
+  hide_caption: true
 ---
 
 # **능력주의의 신기루: 포지셔닝의 지정학**

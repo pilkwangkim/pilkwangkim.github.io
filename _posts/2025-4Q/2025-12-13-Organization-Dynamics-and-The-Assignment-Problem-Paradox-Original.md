@@ -10,6 +10,10 @@ lang: en
 translation_key: organization-dynamics-and-the-assignment-problem-paradox
 article_version: original
 original_source_commit: 92fc75a2502183260a97ad6469379b76f2056e35
+image:
+  path: /assets/img/essays/organization-dynamics-and-the-assignment-problem-paradox/cover.webp
+  alt: "A large support carries the platform while a smaller form receives the spotlight."
+  hide_caption: true
 ---
 
 **Subtitle: Why Top Talent Are Sidelined and How to Resolve the 'Comparative Advantage' Dilemma**

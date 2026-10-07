@@ -8,6 +8,10 @@ pin: false
 topic: essays
 lang: ko
 translation_key: the-language-that-faces-the-future
+image:
+  path: /assets/img/essays/the-language-that-faces-the-future/cover.webp
+  alt: "떨어진 세 섬에서 뻗은 가느다란 길이 하나의 대륙으로 이어진다."
+  hide_caption: true
 ---
 
 # **리더의 언어는 왜 미래를 향해야 하는가: 과거의 덫과 조직의 동력**

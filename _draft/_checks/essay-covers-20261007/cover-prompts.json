@@ -1,0 +1,197 @@
+{
+  "generated_on": "2026-10-07",
+  "mode": "built-in imagegen",
+  "style": "Restrained abstract editorial illustrations on warm ivory paper, muted slate blue, sage and dusty clay, delicate charcoal forms, generous negative space, no lettering.",
+  "covers": [
+    {
+      "translation_key": "the-essence-of-leadership",
+      "path": "/assets/img/essays/the-essence-of-leadership/cover.webp",
+      "concept": "The essay argues that mature leaders create a stage where others can shine and develop capability. An understated supporting arch carries three distinct figures rather than claiming a throne or spotlight.",
+      "alt": {
+        "en": "A quiet arch supports three figures, turning leadership into shared capability.",
+        "ko": "세 인물을 받치는 조용한 아치가 함께 성장하도록 돕는 리더십을 표현한다."
+      },
+      "prompt": "Use case: stylized-concept\nAsset type: landscape essay cover for a restrained personal blog, approximately 1.9:1 aspect ratio.\nPrimary request: a thoughtful abstract editorial illustration about servant leadership: leadership as the quiet structure that enables other people to rise and become capable, rather than one person claiming the spotlight.\nScene/backdrop: uninterrupted warm ivory paper background (#F4F1EA).\nSubject: one low, sturdy slate-blue arch that is a supporting platform, with three small simple vertical forms standing confidently at different heights on its broad upper surface. The support has an open arch-shaped cutout below; its purposeful shape should read as enabling others. The supporting arch is grounded and understated, while the three small forms receive equal visual dignity. Avoid a triumphal staircase or hierarchy.\nStyle/medium: sophisticated minimalist cut-paper editorial illustration, mostly flat silhouettes and subtly imperfect organic edges, extremely subtle print grain.\nComposition/framing: wide horizontal canvas, a compact central group occupying the middle third to half, plenty of quiet empty paper above and to both sides, all important forms safely inside the central 60 percent for mobile cropping.\nLighting/mood: calm, warm, reflective, intellectually serious.\nColor palette: warm ivory #F4F1EA; muted slate-blue #778B99 for the supporting arch; muted sage #A5B1A0 for the three smaller forms; only a minimal charcoal #414846 grounding line if needed.\nConstraints: only four meaningful primary shapes, no text, letters, numbers, logos, watermark, border, title, faces, crown, trophy, complex scenery, hard dramatic shadows, gradients, glossy 3D or photorealism. Do not add decorative symbols. Create the illustration only.",
+      "posts": [
+        "_posts/2025-4Q/2025-12-12-The Essence of Leadership.md",
+        "_posts/2025-4Q/2025-12-12-The-Essence-of-Leadership-Original.md"
+      ],
+      "width": 1727,
+      "height": 911,
+      "bytes": 51826,
+      "sha256": "c768e93c16e75108eabd8489df719adef95bf7b1f67dc29c0ab90e8fddf99c63"
+    },
+    {
+      "translation_key": "organization-dynamics-and-the-assignment-problem-paradox",
+      "path": "/assets/img/essays/organization-dynamics-and-the-assignment-problem-paradox/cover.webp",
+      "concept": "Both editions explain how the strongest employee becomes the maintenance stabilizer while a less capable colleague receives strategic visibility. A larger hidden support and a smaller lit form visualize role allocation rather than talent.",
+      "alt": {
+        "en": "A large support carries the platform while a smaller form receives the spotlight.",
+        "ko": "큰 받침이 무대를 떠받치는 동안 작은 형태만 조명을 받는 모습으로 역할 배치의 역설을 표현한다."
+      },
+      "prompt": "Use case: stylized-concept\nAsset type: landscape essay cover for a restrained personal blog, approximately 1.9:1 aspect ratio.\nPrimary request: a sophisticated abstract editorial illustration of the assignment-problem paradox: the more capable person is used to support an organization's invisible maintenance, while a smaller capability receives the visible strategic position.\nScene/backdrop: uninterrupted warm ivory paper (#F4F1EA).\nSubject: one simple thin horizontal platform held up at its underside by a large muted slate-blue geometric pillar; a small dusty-clay rounded upright piece stands visibly on the top of that platform, off-center above the larger hidden support. The lower pillar is much larger than the small upright piece, visibly carrying the structure's load yet denied the open space above. A gentle translucent ivory spotlight triangle touches only the small piece on top; its edges are extremely faint. Make this read as a subtle editorial metaphor for unequal visibility, with no literal human faces or equipment.\nStyle/medium: restrained flat cut-paper silhouettes, subtly imperfect organic edges, extremely subtle print grain, fine charcoal accents.\nComposition/framing: wide horizontal canvas, compact central composition, abundant empty ivory space, key forms in central 60 percent; reveal both upper visible position and lower support clearly. Use just 4 primary forms: broad platform, large pillar below, small rounded upright above, faint light shape.\nLighting/mood: quiet, critical, reflective; soft and understated, no dramatic theatrical glow.\nColor palette: ivory #F4F1EA; muted slate-blue #778B99 for the strong support; dusty clay #C9A18F for small visible upright; a fine charcoal #414846 platform line.\nConstraints: no text, letters, numbers, formulas, graphs, labels, logos, watermark, border, title, gears, decorative symbols, busy office details, glossy 3D, photographic realism or saturated colors. Do not show a blocked staircase, crowns, winner trophies, or corporate clip art. Produce the illustration only.",
+      "posts": [
+        "_posts/2025-4Q/2025-12-13-Organization Dynamics and The Assignment Problem Paradox.md",
+        "_posts/2025-4Q/2025-12-13-Organization-Dynamics-and-The-Assignment-Problem-Paradox-Original.md"
+      ],
+      "width": 1727,
+      "height": 911,
+      "bytes": 60264,
+      "sha256": "daede697d59c5ce5aa69316cbe18b3a5afa52f9eba7de658aed0ab7840eead37"
+    },
+    {
+      "translation_key": "the-portfolio-theory-of-existence",
+      "path": "/assets/img/essays/the-portfolio-theory-of-existence/cover.webp",
+      "concept": "Distinct balanced shapes embody concentration without a single domain monopolising identity, and room for periodic rebalancing.",
+      "alt": {
+        "en": "A balanced mobile of distinct shapes, suggesting a life supported by several meaningful commitments",
+        "ko": "서로 다른 도형이 균형을 이루는 모빌로 표현한, 여러 의미 있는 영역이 지탱하는 삶"
+      },
+      "prompt": "Use case: stylized-concept\nAsset type: essay cover for a restrained personal blog about physics, AI and thoughtful daily life; no lettering will be added inside the image.\nPrimary request: a quiet abstract editorial illustration of a resilient life portfolio. The essay argues that career, love, health, craft and inner life must retain independent meaning, so no single success or failure holds the whole self hostage. Show a finely balanced sculptural mobile: three distinct simple forms of different shapes and modest sizes hanging on fine charcoal lines, one muted slate-blue circle, one soft sage arch, one dusty-clay quadrilateral, the main thin horizontal bar calmly balanced. One tiny ivory counterweight may create a meaningful hint of room to rebalance. It should convey distributed commitments and calm resilience, not money or stock trading.\nStyle/medium: refined flat cut-paper editorial art, soft matte ink shapes, a barely perceptible print grain, restrained abstract geometry with delicate line work. No glossy 3D rendering.\nComposition/framing: wide horizontal landscape approximately 1.9:1, generous warm ivory negative space all around; the complete small mobile occupies the central half of the image, well clear of all edges, attractive at desktop and phone widths. Simple coherent silhouette, 3 to 5 meaningful shapes at most.\nColor palette: warm ivory #F4F1EA background, muted slate-blue #778B99 and sage #A5B1A0 with a very small dusty-clay #C9A18F accent; charcoal #414846 linework. Very low saturation, no stark black or brilliant colors.\nMood: reflective, warm, composed, humane. Subtle natural soft shadow only if needed, no dramatic lighting.\nConstraints: a single finished illustration, no panels or collage. No text, lettering, numbers, logo, watermark, decorative border, charts, coins, corporate people, faces, busy details, gradients or fireworks. Keep the forms and lines spare and the image predominantly light ivory.",
+      "posts": [
+        "_posts/2026-1Q/2026-01-12-The-Portfolio-Theory-of-Existence.md"
+      ],
+      "width": 1729,
+      "height": 910,
+      "bytes": 21448,
+      "sha256": "2d7980789e2a1fdcb8dbceb4460816946bf740701caf1ce46ec010e001b63831"
+    },
+    {
+      "translation_key": "the-paradox-of-benevolence",
+      "path": "/assets/img/essays/the-paradox-of-benevolence/cover.webp",
+      "concept": "The English and Korean originals distinguish benevolent motives from consequences and demand empirical calibration. A caring rounded hand with an unexpectedly pointed shadow expresses unintended harm without showing injury.",
+      "alt": {
+        "en": "A gentle offering hand casts a pointed shadow toward an unintended recipient.",
+        "ko": "부드럽게 무언가를 건네는 손의 뾰족한 그림자가 다른 대상에 닿는 모습으로 선의와 결과의 간극을 표현한다."
+      },
+      "prompt": "Use case: stylized-concept\nAsset type: landscape essay cover for a restrained personal blog, approximately 1.9:1 aspect ratio.\nPrimary request: an understated abstract editorial illustration about the paradox of benevolence: a kind intention can cast a harmful unintended consequence, so good will needs careful judgment.\nScene/backdrop: uninterrupted warm ivory paper (#F4F1EA).\nSubject: a simplified muted sage silhouette of an open, gently cupped hand offering one small round seed. Below and slightly beyond it, the hand's soft form casts a contrasting flat charcoal shadow with one pointed angular edge that reaches toward a separate small dusty-clay circle. Show the mismatch between the rounded caring gesture and its unintended sharp shadow. The circle must remain intact: no injury or violence, just a quiet visual risk. Keep the hand reduced to one elegant continuous shape with almost no finger detail, not realistic anatomy.\nStyle/medium: sophisticated minimalist cut-paper editorial illustration, flat silhouettes and subtly imperfect organic edges, extremely subtle print grain.\nComposition/framing: wide horizontal canvas, a compact central arrangement occupying the middle half, ample warm ivory negative space; the hand, seed, angular shadow and separate circle remain within the central 60 percent and legible at thumbnail size.\nLighting/mood: gentle but questioning, contemplative and responsible; low contrast and no dramatic lighting.\nColor palette: warm ivory #F4F1EA; muted sage #A5B1A0 hand and seed; dusty clay #C9A18F separate circle; desaturated charcoal #414846 shadow used sparingly.\nConstraints: four meaningful primary forms only; no text, letters, numbers, formulas, labels, logos, watermark, border, title, literal heart, flowers, arrows, halos, weapons, distressed people, busy scenery, saturated colors, glossy 3D or photographic realism. Produce the illustration only.",
+      "posts": [
+        "_posts/2026-1Q/2026-01-30-The Paradox of Benevolence.md",
+        "_posts/2026-1Q/2026-01-30-The-Paradox-of-Benevolence-KR.md",
+        "_posts/2026-1Q/2026-01-30-The-Paradox-of-Benevolence-Original-KR.md",
+        "_posts/2026-1Q/2026-01-30-The-Paradox-of-Benevolence-Original.md"
+      ],
+      "width": 1728,
+      "height": 910,
+      "bytes": 50572,
+      "sha256": "4a4fb7b1bc9a251f3d3cb93a3dee751ac76c8ea4cac72ef99c1e885ca6ca328c"
+    },
+    {
+      "translation_key": "the-station-of-uncertainty",
+      "path": "/assets/img/essays/the-station-of-uncertainty/cover.webp",
+      "concept": "The essay's bus-stop metaphor contrasts unknowable external schedules with attention and independent assets one can reclaim. The small open book conveys active detachment without adding a person or distracting scenery.",
+      "alt": {
+        "en": "A quiet bench and blank arrival board, with an open book reclaiming the waiting time.",
+        "ko": "빈 도착 안내판 아래의 조용한 벤치와, 기다리는 시간을 되찾게 하는 펼친 책."
+      },
+      "prompt": "Use case: stylized-concept\nAsset type: a restrained editorial cover illustration for a thoughtful personal essay blog\nPrimary request: illustrate active detachment while waiting inside an opaque system. Show a quiet, simplified bus-stop bench and a blank arrival display above it, with one small open book resting on the bench: the schedule remains opaque, but the waiting time can still belong to the reader.\nScene/backdrop: expansive warm ivory paper (#F4F1EA), a single very fine ground line; no street, city, vehicles or people.\nSubject: central abstract bus-stop assembly with bench, narrow upright pole and blank rectangular arrival panel; the open book is the sole small, inviting detail.\nStyle/medium: minimalist flat cut-paper editorial illustration, refined simple silhouettes with charcoal (#414846) hairline outlines, exceptionally subtle printed paper grain, no glossy 3D.\nComposition/framing: wide horizontal landscape, approximately 1.9:1, suitable for a 1200 by 630 blog header. Limit to four meaningful visual elements and abundant negative space. Keep the entire metaphor within the central 60 percent of the canvas so it survives mobile cropping.\nMood: quiet intellectual autonomy, patient and reflective rather than bleak.\nColor palette: warm ivory background, muted slate-blue (#778B99) bench/display, a very small dusty-clay (#C9A18F) book accent, restrained charcoal linework. Only these few quiet colors.\nConstraints: no text, no lettering, no digits on the display or book, no logos, no watermark, no frame or border. Not an infographic, not a comic, not a photorealistic street scene. Avoid decorative objects, excessive detail, gradients, bright colors, dramatic shadows and ornamental flourishes.",
+      "posts": [
+        "_posts/2026-1Q/2026-03-14-The-Station-of-Uncertainty.md"
+      ],
+      "width": 1729,
+      "height": 910,
+      "bytes": 52110,
+      "sha256": "6d0ddb4f460c7bf67759478dc666b7573a86a82edb2c6daedade0b7ce41e56e1"
+    },
+    {
+      "translation_key": "the-credentialist-illusion",
+      "path": "/assets/img/essays/the-credentialist-illusion/cover.webp",
+      "concept": "A pedigree certificate serves as a shield against blame, obscuring a concrete construction that represents actual competence. A plain seal signals certification without lettered institutional emblems.",
+      "alt": {
+        "en": "A blank certificate shaped like a shield partly conceals a solid construction of blue blocks.",
+        "ko": "방패처럼 생긴 빈 증서가 단단하게 쌓인 파란 블록을 일부 가리고 있다."
+      },
+      "prompt": "Use case: stylized-concept\nAsset type: minimalist editorial cover illustration for a thoughtful essay blog\nPrimary request: express how pedigree protects a hiring manager from blame while obscuring actual competence. A plain certificate is shaped subtly like a shield: a large upright ivory paper rectangle with a shallow pointed lower edge and a small muted circular seal, positioned in front of and partially hiding a small, solid interlocking construction of three slate-blue blocks. The document is the protective facade, the blocks behind it are real ability.\nScene/backdrop: expansive warm ivory paper (#F4F1EA), almost empty, with only a thin charcoal ground line.\nStyle/medium: refined flat cut-paper editorial illustration, quiet graphic silhouettes, fine charcoal (#414846) outlines and extremely subtle print grain, matte rather than glossy or 3D.\nComposition/framing: wide horizontal landscape approximately 1.9:1, suitable for a 1200 by 630 blog header. Central compact metaphor with generous space around it; all significant forms within central 60 percent. At most five simple meaningful forms. A restrained broad flat sage shadow behind the certificate may suggest protection, but it must not add a new object.\nMood: reflective and critical, understated, neither celebratory nor sinister.\nColor palette: warm ivory background and certificate, muted slate-blue (#778B99) competence blocks, a small muted sage (#A5B1A0) circular seal or shadow, restrained charcoal hairlines; only these quiet colors.\nConstraints: certificate completely blank except the plain small circular seal: no printed lines, no letters, no writing, no numbers, no badges with emblems, no title, no logos, no watermark, no frame, no decorative flourishes. No graduation cap, university building, trophy, people, faces or hands. Avoid bright colors, dramatic shadows, photorealism, complex diagrams and generic disconnected decoration.",
+      "posts": [
+        "_posts/2026-1Q/2026-03-21-The-Credentialist-Illusion-KR.md",
+        "_posts/2026-1Q/2026-03-21-The-Credentialist-Illusion.md"
+      ],
+      "width": 1730,
+      "height": 909,
+      "bytes": 36164,
+      "sha256": "07ba5370f009fdc3b4f7b703e9e02a360e0ddf5cd05f1234b1b259008237188f"
+    },
+    {
+      "translation_key": "the-narrative-trap",
+      "path": "/assets/img/essays/the-narrative-trap/cover.webp",
+      "concept": "A tidy fictional loop continues out of the book into an unresolved real-life thread, matching the essay's distinction between narrative causality and probabilistic reality.",
+      "alt": {
+        "en": "A loose thread escapes a blank open book, leaving the story unfinished.",
+        "ko": "펼쳐진 책에서 실 한 가닥이 밖으로 이어지며 매듭짓지 않은 끝을 남긴다."
+      },
+      "prompt": "Use case: stylized-concept.\nAsset type: a wide landscape editorial cover illustration for a reflective personal essay on a clean, understated blog; approximately 1.9:1 aspect ratio.\nPrimary request: embody the difference between a neatly constructed fictional plot and real life, which leaves loose ends and offers no guaranteed payoff for past effort. A small, understated open book lies near the centre, its two blank ivory pages defined by simple charcoal strokes and a muted slate-blue cover. One fine charcoal thread makes a tidy loop over the book, then slips out beyond the page into a long, gentle, unfinished curve ending openly in the surrounding empty space. The unresolved end should feel calm and ordinary, not broken or tragic. The metaphor is an imagined narrative escaping its own neat arc.\nScene/backdrop: warm ivory paper #F4F1EA, abundant negative space, no room scenery.\nStyle/medium: restrained abstract editorial illustration, mostly flat cut-paper silhouettes with finely drawn charcoal #414846 lines. A slight printed-paper grain only. A mature quiet literary mood; precise, thoughtful, and warm.\nColor palette: ivory background plus muted slate-blue #778B99 and charcoal; no additional accent colours.\nComposition/framing: wide horizontal canvas, main motif compact in the central 60 percent with generous margins, suitable for a 1200-by-630 blog cover and a mobile crop. Only the open book and a single loose thread; visual balance rather than an infographic.\nConstraints: no lettering, no page text, no symbols or numbers, no title, no logo, no watermark, no border. No gun, people, cinematic action, gradients, glossy 3D, busy decoration, bright colours, large shadow, arrows, charts, or photorealism. Deliver one finished illustration, not a mockup or multi-image layout.",
+      "posts": [
+        "_posts/2026-2Q/2026-04-12-The-Narrative-Trap-KR.md",
+        "_posts/2026-2Q/2026-04-12-The-Narrative-Trap-Original-KR.md",
+        "_posts/2026-2Q/2026-04-12-The-Narrative-Trap-Original.md",
+        "_posts/2026-2Q/2026-04-12-The-Narrative-Trap.md"
+      ],
+      "width": 1730,
+      "height": 909,
+      "bytes": 84662,
+      "sha256": "65893a5971281897da2bee897d57a4b25a8cf383e073309b0677da32328018de"
+    },
+    {
+      "translation_key": "the-mirage-of-merit",
+      "path": "/assets/img/essays/the-mirage-of-merit/cover.webp",
+      "concept": "The most visible square, rather than the largest/strongest token, receives attention. The four-square board and restrained beam follow the essay's positioning and organizational spotlight metaphors.",
+      "alt": {
+        "en": "A small token stands in a spotlight while a taller token remains outside it.",
+        "ko": "작은 말에 조명이 비추고, 더 큰 말은 조명 밖에 서 있다."
+      },
+      "prompt": "Use case: stylized-concept.\nAsset type: a wide landscape editorial cover illustration for a reflective personal essay on a clean, understated blog, approximately 1.9:1 aspect ratio.\nPrimary request: express the essay's argument that organizational opportunity depends on visibility and strategic position, not competence alone. On a tiny, simple flat board made of just four broad pale squares, two plain geometric standing forms occupy different positions: a modest dusty-clay cylinder in one visible central square and a somewhat taller charcoal/slate-blue cylinder near the board's edge. A single broad, softly defined ivory beam from above falls only on the modest central form; the taller form remains quietly outside this field of attention. The forms must be extremely simple tokens without faces, people, ornate chess carvings, or decorative details. This is a calm visual metaphor for the most visible square on the board, not a competitive victory poster.\nScene/backdrop: warm ivory paper #F4F1EA with ample blank space, no room scenery, no actual lamp.\nStyle/medium: restrained abstract editorial illustration, flat cut-paper silhouettes, restrained charcoal #414846 fine outlines, minimal dry print texture. Gentle and thoughtful, with quiet critical tension.\nColor palette: muted slate-blue #778B99, dusty clay #C9A18F, warm ivory and charcoal only. The beam is an almost-white paper shape, with no glow effects.\nComposition/framing: wide horizontal canvas, one compact grouping centred within the middle 60 percent, generous margins, suitable for 1200-by-630 blog cover and mobile crop. No more than six meaningful shapes. Board shown in barely oblique perspective, without an elaborate grid.\nConstraints: no lettering, no numbers, no title, no logo, no watermark, no border. No trophy, crown, human figures, dramatic theatre, glossy 3D, photorealistic lighting, gradients, chart arrows, or bright colours. Deliver one finished illustration, not a mockup or multi-image layout.",
+      "posts": [
+        "_posts/2026-2Q/2026-04-19-The-Mirage-of-Merit-KR.md",
+        "_posts/2026-2Q/2026-04-19-The-Mirage-of-Merit-Original-KR.md",
+        "_posts/2026-2Q/2026-04-19-The-Mirage-of-Merit-Original.md",
+        "_posts/2026-2Q/2026-04-19-The-Mirage-of-Merit.md"
+      ],
+      "width": 1730,
+      "height": 909,
+      "bytes": 52308,
+      "sha256": "fd153329b6fa684470a5c85f825907a552fd28cfce75d2ee936707603c84d16e"
+    },
+    {
+      "translation_key": "the-corporate-hallucinator",
+      "path": "/assets/img/essays/the-corporate-hallucinator/cover.webp",
+      "concept": "The large fluent-looking yet empty speech bubble and unsupported podium represent authoritative corporate speech that lacks a factual foundation. The visible gap carries the critique with only three forms.",
+      "alt": {
+        "en": "An empty speech bubble rises above a podium suspended just clear of its foundation.",
+        "ko": "기반에서 살짝 떠 있는 연단 위로 텅 빈 말풍선이 떠 있다."
+      },
+      "prompt": "Use case: stylized-concept\nAsset type: restrained editorial cover illustration for a thoughtful personal essay blog\nPrimary request: convey confident institutional speech with no factual foundation. Show a large elegant hollow speech bubble made from a muted slate-blue cut-paper outline, floating immediately over a small charcoal podium. The podium is composed of a short rectangular top and an upright column, but the column ends slightly above the ground line with a clear small gap: the confident facade is unsupported. Through the speech bubble's open ivory interior there is nothing at all.\nScene/backdrop: spacious warm ivory paper (#F4F1EA), one hairline ground line below the podium; an otherwise empty field.\nStyle/medium: sophisticated flat cut-paper editorial metaphor, clean rounded silhouettes and charcoal (#414846) hairline details, exceptionally subtle print grain. Mostly flat, not glossy, not photorealistic or 3D.\nComposition/framing: wide horizontal landscape approximately 1.9:1 for a 1200 by 630 blog header. Central compact arrangement, three or four simple forms only, abundant negative space. Keep the whole metaphor inside the central 60 percent of the canvas so it remains legible at mobile width.\nMood: quiet irony, intellectual skepticism, restrained and warm, not surreal spectacle or corporate marketing.\nColor palette: warm ivory background and bubble interior, muted slate-blue (#778B99) bubble outline, charcoal podium, optional tiny dusty-clay (#C9A18F) accent only if needed. Use very few subdued colors.\nConstraints: no text, no lettering, no numbers, no symbols inside the speech bubble, no logo, watermark or border. No faces, people, robots, circuits, city skylines, extra bubbles or scattered objects. Avoid ornamental flourishes, loud gradients, vivid colors and dramatic shadows. Preserve an obvious empty bubble interior and a visible gap between support and ground.",
+      "posts": [
+        "_posts/2026-2Q/2026-05-02-The-Corporate-Hallucinator-Original.md",
+        "_posts/2026-2Q/2026-05-02-The-Corporate-Hallucinator.md"
+      ],
+      "width": 1730,
+      "height": 909,
+      "bytes": 35680,
+      "sha256": "96c85045458118fd41ca52f8a9881e4245bf829fe8b94d65f41cbc5f6bbb7514"
+    },
+    {
+      "translation_key": "the-language-that-faces-the-future",
+      "path": "/assets/img/essays/the-language-that-faces-the-future/cover.webp",
+      "concept": "Each person's past is a disconnected island; shared future is one continent. Three dusty-clay islands join a broad sage landform without text, people, or motivational imagery.",
+      "alt": {
+        "en": "Three separate islands are connected by fine paths to one shared continent.",
+        "ko": "떨어진 세 섬에서 뻗은 가느다란 길이 하나의 대륙으로 이어진다."
+      },
+      "prompt": "Use case: stylized-concept.\nAsset type: wide landscape abstract editorial cover for a thoughtful personal essay on leadership, approximately 1.9:1 aspect ratio.\nPrimary request: express the essay's central metaphor: every person's past is a separate island, while a shared future is the one continent they can stand on together. Show three small, separate, softly irregular dusty-clay island silhouettes in the lower central part, and one broad, gently curved sage landform above them. Three very fine charcoal paths emerge from the separate islands, quietly converge, and cross the ivory space toward the shared landform. The shared land should read as an open, welcoming future rather than a wall or trophy. No literal map labels, no arrows, no people, no buildings. Aim for an elegant visual metaphor, not a diagram.\nScene/backdrop: warm ivory paper #F4F1EA serving as empty water/air, abundant negative space surrounding the compact central motif.\nStyle/medium: restrained abstract editorial illustration, flat cut-paper silhouettes with tiny organic irregularities and charcoal #414846 fine lines; extremely subtle printed-paper grain. Warm, spacious, thoughtful, gently optimistic. No glossy 3D.\nColor palette: warm ivory, muted sage #A5B1A0, dusty clay #C9A18F, charcoal only, no saturated tones.\nComposition/framing: horizontal canvas, top-down abstract composition; main shapes and joining paths inside the middle 60 percent so the metaphor remains clear at mobile width; generous plain margins. Only four land shapes and the fine converging paths. Keep all islands fully visible and their separation unmistakable.\nConstraints: no text or lettering, no numbers, no logos, no title, no watermark, no border, no actual geography, no boats, bridges with engineering details, sun, decorative icons, chart notation, gradient sky, busy waves, dramatic shadows, realistic scenery, or glossy effects. Deliver one finished illustration, not a mockup or collage.",
+      "posts": [
+        "_posts/2026-2Q/2026-05-24-The-Language-That-Faces-the-Future-KR.md",
+        "_posts/2026-2Q/2026-05-24-The-Language-That-Faces-the-Future.md"
+      ],
+      "width": 1727,
+      "height": 911,
+      "bytes": 52444,
+      "sha256": "427f8e4eb2fad5b37a8d70f8f01f78ce614e237b423e5dcf5d4d13924fb8bdbf"
+    }
+  ],
+  "web_encoding": {
+    "format": "WebP",
+    "quality": 90,
+    "method": 6,
+    "geometry": "unchanged from generated image"
+  }
+}

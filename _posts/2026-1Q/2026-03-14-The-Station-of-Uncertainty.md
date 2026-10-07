@@ -8,6 +8,10 @@ pin: false
 topic: essays
 lang: en
 translation_key: the-station-of-uncertainty
+image:
+  path: /assets/img/essays/the-station-of-uncertainty/cover.webp
+  alt: "A quiet bench and blank arrival board, with an open book reclaiming the waiting time."
+  hide_caption: true
 ---
 
 **Subtitle: Corporate fatigue is often caused less by labor itself than by uncertainty engineered around labor**

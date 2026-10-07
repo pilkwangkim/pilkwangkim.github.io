@@ -10,6 +10,10 @@ lang: en
 translation_key: the-paradox-of-benevolence
 article_version: original
 original_source_commit: "92fc75a2502183260a97ad6469379b76f2056e35"
+image:
+  path: /assets/img/essays/the-paradox-of-benevolence/cover.webp
+  alt: "A gentle offering hand casts a pointed shadow toward an unintended recipient."
+  hide_caption: true
 ---
 
 The aphorism that "the road to hell is paved with good intentions" retains its force across centuries because it pierces the armor of our most cherished delusion: the **fallacy of moral intuition**. Humans are biologically wired to believe that the purity of an actor’s motive serves as a guarantor of the outcome’s legitimacy. We comfort ourselves with the sweet fiction that a "clean heart" acts as a universal solvent, washing away the sins of practical error.

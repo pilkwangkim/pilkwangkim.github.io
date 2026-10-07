@@ -10,6 +10,10 @@ lang: en
 translation_key: the-narrative-trap
 article_version: original
 original_source_commit: "92fc75a2502183260a97ad6469379b76f2056e35"
+image:
+  path: /assets/img/essays/the-narrative-trap/cover.webp
+  alt: "A loose thread escapes a blank open book, leaving the story unfinished."
+  hide_caption: true
 ---
 
 Reading fiction is widely regarded as a gymnasium for the mind, cultivating the judgment necessary to navigate life’s complexities. Whether literary or genre fiction, stories invite us into a constructed reality where we may transcend physical limitations and expand our experiential horizons. Yet this literary utility carries a cognitive hazard: the mistaken belief that the real world operates on the strict **teleological economy** of a novel.
