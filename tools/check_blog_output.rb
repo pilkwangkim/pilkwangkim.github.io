@@ -7,11 +7,13 @@
 #     --metadata-report path/to/metadata-check.json --baseline path/to/posts.json
 
 require 'date'
+require 'digest'
 require 'json'
 require 'nokogiri'
 require 'open3'
 require 'optparse'
 require 'time'
+require 'uri'
 require 'yaml'
 require 'jekyll'
 
@@ -34,6 +36,10 @@ abort 'Metadata report must pass first' unless metadata['status'] == 'passed'
 baseline = JSON.parse(File.read(options[:baseline]))
 config = YAML.safe_load(File.read(File.join(source, '_config.yml')), permitted_classes: [Date, Time], aliases: true)
 baseurl = config['baseurl'].to_s.delete_suffix('/')
+asset_paths = %w[assets/js/blog-navigation.js assets/css/jekyll-theme-chirpy.scss Gemfile.lock] + Dir.glob('_sass/**/*.scss', base: source)
+asset_fingerprint = Digest::SHA256.hexdigest(asset_paths.sort.map do |path|
+  path + "\0" + File.binread(File.join(source, path)) + "\0"
+end.join)[0, 12]
 urls = metadata.fetch('original_urls')
 read_yaml = ->(path) { YAML.safe_load(File.read(path), permitted_classes: [Date, Time], aliases: true) }
 topics = read_yaml.call(File.join(source, '_data', 'topics.yml'))
@@ -67,6 +73,17 @@ html_for = lambda do |url|
   html_cache[url] ||= Nokogiri::HTML(File.read(path))
 end
 hrefs = ->(nodes) { nodes.map { |node| node['href'].to_s.delete_prefix(baseurl) } }
+asset_uri = lambda do |value|
+  URI.parse(value.to_s)
+rescue URI::InvalidURIError
+  nil
+end
+asset_nodes = lambda do |html, selector, attribute, path|
+  html.css(selector).filter_map do |node|
+    parsed = asset_uri.call(node[attribute])
+    [node, parsed] if parsed && parsed.path.to_s.delete_prefix(baseurl) == path
+  end
+end
 normalized_text = ->(node) { node&.text.to_s.gsub(/\s+/, ' ').strip }
 language_name = { 'ko' => 'Korean', 'en' => 'English' }
 inherited_language = lambda do |node|
@@ -94,7 +111,7 @@ urls.each do |path, url|
   next unless html
 
   check.call(html.at_css('#desktop-sidebar-toggle[aria-controls="sidebar"][aria-expanded]'), "#{url}: missing accessible desktop sidebar control")
-  check.call(html.at_css('script[src$="/assets/js/blog-navigation.js"]'), "#{url}: missing navigation JavaScript")
+  check.call(asset_nodes.call(html, 'script[src]', 'src', '/assets/js/blog-navigation.js').length == 1, "#{url}: missing or duplicated navigation JavaScript base path")
   post = posts.find { |item| item['path'] == path }
   check.call(html.at_css('html')['lang'] == post['lang'], "#{url}: document language differs from article language")
 end
@@ -511,6 +528,25 @@ html_cache.each do |url, html|
   check.call(keys == recent_article_keys, "#{url}: recent article groups or their global order differ across pages")
 end
 
+# The theme CSS and navigation script share one source fingerprint so a cached
+# PWA document cannot pair new markup with assets from the prior layout.
+versioned_asset_pages_checked = 0
+html_cache.each do |url, html|
+  versioned_asset_pages_checked += 1
+  [['script[src]', 'src', '/assets/js/blog-navigation.js'],
+   ['link[rel="stylesheet"][href]', 'href', '/assets/css/jekyll-theme-chirpy.css']].each do |selector, attribute, path|
+    matches = asset_nodes.call(html, selector, attribute, path)
+    check.call(matches.length == 1, "#{url}: missing or duplicated versioned asset #{path}")
+    next unless matches.length == 1
+
+    parsed = matches.first.last
+    versions = URI.decode_www_form(parsed.query.to_s).select { |key, _| key == 'v' }.map(&:last)
+    check.call(versions == [asset_fingerprint], "#{url}: #{path} must use shared source fingerprint v=#{asset_fingerprint}")
+  rescue ArgumentError
+    check.call(false, "#{url}: #{path} has an invalid asset-version query")
+  end
+end
+
 # Validate the emitted inline hook, where production HTML compression can alter
 # JavaScript comments, as well as the standalone navigation script.
 inline_hooks = html_cache.values.flat_map do |html|
@@ -544,6 +580,8 @@ report = {
   'topic_series_bundles_checked' => topic_series_bundles_checked,
   'recent_updates_pages_checked' => recent_updates_pages_checked,
   'recent_article_keys' => recent_article_keys,
+  'blog_asset_version' => asset_fingerprint,
+  'versioned_asset_pages_checked' => versioned_asset_pages_checked,
   'generated_javascript_syntax_checks' => syntax_sources.length,
   'errors' => errors
 }

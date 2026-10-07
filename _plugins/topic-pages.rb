@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'time'
+require 'digest'
 
 module Jekyll
   # Keep the hand-written topic introduction separate from automatically grouped
@@ -10,6 +11,12 @@ module Jekyll
     priority :lowest
 
     def generate(site)
+      asset_sources = ['assets/js/blog-navigation.js', 'assets/css/jekyll-theme-chirpy.scss', 'Gemfile.lock',
+                       *Dir.glob('_sass/**/*.scss', base: site.source)].sort
+      asset_content = asset_sources.map do |path|
+        path + "\0" + File.binread(File.join(site.source, path)) + "\0"
+      end.join
+      site.data['blog_asset_version'] = Digest::SHA256.hexdigest(asset_content)[0, 12]
       add_topic_labels(site)
       posts = site.posts.docs.reject { |post| post.data['hidden'] == true }
       topics = Array(site.data['topics'])

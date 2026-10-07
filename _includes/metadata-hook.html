@@ -8,7 +8,7 @@
     /* Navigation remains usable when browser storage is unavailable. */
   }
 </script>
-<script defer src="{{ '/assets/js/blog-navigation.js' | relative_url }}"></script>
+<script defer src="{{ '/assets/js/blog-navigation.js' | relative_url }}?v={{ site.data.blog_asset_version }}"></script>
 {% if page.translation_key %}
   {% assign alternate_posts = site.posts | where: 'translation_key', page.translation_key | where_exp: 'post', 'post.hidden != true' %}
   {% for alternate in alternate_posts %}

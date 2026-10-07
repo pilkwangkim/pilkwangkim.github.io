@@ -16,7 +16,11 @@ layout: compress
     data-bs-theme="{{ site.theme_mode }}"
   {%- endif -%}
 >
-  {% include head.html lang=lang %}
+  {% capture rendered_head %}{% include head.html lang=lang %}{% endcapture %}
+  {% assign theme_css_url = '/assets/css/:THEME.css' | replace: ':THEME', site.theme | relative_url %}
+  {% assign theme_css_original = theme_css_url | append: '"' %}
+  {% assign theme_css_versioned = theme_css_url | append: '?v=' | append: site.data.blog_asset_version | append: '"' %}
+  {{ rendered_head | replace: theme_css_original, theme_css_versioned }}
 
   <body lang="{{ lang }}">
     {% include sidebar.html lang=lang %}
