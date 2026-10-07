@@ -129,6 +129,7 @@ html[data-navigation-ready='true'] .discovery-language-controls { display: flex;
 }
 
 .topic-card-heading { display: flex; justify-content: space-between; gap: 0.7rem; align-items: flex-start; min-height: 3.25rem; }
+.topic-category-grid .topic-card-heading { min-height: 4.875rem; }
 .topic-card-heading i { color: var(--link-color); font-size: 0.8rem; flex-shrink: 0; margin-top: 0.3rem; }
 .topic-post-heading { display: flex; flex-direction: column; gap: 0.2rem; }
 
@@ -216,6 +217,7 @@ ol.reading-path-list li::marker { color: var(--text-muted-color); font-weight: 6
 
 @media (max-width: 575px) {
   .topic-grid { grid-template-columns: 1fr; }
+  .topic-category-grid .topic-card-heading { min-height: 3.25rem; }
   .topic-card { padding: 1rem; }
   .post-guide { padding: 0.8rem 1rem; }
   .series-nav { grid-template-columns: 1fr; gap: 0.25rem; }

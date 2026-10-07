@@ -77,7 +77,7 @@ check.call(topic_by_id.keys.all? { |id| id.is_a?(String) && id.match?(/\A[a-z0-9
 category_ids = topic_categories.filter_map { |category| category['id'] if category.is_a?(Hash) }
 check.call(category_ids.length == topic_categories.length, 'Every topic category must be a record')
 check.call(category_ids.uniq == category_ids, 'Topic category IDs must be unique')
-check.call(category_ids.sort_by(&:to_s) == %w[harness-engineering reinforcement-learning tabular], 'AI navigation must contain exactly Harness Engineering, Tabular, and RL')
+check.call(category_ids.sort_by(&:to_s) == %w[harness-engineering reinforcement-learning tabular], 'AI navigation must contain exactly the three configured category IDs')
 check.call((category_ids & topic_by_id.keys).empty?, 'Topic category URLs must not replace existing topic URLs')
 ai_topic_ids = topics.select { |topic| topic['group'] == 'ai' }.map { |topic| topic['id'] }
 assigned_ai_topics = []

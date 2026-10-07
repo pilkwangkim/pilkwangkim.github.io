@@ -1,7 +1,7 @@
 - id: harness-engineering
   group: ai
-  title: Harness Engineering
-  description: 코딩·보안·상호작용형 추론 에이전트의 실행 환경, 도구 사용과 평가 체계를 다룹니다.
+  title: AI Agent Harness Engineering
+  description: AI 에이전트의 실행 환경, 도구 연결, 보안과 상호작용형 추론의 평가 체계를 다룹니다.
   topics:
   - gemma-4
   - ai-agent-security
@@ -12,7 +12,7 @@
   - arc-agi-3-introduction
 - id: tabular
   group: ai
-  title: Tabular
+  title: Tabular & Predictive Modeling
   description: 표형 데이터 예측을 중심으로, 영상·음향·질량스펙트럼·지층 데이터의 예측과 검증 연구를 함께 모았습니다.
   topics:
   - playground-series
@@ -29,7 +29,7 @@
   - biohub-01
 - id: reinforcement-learning
   group: ai
-  title: RL
+  title: Reinforcement Learning & Game Agents
   description: 강화학습, 규칙 기반 전략, 환경·리플레이 분석을 포함한 게임 에이전트 연구를 모았습니다.
   topics:
   - orbit-wars

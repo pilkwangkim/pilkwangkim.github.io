@@ -48,7 +48,7 @@ series_order: 1
 
 `_data/topics.yml`은 `id`, `group`, `title`, `description`, `tag`를 갖는 목록입니다. `group`은 `ai`, `physics`, `essays`, `reference` 중 하나입니다. 주제의 소개와 추천 읽기 순서는 이 파일에서 관리하고, 전체 글 목록은 각 글의 `topic`에서 자동으로 모읍니다. `recommended`에는 URL 대신 `translation_key`를 적어 언어별 링크를 선택할 수 있게 합니다.
 
-AI · Kaggle의 첫 화면과 사이드바에는 `_data/topic_categories.yml`에 정의한 세 분류만 표시합니다. Harness Engineering은 Gemma 4, AI Agent Security, ARC-AGI-3를 묶습니다. Tabular는 Playground·March Machine Learning Mania 등 표형 데이터 예측과 영상·음향·분자·지층 데이터의 예측 모델링을 함께 모읍니다. RL은 Orbit Wars, Pokémon TCG, Kaggriculture, Maze Crawler의 강화학습 및 게임 에이전트 연구를 묶습니다. 각 분류의 `topics`에 대회별 주제 ID를 적으며 모든 AI 주제를 정확히 한 분류에 배정합니다. 분류의 `recommended`에는 해당 분류 안에서 시작하기 좋은 글을 고릅니다.
+AI · Kaggle의 첫 화면과 사이드바에는 `_data/topic_categories.yml`에 정의한 세 분류만 표시합니다. AI Agent Harness Engineering은 Gemma 4, AI Agent Security, ARC-AGI-3를 묶습니다. Tabular & Predictive Modeling은 Playground·March Machine Learning Mania 등 표형 데이터 예측과 영상·음향·분자·지층 데이터의 예측 모델링을 함께 모읍니다. Reinforcement Learning & Game Agents는 Orbit Wars, Pokémon TCG, Kaggriculture, Maze Crawler의 강화학습 및 게임 에이전트 연구를 묶습니다. 각 분류의 `topics`에 대회별 주제 ID를 적으며 모든 AI 주제를 정확히 한 분류에 배정합니다. 분류의 `recommended`에는 해당 분류 안에서 시작하기 좋은 글을 고릅니다.
 
 글의 `topic`과 기존 대회별 안내 URL은 유지합니다. 상위 분류 페이지는 해당 글들을 자동으로 모으고, 대회별 안내 카드들은 접힌 메뉴 안에 제공합니다. 글과 대회별 안내에서도 상위 분류로 이동할 수 있습니다. 물리와 에세이는 기존 주제 구성을 사용합니다.
 
