@@ -21,6 +21,7 @@ module Jekyll
       posts = site.posts.docs.reject { |post| post.data['hidden'] == true }
       topics = Array(site.data['topics'])
       categories = Array(site.data['topic_categories'])
+      @topics_by_id = topics.to_h { |topic| [topic['id'], topic] }
       @series_by_id = Array(site.data['series']).to_h { |series| [series['id'], series] }
       parent_by_id = category_parents(categories)
       site.data['topic_category_by_id'] = parent_by_id
@@ -37,7 +38,7 @@ module Jekyll
           'layout' => 'topic', 'title' => topic['title'],
           'description' => topic['description'], 'permalink' => url,
           'lang' => 'en', 'topic_entry' => topic, 'articles' => articles,
-          'article_groups' => article_groups(articles),
+          'article_groups' => article_groups(articles, group_topics: topic['group'] == 'ai'),
           'post_count' => topic_posts.size,
           'parent_category' => parent_by_id[topic['id']]
         )
@@ -74,7 +75,7 @@ module Jekyll
       topics_by_id = topic_index.to_h { |topic| [topic['id'], topic] }
       categories.map do |category|
         member_ids = Array(category['topics'])
-        members = member_ids.map do |id|
+        member_ids.each do |id|
           topics_by_id.fetch(id) do
             raise Errors::FatalException, "Category #{category['id']}: unknown or empty topic #{id}"
           end
@@ -88,7 +89,7 @@ module Jekyll
           'description' => category['description'], 'permalink' => url,
           'lang' => 'en', 'category_entry' => category,
           'articles' => articles,
-          'article_groups' => article_groups(articles),
+          'article_groups' => article_groups(articles, group_topics: true),
           'post_count' => category_posts.size
         )
         site.pages << page
@@ -119,6 +120,7 @@ module Jekyll
           end,
           'languages' => versions.map { |post| post.data['lang'] },
           'primary_language' => versions.first.data['lang'],
+          'topic' => versions.first.data['topic'],
           'series' => versions.first.data['series'],
           'series_order' => versions.first.data['series_order'],
           'date' => versions.map(&:date).max,
@@ -127,20 +129,43 @@ module Jekyll
       end.sort_by { |article| [-article['date'].to_f, article['translation_key'].to_s] }
     end
 
-    def article_groups(articles)
+    def article_groups(articles, group_topics: false)
       articles.group_by do |article|
-        article['series'] ? "series:#{article['series']}" : "article:#{article['translation_key']}"
+        if group_topics
+          "topic:#{article['topic']}"
+        else
+          article['series'] ? "series:#{article['series']}" : "article:#{article['translation_key']}"
+        end
       end.map do |key, members|
-        series_id = members.first['series']
-        series = @series_by_id.fetch(series_id) if series_id
+        topic_id = members.first['topic']
+        series = @series_by_id.values.find do |definition|
+          members.any? { |article| article['series'] == definition['id'] }
+        end
+        bundle_id = group_topics ? (series && series['id']) || topic_id : series && series['id']
+        title = group_topics ? @topics_by_id.fetch(topic_id)['title'] : series && series['title']
         {
-          'key' => key, 'series_id' => series_id, 'title' => series && series['title'],
-          'articles' => series_id ? members.sort_by { |article| article['series_order'] } : members,
+          'key' => key, 'bundle_id' => bundle_id, 'topic_id' => topic_id, 'title' => title,
+          'articles' => reading_order(members),
           'latest_articles' => members.sort_by { |article| [-article['date'].to_f, article['translation_key'].to_s] },
           'languages' => members.flat_map { |article| article['languages'] }.uniq,
           'date' => members.map { |article| article['date'] }.max
         }
       end.sort_by { |group| [-group['date'].to_f, group['key']] }
+    end
+
+    # Topic bundles can contain a numbered series alongside independent notes.
+    # Keep each real sequence intact without assigning new part numbers.
+    def reading_order(articles)
+      sequences = articles.group_by do |article|
+        article['series'] ? "series:#{article['series']}" : "article:#{article['translation_key']}"
+      end
+      sequences.sort_by do |key, members|
+        [members.map { |article| article['date'].to_f }.min, key]
+      end.flat_map do |_, members|
+        members.sort_by do |article|
+          [article['series_order'] || 0, article['date'].to_f, article['translation_key'].to_s]
+        end
+      end
     end
 
     def modified_at(post)

@@ -43,6 +43,7 @@ end.join)[0, 12]
 urls = metadata.fetch('original_urls')
 read_yaml = ->(path) { YAML.safe_load(File.read(path), permitted_classes: [Date, Time], aliases: true) }
 topics = read_yaml.call(File.join(source, '_data', 'topics.yml'))
+topics_by_id = topics.to_h { |topic| [topic['id'], topic] }
 topic_categories = read_yaml.call(File.join(source, '_data', 'topic_categories.yml'))
 topic_groups = read_yaml.call(File.join(source, '_data', 'topic_groups.yml'))
 registered_series = read_yaml.call(File.join(source, '_data', 'series.yml')).to_h { |series| [series['id'], series] }
@@ -149,7 +150,7 @@ if hub
 end
 
 topic_article_panels_checked = 0
-topic_series_bundles_checked = 0
+topic_article_bundles_checked = 0
 guide_entries.each do |topic|
   url = "/topics/#{topic['id']}/"
   html = html_for.call(url)
@@ -178,8 +179,22 @@ guide_entries.each do |topic|
   end
   catalog = articles.each_with_object({}) do |(key, members), collection|
     series_id = members.first['series']
-    group_id = registered_series.key?(series_id) ? "series:#{series_id}" : "article:#{key}"
+    group_id = if topic['group'] == 'ai'
+                 "topic:#{members.first['topic']}"
+               else
+                 registered_series.key?(series_id) ? "series:#{series_id}" : "article:#{key}"
+               end
     (collection[group_id] ||= {})[key] = members
+  end
+  bundles = catalog.each_with_object({}) do |(group_id, group_articles), collection|
+    members = group_articles.values.flatten
+    topic_id = members.first['topic']
+    series = registered_series.values.find { |definition| members.any? { |post| post['series'] == definition['id'] } }
+    if group_id.start_with?('topic:')
+      collection[group_id] = { 'id' => series&.fetch('id') || topic_id, 'topic' => topic_id, 'title' => topics_by_id.fetch(topic_id)['title'] }
+    elsif group_id.start_with?('series:')
+      collection[group_id] = { 'id' => series.fetch('id'), 'topic' => topic_id, 'title' => series.fetch('title') }
+    end
   end
   catalog_order = catalog.sort_by do |group_id, group_articles|
     [-group_articles.values.flatten.map { |post| date_epoch.call(post) }.max, group_id]
@@ -218,6 +233,7 @@ guide_entries.each do |topic|
       if row.key?('data-series-order')
         check.call(row['data-series-order'].match?(/\A[1-9]\d*\z/) && members.all? { |post| post['series_order'].to_s == row['data-series-order'] }, "#{label}: article #{key} has incorrect series-order metadata")
       end
+      check.call(row['data-series-order'] == members.first['series_order']&.to_s, "#{label}: article #{key} must preserve its actual series order without assigning a new part number")
 
       # Titles retain their content language; picker labels use English while
       # hreflang describes the destination. English is the server-side primary.
@@ -253,47 +269,58 @@ guide_entries.each do |topic|
       group_date = iso_epoch.call(block['data-group-date'], "#{label} group #{group_id}")
       expected_group_date = group_articles.values.flatten.map { |post| date_epoch.call(post) }.max
       check.call(group_date && (group_date - expected_group_date).abs < 0.001, "#{label}: group #{group_id} date must identify its newest article")
-      expected_part_keys = if group_id.start_with?('series:')
+      expected_part_keys = if view == 'latest'
                              group_articles.sort_by do |key, members|
-                               if view == 'latest'
-                                 [-members.map { |post| date_epoch.call(post) }.max, key.to_s]
-                               else
-                                 [members.first['series_order'], key.to_s]
-                               end
+                               [-members.map { |post| date_epoch.call(post) }.max, key.to_s]
                              end.map(&:first)
                            else
-                             group_articles.keys
+                             sequences = group_articles.group_by do |key, members|
+                               members.first['series'] ? "series:#{members.first['series']}" : "article:#{key}"
+                             end
+                             sequences.sort_by do |key, entries|
+                               [entries.map { |_, members| members.map { |post| date_epoch.call(post) }.max }.min, key]
+                             end.flat_map do |_, entries|
+                               entries.sort_by do |key, members|
+                                 [members.first['series_order'] || 0, members.map { |post| date_epoch.call(post) }.max, key.to_s]
+                               end.map(&:first)
+                             end
                            end
       actual_part_keys = block.css('.topic-post-row').map { |row| row['data-article-key'] }
-      part_order = view == 'latest' ? 'latest date order' : 'series reading order'
+      part_order = view == 'latest' ? 'latest date order' : 'reading order of actual series and independent articles'
       check.call(actual_part_keys == expected_part_keys, "#{label}: group #{group_id} must contain exactly its own articles in #{part_order}")
-      if group_id.start_with?('series:')
-        series_id = group_id.delete_prefix('series:')
-        details = block.css('details[data-series-id]')
-        check.call(details.length == 1 && details.first['data-series-id'] == series_id, "#{label}: group #{group_id} must use its registered native series disclosure")
-      else
-        check.call(block.css('details[data-series-id]').empty?, "#{label}: standalone articles must not acquire an invented series")
+      bundle = bundles[group_id]
+      disclosures = block.css('details[data-bundle-id]')
+      unless bundle
+        check.call(disclosures.empty?, "#{label}: non-AI standalone articles must remain visible without an invented bundle")
+        next
       end
-    end
-    series_details = panel.css('details[data-series-id]')
-    expected_series_ids = catalog.keys.grep(/\Aseries:/).map { |id| id.delete_prefix('series:') }
-    check.call(series_details.map { |details| details['data-series-id'] }.sort == expected_series_ids.sort, "#{label}: series disclosures are missing, duplicated, or not registered")
-    series_details.each do |details|
-      series_id = details['data-series-id']
-      next unless registered_series.key?(series_id)
 
-      topic_series_bundles_checked += 1
+      check.call(disclosures.length == 1, "#{label}: group #{group_id} must use exactly one native topic or series disclosure")
+      details = disclosures.first
+      next unless details
+
+      topic_article_bundles_checked += 1
+      bundle_id = bundle['id']
       prefix = view == 'latest' ? 'latest-series-' : 'series-'
-      check.call(details['id'] == "#{prefix}#{series_id}", "#{label}: series #{series_id} disclosure ID differs from its view")
-      check.call(!details.key?('open'), "#{label}: every series disclosure must start collapsed")
-      check.call(normalized_text.call(details.at_css('.topic-series-heading')) == registered_series[series_id]['title'], "#{label}: series #{series_id} title differs from its registered metadata")
-      series_article_count = catalog.fetch("series:#{series_id}").length
-      check.call(normalized_text.call(details.at_css('[data-series-count]')) == series_article_count.to_s, "#{label}: series #{series_id} must count logical parts rather than language versions")
+      check.call(details['data-bundle-id'] == bundle_id && details['id'] == "#{prefix}#{bundle_id}", "#{label}: bundle #{group_id} must preserve its registered series anchor or topic ID")
+      check.call(details['data-topic-id'] == bundle['topic'], "#{label}: bundle #{group_id} must identify its actual topic")
+      check.call(!details.key?('open'), "#{label}: every topic and series disclosure must start collapsed, including single-article topics")
+      check.call(normalized_text.call(details.at_css('.topic-series-heading')) == bundle['title'], "#{label}: bundle #{group_id} title differs from its topic or registered series metadata")
+      check.call(details['data-post-languages'].to_s.split.sort == group_articles.values.flatten.map { |post| post['lang'] }.uniq.sort, "#{label}: bundle #{group_id} languages differ from its public articles")
+      article_count = group_articles.length
+      check.call(normalized_text.call(details.at_css('[data-bundle-count]')) == article_count.to_s, "#{label}: bundle #{group_id} must count logical articles rather than language versions")
+      check.call(normalized_text.call(details.at_css('[data-bundle-count-label]')) == (article_count == 1 ? 'article' : 'articles'), "#{label}: bundle #{group_id} must use the correct English article count unit")
       if view == 'latest'
-        full_series_links = details.css('a[data-open-series]')
-        check.call(full_series_links.length == 1 && full_series_links.first['data-open-series'] == series_id && full_series_links.first['href'] == "#series-#{series_id}", "#{label}: full series link must target its All-view disclosure")
+        full_links = details.css('a[data-open-bundle]')
+        check.call(full_links.length == 1 && full_links.first['data-open-bundle'] == bundle_id && full_links.first['href'] == "#series-#{bundle_id}", "#{label}: full bundle link must target its All-view disclosure")
+        check.call(normalized_text.call(full_links.first) == "View all articles (#{article_count})", "#{label}: full bundle link must use the English label and complete logical article count")
+        check.call(full_links.first&.css('[data-bundle-total-count]')&.map { |count| normalized_text.call(count) } == [article_count.to_s], "#{label}: full bundle count must be available for language filtering")
+      else
+        check.call(details.css('a[data-open-bundle]').empty?, "#{label}: All-view bundle must not repeat its own full catalog link")
       end
     end
+    check.call(panel.css('details[data-bundle-id]').map { |details| details['data-bundle-id'] }.sort == bundles.values.map { |bundle| bundle['id'] }.sort, "#{label}: topic or series disclosures are missing, duplicated, or unknown")
+    check.call(panel.css('details[data-series-id]').empty?, "#{label}: topic catalog bundles must not invent article-level series metadata")
   end
   check.call(html.css('.reading-path, .reading-path-list').empty?, "#{url}: recommendation lists must not appear in topic details")
   check.call(html.css('.topic-latest-posts').length == 1 && html.css('.topic-all-posts').length == 1, "#{url}: Latest and All must each have one dedicated article list")
@@ -469,7 +496,7 @@ html_cache.each do |url, html|
   selectors = [
     '#search-cancel', '#sidebar .sidebar-bottom button', '#panel-wrapper h2.panel-heading',
     '.discovery-header', '.discovery-eyebrow', '.discovery-note', '.topic-back-link',
-    '[data-series-id] > summary',
+    '[data-bundle-id] > summary',
     '.topic-latest-posts > h2', '.topic-all-posts > h2', '[data-article-view-controls]', '[data-language-empty]', '.post-guide-topic',
     '.post-guide-category', '.series-toc > summary', '.series-nav-label', '.series-nav-boundary'
   ]
@@ -571,7 +598,7 @@ report = {
   'english_ui_pages_checked' => english_ui_pages_checked,
   'topic_article_order_pages_checked' => guide_entries.length,
   'topic_article_panels_checked' => topic_article_panels_checked,
-  'topic_series_bundles_checked' => topic_series_bundles_checked,
+  'topic_article_bundles_checked' => topic_article_bundles_checked,
   'recent_updates_pages_checked' => recent_updates_pages_checked,
   'recent_article_keys' => recent_article_keys,
   'blog_asset_version' => asset_fingerprint,

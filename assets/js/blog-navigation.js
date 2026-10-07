@@ -105,10 +105,13 @@
           });
           eligible.forEach((row, index) => { row.hidden = index >= limit; });
         }
-        panel.querySelectorAll('details[data-series-id]').forEach((bundle) => {
+        panel.querySelectorAll('details[data-bundle-id]').forEach((bundle) => {
           const count = articleRows(bundle).filter((row) => !row.hidden).length;
           bundle.hidden = count === 0;
-          bundle.querySelectorAll('[data-series-count]').forEach((label) => { label.textContent = String(count); });
+          bundle.querySelectorAll('[data-bundle-count]').forEach((label) => { label.textContent = String(count); });
+          bundle.querySelectorAll('[data-bundle-count-label]').forEach((label) => { label.textContent = count === 1 ? 'article' : 'articles'; });
+          const total = articleRows(bundle).filter(matchesLanguage).length;
+          bundle.querySelectorAll('[data-bundle-total-count]').forEach((label) => { label.textContent = String(total); });
         });
         panel.querySelectorAll('[data-article-group]').forEach((group) => {
           group.hidden = !articleRows(group).some((row) => !row.hidden);
@@ -175,14 +178,14 @@
     scope.addEventListener('click', (event) => {
       const button = event.target.closest('[data-article-view]');
       if (button) {
-        scope.querySelectorAll('details[data-series-id]').forEach((bundle) => { bundle.open = false; });
+        scope.querySelectorAll('details[data-bundle-id]').forEach((bundle) => { bundle.open = false; });
         applyView(button.dataset.articleView, true);
         return;
       }
-      const link = event.target.closest('[data-open-series]');
+      const link = event.target.closest('[data-open-bundle]');
       if (!link) return;
-      const details = [...scope.querySelectorAll('[data-article-panel="all"] details[data-series-id]')]
-        .find((bundle) => bundle.dataset.seriesId === link.dataset.openSeries);
+      const details = [...scope.querySelectorAll('[data-article-panel="all"] details[data-bundle-id]')]
+        .find((bundle) => bundle.dataset.bundleId === link.dataset.openBundle);
       if (!details) return;
       event.preventDefault();
       applyView('all');
@@ -199,7 +202,7 @@
     const hash = new URL(window.location.href).hash;
     if (!hash.startsWith('#series-')) return;
     const details = document.getElementById(hash.slice(1));
-    if (!details?.matches('details[data-series-id]') || !details.closest('[data-article-panel="all"]')) return;
+    if (!details?.matches('details[data-bundle-id]') || !details.closest('[data-article-panel="all"]')) return;
     details.open = true;
     requestAnimationFrame(() => { details.scrollIntoView({ block: 'start' }); });
   }
