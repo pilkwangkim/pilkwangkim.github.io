@@ -1,0 +1,268 @@
+{
+  "status": "passed",
+  "checked_at_utc": "2026-10-07T08:25:31Z",
+  "commit": "a69ad50bd6dab9aba3ad1719f15ec44ceaf81cce",
+  "pages_run": "37593314800",
+  "expected_asset_fingerprint": "60bb6fa32c4e",
+  "request_cache_control": "no-cache",
+  "network_timeouts_seconds": {
+    "open": 10,
+    "read": 20
+  },
+  "responses": {
+    "/topics/": {
+      "url": "https://pilkwangkim.github.io/topics/?verify=a69ad50-titles",
+      "status": 200,
+      "etag": "\"6ac6018d-4e47\""
+    },
+    "/topics/harness-engineering/": {
+      "url": "https://pilkwangkim.github.io/topics/harness-engineering/?verify=a69ad50-titles",
+      "status": 200,
+      "etag": "\"6ac6018d-103d8\""
+    },
+    "/assets/js/blog-navigation.js": {
+      "url": "https://pilkwangkim.github.io/assets/js/blog-navigation.js?v=60bb6fa32c4e",
+      "status": 200,
+      "etag": "\"6ac6018d-285b\""
+    },
+    "/assets/css/jekyll-theme-chirpy.css": {
+      "url": "https://pilkwangkim.github.io/assets/css/jekyll-theme-chirpy.css?v=60bb6fa32c4e",
+      "status": 200,
+      "etag": "\"6ac6018d-1d2ae\""
+    }
+  },
+  "pages": {
+    "/topics/": {
+      "english_page_heading": "Topics",
+      "korean_filter_label": "한국어",
+      "dual_title_cards": 5,
+      "titles": [
+        {
+          "id": "harness-engineering",
+          "versions": [
+            [
+              "en",
+              "en",
+              "AI Agent Harness Engineering",
+              false
+            ],
+            [
+              "ko",
+              "ko",
+              "AI 에이전트 하네스 엔지니어링",
+              true
+            ]
+          ]
+        },
+        {
+          "id": "tabular",
+          "versions": [
+            [
+              "en",
+              "en",
+              "Tabular & Predictive Modeling",
+              false
+            ],
+            [
+              "ko",
+              "ko",
+              "정형 데이터·예측 모델링",
+              true
+            ]
+          ]
+        },
+        {
+          "id": "reinforcement-learning",
+          "versions": [
+            [
+              "en",
+              "en",
+              "Reinforcement Learning & Game Agents",
+              false
+            ],
+            [
+              "ko",
+              "ko",
+              "강화학습·게임 에이전트",
+              true
+            ]
+          ]
+        },
+        {
+          "id": "quantum-transport",
+          "versions": [
+            [
+              "en",
+              "en",
+              "Quantum Transport",
+              false
+            ],
+            [
+              "ko",
+              "ko",
+              "양자 수송",
+              true
+            ]
+          ]
+        },
+        {
+          "id": "essays",
+          "versions": [
+            [
+              "en",
+              "en",
+              "Essays",
+              false
+            ],
+            [
+              "ko",
+              "ko",
+              "일상의 생각들",
+              true
+            ]
+          ]
+        }
+      ]
+    },
+    "/topics/harness-engineering/": {
+      "english_page_heading": "AI Agent Harness Engineering",
+      "korean_filter_label": "한국어",
+      "dual_title_bundles": 6,
+      "logical_articles_per_panel": 16,
+      "english_primary_titles_and_korean_pairs_present": true,
+      "titles": [
+        {
+          "id": "latest-series-gemma-4",
+          "topic_id": "gemma-4",
+          "versions": [
+            [
+              "en",
+              "en",
+              "Gemma 4 Developer Agent",
+              false
+            ],
+            [
+              "ko",
+              "ko",
+              "Gemma 4 개발 에이전트",
+              true
+            ]
+          ]
+        },
+        {
+          "id": "latest-series-ai-agent-security",
+          "topic_id": "ai-agent-security",
+          "versions": [
+            [
+              "en",
+              "en",
+              "AI Agent Security",
+              false
+            ],
+            [
+              "ko",
+              "ko",
+              "AI 에이전트 보안",
+              true
+            ]
+          ]
+        },
+        {
+          "id": "latest-series-arc-agi-3-main",
+          "topic_id": "arc-agi-3",
+          "versions": [
+            [
+              "en",
+              "en",
+              "ARC-AGI-3",
+              false
+            ],
+            [
+              "ko",
+              "ko",
+              "ARC-AGI-3 연구",
+              true
+            ]
+          ]
+        },
+        {
+          "id": "series-gemma-4",
+          "topic_id": "gemma-4",
+          "versions": [
+            [
+              "en",
+              "en",
+              "Gemma 4 Developer Agent",
+              false
+            ],
+            [
+              "ko",
+              "ko",
+              "Gemma 4 개발 에이전트",
+              true
+            ]
+          ]
+        },
+        {
+          "id": "series-ai-agent-security",
+          "topic_id": "ai-agent-security",
+          "versions": [
+            [
+              "en",
+              "en",
+              "AI Agent Security",
+              false
+            ],
+            [
+              "ko",
+              "ko",
+              "AI 에이전트 보안",
+              true
+            ]
+          ]
+        },
+        {
+          "id": "series-arc-agi-3-main",
+          "topic_id": "arc-agi-3",
+          "versions": [
+            [
+              "en",
+              "en",
+              "ARC-AGI-3",
+              false
+            ],
+            [
+              "ko",
+              "ko",
+              "ARC-AGI-3 연구",
+              true
+            ]
+          ]
+        }
+      ]
+    }
+  },
+  "assets": {
+    "/assets/css/jekyll-theme-chirpy.css": {
+      "url": "https://pilkwangkim.github.io/assets/css/jekyll-theme-chirpy.css?v=60bb6fa32c4e",
+      "local_url": "/assets/css/jekyll-theme-chirpy.css?v=60bb6fa32c4e",
+      "fingerprint": "60bb6fa32c4e",
+      "live_sha256": "f98f9cf82d9e505c4d34e8be7b23e9079266ea6cea5d85c5254ac798f94ff4f0",
+      "local_sha256": "f98f9cf82d9e505c4d34e8be7b23e9079266ea6cea5d85c5254ac798f94ff4f0",
+      "equal": true,
+      "live_bytes": 119470,
+      "local_bytes": 119470
+    },
+    "/assets/js/blog-navigation.js": {
+      "url": "https://pilkwangkim.github.io/assets/js/blog-navigation.js?v=60bb6fa32c4e",
+      "local_url": "/assets/js/blog-navigation.js?v=60bb6fa32c4e",
+      "fingerprint": "60bb6fa32c4e",
+      "live_sha256": "aee4cd787d8de77b0601b91fc97b3ac06cda2b60505d07b29d2d96be0500bbbe",
+      "local_sha256": "aee4cd787d8de77b0601b91fc97b3ac06cda2b60505d07b29d2d96be0500bbbe",
+      "equal": true,
+      "live_bytes": 10331,
+      "local_bytes": 10331
+    }
+  },
+  "errors": []
+}

@@ -1,0 +1,202 @@
+{
+  "all": {
+    "count": "10",
+    "documentLanguage": "en",
+    "overflow": false,
+    "selectedLanguage": "all",
+    "uiLanguage": "en",
+    "url": "https://pilkwangkim.github.io/topics/essays/?lang=all&view=all&verify=5af35e6",
+    "versionedScript": "/assets/js/blog-navigation.js?v=94052a9c3eb9",
+    "versions": [
+      {
+        "key": "the-corporate-hallucinator",
+        "labels": [
+          "Original",
+          "Compact"
+        ],
+        "links": [
+          {
+            "href": "/posts/The-Corporate-Hallucinator-Original/",
+            "language": "en",
+            "version": "original"
+          },
+          {
+            "href": "/posts/The-Corporate-Hallucinator/",
+            "language": "en",
+            "version": "compact"
+          }
+        ],
+        "titleHref": "/posts/The-Corporate-Hallucinator-Original/"
+      },
+      {
+        "key": "the-mirage-of-merit",
+        "labels": [
+          "Original",
+          "Compact"
+        ],
+        "links": [
+          {
+            "href": "/posts/The-Mirage-of-Merit-Original/",
+            "language": "en",
+            "version": "original"
+          },
+          {
+            "href": "/posts/The-Mirage-of-Merit-Original-KR/",
+            "language": "ko",
+            "version": "original"
+          },
+          {
+            "href": "/posts/The-Mirage-of-Merit/",
+            "language": "en",
+            "version": "compact"
+          },
+          {
+            "href": "/posts/The-Mirage-of-Merit-KR/",
+            "language": "ko",
+            "version": "compact"
+          }
+        ],
+        "titleHref": "/posts/The-Mirage-of-Merit-Original/"
+      },
+      {
+        "key": "the-narrative-trap",
+        "labels": [
+          "Original",
+          "Compact"
+        ],
+        "links": [
+          {
+            "href": "/posts/The-Narrative-Trap-Original/",
+            "language": "en",
+            "version": "original"
+          },
+          {
+            "href": "/posts/The-Narrative-Trap-Original-KR/",
+            "language": "ko",
+            "version": "original"
+          },
+          {
+            "href": "/posts/The-Narrative-Trap/",
+            "language": "en",
+            "version": "compact"
+          },
+          {
+            "href": "/posts/The-Narrative-Trap-KR/",
+            "language": "ko",
+            "version": "compact"
+          }
+        ],
+        "titleHref": "/posts/The-Narrative-Trap-Original/"
+      },
+      {
+        "key": "the-paradox-of-benevolence",
+        "labels": [
+          "Original",
+          "Compact"
+        ],
+        "links": [
+          {
+            "href": "/posts/The-Paradox-of-Benevolence-Original/",
+            "language": "en",
+            "version": "original"
+          },
+          {
+            "href": "/posts/The-Paradox-of-Benevolence-Original-KR/",
+            "language": "ko",
+            "version": "original"
+          },
+          {
+            "href": "/posts/The-Paradox-of-Benevolence/",
+            "language": "en",
+            "version": "compact"
+          },
+          {
+            "href": "/posts/The-Paradox-of-Benevolence-KR/",
+            "language": "ko",
+            "version": "compact"
+          }
+        ],
+        "titleHref": "/posts/The-Paradox-of-Benevolence-Original/"
+      },
+      {
+        "key": "organization-dynamics-and-the-assignment-problem-paradox",
+        "labels": [
+          "Original",
+          "Compact"
+        ],
+        "links": [
+          {
+            "href": "/posts/Organization-Dynamics-and-The-Assignment-Problem-Paradox-Original/",
+            "language": "en",
+            "version": "original"
+          },
+          {
+            "href": "/posts/Organization-Dynamics-and-The-Assignment-Problem-Paradox/",
+            "language": "en",
+            "version": "compact"
+          }
+        ],
+        "titleHref": "/posts/Organization-Dynamics-and-The-Assignment-Problem-Paradox-Original/"
+      },
+      {
+        "key": "the-essence-of-leadership",
+        "labels": [
+          "Original",
+          "Compact"
+        ],
+        "links": [
+          {
+            "href": "/posts/The-Essence-of-Leadership-Original/",
+            "language": "en",
+            "version": "original"
+          },
+          {
+            "href": "/posts/The-Essence-of-Leadership/",
+            "language": "en",
+            "version": "compact"
+          }
+        ],
+        "titleHref": "/posts/The-Essence-of-Leadership-Original/"
+      }
+    ]
+  },
+  "koreanMobile": {
+    "count": "5",
+    "scrollWidth": 355,
+    "selectedLanguage": "ko",
+    "visibleRows": [
+      {
+        "href": "/posts/The-Language-That-Faces-the-Future-KR/",
+        "key": "the-language-that-faces-the-future",
+        "titleLanguage": "ko"
+      },
+      {
+        "href": "/posts/The-Mirage-of-Merit-Original-KR/",
+        "key": "the-mirage-of-merit",
+        "titleLanguage": "ko"
+      },
+      {
+        "href": "/posts/The-Narrative-Trap-Original-KR/",
+        "key": "the-narrative-trap",
+        "titleLanguage": "ko"
+      },
+      {
+        "href": "/posts/The-Credentialist-Illusion-KR/",
+        "key": "the-credentialist-illusion",
+        "titleLanguage": "ko"
+      },
+      {
+        "href": "/posts/The-Paradox-of-Benevolence-Original-KR/",
+        "key": "the-paradox-of-benevolence",
+        "titleLanguage": "ko"
+      }
+    ],
+    "width": 355
+  },
+  "final": {
+    "count": "10",
+    "selectedLanguage": "en",
+    "url": "https://pilkwangkim.github.io/topics/essays/?lang=en&view=all&verify=5af35e6",
+    "versionedRows": 6
+  }
+}

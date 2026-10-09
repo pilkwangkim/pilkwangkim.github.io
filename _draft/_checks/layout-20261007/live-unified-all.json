@@ -1,0 +1,104 @@
+{
+  "status": "passed",
+  "checked_at_utc": "2026-10-07T07:57:30Z",
+  "commit": "dcedb0a59805807a6930d07fc4569e72f90b2f10",
+  "pages_run": "37590266505",
+  "expected_asset_fingerprint": "281996b49c15",
+  "request_cache_control": "no-cache",
+  "network_timeouts_seconds": {
+    "open": 10,
+    "read": 20
+  },
+  "responses": {
+    "/topics/harness-engineering/": {
+      "url": "https://pilkwangkim.github.io/topics/harness-engineering/?verify=dcedb0a-unified",
+      "status": 200,
+      "etag": "\"6ac5fb19-fab0\""
+    },
+    "/assets/js/blog-navigation.js": {
+      "url": "https://pilkwangkim.github.io/assets/js/blog-navigation.js?v=281996b49c15",
+      "status": 200,
+      "etag": "\"6ac5fb19-2569\""
+    },
+    "/assets/css/jekyll-theme-chirpy.css": {
+      "url": "https://pilkwangkim.github.io/assets/css/jekyll-theme-chirpy.css?v=281996b49c15",
+      "status": 200,
+      "etag": "\"6ac5fb19-1d2ae\""
+    }
+  },
+  "page": {
+    "default_language": "en",
+    "competition_guides_present": false,
+    "series_disclosures": 4,
+    "initial_open_series": 0,
+    "all_article_count": 16,
+    "all_article_keys": [
+      "gemma-4-developer-agent",
+      "ai-agent-security-01",
+      "ai-agent-security-02",
+      "ai-agent-security-03",
+      "ai-agent-security-04",
+      "ai-agent-security-05",
+      "ai-agent-security-06",
+      "ai-agent-security-07",
+      "ai-agent-security-08",
+      "ai-agent-security-09",
+      "ai-agent-security-10",
+      "ai-agent-security-11",
+      "ai-agent-security-12",
+      "arc-agi-3-research-r1",
+      "arc-agi-3-introduction",
+      "arc-agi-3-part-2"
+    ],
+    "series": {
+      "ai-agent-security": {
+        "all_part_orders": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ]
+      },
+      "arc-agi-3-main": {
+        "all_part_orders": [
+          1,
+          2
+        ]
+      }
+    },
+    "all_catalog_matches_local": true
+  },
+  "assets": {
+    "/assets/css/jekyll-theme-chirpy.css": {
+      "url": "https://pilkwangkim.github.io/assets/css/jekyll-theme-chirpy.css?v=281996b49c15",
+      "local_url": "/assets/css/jekyll-theme-chirpy.css?v=281996b49c15",
+      "fingerprint": "281996b49c15",
+      "local_fingerprint": "281996b49c15",
+      "live_sha256": "f98f9cf82d9e505c4d34e8be7b23e9079266ea6cea5d85c5254ac798f94ff4f0",
+      "local_sha256": "f98f9cf82d9e505c4d34e8be7b23e9079266ea6cea5d85c5254ac798f94ff4f0",
+      "equal": true,
+      "live_bytes": 119470,
+      "local_bytes": 119470
+    },
+    "/assets/js/blog-navigation.js": {
+      "url": "https://pilkwangkim.github.io/assets/js/blog-navigation.js?v=281996b49c15",
+      "local_url": "/assets/js/blog-navigation.js?v=281996b49c15",
+      "fingerprint": "281996b49c15",
+      "local_fingerprint": "281996b49c15",
+      "live_sha256": "449e13b3cfc7e2ce62da583ccaa78026116adaeb460fb494ef47cd5fa3bf60a8",
+      "local_sha256": "449e13b3cfc7e2ce62da583ccaa78026116adaeb460fb494ef47cd5fa3bf60a8",
+      "equal": true,
+      "live_bytes": 9577,
+      "local_bytes": 9577
+    }
+  },
+  "errors": []
+}

@@ -1,0 +1,3407 @@
+[
+  {
+    "path": "_posts/2025-4Q/2025-12-12-The Essence of Leadership.md",
+    "front_matter": {
+      "title": "The Essence of Leadership: Functional Commitment and Strategic Sublimation",
+      "date": "2025-12-12 19:36:00 +0900",
+      "categories": [
+        "Essay",
+        "Misc"
+      ],
+      "tags": [
+        "essay",
+        "leadership",
+        "management",
+        "organization"
+      ],
+      "math": true,
+      "pin": false,
+      "topic": "essays",
+      "lang": "en",
+      "translation_key": "the-essence-of-leadership",
+      "article_version": "compact",
+      "image": {
+        "path": "/assets/img/essays/the-essence-of-leadership/cover.webp",
+        "alt": "A quiet arch supports three figures, turning leadership into shared capability.",
+        "hide_caption": true
+      }
+    },
+    "body_sha256": "3f776acf6d4d2ce5b6134ff842268b5c7265c3887c535fcfa4dcc2ff4a9f6399"
+  },
+  {
+    "path": "_posts/2025-4Q/2025-12-12-The-Essence-of-Leadership-Original.md",
+    "front_matter": {
+      "title": "The Essence of Leadership: Functional Commitment and Strategic Sublimation",
+      "date": "2025-12-12 19:36:00 +0900",
+      "categories": [
+        "Essay",
+        "Misc"
+      ],
+      "tags": [
+        "essay",
+        "leadership",
+        "management",
+        "organization"
+      ],
+      "math": true,
+      "pin": false,
+      "topic": "essays",
+      "lang": "en",
+      "translation_key": "the-essence-of-leadership",
+      "article_version": "original",
+      "original_source_commit": "92fc75a2502183260a97ad6469379b76f2056e35",
+      "image": {
+        "path": "/assets/img/essays/the-essence-of-leadership/cover.webp",
+        "alt": "A quiet arch supports three figures, turning leadership into shared capability.",
+        "hide_caption": true
+      }
+    },
+    "body_sha256": "376812fe3cec98f53fe0780cd8e6f1e59048b1a2a52d6880a0abb3a33527a39d"
+  },
+  {
+    "path": "_posts/2025-4Q/2025-12-13-Organization Dynamics and The Assignment Problem Paradox.md",
+    "front_matter": {
+      "title": "Organizational Dynamics & The Assignment Problem Paradox",
+      "date": "2025-12-13 16:10:00 +0900",
+      "categories": [
+        "Essay",
+        "Misc"
+      ],
+      "tags": [
+        "essay",
+        "leadership",
+        "operations-research",
+        "organization"
+      ],
+      "math": true,
+      "pin": false,
+      "topic": "essays",
+      "lang": "en",
+      "translation_key": "organization-dynamics-and-the-assignment-problem-paradox",
+      "article_version": "compact",
+      "image": {
+        "path": "/assets/img/essays/organization-dynamics-and-the-assignment-problem-paradox/cover.webp",
+        "alt": "A large support carries the platform while a smaller form receives the spotlight.",
+        "hide_caption": true
+      }
+    },
+    "body_sha256": "f6010271e8921adb578b6248a27ba62f8d1f0ba7c939918e2c615ec60c5a15d4"
+  },
+  {
+    "path": "_posts/2025-4Q/2025-12-13-Organization-Dynamics-and-The-Assignment-Problem-Paradox-Original.md",
+    "front_matter": {
+      "title": "Organizational Dynamics & The Assignment Problem Paradox",
+      "date": "2025-12-13 16:10:00 +0900",
+      "categories": [
+        "Essay",
+        "Misc"
+      ],
+      "tags": [
+        "essay",
+        "leadership",
+        "operations-research",
+        "organization"
+      ],
+      "math": true,
+      "pin": false,
+      "topic": "essays",
+      "lang": "en",
+      "translation_key": "organization-dynamics-and-the-assignment-problem-paradox",
+      "article_version": "original",
+      "original_source_commit": "92fc75a2502183260a97ad6469379b76f2056e35",
+      "image": {
+        "path": "/assets/img/essays/organization-dynamics-and-the-assignment-problem-paradox/cover.webp",
+        "alt": "A large support carries the platform while a smaller form receives the spotlight.",
+        "hide_caption": true
+      }
+    },
+    "body_sha256": "2f67f112b02866d2a0c60b6a3d2e04eac60d36b33d7c8ba24325fd523fae3b04"
+  },
+  {
+    "path": "_posts/2026-1Q/2026-01-12-The-Portfolio-Theory-of-Existence.md",
+    "front_matter": {
+      "title": "The Portfolio Theory of Existence",
+      "date": "2026-01-12 19:00:00 +0900",
+      "categories": [
+        "Essay",
+        "Misc"
+      ],
+      "tags": [
+        "essay",
+        "decision-making",
+        "life",
+        "portfolio",
+        "risk"
+      ],
+      "math": true,
+      "pin": false,
+      "topic": "essays",
+      "lang": "en",
+      "translation_key": "the-portfolio-theory-of-existence",
+      "image": {
+        "path": "/assets/img/essays/the-portfolio-theory-of-existence/cover.webp",
+        "alt": "A balanced mobile of distinct shapes, suggesting a life supported by several meaningful commitments",
+        "hide_caption": true
+      }
+    },
+    "body_sha256": "e77743532a1407b9133fb04f0d765df769a75f7a9741764982357fd9298c6919"
+  },
+  {
+    "path": "_posts/2026-1Q/2026-01-30-The Paradox of Benevolence.md",
+    "front_matter": {
+      "title": "The Paradox of Benevolence: Escaping Moral Narcissism for the Discipline of Consequence",
+      "date": "2026-01-30 19:00:00 +0900",
+      "categories": [
+        "Essay",
+        "Misc"
+      ],
+      "tags": [
+        "essay",
+        "ethics",
+        "leadership",
+        "moral",
+        "paradox"
+      ],
+      "math": true,
+      "pin": false,
+      "topic": "essays",
+      "lang": "en",
+      "translation_key": "the-paradox-of-benevolence",
+      "article_version": "compact",
+      "image": {
+        "path": "/assets/img/essays/the-paradox-of-benevolence/cover.webp",
+        "alt": "A gentle offering hand casts a pointed shadow toward an unintended recipient.",
+        "hide_caption": true
+      }
+    },
+    "body_sha256": "3f572ad3575f48a489410d7944a66e08b44379e18a58c726a9454a7fc0a5fed8"
+  },
+  {
+    "path": "_posts/2026-1Q/2026-01-30-The-Paradox-of-Benevolence-KR.md",
+    "front_matter": {
+      "title": "선의의 역설: 도덕적 나르시시즘을 넘어 결과적 책임으로 (KR)",
+      "date": "2026-01-30 19:00:00 +0900",
+      "categories": [
+        "Essay",
+        "Misc"
+      ],
+      "tags": [
+        "essay",
+        "ethics",
+        "leadership",
+        "moral",
+        "paradox"
+      ],
+      "math": true,
+      "pin": false,
+      "topic": "essays",
+      "lang": "ko",
+      "translation_key": "the-paradox-of-benevolence",
+      "article_version": "compact",
+      "image": {
+        "path": "/assets/img/essays/the-paradox-of-benevolence/cover.webp",
+        "alt": "부드럽게 무언가를 건네는 손의 뾰족한 그림자가 다른 대상에 닿는 모습으로 선의와 결과의 간극을 표현한다.",
+        "hide_caption": true
+      }
+    },
+    "body_sha256": "bd536f5ca2ea4b3feec1f6c6957bf6e6396593cba76fd03d926a03acb9ad6806"
+  },
+  {
+    "path": "_posts/2026-1Q/2026-01-30-The-Paradox-of-Benevolence-Original-KR.md",
+    "front_matter": {
+      "title": "선의의 역설: 도덕적 나르시시즘을 넘어 결과적 책임으로 (KR)",
+      "date": "2026-01-30 19:00:00 +0900",
+      "categories": [
+        "Essay",
+        "Misc"
+      ],
+      "tags": [
+        "essay",
+        "ethics",
+        "leadership",
+        "moral",
+        "paradox"
+      ],
+      "math": true,
+      "pin": false,
+      "topic": "essays",
+      "lang": "ko",
+      "translation_key": "the-paradox-of-benevolence",
+      "article_version": "original",
+      "original_source_commit": "ed12d9407721ce6c0206bc3b18dc804ffee286f1",
+      "image": {
+        "path": "/assets/img/essays/the-paradox-of-benevolence/cover.webp",
+        "alt": "부드럽게 무언가를 건네는 손의 뾰족한 그림자가 다른 대상에 닿는 모습으로 선의와 결과의 간극을 표현한다.",
+        "hide_caption": true
+      }
+    },
+    "body_sha256": "bd536f5ca2ea4b3feec1f6c6957bf6e6396593cba76fd03d926a03acb9ad6806"
+  },
+  {
+    "path": "_posts/2026-1Q/2026-01-30-The-Paradox-of-Benevolence-Original.md",
+    "front_matter": {
+      "title": "The Paradox of Benevolence: Escaping Moral Narcissism for the Discipline of Consequence",
+      "date": "2026-01-30 19:00:00 +0900",
+      "categories": [
+        "Essay",
+        "Misc"
+      ],
+      "tags": [
+        "essay",
+        "ethics",
+        "leadership",
+        "moral",
+        "paradox"
+      ],
+      "math": true,
+      "pin": false,
+      "topic": "essays",
+      "lang": "en",
+      "translation_key": "the-paradox-of-benevolence",
+      "article_version": "original",
+      "original_source_commit": "92fc75a2502183260a97ad6469379b76f2056e35",
+      "image": {
+        "path": "/assets/img/essays/the-paradox-of-benevolence/cover.webp",
+        "alt": "A gentle offering hand casts a pointed shadow toward an unintended recipient.",
+        "hide_caption": true
+      }
+    },
+    "body_sha256": "e040b0be8a6c6666fe3773bcf137cadb7b03a222195560b78d79d20839316101"
+  },
+  {
+    "path": "_posts/2026-1Q/2026-02-14-S6E2-EDA.md",
+    "front_matter": {
+      "title": "Playground S6E2 EDA: Statistical Insights and Modeling Guidance",
+      "date": "2026-02-14 19:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "playground-series",
+        "binary-classification",
+        "eda"
+      ],
+      "math": true,
+      "pin": false,
+      "topic": "playground-series",
+      "lang": "en",
+      "translation_key": "playground-s6e2-eda"
+    },
+    "body_sha256": "10c533c001abd45c0b9f2f829f40b16bb14e4798137520e9001b0b9d5856770b"
+  },
+  {
+    "path": "_posts/2026-1Q/2026-02-18-S6E2-PRED.md",
+    "front_matter": {
+      "title": "Playground S6E2 PRED: CV-Tuned Boosting Pipeline",
+      "date": "2026-02-18 19:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "playground-series",
+        "boosting",
+        "cross-validation",
+        "optuna",
+        "prediction"
+      ],
+      "math": true,
+      "pin": false,
+      "topic": "playground-series",
+      "lang": "en",
+      "translation_key": "playground-s6e2-prediction"
+    },
+    "body_sha256": "9ffc87c6d0281d301bebdaf381bea295f163663e1f017f15f4386a6f624182fe"
+  },
+  {
+    "path": "_posts/2026-1Q/2026-03-14-The-Station-of-Uncertainty.md",
+    "front_matter": {
+      "title": "The Station of Uncertainty: Active Detachment in Opaque Systems",
+      "date": "2026-03-14 19:00:00 +0900",
+      "categories": [
+        "Essay",
+        "Misc"
+      ],
+      "tags": [
+        "essay",
+        "decision-making",
+        "organization",
+        "uncertainty",
+        "work"
+      ],
+      "math": true,
+      "pin": false,
+      "topic": "essays",
+      "lang": "en",
+      "translation_key": "the-station-of-uncertainty",
+      "image": {
+        "path": "/assets/img/essays/the-station-of-uncertainty/cover.webp",
+        "alt": "A quiet bench and blank arrival board, with an open book reclaiming the waiting time.",
+        "hide_caption": true
+      }
+    },
+    "body_sha256": "a55a9765f31d9de6597642de1ad73ca59200f4e45fd182975e27df6e691dfb11"
+  },
+  {
+    "path": "_posts/2026-1Q/2026-03-21-The-Credentialist-Illusion-KR.md",
+    "front_matter": {
+      "title": "능력주의의 환상과 책임의 외주화: 현대 기업은 왜 간판에 집착하는가 (KR)",
+      "date": "2026-03-21 21:00:00 +0900",
+      "categories": [
+        "Essay",
+        "Misc"
+      ],
+      "tags": [
+        "essay",
+        "credentials",
+        "hiring",
+        "meritocracy",
+        "organization"
+      ],
+      "math": true,
+      "pin": false,
+      "topic": "essays",
+      "lang": "ko",
+      "translation_key": "the-credentialist-illusion",
+      "image": {
+        "path": "/assets/img/essays/the-credentialist-illusion/cover.webp",
+        "alt": "방패처럼 생긴 빈 증서가 단단하게 쌓인 파란 블록을 일부 가리고 있다.",
+        "hide_caption": true
+      }
+    },
+    "body_sha256": "e9182bcacbef68ffae9da00d38f61b3860739a2ba21bcf6c2e464943753ba8a4"
+  },
+  {
+    "path": "_posts/2026-1Q/2026-03-21-The-Credentialist-Illusion.md",
+    "front_matter": {
+      "title": "The Credentialist Illusion: Why modern firms outsource responsibility to pedigree",
+      "date": "2026-03-21 21:00:00 +0900",
+      "categories": [
+        "Essay",
+        "Misc"
+      ],
+      "tags": [
+        "essay",
+        "credentials",
+        "hiring",
+        "meritocracy",
+        "organization"
+      ],
+      "math": true,
+      "pin": false,
+      "topic": "essays",
+      "lang": "en",
+      "translation_key": "the-credentialist-illusion",
+      "image": {
+        "path": "/assets/img/essays/the-credentialist-illusion/cover.webp",
+        "alt": "A blank certificate shaped like a shield partly conceals a solid construction of blue blocks.",
+        "hide_caption": true
+      }
+    },
+    "body_sha256": "49136ab75d0dd1ea3b323760bcb1610ff12a79e5a7149307cad480b1cb34f6d7"
+  },
+  {
+    "path": "_posts/2026-2Q/2026-04-01-MMLM-KR.md",
+    "front_matter": {
+      "title": "March Machine Learning Mania 2026: 누설 없는 베이스라인 파이프라인 단계별 구축 (KR)",
+      "date": "2026-04-01 19:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "march-machine-learning-mania",
+        "basketball",
+        "prediction"
+      ],
+      "math": true,
+      "pin": false,
+      "topic": "march-machine-learning-mania",
+      "lang": "ko",
+      "translation_key": "mmlm-2026-baseline"
+    },
+    "body_sha256": "e64d66e8b5cee7fd1693f1a6e03c8802338466f6b8f860a76b4dd443f21e2c51"
+  },
+  {
+    "path": "_posts/2026-2Q/2026-04-01-MMLM.md",
+    "front_matter": {
+      "title": "March Machine Learning Mania 2026 - Baseline Pipeline",
+      "date": "2026-04-01 19:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "march-machine-learning-mania",
+        "basketball",
+        "prediction"
+      ],
+      "math": true,
+      "pin": false,
+      "topic": "march-machine-learning-mania",
+      "lang": "en",
+      "translation_key": "mmlm-2026-baseline"
+    },
+    "body_sha256": "4fd6a0e9708c01fdf82e2718d9ae2e06ec72fef21b0ed6ffd69d16e9ed83c889"
+  },
+  {
+    "path": "_posts/2026-2Q/2026-04-12-The-Narrative-Trap-KR.md",
+    "front_matter": {
+      "title": "서사적 인과율의 함정: '체호프의 총'은 현실에서 발사되지 않는다 (KR)",
+      "date": "2026-04-12 19:00:00 +0900",
+      "categories": [
+        "Essay",
+        "Misc"
+      ],
+      "tags": [
+        "essay",
+        "cognition",
+        "decision-making",
+        "literature"
+      ],
+      "math": true,
+      "pin": false,
+      "topic": "essays",
+      "lang": "ko",
+      "translation_key": "the-narrative-trap",
+      "article_version": "compact",
+      "image": {
+        "path": "/assets/img/essays/the-narrative-trap/cover.webp",
+        "alt": "펼쳐진 책에서 실 한 가닥이 밖으로 이어지며 매듭짓지 않은 끝을 남긴다.",
+        "hide_caption": true
+      }
+    },
+    "body_sha256": "224a4c993bec0da0768851b9c68b1fc00ee642ee3b324b5e6cad5fb8d4de6bcf"
+  },
+  {
+    "path": "_posts/2026-2Q/2026-04-12-The-Narrative-Trap-Original-KR.md",
+    "front_matter": {
+      "title": "서사적 인과율의 함정: '체호프의 총'은 현실에서 발사되지 않는다 (KR)",
+      "date": "2026-04-12 19:00:00 +0900",
+      "categories": [
+        "Essay",
+        "Misc"
+      ],
+      "tags": [
+        "essay",
+        "cognition",
+        "decision-making",
+        "literature"
+      ],
+      "math": true,
+      "pin": false,
+      "topic": "essays",
+      "lang": "ko",
+      "translation_key": "the-narrative-trap",
+      "article_version": "original",
+      "original_source_commit": "ed12d9407721ce6c0206bc3b18dc804ffee286f1",
+      "image": {
+        "path": "/assets/img/essays/the-narrative-trap/cover.webp",
+        "alt": "펼쳐진 책에서 실 한 가닥이 밖으로 이어지며 매듭짓지 않은 끝을 남긴다.",
+        "hide_caption": true
+      }
+    },
+    "body_sha256": "224a4c993bec0da0768851b9c68b1fc00ee642ee3b324b5e6cad5fb8d4de6bcf"
+  },
+  {
+    "path": "_posts/2026-2Q/2026-04-12-The-Narrative-Trap-Original.md",
+    "front_matter": {
+      "title": "The Narrative Trap: Why Chekhov’s Gun Rarely Fires in Real Life",
+      "date": "2026-04-12 19:00:00 +0900",
+      "categories": [
+        "Essay",
+        "Misc"
+      ],
+      "tags": [
+        "essay",
+        "cognition",
+        "decision-making",
+        "literature"
+      ],
+      "math": true,
+      "pin": false,
+      "topic": "essays",
+      "lang": "en",
+      "translation_key": "the-narrative-trap",
+      "article_version": "original",
+      "original_source_commit": "92fc75a2502183260a97ad6469379b76f2056e35",
+      "image": {
+        "path": "/assets/img/essays/the-narrative-trap/cover.webp",
+        "alt": "A loose thread escapes a blank open book, leaving the story unfinished.",
+        "hide_caption": true
+      }
+    },
+    "body_sha256": "5bf14b35f15c46cf1221d32024f9909a32bd8da8cb7eaa548fe9a5862dc412c2"
+  },
+  {
+    "path": "_posts/2026-2Q/2026-04-12-The-Narrative-Trap.md",
+    "front_matter": {
+      "title": "The Narrative Trap: Why Chekhov’s Gun Rarely Fires in Real Life",
+      "date": "2026-04-12 19:00:00 +0900",
+      "categories": [
+        "Essay",
+        "Misc"
+      ],
+      "tags": [
+        "essay",
+        "cognition",
+        "decision-making",
+        "literature"
+      ],
+      "math": true,
+      "pin": false,
+      "topic": "essays",
+      "lang": "en",
+      "translation_key": "the-narrative-trap",
+      "article_version": "compact",
+      "image": {
+        "path": "/assets/img/essays/the-narrative-trap/cover.webp",
+        "alt": "A loose thread escapes a blank open book, leaving the story unfinished.",
+        "hide_caption": true
+      }
+    },
+    "body_sha256": "04e3aca9ca0fbd3c072298bfb4f1aa88c028f6185872cc090323a80b4970f105"
+  },
+  {
+    "path": "_posts/2026-2Q/2026-04-19-The-Mirage-of-Merit-KR.md",
+    "front_matter": {
+      "title": "능력주의의 신기루: 포지셔닝의 지정학 (KR)",
+      "date": "2026-04-19 20:30:00 +0900",
+      "categories": [
+        "Essay",
+        "Misc"
+      ],
+      "tags": [
+        "essay",
+        "career",
+        "leadership",
+        "organization"
+      ],
+      "math": true,
+      "pin": false,
+      "topic": "essays",
+      "lang": "ko",
+      "translation_key": "the-mirage-of-merit",
+      "article_version": "compact",
+      "image": {
+        "path": "/assets/img/essays/the-mirage-of-merit/cover.webp",
+        "alt": "작은 말에 조명이 비추고, 더 큰 말은 조명 밖에 서 있다.",
+        "hide_caption": true
+      }
+    },
+    "body_sha256": "4106bb48cf698c8413dc9880f5349e96dabbc004d6bbd61c0a4e4e37b0958ae1"
+  },
+  {
+    "path": "_posts/2026-2Q/2026-04-19-The-Mirage-of-Merit-Original-KR.md",
+    "front_matter": {
+      "title": "능력주의의 신기루: 포지셔닝의 지정학 (KR)",
+      "date": "2026-04-19 20:30:00 +0900",
+      "categories": [
+        "Essay",
+        "Misc"
+      ],
+      "tags": [
+        "essay",
+        "career",
+        "leadership",
+        "organization"
+      ],
+      "math": true,
+      "pin": false,
+      "topic": "essays",
+      "lang": "ko",
+      "translation_key": "the-mirage-of-merit",
+      "article_version": "original",
+      "original_source_commit": "ed12d9407721ce6c0206bc3b18dc804ffee286f1",
+      "image": {
+        "path": "/assets/img/essays/the-mirage-of-merit/cover.webp",
+        "alt": "작은 말에 조명이 비추고, 더 큰 말은 조명 밖에 서 있다.",
+        "hide_caption": true
+      }
+    },
+    "body_sha256": "4106bb48cf698c8413dc9880f5349e96dabbc004d6bbd61c0a4e4e37b0958ae1"
+  },
+  {
+    "path": "_posts/2026-2Q/2026-04-19-The-Mirage-of-Merit-Original.md",
+    "front_matter": {
+      "title": "The Mirage of Merit: The Geopolitics of Positioning",
+      "date": "2026-04-19 20:30:00 +0900",
+      "categories": [
+        "Essay",
+        "Misc"
+      ],
+      "tags": [
+        "essay",
+        "career",
+        "leadership",
+        "organization"
+      ],
+      "math": true,
+      "pin": false,
+      "topic": "essays",
+      "lang": "en",
+      "translation_key": "the-mirage-of-merit",
+      "article_version": "original",
+      "original_source_commit": "92fc75a2502183260a97ad6469379b76f2056e35",
+      "image": {
+        "path": "/assets/img/essays/the-mirage-of-merit/cover.webp",
+        "alt": "A small token stands in a spotlight while a taller token remains outside it.",
+        "hide_caption": true
+      }
+    },
+    "body_sha256": "fad523d81c0194b4c51d657db119a6cbbe2412daaeccdf82596c657f15c141eb"
+  },
+  {
+    "path": "_posts/2026-2Q/2026-04-19-The-Mirage-of-Merit.md",
+    "front_matter": {
+      "title": "The Mirage of Merit: The Geopolitics of Positioning",
+      "date": "2026-04-19 20:30:00 +0900",
+      "categories": [
+        "Essay",
+        "Misc"
+      ],
+      "tags": [
+        "essay",
+        "career",
+        "leadership",
+        "organization"
+      ],
+      "math": true,
+      "pin": false,
+      "topic": "essays",
+      "lang": "en",
+      "translation_key": "the-mirage-of-merit",
+      "article_version": "compact",
+      "image": {
+        "path": "/assets/img/essays/the-mirage-of-merit/cover.webp",
+        "alt": "A small token stands in a spotlight while a taller token remains outside it.",
+        "hide_caption": true
+      }
+    },
+    "body_sha256": "ade116b11e6978ba994674fdb2d1d92ccc54fdb5537004ce6e3d97d7c9cb0585"
+  },
+  {
+    "path": "_posts/2026-2Q/2026-04-26-Orbit-Wars-Structured-Baseline-KR.md",
+    "front_matter": {
+      "title": "Orbit Wars: 도착 시점을 기준으로 — 물리·월드·전략 분리 설계",
+      "date": "2026-04-26 19:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "orbit-wars",
+        "game-ai",
+        "reinforcement-learning",
+        "simulation"
+      ],
+      "math": true,
+      "pin": false,
+      "topic": "orbit-wars",
+      "lang": "ko",
+      "translation_key": "orbit-wars-structured-baseline"
+    },
+    "body_sha256": "03c6c280f0bddd0209f639e9c3eaa470fdec16f93a883c586e94e6bcecb7cd4f"
+  },
+  {
+    "path": "_posts/2026-2Q/2026-04-26-Orbit-Wars-Structured-Baseline.md",
+    "front_matter": {
+      "title": "Orbit Wars: Structured Baseline Methodology",
+      "date": "2026-04-26 19:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "orbit-wars",
+        "game-ai",
+        "reinforcement-learning",
+        "simulation"
+      ],
+      "math": true,
+      "pin": false,
+      "topic": "orbit-wars",
+      "lang": "en",
+      "translation_key": "orbit-wars-structured-baseline"
+    },
+    "body_sha256": "dd53599295c22decd6c062a4ada6175dd6e27a0f27442e12f7d7a76ab7455293"
+  },
+  {
+    "path": "_posts/2026-2Q/2026-05-02-The-Corporate-Hallucinator-Original.md",
+    "front_matter": {
+      "title": "The Corporate Hallucinator: A Chronicle of Institutional Impotence",
+      "date": "2026-05-02 21:10:00 +0900",
+      "categories": [
+        "Essay",
+        "Misc"
+      ],
+      "tags": [
+        "essay",
+        "ai",
+        "corporate-culture",
+        "hallucination",
+        "organization"
+      ],
+      "math": false,
+      "pin": false,
+      "topic": "essays",
+      "lang": "en",
+      "translation_key": "the-corporate-hallucinator",
+      "article_version": "original",
+      "original_source_commit": "5c20f8292488a940d1e8bd807a6fab2a9137aea9",
+      "image": {
+        "path": "/assets/img/essays/the-corporate-hallucinator/cover.webp",
+        "alt": "An empty speech bubble rises above a podium suspended just clear of its foundation.",
+        "hide_caption": true
+      }
+    },
+    "body_sha256": "dd820c8b7093e525cc0d257c8b8b5d9a23fd611b5befa6b032be2430b6f48fa6"
+  },
+  {
+    "path": "_posts/2026-2Q/2026-05-02-The-Corporate-Hallucinator.md",
+    "front_matter": {
+      "title": "The Corporate Hallucinator: A Chronicle of Institutional Impotence",
+      "date": "2026-05-02 21:10:00 +0900",
+      "categories": [
+        "Essay",
+        "Misc"
+      ],
+      "tags": [
+        "essay",
+        "ai",
+        "corporate-culture",
+        "hallucination",
+        "organization"
+      ],
+      "math": false,
+      "pin": false,
+      "topic": "essays",
+      "lang": "en",
+      "translation_key": "the-corporate-hallucinator",
+      "article_version": "compact",
+      "image": {
+        "path": "/assets/img/essays/the-corporate-hallucinator/cover.webp",
+        "alt": "An empty speech bubble rises above a podium suspended just clear of its foundation.",
+        "hide_caption": true
+      }
+    },
+    "body_sha256": "0a59521dfdf70d07b47504a226b141b3105e1ad0de653d9b7b2206b151bf8a43"
+  },
+  {
+    "path": "_posts/2026-2Q/2026-05-03-S6E5-Drivers-High-Driver-Feature-Engineering-KR.md",
+    "front_matter": {
+      "title": "S6E5 Driver's High: Driver 피처의 잔여 신호 — OOF Ladder 검증",
+      "date": "2026-05-03 21:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "playground-series",
+        "cross-validation",
+        "feature-engineering",
+        "formula1",
+        "roc-auc"
+      ],
+      "math": true,
+      "pin": false,
+      "topic": "playground-series",
+      "lang": "ko",
+      "translation_key": "playground-s6e5-driver-features"
+    },
+    "body_sha256": "69a2a7b531c60ece863716115b30e53e83c4db83016f9af87f3c54770095cfd0"
+  },
+  {
+    "path": "_posts/2026-2Q/2026-05-03-S6E5-Drivers-High-Driver-Feature-Engineering.md",
+    "front_matter": {
+      "title": "S6E5 Driver's High: Driver Feature Engineering",
+      "date": "2026-05-03 21:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "playground-series",
+        "cross-validation",
+        "feature-engineering",
+        "formula1",
+        "roc-auc"
+      ],
+      "math": true,
+      "pin": false,
+      "topic": "playground-series",
+      "lang": "en",
+      "translation_key": "playground-s6e5-driver-features"
+    },
+    "body_sha256": "874493c775712ebaff0e9ceedc7c4e52824058b1f1ff4e3e57c441733ea0d6ec"
+  },
+  {
+    "path": "_posts/2026-2Q/2026-05-17-Maze-Crawler-Structure-Baseline-KR.md",
+    "front_matter": {
+      "title": "Maze Crawler: 먼저 살아남기 — 구조적 Rule-Based 베이스라인",
+      "date": "2026-05-17 21:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "maze-crawler",
+        "game-ai",
+        "pathfinding",
+        "rule-based-agent",
+        "simulation"
+      ],
+      "math": true,
+      "pin": false,
+      "topic": "maze-crawler",
+      "lang": "ko",
+      "translation_key": "maze-crawler-structured-baseline"
+    },
+    "body_sha256": "5b5dfb98ad293963111a29d584ef30b1ce784b182e0808f2c35c82d597d4949f"
+  },
+  {
+    "path": "_posts/2026-2Q/2026-05-17-Maze-Crawler-Structure-Baseline.md",
+    "front_matter": {
+      "title": "Maze Crawler: Structure Baseline",
+      "date": "2026-05-17 21:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "maze-crawler",
+        "game-ai",
+        "pathfinding",
+        "rule-based-agent",
+        "simulation"
+      ],
+      "math": true,
+      "pin": false,
+      "topic": "maze-crawler",
+      "lang": "en",
+      "translation_key": "maze-crawler-structured-baseline"
+    },
+    "body_sha256": "0fc22a0ef1856eeefef7ca14a3f6983e6ea0f7a26e57c0af071829483ccae1ff"
+  },
+  {
+    "path": "_posts/2026-2Q/2026-05-24-The-Language-That-Faces-the-Future-KR.md",
+    "front_matter": {
+      "title": "리더의 언어는 왜 미래를 향해야 하는가: 과거의 덫과 조직의 동력 (KR)",
+      "date": "2026-05-24 20:30:00 +0900",
+      "categories": [
+        "Essay",
+        "Misc"
+      ],
+      "tags": [
+        "essay",
+        "decision-making",
+        "future-thinking",
+        "leadership",
+        "organization"
+      ],
+      "math": false,
+      "pin": false,
+      "topic": "essays",
+      "lang": "ko",
+      "translation_key": "the-language-that-faces-the-future",
+      "image": {
+        "path": "/assets/img/essays/the-language-that-faces-the-future/cover.webp",
+        "alt": "떨어진 세 섬에서 뻗은 가느다란 길이 하나의 대륙으로 이어진다.",
+        "hide_caption": true
+      }
+    },
+    "body_sha256": "2e29612a126cd17740e680d2ee3dc380447966b03a077575086c7d041295cd0d"
+  },
+  {
+    "path": "_posts/2026-2Q/2026-05-24-The-Language-That-Faces-the-Future.md",
+    "front_matter": {
+      "title": "The Language That Faces the Future",
+      "date": "2026-05-24 20:30:00 +0900",
+      "categories": [
+        "Essay",
+        "Misc"
+      ],
+      "tags": [
+        "essay",
+        "decision-making",
+        "future-thinking",
+        "leadership",
+        "organization"
+      ],
+      "math": false,
+      "pin": false,
+      "topic": "essays",
+      "lang": "en",
+      "translation_key": "the-language-that-faces-the-future",
+      "image": {
+        "path": "/assets/img/essays/the-language-that-faces-the-future/cover.webp",
+        "alt": "Three separate islands are connected by fine paths to one shared continent.",
+        "hide_caption": true
+      }
+    },
+    "body_sha256": "a52202bb9f7c3ba4e61790914f24727d2f93a45d7292ab9fb251bb21a143cb39"
+  },
+  {
+    "path": "_posts/2026-2Q/2026-05-30-BirdCLEF-2026-EoS9-OOF-Gated-PCEN-KR.md",
+    "front_matter": {
+      "title": "BirdCLEF 2026: EoS9 Anchor 먼저 — OOF-Gated PCEN 보정은 그 다음",
+      "date": "2026-05-30 21:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "birdclef-2026",
+        "audio-classification",
+        "ensemble",
+        "oof",
+        "pcen",
+        "sidecar",
+        "taxonomy"
+      ],
+      "math": true,
+      "pin": false,
+      "topic": "birdclef-2026",
+      "lang": "ko",
+      "translation_key": "birdclef-2026-eos9-pcen"
+    },
+    "body_sha256": "d2fef442accf6c7584d607e9983032e2eee036dd02e245942098b8684d08bd54"
+  },
+  {
+    "path": "_posts/2026-2Q/2026-05-30-BirdCLEF-2026-EoS9-OOF-Gated-PCEN.md",
+    "front_matter": {
+      "title": "BirdCLEF 2026: EoS9 + OOF-Gated PCEN",
+      "date": "2026-05-30 21:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "birdclef-2026",
+        "audio-classification",
+        "ensemble",
+        "oof",
+        "pcen",
+        "sidecar",
+        "taxonomy"
+      ],
+      "math": true,
+      "pin": false,
+      "topic": "birdclef-2026",
+      "lang": "en",
+      "translation_key": "birdclef-2026-eos9-pcen"
+    },
+    "body_sha256": "6d8c7a5ae512c58d161b3848dd4dcbc65a22e21a869745b153aacd5f45f03539"
+  },
+  {
+    "path": "_posts/2026-2Q/2026-06-02-PG-S6E6-EDA-GBDT-Bases-And-Artifact-Blend-KR.md",
+    "front_matter": {
+      "title": "PG S6E6: 적색편이와 색지수로 풀어내는 천체 분류 — OOF Artifact 블렌딩까지",
+      "date": "2026-06-02 21:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "playground-series",
+        "artifact-blend",
+        "balanced-accuracy",
+        "eda",
+        "gbdt",
+        "stellar-classification"
+      ],
+      "math": true,
+      "pin": false,
+      "topic": "playground-series",
+      "lang": "ko",
+      "translation_key": "playground-s6e6-stellar-classification"
+    },
+    "body_sha256": "3d04e7c32a5d3dff9c02a3ea786bbb825426d3b3c41c3d143caeea3c0409c15b"
+  },
+  {
+    "path": "_posts/2026-2Q/2026-06-02-PG-S6E6-EDA-GBDT-Bases-And-Artifact-Blend.md",
+    "front_matter": {
+      "title": "PG S6E6: Redshift, Color Geometry, and OOF Artifact Blending",
+      "date": "2026-06-02 21:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "playground-series",
+        "artifact-blend",
+        "balanced-accuracy",
+        "eda",
+        "gbdt",
+        "stellar-classification"
+      ],
+      "math": true,
+      "pin": false,
+      "topic": "playground-series",
+      "lang": "en",
+      "translation_key": "playground-s6e6-stellar-classification"
+    },
+    "body_sha256": "851db0b6a79d2a19bff86a21158c2ea521f610eb8d16ff9f669e846a89731e1e"
+  },
+  {
+    "path": "_posts/2026-2Q/2026-06-10-ROGII-Target-Free-Stratigraphic-Alignment-for-TVT-KR.md",
+    "front_matter": {
+      "title": "ROGII: Target-Free 지층 대비로 TVT 복원하기 — 데이터 누수 통제 설계",
+      "date": "2026-06-10 21:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "rogii",
+        "ensemble",
+        "geosteering",
+        "leakage-control",
+        "stratigraphy",
+        "target-free-alignment",
+        "tvt"
+      ],
+      "math": true,
+      "pin": false,
+      "topic": "rogii",
+      "lang": "ko",
+      "translation_key": "rogii-tvt-alignment",
+      "series": "rogii",
+      "series_order": 1
+    },
+    "body_sha256": "28e9b15dfeec0ecb5b3208f0827bd92c45f201611fc956f8dfecfc95fb2d377c"
+  },
+  {
+    "path": "_posts/2026-2Q/2026-06-10-ROGII-Target-Free-Stratigraphic-Alignment-for-TVT.md",
+    "front_matter": {
+      "title": "ROGII: Leakage-Controlled TVT Recovery Through Target-Free Stratigraphic Alignment",
+      "date": "2026-06-10 21:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "rogii",
+        "ensemble",
+        "geosteering",
+        "leakage-control",
+        "stratigraphy",
+        "target-free-alignment",
+        "tvt"
+      ],
+      "math": true,
+      "pin": false,
+      "topic": "rogii",
+      "lang": "en",
+      "translation_key": "rogii-tvt-alignment",
+      "series": "rogii",
+      "series_order": 1
+    },
+    "body_sha256": "ea2cb9243946c59cabca1ee565af2cb85c1c5f995f4ecfa81c13315c7b0e4107"
+  },
+  {
+    "path": "_posts/2026-2Q/2026-06-13-AI-Agent-Security-Part-1-The-Replay-Benchmark-and-Trajectory-Search-EDA-KR.md",
+    "front_matter": {
+      "title": "AI Agent Security (1편): Replay 벤치마크와 Trajectory-Search EDA",
+      "date": "2026-06-13 21:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "ai-agent-security",
+        "agent-safety",
+        "eda",
+        "exfiltration",
+        "go-explore",
+        "prompt-injection",
+        "red-teaming",
+        "tool-attacks"
+      ],
+      "math": true,
+      "pin": false,
+      "hide": false,
+      "published": true,
+      "image": {
+        "path": "/assets/img/posts/2026-06-13-ai-agent-security-part-1/cover.png",
+        "alt": "1편 표지: 리플레이 규칙, 트레이스 셀 구조, 트래젝터리 탐색"
+      },
+      "topic": "ai-agent-security",
+      "lang": "ko",
+      "translation_key": "ai-agent-security-01",
+      "series": "ai-agent-security",
+      "series_order": 1
+    },
+    "body_sha256": "b707837b4421fa5b875d0d5b434bac805671f721448865693dba99bbda826449"
+  },
+  {
+    "path": "_posts/2026-2Q/2026-06-13-AI-Agent-Security-Part-1-The-Replay-Benchmark-and-Trajectory-Search-EDA.md",
+    "front_matter": {
+      "title": "AI Agent Security (Part 1): The Replay Benchmark and Trajectory-Search EDA",
+      "date": "2026-06-13 21:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "ai-agent-security",
+        "agent-safety",
+        "eda",
+        "exfiltration",
+        "go-explore",
+        "prompt-injection",
+        "red-teaming",
+        "tool-attacks"
+      ],
+      "math": true,
+      "pin": false,
+      "hide": false,
+      "published": true,
+      "image": {
+        "path": "/assets/img/posts/2026-06-13-ai-agent-security-part-1/cover.png",
+        "alt": "Part 1 cover: the replay contract, trace-cell geometry, and trajectory search"
+      },
+      "topic": "ai-agent-security",
+      "lang": "en",
+      "translation_key": "ai-agent-security-01",
+      "series": "ai-agent-security",
+      "series_order": 1
+    },
+    "body_sha256": "fa03213551c36fc5531dc032d7d0cea2d4a73588e39882b638e23a9f92f9c372"
+  },
+  {
+    "path": "_posts/2026-2Q/2026-06-19-AI-Agent-Security-Part-2-The-Linear-Score-Law-and-the-Replay-Ceiling-KR.md",
+    "front_matter": {
+      "title": "AI Agent Security (2편): 선형 점수식과 리플레이 한계, 그리고 비공개 가드레일",
+      "date": "2026-06-19 21:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "ai-agent-security",
+        "agent-safety",
+        "egress-filter",
+        "exfiltration",
+        "guardrail",
+        "prompt-injection",
+        "red-teaming",
+        "reverse-engineering",
+        "scoring"
+      ],
+      "math": true,
+      "pin": false,
+      "hide": false,
+      "published": true,
+      "image": {
+        "path": "/assets/img/posts/2026-06-19-ai-agent-security-part-2/cover.png",
+        "alt": "2편 표지: K=1 단일 POST 점수식, 리플레이 절벽, 판별기 간 차이"
+      },
+      "topic": "ai-agent-security",
+      "lang": "ko",
+      "translation_key": "ai-agent-security-02",
+      "series": "ai-agent-security",
+      "series_order": 2
+    },
+    "body_sha256": "29ea789d7754fe3a096c5dc923829c1dea82f10e0ac0439a86ed8178cd77384d"
+  },
+  {
+    "path": "_posts/2026-2Q/2026-06-19-AI-Agent-Security-Part-2-The-Linear-Score-Law-and-the-Replay-Ceiling.md",
+    "front_matter": {
+      "title": "AI Agent Security (Part 2): The Linear Score Law, the Replay Ceiling, and What Survives the Private Guardrail",
+      "date": "2026-06-19 21:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "ai-agent-security",
+        "agent-safety",
+        "egress-filter",
+        "exfiltration",
+        "guardrail",
+        "prompt-injection",
+        "red-teaming",
+        "reverse-engineering",
+        "scoring"
+      ],
+      "math": true,
+      "pin": false,
+      "hide": false,
+      "published": true,
+      "image": {
+        "path": "/assets/img/posts/2026-06-19-ai-agent-security-part-2/cover.png",
+        "alt": "Part 2 cover: the K=1 single-post score law, replay cliff, and recognizer gap"
+      },
+      "topic": "ai-agent-security",
+      "lang": "en",
+      "translation_key": "ai-agent-security-02",
+      "series": "ai-agent-security",
+      "series_order": 2
+    },
+    "body_sha256": "2bc4c429258c946f38e94f2cf5b72dd12cbae20793303f46f17c96689c5f4ce4"
+  },
+  {
+    "path": "_posts/2026-2Q/2026-06-24-arc-agi-3-the-benchmark-nobody-has-solved-KR.md",
+    "front_matter": {
+      "title": "ARC-AGI-3: 아직 아무도 풀지 못한 벤치마크 (KR)",
+      "date": "2026-06-24 21:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "arc-agi-3",
+        "agi",
+        "ai-agents",
+        "arc-agi",
+        "benchmark",
+        "reinforcement-learning",
+        "world-models"
+      ],
+      "math": true,
+      "pin": false,
+      "topic": "arc-agi-3",
+      "lang": "ko",
+      "translation_key": "arc-agi-3-introduction",
+      "series": "arc-agi-3-main",
+      "series_order": 1
+    },
+    "body_sha256": "ab2e010d93e7d7ea59b1b24aa3edff5e2f417ebb55e4c6b0a37986594a2a94cc"
+  },
+  {
+    "path": "_posts/2026-2Q/2026-06-24-arc-agi-3-the-benchmark-nobody-has-solved.md",
+    "front_matter": {
+      "title": "ARC-AGI-3: The Benchmark Nobody Has Solved Yet",
+      "date": "2026-06-24 21:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "arc-agi-3",
+        "agi",
+        "ai-agents",
+        "arc-agi",
+        "benchmark",
+        "reinforcement-learning",
+        "world-models"
+      ],
+      "math": true,
+      "pin": false,
+      "topic": "arc-agi-3",
+      "lang": "en",
+      "translation_key": "arc-agi-3-introduction",
+      "series": "arc-agi-3-main",
+      "series_order": 1
+    },
+    "body_sha256": "417af159dbb1feed57fcb70a4f6d917983034901eb8a3dbce36b2ee7c1e207b0"
+  },
+  {
+    "path": "_posts/2026-2Q/2026-06-30-AI-Agent-Security-Part-3-Multi-Predicate-Stacking-and-the-Broken-Ceiling-KR.md",
+    "front_matter": {
+      "title": "AI Agent Security (3편): v3.1.2 리셋과 처리량의 벽",
+      "date": "2026-06-30 21:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "ai-agent-security",
+        "agent-safety",
+        "exfiltration",
+        "guardrail",
+        "prompt-injection",
+        "red-teaming",
+        "reverse-engineering",
+        "scoring",
+        "throughput"
+      ],
+      "math": true,
+      "pin": false,
+      "hide": false,
+      "published": true,
+      "image": {
+        "path": "/assets/img/posts/2026-06-30-ai-agent-security-part-3/cover.png",
+        "alt": "3편 표지: 두 모델 행, 서로 다른 시간 예산, 홉별 비용"
+      },
+      "topic": "ai-agent-security",
+      "lang": "ko",
+      "translation_key": "ai-agent-security-03",
+      "series": "ai-agent-security",
+      "series_order": 3
+    },
+    "body_sha256": "d0547e97add439cdae45e25083a10d7c7a3dadb8db9ef35daf9f1611f9188969"
+  },
+  {
+    "path": "_posts/2026-2Q/2026-06-30-AI-Agent-Security-Part-3-Multi-Predicate-Stacking-and-the-Broken-Ceiling.md",
+    "front_matter": {
+      "title": "AI Agent Security (Part 3): The v3.1.2 Reset and the Throughput Wall",
+      "date": "2026-06-30 21:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "ai-agent-security",
+        "agent-safety",
+        "exfiltration",
+        "guardrail",
+        "prompt-injection",
+        "red-teaming",
+        "reverse-engineering",
+        "scoring",
+        "throughput"
+      ],
+      "math": true,
+      "pin": false,
+      "hide": false,
+      "published": true,
+      "image": {
+        "path": "/assets/img/posts/2026-06-30-ai-agent-security-part-3/cover.png",
+        "alt": "Part 3 cover: two model rows, separate budgets, and hop economics"
+      },
+      "topic": "ai-agent-security",
+      "lang": "en",
+      "translation_key": "ai-agent-security-03",
+      "series": "ai-agent-security",
+      "series_order": 3
+    },
+    "body_sha256": "9eb9e26e57b2c8888fdc1353f27bbd21fa01206cd181c50d8d795e9baba1e54e"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-07-02-Pokemon-TCG-AI-Battle-Working-Note-1-Meta-Intelligence-and-the-Pilot-Gap-KR.md",
+    "front_matter": {
+      "title": "Pokémon TCG AI Battle Working Note (1편): 규칙 기반에서 RL 파일럿까지",
+      "date": "2026-07-02 21:30:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "pokemon-tcg",
+        "behavior-cloning",
+        "benchmark",
+        "game-ai",
+        "offline-rl",
+        "reinforcement-learning",
+        "self-play",
+        "working-note"
+      ],
+      "math": true,
+      "pin": false,
+      "topic": "pokemon-tcg",
+      "lang": "ko",
+      "translation_key": "pokemon-tcg-working-note-1"
+    },
+    "body_sha256": "a15d5bd5bc374eaa8791291567936cd4828e4bb06bab4e7a78ce281dd637fa32"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-07-02-Pokemon-TCG-AI-Battle-Working-Note-1-Meta-Intelligence-and-the-Pilot-Gap.md",
+    "front_matter": {
+      "title": "Pokémon TCG AI Battle Working Note (Part 1): From Rules to an RL Pilot",
+      "date": "2026-07-02 21:30:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "pokemon-tcg",
+        "behavior-cloning",
+        "benchmark",
+        "game-ai",
+        "offline-rl",
+        "reinforcement-learning",
+        "self-play",
+        "working-note"
+      ],
+      "math": true,
+      "pin": false,
+      "topic": "pokemon-tcg",
+      "lang": "en",
+      "translation_key": "pokemon-tcg-working-note-1"
+    },
+    "body_sha256": "acdb0746f591ecd7e85abf35fa704a7317272a2d98b509b058d14f31446e4429"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-07-03-ROGII-Working-Note-2-Target-Free-TVT-Geosteering-KR.md",
+    "front_matter": {
+      "title": "ROGII Working Note (2편): Target-Free TVT Geosteering의 오차 해부",
+      "date": "2026-07-03 21:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "rogii",
+        "error-anatomy",
+        "geosteering",
+        "stratigraphy",
+        "target-free-alignment",
+        "tvt",
+        "working-note"
+      ],
+      "math": true,
+      "pin": false,
+      "topic": "rogii",
+      "lang": "ko",
+      "translation_key": "rogii-error-anatomy",
+      "series": "rogii",
+      "series_order": 2
+    },
+    "body_sha256": "d0f7975eb21774bddc18ca01929541f84819df2cac4aad38c468cab10eefe1ed"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-07-03-ROGII-Working-Note-2-Target-Free-TVT-Geosteering.md",
+    "front_matter": {
+      "title": "ROGII Working Note (Part 2): Error Anatomy of Target-Free TVT Geosteering",
+      "date": "2026-07-03 21:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "rogii",
+        "error-anatomy",
+        "geosteering",
+        "stratigraphy",
+        "target-free-alignment",
+        "tvt",
+        "working-note"
+      ],
+      "math": true,
+      "pin": false,
+      "topic": "rogii",
+      "lang": "en",
+      "translation_key": "rogii-error-anatomy",
+      "series": "rogii",
+      "series_order": 2
+    },
+    "body_sha256": "1ee946ebc34a9ab0c1c88b4d9943e0b0f2e01d0091a593ebce734ae94e89ec9c"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-07-08-BioHub-Cell-Tracking-Working-Note-1-Learned-Lineage-Graphs-KR.md",
+    "front_matter": {
+      "title": "BioHub Cell Tracking 작업 기록 1: Lineage Graph 학습과 평가지표에 맞춘 후처리",
+      "date": "2026-07-11 21:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "biohub",
+        "cell-tracking",
+        "graph-repair",
+        "ilp",
+        "lineage-reconstruction",
+        "microscopy",
+        "unet",
+        "working-note"
+      ],
+      "math": true,
+      "last_modified_at": "2026-09-23",
+      "pin": false,
+      "image": {
+        "path": "/assets/img/posts/2026-07-08-biohub-working-note-1/cover.png",
+        "alt": "BioHub Cell Tracking 작업 기록 1: Lineage Graph 학습과 평가지표에 맞춘 후처리"
+      },
+      "published": true,
+      "topic": "biohub",
+      "lang": "ko",
+      "translation_key": "biohub-01",
+      "series": "biohub",
+      "series_order": 1
+    },
+    "body_sha256": "24b66b282f03f29d87109f0184e186b9f4cef8ad482974fdc3661ee1939f6a77"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-07-08-BioHub-Cell-Tracking-Working-Note-1-Learned-Lineage-Graphs.md",
+    "front_matter": {
+      "title": "BioHub Cell Tracking Working Note 1: Learned Lineage Graphs and Metric-Aware Repair",
+      "date": "2026-07-11 21:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "biohub",
+        "cell-tracking",
+        "graph-repair",
+        "ilp",
+        "lineage-reconstruction",
+        "microscopy",
+        "unet",
+        "working-note"
+      ],
+      "math": true,
+      "last_modified_at": "2026-09-23",
+      "pin": false,
+      "image": {
+        "path": "/assets/img/posts/2026-07-08-biohub-working-note-1/cover.png",
+        "alt": "BioHub Cell Tracking Working Note 1: Learned Lineage Graphs and Metric-Aware Repair"
+      },
+      "published": true,
+      "topic": "biohub",
+      "lang": "en",
+      "translation_key": "biohub-01",
+      "series": "biohub",
+      "series_order": 1
+    },
+    "body_sha256": "9bc358233e5137db6ccd548a540bc5d42fe59bc2398aa4d6bfb254f27fb37f76"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-07-14-BioHub-Cell-Tracking-Working-Note-2-OOF-Structural-Diagnostics-KR.md",
+    "front_matter": {
+      "title": "BioHub Cell Tracking 작업 기록 2: Public 점수가 멈췄을 때 — OOF 기반 오류 분석",
+      "date": "2026-07-14 21:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "biohub",
+        "cell-tracking",
+        "error-anatomy",
+        "graph-repair",
+        "lineage-reconstruction",
+        "microscopy",
+        "model-calibration",
+        "oof",
+        "working-note"
+      ],
+      "math": true,
+      "last_modified_at": "2026-09-23",
+      "pin": false,
+      "image": {
+        "path": "/assets/img/posts/2026-07-14-biohub-working-note-2/cover.png",
+        "alt": "BioHub Cell Tracking 작업 기록 2: Public 점수가 멈췄을 때 — OOF 기반 오류 분석"
+      },
+      "published": true,
+      "topic": "biohub",
+      "lang": "ko",
+      "translation_key": "biohub-02",
+      "series": "biohub",
+      "series_order": 2
+    },
+    "body_sha256": "63b114bea06cca3d8cb27d6977aa245f4e8edf2307467ad6cba71b9220f8e863"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-07-14-BioHub-Cell-Tracking-Working-Note-2-OOF-Structural-Diagnostics.md",
+    "front_matter": {
+      "title": "BioHub Cell Tracking Working Note 2: From a Leaderboard Plateau to OOF Structural Diagnostics",
+      "date": "2026-07-14 21:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "biohub",
+        "cell-tracking",
+        "error-anatomy",
+        "graph-repair",
+        "lineage-reconstruction",
+        "microscopy",
+        "model-calibration",
+        "oof",
+        "working-note"
+      ],
+      "math": true,
+      "last_modified_at": "2026-09-23",
+      "pin": false,
+      "image": {
+        "path": "/assets/img/posts/2026-07-14-biohub-working-note-2/cover.png",
+        "alt": "BioHub Cell Tracking Working Note 2: From a Leaderboard Plateau to OOF Structural Diagnostics"
+      },
+      "published": true,
+      "topic": "biohub",
+      "lang": "en",
+      "translation_key": "biohub-02",
+      "series": "biohub",
+      "series_order": 2
+    },
+    "body_sha256": "ebf97fe0e6621b692df4f988130c8fbe079be255dacd1139b30e05d3cf0e6348"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-07-15-AI-Agent-Security-Part-4-Past-the-Framing-Plateau-KR.md",
+    "front_matter": {
+      "title": "AI Agent Security (4편): 프레이밍 고원을 넘어서",
+      "date": "2026-07-15 22:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "ai-agent-security",
+        "agent-safety",
+        "exfiltration",
+        "per-model",
+        "prompt-injection",
+        "red-teaming",
+        "replay",
+        "reverse-engineering",
+        "scoring",
+        "throughput",
+        "variance"
+      ],
+      "math": true,
+      "pin": false,
+      "hide": false,
+      "published": true,
+      "image": {
+        "path": "/assets/img/posts/2026-07-15-ai-agent-security-part-4/cover.png",
+        "alt": "4편 표지: 모델별 분기, 리플레이 절벽, 추론 구간 축소"
+      },
+      "topic": "ai-agent-security",
+      "lang": "ko",
+      "translation_key": "ai-agent-security-04",
+      "series": "ai-agent-security",
+      "series_order": 4
+    },
+    "body_sha256": "84989c2744b1d1f6e5e49b4ae654a887e615e2940f5a02bae8a07d5be56b0283"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-07-15-AI-Agent-Security-Part-4-Past-the-Framing-Plateau.md",
+    "front_matter": {
+      "title": "AI Agent Security (Part 4): Past the Framing Plateau",
+      "date": "2026-07-15 22:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "ai-agent-security",
+        "agent-safety",
+        "exfiltration",
+        "per-model",
+        "prompt-injection",
+        "red-teaming",
+        "replay",
+        "reverse-engineering",
+        "scoring",
+        "throughput",
+        "variance"
+      ],
+      "math": true,
+      "pin": false,
+      "hide": false,
+      "published": true,
+      "image": {
+        "path": "/assets/img/posts/2026-07-15-ai-agent-security-part-4/cover.png",
+        "alt": "Part 4 cover: model routing, the replay cliff, and reasoning collapse"
+      },
+      "topic": "ai-agent-security",
+      "lang": "en",
+      "translation_key": "ai-agent-security-04",
+      "series": "ai-agent-security",
+      "series_order": 4
+    },
+    "body_sha256": "8696305bc16c80f02ddf4b11d8ee8dd2b5ac09fc09bb46b12c360ba053c5e05e"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-07-21-AI-Agent-Security-Part-5-The-Raw-Wall-from-the-Inside-KR.md",
+    "front_matter": {
+      "title": "AI Agent Security (5편): 소스에서 확인한 원점수의 한계",
+      "date": "2026-07-21 21:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "ai-agent-security",
+        "agent-safety",
+        "exfiltration",
+        "guardrail",
+        "per-model",
+        "predicates",
+        "prompt-injection",
+        "red-teaming",
+        "replay",
+        "reverse-engineering",
+        "scoring",
+        "throughput"
+      ],
+      "math": true,
+      "pin": false,
+      "hide": false,
+      "published": true,
+      "image": {
+        "path": "/assets/img/posts/2026-07-21-ai-agent-security-part-5/cover.png",
+        "alt": "5편 표지: 탐욕 디코딩, 오염 이력, 원점수 한계"
+      },
+      "topic": "ai-agent-security",
+      "lang": "ko",
+      "translation_key": "ai-agent-security-05",
+      "series": "ai-agent-security",
+      "series_order": 5
+    },
+    "body_sha256": "f854357082f011fe9bc59156c64b892fe45a16a4785640f0f1819df142c0f975"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-07-21-AI-Agent-Security-Part-5-The-Raw-Wall-from-the-Inside.md",
+    "front_matter": {
+      "title": "AI Agent Security (Part 5): The Raw Wall from the Inside",
+      "date": "2026-07-21 21:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "ai-agent-security",
+        "agent-safety",
+        "exfiltration",
+        "guardrail",
+        "per-model",
+        "predicates",
+        "prompt-injection",
+        "red-teaming",
+        "replay",
+        "reverse-engineering",
+        "scoring",
+        "throughput"
+      ],
+      "math": true,
+      "pin": false,
+      "hide": false,
+      "published": true,
+      "image": {
+        "path": "/assets/img/posts/2026-07-21-ai-agent-security-part-5/cover.png",
+        "alt": "Part 5 cover: greedy decoding, taint memory, and the raw-score frontier"
+      },
+      "topic": "ai-agent-security",
+      "lang": "en",
+      "translation_key": "ai-agent-security-05",
+      "series": "ai-agent-security",
+      "series_order": 5
+    },
+    "body_sha256": "c10bb69aa0ca3282ff2785ab8acc90ece0a4be8690e1858fb585535c678a9a3c"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-07-22-From-Closed-to-Open-Quantum-Transport-with-NEGF-KR.md",
+    "front_matter": {
+      "title": "닫힌 양자계에서 열린 양자 수송으로: NEGF를 처음부터 유도하기",
+      "date": "2026-07-22 09:00:00 +0900",
+      "categories": [
+        "Physics",
+        "Quantum Transport"
+      ],
+      "tags": [
+        "kaggle",
+        "quantum-transport",
+        "green-functions",
+        "landauer",
+        "negf",
+        "open-quantum-systems",
+        "physics",
+        "python",
+        "resonant-tunneling",
+        "self-energy",
+        "tight-binding"
+      ],
+      "math": true,
+      "pin": false,
+      "topic": "quantum-transport",
+      "lang": "ko",
+      "translation_key": "quantum-transport-negf"
+    },
+    "body_sha256": "b41583877c3d477982a926f5c9741d791517dd174e76af7c081abf23f49249b3"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-07-22-From-Closed-to-Open-Quantum-Transport-with-NEGF.md",
+    "front_matter": {
+      "title": "From Closed to Open Quantum Transport with NEGF: A Derivation from Scratch",
+      "date": "2026-07-22 09:00:00 +0900",
+      "categories": [
+        "Physics",
+        "Quantum Transport"
+      ],
+      "tags": [
+        "kaggle",
+        "quantum-transport",
+        "green-functions",
+        "landauer",
+        "negf",
+        "open-quantum-systems",
+        "physics",
+        "python",
+        "resonant-tunneling",
+        "self-energy",
+        "tight-binding"
+      ],
+      "math": true,
+      "pin": false,
+      "topic": "quantum-transport",
+      "lang": "en",
+      "translation_key": "quantum-transport-negf"
+    },
+    "body_sha256": "66fa561bb2703d6339b5374991d72a851156471b7a4c15313e706eaf51621ad7"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-07-26-AI-Agent-Security-Part-6-Throughput-Working-Note-Established-Closed-Open-KR.md",
+    "front_matter": {
+      "title": "AI Agent Security (6편): 처리량을 실험 시스템으로 다루기 — 비용과 절벽, 그리고 바로잡은 측정법",
+      "date": "2026-07-26 18:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "ai-agent-security",
+        "agent-safety",
+        "decode",
+        "exfiltration",
+        "kv-cache",
+        "prompt-injection",
+        "red-teaming",
+        "throughput",
+        "working-note"
+      ],
+      "math": true,
+      "pin": false,
+      "hide": false,
+      "published": true,
+      "image": {
+        "path": "/assets/img/posts/2026-07-26-ai-agent-security-part-6/cover.png",
+        "alt": "6편 표지: 처리량 방정식, 캐시 활용 방식, 바로잡은 계측법"
+      },
+      "topic": "ai-agent-security",
+      "lang": "ko",
+      "translation_key": "ai-agent-security-06",
+      "series": "ai-agent-security",
+      "series_order": 6
+    },
+    "body_sha256": "1e9710235469bfe0410ce3e64401e411441d0a2a6d40a351d14c8c56594f5429"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-07-26-AI-Agent-Security-Part-6-Throughput-Working-Note-Established-Closed-Open.md",
+    "front_matter": {
+      "title": "AI Agent Security (Part 6): Throughput as an Experimental System — Costs, Cliffs, and Corrected Instruments",
+      "date": "2026-07-26 18:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "ai-agent-security",
+        "agent-safety",
+        "decode",
+        "exfiltration",
+        "kv-cache",
+        "prompt-injection",
+        "red-teaming",
+        "throughput",
+        "working-note"
+      ],
+      "math": true,
+      "pin": false,
+      "hide": false,
+      "published": true,
+      "image": {
+        "path": "/assets/img/posts/2026-07-26-ai-agent-security-part-6/cover.png",
+        "alt": "Part 6 cover: throughput equations, cache layout, and corrected instruments"
+      },
+      "topic": "ai-agent-security",
+      "lang": "en",
+      "translation_key": "ai-agent-security-06",
+      "series": "ai-agent-security",
+      "series_order": 6
+    },
+    "body_sha256": "b86d36f1d8ea201a99d126f32a384dd6b218c856bc8896456c834645a943de60"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-07-31-BioHub-Cell-Tracking-Working-Note-3-What-the-OOF-Machine-Refused-KR.md",
+    "front_matter": {
+      "title": "BioHub Cell Tracking 작업 기록 3: OOF에 기반한 판단들",
+      "date": "2026-07-31 21:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "biohub",
+        "cell-tracking",
+        "cross-fitting",
+        "deployment-constraints",
+        "division-recovery",
+        "lineage-reconstruction",
+        "microscopy",
+        "oof",
+        "working-note"
+      ],
+      "math": true,
+      "last_modified_at": "2026-09-23",
+      "pin": false,
+      "hide": false,
+      "published": true,
+      "image": {
+        "path": "/assets/img/posts/2026-07-31-biohub-working-note-3/cover.png",
+        "alt": "BioHub Cell Tracking 작업 기록 3: OOF에 기반한 판단들"
+      },
+      "topic": "biohub",
+      "lang": "ko",
+      "translation_key": "biohub-03",
+      "series": "biohub",
+      "series_order": 3
+    },
+    "body_sha256": "84afb6c81e4cb5a75351393ad3fbf8032955d0c55f85ebda649e078b33b27194"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-07-31-BioHub-Cell-Tracking-Working-Note-3-What-the-OOF-Machine-Refused.md",
+    "front_matter": {
+      "title": "BioHub Cell Tracking Working Note 3: What the OOF Machine Refused",
+      "date": "2026-07-31 21:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "biohub",
+        "cell-tracking",
+        "cross-fitting",
+        "deployment-constraints",
+        "division-recovery",
+        "lineage-reconstruction",
+        "microscopy",
+        "oof",
+        "working-note"
+      ],
+      "math": true,
+      "last_modified_at": "2026-09-23",
+      "pin": false,
+      "hide": false,
+      "published": true,
+      "image": {
+        "path": "/assets/img/posts/2026-07-31-biohub-working-note-3/cover.png",
+        "alt": "BioHub Cell Tracking Working Note 3: What the OOF Machine Refused"
+      },
+      "topic": "biohub",
+      "lang": "en",
+      "translation_key": "biohub-03",
+      "series": "biohub",
+      "series_order": 3
+    },
+    "body_sha256": "d2f45f5237f45369346af6d698cbe28e37ec7799b37db598dd57cfadb159d12d"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-08-01-AI-Agent-Security-Part-7-The-Transfer-Game-New-Surfaces-and-Private-Safe-KR.md",
+    "front_matter": {
+      "title": "AI Agent Security (7편): 공개 성능에서 비공개 전이로 — 홀드아웃 방어와 포트폴리오 설계",
+      "date": "2026-08-01 18:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "ai-agent-security",
+        "agent-safety",
+        "portfolio-design",
+        "private-leaderboard",
+        "prompt-injection",
+        "provenance",
+        "quality-diversity",
+        "red-teaming",
+        "transfer"
+      ],
+      "math": true,
+      "pin": false,
+      "hide": false,
+      "published": true,
+      "image": {
+        "path": "/assets/img/posts/2026-08-01-ai-agent-security-part-7/cover.png",
+        "alt": "7편 표지: 공개 점수 밀도, 작동 방식의 범위, 홀드아웃 전이"
+      },
+      "topic": "ai-agent-security",
+      "lang": "ko",
+      "translation_key": "ai-agent-security-07",
+      "series": "ai-agent-security",
+      "series_order": 7
+    },
+    "body_sha256": "25c668dcb5408a06e75ab2804733e23e0312db6c6e223b66f4cbf190ac4ebeaa"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-08-01-AI-Agent-Security-Part-7-The-Transfer-Game-New-Surfaces-and-Private-Safe.md",
+    "front_matter": {
+      "title": "AI Agent Security (Part 7): The Transfer Game — Held-Out Defenses and Portfolio Design",
+      "date": "2026-08-01 18:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "ai-agent-security",
+        "agent-safety",
+        "portfolio-design",
+        "private-leaderboard",
+        "prompt-injection",
+        "provenance",
+        "quality-diversity",
+        "red-teaming",
+        "transfer"
+      ],
+      "math": true,
+      "pin": false,
+      "hide": false,
+      "published": true,
+      "image": {
+        "path": "/assets/img/posts/2026-08-01-ai-agent-security-part-7/cover.png",
+        "alt": "Part 7 cover: public density, mechanism coverage, and held-out transfer"
+      },
+      "topic": "ai-agent-security",
+      "lang": "en",
+      "translation_key": "ai-agent-security-07",
+      "series": "ai-agent-security",
+      "series_order": 7
+    },
+    "body_sha256": "a4112cb7e1309f4b7a0c64bf2fec565bf1dc4192e136a73e30bf11f321df6c37"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-08-03-Kaggriculture-Working-Note-1-A-Farming-Economy-and-the-Replay-Meta-KR.md",
+    "front_matter": {
+      "title": "Kaggriculture Working Note (1편): 농장 경제 설계, 그리고 리플레이 메타",
+      "date": "2026-08-03 21:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "kaggriculture",
+        "behavior-cloning",
+        "game-ai",
+        "market-design",
+        "paired-benchmark",
+        "reverse-engineering",
+        "simulation",
+        "working-note"
+      ],
+      "math": true,
+      "pin": false,
+      "image": {
+        "path": "/assets/img/posts/2026-08-03-kaggriculture-working-note-1/cover.png",
+        "alt": "Kaggriculture — Kaggle의 2인용 농장 경제 게임"
+      },
+      "topic": "kaggriculture",
+      "lang": "ko",
+      "translation_key": "kaggriculture-working-note-1"
+    },
+    "body_sha256": "b56ed8efe350247678622055d9db43ebf3d5cd6bcf93bed805b8786207d19ead"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-08-03-Kaggriculture-Working-Note-1-A-Farming-Economy-and-the-Replay-Meta.md",
+    "front_matter": {
+      "title": "Kaggriculture Working Note (Part 1): A Farming Economy and the Replay Meta",
+      "date": "2026-08-03 21:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "kaggriculture",
+        "behavior-cloning",
+        "game-ai",
+        "market-design",
+        "paired-benchmark",
+        "reverse-engineering",
+        "simulation",
+        "working-note"
+      ],
+      "math": true,
+      "pin": false,
+      "image": {
+        "path": "/assets/img/posts/2026-08-03-kaggriculture-working-note-1/cover.png",
+        "alt": "Kaggriculture — a two-player farming economy on Kaggle"
+      },
+      "topic": "kaggriculture",
+      "lang": "en",
+      "translation_key": "kaggriculture-working-note-1"
+    },
+    "body_sha256": "87372501cb7a26cf92e94d811fd6b70a96ffdd2440490728272fc046aaea078f"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-08-04-arc-agi-3-part-2-where-a-perfect-idea-died-KR.md",
+    "front_matter": {
+      "title": "ARC-AGI-3 2편: 수학적으로 완벽한 아이디어가 죽은 자리 (KR)",
+      "date": "2026-08-04 21:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "arc-agi-3",
+        "ai-agents",
+        "arc-agi",
+        "benchmark",
+        "working-note",
+        "world-models"
+      ],
+      "math": true,
+      "pin": false,
+      "image": {
+        "path": "/assets/img/posts/2026-08-04-arc-agi-3-part-2/cover.png",
+        "alt": "ARC-AGI-3 — 관찰, 가설, 행동, 피드백 루프를 도는 에이전트"
+      },
+      "topic": "arc-agi-3",
+      "lang": "ko",
+      "translation_key": "arc-agi-3-part-2",
+      "series": "arc-agi-3-main",
+      "series_order": 2
+    },
+    "body_sha256": "78484e6d0df4968882ac3769c1046343aacbd012cc82d528c68b443846776a65"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-08-04-arc-agi-3-part-2-where-a-perfect-idea-died.md",
+    "front_matter": {
+      "title": "ARC-AGI-3 Part 2: Where a Mathematically Perfect Idea Went to Die",
+      "date": "2026-08-04 21:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "arc-agi-3",
+        "ai-agents",
+        "arc-agi",
+        "benchmark",
+        "working-note",
+        "world-models"
+      ],
+      "math": true,
+      "pin": false,
+      "image": {
+        "path": "/assets/img/posts/2026-08-04-arc-agi-3-part-2/cover.png",
+        "alt": "ARC-AGI-3 — an agent cycling through observe, hypothesize, act, feedback"
+      },
+      "topic": "arc-agi-3",
+      "lang": "en",
+      "translation_key": "arc-agi-3-part-2",
+      "series": "arc-agi-3-main",
+      "series_order": 2
+    },
+    "body_sha256": "646cf21b1179b1596aa4d6a271570fcc319869f43eaf224af83020d0d27806d8"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-08-05-arc-agi-3-research-note-1-program-as-policy-KR.md",
+    "front_matter": {
+      "title": "ARC-AGI-3 Research Note R1: 한 수의 값, 그리고 program-as-policy (KR)",
+      "date": "2026-08-05 21:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "arc-agi-3",
+        "ai-agents",
+        "arc-agi",
+        "program-synthesis",
+        "research-note",
+        "world-models"
+      ],
+      "math": true,
+      "pin": false,
+      "topic": "arc-agi-3",
+      "lang": "ko",
+      "translation_key": "arc-agi-3-research-r1"
+    },
+    "body_sha256": "8ca6656d0f81b61b1662139f8e4ba1484ca3ea1c559bc1993e31643403fa1a9a"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-08-05-arc-agi-3-research-note-1-program-as-policy.md",
+    "front_matter": {
+      "title": "ARC-AGI-3 Research Note R1: The Unit Cost of Thinking, and Program-as-Policy",
+      "date": "2026-08-05 21:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "arc-agi-3",
+        "ai-agents",
+        "arc-agi",
+        "program-synthesis",
+        "research-note",
+        "world-models"
+      ],
+      "math": true,
+      "pin": false,
+      "topic": "arc-agi-3",
+      "lang": "en",
+      "translation_key": "arc-agi-3-research-r1"
+    },
+    "body_sha256": "0d01cbde08940865e447ba6836e6a65c99bb4b3649b3fe81e2dcd16335de5bac"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-08-06-ROGII-Competition-Retrospective-Public-Private-Shake-Up-KR.md",
+    "front_matter": {
+      "title": "ROGII 대회 회고: Silver Medal까지의 여정과 Public/Private 격차의 교훈",
+      "date": "2026-08-06 09:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "rogii",
+        "competition-retrospective",
+        "geosteering",
+        "public-private-gap",
+        "silver-medal",
+        "stratigraphy",
+        "tvt"
+      ],
+      "math": true,
+      "pin": false,
+      "image": {
+        "path": "/assets/img/posts/2026-08-06-rogii-competition-retrospective/cover.png",
+        "alt": "ROGII 지층 정렬과 TVT 예측을 설명하는 geosteering 개요도"
+      },
+      "topic": "rogii",
+      "lang": "ko",
+      "translation_key": "rogii-retrospective",
+      "series": "rogii",
+      "series_order": 3
+    },
+    "body_sha256": "692553c9cec5f4b6d3e9b51f8dfad4cecafb3dc2dbf3c5a97e0db305daf4b43f"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-08-06-ROGII-Competition-Retrospective-Public-Private-Shake-Up.md",
+    "front_matter": {
+      "title": "ROGII Competition Retrospective: A Silver Medal and Lessons from the Public-Private Gap",
+      "date": "2026-08-06 09:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "rogii",
+        "competition-retrospective",
+        "geosteering",
+        "public-private-gap",
+        "silver-medal",
+        "stratigraphy",
+        "tvt"
+      ],
+      "math": true,
+      "pin": false,
+      "image": {
+        "path": "/assets/img/posts/2026-08-06-rogii-competition-retrospective/cover.png",
+        "alt": "ROGII geosteering workflow for target-free TVT prediction and trajectory reasoning"
+      },
+      "topic": "rogii",
+      "lang": "en",
+      "translation_key": "rogii-retrospective",
+      "series": "rogii",
+      "series_order": 3
+    },
+    "body_sha256": "04a12e6cd1bda3830e5e732e1586688e95d4947edb4d7179d82c777689e84df2"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-08-09-RSNA-Knee-Twelve-Findings-From-One-MRI-KR.md",
+    "front_matter": {
+      "title": "주석은 58건, 판독문은 4,407건 — RSNA Knee 대회의 구조",
+      "date": "2026-08-09 09:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "rsna-knee",
+        "dicom",
+        "dinov2",
+        "knee-mri",
+        "medical-imaging",
+        "multilingual",
+        "nyquist",
+        "roc-auc",
+        "weak-supervision"
+      ],
+      "math": true,
+      "pin": false,
+      "image": {
+        "path": "/assets/img/posts/2026-08-09-rsna-knee-report-labels/cover.png",
+        "alt": "무릎 MRI 슬롯 샘플링과 스터디 단위 열두 개 진단"
+      },
+      "topic": "rsna-knee",
+      "lang": "ko",
+      "translation_key": "rsna-knee-competition-structure"
+    },
+    "body_sha256": "ca5d69aa8cd60e2ed3b906a6be70d8aeb458819577f813e1b6865e5742c7a36b"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-08-09-RSNA-Knee-Twelve-Findings-From-One-MRI.md",
+    "front_matter": {
+      "title": "RSNA Knee: Twelve Findings From One MRI, and the Reports That Label Them",
+      "date": "2026-08-09 09:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "rsna-knee",
+        "dicom",
+        "dinov2",
+        "knee-mri",
+        "medical-imaging",
+        "multilingual",
+        "nyquist",
+        "roc-auc",
+        "weak-supervision"
+      ],
+      "math": true,
+      "pin": false,
+      "image": {
+        "path": "/assets/img/posts/2026-08-09-rsna-knee-report-labels/cover.png",
+        "alt": "Knee MRI slot sampling and the twelve per-study diagnoses"
+      },
+      "topic": "rsna-knee",
+      "lang": "en",
+      "translation_key": "rsna-knee-competition-structure"
+    },
+    "body_sha256": "3b2cac904791ee102cf67f3ac10e0e111300c0c4370f279ce89802766cdf6c35"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-08-12-AI-Agent-Security-Part-8-The-Evaluation-Reset-and-the-Search-for-a-Discrete-Lever-KR.md",
+    "front_matter": {
+      "title": "AI Agent Security (8편): 평가 체계 재설정 — 부분 점수 보존과 불연속적 도약의 원인 찾기",
+      "date": "2026-08-12 23:30:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "ai-agent-security",
+        "agent-safety",
+        "diversity",
+        "evaluation",
+        "packing",
+        "partial-scoring",
+        "red-teaming",
+        "static-replay",
+        "throughput",
+        "working-note"
+      ],
+      "math": true,
+      "pin": false,
+      "hide": false,
+      "published": true,
+      "image": {
+        "path": "/assets/img/posts/2026-08-12-ai-agent-security-part-8/cover.png",
+        "alt": "8편 표지: 부분 뱅킹, 두 개의 시간 제한, 불연속적인 점수 간격"
+      },
+      "topic": "ai-agent-security",
+      "lang": "ko",
+      "translation_key": "ai-agent-security-08",
+      "series": "ai-agent-security",
+      "series_order": 8
+    },
+    "body_sha256": "98171699524a68793224716cb573fa023c579f39e40d06278c3037a435e97328"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-08-12-AI-Agent-Security-Part-8-The-Evaluation-Reset-and-the-Search-for-a-Discrete-Lever.md",
+    "front_matter": {
+      "title": "AI Agent Security (Part 8): The Evaluation Reset — Partial Banking and the Search for a Discrete Lever",
+      "date": "2026-08-12 23:30:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "ai-agent-security",
+        "agent-safety",
+        "diversity",
+        "evaluation",
+        "packing",
+        "partial-scoring",
+        "red-teaming",
+        "static-replay",
+        "throughput",
+        "working-note"
+      ],
+      "math": true,
+      "pin": false,
+      "hide": false,
+      "published": true,
+      "image": {
+        "path": "/assets/img/posts/2026-08-12-ai-agent-security-part-8/cover.png",
+        "alt": "Part 8 cover: partial banking, two clocks, and a discrete leaderboard gap"
+      },
+      "topic": "ai-agent-security",
+      "lang": "en",
+      "translation_key": "ai-agent-security-08",
+      "series": "ai-agent-security",
+      "series_order": 8
+    },
+    "body_sha256": "c12c07957066478d000e56b6e4915c5214d81e0bb0123cf61887d144fc0fb1e3"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-08-16-BioHub-Cell-Tracking-Working-Note-4-Why-the-Largest-Local-Gain-Did-Not-Show-on-the-Board-KR.md",
+    "front_matter": {
+      "title": "BioHub Cell Tracking 작업 기록 4: 로컬 검증에서 발견한 세 가지 빈틈",
+      "date": "2026-08-16 21:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "biohub",
+        "cell-tracking",
+        "hold-in-vs-embryo-out",
+        "leakage",
+        "lineage-reconstruction",
+        "microscopy",
+        "oof",
+        "retraction",
+        "transfer",
+        "working-note"
+      ],
+      "math": true,
+      "last_modified_at": "2026-09-23",
+      "pin": false,
+      "hide": false,
+      "published": true,
+      "image": {
+        "path": "/assets/img/posts/2026-08-16-biohub-working-note-4/cover.png",
+        "alt": "BioHub Cell Tracking 작업 기록 4: 로컬 검증에서 발견한 세 가지 빈틈"
+      },
+      "topic": "biohub",
+      "lang": "ko",
+      "translation_key": "biohub-04",
+      "series": "biohub",
+      "series_order": 4
+    },
+    "body_sha256": "110dba52309c8bae412346c4c67b8fce4d5c68d7cd0fb33c0cdf46f8d50869c2"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-08-16-BioHub-Cell-Tracking-Working-Note-4-Why-the-Largest-Local-Gain-Did-Not-Show-on-the-Board.md",
+    "front_matter": {
+      "title": "BioHub Cell Tracking Working Note 4: Three Gaps in Local Validation",
+      "date": "2026-08-16 21:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "biohub",
+        "cell-tracking",
+        "hold-in-vs-embryo-out",
+        "leakage",
+        "lineage-reconstruction",
+        "microscopy",
+        "oof",
+        "retraction",
+        "transfer",
+        "working-note"
+      ],
+      "math": true,
+      "last_modified_at": "2026-09-23",
+      "pin": false,
+      "hide": false,
+      "published": true,
+      "image": {
+        "path": "/assets/img/posts/2026-08-16-biohub-working-note-4/cover.png",
+        "alt": "BioHub Cell Tracking Working Note 4: Three Gaps in Local Validation"
+      },
+      "topic": "biohub",
+      "lang": "en",
+      "translation_key": "biohub-04",
+      "series": "biohub",
+      "series_order": 4
+    },
+    "body_sha256": "4be79d77cfe8049fc158c7381bd85948f712c4744a3c4a17f60d1d5584e0393a"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-08-23-AI-Agent-Security-Part-9-From-Firing-to-Density-Chains-Gates-and-the-Per-K-Frontier-KR.md",
+    "front_matter": {
+      "title": "AI Agent Security (9편): 작동 여부에서 점수 밀도로 — 연쇄 호출, 선택 기준, 그리고 K별 성능 한계",
+      "date": "2026-08-23 09:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "ai-agent-security",
+        "agent-safety",
+        "density",
+        "evaluation",
+        "gemma",
+        "gpt-oss",
+        "rainbow-teaming",
+        "red-teaming",
+        "t4",
+        "throughput",
+        "tool-use",
+        "working-note"
+      ],
+      "math": true,
+      "pin": false,
+      "hide": false,
+      "published": true,
+      "image": {
+        "path": "/assets/img/posts/2026-08-23-ai-agent-security-part-9/cover.png",
+        "alt": "9편 표지: 정확한 연쇄 호출, 밀도 게이트, K별 구문 한계"
+      },
+      "topic": "ai-agent-security",
+      "lang": "ko",
+      "translation_key": "ai-agent-security-09",
+      "series": "ai-agent-security",
+      "series_order": 9
+    },
+    "body_sha256": "a7f7be4a003aca04853eaee49e29366ae64334e6f14ed4f596d440dda278da7a"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-08-23-AI-Agent-Security-Part-9-From-Firing-to-Density-Chains-Gates-and-the-Per-K-Frontier.md",
+    "front_matter": {
+      "title": "AI Agent Security (Part 9): From Firing to Density — Chains, Gates, and the Per-K Frontier",
+      "date": "2026-08-23 09:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "ai-agent-security",
+        "agent-safety",
+        "density",
+        "evaluation",
+        "gemma",
+        "gpt-oss",
+        "rainbow-teaming",
+        "red-teaming",
+        "t4",
+        "throughput",
+        "tool-use",
+        "working-note"
+      ],
+      "math": true,
+      "pin": false,
+      "hide": false,
+      "published": true,
+      "image": {
+        "path": "/assets/img/posts/2026-08-23-ai-agent-security-part-9/cover.png",
+        "alt": "Part 9 cover: exact chains, density gates, and the per-K syntax frontier"
+      },
+      "topic": "ai-agent-security",
+      "lang": "en",
+      "translation_key": "ai-agent-security-09",
+      "series": "ai-agent-security",
+      "series_order": 9
+    },
+    "body_sha256": "955439115438500873936317fa3ef17b1a9c27760dfdec44288fb12ee5b730d9"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-08-28-BioHub-Cell-Tracking-Working-Note-5-A-Local-Optimum-Built-One-Step-at-a-Time-KR.md",
+    "front_matter": {
+      "title": "BioHub Cell Tracking 작업 기록 5: 고정된 그래프가 시험하지 못한 것들",
+      "date": "2026-08-28 21:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "biohub",
+        "candidate-coverage",
+        "cell-tracking",
+        "division-recovery",
+        "lineage-reconstruction",
+        "microscopy",
+        "objective-design",
+        "process-debt",
+        "working-note"
+      ],
+      "math": true,
+      "last_modified_at": "2026-09-23",
+      "pin": false,
+      "hide": false,
+      "published": true,
+      "image": {
+        "path": "/assets/img/posts/2026-08-28-biohub-working-note-5/cover.png",
+        "alt": "BioHub Cell Tracking 작업 기록 5: 고정된 그래프가 시험하지 못한 것들"
+      },
+      "topic": "biohub",
+      "lang": "ko",
+      "translation_key": "biohub-05",
+      "series": "biohub",
+      "series_order": 5
+    },
+    "body_sha256": "13bf68bdb3867ef90dc329d4485b5f5ae0461897111e7efa463a1022093cc0b8"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-08-28-BioHub-Cell-Tracking-Working-Note-5-A-Local-Optimum-Built-One-Step-at-a-Time.md",
+    "front_matter": {
+      "title": "BioHub Cell Tracking Working Note 5: What a Frozen Graph Left Untested",
+      "date": "2026-08-28 21:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "biohub",
+        "candidate-coverage",
+        "cell-tracking",
+        "division-recovery",
+        "lineage-reconstruction",
+        "microscopy",
+        "objective-design",
+        "process-debt",
+        "working-note"
+      ],
+      "math": true,
+      "last_modified_at": "2026-09-23",
+      "pin": false,
+      "hide": false,
+      "published": true,
+      "image": {
+        "path": "/assets/img/posts/2026-08-28-biohub-working-note-5/cover.png",
+        "alt": "BioHub Cell Tracking Working Note 5: What a Frozen Graph Left Untested"
+      },
+      "topic": "biohub",
+      "lang": "en",
+      "translation_key": "biohub-05",
+      "series": "biohub",
+      "series_order": 5
+    },
+    "body_sha256": "65b40a92a0059872788c1436d3347040312a69cf7d6de8fdc97e9d3e4802ce9c"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-09-01-AI-Agent-Security-Part-10-From-Public-Density-to-Private-Transfer-KR.md",
+    "front_matter": {
+      "title": "AI Agent Security (10편): 공개 점수 밀도에서 비공개 평가까지 — 아티팩트 식별, 후보 뱅크의 순서, 포트폴리오 설계",
+      "date": "2026-09-01 21:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "ai-agent-security",
+        "agent-safety",
+        "private-leaderboard",
+        "rainbow-teaming",
+        "red-teaming",
+        "throughput",
+        "tool-calling",
+        "transfer"
+      ],
+      "math": true,
+      "pin": false,
+      "hide": false,
+      "published": true,
+      "image": {
+        "path": "/assets/img/posts/2026-09-01-ai-agent-security-part-10/cover.png",
+        "alt": "10편 표지: 공개 점수의 계단, 아티팩트 식별, 두 자리 포트폴리오"
+      },
+      "topic": "ai-agent-security",
+      "lang": "ko",
+      "translation_key": "ai-agent-security-10",
+      "series": "ai-agent-security",
+      "series_order": 10
+    },
+    "body_sha256": "bff63952d7b6f65865a67b985e1d7f6520a8011b81ccd6f3e816ad8707ce6b85"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-09-01-AI-Agent-Security-Part-10-From-Public-Density-to-Private-Transfer.md",
+    "front_matter": {
+      "title": "AI Agent Security (Part 10): From Public Density to Private Transfer — Artifact Identity, Ordered Banks, and Portfolio Design",
+      "date": "2026-09-01 21:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "ai-agent-security",
+        "agent-safety",
+        "private-leaderboard",
+        "rainbow-teaming",
+        "red-teaming",
+        "throughput",
+        "tool-calling",
+        "transfer"
+      ],
+      "math": true,
+      "pin": false,
+      "hide": false,
+      "published": true,
+      "image": {
+        "path": "/assets/img/posts/2026-09-01-ai-agent-security-part-10/cover.png",
+        "alt": "Part 10 cover: the public staircase, artifact identity, and a two-slot portfolio"
+      },
+      "topic": "ai-agent-security",
+      "lang": "en",
+      "translation_key": "ai-agent-security-10",
+      "series": "ai-agent-security",
+      "series_order": 10
+    },
+    "body_sha256": "25f4155dd922651562bd2f13d48b7228026b64fdcca8bd5c311041c0f3cb4771"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-09-02-AI-Agent-Security-Part-11-When-the-Mechanism-Did-Not-Transfer-KR.md",
+    "front_matter": {
+      "title": "AI Agent Security (11편): 공격 방식이 비공개 평가에서 통하지 않았을 때 — 최종 리더보드와 두 장의 제출권",
+      "date": "2026-09-02 09:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "ai-agent-security",
+        "agent-safety",
+        "competition-retrospective",
+        "private-leaderboard",
+        "public-private-gap",
+        "rainbow-teaming",
+        "red-teaming",
+        "silver-medal"
+      ],
+      "math": true,
+      "pin": false,
+      "hide": false,
+      "published": true,
+      "image": {
+        "path": "/assets/img/posts/2026-09-02-ai-agent-security-part-11/cover.png",
+        "alt": "겉모습이 다른 여러 공개 공격 구성이 하나의 메커니즘으로 모여 비공개 가드레일을 만나는 구조"
+      },
+      "topic": "ai-agent-security",
+      "lang": "ko",
+      "translation_key": "ai-agent-security-11",
+      "series": "ai-agent-security",
+      "series_order": 11
+    },
+    "body_sha256": "bf206de7921e1c47b36e78df8b4f608a32c0a6381bcf13425ce8e856f6e7f64d"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-09-02-AI-Agent-Security-Part-11-When-the-Mechanism-Did-Not-Transfer.md",
+    "front_matter": {
+      "title": "AI Agent Security (Part 11): When the Mechanism Did Not Transfer — The Private Reveal and the Cost of Two Slots",
+      "date": "2026-09-02 09:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "ai-agent-security",
+        "agent-safety",
+        "competition-retrospective",
+        "private-leaderboard",
+        "public-private-gap",
+        "rainbow-teaming",
+        "red-teaming",
+        "silver-medal"
+      ],
+      "math": true,
+      "pin": false,
+      "hide": false,
+      "published": true,
+      "image": {
+        "path": "/assets/img/posts/2026-09-02-ai-agent-security-part-11/cover.png",
+        "alt": "Several public attack constructions converging on one shared mechanism before a held-out guardrail"
+      },
+      "topic": "ai-agent-security",
+      "lang": "en",
+      "translation_key": "ai-agent-security-11",
+      "series": "ai-agent-security",
+      "series_order": 11
+    },
+    "body_sha256": "f23097e320378f0250996243949c7f3ad9f2f41f5c9023da3bc488bc3106ef37"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-09-05-AI-Agent-Security-Part-12-What-the-Writeups-Changed-About-Our-Search-KR.md",
+    "front_matter": {
+      "title": "AI Agent Security (12편): 공개된 해법을 읽고 돌아본 우리의 선택",
+      "date": "2026-09-05 09:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "ai-agent-security",
+        "competition-retrospective",
+        "evaluation",
+        "experimental-design",
+        "throughput",
+        "transfer"
+      ],
+      "math": true,
+      "pin": false,
+      "hide": false,
+      "published": true,
+      "image": {
+        "path": "/assets/img/posts/2026-09-05-ai-agent-security-part-12/cover.png",
+        "alt": "다섯 편의 해법을 읽고 대회를 돌아보는 글의 표지"
+      },
+      "topic": "ai-agent-security",
+      "lang": "ko",
+      "translation_key": "ai-agent-security-12",
+      "series": "ai-agent-security",
+      "series_order": 12
+    },
+    "body_sha256": "fa217eb168659c0952ab289e73603689aa425c5e4167a962ce801e648a290add"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-09-05-AI-Agent-Security-Part-12-What-the-Writeups-Changed-About-Our-Search.md",
+    "front_matter": {
+      "title": "AI Agent Security (Part 12): What the Write-ups Changed About Our Search",
+      "date": "2026-09-05 09:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "ai-agent-security",
+        "competition-retrospective",
+        "evaluation",
+        "experimental-design",
+        "throughput",
+        "transfer"
+      ],
+      "math": true,
+      "pin": false,
+      "hide": false,
+      "published": true,
+      "image": {
+        "path": "/assets/img/posts/2026-09-05-ai-agent-security-part-12/cover.png",
+        "alt": "Five published solutions examined together after the competition"
+      },
+      "topic": "ai-agent-security",
+      "lang": "en",
+      "translation_key": "ai-agent-security-12",
+      "series": "ai-agent-security",
+      "series_order": 12
+    },
+    "body_sha256": "20ad0a85b8760123fcdf5ffb665fc271333cf19167a91c74c55a7c8d2d58de47"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-09-06-BioHub-Cell-Tracking-Working-Note-6-When-Local-Validation-Ran-a-Different-Pipeline-KR.md",
+    "front_matter": {
+      "title": "BioHub Cell Tracking 작업 기록 6: 로컬 검증이 제출 파이프라인과 달랐던 문제",
+      "date": "2026-09-06 21:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "biohub",
+        "cell-tracking",
+        "detector-augmentation",
+        "leakage",
+        "lineage-reconstruction",
+        "microscopy",
+        "oof",
+        "transfer-ratio",
+        "universe-mismatch",
+        "working-note"
+      ],
+      "math": true,
+      "last_modified_at": "2026-09-23",
+      "pin": false,
+      "hide": false,
+      "published": true,
+      "image": {
+        "path": "/assets/img/posts/2026-09-06-biohub-working-note-6/cover.png",
+        "alt": "BioHub Cell Tracking 작업 기록 6: 로컬 검증이 제출 파이프라인과 달랐던 문제"
+      },
+      "topic": "biohub",
+      "lang": "ko",
+      "translation_key": "biohub-06",
+      "series": "biohub",
+      "series_order": 6
+    },
+    "body_sha256": "5623fb18b66c75f923e87726a2d96ed7001af04f5cd46c4cbdbe292174547eb6"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-09-06-BioHub-Cell-Tracking-Working-Note-6-When-Local-Validation-Ran-a-Different-Pipeline.md",
+    "front_matter": {
+      "title": "BioHub Cell Tracking Working Note 6: When Local Validation Ran a Different Pipeline",
+      "date": "2026-09-06 21:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "biohub",
+        "cell-tracking",
+        "detector-augmentation",
+        "leakage",
+        "lineage-reconstruction",
+        "microscopy",
+        "oof",
+        "transfer-ratio",
+        "universe-mismatch",
+        "working-note"
+      ],
+      "math": true,
+      "last_modified_at": "2026-09-23",
+      "pin": false,
+      "hide": false,
+      "published": true,
+      "image": {
+        "path": "/assets/img/posts/2026-09-06-biohub-working-note-6/cover.png",
+        "alt": "BioHub Cell Tracking Working Note 6: When Local Validation Ran a Different Pipeline"
+      },
+      "topic": "biohub",
+      "lang": "en",
+      "translation_key": "biohub-06",
+      "series": "biohub",
+      "series_order": 6
+    },
+    "body_sha256": "9d618a3e2db13f0b1ee9325f20c076dc7af0881e4437d1306a7dfe1b8250a723"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-09-12-BioHub-Cell-Tracking-Working-Note-7-Deciding-by-Logic-and-What-Validation-Must-Reproduce-KR.md",
+    "front_matter": {
+      "title": "BioHub Cell Tracking 작업 기록 7: 같은 코드로도 검증이 어긋나는 이유",
+      "date": "2026-09-12 21:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "biohub",
+        "cell-tracking",
+        "deployment-regime",
+        "hand-labels",
+        "label-convention",
+        "leakage",
+        "lineage-reconstruction",
+        "logit-alignment",
+        "microscopy",
+        "oof",
+        "pseudo-labels",
+        "working-note"
+      ],
+      "math": true,
+      "last_modified_at": "2026-09-23",
+      "pin": false,
+      "hide": false,
+      "published": true,
+      "image": {
+        "path": "/assets/img/posts/2026-09-12-biohub-working-note-7/cover.png",
+        "alt": "BioHub Cell Tracking 작업 기록 7: 같은 코드로도 검증이 어긋나는 이유"
+      },
+      "topic": "biohub",
+      "lang": "ko",
+      "translation_key": "biohub-07",
+      "series": "biohub",
+      "series_order": 7
+    },
+    "body_sha256": "98645e6a6f2cc2b17ce0b5c640c025f97c6adf988fa9dc198e077f58f0324fd5"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-09-12-BioHub-Cell-Tracking-Working-Note-7-Deciding-by-Logic-and-What-Validation-Must-Reproduce.md",
+    "front_matter": {
+      "title": "BioHub Cell Tracking Working Note 7: When the Same Code Was Not the Same Experiment",
+      "date": "2026-09-12 21:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "biohub",
+        "cell-tracking",
+        "deployment-regime",
+        "hand-labels",
+        "label-convention",
+        "leakage",
+        "lineage-reconstruction",
+        "logit-alignment",
+        "microscopy",
+        "oof",
+        "pseudo-labels",
+        "working-note"
+      ],
+      "math": true,
+      "last_modified_at": "2026-09-23",
+      "pin": false,
+      "hide": false,
+      "published": true,
+      "image": {
+        "path": "/assets/img/posts/2026-09-12-biohub-working-note-7/cover.png",
+        "alt": "BioHub Cell Tracking Working Note 7: When the Same Code Was Not the Same Experiment"
+      },
+      "topic": "biohub",
+      "lang": "en",
+      "translation_key": "biohub-07",
+      "series": "biohub",
+      "series_order": 7
+    },
+    "body_sha256": "f6f6c4c0002b1faa480de8d4f00c86d0b817008afe1c99518c3ffe02ceb2d823"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-09-18-BioHub-Cell-Tracking-Working-Note-8-What-Went-Into-Choosing-the-Final-Two-KR.md",
+    "front_matter": {
+      "title": "BioHub Cell Tracking 작업 기록 8: 최종 제출을 고를 때 고민한 것들",
+      "date": "2026-09-18 21:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "biohub",
+        "association-head",
+        "cell-tracking",
+        "embryo-out",
+        "final-selection",
+        "lineage-reconstruction",
+        "microscopy",
+        "oof",
+        "registration",
+        "selection-bias",
+        "stage-jitter",
+        "working-note"
+      ],
+      "math": true,
+      "last_modified_at": "2026-10-02",
+      "pin": false,
+      "hide": false,
+      "published": true,
+      "image": {
+        "path": "/assets/img/posts/2026-09-18-biohub-working-note-8/cover.png",
+        "alt": "BioHub Cell Tracking 작업 기록 8: 최종 제출을 고를 때 고민한 것들"
+      },
+      "topic": "biohub",
+      "lang": "ko",
+      "translation_key": "biohub-08",
+      "series": "biohub",
+      "series_order": 8
+    },
+    "body_sha256": "a1e08104fccb0ddd0a9088b835f8c3fd1e5f62de8d8d0661ec22cc5bb88b502b"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-09-18-BioHub-Cell-Tracking-Working-Note-8-What-Went-Into-Choosing-the-Final-Two.md",
+    "front_matter": {
+      "title": "BioHub Cell Tracking Working Note 8: What Went Into Choosing the Final Two",
+      "date": "2026-09-18 21:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "biohub",
+        "association-head",
+        "cell-tracking",
+        "embryo-out",
+        "final-selection",
+        "lineage-reconstruction",
+        "microscopy",
+        "oof",
+        "registration",
+        "selection-bias",
+        "stage-jitter",
+        "working-note"
+      ],
+      "math": true,
+      "last_modified_at": "2026-10-02",
+      "pin": false,
+      "hide": false,
+      "published": true,
+      "image": {
+        "path": "/assets/img/posts/2026-09-18-biohub-working-note-8/cover.png",
+        "alt": "BioHub Cell Tracking Working Note 8: What Went Into Choosing the Final Two"
+      },
+      "topic": "biohub",
+      "lang": "en",
+      "translation_key": "biohub-08",
+      "series": "biohub",
+      "series_order": 8
+    },
+    "body_sha256": "f4823fdda8e54a24e07473e8ccb06be2cef3096ae9bccdcd3951ebd91325557e"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-09-25-Gemma-4-Developer-Agent-From-Issue-to-Verified-Patch-KR.md",
+    "front_matter": {
+      "title": "Gemma 4 Developer Agent: 버그 하나를 끝까지 고치는 AI 만들기",
+      "description": "코드 한 줄을 생성하는 모델에서 저장소를 탐색하고 버그를 고치는 에이전트까지. 대회의 배경과 채점 방식, 실행 제약, 첫 실험을 준비하는 과정을 차근차근 살펴본다.",
+      "date": "2026-09-25 06:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "gemma-4",
+        "adk",
+        "coding-agents",
+        "evaluation",
+        "lora",
+        "software-engineering",
+        "working-note"
+      ],
+      "math": true,
+      "mermaid": true,
+      "image": {
+        "path": "/assets/img/gemma4-developer-agent/hero.png"
+      },
+      "pin": false,
+      "published": true,
+      "topic": "gemma-4",
+      "lang": "ko",
+      "translation_key": "gemma-4-developer-agent"
+    },
+    "body_sha256": "5abe48cf08e0db6d38bf3e207d79f388ec2d909e6030bfba46adeef5f0a7b04a"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-09-25-Gemma-4-Developer-Agent-From-Issue-to-Verified-Patch.md",
+    "front_matter": {
+      "title": "Gemma 4 Developer Agent: Learning to Fix a Codebase, One Verified Patch at a Time",
+      "description": "From code completion to autonomous debugging: the research behind Google's Gemma 4 competition, how its agents are evaluated, and a practical route to a first meaningful experiment.",
+      "date": "2026-09-25 06:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "gemma-4",
+        "adk",
+        "coding-agents",
+        "evaluation",
+        "lora",
+        "software-engineering",
+        "working-note"
+      ],
+      "math": true,
+      "mermaid": true,
+      "image": {
+        "path": "/assets/img/gemma4-developer-agent/hero.png"
+      },
+      "pin": false,
+      "published": true,
+      "topic": "gemma-4",
+      "lang": "en",
+      "translation_key": "gemma-4-developer-agent"
+    },
+    "body_sha256": "13aa029e390e6b38305396cabd283d2b76677544513d52834aa52b33cd499f23"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-09-27-CASMI-2026-From-Mass-Spectra-to-Molecular-Structures-KR.md",
+    "front_matter": {
+      "title": "Enveda CASMI 2026: 질량스펙트럼에서 분자 구조를 찾아내는 AI",
+      "description": "CASMI 2026은 어떤 대회이며 무엇부터 시작해야 할까? 미지 분자 하나의 식별 과정을 따라 물리화학, 데이터와 평가, 공개 노트북·리더보드의 현재 수준, 첫 실험과 향후 전략을 연결한다.",
+      "date": "2026-09-27 09:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "casmi-2026",
+        "cheminformatics",
+        "mass-spectrometry",
+        "metabolomics",
+        "molecular-identification",
+        "working-note"
+      ],
+      "math": true,
+      "mermaid": false,
+      "image": {
+        "path": "/assets/img/casmi-2026-guide/hero.png?v=af0e6fe7c947"
+      },
+      "pin": false,
+      "published": true,
+      "permalink": "/posts/CASMI-2026-From-Mass-Spectra-to-Molecular-Structures-KR/",
+      "topic": "casmi-2026",
+      "lang": "ko",
+      "translation_key": "casmi-2026-molecular-structures"
+    },
+    "body_sha256": "ef0f087cb80b9eaf3801e1b040ea0a6720d87eaaa3711a35579b406b8e4e7f11"
+  },
+  {
+    "path": "_posts/2026-3Q/2026-09-27-CASMI-2026-From-Mass-Spectra-to-Molecular-Structures.md",
+    "front_matter": {
+      "title": "Enveda CASMI 2026: From Mass Spectra to Molecular Structures",
+      "description": "What is CASMI 2026 asking us to build, and where should we begin? Follow one molecule from spectra to ranked structures, through the physical chemistry, public baselines and leaderboard, first experiments, and likely next directions.",
+      "date": "2026-09-27 09:00:00 +0900",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "casmi-2026",
+        "cheminformatics",
+        "mass-spectrometry",
+        "metabolomics",
+        "molecular-identification",
+        "working-note"
+      ],
+      "math": true,
+      "mermaid": false,
+      "image": {
+        "path": "/assets/img/casmi-2026-guide/hero.png?v=af0e6fe7c947"
+      },
+      "pin": false,
+      "published": true,
+      "permalink": "/posts/CASMI-2026-From-Mass-Spectra-to-Molecular-Structures/",
+      "topic": "casmi-2026",
+      "lang": "en",
+      "translation_key": "casmi-2026-molecular-structures"
+    },
+    "body_sha256": "bc6333b6ec601978cd79261cc692dd62d1f42cb808b4dcd0e50a678b65306e75"
+  },
+  {
+    "path": "_posts/2026-4Q/2026-10-02-BioHub-Cell-Tracking-Working-Note-9-Final-Results-and-the-Decision-to-Stop-Searching-KR.md",
+    "front_matter": {
+      "title": "BioHub Cell Tracking 작업 기록 9: 큰 계획에 비해 허술했던 시작",
+      "date": "2026-10-02 19:00:00 +0900",
+      "last_modified_at": "2026-10-03",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "biohub",
+        "ai-agents",
+        "cell-tracking",
+        "competition-retrospective",
+        "lineage-reconstruction",
+        "microscopy",
+        "model-portfolio",
+        "oof",
+        "research-methods",
+        "working-note"
+      ],
+      "lang": "ko",
+      "slug": "BioHub-Cell-Tracking-Working-Note-9-Final-Results-and-the-Decision-to-Stop-Searching-KR",
+      "math": true,
+      "pin": false,
+      "hide": false,
+      "published": true,
+      "image": {
+        "path": "/assets/img/posts/2026-10-02-biohub-working-note-9/cover.png?v=a3ef7423b8db",
+        "alt": "BioHub Cell Tracking 작업 기록 9: 큰 계획에 비해 허술했던 시작"
+      },
+      "topic": "biohub",
+      "translation_key": "biohub-09",
+      "series": "biohub",
+      "series_order": 9
+    },
+    "body_sha256": "0f8ac5b166f5d49e47ee990614766d3aa1c564b141ef7ba6ba73adfcdf245519"
+  },
+  {
+    "path": "_posts/2026-4Q/2026-10-02-BioHub-Cell-Tracking-Working-Note-9-Final-Results-and-the-Decision-to-Stop-Searching.md",
+    "front_matter": {
+      "title": "BioHub Cell Tracking Working Note 9: A Big Plan and a Weak Start",
+      "date": "2026-10-02 19:00:00 +0900",
+      "last_modified_at": "2026-10-03",
+      "categories": [
+        "AI",
+        "Kaggle"
+      ],
+      "tags": [
+        "kaggle",
+        "biohub",
+        "ai-agents",
+        "cell-tracking",
+        "competition-retrospective",
+        "lineage-reconstruction",
+        "microscopy",
+        "model-portfolio",
+        "oof",
+        "research-methods",
+        "working-note"
+      ],
+      "lang": "en",
+      "slug": "BioHub-Cell-Tracking-Working-Note-9-Final-Results-and-the-Decision-to-Stop-Searching",
+      "math": true,
+      "pin": false,
+      "hide": false,
+      "published": true,
+      "image": {
+        "path": "/assets/img/posts/2026-10-02-biohub-working-note-9/cover.png?v=a3ef7423b8db",
+        "alt": "BioHub Cell Tracking Working Note 9: A Big Plan and a Weak Start"
+      },
+      "topic": "biohub",
+      "translation_key": "biohub-09",
+      "series": "biohub",
+      "series_order": 9
+    },
+    "body_sha256": "2d97895024756b39f62c25172c947b49ea902f46bd37851bb41f66ec0216eeb4"
+  },
+  {
+    "path": "_posts/Testrun/2025-12-12-md-cheat-sheet.md",
+    "front_matter": {
+      "title": "Markdown 문법 & Chirpy 테마 치트시트",
+      "date": "2025-12-12 16:00:00 +0900",
+      "categories": [
+        "Reference",
+        "Private"
+      ],
+      "tags": [
+        "cheat-sheet",
+        "latex",
+        "markdown"
+      ],
+      "math": true,
+      "hidden": true,
+      "topic": "reference",
+      "lang": "ko",
+      "translation_key": "markdown-chirpy-cheat-sheet"
+    },
+    "body_sha256": "ac8f37cb8cf10a9a7e5a0c3fb67d0f295b53ad8959b6f2845909c8be767f3f58"
+  }
+]

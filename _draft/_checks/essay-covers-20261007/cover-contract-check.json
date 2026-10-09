@@ -1,0 +1,546 @@
+{
+  "status": "passed",
+  "source_posts_checked": 105,
+  "unchanged_raw_bodies": 105,
+  "essay_image_only_metadata_changes": 24,
+  "logical_essay_groups": 10,
+  "essay_pages_checked": 24,
+  "nonessay_image_caption_pages_checked": 54,
+  "cover_assets": [
+    {
+      "translation_key": "the-essence-of-leadership",
+      "source_posts": 2,
+      "image": "/assets/img/essays/the-essence-of-leadership/cover.webp",
+      "width": 1727,
+      "height": 911,
+      "bytes": 51826,
+      "sha256": "c768e93c16e75108eabd8489df719adef95bf7b1f67dc29c0ab90e8fddf99c63"
+    },
+    {
+      "translation_key": "organization-dynamics-and-the-assignment-problem-paradox",
+      "source_posts": 2,
+      "image": "/assets/img/essays/organization-dynamics-and-the-assignment-problem-paradox/cover.webp",
+      "width": 1727,
+      "height": 911,
+      "bytes": 60264,
+      "sha256": "daede697d59c5ce5aa69316cbe18b3a5afa52f9eba7de658aed0ab7840eead37"
+    },
+    {
+      "translation_key": "the-portfolio-theory-of-existence",
+      "source_posts": 1,
+      "image": "/assets/img/essays/the-portfolio-theory-of-existence/cover.webp",
+      "width": 1729,
+      "height": 910,
+      "bytes": 21448,
+      "sha256": "2d7980789e2a1fdcb8dbceb4460816946bf740701caf1ce46ec010e001b63831"
+    },
+    {
+      "translation_key": "the-paradox-of-benevolence",
+      "source_posts": 4,
+      "image": "/assets/img/essays/the-paradox-of-benevolence/cover.webp",
+      "width": 1728,
+      "height": 910,
+      "bytes": 50572,
+      "sha256": "4a4fb7b1bc9a251f3d3cb93a3dee751ac76c8ea4cac72ef99c1e885ca6ca328c"
+    },
+    {
+      "translation_key": "the-station-of-uncertainty",
+      "source_posts": 1,
+      "image": "/assets/img/essays/the-station-of-uncertainty/cover.webp",
+      "width": 1729,
+      "height": 910,
+      "bytes": 52110,
+      "sha256": "6d0ddb4f460c7bf67759478dc666b7573a86a82edb2c6daedade0b7ce41e56e1"
+    },
+    {
+      "translation_key": "the-credentialist-illusion",
+      "source_posts": 2,
+      "image": "/assets/img/essays/the-credentialist-illusion/cover.webp",
+      "width": 1730,
+      "height": 909,
+      "bytes": 36164,
+      "sha256": "07ba5370f009fdc3b4f7b703e9e02a360e0ddf5cd05f1234b1b259008237188f"
+    },
+    {
+      "translation_key": "the-narrative-trap",
+      "source_posts": 4,
+      "image": "/assets/img/essays/the-narrative-trap/cover.webp",
+      "width": 1730,
+      "height": 909,
+      "bytes": 84662,
+      "sha256": "65893a5971281897da2bee897d57a4b25a8cf383e073309b0677da32328018de"
+    },
+    {
+      "translation_key": "the-mirage-of-merit",
+      "source_posts": 4,
+      "image": "/assets/img/essays/the-mirage-of-merit/cover.webp",
+      "width": 1730,
+      "height": 909,
+      "bytes": 52308,
+      "sha256": "fd153329b6fa684470a5c85f825907a552fd28cfce75d2ee936707603c84d16e"
+    },
+    {
+      "translation_key": "the-corporate-hallucinator",
+      "source_posts": 2,
+      "image": "/assets/img/essays/the-corporate-hallucinator/cover.webp",
+      "width": 1730,
+      "height": 909,
+      "bytes": 35680,
+      "sha256": "96c85045458118fd41ca52f8a9881e4245bf829fe8b94d65f41cbc5f6bbb7514"
+    },
+    {
+      "translation_key": "the-language-that-faces-the-future",
+      "source_posts": 2,
+      "image": "/assets/img/essays/the-language-that-faces-the-future/cover.webp",
+      "width": 1727,
+      "height": 911,
+      "bytes": 52444,
+      "sha256": "427f8e4eb2fad5b37a8d70f8f01f78ce614e237b423e5dcf5d4d13924fb8bdbf"
+    }
+  ],
+  "essay_pages": [
+    {
+      "path": "_posts/2025-4Q/2025-12-12-The Essence of Leadership.md",
+      "url": "/posts/The-Essence-of-Leadership/",
+      "lang": "en",
+      "article_version": "compact",
+      "cover": "/assets/img/essays/the-essence-of-leadership/cover.webp"
+    },
+    {
+      "path": "_posts/2025-4Q/2025-12-12-The-Essence-of-Leadership-Original.md",
+      "url": "/posts/The-Essence-of-Leadership-Original/",
+      "lang": "en",
+      "article_version": "original",
+      "cover": "/assets/img/essays/the-essence-of-leadership/cover.webp"
+    },
+    {
+      "path": "_posts/2025-4Q/2025-12-13-Organization Dynamics and The Assignment Problem Paradox.md",
+      "url": "/posts/Organization-Dynamics-and-The-Assignment-Problem-Paradox/",
+      "lang": "en",
+      "article_version": "compact",
+      "cover": "/assets/img/essays/organization-dynamics-and-the-assignment-problem-paradox/cover.webp"
+    },
+    {
+      "path": "_posts/2025-4Q/2025-12-13-Organization-Dynamics-and-The-Assignment-Problem-Paradox-Original.md",
+      "url": "/posts/Organization-Dynamics-and-The-Assignment-Problem-Paradox-Original/",
+      "lang": "en",
+      "article_version": "original",
+      "cover": "/assets/img/essays/organization-dynamics-and-the-assignment-problem-paradox/cover.webp"
+    },
+    {
+      "path": "_posts/2026-1Q/2026-01-12-The-Portfolio-Theory-of-Existence.md",
+      "url": "/posts/The-Portfolio-Theory-of-Existence/",
+      "lang": "en",
+      "article_version": null,
+      "cover": "/assets/img/essays/the-portfolio-theory-of-existence/cover.webp"
+    },
+    {
+      "path": "_posts/2026-1Q/2026-01-30-The Paradox of Benevolence.md",
+      "url": "/posts/The-Paradox-of-Benevolence/",
+      "lang": "en",
+      "article_version": "compact",
+      "cover": "/assets/img/essays/the-paradox-of-benevolence/cover.webp"
+    },
+    {
+      "path": "_posts/2026-1Q/2026-01-30-The-Paradox-of-Benevolence-KR.md",
+      "url": "/posts/The-Paradox-of-Benevolence-KR/",
+      "lang": "ko",
+      "article_version": "compact",
+      "cover": "/assets/img/essays/the-paradox-of-benevolence/cover.webp"
+    },
+    {
+      "path": "_posts/2026-1Q/2026-01-30-The-Paradox-of-Benevolence-Original-KR.md",
+      "url": "/posts/The-Paradox-of-Benevolence-Original-KR/",
+      "lang": "ko",
+      "article_version": "original",
+      "cover": "/assets/img/essays/the-paradox-of-benevolence/cover.webp"
+    },
+    {
+      "path": "_posts/2026-1Q/2026-01-30-The-Paradox-of-Benevolence-Original.md",
+      "url": "/posts/The-Paradox-of-Benevolence-Original/",
+      "lang": "en",
+      "article_version": "original",
+      "cover": "/assets/img/essays/the-paradox-of-benevolence/cover.webp"
+    },
+    {
+      "path": "_posts/2026-1Q/2026-03-14-The-Station-of-Uncertainty.md",
+      "url": "/posts/The-Station-of-Uncertainty/",
+      "lang": "en",
+      "article_version": null,
+      "cover": "/assets/img/essays/the-station-of-uncertainty/cover.webp"
+    },
+    {
+      "path": "_posts/2026-1Q/2026-03-21-The-Credentialist-Illusion-KR.md",
+      "url": "/posts/The-Credentialist-Illusion-KR/",
+      "lang": "ko",
+      "article_version": null,
+      "cover": "/assets/img/essays/the-credentialist-illusion/cover.webp"
+    },
+    {
+      "path": "_posts/2026-1Q/2026-03-21-The-Credentialist-Illusion.md",
+      "url": "/posts/The-Credentialist-Illusion/",
+      "lang": "en",
+      "article_version": null,
+      "cover": "/assets/img/essays/the-credentialist-illusion/cover.webp"
+    },
+    {
+      "path": "_posts/2026-2Q/2026-04-12-The-Narrative-Trap-KR.md",
+      "url": "/posts/The-Narrative-Trap-KR/",
+      "lang": "ko",
+      "article_version": "compact",
+      "cover": "/assets/img/essays/the-narrative-trap/cover.webp"
+    },
+    {
+      "path": "_posts/2026-2Q/2026-04-12-The-Narrative-Trap-Original-KR.md",
+      "url": "/posts/The-Narrative-Trap-Original-KR/",
+      "lang": "ko",
+      "article_version": "original",
+      "cover": "/assets/img/essays/the-narrative-trap/cover.webp"
+    },
+    {
+      "path": "_posts/2026-2Q/2026-04-12-The-Narrative-Trap-Original.md",
+      "url": "/posts/The-Narrative-Trap-Original/",
+      "lang": "en",
+      "article_version": "original",
+      "cover": "/assets/img/essays/the-narrative-trap/cover.webp"
+    },
+    {
+      "path": "_posts/2026-2Q/2026-04-12-The-Narrative-Trap.md",
+      "url": "/posts/The-Narrative-Trap/",
+      "lang": "en",
+      "article_version": "compact",
+      "cover": "/assets/img/essays/the-narrative-trap/cover.webp"
+    },
+    {
+      "path": "_posts/2026-2Q/2026-04-19-The-Mirage-of-Merit-KR.md",
+      "url": "/posts/The-Mirage-of-Merit-KR/",
+      "lang": "ko",
+      "article_version": "compact",
+      "cover": "/assets/img/essays/the-mirage-of-merit/cover.webp"
+    },
+    {
+      "path": "_posts/2026-2Q/2026-04-19-The-Mirage-of-Merit-Original-KR.md",
+      "url": "/posts/The-Mirage-of-Merit-Original-KR/",
+      "lang": "ko",
+      "article_version": "original",
+      "cover": "/assets/img/essays/the-mirage-of-merit/cover.webp"
+    },
+    {
+      "path": "_posts/2026-2Q/2026-04-19-The-Mirage-of-Merit-Original.md",
+      "url": "/posts/The-Mirage-of-Merit-Original/",
+      "lang": "en",
+      "article_version": "original",
+      "cover": "/assets/img/essays/the-mirage-of-merit/cover.webp"
+    },
+    {
+      "path": "_posts/2026-2Q/2026-04-19-The-Mirage-of-Merit.md",
+      "url": "/posts/The-Mirage-of-Merit/",
+      "lang": "en",
+      "article_version": "compact",
+      "cover": "/assets/img/essays/the-mirage-of-merit/cover.webp"
+    },
+    {
+      "path": "_posts/2026-2Q/2026-05-02-The-Corporate-Hallucinator-Original.md",
+      "url": "/posts/The-Corporate-Hallucinator-Original/",
+      "lang": "en",
+      "article_version": "original",
+      "cover": "/assets/img/essays/the-corporate-hallucinator/cover.webp"
+    },
+    {
+      "path": "_posts/2026-2Q/2026-05-02-The-Corporate-Hallucinator.md",
+      "url": "/posts/The-Corporate-Hallucinator/",
+      "lang": "en",
+      "article_version": "compact",
+      "cover": "/assets/img/essays/the-corporate-hallucinator/cover.webp"
+    },
+    {
+      "path": "_posts/2026-2Q/2026-05-24-The-Language-That-Faces-the-Future-KR.md",
+      "url": "/posts/The-Language-That-Faces-the-Future-KR/",
+      "lang": "ko",
+      "article_version": null,
+      "cover": "/assets/img/essays/the-language-that-faces-the-future/cover.webp"
+    },
+    {
+      "path": "_posts/2026-2Q/2026-05-24-The-Language-That-Faces-the-Future.md",
+      "url": "/posts/The-Language-That-Faces-the-Future/",
+      "lang": "en",
+      "article_version": null,
+      "cover": "/assets/img/essays/the-language-that-faces-the-future/cover.webp"
+    }
+  ],
+  "nonessay_caption_pages": [
+    {
+      "url": "/posts/AI-Agent-Security-Part-1-The-Replay-Benchmark-and-Trajectory-Search-EDA-KR/",
+      "caption_expected": true,
+      "caption_rendered": true
+    },
+    {
+      "url": "/posts/AI-Agent-Security-Part-1-The-Replay-Benchmark-and-Trajectory-Search-EDA/",
+      "caption_expected": true,
+      "caption_rendered": true
+    },
+    {
+      "url": "/posts/AI-Agent-Security-Part-2-The-Linear-Score-Law-and-the-Replay-Ceiling-KR/",
+      "caption_expected": true,
+      "caption_rendered": true
+    },
+    {
+      "url": "/posts/AI-Agent-Security-Part-2-The-Linear-Score-Law-and-the-Replay-Ceiling/",
+      "caption_expected": true,
+      "caption_rendered": true
+    },
+    {
+      "url": "/posts/AI-Agent-Security-Part-3-Multi-Predicate-Stacking-and-the-Broken-Ceiling-KR/",
+      "caption_expected": true,
+      "caption_rendered": true
+    },
+    {
+      "url": "/posts/AI-Agent-Security-Part-3-Multi-Predicate-Stacking-and-the-Broken-Ceiling/",
+      "caption_expected": true,
+      "caption_rendered": true
+    },
+    {
+      "url": "/posts/BioHub-Cell-Tracking-Working-Note-1-Learned-Lineage-Graphs-KR/",
+      "caption_expected": true,
+      "caption_rendered": true
+    },
+    {
+      "url": "/posts/BioHub-Cell-Tracking-Working-Note-1-Learned-Lineage-Graphs/",
+      "caption_expected": true,
+      "caption_rendered": true
+    },
+    {
+      "url": "/posts/BioHub-Cell-Tracking-Working-Note-2-OOF-Structural-Diagnostics-KR/",
+      "caption_expected": true,
+      "caption_rendered": true
+    },
+    {
+      "url": "/posts/BioHub-Cell-Tracking-Working-Note-2-OOF-Structural-Diagnostics/",
+      "caption_expected": true,
+      "caption_rendered": true
+    },
+    {
+      "url": "/posts/AI-Agent-Security-Part-4-Past-the-Framing-Plateau-KR/",
+      "caption_expected": true,
+      "caption_rendered": true
+    },
+    {
+      "url": "/posts/AI-Agent-Security-Part-4-Past-the-Framing-Plateau/",
+      "caption_expected": true,
+      "caption_rendered": true
+    },
+    {
+      "url": "/posts/AI-Agent-Security-Part-5-The-Raw-Wall-from-the-Inside-KR/",
+      "caption_expected": true,
+      "caption_rendered": true
+    },
+    {
+      "url": "/posts/AI-Agent-Security-Part-5-The-Raw-Wall-from-the-Inside/",
+      "caption_expected": true,
+      "caption_rendered": true
+    },
+    {
+      "url": "/posts/AI-Agent-Security-Part-6-Throughput-Working-Note-Established-Closed-Open-KR/",
+      "caption_expected": true,
+      "caption_rendered": true
+    },
+    {
+      "url": "/posts/AI-Agent-Security-Part-6-Throughput-Working-Note-Established-Closed-Open/",
+      "caption_expected": true,
+      "caption_rendered": true
+    },
+    {
+      "url": "/posts/BioHub-Cell-Tracking-Working-Note-3-What-the-OOF-Machine-Refused-KR/",
+      "caption_expected": true,
+      "caption_rendered": true
+    },
+    {
+      "url": "/posts/BioHub-Cell-Tracking-Working-Note-3-What-the-OOF-Machine-Refused/",
+      "caption_expected": true,
+      "caption_rendered": true
+    },
+    {
+      "url": "/posts/AI-Agent-Security-Part-7-The-Transfer-Game-New-Surfaces-and-Private-Safe-KR/",
+      "caption_expected": true,
+      "caption_rendered": true
+    },
+    {
+      "url": "/posts/AI-Agent-Security-Part-7-The-Transfer-Game-New-Surfaces-and-Private-Safe/",
+      "caption_expected": true,
+      "caption_rendered": true
+    },
+    {
+      "url": "/posts/Kaggriculture-Working-Note-1-A-Farming-Economy-and-the-Replay-Meta-KR/",
+      "caption_expected": true,
+      "caption_rendered": true
+    },
+    {
+      "url": "/posts/Kaggriculture-Working-Note-1-A-Farming-Economy-and-the-Replay-Meta/",
+      "caption_expected": true,
+      "caption_rendered": true
+    },
+    {
+      "url": "/posts/arc-agi-3-part-2-where-a-perfect-idea-died-KR/",
+      "caption_expected": true,
+      "caption_rendered": true
+    },
+    {
+      "url": "/posts/arc-agi-3-part-2-where-a-perfect-idea-died/",
+      "caption_expected": true,
+      "caption_rendered": true
+    },
+    {
+      "url": "/posts/ROGII-Competition-Retrospective-Public-Private-Shake-Up-KR/",
+      "caption_expected": true,
+      "caption_rendered": true
+    },
+    {
+      "url": "/posts/ROGII-Competition-Retrospective-Public-Private-Shake-Up/",
+      "caption_expected": true,
+      "caption_rendered": true
+    },
+    {
+      "url": "/posts/RSNA-Knee-Twelve-Findings-From-One-MRI-KR/",
+      "caption_expected": true,
+      "caption_rendered": true
+    },
+    {
+      "url": "/posts/RSNA-Knee-Twelve-Findings-From-One-MRI/",
+      "caption_expected": true,
+      "caption_rendered": true
+    },
+    {
+      "url": "/posts/AI-Agent-Security-Part-8-The-Evaluation-Reset-and-the-Search-for-a-Discrete-Lever-KR/",
+      "caption_expected": true,
+      "caption_rendered": true
+    },
+    {
+      "url": "/posts/AI-Agent-Security-Part-8-The-Evaluation-Reset-and-the-Search-for-a-Discrete-Lever/",
+      "caption_expected": true,
+      "caption_rendered": true
+    },
+    {
+      "url": "/posts/BioHub-Cell-Tracking-Working-Note-4-Why-the-Largest-Local-Gain-Did-Not-Show-on-the-Board-KR/",
+      "caption_expected": true,
+      "caption_rendered": true
+    },
+    {
+      "url": "/posts/BioHub-Cell-Tracking-Working-Note-4-Why-the-Largest-Local-Gain-Did-Not-Show-on-the-Board/",
+      "caption_expected": true,
+      "caption_rendered": true
+    },
+    {
+      "url": "/posts/AI-Agent-Security-Part-9-From-Firing-to-Density-Chains-Gates-and-the-Per-K-Frontier-KR/",
+      "caption_expected": true,
+      "caption_rendered": true
+    },
+    {
+      "url": "/posts/AI-Agent-Security-Part-9-From-Firing-to-Density-Chains-Gates-and-the-Per-K-Frontier/",
+      "caption_expected": true,
+      "caption_rendered": true
+    },
+    {
+      "url": "/posts/BioHub-Cell-Tracking-Working-Note-5-A-Local-Optimum-Built-One-Step-at-a-Time-KR/",
+      "caption_expected": true,
+      "caption_rendered": true
+    },
+    {
+      "url": "/posts/BioHub-Cell-Tracking-Working-Note-5-A-Local-Optimum-Built-One-Step-at-a-Time/",
+      "caption_expected": true,
+      "caption_rendered": true
+    },
+    {
+      "url": "/posts/AI-Agent-Security-Part-10-From-Public-Density-to-Private-Transfer-KR/",
+      "caption_expected": true,
+      "caption_rendered": true
+    },
+    {
+      "url": "/posts/AI-Agent-Security-Part-10-From-Public-Density-to-Private-Transfer/",
+      "caption_expected": true,
+      "caption_rendered": true
+    },
+    {
+      "url": "/posts/AI-Agent-Security-Part-11-When-the-Mechanism-Did-Not-Transfer-KR/",
+      "caption_expected": true,
+      "caption_rendered": true
+    },
+    {
+      "url": "/posts/AI-Agent-Security-Part-11-When-the-Mechanism-Did-Not-Transfer/",
+      "caption_expected": true,
+      "caption_rendered": true
+    },
+    {
+      "url": "/posts/AI-Agent-Security-Part-12-What-the-Writeups-Changed-About-Our-Search-KR/",
+      "caption_expected": true,
+      "caption_rendered": true
+    },
+    {
+      "url": "/posts/AI-Agent-Security-Part-12-What-the-Writeups-Changed-About-Our-Search/",
+      "caption_expected": true,
+      "caption_rendered": true
+    },
+    {
+      "url": "/posts/BioHub-Cell-Tracking-Working-Note-6-When-Local-Validation-Ran-a-Different-Pipeline-KR/",
+      "caption_expected": true,
+      "caption_rendered": true
+    },
+    {
+      "url": "/posts/BioHub-Cell-Tracking-Working-Note-6-When-Local-Validation-Ran-a-Different-Pipeline/",
+      "caption_expected": true,
+      "caption_rendered": true
+    },
+    {
+      "url": "/posts/BioHub-Cell-Tracking-Working-Note-7-Deciding-by-Logic-and-What-Validation-Must-Reproduce-KR/",
+      "caption_expected": true,
+      "caption_rendered": true
+    },
+    {
+      "url": "/posts/BioHub-Cell-Tracking-Working-Note-7-Deciding-by-Logic-and-What-Validation-Must-Reproduce/",
+      "caption_expected": true,
+      "caption_rendered": true
+    },
+    {
+      "url": "/posts/BioHub-Cell-Tracking-Working-Note-8-What-Went-Into-Choosing-the-Final-Two-KR/",
+      "caption_expected": true,
+      "caption_rendered": true
+    },
+    {
+      "url": "/posts/BioHub-Cell-Tracking-Working-Note-8-What-Went-Into-Choosing-the-Final-Two/",
+      "caption_expected": true,
+      "caption_rendered": true
+    },
+    {
+      "url": "/posts/Gemma-4-Developer-Agent-From-Issue-to-Verified-Patch-KR/",
+      "caption_expected": false,
+      "caption_rendered": false
+    },
+    {
+      "url": "/posts/Gemma-4-Developer-Agent-From-Issue-to-Verified-Patch/",
+      "caption_expected": false,
+      "caption_rendered": false
+    },
+    {
+      "url": "/posts/CASMI-2026-From-Mass-Spectra-to-Molecular-Structures-KR/",
+      "caption_expected": false,
+      "caption_rendered": false
+    },
+    {
+      "url": "/posts/CASMI-2026-From-Mass-Spectra-to-Molecular-Structures/",
+      "caption_expected": false,
+      "caption_rendered": false
+    },
+    {
+      "url": "/posts/BioHub-Cell-Tracking-Working-Note-9-Final-Results-and-the-Decision-to-Stop-Searching-KR/",
+      "caption_expected": true,
+      "caption_rendered": true
+    },
+    {
+      "url": "/posts/BioHub-Cell-Tracking-Working-Note-9-Final-Results-and-the-Decision-to-Stop-Searching/",
+      "caption_expected": true,
+      "caption_rendered": true
+    }
+  ],
+  "errors": [],
+  "rendered_preview_images_checked": 24,
+  "preview_selector_note": "Chirpy post-processing moves preview-img to the lightbox anchor; image verification uses .preview-img img, img.preview-img."
+}

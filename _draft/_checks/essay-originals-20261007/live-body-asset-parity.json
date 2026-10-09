@@ -1,0 +1,169 @@
+{
+  "status": "passed",
+  "commit": "5af35e618ede3bc4d88ec9ee96a92318dda6f0f2",
+  "checked_at_utc": "2026-10-07T09:15:45Z",
+  "versioned_bodies_checked": 18,
+  "receipts": [
+    {
+      "source": "_posts/2025-4Q/2025-12-12-The Essence of Leadership.md",
+      "url": "https://pilkwangkim.github.io/posts/The-Essence-of-Leadership/?verify=5af35e6-originals",
+      "http_status": 200,
+      "local_body_sha256": "cf975089bfbe354b610cdd56e00d91bd547e8339a25e47180b2410fbb45aa45a",
+      "live_body_sha256": "cf975089bfbe354b610cdd56e00d91bd547e8339a25e47180b2410fbb45aa45a",
+      "body_matches_reviewed_build": true
+    },
+    {
+      "source": "_posts/2025-4Q/2025-12-12-The-Essence-of-Leadership-Original.md",
+      "url": "https://pilkwangkim.github.io/posts/The-Essence-of-Leadership-Original/?verify=5af35e6-originals",
+      "http_status": 200,
+      "local_body_sha256": "3cefed5b0393945e1e91b40d019eb143f3bb54cef1ff6e054432ae8b6df1bd44",
+      "live_body_sha256": "3cefed5b0393945e1e91b40d019eb143f3bb54cef1ff6e054432ae8b6df1bd44",
+      "body_matches_reviewed_build": true
+    },
+    {
+      "source": "_posts/2025-4Q/2025-12-13-Organization Dynamics and The Assignment Problem Paradox.md",
+      "url": "https://pilkwangkim.github.io/posts/Organization-Dynamics-and-The-Assignment-Problem-Paradox/?verify=5af35e6-originals",
+      "http_status": 200,
+      "local_body_sha256": "d4d49e610b3a7c1ef0e6b4b38ab7b07989a6570af521013342348aa773bfd88c",
+      "live_body_sha256": "d4d49e610b3a7c1ef0e6b4b38ab7b07989a6570af521013342348aa773bfd88c",
+      "body_matches_reviewed_build": true
+    },
+    {
+      "source": "_posts/2025-4Q/2025-12-13-Organization-Dynamics-and-The-Assignment-Problem-Paradox-Original.md",
+      "url": "https://pilkwangkim.github.io/posts/Organization-Dynamics-and-The-Assignment-Problem-Paradox-Original/?verify=5af35e6-originals",
+      "http_status": 200,
+      "local_body_sha256": "8f830bffb890c03a76133f8290acd6ca76ddc6e3408aa4e454e1494efc4abaa2",
+      "live_body_sha256": "8f830bffb890c03a76133f8290acd6ca76ddc6e3408aa4e454e1494efc4abaa2",
+      "body_matches_reviewed_build": true
+    },
+    {
+      "source": "_posts/2026-1Q/2026-01-30-The Paradox of Benevolence.md",
+      "url": "https://pilkwangkim.github.io/posts/The-Paradox-of-Benevolence/?verify=5af35e6-originals",
+      "http_status": 200,
+      "local_body_sha256": "2b3e933f696132a5b9644aa5f14e490387324d19e724dfc833bdc1c12b536730",
+      "live_body_sha256": "2b3e933f696132a5b9644aa5f14e490387324d19e724dfc833bdc1c12b536730",
+      "body_matches_reviewed_build": true
+    },
+    {
+      "source": "_posts/2026-1Q/2026-01-30-The-Paradox-of-Benevolence-KR.md",
+      "url": "https://pilkwangkim.github.io/posts/The-Paradox-of-Benevolence-KR/?verify=5af35e6-originals",
+      "http_status": 200,
+      "local_body_sha256": "3b7b90167ad5a5e89d06a04c87da758d3c7e5cf55a08dc31e58c026bd9131e7c",
+      "live_body_sha256": "3b7b90167ad5a5e89d06a04c87da758d3c7e5cf55a08dc31e58c026bd9131e7c",
+      "body_matches_reviewed_build": true
+    },
+    {
+      "source": "_posts/2026-1Q/2026-01-30-The-Paradox-of-Benevolence-Original-KR.md",
+      "url": "https://pilkwangkim.github.io/posts/The-Paradox-of-Benevolence-Original-KR/?verify=5af35e6-originals",
+      "http_status": 200,
+      "local_body_sha256": "3b7b90167ad5a5e89d06a04c87da758d3c7e5cf55a08dc31e58c026bd9131e7c",
+      "live_body_sha256": "3b7b90167ad5a5e89d06a04c87da758d3c7e5cf55a08dc31e58c026bd9131e7c",
+      "body_matches_reviewed_build": true
+    },
+    {
+      "source": "_posts/2026-1Q/2026-01-30-The-Paradox-of-Benevolence-Original.md",
+      "url": "https://pilkwangkim.github.io/posts/The-Paradox-of-Benevolence-Original/?verify=5af35e6-originals",
+      "http_status": 200,
+      "local_body_sha256": "b9f4496fc989e6a2bba87d9464c29defdb9b8d4ea1bb9557b5dec1bea0c2bee2",
+      "live_body_sha256": "b9f4496fc989e6a2bba87d9464c29defdb9b8d4ea1bb9557b5dec1bea0c2bee2",
+      "body_matches_reviewed_build": true
+    },
+    {
+      "source": "_posts/2026-2Q/2026-04-12-The-Narrative-Trap-KR.md",
+      "url": "https://pilkwangkim.github.io/posts/The-Narrative-Trap-KR/?verify=5af35e6-originals",
+      "http_status": 200,
+      "local_body_sha256": "7945fafef6b7f82eedf05226f82ef857e6271d58332a941095111bbcee7c0279",
+      "live_body_sha256": "7945fafef6b7f82eedf05226f82ef857e6271d58332a941095111bbcee7c0279",
+      "body_matches_reviewed_build": true
+    },
+    {
+      "source": "_posts/2026-2Q/2026-04-12-The-Narrative-Trap-Original-KR.md",
+      "url": "https://pilkwangkim.github.io/posts/The-Narrative-Trap-Original-KR/?verify=5af35e6-originals",
+      "http_status": 200,
+      "local_body_sha256": "7945fafef6b7f82eedf05226f82ef857e6271d58332a941095111bbcee7c0279",
+      "live_body_sha256": "7945fafef6b7f82eedf05226f82ef857e6271d58332a941095111bbcee7c0279",
+      "body_matches_reviewed_build": true
+    },
+    {
+      "source": "_posts/2026-2Q/2026-04-12-The-Narrative-Trap-Original.md",
+      "url": "https://pilkwangkim.github.io/posts/The-Narrative-Trap-Original/?verify=5af35e6-originals",
+      "http_status": 200,
+      "local_body_sha256": "a7038524262d987336f999ce5ef5131996177ab998993cc40bea9230c31441c8",
+      "live_body_sha256": "a7038524262d987336f999ce5ef5131996177ab998993cc40bea9230c31441c8",
+      "body_matches_reviewed_build": true
+    },
+    {
+      "source": "_posts/2026-2Q/2026-04-12-The-Narrative-Trap.md",
+      "url": "https://pilkwangkim.github.io/posts/The-Narrative-Trap/?verify=5af35e6-originals",
+      "http_status": 200,
+      "local_body_sha256": "21b6fc3c001d040fcad843f9760b6bfa2de0914b521146a3f56e5c212902d70e",
+      "live_body_sha256": "21b6fc3c001d040fcad843f9760b6bfa2de0914b521146a3f56e5c212902d70e",
+      "body_matches_reviewed_build": true
+    },
+    {
+      "source": "_posts/2026-2Q/2026-04-19-The-Mirage-of-Merit-KR.md",
+      "url": "https://pilkwangkim.github.io/posts/The-Mirage-of-Merit-KR/?verify=5af35e6-originals",
+      "http_status": 200,
+      "local_body_sha256": "198e820634374b16baa06796edbc9480478cc073acff1e747df89ab1312a370e",
+      "live_body_sha256": "198e820634374b16baa06796edbc9480478cc073acff1e747df89ab1312a370e",
+      "body_matches_reviewed_build": true
+    },
+    {
+      "source": "_posts/2026-2Q/2026-04-19-The-Mirage-of-Merit-Original-KR.md",
+      "url": "https://pilkwangkim.github.io/posts/The-Mirage-of-Merit-Original-KR/?verify=5af35e6-originals",
+      "http_status": 200,
+      "local_body_sha256": "198e820634374b16baa06796edbc9480478cc073acff1e747df89ab1312a370e",
+      "live_body_sha256": "198e820634374b16baa06796edbc9480478cc073acff1e747df89ab1312a370e",
+      "body_matches_reviewed_build": true
+    },
+    {
+      "source": "_posts/2026-2Q/2026-04-19-The-Mirage-of-Merit-Original.md",
+      "url": "https://pilkwangkim.github.io/posts/The-Mirage-of-Merit-Original/?verify=5af35e6-originals",
+      "http_status": 200,
+      "local_body_sha256": "0af9d0952392380d6d5d07237935abb2fcbac679a1256585d88f4abbf3d12b5b",
+      "live_body_sha256": "0af9d0952392380d6d5d07237935abb2fcbac679a1256585d88f4abbf3d12b5b",
+      "body_matches_reviewed_build": true
+    },
+    {
+      "source": "_posts/2026-2Q/2026-04-19-The-Mirage-of-Merit.md",
+      "url": "https://pilkwangkim.github.io/posts/The-Mirage-of-Merit/?verify=5af35e6-originals",
+      "http_status": 200,
+      "local_body_sha256": "d1d83d408d3457d8741b0bd52ad735c770f5925a777a2375ff174b28370abca2",
+      "live_body_sha256": "d1d83d408d3457d8741b0bd52ad735c770f5925a777a2375ff174b28370abca2",
+      "body_matches_reviewed_build": true
+    },
+    {
+      "source": "_posts/2026-2Q/2026-05-02-The-Corporate-Hallucinator-Original.md",
+      "url": "https://pilkwangkim.github.io/posts/The-Corporate-Hallucinator-Original/?verify=5af35e6-originals",
+      "http_status": 200,
+      "local_body_sha256": "bb0afefa1ecab5187a04af6c631873c11c2db258dde366135e08cc6e448c0d0d",
+      "live_body_sha256": "bb0afefa1ecab5187a04af6c631873c11c2db258dde366135e08cc6e448c0d0d",
+      "body_matches_reviewed_build": true
+    },
+    {
+      "source": "_posts/2026-2Q/2026-05-02-The-Corporate-Hallucinator.md",
+      "url": "https://pilkwangkim.github.io/posts/The-Corporate-Hallucinator/?verify=5af35e6-originals",
+      "http_status": 200,
+      "local_body_sha256": "c5e3f77d4f0c65aad2bc83fb9465f98bd111cae508fd03ef8a803cd3de0df48e",
+      "live_body_sha256": "c5e3f77d4f0c65aad2bc83fb9465f98bd111cae508fd03ef8a803cd3de0df48e",
+      "body_matches_reviewed_build": true
+    }
+  ],
+  "assets": [
+    {
+      "path": "assets/js/blog-navigation.js",
+      "http_status": 200,
+      "local_sha256": "fad5ec9cebb1a6ea76d62386926bdfc76c0e19d3f09da1553494a7799f3e1a5d",
+      "live_sha256": "fad5ec9cebb1a6ea76d62386926bdfc76c0e19d3f09da1553494a7799f3e1a5d",
+      "matches": true
+    },
+    {
+      "path": "assets/css/jekyll-theme-chirpy.css",
+      "http_status": 200,
+      "local_sha256": "b822332985ec9e2355511fe14c9765c013e97fe399168d38ec3db04d05aeadfa",
+      "live_sha256": "b822332985ec9e2355511fe14c9765c013e97fe399168d38ec3db04d05aeadfa",
+      "matches": true
+    }
+  ],
+  "failures": []
+}

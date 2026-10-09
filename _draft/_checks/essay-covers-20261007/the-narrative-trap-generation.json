@@ -1,0 +1,15 @@
+{
+  "slug": "the-narrative-trap",
+  "prompt": "Use case: stylized-concept.\nAsset type: a wide landscape editorial cover illustration for a reflective personal essay on a clean, understated blog; approximately 1.9:1 aspect ratio.\nPrimary request: embody the difference between a neatly constructed fictional plot and real life, which leaves loose ends and offers no guaranteed payoff for past effort. A small, understated open book lies near the centre, its two blank ivory pages defined by simple charcoal strokes and a muted slate-blue cover. One fine charcoal thread makes a tidy loop over the book, then slips out beyond the page into a long, gentle, unfinished curve ending openly in the surrounding empty space. The unresolved end should feel calm and ordinary, not broken or tragic. The metaphor is an imagined narrative escaping its own neat arc.\nScene/backdrop: warm ivory paper #F4F1EA, abundant negative space, no room scenery.\nStyle/medium: restrained abstract editorial illustration, mostly flat cut-paper silhouettes with finely drawn charcoal #414846 lines. A slight printed-paper grain only. A mature quiet literary mood; precise, thoughtful, and warm.\nColor palette: ivory background plus muted slate-blue #778B99 and charcoal; no additional accent colours.\nComposition/framing: wide horizontal canvas, main motif compact in the central 60 percent with generous margins, suitable for a 1200-by-630 blog cover and a mobile crop. Only the open book and a single loose thread; visual balance rather than an infographic.\nConstraints: no lettering, no page text, no symbols or numbers, no title, no logo, no watermark, no border. No gun, people, cinematic action, gradients, glossy 3D, busy decoration, bright colours, large shadow, arrows, charts, or photorealism. Deliver one finished illustration, not a mockup or multi-image layout.",
+  "source_path": "/Users/pilkwang/.codex/generated_images/01a115b1-8632-7283-824b-4d1f61408292/exec-55213f82-7e6a-47d3-808a-85bea6b7768d.png",
+  "asset_path": "/Users/pilkwang/Documents/VSDocs/blog/pilkwangkim.github.io/assets/img/essays/the-narrative-trap/cover.png",
+  "dimensions": {
+    "width": 1730,
+    "height": 909
+  },
+  "alt_en": "A loose thread escapes a blank open book, leaving the story unfinished.",
+  "alt_ko": "펼쳐진 책에서 실 한 가닥이 밖으로 이어지며 매듭짓지 않은 끝을 남긴다.",
+  "concept": "A tidy fictional loop continues out of the book into an unresolved real-life thread, matching the essay's distinction between narrative causality and probabilistic reality.",
+  "mode": "built-in imagegen",
+  "quality_review": "Viewed generated output and saved PNG: restrained ivory/slate-blue/charcoal palette, no text or watermark, wide composition and clear open thread."
+}

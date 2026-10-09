@@ -1,0 +1,31 @@
+{
+  "status": "passed",
+  "original_post_routes": 104,
+  "all_post_routes": 104,
+  "versioned_articles": 5,
+  "original_tag_routes": 181,
+  "topic_pages": 16,
+  "topic_category_pages": 3,
+  "series_posts": 52,
+  "translation_links": 86,
+  "generated_pages_checked": 317,
+  "sidebar_topic_pages_checked": 317,
+  "sidebar_navigation_entries": 5,
+  "language_control_blocks_checked": 20,
+  "english_ui_pages_checked": 317,
+  "topic_article_order_pages_checked": 19,
+  "topic_article_panels_checked": 38,
+  "topic_article_bundles_checked": 56,
+  "recent_updates_pages_checked": 317,
+  "recent_article_keys": [
+    "the-language-that-faces-the-future",
+    "the-corporate-hallucinator",
+    "the-mirage-of-merit",
+    "the-narrative-trap",
+    "the-credentialist-illusion"
+  ],
+  "blog_asset_version": "94052a9c3eb9",
+  "versioned_asset_pages_checked": 317,
+  "generated_javascript_syntax_checks": 2,
+  "errors": []
+}

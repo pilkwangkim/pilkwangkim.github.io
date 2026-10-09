@@ -1,0 +1,20 @@
+{
+  "translation_key": "arc-agi-3-introduction",
+  "path": "/assets/img/arc-agi-3/arc-agi-3-banner.jpg",
+  "dimensions": [
+    559,
+    235
+  ],
+  "rationale": "The article introduces ARC-AGI-3 as instruction-free interactive grid games, so the existing title banner and collage of game environments provide an immediately recognizable, faithful cover. It is already the hero figure in both article bodies; reuse preserves the actual environment imagery instead of inventing benchmark screens or results. Its native size is 559 by 235 pixels, so it should remain unaltered and should not be presented as a newly generated high-resolution asset.",
+  "alt_en": "ARC-AGI-3 title above a collage of interactive colored-grid game environments.",
+  "alt_ko": "여러 색상 격자 게임 환경을 모은 배경 위에 표시된 ARC-AGI-3 제목.",
+  "mode": "reused-body-image",
+  "source_path": "/Users/pilkwang/Documents/VSDocs/blog/pilkwangkim.github.io/assets/img/arc-agi-3/arc-agi-3-banner.jpg",
+  "source_posts": [
+    "_posts/2026-2Q/2026-06-24-arc-agi-3-the-benchmark-nobody-has-solved-KR.md",
+    "_posts/2026-2Q/2026-06-24-arc-agi-3-the-benchmark-nobody-has-solved.md"
+  ],
+  "sha256": "48ac32efbeb55d11d0a6d094ca96da0fb198cbff33eec4616775d68b329f3006",
+  "prompt": null,
+  "inspection": "Full English article and candidate body figures visually reviewed; original figure reused unchanged."
+}

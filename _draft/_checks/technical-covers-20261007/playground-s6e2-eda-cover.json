@@ -1,0 +1,19 @@
+{
+  "translation_key": "playground-s6e2-eda",
+  "mode": "reused-body-image",
+  "path": "/assets/img/posts/2026-02-17-s6e2-eda/fig-01-class-balance-train-vs-original.png",
+  "source_path": "/Users/pilkwang/Documents/VSDocs/blog/pilkwangkim.github.io/assets/img/posts/2026-02-17-s6e2-eda/fig-01-class-balance-train-vs-original.png",
+  "rationale": "The article begins from the heart-disease target distribution and checks prior shift before modeling. This existing four-bar comparison is compact, readable, and shows the actual near-aligned original/train class balance. Reuse the complete empirical figure without cropping, redrawing, or altering any values; more complex multi-panel feature plots are too dense for a header.",
+  "alt_en": "Original and competition-training heart-disease class proportions shown side by side.",
+  "source_posts": [
+    "_posts/2026-1Q/2026-02-14-S6E2-EDA.md"
+  ],
+  "dimensions": {
+    "width": 689,
+    "height": 409
+  },
+  "inspected": true,
+  "asset_bytes": 29748,
+  "asset_sha256": "257a435942171863cf4bb44e6af4b25b5d2a61344b598eb7dd5068bf313e090e",
+  "native_aspect_ratio": 1.684596577017115
+}

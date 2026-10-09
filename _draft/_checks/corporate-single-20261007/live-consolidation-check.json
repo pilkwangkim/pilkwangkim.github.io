@@ -1,0 +1,69 @@
+{
+  "status": "passed",
+  "commit": "b0af25894202cd77ca51cc9da2ec4687a2990b95",
+  "pages_run": 37603465653,
+  "checks": {
+    "canonical_http_200": true,
+    "old_original_http_200": true,
+    "topics_http_200": true,
+    "search_http_200": true,
+    "sitemap_http_200": true,
+    "feed_http_200": true,
+    "cover_http_200": true,
+    "canonical_rendered_body_matches_local": true,
+    "canonical_has_no_edition_ui": true,
+    "canonical_has_correct_canonical": true,
+    "old_route_absolute_canonical": true,
+    "old_route_relative_refresh": true,
+    "old_route_relative_manual_link": true,
+    "old_route_noindex": true,
+    "topic-latest-posts_one_corporate_entry": true,
+    "topic-latest-posts_no_edition_labels": true,
+    "topic-latest-posts_canonical_links_only": true,
+    "topic-all-posts_one_corporate_entry": true,
+    "topic-all-posts_no_edition_labels": true,
+    "topic-all-posts_canonical_links_only": true,
+    "search_one_canonical_no_original": true,
+    "search_contains_104_posts": true,
+    "sitemap_one_canonical_no_original": true,
+    "rss_no_original_url": true,
+    "cover_sha256_unchanged": true,
+    "canonical_cover_present": true
+  },
+  "body_sha256": {
+    "live": "5523e7e85a647b4a2b24b035d989596c418bc8e1fda189929d9faca105b08ee6",
+    "local": "5523e7e85a647b4a2b24b035d989596c418bc8e1fda189929d9faca105b08ee6"
+  },
+  "cover_sha256": "96c85045458118fd41ca52f8a9881e4245bf829fe8b94d65f41cbc5f6bbb7514",
+  "http": {
+    "canonical": {
+      "status": 200,
+      "url": "https://pilkwangkim.github.io/posts/The-Corporate-Hallucinator/?verify=b0af258"
+    },
+    "old_original": {
+      "status": 200,
+      "url": "https://pilkwangkim.github.io/posts/The-Corporate-Hallucinator-Original/?verify=b0af258"
+    },
+    "topics": {
+      "status": 200,
+      "url": "https://pilkwangkim.github.io/topics/essays/?verify=b0af258"
+    },
+    "search": {
+      "status": 200,
+      "url": "https://pilkwangkim.github.io/assets/js/data/search.json?verify=b0af258"
+    },
+    "sitemap": {
+      "status": 200,
+      "url": "https://pilkwangkim.github.io/sitemap.xml?verify=b0af258"
+    },
+    "feed": {
+      "status": 200,
+      "url": "https://pilkwangkim.github.io/feed.xml?verify=b0af258"
+    },
+    "cover": {
+      "status": 200,
+      "url": "https://pilkwangkim.github.io/assets/img/essays/the-corporate-hallucinator/cover.webp?verify=b0af258"
+    }
+  },
+  "errors": []
+}

@@ -1,0 +1,18 @@
+{
+  "slug": "the-corporate-hallucinator",
+  "prompt": "Use case: stylized-concept\nAsset type: restrained editorial cover illustration for a thoughtful personal essay blog\nPrimary request: convey confident institutional speech with no factual foundation. Show a large elegant hollow speech bubble made from a muted slate-blue cut-paper outline, floating immediately over a small charcoal podium. The podium is composed of a short rectangular top and an upright column, but the column ends slightly above the ground line with a clear small gap: the confident facade is unsupported. Through the speech bubble's open ivory interior there is nothing at all.\nScene/backdrop: spacious warm ivory paper (#F4F1EA), one hairline ground line below the podium; an otherwise empty field.\nStyle/medium: sophisticated flat cut-paper editorial metaphor, clean rounded silhouettes and charcoal (#414846) hairline details, exceptionally subtle print grain. Mostly flat, not glossy, not photorealistic or 3D.\nComposition/framing: wide horizontal landscape approximately 1.9:1 for a 1200 by 630 blog header. Central compact arrangement, three or four simple forms only, abundant negative space. Keep the whole metaphor inside the central 60 percent of the canvas so it remains legible at mobile width.\nMood: quiet irony, intellectual skepticism, restrained and warm, not surreal spectacle or corporate marketing.\nColor palette: warm ivory background and bubble interior, muted slate-blue (#778B99) bubble outline, charcoal podium, optional tiny dusty-clay (#C9A18F) accent only if needed. Use very few subdued colors.\nConstraints: no text, no lettering, no numbers, no symbols inside the speech bubble, no logo, watermark or border. No faces, people, robots, circuits, city skylines, extra bubbles or scattered objects. Avoid ornamental flourishes, loud gradients, vivid colors and dramatic shadows. Preserve an obvious empty bubble interior and a visible gap between support and ground.",
+  "source_path": "/Users/pilkwang/.codex/generated_images/01a115b1-36e5-7322-8929-7f23214fc118/exec-1553d625-05dc-4f85-acd0-1278c6004389.png",
+  "asset_path": "assets/img/essays/the-corporate-hallucinator/cover.png",
+  "alt_en": "An empty speech bubble rises above a podium suspended just clear of its foundation.",
+  "alt_ko": "기반에서 살짝 떠 있는 연단 위로 텅 빈 말풍선이 떠 있다.",
+  "concept": "The large fluent-looking yet empty speech bubble and unsupported podium represent authoritative corporate speech that lacks a factual foundation. The visible gap carries the critique with only three forms.",
+  "mode": "built-in imagegen",
+  "dimensions": {
+    "width": 1730,
+    "height": 909
+  },
+  "inspection": {
+    "passed": true,
+    "notes": "Visually inspected tool result; muted palette, no lettering, clear central metaphor, no decorative clutter."
+  }
+}

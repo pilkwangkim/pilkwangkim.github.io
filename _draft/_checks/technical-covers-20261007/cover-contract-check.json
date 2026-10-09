@@ -1,0 +1,195 @@
+{
+  "status": "passed",
+  "assertions": 484,
+  "posts_checked": 104,
+  "source_body_and_metadata_preservation": true,
+  "article_pages_checked": 26,
+  "logical_articles": 14,
+  "reused_body_figures": 8,
+  "generated_covers": 6,
+  "pages": [
+    {
+      "path": "_posts/2026-2Q/2026-06-24-arc-agi-3-the-benchmark-nobody-has-solved-KR.md",
+      "url": "/posts/arc-agi-3-the-benchmark-nobody-has-solved-KR/",
+      "lang": "ko",
+      "cover": "/assets/img/arc-agi-3/arc-agi-3-banner.jpg",
+      "alt": "여러 색상 격자 게임 환경을 모은 배경 위에 표시된 ARC-AGI-3 제목."
+    },
+    {
+      "path": "_posts/2026-2Q/2026-06-24-arc-agi-3-the-benchmark-nobody-has-solved.md",
+      "url": "/posts/arc-agi-3-the-benchmark-nobody-has-solved/",
+      "lang": "en",
+      "cover": "/assets/img/arc-agi-3/arc-agi-3-banner.jpg",
+      "alt": "ARC-AGI-3 title above a collage of interactive colored-grid game environments."
+    },
+    {
+      "path": "_posts/2026-3Q/2026-08-05-arc-agi-3-research-note-1-program-as-policy.md",
+      "url": "/posts/arc-agi-3-research-note-1-program-as-policy/",
+      "lang": "en",
+      "cover": "/assets/img/technical-covers/arc-agi-3-research-r1/cover.webp",
+      "alt": "Conceptual grid-game agent workflow: observe, build a world model, verify predictions, and execute batched actions with a mismatch stop."
+    },
+    {
+      "path": "_posts/2026-3Q/2026-08-05-arc-agi-3-research-note-1-program-as-policy-KR.md",
+      "url": "/posts/arc-agi-3-research-note-1-program-as-policy-KR/",
+      "lang": "ko",
+      "cover": "/assets/img/technical-covers/arc-agi-3-research-r1/cover.webp",
+      "alt": "격자 게임을 관찰하고 월드 모델을 만든 뒤 예측을 검증해 행동 묶음을 실행하며, 불일치가 발생하면 멈추는 개념적 에이전트 흐름."
+    },
+    {
+      "path": "_posts/2026-2Q/2026-05-30-BirdCLEF-2026-EoS9-OOF-Gated-PCEN.md",
+      "url": "/posts/BirdCLEF-2026-EoS9-OOF-Gated-PCEN/",
+      "lang": "en",
+      "cover": "/assets/img/posts/2026-05-30-birdclef-eos-oof-gated-pcen/fig-02-oof-gate.svg",
+      "alt": "Anchor and sidecar ranks pass a plausibility mask, class gate, and movement budget before acceptance."
+    },
+    {
+      "path": "_posts/2026-2Q/2026-05-30-BirdCLEF-2026-EoS9-OOF-Gated-PCEN-KR.md",
+      "url": "/posts/BirdCLEF-2026-EoS9-OOF-Gated-PCEN-KR/",
+      "lang": "ko",
+      "cover": "/assets/img/posts/2026-05-30-birdclef-eos-oof-gated-pcen/fig-02-oof-gate.svg",
+      "alt": "앵커와 사이드카 순위를 개연성 마스크, 클래스 게이트와 이동 예산으로 제한하는 OOF 보정 흐름."
+    },
+    {
+      "path": "_posts/2026-2Q/2026-05-17-Maze-Crawler-Structure-Baseline.md",
+      "url": "/posts/Maze-Crawler-Structure-Baseline/",
+      "lang": "en",
+      "cover": "/assets/img/posts/2026-05-17-maze-crawler-structure-baseline/cover.png",
+      "alt": "A factory convoy follows a safe northward route while scouts and workers handle resources and walls."
+    },
+    {
+      "path": "_posts/2026-2Q/2026-05-17-Maze-Crawler-Structure-Baseline-KR.md",
+      "url": "/posts/Maze-Crawler-Structure-Baseline-KR/",
+      "lang": "ko",
+      "cover": "/assets/img/posts/2026-05-17-maze-crawler-structure-baseline/cover.png",
+      "alt": "남쪽의 소실 경계를 피해 북쪽 안전 경로를 확보하고, 정찰과 벽 제거를 분담하는 로봇 대열."
+    },
+    {
+      "path": "_posts/2026-2Q/2026-04-01-MMLM.md",
+      "url": "/posts/MMLM/",
+      "lang": "en",
+      "cover": "/assets/img/technical-covers/mmlm-2026-baseline/cover.webp",
+      "alt": "Basketball season data becomes team features, two logistic-regression views, and blended matchup probabilities, with season-forward validation below."
+    },
+    {
+      "path": "_posts/2026-2Q/2026-04-01-MMLM-KR.md",
+      "url": "/posts/MMLM-KR/",
+      "lang": "ko",
+      "cover": "/assets/img/technical-covers/mmlm-2026-baseline/cover.webp",
+      "alt": "농구 시즌 데이터에서 팀 특성을 만들고 두 로지스틱 회귀 모델의 예측을 합쳐 대진별 승률을 구하며, 아래에는 시즌 순서를 지키는 검증을 표시한다."
+    },
+    {
+      "path": "_posts/2026-2Q/2026-04-26-Orbit-Wars-Structured-Baseline.md",
+      "url": "/posts/Orbit-Wars-Structured-Baseline/",
+      "lang": "en",
+      "cover": "/assets/img/technical-covers/orbit-wars-structured-baseline/cover.webp",
+      "alt": "A straight fleet launch intercepts a moving planet at arrival, while a sun-crossing shot is rejected; physics, world model, strategy, and committed launches organize the agent."
+    },
+    {
+      "path": "_posts/2026-2Q/2026-04-26-Orbit-Wars-Structured-Baseline-KR.md",
+      "url": "/posts/Orbit-Wars-Structured-Baseline-KR/",
+      "lang": "ko",
+      "cover": "/assets/img/technical-covers/orbit-wars-structured-baseline/cover.webp",
+      "alt": "태양을 가로지르는 경로는 거부하고 움직이는 행성의 도착 시점 위치로 함대를 직선 발사하며, 물리·월드 모델·전략과 발사 기록으로 에이전트를 구성한다."
+    },
+    {
+      "path": "_posts/2026-1Q/2026-02-14-S6E2-EDA.md",
+      "url": "/posts/S6E2-EDA/",
+      "lang": "en",
+      "cover": "/assets/img/posts/2026-02-17-s6e2-eda/fig-01-class-balance-train-vs-original.png",
+      "alt": "Original and competition-training heart-disease class proportions shown side by side."
+    },
+    {
+      "path": "_posts/2026-1Q/2026-02-18-S6E2-PRED.md",
+      "url": "/posts/S6E2-PRED/",
+      "lang": "en",
+      "cover": "/assets/img/technical-covers/playground-s6e2-prediction/cover.webp",
+      "alt": "Tabular heart-disease data, five-fold validation, boosted trees, and probability predictions."
+    },
+    {
+      "path": "_posts/2026-2Q/2026-05-03-S6E5-Drivers-High-Driver-Feature-Engineering.md",
+      "url": "/posts/S6E5-Drivers-High-Driver-Feature-Engineering/",
+      "lang": "en",
+      "cover": "/assets/img/technical-covers/playground-s6e5-driver-features/cover.webp",
+      "alt": "Race-state and driver-category support features enter a controlled out-of-fold tree-model comparison."
+    },
+    {
+      "path": "_posts/2026-2Q/2026-05-03-S6E5-Drivers-High-Driver-Feature-Engineering-KR.md",
+      "url": "/posts/S6E5-Drivers-High-Driver-Feature-Engineering-KR/",
+      "lang": "ko",
+      "cover": "/assets/img/technical-covers/playground-s6e5-driver-features/cover.webp",
+      "alt": "주행 상태와 드라이버 범주의 표본 수 피처를 같은 OOF 조건에서 비교하는 트리 모델 구성."
+    },
+    {
+      "path": "_posts/2026-2Q/2026-06-02-PG-S6E6-EDA-GBDT-Bases-And-Artifact-Blend.md",
+      "url": "/posts/PG-S6E6-EDA-GBDT-Bases-And-Artifact-Blend/",
+      "lang": "en",
+      "cover": "/assets/img/posts/2026-06-02-pg-s6e6-eda-gbdt-artifact-blend/fig-04-photometric-geometry.png",
+      "alt": "Observed redshift and u-z color distributions distinguish stars, galaxies, and quasars with overlapping regions."
+    },
+    {
+      "path": "_posts/2026-2Q/2026-06-02-PG-S6E6-EDA-GBDT-Bases-And-Artifact-Blend-KR.md",
+      "url": "/posts/PG-S6E6-EDA-GBDT-Bases-And-Artifact-Blend-KR/",
+      "lang": "ko",
+      "cover": "/assets/img/posts/2026-06-02-pg-s6e6-eda-gbdt-artifact-blend/fig-04-photometric-geometry.png",
+      "alt": "별·은하·퀘이사의 구분과 겹치는 영역을 보여주는 적색편이와 u-z 색지수 산점도."
+    },
+    {
+      "path": "_posts/2026-3Q/2026-07-02-Pokemon-TCG-AI-Battle-Working-Note-1-Meta-Intelligence-and-the-Pilot-Gap.md",
+      "url": "/posts/Pokemon-TCG-AI-Battle-Working-Note-1-Meta-Intelligence-and-the-Pilot-Gap/",
+      "lang": "en",
+      "cover": "/assets/img/technical-covers/pokemon-tcg-working-note-1/cover.webp",
+      "alt": "Replay-based behavior cloning and a rule fallback rank legal trading-card choices from the visible board before full-game evaluation."
+    },
+    {
+      "path": "_posts/2026-3Q/2026-07-02-Pokemon-TCG-AI-Battle-Working-Note-1-Meta-Intelligence-and-the-Pilot-Gap-KR.md",
+      "url": "/posts/Pokemon-TCG-AI-Battle-Working-Note-1-Meta-Intelligence-and-the-Pilot-Gap-KR/",
+      "lang": "ko",
+      "cover": "/assets/img/technical-covers/pokemon-tcg-working-note-1/cover.webp",
+      "alt": "리플레이로 학습한 행동 모방 모델과 규칙 기반 대안이 공개된 카드판을 보고 합법적 선택지를 평가하며, 이후 전체 게임으로 파일럿을 검증한다."
+    },
+    {
+      "path": "_posts/2026-3Q/2026-07-22-From-Closed-to-Open-Quantum-Transport-with-NEGF-KR.md",
+      "url": "/posts/From-Closed-to-Open-Quantum-Transport-with-NEGF-KR/",
+      "lang": "ko",
+      "cover": "/assets/img/posts/2026-07-22-negf-from-scratch/fig-03-exact-lead-elimination.png",
+      "alt": "반무한 리드의 좌표를 정확히 소거해 유한한 소자에 에너지 의존 자기 에너지로 반영하는 과정."
+    },
+    {
+      "path": "_posts/2026-3Q/2026-07-22-From-Closed-to-Open-Quantum-Transport-with-NEGF.md",
+      "url": "/posts/From-Closed-to-Open-Quantum-Transport-with-NEGF/",
+      "lang": "en",
+      "cover": "/assets/img/posts/2026-07-22-negf-from-scratch/fig-03-exact-lead-elimination.png",
+      "alt": "Exact lead elimination replaces explicit semi-infinite lead coordinates with energy-dependent self-energy on the finite device."
+    },
+    {
+      "path": "_posts/2026-3Q/2026-07-03-ROGII-Working-Note-2-Target-Free-TVT-Geosteering-KR.md",
+      "url": "/posts/ROGII-Working-Note-2-Target-Free-TVT-Geosteering-KR/",
+      "lang": "ko",
+      "cover": "/assets/img/posts/2026-07-03-rogii-working-note-target-free-tvt-geosteering/fig-06-error-anatomy.png",
+      "alt": "숨겨진 구간의 TVT 오차를 기준 위치의 편차, 지층 모드의 불확실성, 형태와 기울기 오차로 나눈 그림."
+    },
+    {
+      "path": "_posts/2026-3Q/2026-07-03-ROGII-Working-Note-2-Target-Free-TVT-Geosteering.md",
+      "url": "/posts/ROGII-Working-Note-2-Target-Free-TVT-Geosteering/",
+      "lang": "en",
+      "cover": "/assets/img/posts/2026-07-03-rogii-working-note-target-free-tvt-geosteering/fig-06-error-anatomy.png",
+      "alt": "Three sources of hidden-tail TVT error: datum offset, stratigraphic-mode ambiguity, and shape or slope error."
+    },
+    {
+      "path": "_posts/2026-2Q/2026-06-10-ROGII-Target-Free-Stratigraphic-Alignment-for-TVT-KR.md",
+      "url": "/posts/ROGII-Target-Free-Stratigraphic-Alignment-for-TVT-KR/",
+      "lang": "ko",
+      "cover": "/assets/img/posts/2026-06-04-rogii-target-free-tvt-alignment/fig-13.png",
+      "alt": "수평정의 감마선 패턴을 수직 기준정과 대비해 숨겨진 TVT 좌표를 추정하는 과정."
+    },
+    {
+      "path": "_posts/2026-2Q/2026-06-10-ROGII-Target-Free-Stratigraphic-Alignment-for-TVT.md",
+      "url": "/posts/ROGII-Target-Free-Stratigraphic-Alignment-for-TVT/",
+      "lang": "en",
+      "cover": "/assets/img/posts/2026-06-04-rogii-target-free-tvt-alignment/fig-13.png",
+      "alt": "Gamma-ray motifs from the horizontal well are aligned with a vertical typewell to infer hidden TVT coordinates."
+    }
+  ],
+  "errors": []
+}

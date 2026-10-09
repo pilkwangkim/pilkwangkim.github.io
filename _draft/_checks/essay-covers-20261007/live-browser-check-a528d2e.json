@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "commit": "a528d2ea13bff33e3b9c4658f99a27a2dadb0590",
+  "pages_run": 37601976978,
+  "desktop_cover_loaded": true,
+  "mobile_cover_loaded": true,
+  "desktop_css_width": 1527,
+  "mobile_css_width": 355,
+  "horizontal_overflow": false,
+  "temporary_viewport_reset": true,
+  "screenshots": [
+    "live-cover-desktop-a528d2e.png",
+    "live-cover-mobile-a528d2e.png"
+  ]
+}

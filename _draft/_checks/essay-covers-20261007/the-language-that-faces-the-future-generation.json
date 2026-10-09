@@ -1,0 +1,15 @@
+{
+  "slug": "the-language-that-faces-the-future",
+  "prompt": "Use case: stylized-concept.\nAsset type: wide landscape abstract editorial cover for a thoughtful personal essay on leadership, approximately 1.9:1 aspect ratio.\nPrimary request: express the essay's central metaphor: every person's past is a separate island, while a shared future is the one continent they can stand on together. Show three small, separate, softly irregular dusty-clay island silhouettes in the lower central part, and one broad, gently curved sage landform above them. Three very fine charcoal paths emerge from the separate islands, quietly converge, and cross the ivory space toward the shared landform. The shared land should read as an open, welcoming future rather than a wall or trophy. No literal map labels, no arrows, no people, no buildings. Aim for an elegant visual metaphor, not a diagram.\nScene/backdrop: warm ivory paper #F4F1EA serving as empty water/air, abundant negative space surrounding the compact central motif.\nStyle/medium: restrained abstract editorial illustration, flat cut-paper silhouettes with tiny organic irregularities and charcoal #414846 fine lines; extremely subtle printed-paper grain. Warm, spacious, thoughtful, gently optimistic. No glossy 3D.\nColor palette: warm ivory, muted sage #A5B1A0, dusty clay #C9A18F, charcoal only, no saturated tones.\nComposition/framing: horizontal canvas, top-down abstract composition; main shapes and joining paths inside the middle 60 percent so the metaphor remains clear at mobile width; generous plain margins. Only four land shapes and the fine converging paths. Keep all islands fully visible and their separation unmistakable.\nConstraints: no text or lettering, no numbers, no logos, no title, no watermark, no border, no actual geography, no boats, bridges with engineering details, sun, decorative icons, chart notation, gradient sky, busy waves, dramatic shadows, realistic scenery, or glossy effects. Deliver one finished illustration, not a mockup or collage.",
+  "source_path": "/Users/pilkwang/.codex/generated_images/01a115b1-8632-7283-824b-4d1f61408292/exec-449a4d6a-cf9e-4a9f-a286-9225b3e01c32.png",
+  "asset_path": "/Users/pilkwang/Documents/VSDocs/blog/pilkwangkim.github.io/assets/img/essays/the-language-that-faces-the-future/cover.png",
+  "dimensions": {
+    "width": 1727,
+    "height": 911
+  },
+  "alt_en": "Three separate islands are connected by fine paths to one shared continent.",
+  "alt_ko": "떨어진 세 섬에서 뻗은 가느다란 길이 하나의 대륙으로 이어진다.",
+  "concept": "Each person's past is a disconnected island; shared future is one continent. Three dusty-clay islands join a broad sage landform without text, people, or motivational imagery.",
+  "mode": "built-in imagegen",
+  "quality_review": "Viewed generated output and saved PNG: four flat land shapes, three fine joining paths, warm ivory background, sage and clay accents; no labels or decorative elements."
+}

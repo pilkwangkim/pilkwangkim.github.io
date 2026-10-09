@@ -1,0 +1,18 @@
+{
+  "translation_key": "arc-agi-3-research-r1",
+  "mode": "built-in imagegen",
+  "path": "/assets/img/technical-covers/arc-agi-3-research-r1/cover.webp",
+  "source_path": "/Users/pilkwang/.codex/generated_images/01a11488-4ce3-7963-a9fb-ca0e30a9fc58/exec-97ae7db3-7bd2-4610-8297-ccf67d1778f9.png",
+  "source_posts": [
+    "_posts/2026-3Q/2026-08-05-arc-agi-3-research-note-1-program-as-policy.md",
+    "_posts/2026-3Q/2026-08-05-arc-agi-3-research-note-1-program-as-policy-KR.md"
+  ],
+  "rationale": "The article has no body figures. A conceptual grid-game architecture shows observation, executable-model construction, replay verification, batched actions and a mismatch gate. It depicts the proposed mechanically enforced workflow, without depicting measured success or fabricating benchmark results.",
+  "alt_en": "Conceptual grid-game agent workflow: observe, build a world model, verify predictions, and execute batched actions with a mismatch stop.",
+  "alt_ko": "격자 게임을 관찰하고 월드 모델을 만든 뒤 예측을 검증해 행동 묶음을 실행하며, 불일치가 발생하면 멈추는 개념적 에이전트 흐름.",
+  "dimensions": [
+    1729,
+    910
+  ],
+  "prompt": "Create a professional technical editorial cover illustration for a research article about ARC-AGI-3 agents, titled in the article 'The Unit Cost of Thinking, and Program-as-Policy'. This is a CONCEPTUAL ARCHITECTURE DIAGRAM, not a chart of measured performance, not an official game screenshot. Wide landscape, approximately 1.9:1 aspect ratio. Crisp professional scientific illustration, very light warm-white background, slate/navy outlines, teal and muted blue modules, one restrained amber safety gate, ample whitespace. Concrete message: move from repeated single-action LLM deliberation toward a mechanically enforced workflow that observes a grid game, writes an executable world model, verifies recorded transitions, and then runs a batch plan with a mismatch stop. Layout as four clearly separated left-to-right modules with thin directional arrows: 1 OBSERVE, a small clean 6x6 pixel-grid environment containing a blue player square, teal target square and dark obstacle cells; 2 MODEL, a compact Python-like code document with a tiny connected-state diagram, do not print fake code or equations; 3 VERIFY, two matching miniature grid frames, one for predicted state and one for observed state, a visible amber comparator/gate between them; 4 ACT, a small sequence of five discrete directional action tiles feeding a second grid board. Draw a short amber branch downward from the verification gate to a stop bar labelled MISMATCH so it is clear plans must halt when predictions disagree. Only text labels exactly OBSERVE, MODEL, VERIFY, ACT, MISMATCH; use elegant legible sans serif. The large majority of the image should be the concrete diagrams rather than text. No title text, no scores, no percentages, no benchmarks, no equations, no claims of successful experiment, no photorealistic robots, no brains, no abstract ribbons, no glowing neon, no decoration, no gradients. Polished research-publication-quality schematic with carefully aligned elements and strong thumbnail readability. Fully opaque."
+}

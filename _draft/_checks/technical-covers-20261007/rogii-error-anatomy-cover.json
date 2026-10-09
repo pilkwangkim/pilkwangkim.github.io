@@ -1,0 +1,20 @@
+{
+  "translation_key": "rogii-error-anatomy",
+  "path": "/assets/img/posts/2026-07-03-rogii-working-note-target-free-tvt-geosteering/fig-06-error-anatomy.png",
+  "dimensions": [
+    1672,
+    941
+  ],
+  "rationale": "The article explicitly separates remaining TVT error into datum offset, stratigraphic-mode ambiguity, and shape or slope error. Its existing three-panel landscape schematic is the clearest statement of that message and maps each error to a different estimator family. Reusing the unaltered figure preserves the original conceptual comparisons and avoids replacing scientific information with decoration.",
+  "alt_en": "Three sources of hidden-tail TVT error: datum offset, stratigraphic-mode ambiguity, and shape or slope error.",
+  "alt_ko": "숨겨진 구간의 TVT 오차를 기준 위치의 편차, 지층 모드의 불확실성, 형태와 기울기 오차로 나눈 그림.",
+  "mode": "reused-body-image",
+  "source_path": "/Users/pilkwang/Documents/VSDocs/blog/pilkwangkim.github.io/assets/img/posts/2026-07-03-rogii-working-note-target-free-tvt-geosteering/fig-06-error-anatomy.png",
+  "source_posts": [
+    "_posts/2026-3Q/2026-07-03-ROGII-Working-Note-2-Target-Free-TVT-Geosteering-KR.md",
+    "_posts/2026-3Q/2026-07-03-ROGII-Working-Note-2-Target-Free-TVT-Geosteering.md"
+  ],
+  "sha256": "b07aaf4740a2b996008d914ddfb85540dd0361c1d5be39ffca1505c01351d3f3",
+  "prompt": null,
+  "inspection": "Full English article and candidate body figures visually reviewed; original figure reused unchanged."
+}

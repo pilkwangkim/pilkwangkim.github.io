@@ -1,0 +1,20 @@
+{
+  "translation_key": "rogii-tvt-alignment",
+  "path": "/assets/img/posts/2026-06-04-rogii-target-free-tvt-alignment/fig-13.png",
+  "dimensions": [
+    1672,
+    941
+  ],
+  "rationale": "The article frames TVT recovery as target-free stratigraphic alignment rather than independent row regression. This existing sparse landscape figure directly shows horizontal gamma-ray motifs matched to a vertical typewell, including a missing-data gap. It conveys the central physical signal more clearly at cover size than the dense full pipeline overview. The entire body figure is reused without crop, redraw, or data alteration.",
+  "alt_en": "Gamma-ray motifs from the horizontal well are aligned with a vertical typewell to infer hidden TVT coordinates.",
+  "alt_ko": "수평정의 감마선 패턴을 수직 기준정과 대비해 숨겨진 TVT 좌표를 추정하는 과정.",
+  "mode": "reused-body-image",
+  "source_path": "/Users/pilkwang/Documents/VSDocs/blog/pilkwangkim.github.io/assets/img/posts/2026-06-04-rogii-target-free-tvt-alignment/fig-13.png",
+  "source_posts": [
+    "_posts/2026-2Q/2026-06-10-ROGII-Target-Free-Stratigraphic-Alignment-for-TVT-KR.md",
+    "_posts/2026-2Q/2026-06-10-ROGII-Target-Free-Stratigraphic-Alignment-for-TVT.md"
+  ],
+  "sha256": "f4a445b6e06ee67d93a531638812b963c8411ef65e9361070fc76a7c62c3279b",
+  "prompt": null,
+  "inspection": "Full English article and candidate body figures visually reviewed; original figure reused unchanged."
+}

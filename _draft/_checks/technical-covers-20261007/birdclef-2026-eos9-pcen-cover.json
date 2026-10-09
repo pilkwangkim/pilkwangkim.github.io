@@ -1,0 +1,23 @@
+{
+  "translation_key": "birdclef-2026-eos9-pcen",
+  "mode": "reused-body-image",
+  "path": "/assets/img/posts/2026-05-30-birdclef-eos-oof-gated-pcen/fig-02-oof-gate.svg",
+  "source_path": "/Users/pilkwang/Documents/VSDocs/blog/pilkwangkim.github.io/assets/img/posts/2026-05-30-birdclef-eos-oof-gated-pcen/fig-02-oof-gate.svg",
+  "rationale": "The article's distinctive mechanism is preserving the EoS9 anchor while allowing only plausible, class-gated and budget-limited sidecar corrections. The existing six-block OOF-gate diagram communicates this more clearly than the much denser original cover and overall branch map. Rendered the standalone SVG to a temporary inspection PNG and checked complete 1600x900 viewBox: all blocks, arrows, title, and safeguards are inside the canvas, with large labels. Reuse the full unmodified SVG; no invented results and no cropped empirical data.",
+  "alt_en": "Anchor and sidecar ranks pass a plausibility mask, class gate, and movement budget before acceptance.",
+  "alt_ko": "앵커와 사이드카 순위를 개연성 마스크, 클래스 게이트와 이동 예산으로 제한하는 OOF 보정 흐름.",
+  "source_posts": [
+    "_posts/2026-2Q/2026-05-30-BirdCLEF-2026-EoS9-OOF-Gated-PCEN.md",
+    "_posts/2026-2Q/2026-05-30-BirdCLEF-2026-EoS9-OOF-Gated-PCEN-KR.md"
+  ],
+  "dimensions": {
+    "width": 1600,
+    "height": 900
+  },
+  "inspection_render_path": "/tmp/birdclef-oof-gate-cover-inspection.png",
+  "standalone_svg_valid": true,
+  "inspected": true,
+  "asset_bytes": 3046,
+  "asset_sha256": "b62267f622b171e18e9d042c6fdb28b923a1c96fde499767339e547203a8d652",
+  "native_aspect_ratio": 1.7777777777777777
+}

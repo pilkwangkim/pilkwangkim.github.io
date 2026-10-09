@@ -1,0 +1,15 @@
+{
+  "slug": "the-mirage-of-merit",
+  "prompt": "Use case: stylized-concept.\nAsset type: a wide landscape editorial cover illustration for a reflective personal essay on a clean, understated blog, approximately 1.9:1 aspect ratio.\nPrimary request: express the essay's argument that organizational opportunity depends on visibility and strategic position, not competence alone. On a tiny, simple flat board made of just four broad pale squares, two plain geometric standing forms occupy different positions: a modest dusty-clay cylinder in one visible central square and a somewhat taller charcoal/slate-blue cylinder near the board's edge. A single broad, softly defined ivory beam from above falls only on the modest central form; the taller form remains quietly outside this field of attention. The forms must be extremely simple tokens without faces, people, ornate chess carvings, or decorative details. This is a calm visual metaphor for the most visible square on the board, not a competitive victory poster.\nScene/backdrop: warm ivory paper #F4F1EA with ample blank space, no room scenery, no actual lamp.\nStyle/medium: restrained abstract editorial illustration, flat cut-paper silhouettes, restrained charcoal #414846 fine outlines, minimal dry print texture. Gentle and thoughtful, with quiet critical tension.\nColor palette: muted slate-blue #778B99, dusty clay #C9A18F, warm ivory and charcoal only. The beam is an almost-white paper shape, with no glow effects.\nComposition/framing: wide horizontal canvas, one compact grouping centred within the middle 60 percent, generous margins, suitable for 1200-by-630 blog cover and mobile crop. No more than six meaningful shapes. Board shown in barely oblique perspective, without an elaborate grid.\nConstraints: no lettering, no numbers, no title, no logo, no watermark, no border. No trophy, crown, human figures, dramatic theatre, glossy 3D, photorealistic lighting, gradients, chart arrows, or bright colours. Deliver one finished illustration, not a mockup or multi-image layout.",
+  "source_path": "/Users/pilkwang/.codex/generated_images/01a115b1-8632-7283-824b-4d1f61408292/exec-d180318a-f59e-4563-8a3b-2a18b3cf5feb.png",
+  "asset_path": "/Users/pilkwang/Documents/VSDocs/blog/pilkwangkim.github.io/assets/img/essays/the-mirage-of-merit/cover.png",
+  "dimensions": {
+    "width": 1730,
+    "height": 909
+  },
+  "alt_en": "A small token stands in a spotlight while a taller token remains outside it.",
+  "alt_ko": "작은 말에 조명이 비추고, 더 큰 말은 조명 밖에 서 있다.",
+  "concept": "The most visible square, rather than the largest/strongest token, receives attention. The four-square board and restrained beam follow the essay's positioning and organizational spotlight metaphors.",
+  "mode": "built-in imagegen",
+  "quality_review": "Viewed generated output and saved PNG: muted slate-blue and dusty clay, four-square board, two simple cylinders, no text or ornate chess details. Slight paper relief is quiet and not glossy."
+}

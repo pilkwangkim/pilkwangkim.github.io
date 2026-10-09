@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "desktop_css_width": 1527,
+  "mobile_requested_width": 390,
+  "mobile_css_width": 355,
+  "mobile_height": 844,
+  "checks": [
+    "Desktop dark and light screenshots inspected",
+    "Mobile Korean Original cover loads fully without horizontal overflow",
+    "Korean Original to English Original to English Compact retains the same Narrative cover",
+    "Theme restored to System",
+    "Temporary viewport reset"
+  ],
+  "screenshots": [
+    "local-cover-desktop.png",
+    "local-cover-mobile.png",
+    "local-cover-light.png"
+  ]
+}

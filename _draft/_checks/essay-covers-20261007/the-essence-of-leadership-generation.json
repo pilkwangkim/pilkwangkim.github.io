@@ -1,0 +1,22 @@
+{
+  "slug": "the-essence-of-leadership",
+  "mode": "built-in imagegen",
+  "prompt": "Use case: stylized-concept\nAsset type: landscape essay cover for a restrained personal blog, approximately 1.9:1 aspect ratio.\nPrimary request: a thoughtful abstract editorial illustration about servant leadership: leadership as the quiet structure that enables other people to rise and become capable, rather than one person claiming the spotlight.\nScene/backdrop: uninterrupted warm ivory paper background (#F4F1EA).\nSubject: one low, sturdy slate-blue arch that is a supporting platform, with three small simple vertical forms standing confidently at different heights on its broad upper surface. The support has an open arch-shaped cutout below; its purposeful shape should read as enabling others. The supporting arch is grounded and understated, while the three small forms receive equal visual dignity. Avoid a triumphal staircase or hierarchy.\nStyle/medium: sophisticated minimalist cut-paper editorial illustration, mostly flat silhouettes and subtly imperfect organic edges, extremely subtle print grain.\nComposition/framing: wide horizontal canvas, a compact central group occupying the middle third to half, plenty of quiet empty paper above and to both sides, all important forms safely inside the central 60 percent for mobile cropping.\nLighting/mood: calm, warm, reflective, intellectually serious.\nColor palette: warm ivory #F4F1EA; muted slate-blue #778B99 for the supporting arch; muted sage #A5B1A0 for the three smaller forms; only a minimal charcoal #414846 grounding line if needed.\nConstraints: only four meaningful primary shapes, no text, letters, numbers, logos, watermark, border, title, faces, crown, trophy, complex scenery, hard dramatic shadows, gradients, glossy 3D or photorealism. Do not add decorative symbols. Create the illustration only.",
+  "source_path": "/Users/pilkwang/.codex/generated_images/01a115b0-feab-7aa0-bb98-65604bcc8038/exec-c669e4b4-5865-4b55-b4d6-21857ae126ef.png",
+  "asset_path": "assets/img/essays/the-essence-of-leadership/cover.png",
+  "dimensions": {
+    "width": 1727,
+    "height": 911
+  },
+  "alt_en": "A quiet arch supports three figures, turning leadership into shared capability.",
+  "alt_ko": "세 인물을 받치는 조용한 아치가 함께 성장하도록 돕는 리더십을 표현한다.",
+  "concept": "The essay argues that mature leaders create a stage where others can shine and develop capability. An understated supporting arch carries three distinct figures rather than claiming a throne or spotlight.",
+  "source_essays_read": [
+    "_posts/2025-4Q/2025-12-12-The-Essence-of-Leadership-Original.md",
+    "_posts/2025-4Q/2025-12-12-The Essence of Leadership.md"
+  ],
+  "inspection": {
+    "passed": true,
+    "notes": "Viewed generated asset at full resolution; restrained palette, no embedded text, central metaphor legible and landscape aspect ratio suitable for the blog."
+  }
+}

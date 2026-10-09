@@ -1,0 +1,21 @@
+{
+  "translation_key": "maze-crawler-structured-baseline",
+  "mode": "reused-body-image",
+  "path": "/assets/img/posts/2026-05-17-maze-crawler-structure-baseline/cover.png",
+  "source_path": "/Users/pilkwang/Documents/VSDocs/blog/pilkwangkim.github.io/assets/img/posts/2026-05-17-maze-crawler-structure-baseline/cover.png",
+  "rationale": "The existing wide cover already communicates the article's actual themes: a factory convoy navigating walls, resource collection, remembered map regions, and an advancing southern loss boundary. Its central survival corridor and planner/safety symbols remain identifiable at reduced size, with no dense text or measured scores. Reuse the full original illustration without changing the game depiction or any body figures.",
+  "alt_en": "A factory convoy follows a safe northward route while scouts and workers handle resources and walls.",
+  "alt_ko": "남쪽의 소실 경계를 피해 북쪽 안전 경로를 확보하고, 정찰과 벽 제거를 분담하는 로봇 대열.",
+  "source_posts": [
+    "_posts/2026-2Q/2026-05-17-Maze-Crawler-Structure-Baseline.md",
+    "_posts/2026-2Q/2026-05-17-Maze-Crawler-Structure-Baseline-KR.md"
+  ],
+  "dimensions": {
+    "width": 1916,
+    "height": 821
+  },
+  "inspected": true,
+  "asset_bytes": 2371805,
+  "asset_sha256": "4f6f1c93216bf722c6308f2d356772f41ad4f9664211daa14b8c145980484608",
+  "native_aspect_ratio": 2.3337393422655297
+}

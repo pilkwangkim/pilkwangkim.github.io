@@ -1,0 +1,49 @@
+{
+  "status": "passed",
+  "checks": {
+    "only_original_source_removed": true,
+    "canonical_preserves_edited_original_body": true,
+    "canonical_metadata_changes_only_version_removal": true,
+    "all_103_other_posts_unchanged": true,
+    "current_source_bodies_match_after_snapshot": true,
+    "same_shared_cover": true,
+    "expected_cardinalities": true,
+    "cover_manifest_lists_only_active_source": true,
+    "cover_asset_hash_unchanged": true,
+    "canonical_has_no_edition_navigation": true,
+    "canonical_has_correct_self_canonical": true,
+    "canonical_keeps_cover": true,
+    "old_route_canonical_targets_single_article": true,
+    "old_route_refresh_targets_single_article": true,
+    "old_route_noindex": true,
+    "old_route_manual_fallback": true,
+    "old_route_source_sitemap_disabled": true,
+    "topic-latest-posts_one_corporate_entry": true,
+    "topic-latest-posts_no_corporate_edition_labels": true,
+    "topic-latest-posts_corporate_canonical_links_only": true,
+    "topic-all-posts_one_corporate_entry": true,
+    "topic-all-posts_no_corporate_edition_labels": true,
+    "topic-all-posts_corporate_canonical_links_only": true,
+    "search_single_canonical_corporate_entry": true,
+    "sitemap_one_canonical_no_original": true,
+    "rss_no_original_url": true,
+    "all_other_generated_pages_have_no_stale_original_links": true
+  },
+  "counts": {
+    "posts": 104,
+    "logical_groups": 52,
+    "essay_groups": 10,
+    "versioned_articles": 5
+  },
+  "unchanged_other_posts": 103,
+  "scanned_html_pages": 340,
+  "stale_original_links": [],
+  "canonical_body_sha256": "dd820c8b7093e525cc0d257c8b8b5d9a23fd611b5befa6b032be2430b6f48fa6",
+  "cover_sha256": "96c85045458118fd41ca52f8a9881e4245bf829fe8b94d65f41cbc5f6bbb7514",
+  "errors": [],
+  "redirect": {
+    "canonical": "https://pilkwangkim.github.io/posts/The-Corporate-Hallucinator/",
+    "refresh": "0; url=/posts/The-Corporate-Hallucinator/",
+    "fallback_href": "/posts/The-Corporate-Hallucinator/"
+  }
+}

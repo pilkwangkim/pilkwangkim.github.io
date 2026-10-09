@@ -1,0 +1,29 @@
+{
+  "status": "passed",
+  "original_post_routes": 96,
+  "original_tag_routes": 188,
+  "topic_pages": 16,
+  "topic_category_pages": 3,
+  "series_posts": 52,
+  "translation_links": 88,
+  "generated_pages_checked": 305,
+  "sidebar_topic_pages_checked": 305,
+  "sidebar_navigation_entries": 5,
+  "language_control_blocks_checked": 20,
+  "english_ui_pages_checked": 305,
+  "topic_article_order_pages_checked": 19,
+  "topic_article_panels_checked": 38,
+  "topic_article_bundles_checked": 56,
+  "recent_updates_pages_checked": 305,
+  "recent_article_keys": [
+    "casmi-2026-molecular-structures",
+    "gemma-4-developer-agent",
+    "ai-agent-security-12",
+    "ai-agent-security-11",
+    "ai-agent-security-10"
+  ],
+  "blog_asset_version": "60bb6fa32c4e",
+  "versioned_asset_pages_checked": 305,
+  "generated_javascript_syntax_checks": 2,
+  "errors": []
+}

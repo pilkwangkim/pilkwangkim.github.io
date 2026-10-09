@@ -1,0 +1,20 @@
+{
+  "translation_key": "playground-s6e2-prediction",
+  "mode": "built-in imagegen",
+  "path": "/assets/img/technical-covers/playground-s6e2-prediction/cover.webp",
+  "source_path": "/Users/pilkwang/.codex/generated_images/01a115b0-feab-7aa0-bb98-65604bcc8038/exec-4e532561-dc6a-46c6-b6f5-843c096e3ba6.png",
+  "rationale": "The article's central mechanism is a shared five-fold validation protocol for boosted-tree model comparisons. Its only body figure is a low-resolution near-square confusion matrix (484x389), suitable for the evaluation section but weak as a wide header. The new scientific cover presents data, holdout separation, boosted trees, and prediction objects without invented scores or diagnostic outcomes. Existing measured confusion-matrix image stays untouched.",
+  "alt_en": "Tabular heart-disease data, five-fold validation, boosted trees, and probability predictions.",
+  "source_posts": [
+    "_posts/2026-1Q/2026-02-18-S6E2-PRED.md"
+  ],
+  "dimensions": {
+    "width": 1728,
+    "height": 910
+  },
+  "prompt": "Use case: scientific-educational\nAsset type: wide landscape cover for a technical machine-learning article, approximately 1.9:1 aspect ratio.\nPrimary request: a clear professional scientific illustration of a fixed cross-validation protocol for heart-disease tabular classification using gradient-boosted trees. This is a conceptual modeling workflow, not a chart of measured results.\nScene/backdrop: clean white or very pale off-white background, no scenery.\nSubject and topology: a compact tabular-data grid at the left flows into a cross-validation strip in the middle composed of exactly five equal rectangles, four pale slate rectangles and one teal held-out rectangle. Below that strip are three modest branching decision-tree diagrams representing boosted-tree model families. Their outputs merge into one clean prediction table at the right, with a small unlabeled column of teal probability bars inside the table. Use the five-fold strip to show holdout separation, not a performance comparison. A small thin ECG trace can appear next to the input table as a quiet domain cue, never as a diagnostic result.\nStyle/medium: refined technical editorial illustration, crisp flat shapes, precise linework, restrained scientific-figure design with no playful mascots or cartoon people.\nComposition/framing: landscape about 1.9:1, four simple stages along a readable horizontal flow, ample white space, the workflow centered with clear visual hierarchy. Big shapes remain legible when reduced to a blog thumbnail.\nPalette: white/off-white, deep slate #32465A, muted blue #7298B5, restrained teal #458D8B. Low saturation, clean and professional.\nText: only the exact large labels \"Data\", \"5-fold CV\", \"Boosting\", and \"Predictions\"; one label per stage. No other words, digits, formulas or annotations.\nConstraints: no AUC scores, accuracy numbers, invented measurements, winner badge, diagnostic claims, heart anatomy, copied Kaggle logo, logos, watermarks, borders, tiny text, dense dashboards, photographic setting, glossy 3D, fireworks or abstract essay metaphors. Deliver one finished cover illustration, not a mockup.",
+  "inspected": true,
+  "asset_bytes": 49504,
+  "asset_sha256": "c00150bc8098db64f520611add41fc7a93d11671996ee1ee1a2d7a5a0765f661",
+  "native_aspect_ratio": 1.8989010989010988
+}

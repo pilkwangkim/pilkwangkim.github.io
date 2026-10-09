@@ -1,0 +1,333 @@
+{
+  "status": "passed",
+  "checked_at_utc": "2026-10-07T08:13:53Z",
+  "commit": "745497a76677b3ae3e4fe9831f18cbedc470f846",
+  "pages_run": "37592059824",
+  "expected_asset_fingerprint": "93663b5273d6",
+  "request_cache_control": "no-cache",
+  "network_timeouts_seconds": {
+    "open": 10,
+    "read": 20
+  },
+  "responses": {
+    "/topics/harness-engineering/": {
+      "url": "https://pilkwangkim.github.io/topics/harness-engineering/?verify=745497a-bundles",
+      "status": 200,
+      "etag": "\"6ac5fed3-ff83\""
+    },
+    "/topics/tabular/": {
+      "url": "https://pilkwangkim.github.io/topics/tabular/?verify=745497a-bundles",
+      "status": 200,
+      "etag": "\"6ac5fed3-130e2\""
+    },
+    "/topics/reinforcement-learning/": {
+      "url": "https://pilkwangkim.github.io/topics/reinforcement-learning/?verify=745497a-bundles",
+      "status": 200,
+      "etag": "\"6ac5fed3-83b8\""
+    },
+    "/assets/js/blog-navigation.js": {
+      "url": "https://pilkwangkim.github.io/assets/js/blog-navigation.js?v=93663b5273d6",
+      "status": 200,
+      "etag": "\"6ac5fed3-26c2\""
+    },
+    "/assets/css/jekyll-theme-chirpy.css": {
+      "url": "https://pilkwangkim.github.io/assets/css/jekyll-theme-chirpy.css?v=93663b5273d6",
+      "status": 200,
+      "etag": "\"6ac5fed3-1d2ae\""
+    }
+  },
+  "pages": {
+    "/topics/harness-engineering/": {
+      "topic_bundle_count": 3,
+      "logical_article_count": 16,
+      "initial_open_bundles": 0,
+      "all_catalog_matches_local": true,
+      "bundles": [
+        {
+          "topic_id": "gemma-4",
+          "bundle_id": "gemma-4",
+          "id": "series-gemma-4",
+          "count": 1,
+          "count_label": "article",
+          "article_keys": [
+            "gemma-4-developer-agent"
+          ],
+          "series_orders": [
+            null
+          ]
+        },
+        {
+          "topic_id": "ai-agent-security",
+          "bundle_id": "ai-agent-security",
+          "id": "series-ai-agent-security",
+          "count": 12,
+          "count_label": "articles",
+          "article_keys": [
+            "ai-agent-security-01",
+            "ai-agent-security-02",
+            "ai-agent-security-03",
+            "ai-agent-security-04",
+            "ai-agent-security-05",
+            "ai-agent-security-06",
+            "ai-agent-security-07",
+            "ai-agent-security-08",
+            "ai-agent-security-09",
+            "ai-agent-security-10",
+            "ai-agent-security-11",
+            "ai-agent-security-12"
+          ],
+          "series_orders": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12"
+          ]
+        },
+        {
+          "topic_id": "arc-agi-3",
+          "bundle_id": "arc-agi-3-main",
+          "id": "series-arc-agi-3-main",
+          "count": 3,
+          "count_label": "articles",
+          "article_keys": [
+            "arc-agi-3-introduction",
+            "arc-agi-3-part-2",
+            "arc-agi-3-research-r1"
+          ],
+          "series_orders": [
+            "1",
+            "2",
+            null
+          ]
+        }
+      ]
+    },
+    "/topics/tabular/": {
+      "topic_bundle_count": 7,
+      "logical_article_count": 20,
+      "initial_open_bundles": 0,
+      "all_catalog_matches_local": true,
+      "bundles": [
+        {
+          "topic_id": "biohub",
+          "bundle_id": "biohub",
+          "id": "series-biohub",
+          "count": 9,
+          "count_label": "articles",
+          "article_keys": [
+            "biohub-01",
+            "biohub-02",
+            "biohub-03",
+            "biohub-04",
+            "biohub-05",
+            "biohub-06",
+            "biohub-07",
+            "biohub-08",
+            "biohub-09"
+          ],
+          "series_orders": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"
+          ]
+        },
+        {
+          "topic_id": "casmi-2026",
+          "bundle_id": "casmi-2026",
+          "id": "series-casmi-2026",
+          "count": 1,
+          "count_label": "article",
+          "article_keys": [
+            "casmi-2026-molecular-structures"
+          ],
+          "series_orders": [
+            null
+          ]
+        },
+        {
+          "topic_id": "rsna-knee",
+          "bundle_id": "rsna-knee",
+          "id": "series-rsna-knee",
+          "count": 1,
+          "count_label": "article",
+          "article_keys": [
+            "rsna-knee-competition-structure"
+          ],
+          "series_orders": [
+            null
+          ]
+        },
+        {
+          "topic_id": "rogii",
+          "bundle_id": "rogii",
+          "id": "series-rogii",
+          "count": 3,
+          "count_label": "articles",
+          "article_keys": [
+            "rogii-tvt-alignment",
+            "rogii-error-anatomy",
+            "rogii-retrospective"
+          ],
+          "series_orders": [
+            "1",
+            "2",
+            "3"
+          ]
+        },
+        {
+          "topic_id": "playground-series",
+          "bundle_id": "playground-series",
+          "id": "series-playground-series",
+          "count": 4,
+          "count_label": "articles",
+          "article_keys": [
+            "playground-s6e2-eda",
+            "playground-s6e2-prediction",
+            "playground-s6e5-driver-features",
+            "playground-s6e6-stellar-classification"
+          ],
+          "series_orders": [
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "topic_id": "birdclef-2026",
+          "bundle_id": "birdclef-2026",
+          "id": "series-birdclef-2026",
+          "count": 1,
+          "count_label": "article",
+          "article_keys": [
+            "birdclef-2026-eos9-pcen"
+          ],
+          "series_orders": [
+            null
+          ]
+        },
+        {
+          "topic_id": "march-machine-learning-mania",
+          "bundle_id": "march-machine-learning-mania",
+          "id": "series-march-machine-learning-mania",
+          "count": 1,
+          "count_label": "article",
+          "article_keys": [
+            "mmlm-2026-baseline"
+          ],
+          "series_orders": [
+            null
+          ]
+        }
+      ]
+    },
+    "/topics/reinforcement-learning/": {
+      "topic_bundle_count": 4,
+      "logical_article_count": 4,
+      "initial_open_bundles": 0,
+      "all_catalog_matches_local": true,
+      "bundles": [
+        {
+          "topic_id": "kaggriculture",
+          "bundle_id": "kaggriculture",
+          "id": "series-kaggriculture",
+          "count": 1,
+          "count_label": "article",
+          "article_keys": [
+            "kaggriculture-working-note-1"
+          ],
+          "series_orders": [
+            null
+          ]
+        },
+        {
+          "topic_id": "pokemon-tcg",
+          "bundle_id": "pokemon-tcg",
+          "id": "series-pokemon-tcg",
+          "count": 1,
+          "count_label": "article",
+          "article_keys": [
+            "pokemon-tcg-working-note-1"
+          ],
+          "series_orders": [
+            null
+          ]
+        },
+        {
+          "topic_id": "maze-crawler",
+          "bundle_id": "maze-crawler",
+          "id": "series-maze-crawler",
+          "count": 1,
+          "count_label": "article",
+          "article_keys": [
+            "maze-crawler-structured-baseline"
+          ],
+          "series_orders": [
+            null
+          ]
+        },
+        {
+          "topic_id": "orbit-wars",
+          "bundle_id": "orbit-wars",
+          "id": "series-orbit-wars",
+          "count": 1,
+          "count_label": "article",
+          "article_keys": [
+            "orbit-wars-structured-baseline"
+          ],
+          "series_orders": [
+            null
+          ]
+        }
+      ]
+    }
+  },
+  "singleton_topic_ids": [
+    "gemma-4",
+    "casmi-2026",
+    "rsna-knee",
+    "birdclef-2026",
+    "march-machine-learning-mania",
+    "kaggriculture",
+    "pokemon-tcg",
+    "maze-crawler",
+    "orbit-wars"
+  ],
+  "assets": {
+    "/assets/css/jekyll-theme-chirpy.css": {
+      "url": "https://pilkwangkim.github.io/assets/css/jekyll-theme-chirpy.css?v=93663b5273d6",
+      "local_url": "/assets/css/jekyll-theme-chirpy.css?v=93663b5273d6",
+      "fingerprint": "93663b5273d6",
+      "live_sha256": "f98f9cf82d9e505c4d34e8be7b23e9079266ea6cea5d85c5254ac798f94ff4f0",
+      "local_sha256": "f98f9cf82d9e505c4d34e8be7b23e9079266ea6cea5d85c5254ac798f94ff4f0",
+      "equal": true,
+      "live_bytes": 119470,
+      "local_bytes": 119470
+    },
+    "/assets/js/blog-navigation.js": {
+      "url": "https://pilkwangkim.github.io/assets/js/blog-navigation.js?v=93663b5273d6",
+      "local_url": "/assets/js/blog-navigation.js?v=93663b5273d6",
+      "fingerprint": "93663b5273d6",
+      "live_sha256": "572fe80b7b6d2120b1522e160bbe06b28438695c86f8447659135df4e8228428",
+      "local_sha256": "572fe80b7b6d2120b1522e160bbe06b28438695c86f8447659135df4e8228428",
+      "equal": true,
+      "live_bytes": 9922,
+      "local_bytes": 9922
+    }
+  },
+  "errors": []
+}

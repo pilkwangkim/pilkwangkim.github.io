@@ -1,0 +1,21 @@
+{
+  "translation_key": "playground-s6e6-stellar-classification",
+  "mode": "reused-body-image",
+  "path": "/assets/img/posts/2026-06-02-pg-s6e6-eda-gbdt-artifact-blend/fig-04-photometric-geometry.png",
+  "source_path": "/Users/pilkwang/Documents/VSDocs/blog/pilkwangkim.github.io/assets/img/posts/2026-06-02-pg-s6e6-eda-gbdt-artifact-blend/fig-04-photometric-geometry.png",
+  "rationale": "The actual redshift versus u-z scatter summarizes the article's dominant physical class-separation signal, showing the overlap that motivates nonlinear models and calibrated blending. It has one panel, sparse labels, and a clear class legend, making it a stronger scientific header than the decorative character cover or dense executive dashboard. Preserve the complete empirical scatter, axis ranges, legend, points, and aspect ratio without cropping or inventing results.",
+  "alt_en": "Observed redshift and u-z color distributions distinguish stars, galaxies, and quasars with overlapping regions.",
+  "alt_ko": "별·은하·퀘이사의 구분과 겹치는 영역을 보여주는 적색편이와 u-z 색지수 산점도.",
+  "source_posts": [
+    "_posts/2026-2Q/2026-06-02-PG-S6E6-EDA-GBDT-Bases-And-Artifact-Blend.md",
+    "_posts/2026-2Q/2026-06-02-PG-S6E6-EDA-GBDT-Bases-And-Artifact-Blend-KR.md"
+  ],
+  "dimensions": {
+    "width": 889,
+    "height": 590
+  },
+  "inspected": true,
+  "asset_bytes": 411940,
+  "asset_sha256": "d8d0599b570c77acdeed8e9564977ffdc697aef353d700215f37486ce7c80761",
+  "native_aspect_ratio": 1.506779661016949
+}

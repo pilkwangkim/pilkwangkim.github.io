@@ -1,0 +1,20 @@
+{
+  "translation_key": "quantum-transport-negf",
+  "path": "/assets/img/posts/2026-07-22-negf-from-scratch/fig-03-exact-lead-elimination.png",
+  "dimensions": [
+    1329,
+    390
+  ],
+  "rationale": "Exact elimination of the semi-infinite leads is the conceptual spine of the NEGF derivation: a finite device retains their effect as energy-dependent contact self-energy. The existing professionally drawn lead-elimination schematic shows the explicit system, the reduced device with feedback, and the surface-response recursion. It is more directly relevant to the title than a later NDR or transmission result. Preserve the complete three-panel figure at its native wide aspect ratio, without cropping or altering equations.",
+  "alt_en": "Exact lead elimination replaces explicit semi-infinite lead coordinates with energy-dependent self-energy on the finite device.",
+  "alt_ko": "반무한 리드의 좌표를 정확히 소거해 유한한 소자에 에너지 의존 자기 에너지로 반영하는 과정.",
+  "mode": "reused-body-image",
+  "source_path": "/Users/pilkwang/Documents/VSDocs/blog/pilkwangkim.github.io/assets/img/posts/2026-07-22-negf-from-scratch/fig-03-exact-lead-elimination.png",
+  "source_posts": [
+    "_posts/2026-3Q/2026-07-22-From-Closed-to-Open-Quantum-Transport-with-NEGF-KR.md",
+    "_posts/2026-3Q/2026-07-22-From-Closed-to-Open-Quantum-Transport-with-NEGF.md"
+  ],
+  "sha256": "d6660244d9d7e88eb7eed02ff6de77d0ef6fa90bf2b522d8e9afa38f17006d0d",
+  "prompt": null,
+  "inspection": "Full English article and candidate body figures visually reviewed; original figure reused unchanged."
+}

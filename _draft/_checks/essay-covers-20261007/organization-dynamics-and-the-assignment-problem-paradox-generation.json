@@ -1,0 +1,22 @@
+{
+  "slug": "organization-dynamics-and-the-assignment-problem-paradox",
+  "mode": "built-in imagegen",
+  "prompt": "Use case: stylized-concept\nAsset type: landscape essay cover for a restrained personal blog, approximately 1.9:1 aspect ratio.\nPrimary request: a sophisticated abstract editorial illustration of the assignment-problem paradox: the more capable person is used to support an organization's invisible maintenance, while a smaller capability receives the visible strategic position.\nScene/backdrop: uninterrupted warm ivory paper (#F4F1EA).\nSubject: one simple thin horizontal platform held up at its underside by a large muted slate-blue geometric pillar; a small dusty-clay rounded upright piece stands visibly on the top of that platform, off-center above the larger hidden support. The lower pillar is much larger than the small upright piece, visibly carrying the structure's load yet denied the open space above. A gentle translucent ivory spotlight triangle touches only the small piece on top; its edges are extremely faint. Make this read as a subtle editorial metaphor for unequal visibility, with no literal human faces or equipment.\nStyle/medium: restrained flat cut-paper silhouettes, subtly imperfect organic edges, extremely subtle print grain, fine charcoal accents.\nComposition/framing: wide horizontal canvas, compact central composition, abundant empty ivory space, key forms in central 60 percent; reveal both upper visible position and lower support clearly. Use just 4 primary forms: broad platform, large pillar below, small rounded upright above, faint light shape.\nLighting/mood: quiet, critical, reflective; soft and understated, no dramatic theatrical glow.\nColor palette: ivory #F4F1EA; muted slate-blue #778B99 for the strong support; dusty clay #C9A18F for small visible upright; a fine charcoal #414846 platform line.\nConstraints: no text, letters, numbers, formulas, graphs, labels, logos, watermark, border, title, gears, decorative symbols, busy office details, glossy 3D, photographic realism or saturated colors. Do not show a blocked staircase, crowns, winner trophies, or corporate clip art. Produce the illustration only.",
+  "source_path": "/Users/pilkwang/.codex/generated_images/01a115b0-feab-7aa0-bb98-65604bcc8038/exec-edabd879-7ce8-48a2-8aa7-7ddde529a32f.png",
+  "asset_path": "assets/img/essays/organization-dynamics-and-the-assignment-problem-paradox/cover.png",
+  "dimensions": {
+    "width": 1727,
+    "height": 911
+  },
+  "alt_en": "A large support carries the platform while a smaller form receives the spotlight.",
+  "alt_ko": "큰 받침이 무대를 떠받치는 동안 작은 형태만 조명을 받는 모습으로 역할 배치의 역설을 표현한다.",
+  "concept": "Both editions explain how the strongest employee becomes the maintenance stabilizer while a less capable colleague receives strategic visibility. A larger hidden support and a smaller lit form visualize role allocation rather than talent.",
+  "source_essays_read": [
+    "_posts/2025-4Q/2025-12-13-Organization-Dynamics-and-The-Assignment-Problem-Paradox-Original.md",
+    "_posts/2025-4Q/2025-12-13-Organization Dynamics and The Assignment Problem Paradox.md"
+  ],
+  "inspection": {
+    "passed": true,
+    "notes": "Viewed generated asset at full resolution; restrained palette, no embedded text, central metaphor legible and landscape aspect ratio suitable for the blog."
+  }
+}

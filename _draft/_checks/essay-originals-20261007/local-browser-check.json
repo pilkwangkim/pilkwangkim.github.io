@@ -1,0 +1,432 @@
+{
+  "korean": {
+    "count": "5",
+    "language": "ko",
+    "rows": [
+      {
+        "editions": [],
+        "href": "/posts/The-Language-That-Faces-the-Future-KR/",
+        "key": "the-language-that-faces-the-future",
+        "title": "리더의 언어는 왜 미래를 향해야 하는가: 과거의 덫과 조직의 동력 (KR)"
+      },
+      {
+        "editions": [
+          {
+            "links": [
+              {
+                "href": "/posts/The-Mirage-of-Merit-Original-KR/",
+                "text": "한국어"
+              }
+            ],
+            "version": "original"
+          },
+          {
+            "links": [
+              {
+                "href": "/posts/The-Mirage-of-Merit-KR/",
+                "text": "한국어"
+              }
+            ],
+            "version": "compact"
+          }
+        ],
+        "href": "/posts/The-Mirage-of-Merit-Original-KR/",
+        "key": "the-mirage-of-merit",
+        "title": "능력주의의 신기루: 포지셔닝의 지정학 (KR)"
+      },
+      {
+        "editions": [
+          {
+            "links": [
+              {
+                "href": "/posts/The-Narrative-Trap-Original-KR/",
+                "text": "한국어"
+              }
+            ],
+            "version": "original"
+          },
+          {
+            "links": [
+              {
+                "href": "/posts/The-Narrative-Trap-KR/",
+                "text": "한국어"
+              }
+            ],
+            "version": "compact"
+          }
+        ],
+        "href": "/posts/The-Narrative-Trap-Original-KR/",
+        "key": "the-narrative-trap",
+        "title": "서사적 인과율의 함정: '체호프의 총'은 현실에서 발사되지 않는다 (KR)"
+      },
+      {
+        "editions": [],
+        "href": "/posts/The-Credentialist-Illusion-KR/",
+        "key": "the-credentialist-illusion",
+        "title": "능력주의의 환상과 책임의 외주화: 현대 기업은 왜 간판에 집착하는가 (KR)"
+      },
+      {
+        "editions": [
+          {
+            "links": [
+              {
+                "href": "/posts/The-Paradox-of-Benevolence-Original-KR/",
+                "text": "한국어"
+              }
+            ],
+            "version": "original"
+          },
+          {
+            "links": [
+              {
+                "href": "/posts/The-Paradox-of-Benevolence-KR/",
+                "text": "한국어"
+              }
+            ],
+            "version": "compact"
+          }
+        ],
+        "href": "/posts/The-Paradox-of-Benevolence-Original-KR/",
+        "key": "the-paradox-of-benevolence",
+        "title": "선의의 역설: 도덕적 나르시시즘을 넘어 결과적 책임으로 (KR)"
+      }
+    ]
+  },
+  "all": {
+    "count": "10",
+    "language": "all",
+    "overflow": false,
+    "rows": [
+      {
+        "editions": [],
+        "href": "/posts/The-Language-That-Faces-the-Future/",
+        "key": "the-language-that-faces-the-future",
+        "title": "The Language That Faces the Future"
+      },
+      {
+        "editions": [
+          {
+            "links": [
+              {
+                "href": "/posts/The-Corporate-Hallucinator-Original/",
+                "text": "English"
+              }
+            ],
+            "version": "original"
+          },
+          {
+            "links": [
+              {
+                "href": "/posts/The-Corporate-Hallucinator/",
+                "text": "English"
+              }
+            ],
+            "version": "compact"
+          }
+        ],
+        "href": "/posts/The-Corporate-Hallucinator-Original/",
+        "key": "the-corporate-hallucinator",
+        "title": "The Corporate Hallucinator: A Chronicle of Institutional Impotence"
+      },
+      {
+        "editions": [
+          {
+            "links": [
+              {
+                "href": "/posts/The-Mirage-of-Merit-Original/",
+                "text": "English"
+              },
+              {
+                "href": "/posts/The-Mirage-of-Merit-Original-KR/",
+                "text": "한국어"
+              }
+            ],
+            "version": "original"
+          },
+          {
+            "links": [
+              {
+                "href": "/posts/The-Mirage-of-Merit/",
+                "text": "English"
+              },
+              {
+                "href": "/posts/The-Mirage-of-Merit-KR/",
+                "text": "한국어"
+              }
+            ],
+            "version": "compact"
+          }
+        ],
+        "href": "/posts/The-Mirage-of-Merit-Original/",
+        "key": "the-mirage-of-merit",
+        "title": "The Mirage of Merit: The Geopolitics of Positioning"
+      },
+      {
+        "editions": [
+          {
+            "links": [
+              {
+                "href": "/posts/The-Narrative-Trap-Original/",
+                "text": "English"
+              },
+              {
+                "href": "/posts/The-Narrative-Trap-Original-KR/",
+                "text": "한국어"
+              }
+            ],
+            "version": "original"
+          },
+          {
+            "links": [
+              {
+                "href": "/posts/The-Narrative-Trap/",
+                "text": "English"
+              },
+              {
+                "href": "/posts/The-Narrative-Trap-KR/",
+                "text": "한국어"
+              }
+            ],
+            "version": "compact"
+          }
+        ],
+        "href": "/posts/The-Narrative-Trap-Original/",
+        "key": "the-narrative-trap",
+        "title": "The Narrative Trap: Why Chekhov’s Gun Rarely Fires in Real Life"
+      },
+      {
+        "editions": [],
+        "href": "/posts/The-Credentialist-Illusion/",
+        "key": "the-credentialist-illusion",
+        "title": "The Credentialist Illusion: Why modern firms outsource responsibility to pedigree"
+      },
+      {
+        "editions": [],
+        "href": "/posts/The-Station-of-Uncertainty/",
+        "key": "the-station-of-uncertainty",
+        "title": "The Station of Uncertainty: Active Detachment in Opaque Systems"
+      },
+      {
+        "editions": [
+          {
+            "links": [
+              {
+                "href": "/posts/The-Paradox-of-Benevolence-Original/",
+                "text": "English"
+              },
+              {
+                "href": "/posts/The-Paradox-of-Benevolence-Original-KR/",
+                "text": "한국어"
+              }
+            ],
+            "version": "original"
+          },
+          {
+            "links": [
+              {
+                "href": "/posts/The-Paradox-of-Benevolence/",
+                "text": "English"
+              },
+              {
+                "href": "/posts/The-Paradox-of-Benevolence-KR/",
+                "text": "한국어"
+              }
+            ],
+            "version": "compact"
+          }
+        ],
+        "href": "/posts/The-Paradox-of-Benevolence-Original/",
+        "key": "the-paradox-of-benevolence",
+        "title": "The Paradox of Benevolence: Escaping Moral Narcissism for the Discipline of Consequence"
+      },
+      {
+        "editions": [],
+        "href": "/posts/The-Portfolio-Theory-of-Existence/",
+        "key": "the-portfolio-theory-of-existence",
+        "title": "The Portfolio Theory of Existence"
+      },
+      {
+        "editions": [
+          {
+            "links": [
+              {
+                "href": "/posts/Organization-Dynamics-and-The-Assignment-Problem-Paradox-Original/",
+                "text": "English"
+              }
+            ],
+            "version": "original"
+          },
+          {
+            "links": [
+              {
+                "href": "/posts/Organization-Dynamics-and-The-Assignment-Problem-Paradox/",
+                "text": "English"
+              }
+            ],
+            "version": "compact"
+          }
+        ],
+        "href": "/posts/Organization-Dynamics-and-The-Assignment-Problem-Paradox-Original/",
+        "key": "organization-dynamics-and-the-assignment-problem-paradox",
+        "title": "Organizational Dynamics & The Assignment Problem Paradox"
+      },
+      {
+        "editions": [
+          {
+            "links": [
+              {
+                "href": "/posts/The-Essence-of-Leadership-Original/",
+                "text": "English"
+              }
+            ],
+            "version": "original"
+          },
+          {
+            "links": [
+              {
+                "href": "/posts/The-Essence-of-Leadership/",
+                "text": "English"
+              }
+            ],
+            "version": "compact"
+          }
+        ],
+        "href": "/posts/The-Essence-of-Leadership-Original/",
+        "key": "the-essence-of-leadership",
+        "title": "The Essence of Leadership: Functional Commitment and Strategic Sublimation"
+      }
+    ]
+  },
+  "latest": {
+    "count": "10",
+    "visibleRows": [
+      "the-language-that-faces-the-future",
+      "the-corporate-hallucinator",
+      "the-mirage-of-merit",
+      "the-narrative-trap",
+      "the-credentialist-illusion"
+    ]
+  },
+  "mobile": {
+    "count": "10",
+    "scrollWidth": 355,
+    "versionGroups": [
+      {
+        "left": 15.98011302947998,
+        "right": 158.3522596359253,
+        "version": "original"
+      },
+      {
+        "left": 177.5426025390625,
+        "right": 325.5113525390625,
+        "version": "compact"
+      },
+      {
+        "left": 15.98011302947998,
+        "right": 229.7159070968628,
+        "version": "original"
+      },
+      {
+        "left": 15.98011302947998,
+        "right": 235.3124952316284,
+        "version": "compact"
+      },
+      {
+        "left": 15.98011302947998,
+        "right": 229.7159070968628,
+        "version": "original"
+      },
+      {
+        "left": 15.98011302947998,
+        "right": 235.3124952316284,
+        "version": "compact"
+      },
+      {
+        "left": 15.98011302947998,
+        "right": 229.7159070968628,
+        "version": "original"
+      },
+      {
+        "left": 15.98011302947998,
+        "right": 235.3124952316284,
+        "version": "compact"
+      },
+      {
+        "left": 15.98011302947998,
+        "right": 158.3522596359253,
+        "version": "original"
+      },
+      {
+        "left": 177.5426025390625,
+        "right": 325.5113525390625,
+        "version": "compact"
+      },
+      {
+        "left": 15.98011302947998,
+        "right": 158.3522596359253,
+        "version": "original"
+      },
+      {
+        "left": 177.5426025390625,
+        "right": 325.5113525390625,
+        "version": "compact"
+      }
+    ],
+    "width": 355
+  },
+  "assignment": {
+    "editions": [
+      {
+        "links": [
+          {
+            "href": "/posts/Organization-Dynamics-and-The-Assignment-Problem-Paradox-Original/",
+            "text": "English"
+          }
+        ],
+        "version": "original"
+      },
+      {
+        "links": [
+          {
+            "href": "/posts/Organization-Dynamics-and-The-Assignment-Problem-Paradox/",
+            "text": "English"
+          }
+        ],
+        "version": "compact"
+      }
+    ],
+    "mathCount": 26,
+    "mathErrors": 0,
+    "selected": [
+      {
+        "edition": "original",
+        "href": "/posts/Organization-Dynamics-and-The-Assignment-Problem-Paradox-Original/"
+      }
+    ],
+    "tableText": "Task \\ Employee\tEmployee A\tEmployee B\nTask 𝛼 (Minor)\t0.2\t0.8\nTask 𝛽 (Major)\t1.0\t1.4",
+    "tables": 1,
+    "url": "http://127.0.0.1:4196/posts/Organization-Dynamics-and-The-Assignment-Problem-Paradox-Original/"
+  },
+  "koreanOriginal": {
+    "language": "ko",
+    "paragraphs": 16,
+    "selected": [
+      {
+        "edition": "original",
+        "href": "/posts/The-Narrative-Trap-Original-KR/"
+      }
+    ],
+    "title": "서사적 인과율의 함정: '체호프의 총'은 현실에서 발사되지 않는다 (KR)",
+    "url": "http://127.0.0.1:4196/posts/The-Narrative-Trap-Original-KR/"
+  },
+  "koreanCompact": {
+    "language": "ko",
+    "selected": [
+      {
+        "edition": "compact",
+        "href": "/posts/The-Narrative-Trap-KR/"
+      }
+    ],
+    "url": "http://127.0.0.1:4196/posts/The-Narrative-Trap-KR/"
+  }
+}

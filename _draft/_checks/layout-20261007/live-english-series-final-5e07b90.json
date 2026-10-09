@@ -1,0 +1,276 @@
+{
+  "status": "passed",
+  "checked_at_utc": "2026-10-07T08:44:52Z",
+  "commit": "5e07b90f145c1f61c1cf88dd0ecf392637f9971f",
+  "pages_run": "37595283018",
+  "expected_asset_fingerprint": "93663b5273d6",
+  "request_cache_control": "no-cache",
+  "network_timeouts_seconds": {
+    "open": 10,
+    "read": 20
+  },
+  "responses": {
+    "/topics/": {
+      "url": "https://pilkwangkim.github.io/topics/?verify=5e07b90-series",
+      "status": 200,
+      "etag": "\"6ac605a9-4a9b\""
+    },
+    "/topics/reinforcement-learning/": {
+      "url": "https://pilkwangkim.github.io/topics/reinforcement-learning/?verify=5e07b90-series",
+      "status": 200,
+      "etag": "\"6ac605a9-8415\""
+    },
+    "/topics/tabular/": {
+      "url": "https://pilkwangkim.github.io/topics/tabular/?verify=5e07b90-series",
+      "status": 200,
+      "etag": "\"6ac605a9-1317b\""
+    },
+    "/topics/harness-engineering/": {
+      "url": "https://pilkwangkim.github.io/topics/harness-engineering/?verify=5e07b90-series",
+      "status": 200,
+      "etag": "\"6ac605a9-ffcc\""
+    },
+    "/assets/js/blog-navigation.js": {
+      "url": "https://pilkwangkim.github.io/assets/js/blog-navigation.js?v=93663b5273d6",
+      "status": 200,
+      "etag": "\"6ac605a9-26c2\""
+    },
+    "/assets/css/jekyll-theme-chirpy.css": {
+      "url": "https://pilkwangkim.github.io/assets/css/jekyll-theme-chirpy.css?v=93663b5273d6",
+      "status": 200,
+      "etag": "\"6ac605a9-1d2ae\""
+    }
+  },
+  "pages": {
+    "/topics/": {
+      "english_card_count": 5,
+      "cards": [
+        {
+          "id": "harness-engineering",
+          "title": "AI Agent Harness Engineering"
+        },
+        {
+          "id": "tabular",
+          "title": "Tabular & Predictive Modeling"
+        },
+        {
+          "id": "reinforcement-learning",
+          "title": "Reinforcement Learning & Game Agents"
+        },
+        {
+          "id": "quantum-transport",
+          "title": "Quantum Transport"
+        },
+        {
+          "id": "essays",
+          "title": "Essays"
+        }
+      ],
+      "card_data_matches_local": true
+    },
+    "/topics/harness-engineering/": {
+      "english_topic_bundle_count": 3,
+      "logical_article_count": 16,
+      "english_headings_across_panels": 6,
+      "initial_open_bundles": 0,
+      "all_catalog_matches_local": true,
+      "bundles": [
+        {
+          "topic_id": "gemma-4",
+          "id": "series-gemma-4",
+          "title": "Gemma 4 Developer Agent",
+          "count": 1,
+          "article_keys": [
+            "gemma-4-developer-agent"
+          ]
+        },
+        {
+          "topic_id": "ai-agent-security",
+          "id": "series-ai-agent-security",
+          "title": "AI Agent Security",
+          "count": 12,
+          "article_keys": [
+            "ai-agent-security-01",
+            "ai-agent-security-02",
+            "ai-agent-security-03",
+            "ai-agent-security-04",
+            "ai-agent-security-05",
+            "ai-agent-security-06",
+            "ai-agent-security-07",
+            "ai-agent-security-08",
+            "ai-agent-security-09",
+            "ai-agent-security-10",
+            "ai-agent-security-11",
+            "ai-agent-security-12"
+          ]
+        },
+        {
+          "topic_id": "arc-agi-3",
+          "id": "series-arc-agi-3-main",
+          "title": "ARC-AGI-3",
+          "count": 3,
+          "article_keys": [
+            "arc-agi-3-introduction",
+            "arc-agi-3-part-2",
+            "arc-agi-3-research-r1"
+          ]
+        }
+      ]
+    },
+    "/topics/tabular/": {
+      "english_topic_bundle_count": 7,
+      "logical_article_count": 20,
+      "english_headings_across_panels": 14,
+      "initial_open_bundles": 0,
+      "all_catalog_matches_local": true,
+      "bundles": [
+        {
+          "topic_id": "biohub",
+          "id": "series-biohub",
+          "title": "BioHub Cell Tracking",
+          "count": 9,
+          "article_keys": [
+            "biohub-01",
+            "biohub-02",
+            "biohub-03",
+            "biohub-04",
+            "biohub-05",
+            "biohub-06",
+            "biohub-07",
+            "biohub-08",
+            "biohub-09"
+          ]
+        },
+        {
+          "topic_id": "casmi-2026",
+          "id": "series-casmi-2026",
+          "title": "Enveda CASMI 2026",
+          "count": 1,
+          "article_keys": [
+            "casmi-2026-molecular-structures"
+          ]
+        },
+        {
+          "topic_id": "rsna-knee",
+          "id": "series-rsna-knee",
+          "title": "RSNA Knee MRI",
+          "count": 1,
+          "article_keys": [
+            "rsna-knee-competition-structure"
+          ]
+        },
+        {
+          "topic_id": "rogii",
+          "id": "series-rogii",
+          "title": "ROGII Geosteering",
+          "count": 3,
+          "article_keys": [
+            "rogii-tvt-alignment",
+            "rogii-error-anatomy",
+            "rogii-retrospective"
+          ]
+        },
+        {
+          "topic_id": "playground-series",
+          "id": "series-playground-series",
+          "title": "Playground Series",
+          "count": 4,
+          "article_keys": [
+            "playground-s6e2-eda",
+            "playground-s6e2-prediction",
+            "playground-s6e5-driver-features",
+            "playground-s6e6-stellar-classification"
+          ]
+        },
+        {
+          "topic_id": "birdclef-2026",
+          "id": "series-birdclef-2026",
+          "title": "BirdCLEF 2026",
+          "count": 1,
+          "article_keys": [
+            "birdclef-2026-eos9-pcen"
+          ]
+        },
+        {
+          "topic_id": "march-machine-learning-mania",
+          "id": "series-march-machine-learning-mania",
+          "title": "March Machine Learning Mania",
+          "count": 1,
+          "article_keys": [
+            "mmlm-2026-baseline"
+          ]
+        }
+      ]
+    },
+    "/topics/reinforcement-learning/": {
+      "english_topic_bundle_count": 4,
+      "logical_article_count": 4,
+      "english_headings_across_panels": 8,
+      "initial_open_bundles": 0,
+      "all_catalog_matches_local": true,
+      "bundles": [
+        {
+          "topic_id": "kaggriculture",
+          "id": "series-kaggriculture",
+          "title": "Kaggriculture",
+          "count": 1,
+          "article_keys": [
+            "kaggriculture-working-note-1"
+          ]
+        },
+        {
+          "topic_id": "pokemon-tcg",
+          "id": "series-pokemon-tcg",
+          "title": "Pokémon TCG AI Battle",
+          "count": 1,
+          "article_keys": [
+            "pokemon-tcg-working-note-1"
+          ]
+        },
+        {
+          "topic_id": "maze-crawler",
+          "id": "series-maze-crawler",
+          "title": "Maze Crawler",
+          "count": 1,
+          "article_keys": [
+            "maze-crawler-structured-baseline"
+          ]
+        },
+        {
+          "topic_id": "orbit-wars",
+          "id": "series-orbit-wars",
+          "title": "Orbit Wars",
+          "count": 1,
+          "article_keys": [
+            "orbit-wars-structured-baseline"
+          ]
+        }
+      ]
+    }
+  },
+  "logical_ai_article_count": 40,
+  "english_ai_topic_bundle_count": 14,
+  "assets": {
+    "/assets/css/jekyll-theme-chirpy.css": {
+      "url": "https://pilkwangkim.github.io/assets/css/jekyll-theme-chirpy.css?v=93663b5273d6",
+      "local_url": "/assets/css/jekyll-theme-chirpy.css?v=93663b5273d6",
+      "fingerprint": "93663b5273d6",
+      "live_sha256": "f98f9cf82d9e505c4d34e8be7b23e9079266ea6cea5d85c5254ac798f94ff4f0",
+      "local_sha256": "f98f9cf82d9e505c4d34e8be7b23e9079266ea6cea5d85c5254ac798f94ff4f0",
+      "equal": true,
+      "live_bytes": 119470,
+      "local_bytes": 119470
+    },
+    "/assets/js/blog-navigation.js": {
+      "url": "https://pilkwangkim.github.io/assets/js/blog-navigation.js?v=93663b5273d6",
+      "local_url": "/assets/js/blog-navigation.js?v=93663b5273d6",
+      "fingerprint": "93663b5273d6",
+      "live_sha256": "572fe80b7b6d2120b1522e160bbe06b28438695c86f8447659135df4e8228428",
+      "local_sha256": "572fe80b7b6d2120b1522e160bbe06b28438695c86f8447659135df4e8228428",
+      "equal": true,
+      "live_bytes": 9922,
+      "local_bytes": 9922
+    }
+  },
+  "errors": []
+}

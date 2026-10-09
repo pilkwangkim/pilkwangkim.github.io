@@ -1,0 +1,18 @@
+{
+  "slug": "the-station-of-uncertainty",
+  "prompt": "Use case: stylized-concept\nAsset type: a restrained editorial cover illustration for a thoughtful personal essay blog\nPrimary request: illustrate active detachment while waiting inside an opaque system. Show a quiet, simplified bus-stop bench and a blank arrival display above it, with one small open book resting on the bench: the schedule remains opaque, but the waiting time can still belong to the reader.\nScene/backdrop: expansive warm ivory paper (#F4F1EA), a single very fine ground line; no street, city, vehicles or people.\nSubject: central abstract bus-stop assembly with bench, narrow upright pole and blank rectangular arrival panel; the open book is the sole small, inviting detail.\nStyle/medium: minimalist flat cut-paper editorial illustration, refined simple silhouettes with charcoal (#414846) hairline outlines, exceptionally subtle printed paper grain, no glossy 3D.\nComposition/framing: wide horizontal landscape, approximately 1.9:1, suitable for a 1200 by 630 blog header. Limit to four meaningful visual elements and abundant negative space. Keep the entire metaphor within the central 60 percent of the canvas so it survives mobile cropping.\nMood: quiet intellectual autonomy, patient and reflective rather than bleak.\nColor palette: warm ivory background, muted slate-blue (#778B99) bench/display, a very small dusty-clay (#C9A18F) book accent, restrained charcoal linework. Only these few quiet colors.\nConstraints: no text, no lettering, no digits on the display or book, no logos, no watermark, no frame or border. Not an infographic, not a comic, not a photorealistic street scene. Avoid decorative objects, excessive detail, gradients, bright colors, dramatic shadows and ornamental flourishes.",
+  "source_path": "/Users/pilkwang/.codex/generated_images/01a115b1-36e5-7322-8929-7f23214fc118/exec-1bd2551f-731c-4556-acf2-0712b5351131.png",
+  "asset_path": "assets/img/essays/the-station-of-uncertainty/cover.png",
+  "alt_en": "A quiet bench and blank arrival board, with an open book reclaiming the waiting time.",
+  "alt_ko": "빈 도착 안내판 아래의 조용한 벤치와, 기다리는 시간을 되찾게 하는 펼친 책.",
+  "concept": "The essay's bus-stop metaphor contrasts unknowable external schedules with attention and independent assets one can reclaim. The small open book conveys active detachment without adding a person or distracting scenery.",
+  "mode": "built-in imagegen",
+  "dimensions": {
+    "width": 1729,
+    "height": 910
+  },
+  "inspection": {
+    "passed": true,
+    "notes": "Visually inspected tool result; muted palette, no lettering, clear central metaphor, no decorative clutter."
+  }
+}
