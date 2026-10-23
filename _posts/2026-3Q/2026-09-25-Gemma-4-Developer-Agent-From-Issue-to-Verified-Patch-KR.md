@@ -1,5 +1,5 @@
 ---
-title: "Gemma 4 Developer Agent: 버그 하나를 끝까지 고치는 AI 만들기"
+title: "Gemma 4 Developer Agent 1편: 버그 하나를 끝까지 고치는 AI 만들기"
 description: "코드 한 줄을 생성하는 모델에서 저장소를 탐색하고 버그를 고치는 에이전트까지. 대회의 배경과 채점 방식, 실행 제약, 첫 실험을 준비하는 과정을 차근차근 살펴본다."
 date: 2026-09-25 06:00:00 +0900
 categories: [AI, Kaggle]
@@ -7,12 +7,19 @@ tags: [kaggle, gemma-4, adk, coding-agents, evaluation, lora, software-engineeri
 math: true
 mermaid: true
 image:
-  path: /assets/img/gemma4-developer-agent/hero.png
+  path: /assets/img/posts/gemma-4-series/cover-1.webp
+  alt: "1편 표지: 이슈에서 검증된 패치까지"
+  width: 2200
+  height: 1240
+  fit: contain
+  hide_caption: true
 pin: false
 published: true
 topic: gemma-4
 lang: ko
 translation_key: gemma-4-developer-agent
+series: gemma-4
+series_order: 1
 ---
 
 <style>
@@ -47,6 +54,9 @@ article .content li {
 </style>
 
 [Read in English]({{ site.baseurl }}/posts/Gemma-4-Developer-Agent-From-Issue-to-Verified-Patch/)
+
+{% assign gemma_part2 = site.posts | where: "translation_key", "gemma-4-developer-agent-02" | where: "lang", "ko" | first %}
+> **2026년 10월 23일 덧붙임.** 이 글은 9월 25일에 확인한 대회 조건과 아직 채점받지 않은 실습 예제를 당시 기록으로 남겨 둔 것이다. 이후 허용 모델, thinking 설정, 보호 파일 처리, 실행 오류 후 패치 수집 방식이 달라졌다. 아래 코드는 해당 버전을 기준으로 읽어야 한다. 이후 실험에서 비교 기준으로 쓴 공개 패키지도 이 글의 예제와는 별개다.{% if gemma_part2 %} 달라진 조건과 실제 비교 실험은 [2편]({{ site.baseurl }}{{ gemma_part2.url }})에 정리했다.{% endif %}
 
 ## 들어가며: 우리가 만들 에이전트
 
@@ -1400,7 +1410,7 @@ Paper Track에서는 순위와 별개로 실험에서 얻은 결과를 정리할
 
 ## 더 읽을 자료와 출처 안내
 
-**그림에 관하여.** 표지는 제공받은 공식 대회 헤더를 이미지 생성 도구로 편집해 배경과 구성을 단순하게 정리했다. 그림 1에는 프로젝트의 역할 분담과 두 가지 반복 과정을, 그림 2에는 분리된 실행 환경을 담았다. 그림 3은 공개 과제의 구성을 요약한다. 그림 4와 5는 각각 계획과 설명을 위한 계산 예시이며 측정 결과와 구분해 표시했다. 차트는 명시한 문제 수와 계산값으로 그렸으며 이미지 생성 도구를 사용하지 않았다.
+**그림에 관하여.** 표지는 시리즈 공통 템플릿을 쓰며, 공식 대회 헤더를 패널 안에 넣었다. 헤더는 이미지 생성 도구로 배경과 구성을 단순하게 정리한 것이다. 그림 1에는 프로젝트의 역할 분담과 두 가지 반복 과정을, 그림 2에는 분리된 실행 환경을 담았다. 그림 3은 공개 과제의 구성을 요약한다. 그림 4와 5는 각각 계획과 설명을 위한 계산 예시이며 측정 결과와 구분해 표시했다. 차트는 명시한 문제 수와 계산값으로 그렸으며 이미지 생성 도구를 사용하지 않았다.
 
 baseline을 실행하기 전에 모든 논문을 읽을 필요는 없다. 지금 궁금한 내용에 맞춰 아래 자료를 골라 보면 된다. 처음 읽는 논문에서는 대표 점수보다 어떤 문제를 풀었고, 시스템을 어떻게 구성했으며, 어떤 조건에서 평가했는지부터 살펴보자. GitHub에서는 기능 목록보다 실행 루프와 실제 도구 요청·응답 예제 하나를 읽는 편이 동작을 이해하는 데 도움이 될 수 있다.
 

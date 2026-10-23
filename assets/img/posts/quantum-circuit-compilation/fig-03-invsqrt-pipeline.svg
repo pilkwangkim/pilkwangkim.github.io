@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="820" viewBox="0 0 1200 820" role="img" aria-labelledby="title desc">
+<title id="title">invsqrt: compute a phase word, use it, then uncompute</title><desc id="desc">Ideal scale trace for x=64; the real baseline also has coefficient and truncation errors.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#526776"/></marker></defs>
+<rect width="1200" height="820" rx="18" fill="#fbfbf8"/>
+<text x="40" y="54" font-family="Arial, Helvetica, sans-serif" font-size="31" font-weight="700" text-anchor="start" fill="#183044">invsqrt: compute a phase word, use it, then uncompute</text>
+<text x="40" y="91" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="start" fill="#526776">Ideal scale trace for x=64; the real baseline also has coefficient and truncation errors.</text>
+<rect x="40" y="145" width="330" height="215" rx="14" fill="#edf3f8" stroke="#d6e0e5" stroke-width="2"/>
+<text x="60" y="184" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="700" text-anchor="start" fill="#183044">1  Normalize</text>
+<text x="60" y="227" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">x=64; shift count s=7</text>
+<text x="60" y="261" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">x_norm = 64 × 2^14 = 2^20</text>
+<text x="60" y="295" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">M = x_norm / 2^20 = 1</text>
+<rect x="435" y="145" width="330" height="215" rx="14" fill="#edf3f8" stroke="#d6e0e5" stroke-width="2"/>
+<text x="455" y="184" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="700" text-anchor="start" fill="#183044">2  Initial approximation</text>
+<text x="455" y="227" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">Select one of four intervals</text>
+<text x="455" y="261" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">Cubic polynomial via Horner</text>
+<text x="455" y="295" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">y₀ ≈ 1/√M</text>
+<rect x="830" y="145" width="330" height="215" rx="14" fill="#edf3f8" stroke="#d6e0e5" stroke-width="2"/>
+<text x="850" y="184" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="700" text-anchor="start" fill="#183044">3  Newton correction</text>
+<text x="850" y="227" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">p ≈ y₀ (3 − M y₀²)</text>
+<text x="850" y="261" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">The factor 1/2 is absorbed</text>
+<text x="850" y="295" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">into the output scale</text>
+<line x1="376" y1="250" x2="426" y2="250" stroke="#526776" stroke-width="2.5" marker-end="url(#arrow)"/>
+<line x1="771" y1="250" x2="821" y2="250" stroke="#526776" stroke-width="2.5" marker-end="url(#arrow)"/>
+<line x1="995" y1="369" x2="995" y2="442" stroke="#526776" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="830" y="450" width="330" height="215" rx="14" fill="#e9f5f1" stroke="#d6e0e5" stroke-width="2"/>
+<text x="850" y="489" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="700" text-anchor="start" fill="#183044">4  Restore the scale</text>
+<text x="850" y="532" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">Undo normalization by 2^s</text>
+<text x="850" y="566" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">Ideal phase target: Y=2^37</text>
+<text x="850" y="600" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">Read Y / 2^40 = 1/8</text>
+<rect x="435" y="450" width="330" height="215" rx="14" fill="#e9f5f1" stroke="#d6e0e5" stroke-width="2"/>
+<text x="455" y="489" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="700" text-anchor="start" fill="#183044">5  Phase from the bits</text>
+<text x="455" y="532" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">Bit j adds 2^(j−40) turns</text>
+<text x="455" y="566" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">For Y=2^37: 1/8 turn</text>
+<text x="455" y="600" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">Z_POW argument = 1/4</text>
+<rect x="40" y="450" width="330" height="215" rx="14" fill="#edf3f8" stroke="#d6e0e5" stroke-width="2"/>
+<text x="60" y="489" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="700" text-anchor="start" fill="#183044">6  Uncompute</text>
+<text x="60" y="532" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">Reverse steps 4, 3, 2, 1</text>
+<text x="60" y="566" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">Input x=64 is restored</text>
+<text x="60" y="600" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">All scratch returns to zero</text>
+<line x1="821" y1="555" x2="771" y2="555" stroke="#526776" stroke-width="2.5" marker-end="url(#arrow)"/>
+<line x1="426" y1="555" x2="376" y2="555" stroke="#526776" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="40" y="734" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700" text-anchor="start" fill="#183044">Output: exp(2π i /8) |64⟩ |0…0⟩. No inverse-square-root value register remains.</text>
+<text x="40" y="779" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" text-anchor="start" fill="#526776">Z_POW(q,t) uses exp(iπt): its argument is twice the number of turns.</text>
+</svg>

@@ -250,6 +250,111 @@ html:not([data-navigation-ready='true']) .topic-latest-posts { display: none; }
   [aria-current='page'] { color: var(--text-color); font-weight: 700; }
 }
 
+/* Technical articles share the site's typography and responsive scientific content. */
+.technical-article h1,
+.technical-article .content h2,
+.technical-article .content h3 { word-break: keep-all; overflow-wrap: break-word; }
+
+.technical-article .content {
+  .table-caption {
+    margin: 1.6rem 0 0.65rem;
+    color: var(--text-muted-color);
+    font-size: 0.9rem;
+    line-height: 1.65;
+  }
+  .table-label { font-weight: 700; color: var(--heading-color); }
+  p, li { word-break: keep-all; overflow-wrap: break-word; }
+  .rsna-reading-note {
+    margin: 0 0 1.6rem;
+    color: var(--text-muted-color);
+    font-size: 0.88rem;
+    line-height: 1.65;
+  }
+  a.popup + em {
+    margin: 0.65rem 0 1.8rem;
+    color: var(--text-muted-color);
+    font-size: 0.9rem;
+    line-height: 1.7;
+    text-align: left;
+  }
+  details {
+    margin: 1.1rem 0 1.5rem;
+    padding: 0.7rem 1rem;
+    border: 1px solid var(--btn-border-color, #c9d5da);
+    border-radius: 0.4rem;
+    > summary { cursor: pointer; font-weight: 600; line-height: 1.6; }
+    &[open] > summary { margin-bottom: 0.8rem; }
+    > :last-child { margin-bottom: 0; }
+    > summary:focus-visible { outline: 2px solid var(--link-color); outline-offset: 4px; }
+  }
+  table:not(.rouge-table) {
+    width: 100%;
+    font-size: 0.94rem;
+    line-height: 1.65;
+    th, td {
+      vertical-align: top;
+      white-space: normal;
+      word-break: keep-all;
+      overflow-wrap: anywhere;
+    }
+    th { font-weight: 650; background: rgb(127 127 127 / 8%); }
+    td[style*='text-align: right'] {
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+  }
+  .table-wrapper {
+    max-width: 100%;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+  }
+  .rsna-results-figure {
+    display: block;
+    margin: 1.4rem 0 0;
+    img { display: block; width: 100%; height: auto; }
+    + p > em:only-child {
+      display: block;
+      margin: 0.65rem 0 1.8rem;
+      color: var(--text-muted-color);
+      font-size: 0.9rem;
+      line-height: 1.7;
+      text-align: left;
+    }
+  }
+  table.rsna-results-scores,
+  table.rsna-results-deltas,
+  table.rsna-results-history {
+    table-layout: fixed;
+    th, td { overflow-wrap: break-word; }
+    th:first-child, td:first-child { width: 64%; }
+    th:not(:first-child), td:not(:first-child) {
+      width: 18%;
+      white-space: nowrap;
+      font-variant-numeric: tabular-nums;
+    }
+  }
+  table.rsna-results-history {
+    th:first-child, td:first-child { width: 16%; }
+    th:nth-child(2), td:nth-child(2) { width: 52%; white-space: normal; }
+    th:nth-child(n+3), td:nth-child(n+3) { width: 16%; }
+  }
+  mjx-container[display='true'] {
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0.4rem 0;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .technical-article .content {
+    table:has(thead th:nth-child(3)) { min-width: 32rem; }
+    table:has(thead th:nth-child(4)) { min-width: 40rem; }
+    table:not(.rouge-table) th,
+    table:not(.rouge-table) td { padding: 0.55rem 0.7rem; }
+  }
+}
+
 .series-nav .series-nav-label { display: block; color: var(--text-muted-color); font-size: 0.85rem; }
 .series-nav .btn { width: 100%; height: auto; min-height: 5rem; padding: 0.8rem 1rem; text-align: left; }
 .series-nav .btn::before { display: none; }

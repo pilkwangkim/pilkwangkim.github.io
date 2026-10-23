@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="864pt" height="468pt" viewBox="0 0 864 468" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-10-22T16:03:23.885772</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 468 
+L 864 468 
+L 864 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 47.51568 265.957714 
+L 382.58352 265.957714 
+Q 393.8328 265.957714 393.8328 261.464914 
+L 393.8328 143.689371 
+Q 393.8328 139.196571 382.58352 139.196571 
+L 47.51568 139.196571 
+Q 36.2664 139.196571 36.2664 143.689371 
+L 36.2664 261.464914 
+Q 36.2664 265.957714 47.51568 265.957714 
+z
+" clip-path="url(#p7b6c171c8e)" style="fill: #f1f5f5; stroke: #277f85; stroke-width: 1.3; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 481.41648 265.957714 
+L 816.48432 265.957714 
+Q 827.7336 265.957714 827.7336 261.464914 
+L 827.7336 143.689371 
+Q 827.7336 139.196571 816.48432 139.196571 
+L 481.41648 139.196571 
+Q 470.1672 139.196571 470.1672 143.689371 
+L 470.1672 261.464914 
+Q 470.1672 265.957714 481.41648 265.957714 
+z
+" clip-path="url(#p7b6c171c8e)" style="fill: #f1f5f5; stroke: #277f85; stroke-width: 1.3; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 401.85623 204.181714 
+Q 431.996807 204.181714 460.34853 204.181714 
+" clip-path="url(#p7b6c171c8e)" style="fill: none; stroke: #526572; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 453.54853 200.781714 
+L 460.34853 204.181714 
+L 453.54853 207.581714 
+z
+" clip-path="url(#p7b6c171c8e)" style="fill: #526572; stroke: #526572; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 16px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183344" x="215.0496" y="180.646763" transform="rotate(-0 215.0496 180.646763)">Parts-only transfer</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 15px; font-family: 'DejaVu Sans'; fill: #526572" transform="translate(128.599209 204.241257)">64-slice representation</text>
+    <text style="font-size: 15px; font-family: 'DejaVu Sans'; fill: #526572" transform="translate(107.684756 226.741257)">+ existing head / fine-tuning</text>
+    <text style="font-size: 15px; font-family: 'DejaVu Sans'; fill: #526572" transform="translate(133.094522 250.694382)">First-fold AUC: 0.8322</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 16px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183344" x="648.9504" y="180.709263" transform="rotate(-0 648.9504 180.709263)">Coupled reproduction</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 15px; font-family: 'DejaVu Sans'; fill: #526572" transform="translate(538.838681 204.241257)">Same 64-slice representation</text>
+    <text style="font-size: 15px; font-family: 'DejaVu Sans'; fill: #526572" transform="translate(505.11915 226.741257)">+ attention head / broader fine-tuning</text>
+    <text style="font-size: 15px; font-family: 'DejaVu Sans'; fill: #526572" transform="translate(566.995322 250.694382)">First-fold AUC: 0.8701</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 16px; font-family: 'DejaVu Sans'; fill: #183344" transform="translate(201.3125 328.171571)">A separate complete-OOF comparison recorded +0.0303.</text>
+    <text style="font-size: 16px; font-family: 'DejaVu Sans'; fill: #183344" transform="translate(124.27625 353.721571)">The first-fold values and the full-OOF difference are different measurements.</text>
+   </g>
+  </g>
+  <g id="text_6">
+   <text style="font-weight: 700; font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #277f85" x="38.88" y="25.74" transform="rotate(-0 38.88 25.74)">RSNA KNEE  /  PART 2</text>
+  </g>
+  <g id="text_7">
+   <text style="font-weight: 700; font-size: 21px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #183344" x="38.88" y="53.82" transform="rotate(-0 38.88 53.82)">Test the whole recipe when its components interact</text>
+  </g>
+  <g id="text_8">
+   <text style="font-size: 11.5px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #526572" x="38.88" y="453.537305" transform="rotate(-0 38.88 453.537305)">Both use 64-slice inputs. Head and fine-tuning changed together; the difference is not a pure head effect.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p7b6c171c8e">
+   <rect x="30.24" y="98.28" width="803.52" height="336.96"/>
+  </clipPath>
+ </defs>
+</svg>

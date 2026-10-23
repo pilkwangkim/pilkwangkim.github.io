@@ -248,7 +248,7 @@ guide_entries.each do |topic|
       expected_date = members.map { |post| date_epoch.call(post) }.max
       check.call(rendered_date && (rendered_date - expected_date).abs < 0.001, "#{label}: article #{key} date metadata differs from publication date")
       if row.key?('data-series-order')
-        check.call(row['data-series-order'].match?(/\A[1-9]\d*\z/) && members.all? { |post| post['series_order'].to_s == row['data-series-order'] }, "#{label}: article #{key} has incorrect series-order metadata")
+        check.call(row['data-series-order'].match?(/\A(?:0|[1-9]\d*)\z/) && members.all? { |post| post['series_order'].to_s == row['data-series-order'] }, "#{label}: article #{key} has incorrect series-order metadata")
       end
       check.call(row['data-series-order'] == members.first['series_order']&.to_s, "#{label}: article #{key} must preserve its actual series order without assigning a new part number")
 

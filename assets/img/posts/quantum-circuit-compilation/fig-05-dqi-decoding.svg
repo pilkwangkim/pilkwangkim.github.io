@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="815" viewBox="0 0 1200 815" role="img" aria-labelledby="title desc">
+<title id="title">DQI: recover a hidden error only to fix its phase</title><desc id="desc">Teaching example: GF(4), RS(3,1), one symbol error. Not a competition-sized run.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#526776"/></marker></defs>
+<rect width="1200" height="815" rx="18" fill="#fbfbf8"/>
+<text x="40" y="54" font-family="Arial, Helvetica, sans-serif" font-size="31" font-weight="700" text-anchor="start" fill="#183044">DQI: recover a hidden error only to fix its phase</text>
+<text x="40" y="91" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="start" fill="#526776">Teaching example: GF(4), RS(3,1), one symbol error. Not a competition-sized run.</text>
+<rect x="40" y="145" width="330" height="235" rx="14" fill="#fbefe5" stroke="#d6e0e5" stroke-width="2"/>
+<text x="60" y="184" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="700" text-anchor="start" fill="#183044">1  Hidden error</text>
+<text x="60" y="227" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">α² = α + 1; α³ = 1</text>
+<text x="60" y="261" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">e = (0, α², 0)</text>
+<text x="60" y="295" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">Only position 1 is nonzero</text>
+<text x="60" y="329" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">e₁ = α² = binary 11</text>
+<rect x="435" y="145" width="330" height="235" rx="14" fill="#edf3f8" stroke="#d6e0e5" stroke-width="2"/>
+<text x="455" y="184" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="700" text-anchor="start" fill="#183044">2  Received syndromes</text>
+<text x="455" y="227" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">S₀ = α² × α = 1</text>
+<text x="455" y="261" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">S₁ = α² × α² = α</text>
+<text x="455" y="295" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">Circuit receives (1, α),</text>
+<text x="455" y="329" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">not the hidden vector e</text>
+<rect x="830" y="145" width="330" height="235" rx="14" fill="#edf3f8" stroke="#d6e0e5" stroke-width="2"/>
+<text x="850" y="184" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="700" text-anchor="start" fill="#183044">3  Decode</text>
+<text x="850" y="227" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">S₁ / S₀ = α^j = α</text>
+<text x="850" y="261" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">Therefore j = 1</text>
+<text x="850" y="295" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">e₁ = S₀ / α = α²</text>
+<text x="850" y="329" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">For this one-error toy</text>
+<line x1="376" y1="260" x2="426" y2="260" stroke="#526776" stroke-width="2.5" marker-end="url(#arrow)"/>
+<line x1="771" y1="260" x2="821" y2="260" stroke="#526776" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="40" y="445" width="330" height="205" rx="14" fill="#fbefe5" stroke="#d6e0e5" stroke-width="2"/>
+<text x="60" y="484" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="700" text-anchor="start" fill="#183044">4  Classical mask</text>
+<text x="60" y="527" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">M₁ = α = binary 10</text>
+<text x="60" y="561" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">11 AND 10 = 10</text>
+<text x="60" y="595" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">popcount = 1 (odd)</text>
+<rect x="435" y="445" width="330" height="205" rx="14" fill="#e9f5f1" stroke="#d6e0e5" stroke-width="2"/>
+<text x="455" y="484" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="700" text-anchor="start" fill="#183044">5  Apply the sign</text>
+<text x="455" y="527" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">Required sign: (−1)^1</text>
+<text x="455" y="561" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">Multiply amplitude by −1</text>
+<text x="455" y="595" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">Syndromes stay unchanged</text>
+<rect x="830" y="445" width="330" height="205" rx="14" fill="#e9f5f1" stroke="#d6e0e5" stroke-width="2"/>
+<text x="850" y="484" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="700" text-anchor="start" fill="#183044">6  Clean up</text>
+<text x="850" y="527" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">Restore all scratch to 0</text>
+<text x="850" y="561" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">Output: −|1, α⟩ |0…0⟩</text>
+<text x="850" y="595" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">No error array is output</text>
+<line x1="376" y1="548" x2="426" y2="548" stroke="#526776" stroke-width="2.5" marker-end="url(#arrow)"/>
+<line x1="771" y1="548" x2="821" y2="548" stroke="#526776" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="40" y="714" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700" text-anchor="start" fill="#183044">Actual baseline: synchronized EEA → Chien search → Forney phase → reverse EEA</text>
+<text x="40" y="762" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" text-anchor="start" fill="#526776">Competition: GF(2¹²), 4,095 symbols, 70 syndromes, up to 35 nonzero error symbols.</text>
+</svg>

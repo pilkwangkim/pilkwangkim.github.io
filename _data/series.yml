@@ -10,3 +10,12 @@
 - id: arc-agi-3-main
   title: 'ARC-AGI-3: Introduction and Experiments'
   topic: arc-agi-3
+- id: rsna-knee
+  title: RSNA Knee Working Notes
+  topic: rsna-knee
+- id: gemma-4
+  title: Gemma 4 Developer Agent Working Notes
+  topic: gemma-4
+- id: quantum-circuit-compilation
+  title: Quantum Circuit Compilation Working Notes
+  topic: quantum-circuit-compilation

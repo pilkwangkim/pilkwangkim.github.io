@@ -14,3 +14,6 @@
 *.png binary
 *.jpg binary
 *.ico binary
+
+# Keep the downloadable evidence file byte-identical to the generated source.
+assets/img/posts/rsna-knee-series/part5-submission-history.csv -text

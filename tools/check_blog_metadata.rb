@@ -128,7 +128,7 @@ posts.each do |post|
   next unless data['series']
 
   check.call(series_by_id.key?(data['series']), "#{path}: unknown series #{data['series'].inspect}")
-  check.call(data['series_order'].is_a?(Integer) && data['series_order'].positive?, "#{path}: series_order must be a positive integer")
+  check.call(data['series_order'].is_a?(Integer) && data['series_order'] >= 0, "#{path}: series_order must be a nonnegative integer")
   definition = series_by_id[data['series']]
   check.call(membership == definition['topic'], "#{path}: series topic differs from topic") if definition && definition['topic']
 end
@@ -161,7 +161,7 @@ posts.select { |post| post['front_matter']['series'] }.group_by do |post|
 end.each do |(id, language, version), members|
   orders = members.map { |post| post['front_matter']['series_order'] }
   check.call(orders.uniq == orders, "Series #{id}/#{language}/#{version}: duplicate order")
-  check.call(orders.all? { |order| order.is_a?(Integer) && order.positive? }, "Series #{id}/#{language}: invalid order")
+  check.call(orders.all? { |order| order.is_a?(Integer) && order >= 0 }, "Series #{id}/#{language}: invalid order")
 end
 
 current_tags = posts.flat_map { |post| post['front_matter']['tags'] || [] }.uniq

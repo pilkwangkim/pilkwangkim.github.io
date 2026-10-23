@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="880" viewBox="0 0 1200 880" role="img" aria-labelledby="title desc">
+<title id="title">Lookup the angles; rotate pairs of components</title><desc id="desc">Two small teaching examples. Neither panel is a FeMoCo numerical result.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#526776"/></marker></defs>
+<rect width="1200" height="880" rx="18" fill="#fbfbf8"/>
+<text x="40" y="54" font-family="Arial, Helvetica, sans-serif" font-size="31" font-weight="700" text-anchor="start" fill="#183044">Lookup the angles; rotate pairs of components</text>
+<text x="40" y="91" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="start" fill="#526776">Two small teaching examples. Neither panel is a FeMoCo numerical result.</text>
+<rect x="40" y="145" width="320" height="220" rx="14" fill="#fbefe5" stroke="#d6e0e5" stroke-width="2"/>
+<text x="60" y="184" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="700" text-anchor="start" fill="#183044">A  Classical table</text>
+<text x="60" y="227" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">Address a     word dₐ</text>
+<text x="60" y="261" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">0                     01</text>
+<text x="60" y="295" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">1                     10</text>
+<text x="60" y="329" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">Fixed before compilation</text>
+<rect x="410" y="145" width="750" height="220" rx="14" fill="#e9f5f1" stroke="#d6e0e5" stroke-width="2"/>
+<text x="435" y="186" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="700" text-anchor="start" fill="#183044">Coherent XOR lookup: |a⟩|z⟩ → |a⟩|z XOR dₐ⟩</text>
+<text x="435" y="238" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="400" text-anchor="start" fill="#183044">Input:    (|0⟩ + |1⟩) |00⟩ / √2</text>
+<text x="435" y="285" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="400" text-anchor="start" fill="#183044">Output: (|0⟩|01⟩ + |1⟩|10⟩) / √2</text>
+<text x="435" y="333" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="start" fill="#183044">No address is measured; applying the lookup again clears the words.</text>
+<line x1="368" y1="250" x2="401" y2="250" stroke="#526776" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="40" y="427" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700" text-anchor="start" fill="#183044">B  Two Givens rotations build a three-component unit vector</text>
+<rect x="40" y="470" width="330" height="200" rx="14" fill="#edf3f8" stroke="#d6e0e5" stroke-width="2"/>
+<text x="60" y="509" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="700" text-anchor="start" fill="#183044">Start</text>
+<text x="60" y="552" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">u = (1, 0, 0)</text>
+<text x="60" y="586" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">Squared length = 1</text>
+<text x="60" y="620" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">Only the first component is set</text>
+<rect x="435" y="470" width="330" height="200" rx="14" fill="#edf3f8" stroke="#d6e0e5" stroke-width="2"/>
+<text x="455" y="509" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="700" text-anchor="start" fill="#183044">Rotate (0,1) by π/4</text>
+<text x="455" y="552" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">u = (1/√2, 1/√2, 0)</text>
+<text x="455" y="586" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">Mix the first two components</text>
+<text x="455" y="620" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">Preserve the vector length</text>
+<rect x="830" y="470" width="330" height="200" rx="14" fill="#e9f5f1" stroke="#d6e0e5" stroke-width="2"/>
+<text x="850" y="509" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="700" text-anchor="start" fill="#183044">Rotate (0,2) by π/4</text>
+<text x="850" y="552" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">u = (1/2, 1/√2, 1/2)</text>
+<text x="850" y="586" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">1/4 + 1/2 + 1/4 = 1</text>
+<text x="850" y="620" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">Order and chosen pairs matter</text>
+<line x1="376" y1="570" x2="426" y2="570" stroke="#526776" stroke-width="2.5" marker-end="url(#arrow)"/>
+<line x1="771" y1="570" x2="821" y2="570" stroke="#526776" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="40" y="737" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700" text-anchor="start" fill="#183044">Competition scale: 76 components → 75 tree edges and angle words per vector.</text>
+<text x="40" y="785" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="400" text-anchor="start" fill="#183044">Fewer angle bits save space but change the reconstructed coefficients.</text>
+<text x="40" y="831" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" text-anchor="start" fill="#526776">The verifier evaluates the angles actually returned by the circuit.</text>
+</svg>

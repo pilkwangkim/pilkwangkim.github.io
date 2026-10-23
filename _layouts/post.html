@@ -13,7 +13,11 @@ script_includes:
 
 {% include toc-status.html %}
 
-<article class="px-1" data-toc="{{ enable_toc }}">
+{% assign technical_article = false %}
+{% if page.series == 'rsna-knee' or page.series == 'gemma-4' or page.topic == 'quantum-circuit-compilation' %}
+  {% assign technical_article = true %}
+{% endif %}
+<article class="px-1{% if technical_article %} technical-article{% endif %}{% if page.series == 'rsna-knee' %} rsna-series{% endif %}" data-toc="{{ enable_toc }}">
   <header>
     <h1 data-toc-skip>{{ page.title }}</h1>
     {% if page.description %}
@@ -122,6 +126,9 @@ script_includes:
   {% include post-guide.html %}
 
   <div class="content">
+    {% if page.series == 'rsna-knee' %}
+      <p class="rsna-reading-note" data-toc-skip>{% if page.lang == 'ko' %}그림은 눌러서 확대할 수 있습니다. 좁은 화면에서는 넓은 표와 수식을 좌우로 움직여 보세요.{% else %}Select a figure to enlarge it. On small screens, wide tables and equations scroll horizontally.{% endif %}</p>
+    {% endif %}
     {{ content }}
   </div>
 

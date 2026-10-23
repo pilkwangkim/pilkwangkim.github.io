@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="864pt" height="518.4pt" viewBox="0 0 864 518.4" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 518.4 
+L 864 518.4 
+L 864 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 49.10112 195.33312 
+L 248.80608 195.33312 
+Q 256.66848 195.33312 256.66848 191.96352 
+L 256.66848 126.59328 
+Q 256.66848 123.22368 248.80608 123.22368 
+L 49.10112 123.22368 
+Q 41.23872 123.22368 41.23872 126.59328 
+L 41.23872 191.96352 
+Q 41.23872 195.33312 49.10112 195.33312 
+z
+" clip-path="url(#p4a654be94e)" style="fill: #f1f5f5; stroke: #277f85; stroke-width: 1.25; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 49.10112 293.05152 
+L 248.80608 293.05152 
+Q 256.66848 293.05152 256.66848 289.68192 
+L 256.66848 224.31168 
+Q 256.66848 220.94208 248.80608 220.94208 
+L 49.10112 220.94208 
+Q 41.23872 220.94208 41.23872 224.31168 
+L 41.23872 289.68192 
+Q 41.23872 293.05152 49.10112 293.05152 
+z
+" clip-path="url(#p4a654be94e)" style="fill: #f1f5f5; stroke: #426e9c; stroke-width: 1.25; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 359.66592 244.19232 
+L 543.64608 244.19232 
+Q 551.50848 244.19232 551.50848 240.82272 
+L 551.50848 175.45248 
+Q 551.50848 172.08288 543.64608 172.08288 
+L 359.66592 172.08288 
+Q 351.80352 172.08288 351.80352 175.45248 
+L 351.80352 240.82272 
+Q 351.80352 244.19232 359.66592 244.19232 
+z
+" clip-path="url(#p4a654be94e)" style="fill: #f1f5f5; stroke: #277f85; stroke-width: 1.25; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 658.43712 244.19232 
+L 814.89888 244.19232 
+Q 822.76128 244.19232 822.76128 240.82272 
+L 822.76128 175.45248 
+Q 822.76128 172.08288 814.89888 172.08288 
+L 658.43712 172.08288 
+Q 650.57472 172.08288 650.57472 175.45248 
+L 650.57472 240.82272 
+Q 650.57472 244.19232 658.43712 244.19232 
+z
+" clip-path="url(#p4a654be94e)" style="fill: #f1f5f5; stroke: #277f85; stroke-width: 1.25; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 262.450708 160.028817 
+Q 304.234775 176.968303 344.620072 193.340721 
+" clip-path="url(#p4a654be94e)" style="fill: none; stroke: #277f85; stroke-width: 1.35; stroke-linecap: round"/>
+    <path d="M 340.482306 188.641902 
+L 344.620072 193.340721 
+L 338.378358 193.831642 
+z
+" clip-path="url(#p4a654be94e)" style="fill: #277f85; stroke: #277f85; stroke-width: 1.35; stroke-linecap: round"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 262.450708 256.246383 
+Q 304.234775 239.306897 344.620072 222.934479 
+" clip-path="url(#p4a654be94e)" style="fill: none; stroke: #426e9c; stroke-width: 1.35; stroke-linecap: round"/>
+    <path d="M 338.378358 222.443558 
+L 344.620072 222.934479 
+L 340.482306 227.633298 
+z
+" clip-path="url(#p4a654be94e)" style="fill: #426e9c; stroke: #426e9c; stroke-width: 1.35; stroke-linecap: round"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 558.226431 208.1376 
+Q 601.435265 208.1376 643.134752 208.1376 
+" clip-path="url(#p4a654be94e)" style="fill: none; stroke: #526572; stroke-width: 1.35; stroke-linecap: round"/>
+    <path d="M 637.534752 205.3376 
+L 643.134752 208.1376 
+L 637.534752 210.9376 
+z
+" clip-path="url(#p4a654be94e)" style="fill: #526572; stroke: #526572; stroke-width: 1.35; stroke-linecap: round"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 49.10112 437.94432 
+L 409.98528 437.94432 
+Q 417.84768 437.94432 417.84768 434.57472 
+L 417.84768 338.87808 
+Q 417.84768 335.50848 409.98528 335.50848 
+L 49.10112 335.50848 
+Q 41.23872 335.50848 41.23872 338.87808 
+L 41.23872 434.57472 
+Q 41.23872 437.94432 49.10112 437.94432 
+z
+" clip-path="url(#p4a654be94e)" style="fill: #f1f5f5; stroke: #277f85; stroke-width: 1.25; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 454.01472 437.94432 
+L 814.89888 437.94432 
+Q 822.76128 437.94432 822.76128 434.57472 
+L 822.76128 338.87808 
+Q 822.76128 335.50848 814.89888 335.50848 
+L 454.01472 335.50848 
+Q 446.15232 335.50848 446.15232 338.87808 
+L 446.15232 434.57472 
+Q 446.15232 437.94432 454.01472 437.94432 
+z
+" clip-path="url(#p4a654be94e)" style="fill: #f1f5f5; stroke: #277f85; stroke-width: 1.25; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183344" x="148.9536" y="148.557526" transform="rotate(-0 148.9536 148.557526)">Own predictor  u</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #526572" x="148.9536" y="177.942479" transform="rotate(-0 148.9536 177.942479)">Reusable model evidence</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183344" x="148.9536" y="247.729051" transform="rotate(-0 148.9536 247.729051)">Shared baseline  b</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #526572" x="148.9536" y="274.304629" transform="rotate(-0 148.9536 274.304629)">Available to many teams</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183344" x="451.656" y="197.416726" transform="rotate(-0 451.656 197.416726)">Declared operator</text>
+   </g>
+   <g id="text_6">
+    <!-- $p=C(u,b)$ -->
+    <g style="fill: #526572" transform="translate(415.746 225.432304)">
+     <text>
+      <tspan x="0" y="-0.359375" style="font-style: oblique; font-size: 14px; font-family: 'DejaVu Sans'; fill: #526572">p</tspan>
+      <tspan x="26.072266" y="-0.359375" style="font-style: oblique; font-size: 14px; font-family: 'DejaVu Sans'; fill: #526572">C</tspan>
+      <tspan x="41.30957" y="-0.359375" style="font-style: oblique; font-size: 14px; font-family: 'DejaVu Sans'; fill: #526572">u</tspan>
+      <tspan x="57.360352" y="-0.359375" style="font-style: oblique; font-size: 14px; font-family: 'DejaVu Sans'; fill: #526572">b</tspan>
+      <tspan x="11.614258" y="-0.359375" style="font-size: 14px; font-family: 'DejaVu Sans'; fill: #526572">=</tspan>
+      <tspan x="35.847656" y="-0.359375" style="font-size: 14px; font-family: 'DejaVu Sans'; fill: #526572">(</tspan>
+      <tspan x="50.182617" y="-0.359375" style="font-size: 14px; font-family: 'DejaVu Sans'; fill: #526572">,</tspan>
+      <tspan x="66.24707" y="-0.359375" style="font-size: 14px; font-family: 'DejaVu Sans'; fill: #526572">)</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_7">
+    <text style="font-weight: 700; font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183344" x="736.668" y="197.416726" transform="rotate(-0 736.668 197.416726)">Final predictor  p</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #526572" x="736.668" y="225.445429" transform="rotate(-0 736.668 225.445429)">Complete package</text>
+   </g>
+   <g id="text_9">
+    <text style="font-weight: 700; font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183344" x="229.5432" y="371.090107" transform="rotate(-0 229.5432 371.090107)">Reusable evidence</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans'; fill: #526572" transform="translate(113.332263 399.646245)">Held-out quality and identity of u</text>
+    <text style="font-size: 14px; font-family: 'DejaVu Sans'; fill: #526572" transform="translate(104.281481 419.946245)">remain useful beyond this package.</text>
+   </g>
+   <g id="text_11">
+    <text style="font-weight: 700; font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #183344" x="634.4568" y="369.578389" transform="rotate(-0 634.4568 369.578389)">Conditional predictive gain</text>
+   </g>
+   <g id="text_12">
+    <!-- $\Delta M=M\!\left(C(u,b)\right)-M(b)$ -->
+    <g style="fill: #526572" transform="translate(557.2468 400.12312)">
+     <text>
+      <tspan x="0" y="-0.359375" style="font-size: 14px; font-family: 'DejaVu Sans'; fill: #526572">Δ</tspan>
+      <tspan x="24.383789" y="-0.359375" style="font-size: 14px; font-family: 'DejaVu Sans'; fill: #526572">=</tspan>
+      <tspan x="48.647904" y="-0.359375" style="font-size: 14px; font-family: 'DejaVu Sans'; fill: #526572">(</tspan>
+      <tspan x="63.885208" y="-0.359375" style="font-size: 14px; font-family: 'DejaVu Sans'; fill: #526572">(</tspan>
+      <tspan x="78.220169" y="-0.359375" style="font-size: 14px; font-family: 'DejaVu Sans'; fill: #526572">,</tspan>
+      <tspan x="94.284623" y="-0.359375" style="font-size: 14px; font-family: 'DejaVu Sans'; fill: #526572">)</tspan>
+      <tspan x="99.746537" y="-0.359375" style="font-size: 14px; font-family: 'DejaVu Sans'; fill: #526572">)</tspan>
+      <tspan x="107.93599" y="-0.359375" style="font-size: 14px; font-family: 'DejaVu Sans'; fill: #526572">−</tspan>
+      <tspan x="134.473099" y="-0.359375" style="font-size: 14px; font-family: 'DejaVu Sans'; fill: #526572">(</tspan>
+      <tspan x="148.821732" y="-0.359375" style="font-size: 14px; font-family: 'DejaVu Sans'; fill: #526572">)</tspan>
+      <tspan x="9.577148" y="-0.359375" style="font-style: oblique; font-size: 14px; font-family: 'DejaVu Sans'; fill: #526572">M</tspan>
+      <tspan x="38.841797" y="-0.359375" style="font-style: oblique; font-size: 14px; font-family: 'DejaVu Sans'; fill: #526572">M</tspan>
+      <tspan x="54.109818" y="-0.359375" style="font-style: oblique; font-size: 14px; font-family: 'DejaVu Sans'; fill: #526572">C</tspan>
+      <tspan x="69.347123" y="-0.359375" style="font-style: oblique; font-size: 14px; font-family: 'DejaVu Sans'; fill: #526572">u</tspan>
+      <tspan x="85.397904" y="-0.359375" style="font-style: oblique; font-size: 14px; font-family: 'DejaVu Sans'; fill: #526572">b</tspan>
+      <tspan x="122.393998" y="-0.359375" style="font-style: oblique; font-size: 14px; font-family: 'DejaVu Sans'; fill: #526572">M</tspan>
+      <tspan x="139.935013" y="-0.359375" style="font-style: oblique; font-size: 14px; font-family: 'DejaVu Sans'; fill: #526572">b</tspan>
+     </text>
+    </g>
+    <text style="font-size: 14px; font-family: 'DejaVu Sans'; fill: #526572" transform="translate(529.197581 421.302495)">Gain over the shared baseline</text>
+   </g>
+  </g>
+  <g id="text_13">
+   <text style="font-weight: 700; font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #277f85" x="38.88" y="28.512" transform="rotate(-0 38.88 28.512)">RSNA KNEE  /  PART 5</text>
+  </g>
+  <g id="text_14">
+   <text style="font-weight: 700; font-size: 21px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #183344" x="38.88" y="59.616" transform="rotate(-0 38.88 59.616)">A shared baseline changes the decision question</text>
+  </g>
+  <g id="text_15">
+   <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #526572" x="38.88" y="475.8912" transform="rotate(-0 38.88 475.8912)">The comparison needs matched, valid evaluation. Standalone quality and training effort do not determine the gain.</text>
+  </g>
+  <g id="text_16">
+   <text style="font-size: 10.8px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #526572" x="38.88" y="498.1824" transform="rotate(-0 38.88 498.1824)">Conceptual only. M is the same metric on the same evaluation set; C is a declared operator, with no weights or gains asserted.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p4a654be94e">
+   <rect x="38.88" y="103.68" width="786.24" height="336.96"/>
+  </clipPath>
+ </defs>
+</svg>

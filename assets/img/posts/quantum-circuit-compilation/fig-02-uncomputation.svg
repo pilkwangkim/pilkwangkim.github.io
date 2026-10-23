@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1010" viewBox="0 0 1200 1010" role="img" aria-labelledby="title desc">
+<title id="title">Keep the phase; erase the workspace</title><desc id="desc">Compute → apply the needed phase → reverse the temporary calculation</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#526776"/></marker></defs>
+<rect width="1200" height="1010" rx="18" fill="#fbfbf8"/>
+<text x="40" y="54" font-family="Arial, Helvetica, sans-serif" font-size="31" font-weight="700" text-anchor="start" fill="#183044">Keep the phase; erase the workspace</text>
+<text x="40" y="91" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="start" fill="#526776">Compute → apply the needed phase → reverse the temporary calculation</text>
+<rect x="40" y="145" width="330" height="205" rx="14" fill="#edf3f8" stroke="#d6e0e5" stroke-width="2"/>
+<text x="60" y="184" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="700" text-anchor="start" fill="#183044">1  Compute f(x)</text>
+<text x="60" y="227" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">Input: |x⟩ unchanged</text>
+<text x="60" y="261" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">Scratch: |0⟩ → |f(x)⟩</text>
+<text x="60" y="295" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">Reversible arithmetic</text>
+<rect x="435" y="145" width="330" height="205" rx="14" fill="#e9f5f1" stroke="#d6e0e5" stroke-width="2"/>
+<text x="455" y="184" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="700" text-anchor="start" fill="#183044">2  Apply a phase</text>
+<text x="455" y="227" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">Multiply amplitude by</text>
+<text x="455" y="261" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">exp(2π i f(x))</text>
+<text x="455" y="295" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">Bit values unchanged</text>
+<rect x="830" y="145" width="330" height="205" rx="14" fill="#edf3f8" stroke="#d6e0e5" stroke-width="2"/>
+<text x="850" y="184" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="700" text-anchor="start" fill="#183044">3  Uncompute</text>
+<text x="850" y="227" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">Scratch: |f(x)⟩ → |0⟩</text>
+<text x="850" y="261" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">Input: |x⟩ restored</text>
+<text x="850" y="295" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">The phase remains</text>
+<line x1="376" y1="248" x2="426" y2="248" stroke="#526776" stroke-width="2.5" marker-end="url(#arrow)"/>
+<line x1="771" y1="248" x2="821" y2="248" stroke="#526776" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="40" y="411" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700" text-anchor="start" fill="#183044">A temporary AND can be erased in two ways</text>
+<rect x="40" y="447" width="535" height="420" rx="14" fill="#fbefe5" stroke="#d6e0e5" stroke-width="2"/>
+<rect x="615" y="447" width="545" height="420" rx="14" fill="#e9f5f1" stroke="#d6e0e5" stroke-width="2"/>
+<text x="60" y="487" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="700" text-anchor="start" fill="#183044">Reverse the AND</text>
+<text x="635" y="487" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="700" text-anchor="start" fill="#183044">Measure, then correct the phase</text>
+<text x="60" y="530" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">Start with t = a AND b</text>
+<text x="635" y="530" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">HMR returns a classical bit m</text>
+<text x="65" y="598" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="400" text-anchor="start" fill="#183044">a</text>
+<line x1="160" y1="590" x2="525" y2="590" stroke="#183044" stroke-width="2"/>
+<text x="640" y="598" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="400" text-anchor="start" fill="#183044">a</text>
+<line x1="745" y1="590" x2="1130" y2="590" stroke="#183044" stroke-width="2"/>
+<text x="65" y="663" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="400" text-anchor="start" fill="#183044">b</text>
+<line x1="160" y1="655" x2="525" y2="655" stroke="#183044" stroke-width="2"/>
+<text x="640" y="663" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="400" text-anchor="start" fill="#183044">b</text>
+<line x1="745" y1="655" x2="1130" y2="655" stroke="#183044" stroke-width="2"/>
+<text x="65" y="728" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="400" text-anchor="start" fill="#183044">t = ab</text>
+<line x1="160" y1="720" x2="525" y2="720" stroke="#183044" stroke-width="2"/>
+<text x="640" y="728" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="400" text-anchor="start" fill="#183044">t = ab</text>
+<line x1="745" y1="720" x2="1130" y2="720" stroke="#183044" stroke-width="2"/>
+<line x1="350" y1="590" x2="350" y2="720" stroke="#183044" stroke-width="2"/>
+<circle cx="350" cy="590" r="7" fill="#183044"/>
+<circle cx="350" cy="655" r="7" fill="#183044"/>
+<circle cx="350" cy="720" r="15" fill="#fbefe5" stroke="#183044" stroke-width="2"/>
+<line x1="340" y1="720" x2="360" y2="720" stroke="#183044" stroke-width="2"/>
+<line x1="350" y1="710" x2="350" y2="730" stroke="#183044" stroke-width="2"/>
+<text x="350" y="560" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" text-anchor="middle" fill="#183044">CCX</text>
+<text x="535" y="728" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="400" text-anchor="start" fill="#183044">0</text>
+<rect x="780" y="693" width="85" height="54" rx="14" fill="white" stroke="#248475" stroke-width="2"/>
+<text x="822" y="727" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700" text-anchor="middle" fill="#183044">HMR</text>
+<text x="1138" y="728" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="400" text-anchor="start" fill="#183044">0</text>
+<line x1="1020" y1="590" x2="1020" y2="655" stroke="#183044" stroke-width="2"/>
+<circle cx="1020" cy="590" r="7" fill="#183044"/>
+<circle cx="1020" cy="655" r="7" fill="#183044"/>
+<path d="M822 747 V775 H1020 V663" fill="none" stroke="#248475" stroke-width="2" stroke-dasharray="7 5"/>
+<text x="1020" y="560" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700" text-anchor="middle" fill="#183044">CZ if m=1</text>
+<text x="900" y="804" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="middle" fill="#248475">m</text>
+<text x="60" y="824" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700" text-anchor="start" fill="#183044">Cleanup cost: one Toffoli</text>
+<text x="635" y="842" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" text-anchor="start" fill="#183044">The sign (−1)^(mab) is cancelled.</text>
+<text x="40" y="921" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#526776">Dots are controls; ⊕ is a bit-flip target. The dashed line carries classical m.</text>
+<text x="40" y="966" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" text-anchor="start" fill="#183044">MBU saves this AND-cleanup Toffoli. Arbitrary arithmetic is not free to erase.</text>
+</svg>

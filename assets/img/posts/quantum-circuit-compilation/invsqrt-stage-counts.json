@@ -1,0 +1,34 @@
+{
+  "evidence": "Static counts of the official original invsqrt baseline, not a candidate experiment.",
+  "stages": [
+    "Normalize",
+    "Interval selection",
+    "Horner (3 multiplies)",
+    "Square y\u2080",
+    "M \u00d7 y\u2080\u00b2",
+    "3 \u2212 z",
+    "Final multiply",
+    "Denormalize"
+  ],
+  "forward": [
+    120,
+    3,
+    1071,
+    442,
+    1043,
+    28,
+    867,
+    300
+  ],
+  "reverse": [
+    110,
+    0,
+    1071,
+    442,
+    1043,
+    28,
+    867,
+    300
+  ],
+  "total": 7735
+}

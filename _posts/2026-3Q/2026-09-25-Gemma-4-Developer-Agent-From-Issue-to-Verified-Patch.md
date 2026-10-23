@@ -1,5 +1,5 @@
 ---
-title: "Gemma 4 Developer Agent: Learning to Fix a Codebase, One Verified Patch at a Time"
+title: "Gemma 4 Developer Agent, Part 1: Learning to Fix a Codebase, One Verified Patch at a Time"
 description: "From code completion to autonomous debugging: the research behind Google's Gemma 4 competition, how its agents are evaluated, and a practical route to a first meaningful experiment."
 date: 2026-09-25 06:00:00 +0900
 categories: [AI, Kaggle]
@@ -7,12 +7,19 @@ tags: [kaggle, gemma-4, adk, coding-agents, evaluation, lora, software-engineeri
 math: true
 mermaid: true
 image:
-  path: /assets/img/gemma4-developer-agent/hero.png
+  path: /assets/img/posts/gemma-4-series/cover-1.webp
+  alt: "Part 1 cover: from issue to verified patch"
+  width: 2200
+  height: 1240
+  fit: contain
+  hide_caption: true
 pin: false
 published: true
 topic: gemma-4
 lang: en
 translation_key: gemma-4-developer-agent
+series: gemma-4
+series_order: 1
 ---
 
 <style>
@@ -34,6 +41,9 @@ article .content .mermaid * {
 </style>
 
 [한국어판 읽기]({{ site.baseurl }}/posts/Gemma-4-Developer-Agent-From-Issue-to-Verified-Patch-KR/)
+
+{% assign gemma_part2 = site.posts | where: "translation_key", "gemma-4-developer-agent-02" | where: "lang", "en" | first %}
+> **Update — October 23, 2026.** This guide preserves the September 25 specification and its unscored teaching example. The allowed model sizes, thinking settings, protected-file handling, and error recovery have since changed; the code below is version-specific. Our later working reference is a different public package, not a scored version of this example.{% if gemma_part2 %} [Part 2]({{ site.baseurl }}{{ gemma_part2.url }}) follows those changes and the subsequent experiments.{% endif %}
 
 ## Start here: what this project is trying to build
 
@@ -2238,8 +2248,8 @@ budget?** That question gives the next experiment a purpose.
 
 ## Reading guide and source notes
 
-**About the illustrations.** The cover adapts the official competition header supplied
-for this article, using built-in image generation to simplify the background and layout.
+**About the illustrations.** The cover uses the series template, with the official competition
+header shown in a panel; that header was simplified with built-in image generation.
 Figure 1 maps the project's responsibilities and two loops; Figure 2 shows execution
 boundaries. Figure 3 summarizes the released task inventory. Figures 4 and 5 are explicitly
 labeled planning and teaching examples. The charts were

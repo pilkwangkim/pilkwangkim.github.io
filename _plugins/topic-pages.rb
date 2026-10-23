@@ -82,8 +82,11 @@ module Jekyll
       categories.map do |category|
         member_ids = Array(category['topics'])
         member_ids.each do |id|
+          # A registered topic may temporarily contain only unpublished posts.
+          next if @topics_by_id.key?(id) && !topics_by_id.key?(id)
+
           topics_by_id.fetch(id) do
-            raise Errors::FatalException, "Category #{category['id']}: unknown or empty topic #{id}"
+            raise Errors::FatalException, "Category #{category['id']}: unknown topic #{id}"
           end
         end
         category_posts = posts.select { |post| member_ids.include?(post.data['topic']) }

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="864pt" height="468pt" viewBox="0 0 864 468" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-10-22T16:03:25.006063</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 468 
+L 864 468 
+L 864 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 233.28 308.88 
+L 794.88 308.88 
+L 794.88 112.32 
+L 233.28 112.32 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path id="m9417f9392a" d="M 0 0 
+L 0 3.5 
+" style="stroke: #526572; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#m9417f9392a" x="328.871489" y="308.88" style="fill: #526572; stroke: #526572; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #526572" x="328.871489" y="327.276484" transform="rotate(-0 328.871489 327.276484)">−0.001</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use xlink:href="#m9417f9392a" x="448.360851" y="308.88" style="fill: #526572; stroke: #526572; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #526572" x="448.360851" y="327.276484" transform="rotate(-0 448.360851 327.276484)">0.000</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_3">
+      <g>
+       <use xlink:href="#m9417f9392a" x="567.850213" y="308.88" style="fill: #526572; stroke: #526572; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #526572" x="567.850213" y="327.276484" transform="rotate(-0 567.850213 327.276484)">0.001</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#m9417f9392a" x="687.339574" y="308.88" style="fill: #526572; stroke: #526572; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #526572" x="687.339574" y="327.276484" transform="rotate(-0 687.339574 327.276484)">0.002</text>
+     </g>
+    </g>
+    <g id="text_5">
+     <text style="font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #526572" x="514.08" y="346.277656" transform="rotate(-0 514.08 346.277656)">K-W2 minus K-W (macro AUC)</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_5"/>
+     <g id="text_6">
+      <text style="font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #183344" x="229.78" y="174.178828" transform="rotate(-0 229.78 174.178828)">Clean OOF primary</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_6"/>
+     <g id="text_7">
+      <text style="font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #183344" x="229.78" y="267.778828" transform="rotate(-0 229.78 267.778828)">Displayed Public</text>
+     </g>
+    </g>
+   </g>
+   <g id="line2d_7">
+    <path d="M 448.360851 308.88 
+L 448.360851 112.32 
+" clip-path="url(#pe43480a31b)" style="fill: none; stroke: #526572; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_8">
+    <path d="M 514.08 168.48 
+L 610.866383 168.48 
+" clip-path="url(#pe43480a31b)" style="fill: none; stroke: #277f85; stroke-width: 3; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_9">
+    <defs>
+     <path id="mf540463645" d="M 0 5 
+C 1.326016 5 2.597899 4.473168 3.535534 3.535534 
+C 4.473168 2.597899 5 1.326016 5 0 
+C 5 -1.326016 4.473168 -2.597899 3.535534 -3.535534 
+C 2.597899 -4.473168 1.326016 -5 0 -5 
+C -1.326016 -5 -2.597899 -4.473168 -3.535534 -3.535534 
+C -4.473168 -2.597899 -5 -1.326016 -5 0 
+C -5 1.326016 -4.473168 2.597899 -3.535534 3.535534 
+C -2.597899 4.473168 -1.326016 5 0 5 
+z
+" style="stroke: #277f85"/>
+    </defs>
+    <g clip-path="url(#pe43480a31b)">
+     <use xlink:href="#mf540463645" x="561.875745" y="168.48" style="fill: #277f85; stroke: #277f85"/>
+    </g>
+   </g>
+   <g id="line2d_10">
+    <defs>
+     <path id="m5549a0a689" d="M -0 7.071068 
+L 7.071068 0 
+L 0 -7.071068 
+L -7.071068 -0 
+z
+" style="stroke: #aa6341; stroke-linejoin: miter"/>
+    </defs>
+    <g clip-path="url(#pe43480a31b)">
+     <use xlink:href="#m5549a0a689" x="328.871489" y="262.08" style="fill: #aa6341; stroke: #aa6341; stroke-linejoin: miter"/>
+    </g>
+   </g>
+   <g id="patch_3">
+    <path d="M 233.28 308.88 
+L 794.88 308.88 
+" style="fill: none; stroke: #dce4e7; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 13px; font-family: 'DejaVu Sans'; fill: #183344" transform="translate(625.205106 164.055176)">+0.00095</text>
+    <text style="font-size: 13px; font-family: 'DejaVu Sans'; fill: #183344" transform="translate(625.205106 179.65873)">5 / 5 folds positive</text>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #aa6341" x="328.871489" y="238.68" transform="rotate(-0 328.871489 238.68)">−0.001</text>
+   </g>
+  </g>
+  <g id="text_10">
+   <text style="font-weight: 700; font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #277f85" x="38.88" y="25.74" transform="rotate(-0 38.88 25.74)">RSNA KNEE  /  PART 4</text>
+  </g>
+  <g id="text_11">
+   <text style="font-weight: 700; font-size: 21px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #183344" x="38.88" y="53.82" transform="rotate(-0 38.88 53.82)">K-W2 versus K-W: two kinds of evidence disagreed</text>
+  </g>
+  <g id="text_12">
+   <text style="font-size: 14px; font-family: 'DejaVu Sans'; fill: #183344" transform="translate(86.4 380.612656)">OOF interval: [+0.00055, +0.00136], conditional on this reader and cohort.</text>
+   <text style="font-size: 14px; font-family: 'DejaVu Sans'; fill: #183344" transform="translate(86.4 402.48)">It is not a Public noise interval or a Private probability.</text>
+  </g>
+  <g id="text_13">
+   <text style="font-size: 11.5px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #526572" x="38.88" y="453.537305" transform="rotate(-0 38.88 453.537305)">AUC gains are not guaranteed by seed averaging. Retaining K-W2 is a choice under conflicting evidence.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pe43480a31b">
+   <rect x="233.28" y="112.32" width="561.6" height="196.56"/>
+  </clipPath>
+ </defs>
+</svg>
