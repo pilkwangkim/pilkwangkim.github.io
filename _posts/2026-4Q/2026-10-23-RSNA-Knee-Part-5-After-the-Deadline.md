@@ -32,11 +32,11 @@ lang: en
 
 **In this final part**
 
-Competing solo, I finished 560th out of 6,425 teams, with a Bronze Medal. I compare the final standings and 154 paired submission scores, trace which model and supervision changes survived on Private, and examine where the final improvements stopped. The public H system remained stronger than my best completed clean composition. My predictions improved the final H mixture, but that limited contribution did not erase the gap in what I had built. I connect the results to the questions about OOF, supervision, public releases and the cost of participation that made the finish difficult to make sense of.
+Competing solo, I finished 560th out of 6,425 teams, with a Bronze Medal. This final article follows the development through the standings and 154 paired submission scores: which model and supervision changes improved Private, and why the late extensions did not take the results further. The public H system remained stronger than my best completed clean composition. Adding my predictions improved the final H mixture, but that small contribution left the weakness of my own system unresolved. I revisit the OOF investment, the role of supervision and public releases, and the frustration of spending so much time on a result I had wanted to be stronger.
 
 ---
 
-## Final result and selected submissions
+## Final result
 
 My final Private AUC was **0.943**. Of the two submissions I selected, the H-dominated rank blend, **v229**, determined that score. The clean S6F-heavy composition, **v236**, scored **0.941**. Looking across all my scored submissions after the reveal, v229 also had the highest displayed Private score.
 
@@ -47,7 +47,7 @@ My final Private AUC was **0.943**. Of the two submissions I selected, the H-dom
 | K-W2, v236; selected | 0.953 | 0.941 |
 {: .rsna-results-scores }
 
-My position in the official standings moved from **Public 1,785th to Private 560th**, a rise of **1,225 places**. That is not the same comparison as v229's 0.957 → 0.943: my Public best was H at 0.958, whereas my final Private result came from v229. A team-level gap can involve two different submissions. The submission-level analysis below pairs the two scores of the exact same submission.
+My position in the official standings moved from **Public 1,785th to Private 560th**, a rise of **1,225 places**. This rank change and v229's 0.957 → 0.943 describe different comparisons. My Public best was H at 0.958, whereas my final Private result came from v229. The two leaderboard scores need not belong to the same submission. In the submission-level analysis below, I avoid that ambiguity by pairing the scores of each exact submission.
 
 I retrieved the [official leaderboard](https://www.kaggle.com/competitions/rsna-knee-abnormality-detection/leaderboard) and my submission history on October 23. The account returned **177 attempts**, of which **154 had both scores**. One of those was a known deployment failure that scored 0.500 on both splits; I separate it from the 153 model-performance observations. The other 23 attempts had no paired numerical result. All values here retain Kaggle's three-decimal display precision. A displayed tie is not proof of identical predictions or exactly equal AUC.
 
@@ -55,7 +55,7 @@ I retrieved the [official leaderboard](https://www.kaggle.com/competitions/rsna-
 
 Private was lower than Public for much of the board. Across all 6,425 matched teams, the median difference, Private minus Public, was **−0.016**, with the middle half between **−0.018 and −0.015**. My leaderboard score difference of −0.015 was therefore close to the middle of the observed distribution. The drop was not unusual by itself.
 
-The leaders, however, did not disappear. Public winner **Barry** moved from 0.970 to 0.957 and finished **7th**. Private winner **Team Kangaroo** moved from Public **4th**, 0.969, to **1st**, 0.960. Seven of the Public top ten remained in the Private top ten.
+The Public leaders nevertheless remained broadly competitive. Public winner **Barry** moved from 0.970 to 0.957 and finished **7th**. Private winner **Team Kangaroo** moved from Public **4th**, 0.969, to **1st**, 0.960. Seven of the Public top ten remained in the Private top ten.
 
 | Public cohort | Also in the same Private top group |
 |---|---:|
@@ -74,9 +74,9 @@ The large **0.958 Public block** was especially important to my finish. By the f
 
 This density helps explain why a small score advantage could accompany a large rank gain. My v229 finished at 0.943, just above the block's most frequent Private display of 0.942. That does not explain every place gained, or establish that every team in the block ran a copied notebook. It does show why “I moved up more than a thousand places” and “the score advantage was small” can both be true. The broad ordering remained informative; fine distinctions among closely packed candidates were much less secure.
 
-## Public and Private performance over time
+## Development and score progression
 
-The overall trajectory is not a story of progress confined to Public. The first frozen-encoder baseline scored **0.711 / 0.680** on Public / Private. The selected final submission scored **0.957 / 0.943**. Those are increases of **0.246 and 0.263**, respectively. They describe the endpoints of a changing development program, rather than the isolated effect of any one method.
+The full history shows improvement on both splits. The first frozen-encoder baseline scored **0.711 / 0.680** on Public / Private, and the selected final submission scored **0.957 / 0.943**. Those are increases of **0.246 and 0.263**, respectively. Many parts of the system changed between these endpoints, so the differences describe the development as a whole rather than the effect of any one method.
 
 <picture class="rsna-results-figure">
   <source media="(max-width: 620px)" srcset="{{ site.baseurl }}/assets/img/posts/rsna-knee-series/part5-results-journey-mobile.png" width="760" height="1380">
@@ -118,7 +118,7 @@ The early gains came from making the images and the supervision usable: fine-tun
 
 </details>
 
-The final fortnight followed several branches at once. An individual N model, a teacher student, an S6F reproduction and a public mixture were different experiments, not successive revisions of one fixed ensemble. Reading every row as an add-one improvement would miss the central question: which combination used the information in those families well enough to justify its cost?
+The final fortnight followed several branches at once. An individual N model, a teacher student, an S6F reproduction and a public mixture tested different hypotheses. They were not successive additions to one fixed ensemble. The question was how to use the information in those families to obtain a prediction worth the cost of executing it.
 
 ## Training targets and Private performance
 
@@ -147,17 +147,17 @@ $$
 
 That need not equal the desired image-finding probability. It can still preserve the desired ranking under some forms of missingness, so the equation is not an impossibility result about learning from incomplete reports. The question is whether constructing $q$ preserves the distinctions needed for the image task. Class weighting, sampling and finite model capacity complicate the actual learner further. Changing the optimizer does not answer that question for me.
 
-There are plausible reasons for the target changes to matter. Fitting an incomplete report target more accurately does not ensure a better ranking of the desired image findings. Multimodal targets and a stronger visual teacher can introduce information absent from the original target. The opposing N results also show the limit of that argument: using a richer or more elaborate table does not guarantee a better learning problem for a particular model.
+This gives target construction a role that better optimization alone cannot fill. Fitting an incomplete report target more accurately does not ensure a better ranking of the desired image findings. Multimodal targets and a stronger visual teacher can introduce information absent from the original target. Yet the opposing N results also matter: more information, or a more elaborate labeling procedure, does not guarantee better learning in a particular model.
 
 S6F added another route. Relative to R949F, its Private gain was **0.007**. The r949blendjev target table was retained, while the backbone, anatomical input route, attention, training and aggregation changed together. The result supports the complete reproduced system; it does not identify the contribution of any one of those changes. Learning that interaction required more than importing an individual layer into an older pipeline.
 
 Domain knowledge also entered through what counted as a positive finding, which anatomy the input retained, and how credible a report-derived negative was. External labels and anatomical priors could supply information unavailable from another search over the existing bank. The [public CoAtNet recipe](https://www.kaggle.com/competitions/rsna-knee-abnormality-detection/discussion/746792) connected those decisions rather than offering a backbone in isolation. That broader role of supervision is separate from the matched R949F → S6F comparison above, which retained its target table. My specific target-table comparisons show that supervision changed my submitted results. How much external data, outside labels and domain knowledge explain the competition-wide frontier remains a hypothesis to examine against complete public recipes and post-competition write-ups. Those two levels of claim should not be conflated.
 
-## Model composition and blend weights
+## Ensemble composition
 
 S6F alone reached **0.938** on Private. Combining it with N and V3 in **K-W** reached **0.941**. The equal-family K-eq composition scored 0.940; increasing S6F's share to one half gave the extra displayed 0.001. That is a concrete benefit from a clean composition, even though the strongest final candidate also used public predictions.
 
-A different four-family combination, **D2c**, fell from S6F's 0.938 to **0.933**. This was not a controlled test in which three models each made an independent negative contribution: adding them also reduced S6F's weight from one to one quarter. The loss belongs to that declared composition. Likewise, expanding a compact earlier package into the broader R1-C proposal reduced Private from **0.931 to 0.923**. More completed models created options; they did not make every way of using those options better.
+A different four-family combination, **D2c**, fell from S6F's 0.938 to **0.933**. Adding the three families also reduced S6F's weight from one to one quarter, so I cannot divide the loss into an independent negative effect from each added model. The observation belongs to the complete composition. Likewise, expanding a compact earlier package into the broader R1-C proposal reduced Private from **0.931 to 0.923**. Completing more families created options, but putting more of them into an ensemble did not always help.
 
 The H comparison is the clearest small reversal between Public and Private. With $R$ denoting a per-finding rank transformation and $A_{10}$ my N/V3 member-rank block, the tested outer operator was
 
@@ -173,65 +173,65 @@ H alone scored **0.958 / 0.942**. With own share **0.25**, v229 scored **0.957 /
 </picture>
 _Figure 3. Each row pairs the Public and Private scores of one exact submission. Highlighted rows are the two selected candidates. These are observed AUCs, not confidence intervals; a displayed tie does not establish equal predictions or statistical equivalence._
 
-## Results of the final extensions
+## Late extensions
 
 Several last extensions failed to improve that result. Adding a fourth family in **C1U** reduced K-W's Private score from **0.941 to 0.937**. It also changed the existing family shares, so the observation cannot be assigned solely to the fourth family's standalone quality.
 
 The second N seed in **N2**, a full-data S6F checkpoint in **S6FX**, and the second clean S6F seed in **K-W2** all ended at a displayed Private **0.941**, equal to K-W. K-W2's Public score was lower by 0.001. The clean OOF evidence that motivated its second-seed bag did not become a visible test-score gain in this run. That is a much narrower conclusion than saying bagging is useless, or that the original OOF measurements were false.
 
-The larger time-excluded candidates did not supply missing performance evidence. The K-W3 sequence ended without a score: a platform system error, a timeout on retry, and an unhandled error on the final retry. Other expanded reads also had time-limit or execution failures. I cannot turn those missing scores into a claim that the models would have been weak, or strong enough to change the result. A model that could not complete the declared test execution was unavailable for final selection.
+The larger candidates expected to exceed the time limit never produced scores. The K-W3 sequence ended with a platform system error, a timeout on retry, and an unhandled error on the final retry. Other expanded reads also had time-limit or execution failures. Without scores, I cannot establish that these models would have been weak or strong enough to change the result. What I do know is that a model unable to complete the declared test execution was unavailable for final selection.
 
-Across the 154 paired numerical outcomes, no displayed Private score exceeded v229's **0.943**. The more useful question is therefore about the development process that brought the scored systems to this level without moving them further. The terminal failures explain lost options, not hypothetical AUC gains.
+Across the 154 paired numerical outcomes, no displayed Private score exceeded v229's **0.943**. The development process matters more here than reconsidering the last selection alone: why did the completed systems reach this level and stop? The execution failures identify options I lost, but cannot tell me what those options would have scored.
 
-## Interpreting the Public–Private gap
+## The Public–Private gap
 
 AUC depends on positive–negative pairs within each finding. Changing the held-out studies changes those pairs, and rare findings can be sensitive to which difficult cases appear. Repeated choices informed by Public can also favor that split. In addition, the team-level board compares Public-best submissions with a final selection. These are different mechanisms; one score gap does not tell me their separate contributions.
 
 The broad Public–Private score ordering was strong: Spearman correlation across the 6,425 displayed team-score pairs was **0.986**. That is compatible with the final small reversals. A statistic dominated by the board's broad performance range does not make a 0.001 Public advantage a reliable choice among near neighbors.
 
-The same distinction applies to my own experiments. Better supervision and stronger complete recipes often improved both splits. The late fixed-share H comparison reversed their preference. Extra seeds mostly reached displayed ties. Those observations support different conclusions, rather than a blanket verdict that Public was either trustworthy or meaningless. Aggregate scores cannot establish the clinical cause of a gain, measure model-error correlation, or provide a per-study uncertainty interval. I would need the corresponding test predictions and labels for those analyses.
+My own experiments need the same distinctions. Better supervision and stronger complete recipes often improved both splits; the late fixed-share H comparison favored different choices on the two splits; extra seeds mostly reached displayed ties. These observations do not support a single verdict that Public was either trustworthy or meaningless. Aggregate scores also cannot establish the clinical cause of a gain, measure model-error correlation, or provide a per-study uncertainty interval. Those analyses would require the corresponding test predictions and labels.
 
-## My completed systems compared with H
+## My systems and H
 
-The comparison I need to face directly is straightforward. My completed clean compositions topped out at displayed Public **0.954** and Private **0.941**. H alone scored **0.958 / 0.942**. The systems I had actually trained, executed and submitted myself were weaker on both splits. I had hoped that H might be mostly adapted to Public and that my clean evidence would prove more useful on Private. The result did not support treating H as merely a Public-overfitted system: it remained stronger than my own completed clean packages. Producing more complete OOF did not change that comparison.
+The central comparison is straightforward. My completed clean compositions topped out at displayed Public **0.954** and Private **0.941**. H alone scored **0.958 / 0.942**. The systems I had actually trained, executed and submitted were weaker on both splits. I had hoped that H might be particularly suited to Public, leaving my clean-evidence route an advantage on Private. The result did not support dismissing H as merely Public-overfitted: it remained stronger than my completed clean packages. The amount of complete OOF I had produced could not substitute for that performance comparison.
 
-The final own block raised H's Private result to **0.943**, but a useful contribution to a stronger predictor is different from building a stronger predictor myself. I had achieved the former, not the latter. The evidence covers the completed, scored packages; it does not establish the best imaginable combination of every file in the bank. That boundary does not make the comparison with H less relevant to the system I actually delivered.
+Adding my own block raised H's Private result to **0.943**. A useful addition to a stronger predictor is nevertheless a different achievement from building a stronger predictor myself. I had achieved the former. This comparison covers completed, scored packages; it does not establish the best possible combination of every file in the bank. Within that scope, my delivered systems still fell short of H.
 
-I did not turn the available data, training time and accumulated evidence into a system of my own that surpassed a readily available public one. My mistake was broader than the last choice of a model or weight. I had approached too much of the task as something that a sound grounding in ML, more training and a larger bank could solve, without reconsidering the learning problem deeply enough. Choosing what information to obtain, what the targets should mean and which complete system to reproduce was part of the required skill too. Framing the task mainly as a matter of generic ML technique and compute was my mistake.
+I did not turn the available data, training time and accumulated evidence into a system of my own that surpassed the public one. The shortfall went beyond the last choice of a model or weight. I had treated too much of the task as a problem to solve with generic ML techniques, more training and a larger bank, without reconsidering the learning problem deeply enough. Choosing what information to obtain, what the targets should mean and which complete system to reproduce was part of modeling too. My framing had left those questions with too little attention.
 
 The size of the final score difference is only known at display precision; it does not identify which decision caused the shortfall. I also cannot establish the counterfactual in which those public notebooks never appeared. My own bank might have occupied a higher relative tier in that setting, but that is an untested hypothesis. The actual competition included those systems, and I had to build something useful in their presence.
 
-## The purpose and limits of the OOF bank
+## The OOF bank
 
 I built complete OOF families because I wanted the research to accumulate. A completed family left predictions on studies excluded from its training. Another family could be compared on the same studies, and a combination rule could be chosen inside the other folds before being evaluated on the held-out fold. A new run could then be judged alongside alternatives, rather than simply added to the last package.
 
 That required more than keeping checkpoints. Fold assignments, study keys, target definitions and aggregation operators had to agree. An incomplete promising run was not interchangeable with a complete family. I accepted the cost because the resulting predictions were supposed to make later choices better, not merely make the archive larger.
 
-The bank supplied that comparison structure. It did not guarantee that the families inside it were strong enough, that I had explored the most valuable hypotheses, or that another round of combination search would overcome the limitations of the available predictions. A well-controlled comparison can correctly rank a limited set of candidates while all of them remain below a stronger system. This is the distinction between the quality of my evidence and the strength of my predictions.
+The bank made those comparisons possible. It could not guarantee that its families were strong enough, that I had explored the most valuable hypotheses, or that another combination search would overcome the limits of the available predictions. A careful comparison can rank a set of candidates correctly while all of them fall below a stronger system. The quality of my evidence and the strength of my predictions were separate questions.
 
 The late public parents also created a second evaluation problem. Some used all competition training studies; others did not expose enough ancestry to reconstruct compatible exclusions. Teacher content could carry the same issue into a student. My own components retained their clean identities, but adding them could not make the complete public mixture clean.
 
 ![The scope of own-bank OOF evidence and a final-only shared predictor]({{ site.baseurl }}/assets/img/posts/rsna-knee-series/part5-oof-scope.png){: width="1920" height="1152" }
 _Figure 4. Conceptual evidence map. Compatible own-bank predictions support cross-fitted combination selection. A full-data or unknown-ancestry parent needs different evidence for the complete mixture. The diagram contains no measured performance quantities._
 
-That is why the bank could remain useful and still fail to play the role I had wanted from it. I had invested in it to guide a strong final choice. Discovering that it mainly helped me make a limited addition to a stronger public system was not the same outcome. The assets had lost much of their relative competitive value at the finish, even while retaining their scientific use.
+The bank therefore remained useful while falling short of the role I had wanted for it. I had invested in those assets to guide the choice of a strong final predictor. At the finish, I mainly used them to find a small improvement to a stronger public system. Those were different outcomes for me. The assets retained their scientific use but had lost much of their relative competitive value.
 
-## Contribution beyond a shared baseline
+## A shared baseline
 
 A new notebook, a new reducer and a new source of predictive information were not the same event. Some releases supplied a useful training system or genuinely different weights. Others reused much the same content through a different assembly. Deduplicating those lineages mattered because a growing list of notebook names did not imply equally many independent ideas.
 
-Once a strong runnable system became widely available, standalone quality was no longer the only useful question. My predictor $u$, a shared baseline $b$ and a declared combination operator $C$ posed a different comparison. For an evaluation metric $M$ on the same held-out studies:
+Once a strong runnable system became widely available, the standalone quality of my predictor was no longer enough to judge its practical value. Let my predictor be $u$, the shared baseline $b$, and the declared combination operator $C$. For an evaluation metric $M$ on the same held-out studies, the relevant difference was:
 
 $$
 \Delta M=M\!\left(C(u,b)\right)-M(b).
 $$
 
-This requires the same metric and a valid matched evaluation. A good standalone $u$ can still add little useful ordering information to $b$. Differences in architecture, substantial training effort and complete OOF are reasons to investigate that possibility, not guarantees of a gain. By the finish, the practical question was how to add value to the stronger shared predictor. The final H comparison supplies a small observed example of such a contribution; it does not restore my OOF bank to the leading role I had expected from it.
+The metric must be the same and the matched evaluation valid. A good standalone $u$ can still add little information that corrects the ordering errors of $b$. A different architecture, substantial training effort and complete OOF give me reasons to test that contribution, but cannot guarantee a gain. By the finish, I was asking what I could add to the stronger shared predictor. The H comparison gave a small observed improvement, though this was far from the central role I had expected my bank to play.
 
 ![Reusable evidence and marginal value given a shared baseline are different questions]({{ site.baseurl }}/assets/img/posts/rsna-knee-series/part5-shared-baseline.png){: width="1920" height="1152" }
 _Figure 5. Conceptual comparison. The usefulness of an own predictor depends on the parent and the combination operator. The diagram assumes no fitted weight, independence or numerical gain; the actual candidates are measured separately in Figure 3._
 
-Public access did not make the original work behind those systems less substantial. I benefited from their readers, labels, training code and predictions. I also could not infer anyone else's effort from a rounded leaderboard score. My difficulty was more personal: I had expected my accumulated work to provide the main predictor, and it had become a smaller component beside a system I had not matched.
+Making those systems public did not diminish the research behind them. I benefited from the released readers, labels, training code and predictions, and a rounded leaderboard score told me little about the effort behind anyone else's work. What I found difficult was the role my own work had come to occupy. I had expected it to provide the main predictor; instead, it became a small component complementing a system I had not matched.
 
 ## Research priorities and execution costs
 
@@ -239,38 +239,30 @@ Finding a promising method was not the same as having a prediction ready to comp
 
 The nine-hour limit made the opportunity cost concrete. A scientifically interesting addition could be too expensive for the final read. A compact, coherent recipe could therefore be more valuable than several individually promising models whose combined execution did not fit. The scoreless expanded candidates are actual consequences of that constraint; they do not tell me what those candidates would have scored with unlimited time.
 
-I also needed to distinguish a precise question from an important one. Holding an engine fixed and changing one target table could answer that comparison well. It did not establish that the comparison deserved the next week. Some larger changes were harder to isolate, but potentially more consequential than another small variation inside the same formulation.
+A comparison I could interpret precisely was not necessarily the experiment I should prioritize. Holding an engine fixed and changing one target table could reveal that difference clearly, without making it worth the next week of work. Some larger changes were harder to isolate but more consequential than another variation within a familiar formulation.
 
 There were two ways to spend the remaining time badly: integrate one release after another without learning what made the system stronger, or insist on a comparison so complete that it could no longer finish before the deadline. Recognizing the difference, preparing the useful alternatives early and bringing them to an interpretable result were part of my responsibility. A process that kept producing files and checks was not enough by itself.
 
-## The result and the lingering frustration
+## Lingering frustration
 
-I can acknowledge that my own completed systems fell short and still find the experience discouraging. I did not buy complete OOF simply to leave an orderly archive. I wanted that work to lead to a strong predictor. In the final fortnight, carefully prepared models often felt like material from which I could salvage a useful addition to something stronger.
+Acknowledging the weakness of my completed systems does not remove the frustration. I had invested in complete OOF to build a strong predictor, rather than simply leave an orderly archive. In the final fortnight, carefully prepared models often felt like material to search for a small addition to something stronger.
 
 Effort does not entitle a model to a higher score. The fact that I could reuse the files later did not, however, answer whether this had been a satisfying way to spend the time. The final score evaluates a prediction. It does not evaluate the value of every experiment, the cost of producing the evidence, or whether I want to repeat the process.
 
-Private made several comparisons clearer without making every earlier decision inevitable. I do not want to rewrite Part 4's uncertainty as though I had known the result. Nor can I establish what score an experiment I never completed would have achieved. What remains is a more specific account of the shortfall, alongside the frustration I felt while living through it.
+Knowing the Private results now can make the earlier choices seem clearer than they were. At the time, I did not know those results, and the scores of unfinished experiments remain unknown. I can describe the shortfall more specifically without finding the experience any less frustrating.
 
-## The Formula 1 analogy and the cost of participation
+## Formula 1 and participation costs
 
 In a [Name That LLM discussion about the cost of generating additional training data](https://www.kaggle.com/competitions/name-that-llm/discussion/749447), participants compared Kaggle to Formula 1: skill still mattered, but so did the resources available to put that skill to work. Others replied that resources had always affected competition and that useful results were still possible on modest budgets. These were participants' views, not an official explanation of what determines a result. I recognized something of my own experience in the comparison.
 
 I increasingly feel that some competitions reward an entire development operation. Model design is one part; acquiring useful data, preparing inputs, running enough comparisons and getting the complete system to execute are others. Like a driver needing a capable car and the preparation behind it, my ideas needed data, hardware and implementation to become useful predictions. I had underestimated how much of the competition involved doing all of this well.
 
-There was an uncomfortable tension in the finish. Strong public releases made sophisticated predictions accessible to more people, reducing some barriers. At the same time, each release could bring another round of preparation and comparison while an earlier candidate was still being evaluated. Access became easier without participation necessarily becoming less demanding. I could be grateful for an open method and still feel exhausted by continually reconsidering what to use.
+The late public releases reduced some demands while adding others. Strong systems made sophisticated predictions accessible to more people. Yet each release could bring another round of preparation and comparison before an earlier candidate had even finished evaluation. Easier access did not necessarily mean less work to participate. I was grateful for the open research and exhausted by having to reconsider what to use.
 
 Efficient inference, data preparation and reliable execution are substantial skills. Near the end, though, more of my attention went into keeping up, repeating familiar comparisons and making everything finish on time. I spent longer at the keyboard without a corresponding sense that I understood the problem more deeply. For me, the experience had begun to feel more consuming than instructive.
 
 Accepting my shortcomings does not automatically make me want to enter another competition on the same terms. Being willing to learn how to compete and wanting to devote this much time to competing are separate choices.
 
-## Considerations for future competitions
+## Future participation
 
-RSNA was an imaging competition, but finishing it made me reconsider which competitions I want to enter and how much time to give them.
-
-For the time being, I intend to skip most tabular events or take part only lightly. If the work I can see ahead is mainly extending a feature list, trying more hyperparameters and seeds, and adjusting an ensemble of familiar models, I no longer want to assume that the final stretch deserves weeks of my attention. Those changes can improve predictions. I need a clearer reason to make them the center of another project.
-
-I remain interested in understanding a new domain, designing validation that reflects a difficult deployment setting, or finding out why a method fails under distribution shift. A tabular dataset can contain any of those questions. In that case, I can choose a bounded study around the question and stop once I have learned enough, even while the leaderboard remains open. Reading the eventual solutions may teach me more than spending the intervening weeks trying to preserve a position.
-
-Before committing seriously again, I want to name what I hope to understand, which comparisons would help me understand it, and how much time and expense I am prepared to spend. I also want a reason to continue after the most interesting question has been answered. A possible improvement in rank, by itself, is no longer enough. I would rather leave time for work whose value I can explain after the leaderboard has disappeared.
-
-The Bronze Medal and the score are now known. My own system was not as strong as I had wanted, and stronger public work carried much of the final prediction. I can accept that assessment without finding the whole experience satisfying. The technical questions still interest me; the disappointment and skepticism remain too. I can decide to participate differently next time before I have found a neat conclusion about this competition.
+For now, I plan to take part in tabular competitions only casually. Rather than spend weeks adjusting features, hyperparameters and seeds for a small improvement in rank, I would prefer to read the solutions after the competition ends. A more serious commitment would need a new domain to study or a difficult validation problem I want to work through.

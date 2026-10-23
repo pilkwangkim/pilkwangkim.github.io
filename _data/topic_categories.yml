@@ -9,7 +9,7 @@
 - id: tabular
   group: ai
   title: Tabular & Predictive Modeling
-  description: Explore tabular prediction alongside modeling and validation for imaging, audio, mass spectra, and stratigraphic data.
+  description: Explore predictive modeling across tabular and scientific data, alongside verified optimization of quantum circuits.
   topics:
   - playground-series
   - march-machine-learning-mania
@@ -18,6 +18,7 @@
   - casmi-2026
   - rsna-knee
   - birdclef-2026
+  - quantum-circuit-compilation
 - id: reinforcement-learning
   group: ai
   title: Reinforcement Learning & Game Agents

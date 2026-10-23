@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="815" viewBox="0 0 1200 815" role="img" aria-labelledby="title desc">
-<title id="title">DQI: recover a hidden error only to fix its phase</title><desc id="desc">Teaching example: GF(4), RS(3,1), one symbol error. Not a competition-sized run.</desc>
+<title id="title">DQI: recover a hidden error only to fix its phase</title><desc id="desc">GF(4), RS(3,1): recover one symbol error and apply its phase correction.</desc>
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#526776"/></marker></defs>
 <rect width="1200" height="815" rx="18" fill="#fbfbf8"/>
 <text x="40" y="54" font-family="Arial, Helvetica, sans-serif" font-size="31" font-weight="700" text-anchor="start" fill="#183044">DQI: recover a hidden error only to fix its phase</text>
-<text x="40" y="91" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="start" fill="#526776">Teaching example: GF(4), RS(3,1), one symbol error. Not a competition-sized run.</text>
+<text x="40" y="91" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="start" fill="#526776">GF(4), RS(3,1): recover one symbol error and apply its phase correction.</text>
 <rect x="40" y="145" width="330" height="235" rx="14" fill="#fbefe5" stroke="#d6e0e5" stroke-width="2"/>
 <text x="60" y="184" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="700" text-anchor="start" fill="#183044">1  Hidden error</text>
 <text x="60" y="227" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">α² = α + 1; α³ = 1</text>
@@ -21,7 +21,7 @@
 <text x="850" y="227" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">S₁ / S₀ = α^j = α</text>
 <text x="850" y="261" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">Therefore j = 1</text>
 <text x="850" y="295" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">e₁ = S₀ / α = α²</text>
-<text x="850" y="329" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">For this one-error toy</text>
+<text x="850" y="329" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">For a single symbol error</text>
 <line x1="376" y1="260" x2="426" y2="260" stroke="#526776" stroke-width="2.5" marker-end="url(#arrow)"/>
 <line x1="771" y1="260" x2="821" y2="260" stroke="#526776" stroke-width="2.5" marker-end="url(#arrow)"/>
 <rect x="40" y="445" width="330" height="205" rx="14" fill="#fbefe5" stroke="#d6e0e5" stroke-width="2"/>

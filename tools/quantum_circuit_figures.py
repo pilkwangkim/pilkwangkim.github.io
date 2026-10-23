@@ -82,7 +82,7 @@ def interference():
         ax.text(.5,-.21,probs,transform=ax.transAxes,ha='center',fontsize=16)
     axes[0].set_ylabel('Real amplitude',fontsize=20)
     fig.suptitle('A relative sign becomes a measurable difference',fontsize=25,x=.52,y=.97)
-    fig.text(.04,.87,'Teaching example: H → Z → H. The middle states have identical probabilities.',fontsize=16,color=MUTED)
+    fig.text(.04,.87,'H → Z → H. The middle states have identical probabilities.',fontsize=16,color=MUTED)
     fig.subplots_adjust(left=.09,right=.985,top=.72,bottom=.25,wspace=.3)
     fig.savefig(OUT/'fig-01-interference.svg',facecolor=BG)
     plt.close(fig)
@@ -120,7 +120,7 @@ def uncomputation():
     d.text(60,824,'Cleanup cost: one Toffoli',23,weight='700')
     d.text(635,842,'The sign (−1)^(mab) is cancelled.',21)
     d.text(40,921,'Dots are controls; ⊕ is a bit-flip target. The dashed line carries classical m.',22,color=MUTED)
-    d.text(40,966,'MBU saves this AND-cleanup Toffoli. Arbitrary arithmetic is not free to erase.',22,weight='700')
+    d.text(40,966,'MBU replaces this AND-cleanup Toffoli with HMR and a conditional CZ.',22,weight='700')
     d.save('fig-02-uncomputation.svg')
 
 
@@ -166,10 +166,10 @@ def invsqrt_cost():
 
 def dqi():
     d=Diagram('DQI: recover a hidden error only to fix its phase',
-              'Teaching example: GF(4), RS(3,1), one symbol error. Not a competition-sized run.',815)
+              'GF(4), RS(3,1): recover one symbol error and apply its phase correction.',815)
     d.panel(40,145,330,235,'1  Hidden error',['α² = α + 1; α³ = 1','e = (0, α², 0)','Only position 1 is nonzero','e₁ = α² = binary 11'],LIGHT_ORANGE)
     d.panel(435,145,330,235,'2  Received syndromes',['S₀ = α² × α = 1','S₁ = α² × α² = α','Circuit receives (1, α),','not the hidden vector e'],LIGHT_BLUE)
-    d.panel(830,145,330,235,'3  Decode',['S₁ / S₀ = α^j = α','Therefore j = 1','e₁ = S₀ / α = α²','For this one-error toy'],LIGHT_BLUE)
+    d.panel(830,145,330,235,'3  Decode',['S₁ / S₀ = α^j = α','Therefore j = 1','e₁ = S₀ / α = α²','For a single symbol error'],LIGHT_BLUE)
     d.arrow(376,260,426,260);d.arrow(771,260,821,260)
     d.panel(40,445,330,205,'4  Classical mask',['M₁ = α = binary 10','11 AND 10 = 10','popcount = 1 (odd)'],LIGHT_ORANGE)
     d.panel(435,445,330,205,'5  Apply the sign',['Required sign: (−1)^1','Multiply amplitude by −1','Syndromes stay unchanged'],LIGHT_TEAL)
@@ -182,7 +182,7 @@ def dqi():
 
 def chemistry():
     d=Diagram('Chemistry: compress the data and price the whole block encoding',
-              'Architecture illustration. The submitted ANGLE circuits are only one part of the resource model.',850)
+              'ANGLE lookup, state preparation, and rotations contribute to the full resource cost.',850)
     d.panel(40,140,520,185,'Hamiltonian H̃',['An energy operator, generally not unitary','So it cannot simply be used as one gate','Coefficients describe electron interactions'],LIGHT_ORANGE)
     d.arrow(571,232,625,232)
     d.rect(640,140,520,185,LIGHT_BLUE)
@@ -205,7 +205,7 @@ def chemistry():
 
 def qrom_givens():
     d=Diagram('Lookup the angles; rotate pairs of components',
-              'Two small teaching examples. Neither panel is a FeMoCo numerical result.',880)
+              'QROM lookup and sequential Givens rotations.',880)
     d.panel(40,145,320,220,'A  Classical table',['Address a     word dₐ','0                     01','1                     10','Fixed before compilation'],LIGHT_ORANGE)
     d.rect(410,145,750,220,LIGHT_TEAL)
     d.text(435,186,'Coherent XOR lookup: |a⟩|z⟩ → |a⟩|z XOR dₐ⟩',25,weight='700')

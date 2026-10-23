@@ -205,6 +205,8 @@ exclude:
   - docs
   - tools
   - README.md
+  - AGENTS.md
+  - CLAUDE.md
   - LICENSE
   - purgecss.js
   - "*.config.js"

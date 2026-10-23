@@ -20,32 +20,32 @@ translation_key: rsna-knee-04
 lang: en
 ---
 
-My final pair did not contain the submission with my highest Public score. The public Helios recipe, H, displayed 0.958. I selected **v229 at 0.957** and **v236 at 0.953**, passing over a closely related clean composition at 0.954. This was a decision about which two predictions to keep under conflicting evidence, rather than a claim that the leaderboard had ranked them incorrectly.
+My current final selections are **v229 at 0.957** and **v236 at 0.953**. The public Helios prediction, H, scores higher at 0.958, and a clean composition close to my second choice has scored 0.954. I have selected the pair despite those stronger Public alternatives because the local evaluations and Public favor different candidates.
 
-The distinction matters because the two selected submissions were alternatives, not ingredients of a new average. A second candidate was valuable if it could outperform the first on Private. A different architecture or a lower correlation could motivate that possibility, but neither established it. I needed to explain why the second prediction deserved a slot and what unfavorable evidence I was accepting.
+The two submissions are separate candidates, not ingredients for another average. The second helps only if it outperforms the first on Private. A different architecture or lower prediction correlation does not establish that it will. I need to consider the actual differences and the unfavorable evidence that comes with choosing them.
 
-This account is written **as of October 22, 2026, at 09:00 KST (00:00 UTC)**, using only results known by that time. The deadline is still ahead: **October 22 at 23:59 UTC, or October 23 at 08:59 in Korea**. Private scores and the final rank remain unknown. The question is how I made the choice, not how an unseen result might eventually justify it.
+It is **October 22, 2026, at 09:00 KST (00:00 UTC)**. The deadline is **October 22 at 23:59 UTC, or October 23 at 08:59 in Korea**. I do not yet know the Private scores or my final rank.
 
-## Public predictions and the criteria for further improvement
+## Uses of public assets
 
-By the final week, a strong publicly reproducible prediction was a realistic alternative to another training investment. Successive public systems combined different useful elements: a CoAtNet recipe with mixed supervision and auxiliary data; compact ConvNeXt inputs with finding-specific pooling; and rank or probability blends whose weights varied by finding. Their published gains were not additive. The same checkpoint could appear in several notebooks, and two apparently different stacks could share most of their predictive content.
+In this final week, strong public predictions have become an alternative to training another model. Available systems include CoAtNet with mixed supervision and auxiliary data, compact ConvNeXt inputs with finding-specific pooling, and rank or probability blends with finding-specific weights. Their reported gains cannot be added together. Several notebooks reuse the same checkpoints, and apparently different combinations can share much of their prediction content.
 
-I separated three possible uses of that material. A ready checkpoint could strengthen a final test predictor immediately, without supplying compatible OOF. A complete recipe could be retrained on my folds to create a clean family. An input or pooling idea could motivate a new controlled model comparison. The first route bought deployment readiness; the second bought held-out evidence and a reusable prediction family; the third tested a mechanism. Requiring all three to satisfy the same evidence rule would either discard useful test predictors or misclassify full-data predictions as clean.
+I distinguish three uses of public material. A ready checkpoint can enter test inference without supplying compatible OOF. Retraining a complete recipe on my folds can produce a clean family for comparison with other models. Importing an input or pooling idea allows a controlled test of that component. These serve different purposes: testing a complete predictor, building reusable held-out predictions, and investigating a mechanism. Treating them alike would either exclude useful public predictions or misclassify full-data predictions as clean OOF.
 
-The competitive setting made that distinction urgent. In the saved October 21 snapshot, 1,471 of 6,307 teams displayed 0.958; another 228 teams displayed a higher score. The 0.958 block occupied ranks 229 through 1,699. That was a very different situation from treating 0.958 as an isolated frontier model.
+The leaderboard also affects how I use public material. In the snapshot I saved yesterday, October 21, 1,471 of 6,307 teams displayed 0.958. Another 228 teams scored higher, placing the 0.958 group at ranks 229 through 1,699. With so many teams at that level, reproducing it is only part of the task; I also need to consider what I can add.
 
 ![Numbers of teams at each displayed Public score in the saved October 21 snapshot]({{ site.baseurl }}/assets/img/posts/rsna-knee-series/part4-public-density.png){: width="1920" height="1408" }
 _Figure 1. Team-best Public scores at or above 0.953, from the October 21 09:00:41 UTC snapshot. The large 0.958 group describes score density. It does not prove identical prediction vectors, identify every team's model ancestry, or assign a hypothetical final rank to an individual submission._
 
-Copying an exact prediction can provide a strong benchmark, but cannot distinguish its copy from the original on the same cases. Merely observing the same three-decimal score is weaker: different unrounded AUCs and different prediction vectors can share that display. I therefore could not infer that all 1,471 teams were exact copies, or predict that the whole group would move together on Private.
+Reproducing a public prediction provides a strong benchmark, but the same predictions on the same studies cannot distinguish a copy from its original. A matching three-decimal score does not prove a copy, either: different unrounded AUCs or prediction vectors can share that display. I cannot infer that all 1,471 teams used identical predictions, or that they will move together on Private.
 
-The decision was consequently more specific than choosing the highest visible number. I could keep H's observed Public advantage; use H in a fixed blend with my own predictions; or devote a slot to a clean composition supported by another kind of evidence. A distinct composition was useful only if its differences could improve the ranking on unseen studies. Being different, being self-trained, or having clean OOF was not itself a score gain. Equally, H's crowded Public score did not prove it could not succeed on Private.
+Several final choices remain possible. I can keep H with its Public advantage, blend it with my predictions, or retain a clean composition. Choosing a different composition makes sense if its differences improve rankings on unseen studies. Being self-trained or having clean OOF is not itself a test-score gain. Nor does a crowded Public score establish that H will be weak on Private.
 
-This framed the remaining work. A public recipe deserved reproduction when its mechanism and full delivery cost made it a credible new family. Another public blend deserved a test when the exact change could alter the final choice. Repeatedly changing small weights around a popular stack would consume comparisons without resolving whether my models supplied useful information beyond it. The subsequent experiments were attempts to answer those concrete questions.
+I have used that distinction to choose the remaining experiments. I reproduce a public recipe when I can finish training and inference preparation and expect a useful new family. For a blend, I first specify the change and how its result could affect the final selection. Repeated small weight adjustments around a popular combination would make it harder to tell whether my predictions contribute useful information.
 
-## The pending supervision experiments changed what could be combined
+## Label results and new model families
 
-The previous entry ended on October 15 with N's multimodal-label comparison unresolved. Later that day, N-mm12 scored **0.945** on Public against **0.942** for its definition-guided version. The positive local result now had a corresponding external result in the full-field learner. The comparison supported that particular combination of visual inputs and labels; it also made N-mm12 a useful contributor to subsequent compositions.
+When I wrote Part 3 on October 15, N's multimodal-label comparison was still incomplete. Later that day, N-mm12 scored **0.945** on Public against **0.942** for its definition-guided version. The locally favorable target change also improved Public in the full-field model. I included N-mm12 among the candidates for subsequent ensembles.
 
 Two complete reproductions of public recipes expanded the clean comparison further. **R949F**, a CoAtNet recipe with the donor's preprocessing, continuous mixed supervision, and auxiliary OAI data, scored **0.944** on October 16. The related earlier submission used for comparison had scored **0.937**. **S6F**, a ConvNeXt-S recipe with finding-specific spatial and window attention, scored **0.952** on October 17. Both produced complete image-held-out OOF, retaining the source-label exposure to expert cases described in Part 3. S6F also strengthened the evaluated whole-bank selection procedure under the declared runtime budgets.
 
@@ -53,11 +53,11 @@ These results supported reproducing a coherent learning system when its componen
 
 Teacher supervision produced a different kind of candidate. **N-T\*** scored **0.951** on October 16. Its targets included predictions whose ancestry did not preserve the exclusions needed for clean student OOF, so I treated it as final-only. Combining the full-field and 2.5D-window T\* students scored **0.950**, below N-T\* alone. Two successful students did not imply an improved average: their common teacher content could reinforce similar rankings while their remaining differences hurt useful positive–negative pairs.
 
-I therefore retained two ways to improve a final prediction. Clean OOF let me compare combinations on aligned held-out studies and evaluate how a selection procedure behaved across folds. Strong public and teacher-derived predictions could still be useful on test, but their complete mixtures required direct transfer comparisons. The distinction determined which evidence could select a combination locally, rather than prohibiting useful test predictors.
+I use two kinds of evidence when selecting predictions. For clean models, I compare combinations on the same held-out studies and evaluate the selection procedure across folds. A complete mixture containing public or teacher-derived predictions cannot be assessed that way, so it needs a separate test comparison. This distinction identifies the evidence behind a choice rather than prohibiting a useful predictor.
 
-## The operators define two substantially different candidates
+## The final pair: compositions and operators
 
-The first selected candidate, **v229**, was dominated by the public Helios prediction H. My contribution was a block containing the five fold models of N-mm12 and five of V3-mm12, the 80-slice model. Write $R$ for a per-finding percentile-rank transformation. The ten-member block averaged individual member ranks, and the outer blend was
+My first selected candidate, **v229**, is dominated by the public Helios prediction H. My contribution is a block containing the five fold models of N-mm12 and five of V3-mm12, the 80-slice model. Write $R$ for a per-finding percentile-rank transformation. I average the ten members' individual ranks and then form the outer blend:
 
 $$
 \begin{aligned}
@@ -68,9 +68,9 @@ $$
 
 Ranking before averaging prevents one member's probability scale from dominating simply because its predictions are more spread out. It does not make all aggregation orders equivalent. Ranking a family's probability mean and averaging the ranks of its members can produce different study orders. The extra outer rank also converts the own block's aggregated values back to a common scale beside H.
 
-The complete v229 mixture was **final-only** because H lacked compatible clean OOF. Its N/V3 constituents retained their clean status. I could study their behavior on held-out training studies without pretending those measurements evaluated the H-dominated final mixture.
+The complete v229 mixture is **final-only** because H lacks compatible clean OOF. Its N/V3 constituents retain their clean status. I can study those held-out predictions, but their evaluation does not validate the H-dominated final mixture.
 
-The second selected candidate, **v236**, was **K-W2**, a probability combination of three clean families:
+My second selected candidate, **v236**, is **K-W2**, a probability combination of three clean families:
 
 $$
 \begin{aligned}
@@ -90,7 +90,7 @@ This nesting is important. Sigmoid of mean logits is not mean probability; avera
 | Local evaluation | Whole mixture final-only | Complete clean OOF for the constituent families |
 | Close alternative | v227, own share 0.50, Public 0.956 | v231, one S6F seed, Public 0.954 |
 
-The final pair contrasted an H-dominated rank blend with an S6F-heavy clean probability blend. Both retained N and V3, so the difference in construction did not make them independent.
+My current pair consists of an H-dominated rank blend and an S6F-heavy clean probability blend. Both contain N and V3, so the different construction does not make them independent.
 
 ## Longer training versus additional seeds
 
@@ -145,24 +145,24 @@ The large searches did not show a compelling extra primary payoff over the small
 ![Whole-bank selection estimates and the separate cost of their fitted proposals]({{ site.baseurl }}/assets/img/posts/rsna-knee-series/part4-search-frontier.png){: width="1920" height="1296" }
 _Figure 3. Selection-procedure scores and fitted-proposal planning times answer different questions. P540 and PUNC also use different S6F inputs, so their score difference does not isolate the effect of removing the time ceiling. The fitted rosters do not inherit the procedure estimates as their own validated AUCs._
 
-The tempting summary was that the cap did not bind. That was too strong. Capacity clearly changed the selected roster and its cost, and the uncapped condition changed S6F content as well. What I had observed was no useful additional primary point gain from this larger best-found reference under this particular search. A different objective, operator, or search could behave differently. The result justified declining one expensive proposal, not declaring the bank exhausted.
+These results do not establish that the runtime cap has no effect on performance. It changed the selected composition and cost, while the uncapped condition also changed S6F content. This search found no useful additional primary point gain from its larger compositions. A different objective, aggregation operator or search could behave differently. That is a reason to defer one expensive implementation, not to declare the OOF bank exhausted.
 
-There was another reason to keep the fixed transfer comparison. C1U's local gain depended on the evaluation labels: Opus gave about +0.001910 and DeepSeek +0.001773, while Gemini3f gave −0.001235 and dread −0.001779. Dread's losses covered all twelve findings. These were substantive opposing descriptions of the same predictions, not independent votes. Primary also included the GPT source used to train the added family. I retained the supportive evidence without allowing its larger maximum to erase the disagreement.
+C1U also changed direction with the evaluation labels. Opus gave about +0.001910 and DeepSeek +0.001773, while Gemini3f gave −0.001235 and dread −0.001779. All twelve findings deteriorated under dread. These are opposing assessments of the same predictions, not independent votes. Primary also includes the GPT source used to train the added family. I cannot select the largest favorable number and ignore the contrary results.
 
-The estimates remained conditional on an already exposed OOF bank. Selection cross-fitting did not retrain every base model inside each outer split, and the saved bootstrap intervals did not include all recipe, seed, and winner-selection uncertainty. Those limits did not make the clean OOF useless. They explained why the next useful comparison was one fixed C1U transfer test, with K-W still available, rather than implementation of a near-cap roster solely because a search had produced it.
+The OOF bank has already informed many choices. Selection cross-fitting did not retrain every base model inside each outer split, and the saved bootstrap intervals do not include all recipe, seed and candidate-selection variation. Given those limits, I chose one fixed C1U Public comparison with K-W still available, rather than immediately implementing a near-cap composition.
 
-The later 155-family refresh reinforced that distinction. New seeds changed the proposed composition, but its fitted 533.8-minute roster still needed an assembled, tested implementation. Three equal-probability S6F groups gave S6F three fifths of the total; collapsing them into one logit-averaged bundle would change the predictor. Its mixed fold and target evidence did not justify displacing the ready comparisons. Producing another complete family expanded what I could analyze, without requiring me to append it to every final prediction.
+The subsequent 155-family refresh raised a similar issue. New seeds changed the recommended composition, but its fitted 533.8-minute roster still needs assembly and execution checks. Three equally weighted probability groups give S6F three fifths of the total; replacing them with one logit-averaged bundle would change the prediction. Mixed fold and finding results do not justify running it before the ready comparisons. More complete families expand the combinations I can study, but need not enter every final prediction.
 
-## Public comparisons were useful when they answered a concrete question
+## Public scores and blend-weight comparisons
 
-The equal-family combination of S6F, N-mm12, and V3-mm12 scored **0.953**. Increasing S6F's probability weight to one half produced **K-W at 0.954**. This identified a useful clean reference and suggested that treating every family equally was not necessarily the best use of the available prediction strength.
+The equal-family combination of S6F, N-mm12 and V3-mm12 scored **0.953**. Increasing S6F's probability weight to one half produced **K-W at 0.954**. In this comparison, emphasizing the stronger S6F family worked better than weighting the three families equally.
 
-On the mixed side, the declared comparison concerned how much own prediction to combine with H. An own share of **0.50 gave v227 at 0.956**; a share of **0.25 gave v229 at 0.957**; H alone scored **0.958**. In these comparisons, more own contribution lowered the observed Public score. The data did not establish that the own block improved H on Public, and I kept that unfavorable result in the decision.
+I also compared the share of my predictions beside H. An own share of **0.50 gave v227 at 0.956**; a share of **0.25 gave v229 at 0.957**; H alone scored **0.958**. Increasing the own share lowered Public. These results did not show an improvement over H from adding my predictions.
 
 ![Completed candidate comparisons and the selected pair]({{ site.baseurl }}/assets/img/posts/rsna-knee-series/part4-candidates.png){: width="1920" height="1120" }
 _Figure 4. Completed Public comparisons, including H, the selected v229 and v236, and their scored alternatives. A timeout supplies no AUC and is not represented as a low-quality prediction._
 
-A small number of coarse weights was useful because it tested transfer of the complete mixed prediction, which clean OOF could not evaluate. Repeatedly filling in nearby weights would increasingly tune to the same exposed Public studies. I kept a weak preference for 0.25 over 0.50 instead of reading the displayed difference as a precise optimum. H alone remained a serious alternative, particularly for a reader who gave the best observed Public result the greatest weight.
+Because clean OOF cannot evaluate the complete mixture, I compared a few substantially different weights on Public. Filling the gaps with repeated small steps would increasingly select weights for the same exposed Public studies. I slightly prefer 0.25 to 0.50, but the displayed difference does not identify an optimum. H alone remains a strong option if I prioritize the highest Public score.
 
 The clean variants tested content as well as allocation:
 
@@ -173,15 +173,15 @@ The clean variants tested content as well as allocation:
 | S6FX, v235 | Full-data model inside the S6F block; final-only | 0.954 |
 | K-W2, v236 | Two S6F seeds, keeping the family weights | 0.953 |
 
-C1U's unfavorable Public result resolved the fixed transfer question raised by the whole-bank analysis, while leaving the added family's clean predictions available for other combinations. N2's equal Public score did not isolate a seed effect because its N/V3 allocation also changed. S6FX could be useful as a final predictor, but the added full-data model changed what its local evaluation could establish. K-W2 supplied the clearest matched question by retaining N, V3, and the outer weights.
+C1U did not reproduce its expected OOF improvement on Public. I preserved the added family's clean predictions for other combinations. N2's equal Public score does not establish that another seed had no effect, because the N/V3 allocation also changed. S6FX includes a full-data model: it can contribute to final inference, but the whole mixture cannot be treated as clean local validation. K-W2 keeps N, V3 and the outer weights fixed, making it the closest comparison of the added S6F seed.
 
-Each comparison changed a specific part of the prediction. The results did not support automatically retaining every additional family in a larger composition.
+Where model content and weights changed together, the result cannot be attributed to one of them alone. Acquiring another family is not a reason to put every family into a larger final composition.
 
-## K-W2 exposed a real conflict between local and Public evidence
+## Local and Public evaluations of K-W2
 
 K-W2 improved the matched clean primary score over K-W by approximately **0.00095**. The saved conditional interval was about **+0.00055 to +0.00136**. All five fold differences were positive, as were the other evaluated valid report-label readers, although four findings had small losses. Public moved in the opposite direction: **0.953 instead of 0.954**.
 
-The local result was persuasive in a specific way. The change replaced one S6F seed with two while holding the rest of the prediction fixed. The improvement was distributed across folds rather than concentrated in one obvious partition. Agreement across evaluated readers made it less dependent on one label convention, although those readers shared reports and related assumptions. The result described a stable conditional improvement on the observed cohort, not independent expert confirmation.
+I give the K-W2 local result weight because it holds the other predictions fixed. Only S6F changes from one seed to two, and the gain is not concentrated in one fold. Several reference-label evaluations improve, but they share reports and related assumptions. This is consistent improvement on the observed studies, not several independent expert validations.
 
 ![Local improvement and the opposite Public difference for K-W2]({{ site.baseurl }}/assets/img/posts/rsna-knee-series/part4-evidence.png){: width="1920" height="1040" }
 _Figure 5. K-W2 minus K-W: the local primary difference is about +0.00095, with its saved conditional interval, while displayed Public changes by −0.001. The interval concerns the local comparison; it does not measure Public noise or the probability of a Private reversal._
@@ -198,7 +198,7 @@ This is also why overall prediction correlation is insufficient. Two models can 
 
 ## Execution limits of larger ensembles
 
-The strongest available weights also supported larger compositions. A second N seed could accompany the two S6F seeds; a third S6F seed could replace the two-seed estimate; a full-data model X could enter S6F's logit average. These changes were worth distinguishing because they altered different parts of the prediction.
+I also tested larger compositions of the models already trained. These combined two S6F seeds with a second N seed, expanded S6F to three seeds, or placed the full-data model X inside S6F's logit average. Each changed different models or weights and needed a separate comparison.
 
 ![Model counts and execution outcomes for related compositions]({{ site.baseurl }}/assets/img/posts/rsna-knee-series/part4-budget.png){: width="1920" height="1200" }
 _Figure 6. Fold-checkpoint counts for related S6F, N, and V3 combinations, with X separately identified as a full-data model. Counts are not final probability weights. S6F retains an outer weight of 0.5, and X makes its descendants final-only. C2-N3 and R7+O use different constructions._
@@ -216,20 +216,20 @@ All six larger complete-or-fail trials ended without a score:
 | v243, N2W2+X | X inside the larger S6F/N combination | Timeout; no AUC |
 | v244 retry 1, K-W3 | Third S6F seed at the same family weight | Timeout; no AUC |
 
-The original v244 attempt had a separate platform system error; its retry also timed out. These outcomes establish that the exact submitted implementations did not complete within the allowed execution. They do not assign a low AUC to the underlying ideas. Hidden-stage timings were insufficient to tell me how much extra time each needed or which stage failed.
+The original v244 attempt ended in a platform system error; its retry timed out. I can establish that the submitted implementation did not finish within the permitted execution time, not that the model idea had a low AUC. I also lack enough hidden-stage timing detail to identify the failing stage or the extra time it would have needed.
 
-Planning estimates could not settle this in advance. Shared image decoding and two-GPU scheduling make combined runtime differ from the sum of standalone runs. Conversely, increasing model count can change memory pressure and scheduling. A successful composition and a slightly larger failed one do not define a universal safe boundary in minutes. The useful result was narrower: the successful candidates remained selectable, while these six did not become alternatives.
+Planning time alone cannot guarantee completion. Shared image decoding and two-GPU scheduling make total runtime differ from a sum of separate runs. More models can also change memory use and scheduling. Success for one composition and failure for a slightly larger one do not define a universal safe boundary. I can select the successful candidates; these six are not yet available for selection.
 
-The nine-hour constraint also made time for evaluating the result part of the experiment's value. Preparation, a full run, platform waiting, and result inspection all had to finish before a new prediction could inform the final choice. With no changed implementation or new execution evidence, repeating a timeout would spend the remaining opportunity on the same unanswered question. I retained the scored candidates instead.
+Before the deadline, I need time to inspect a result as well as produce it. Preparation, full inference, platform waiting and collection must all finish before a prediction can change the final selection. Without an implementation change or new execution evidence, repeating a timeout only uses another remaining opportunity. For now, I am keeping the scored candidates.
 
-## Why keep v229 and v236?
+## Reasons for selecting v229 and v236
 
-V229 offered a strong H-dominated predictor with a modest own contribution. V236 emphasized the strongest clean family and preserved a positive matched local comparison despite its unfavorable Public result. The value of keeping both depended on whether their different construction could make the second outperform the first on Private. Shared N/V3 content and related training data meant I could not treat that as independent insurance.
+V229 adds a modest own contribution to H. V236 emphasizes my strongest clean family; it has a lower Public score but a favorable matched local comparison. Keeping it as the second candidate requires considering whether it can outperform the first on Private, beyond merely having a different construction. Shared N/V3 content and related training data mean that these are not independent predictions.
 
-I initially planned to keep K-W if K-W2 displayed 0.953. Reexamining the broad matched clean improvement changed that preference to **v236**, despite its lower Public score. I had no calibrated exchange rate between a local AUC increment and a Public decrement; averaging them into a composite score would conceal the assumptions rather than resolve them.
+I initially planned to keep K-W if K-W2 displayed 0.953. After reviewing the broad matched clean improvement, I changed my preference to **v236**, despite its lower Public score. There is no established exchange rate between a local AUC gain and a Public loss. Averaging them into an arbitrary composite would hide the assumptions needed for the choice.
 
-Several alternatives remained defensible. H alone had the highest observed Public score at 0.958. V227 retained a larger own share at 0.956. **V231 remained a reasonable alternative**, with the stronger clean Public result at 0.954. Choosing v236 meant accepting that the local improvement I valued might not help on Private. Choosing v231 meant forgoing the change that had improved the matched local comparisons consistently. The evidence did not establish which would be better on Private.
+Other choices remain defensible. H alone has the highest Public score at 0.958. V227 keeps a larger own share at 0.956. **V231 is also a reasonable alternative**, with a higher clean Public result at 0.954. Choosing v236 accepts the risk that the local improvement will not help on Private. Choosing v231 forgoes the consistently favorable matched local change. The available evidence does not establish which will be better on Private.
 
-I kept **v229 plus v236**. The clean predictions from the other complete families remained available for later analysis; their exclusion from the final pair did not erase the questions they could answer. The Private result will show how these two predictions performed. It will not retrospectively make the conflicting evidence disappear: the choice accepted a lower observed Public score in exchange for a different composition and the matched clean result.
+I have selected **v229 plus v236**. I am preserving the complete clean predictions from the other families for different combinations and later analysis. This choice accepts a lower Public score in favor of the difference in composition and the matched local improvement. I will know which is stronger on Private only when the results arrive.
 
 **Previous:** [Part 3: Supervision and Public Performance]({{ site.baseurl }}/posts/RSNA-Knee-Part-3-When-Labels-and-the-Leaderboard-Disagreed/)

@@ -60,5 +60,5 @@
 <text x="60" y="824" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700" text-anchor="start" fill="#183044">Cleanup cost: one Toffoli</text>
 <text x="635" y="842" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" text-anchor="start" fill="#183044">The sign (−1)^(mab) is cancelled.</text>
 <text x="40" y="921" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#526776">Dots are controls; ⊕ is a bit-flip target. The dashed line carries classical m.</text>
-<text x="40" y="966" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" text-anchor="start" fill="#183044">MBU saves this AND-cleanup Toffoli. Arbitrary arithmetic is not free to erase.</text>
+<text x="40" y="966" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" text-anchor="start" fill="#183044">MBU replaces this AND-cleanup Toffoli with HMR and a conditional CZ.</text>
 </svg>

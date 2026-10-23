@@ -1,14 +1,14 @@
 ---
-title: "Verifiable Quantum Circuit Compilation: Smaller Circuits, Checked by a Verifier"
-description: "From amplitudes, phase, and reversible computation to inverse-square-root arithmetic, Reed–Solomon decoding, and molecular Hamiltonians. Worked examples, diagrams, reference implementations, and a path to optimization."
+title: "Introducing Google Quantum Circuit Compilation"
+description: "Quantum states, reversible computation, and the invsqrt, DQI, and molecular Hamiltonian tasks: circuit design, resource costs, official verification, and baseline reproduction."
 date: 2026-10-23 10:00:00 +0900
-categories: [Physics, Quantum Computing]
+categories: [AI, Kaggle]
 tags: [kaggle, quantum-circuit-compilation, quantum-computing, coding-agents, verification, optimization, working-note]
 math: true
 mermaid: true
 image:
-  path: /assets/img/posts/quantum-circuit-compilation/cover-1.webp
-  alt: "A conceptual illustration of a complex circuit and a simpler circuit reaching the same verification checkpoint"
+  path: /assets/img/posts/quantum-circuit-compilation/cover-3-flat-schematic.webp
+  alt: "An exact phase-oracle identity: compute–Z–uncompute and a direct CZ circuit"
   width: 1672
   height: 941
   fit: contain
@@ -24,13 +24,13 @@ series_order: 0
 
 [한국어판 읽기]({{ site.baseurl }}/posts/Verifiable-Quantum-Circuit-Compilation-Getting-Started-KR/)
 
-## Introduction: reduce the small calculation that keeps repeating
+## Introduction
 
 Descriptions of quantum algorithms often begin with Fourier transforms, phase estimation, or molecular simulation. Building the actual circuit brings smaller questions into focus. How many qubits does an addition or multiplication need? How many gates does it take to load a number from a table? How can temporary storage be cleared afterward? When these operations repeat many times, they can determine the resources required by the whole algorithm.
 
 [Google Quantum AI — Verifiable Quantum Circuit Compilation][competition] selects three expensive **bottleneck subroutines** from quantum algorithms. A bottleneck plays a role similar to a slow function in a classical program, but the resources to reduce include both the operation count and the logical qubits that must remain available during the calculation.
 
-Suppose a subroutine is called 1,000 times and uses 8,000 expensive gates per call. That part alone requires eight million gates. Implementing the same operation with 6,000 gates reduces the total to six million. These are invented numbers illustrating repeated calls, rather than the competition's actual call count or an observed improvement. Qubits are workspace that can be reused across calls; their count does not accumulate in the same way as the gate count.
+Suppose a subroutine is called 1,000 times and uses 8,000 expensive gates per call. That part alone requires eight million gates. Implementing the same operation with 6,000 gates reduces the total to six million. Qubits can be reused across calls, so their count does not accumulate in the same way as the gate count.
 
 | Full application | Bottleneck isolated by this competition | Why it recurs |
 |---|---|---|
@@ -38,11 +38,7 @@ Suppose a subroutine is called 1,000 times and uses 8,000 expensive gates per ca
 | Decoded Quantum Interferometry | `dqi`: Reed–Solomon decoding and phase recovery | Error patterns must be cleaned up inside the optimization algorithm. |
 | Molecular electronic-structure simulation | `dfthcsos`: coefficient factorization, angle lookup, and rotation construction | Operations encoding the Hamiltonian are called repeatedly. |
 
-The names may suggest that you need to learn three scientific fields before starting. You can begin with a smaller task: understand what information a quantum circuit changes, then follow one subroutine's inputs, outputs, workspace, and error limit. The competition does not ask you to implement a complete physics simulator or combinatorial optimization algorithm from scratch. [Official domain context][domain]
-
-The article follows that route. Sections 1–4 introduce quantum states, gates, phase, reversible computation, and verification. Sections 5–7 connect each bottleneck to a small worked example and the official reference implementation. Section 8 compares the three cost functions; Section 9 onward covers official materials and the local reproduction. The text assumes you can read Python bit operations and basic matrix and function notation, while introducing quantum-computing terms where they become useful.
-
-**Scope of the evidence.** The reference date is October 23, 2026. The official files and local environment are ready, and the complete local verification of the `invsqrt` reference circuit has finished. Small mathematical examples and figures below explain the methods; they are not new optimization results. The other two tasks have not undergone full local verification, and there are no measured improved circuits or Kaggle submission results. The cover is a conceptual illustration of circuit optimization and verification.
+Each task specifies one subroutine's inputs, outputs, workspace, and tolerance. The surrounding physics or optimization algorithm remains fixed. [Official domain context][domain]
 
 ## 1. Separate a qubit's value, amplitude, and phase
 
@@ -91,9 +87,9 @@ Starting at 0 and applying H twice returns to 0. Insert a Z gate between the two
 
 ![Four stages showing how H, Z, and H change amplitude signs and measurement probabilities](/assets/img/posts/quantum-circuit-compilation/fig-01-interference.svg){: width="1152" height="605" }
 
-*Figure 1. Blue denotes a positive real amplitude and orange a negative real amplitude. Measurement probabilities are unchanged between the state after H and the state after Z, but the final H distinguishes them. This one-qubit example explains interference; it does not mean independent H gates are allowed in submitted kickmix circuits.*
+*Figure 1. Blue denotes a positive real amplitude and orange a negative real amplitude. Measurement probabilities are unchanged between the state after H and the state after Z, but the final H distinguishes them. Independent H gates are prohibited in submitted kickmix circuits.*
 
-At the final H, the amplitude of `|0⟩` is (1−1)/2=0, while the amplitude of `|1⟩` is (1+1)/2=1. This is a small example of **interference** in quantum computation.
+At the final H, the amplitude of `|0⟩` is (1−1)/2=0, while the amplitude of `|1⟩` is (1+1)/2=1: the two contributions cancel in one output and reinforce in the other.
 
 Multiplying the entire state by the same eⁱφ gives a **global phase**, which does not change measurement probabilities for that state alone. The competition needs phases that depend on the input x. Different terms of a superposition receive different factors, changing their relative phases and therefore the behavior of later operations. [Examples of phase and interference][ibm-phase]
 
@@ -188,11 +184,11 @@ $$
 (-1)^{mab}\lvert a,b\rangle\lvert 0\rangle.
 $$
 
-When m=0, no correction is needed. When m=1, applying CZ(a,b) adds another $(-1)^{ab}$ factor, cancelling the unwanted sign. The conditional CZ costs no Toffoli in this model. This is a small example of **measurement-based uncomputation**, or MBU.
+When m=0, no correction is needed. When m=1, applying CZ(a,b) adds another $(-1)^{ab}$ factor, cancelling the unwanted sign. The conditional CZ costs no Toffoli in this model. The measurement and phase correction together implement **measurement-based uncomputation**, or MBU.
 
 Omitting the measurement or its correction changes the circuit. Forcing a dirty qubit to 0 with `R` is not a valid shortcut either. `R` is intended to release workspace already cleaned to 0; the simulator makes incorrectly discarded information show up as a random phase. The [kickmix documentation][kickmix-docs] defines the instruction semantics.
 
-**The optimization question this creates:** some temporary values are cheaper to erase through measurement and correction, while others require an expensive correction. Keeping a value for longer can increase Q. Erasing it early and recomputing it later can increase the gate count. Designing a reversible circuit means balancing these choices across the whole calculation.
+Some temporary values are cheaper to erase through measurement and correction, while others require an expensive correction. Keeping a value for longer can increase Q. Erasing it early and recomputing it later can increase the gate count. Designing a reversible circuit means balancing these choices across the whole calculation.
 
 ## 3. What does compilation need to make cheaper?
 
@@ -225,7 +221,7 @@ $$
 \frac{C_{\mathrm{new}}}{C_{\mathrm{old}}}.
 $$
 
-Reducing qubits by 10% while increasing the equivalent gate cost by 5% changes the product to 0.9×1.05=0.945: a 5.5% reduction. Reducing gates by 10% while adding 20% more qubits gives 0.9×1.2=1.08, making the cost worse. Both are hypothetical examples of the formula. An actual candidate must pass correctness verification first.
+Reducing qubits by 10% while increasing the equivalent gate cost by 5% changes the product to 0.9×1.05=0.945: a 5.5% reduction. Reducing gates by 10% while adding 20% more qubits gives 0.9×1.2=1.08, making the cost worse. Candidate circuits must also pass correctness verification.
 
 ## 4. Why can a classical CPU verify these circuits?
 
@@ -263,14 +259,14 @@ Test randomness is derived from a SHA-256 digest of the submission content and a
 
 Repeating the same circuit with the same salt repeats the same pseudorandom samples; it does not add independent evidence. Changing the circuit changes its hash, producing a different stream even with the same salt. If conditional gate counts or failure rates depend on measurement outcomes, the measured cost can change too.
 
-In this article, **full local verification** means completing the official task's full test workload with the recorded files, settings, and local environment. It does not claim an identical Kaggle result or prove correctness for every possible measurement branch. That distinction remains in place when the reproduced reference is used to evaluate a candidate.
+**Full local verification** completes the official task's full test workload using the recorded files, settings, and local environment. Kaggle parity depends on its binary and salts; sampled measurement branches remain a statistical check.
 
 
 ## 5. `invsqrt`: turn an inverse distance into phase
 
 ### 5.1 Why does fusion simulation need an inverse square root?
 
-A fast charged particle loses kinetic energy as it travels through matter and interacts with nearby electrons. The energy lost per unit distance is called **stopping power**. Predicting where particles deposit energy in fusion fuel requires calculating electronic motion in hot, dense matter. The competition does not ask for that complete physical simulation. It isolates one arithmetic circuit called repeatedly inside it. [Rubin and colleagues' original research](https://arxiv.org/abs/2308.12352) provides the scientific background.
+A fast charged particle loses kinetic energy as it travels through matter and interacts with nearby electrons. The energy lost per unit distance is called **stopping power**. Predicting where particles deposit energy in fusion fuel requires calculating electronic motion in hot, dense matter. The competition isolates an arithmetic circuit called repeatedly inside that simulation. [Rubin and colleagues' original research](https://arxiv.org/abs/2308.12352) provides the scientific background.
 
 For electrons at positions $\mathbf r_i,\mathbf r_j$, the magnitude of the Coulomb interaction is inversely proportional to their separation. Omitting units and physical constants,
 
@@ -350,11 +346,11 @@ M=\frac{x_{\rm norm}}{2^{20}}\in[1,4),\qquad
 \frac1{\sqrt{x}}=\frac{2^{s-10}}{\sqrt M}.
 $$
 
-**A hand calculation for $x=64$.** Its 22-bit representation contains 15 zeros before the seven significant bits. That gives seven leading `00` pairs, so $s=7$. Shifting left by 14 bits produces $x_{\rm norm}=64\times2^{14}=2^{20}$, hence $M=1$. Restoring the scale gives $2^{7-10}/\sqrt1=1/8$. This exact hand calculation illustrates normalization; it is not a measurement of the truncated approximation made by the actual reference circuit.
+**A hand calculation for $x=64$.** Its 22-bit representation contains 15 zeros before the seven significant bits. That gives seven leading `00` pairs, so $s=7$. Shifting left by 14 bits produces $x_{\rm norm}=64\times2^{14}=2^{20}$, hence $M=1$. Restoring the scale gives $2^{7-10}/\sqrt1=1/8$. This is the ideal normalization result; the reference then applies fixed-point approximations.
 
 ![Inverse-square-root compute–phase–uncompute pipeline, with an ideal trace from x=64 to a one-eighth-turn phase](/assets/img/posts/quantum-circuit-compilation/fig-03-invsqrt-pipeline.svg){: width="1200" height="820" }
 
-*Figure 3. Normalization maps x=64 to M=1 with s=7. In ideal arithmetic, the final 40-bit phase word is $2^{37}$, representing $1/8$ turn. The pipeline then clears its workspace. The trace explains the scaling; it does not claim that the reference's truncated coefficients produce the exact ideal word.*
+*Figure 3. Normalization maps x=64 to M=1 with s=7. In ideal arithmetic, the final 40-bit phase word is $2^{37}$, representing $1/8$ turn. The pipeline then clears its workspace. The reference uses truncated coefficients and products, so its stored word can differ from this ideal value.*
 
 Since s depends on the input, the quantum circuit must store it too. The reference uses ten flag qubits. Seven is represented by seven true flags—a **unary representation**—rather than the usual binary `0111`. Each flag later controls one shift.
 
@@ -385,7 +381,7 @@ $$
 
 An initial relative error of $10^{-4}$ becomes approximately $1.5\times10^{-8}$ in magnitude. A small error is roughly squared. This formula excludes fixed-point truncation, however. The actual circuit must be checked with polynomial approximation, coefficient quantization, and every truncated multiplication included.
 
-**Watch the official implementation's scale.** The generator does not multiply by $1/2$ explicitly. It computes $p\approx y_0(3-My_0^2)\approx2/\sqrt M$. Its stored integer `p` has 29 fractional bits, is shifted by s to produce Y, and is finally interpreted as $Y/2^{40}$. The factor of $1/2$ is absorbed into the output binary point. For x=64 and M=1, write the ideal real-valued target as $p_*=2$. Its final phase-word target is $Y_*=2^{29}p_*2^7=2^{37}$, giving $Y_*/2^{40}=1/8$. The actual p register has 29 fractional bits and one integer bit, 30 bits in total, so it represents values below 2. This hand calculation does not claim that the register stores the boundary value 2 exactly. The actual truncated value is checked against the tolerance.
+The official generator does not multiply by $1/2$ explicitly. It computes $p\approx y_0(3-My_0^2)\approx2/\sqrt M$. Its stored integer `p` has 29 fractional bits, is shifted by s to produce Y, and is finally interpreted as $Y/2^{40}$. The factor of $1/2$ is absorbed into the output binary point. For x=64 and M=1, write the ideal real-valued target as $p_*=2$. Its final phase-word target is $Y_*=2^{29}p_*2^7=2^{37}$, giving $Y_*/2^{40}=1/8$. The actual p register has 29 fractional bits and one integer bit, 30 bits in total, so it represents values below 2. The boundary value 2 belongs to the ideal calculation; the stored, truncated value must satisfy the tolerance.
 
 ### 5.6 Apply phase bit by bit, then clear the calculation
 
@@ -397,7 +393,7 @@ After applying phase, the circuit reverses the shifts, Newton arithmetic, polyno
 
 ### 5.7 Where does the reference spend its gates?
 
-These are **static Toffoli counts** by tagged section of the officially supplied `invsqrt.kmb`. They describe the reference circuit, rather than an improved candidate:
+**Static Toffoli counts** by tagged section of the supplied `invsqrt.kmb`:
 
 | Stage | Compute direction | Uncompute direction | What it does |
 |---|---:|---:|---|
@@ -413,11 +409,11 @@ These are **static Toffoli counts** by tagged section of the officially supplied
 
 ![Static compute and uncompute Toffoli costs for the original inverse-square-root circuit](/assets/img/posts/quantum-circuit-compilation/fig-04-invsqrt-cost.svg){: width="1152" height="768" }
 
-*Figure 4. The original reference contains 7,735 Toffoli-like gates, split between compute and uncompute. These are static counts for the supplied circuit, not a candidate result. Rotation-synthesis costs are added separately when calculating the final Toffoli-equivalent cost.*
+*Figure 4. The original reference contains 7,735 Toffoli-like gates, split between compute and uncompute. Rotation-synthesis costs are added separately when calculating the final Toffoli-equivalent cost.*
 
 Multiplication, squaring, and subtraction together account for 6,902 gates in both directions, approximately 89% of the total. Changing the arithmetic structure or precision is therefore more likely to change the quantum cost directly than reducing Python function calls. Phase-rotation synthesis adds further cost: about 253 Toffoli equivalents in the existing local result.
 
-It would be premature to conclude that measurement can eliminate the nearly half spent on uncomputation. `del_and` already uses measurement-based cleanup for temporary ANDs. In both directions, `_add_row` builds partial-product ANDs, performs an addition or subtraction, and clears those ANDs through measurement. Restoring carries and an earlier accumulator cannot automatically be made free in the same way as erasing one temporary AND.
+`del_and` already uses measurement-based cleanup for temporary ANDs. In both directions, `_add_row` builds partial-product ANDs, performs an addition or subtraction, and clears those ANDs through measurement. Restoring carries and an earlier accumulator cannot automatically be made free in the same way as erasing one temporary AND.
 
 ### 5.8 Precision is both an acceptance condition and a cost variable
 
@@ -435,7 +431,7 @@ Synthesizing small-angle phase gates into an error-corrected gate set introduces
 | Change the shift network | Implement unary-controlled shifts with another control structure. | Savings after computing and clearing the control bits are included. |
 | Change arithmetic decompositions | Replace reversible multipliers, squarers, or adders. | Carries, overflow, signedness, and truncation semantics. |
 
-This table maps possible experiments; none is an established improvement. For a first comparison, change one mechanism and test against the original circuit under the same contract. Changing precision, polynomials, and wire placement simultaneously would make a success or failure harder to explain.
+Change one mechanism at a time and test against the original circuit under the same contract. Changing precision, polynomials, and wire placement simultaneously would make a success or failure harder to explain.
 
 The concrete contract and implementation are in `verifiers/invsqrt/verify_submission_invsqrt.py` and `nr_reference_circuit.py` in the [official competition data](https://www.kaggle.com/competitions/google-verifiable-quantum-circuit-compilation/data). The [companion paper's Benchmark I discussion](https://arxiv.org/html/2610.23832v2#S3.SS1) provides the broader setting; the scales and bit widths above follow the supplied code.
 
@@ -444,7 +440,7 @@ Read `Precision` → `_compute_y1` → `_phase_by_bits` → `build_nr_circuit` i
 
 ## 6. DQI: why an optimization algorithm needs an error decoder
 
-Of the three tasks, `dqi` has the largest gap between its scientific goal and the submitted subroutine. The ultimate goal is to find good polynomials in a combinatorial optimization problem. The submission is a **quantum subroutine that removes the record of an error pattern while preserving a superposition**. Understanding this connection helps explain which ideas from a conventional Reed–Solomon decoder can carry over and which parts need a different implementation.
+`dqi` seeks good polynomials in a combinatorial optimization problem. The submitted **quantum subroutine removes the record of an error pattern while preserving a superposition**.
 
 ### 6.1. Start with polynomial fitting over a finite field
 
@@ -456,7 +452,7 @@ p_x(z)=\sum_{k=0}^{n-1}x_kz^k,
 f(x)=\left|\{j:p_x(\alpha_j)\in F_j\}\right|.
 $$
 
-Here $F_j$ is the set of allowed values at evaluation point $\alpha_j$. Given a candidate, we can check its quality by evaluating $f(x)$. Finding a good candidate and checking a candidate's score can have very different computational costs. DQI builds a quantum probability distribution in which good candidates are measured more often. Claims of quantum advantage concern particular problems, classical comparisons, and resource assumptions; participating in this competition does not itself demonstrate quantum advantage. [The original OPI and DQI paper](https://www.nature.com/articles/s41586-025-09527-5)
+Here $F_j$ is the set of allowed values at evaluation point $\alpha_j$. Given a candidate, we can check its quality by evaluating $f(x)$. Finding a good candidate and checking a candidate's score can have very different computational costs. DQI builds a quantum probability distribution in which good candidates are measured more often. [The original OPI and DQI paper](https://www.nature.com/articles/s41586-025-09527-5)
 
 Conceptually, the final DQI state has the form
 
@@ -531,7 +527,7 @@ The register interface must be exactly `S0`…`S69` as disjoint 12-qubit registe
 
 ### 6.5. A GF(4) example that fits on paper
 
-The following is a **synthetic RS(3,1) example with one symbol error**. It is not a competition instance or the result of running a reduced competition benchmark. Use the elements $\{0,1,\alpha,\alpha+1\}$ with $\alpha^2=\alpha+1$.
+For an **RS(3,1) code with one symbol error**, use the elements $\{0,1,\alpha,\alpha+1\}$ with $\alpha^2=\alpha+1$.
 
 | Element | Polynomial | Bits, most significant first |
 |---|---|---|
@@ -540,7 +536,7 @@ The following is a **synthetic RS(3,1) example with one symbol error**. It is no
 | $\alpha$ | $u$ | `10` |
 | $\alpha^2$ | $u+1$ | `11` |
 
-We have $\alpha^3=1$ and $\alpha+\alpha=0$. Suppose position 1 contains the sole error, with value $\alpha^2$:
+In this field, $\alpha^3=1$ and $\alpha+\alpha=0$. Suppose position 1 contains the sole error, with value $\alpha^2$:
 
 $$
 e=(0,\alpha^2,0),\qquad
@@ -562,7 +558,7 @@ The required final operation is $\lvert 1,\alpha\rangle\lvert 0\rangle_W\mapsto-
 
 ![A synthetic GF(4) decoding example: syndromes determine a single error, and a classical mask selects a negative phase.](/assets/img/posts/quantum-circuit-compilation/fig-05-dqi-decoding.svg){: width="1200" height="815" }
 
-_Figure 5. In this GF(4) teaching example, the received syndromes are $(1,\alpha)$. Decoding recovers the single error $e_1=\alpha^2$; the mask parity is odd, so the required sign is −1. This is not a competition instance._
+_Figure 5. In this GF(4) teaching example, the received syndromes are $(1,\alpha)$. Decoding recovers the single error $e_1=\alpha^2$; the mask parity is odd, so the required sign is −1._
 
 ### 6.6. The reference circuit: EEA → Chien → Forney → uncomputation
 
@@ -599,7 +595,7 @@ A classical decoder can overwrite arrays, discard previous remainders, and stop 
 
 CPU runtime alone is therefore not enough to choose an algorithm. This competition charges for Toffoli gates, including cleanup, qubits used, and failure rate under the official distribution. Recomputing an intermediate value may use more gates but less workspace; the $Q^2$ cost factor can make that a worthwhile trade.
 
-The published reference has **1,893 qubits and 5,725,461 Toffolis**. These are published reference figures, not a full local reproduction of the DQI circuit. The full local reproduction reported in this article is for `invsqrt`. [Competition companion paper, Section III.2](https://arxiv.org/html/2610.23832v2#S3.SS2)
+The **published reference** uses **1,893 qubits and 5,725,461 Toffolis**. [Competition companion paper, Section III.2](https://arxiv.org/html/2610.23832v2#S3.SS2)
 
 ### 6.8. A small failure rate is allowed, with a cost penalty
 
@@ -623,7 +619,7 @@ $$
 
 The confidence level is $1-2^{-128}$; acceptance requires $\epsilon_+<1/16$. Here $T$ is the mean number of Toffoli-like gates **actually executed per shot**, including cleanup. The qubit count $Q$ includes the 840 input qubits and workspace. A circuit's maximum static gate count can differ from its mean executed cost when gates are conditional.
 
-Even with zero failures, $\epsilon_+=1-(2^{-128})^{1/102400}\approx0.00086606$ and $R\approx1.19126$. A finite sample is not treated as establishing an exactly zero failure probability. These numbers are arithmetic evaluations of the cost formula, not measurements of a new circuit.
+Even with zero failures, $\epsilon_+=1-(2^{-128})^{1/102400}\approx0.00086606$ and $R\approx1.19126$. A finite sample is not treated as establishing an exactly zero failure probability.
 
 | Hypothetical change | Cost ratio | Interpretation |
 |---|---:|---|
@@ -632,7 +628,7 @@ Even with zero failures, $\epsilon_+=1-(2^{-128})^{1/102400}\approx0.00086606$ a
 | 10% fewer qubits, 30% more Toffolis, unchanged $R$ | $0.9^2\times1.3=1.053$ | 5.3% higher cost |
 | 20% fewer Toffolis, 30% higher penalty $R$, unchanged qubits | $0.8\times1.3=1.04$ | 4% higher cost |
 
-This table contains hypothetical design calculations. A shorter circuit with failures is an improvement only if its cost remains lower after including the increase in $R$.
+A shorter circuit with failures must remain cheaper after including the increase in $R$.
 
 ### 6.9. Where to begin optimizing
 
@@ -644,7 +640,7 @@ This table contains hypothetical design calculations. A shorter circuit with fai
 | Chien and Forney stages | Per-position inversions or phase calculations can be shared or replaced | All 4,095 positions and the mask contract | Total repeated-stage cost and zeroed workspace |
 | Another decoding algorithm | An alternative such as Berlekamp–Massey has a cheaper reversible realization | The same syndromes, field, masks, and distribution | Official cost and failure bound for the completed circuit |
 
-Changing everything at once makes it difficult to locate a mistake in the field representation, position ordering, key equation, phase masks, or uncomputation. A useful progression is to check the mathematics on an exact small-field example, check one reversible primitive, and then expand to the official instance under the same contract. Success on the small example does not replace full official verification.
+Changing everything at once makes it difficult to locate a mistake in the field representation, position ordering, key equation, phase masks, or uncomputation. A useful progression is to check the mathematics on an exact small-field example, check one reversible primitive, and then expand to the official instance under the same contract. The completed circuit requires full official verification.
 
 Primary sources for this task are the [official data and verifier](https://www.kaggle.com/competitions/google-verifiable-quantum-circuit-compilation/data), the [original DQI paper](https://www.nature.com/articles/s41586-025-09527-5), the [optimized reversible decoder paper](https://arxiv.org/abs/2510.10967), and [Section III.2 of the competition companion paper](https://arxiv.org/html/2610.23832v2#S3.SS2).
 
@@ -657,7 +653,7 @@ Start with `ProosAndZalkaDecoder` in `dqi_reference_circuit.py` to follow initia
 
 The eventual chemistry application is to estimate a molecule's **ground-state energy**: the lowest energy available to a system with a specified number of electrons. The competition task isolates a component of that calculation. Participants improve a **compressed Hamiltonian representation and the circuits that load its data** into a larger energy-estimation algorithm.
 
-The Hamiltonian H describes how electrons move and interact. As with an ordinary matrix, its eigenvectors describe stationary states and its eigenvalues give their energies. We do not write out the enormous matrix over every possible electronic configuration. We specify H using coefficients that describe interactions between orbitals.
+The Hamiltonian H describes how electrons move and interact. As with an ordinary matrix, its eigenvectors describe stationary states and its eigenvalues give their energies. Coefficients describing interactions between orbitals specify H without writing out the enormous matrix over every electronic configuration.
 
 An **orbital** is a basis function for a single-particle state an electron can occupy. It does not mean one atom or a small box at a fixed location. Rather than assigning permanent labels to otherwise identical electrons, this representation describes the occupancy of allowed electronic modes. This is the **second-quantized** viewpoint used in this task.
 
@@ -671,7 +667,7 @@ The official instance, `FeMoCo76o113e`, concerns FeMoCo, the active center of th
 | h⁽²⁾ₚqrs | Two-electron interaction coefficients | A tensor indexed by four orbital indices |
 | H | Hamiltonian of the full electronic system | The operator defined by those coefficients |
 
-Intuitively, one-electron terms describe an electron's motion and its interaction with its environment; two-electron terms describe interactions between electrons. Precise coefficient conventions depend on how creation and annihilation operators are ordered. The official implementation uses a consistent convention and transformation. For a first reading, the essential point is that **the two-electron coefficients have four indices: p, q, r, and s**.
+Intuitively, one-electron terms describe an electron's motion and its interaction with its environment; two-electron terms describe interactions between electrons. Precise coefficient conventions depend on how creation and annihilation operators are ordered. The official implementation uses a consistent convention and transformation. **The two-electron coefficients have four indices: p, q, r, and s**.
 
 If each index takes N values, a direct table has N⁴ entries. For N=76, that is 76⁴=33,362,176 entries. Symmetries remove redundancy, but translating every coefficient into costly branches in a quantum circuit is still unattractive. The starting idea is to compress the structure on a classical computer and build a smaller quantum program that reads and uses that structure.
 
@@ -687,7 +683,7 @@ A=\begin{pmatrix}1&2\\2&4\end{pmatrix}
 u=\frac{1}{\sqrt5}\begin{pmatrix}1\\2\end{pmatrix}.
 $$
 
-Instead of storing four entries separately, we can reconstruct the matrix from a vector u and the weight 5. Real coefficient tensors are much larger and may not have an exact low-rank representation. A sum of a manageable number of simple components can still approximate them within an allowed error. This is the purpose of **factorization**. The 2×2 calculation above is a teaching example, not a measured DFTHC optimization result.
+Instead of storing four entries separately, we can reconstruct the matrix from a vector u and the weight 5. Real coefficient tensors are much larger and may not have an exact low-rank representation. A sum of a manageable number of simple components can still approximate them within an allowed error. This is the purpose of **factorization**.
 
 The official `dfthcsos` task fixes a **DFTHC factorization structure connecting double factorization and tensor hypercontraction**, while allowing its dimensions and numerical parameters to change. The verifier reconstructs intermediate matrices using
 
@@ -713,7 +709,7 @@ The reference two-electron integrals are compared with G **after undoing the pre
 | C | Coefficient copies per component | Both state-preparation cost and factorization flexibility change |
 | u, w, W | Continuous numerical parameters | Equal reconstruction error can still give different normalization and circuit costs |
 
-This is the part of the three tasks most directly connected to **numerical optimization**. Minimizing reconstruction error alone, however, does not minimize the competition cost. At a given accuracy, a representation with fewer addresses, cheaper state preparation, and a smaller normalization multiplier can be better. It helps to feed the complete resource estimate back into the numerical choices rather than treating compression and circuit construction as independent jobs.
+The factorization can be improved through **numerical optimization**, with the complete resource cost as its objective. At a given accuracy, a representation with fewer addresses, cheaper state preparation, and a smaller normalization multiplier can be better. It helps to feed the complete resource estimate back into the numerical choices rather than treating compression and circuit construction as independent jobs.
 
 ### 7.3 Block encoding: making the Hamiltonian usable inside a circuit
 
@@ -728,11 +724,11 @@ U\,
 =\frac{\widetilde H}{\alpha}.
 $$
 
-Here H̃ is the Hamiltonian after any constant shifts or other transformations required by the algorithm, and α is a normalization that allows this block to fit inside a unitary. This relationship does not output the molecular energy in one step. It **packages the Hamiltonian into an operation** that a larger energy-estimation algorithm can query repeatedly, along with its inverse.
+Here H̃ is the Hamiltonian after any constant shifts or other transformations required by the algorithm, and α is a normalization that allows this block to fit inside a unitary. A larger energy-estimation algorithm repeatedly queries this operation and its inverse.
 
-That repetition makes the implementation cost matter. Even a small reduction in one data lookup can help when it is called many times. A large normalization can also make it more expensive to resolve the desired energy differences. The benchmark therefore combines **the cost of one block-encoding call with a normalization-related multiplier**. Turning this proxy into seconds on a particular physical machine would require further assumptions.
+That repetition makes the implementation cost matter. Even a small reduction in one data lookup can help when it is called many times. A large normalization can also make it more expensive to resolve the desired energy differences. The benchmark therefore combines **the cost of one block-encoding call with a normalization-related multiplier**. Converting this resource cost into hardware runtime additionally requires a physical architecture and error-correction model.
 
-DFTHC uses a **sum-of-squares (SOS)** structure after moving the energy reference: the shifted approximate Hamiltonian $H_{\mathrm{DFTHC}}-E_{\mathrm{SOS}}I$ is positive semidefinite on the fixed-electron-number sector. This does not mean the raw molecule’s negative energies are all positive. The square structure and energy reference enable spectrum amplification. The useful first lesson is that **two factorizations with similar approximation error can have different normalization costs and therefore different costs for the larger algorithm**. The [companion paper, Section III.3 and Appendix A](https://arxiv.org/html/2610.23832v2#S3.SS3), develops this connection.
+DFTHC uses a **sum-of-squares (SOS)** structure after moving the energy reference: the shifted approximate Hamiltonian $H_{\mathrm{DFTHC}}-E_{\mathrm{SOS}}I$ is positive semidefinite on the fixed-electron-number sector. The square structure and shifted energy reference enable spectrum amplification. **Two factorizations with similar approximation error can have different normalization costs and therefore different costs for the larger algorithm**. The [companion paper, Section III.3 and Appendix A](https://arxiv.org/html/2610.23832v2#S3.SS3), develops this connection.
 
 The official verifier does not diagonalize the full many-electron Hamiltonian to obtain its ground state. It uses a fixed energy upper bound E_upper and the E_SOS calculated from the factorization:
 
@@ -790,7 +786,7 @@ $$
 (1/2,1/\sqrt2,1/2).
 $$
 
-Each step preserves length, so the final vector remains a unit vector. This is an arithmetic illustration of the verifier's vector reconstruction, not an electronic-state calculation for an actual three-orbital molecule. **Changing the rotation-tree order can change the vector represented by the same angle values.** The tree is consequently part of the submitted representation.
+Each step preserves length, so the final vector remains a unit vector. **Changing the rotation-tree order can change the vector represented by the same angle values.** The tree is consequently part of the submitted representation.
 
 For N=76, one vector uses 75 tree edges and 75 angles. Those angles are finite-precision integer words rather than real numbers of unlimited precision. A b_rot-bit word means
 
@@ -803,7 +799,7 @@ The interval [0,2π) is therefore divided into a finite grid. At 12 bits, the gr
 
 ![A two-address coherent QROM lookup and two successive two-mode Givens rotations illustrate the data-loading and basis-rotation primitives.]({{ site.baseurl }}/assets/img/posts/quantum-circuit-compilation/fig-07-qrom-givens.svg){: width="1200" height="880" }
 
-_Figure 7. A two-address coherent QROM mapping and two successive two-mode Givens rotations. These are teaching examples of the primitives, not numerical results for FeMoCo._
+_Figure 7. A two-address coherent QROM mapping and two successive two-mode Givens rotations._
 
 ### 7.6 Streaming 75 angles through a smaller register
 
@@ -856,7 +852,7 @@ $$
 
 State preparation and angle lookup run sequentially, so temporary workspace is counted by its **maximum**, rather than its sum. Angle words remain live during the rotations, so their registers contribute to persistent space. Reducing the qubit count of one ANGLE circuit does not necessarily reduce total Q by the same amount.
 
-| Official README baseline — not a local measurement | Value |
+| Official README baseline | Value |
 |---|---:|
 | R,B,C / b_rot / J / number of batches K | 65,60,60 / 12 / 8 / 10 |
 | One ANGLE circuit | 119 qubits; 3,974 Toffolis |
@@ -882,7 +878,7 @@ Acceptance requires `error_1 ≤ 20 mHa`, `error_2 ≤ 20 mHa`, no ANGLE circuit
 
 Keeping the baseline angle table fixed while studying the QROM generator gives a relatively isolated first question. Changing the angle table at the same time makes circuit correctness, factorization quality, and rounding error move together. Someone with numerical-optimization experience may prefer to start with the high-precision factorization, but must still check reconstruction error at the eventual circuit precision.
 
-Possible research directions include QROM constructions that spend more workspace to process groups of addresses, shared logic for repeated output bits, and joint choices of batches, trees, and rounding. An improvement becomes a result only after passing the official restrictions and lowering the complete cost. The examples and sequence here are starting points, not measured gains.
+Possible research directions include QROM constructions that spend more workspace to process groups of addresses, shared logic for repeated output bits, and joint choices of batches, trees, and rounding. Compare the complete cost after checking the official accuracy and resource constraints.
 
 Read the worked example in `SCORING_README.md` → batch XOR tables in `example_submission/angle_k_reference_circuit.py` → `evaluate_words` in `verify.py` → vector and coefficient reconstruction in `scoreinfra/dfthc_math.py`. This separates reading the right words from making those words describe a good Hamiltonian.
 
@@ -914,13 +910,13 @@ $$
 | Reduce one task's cost to one quarter | 4, 1, 1 | About 1.587 |
 | Halve the cost of all three tasks | 2, 2, 2 | 2.000 |
 
-These are arithmetic examples illustrating the formula, rather than actual submission results. Research that improves one task first can be valuable, but a submission package must contain all three tasks. We can retain the official reference files for tasks we have not changed.
+A submission package must contain all three tasks. Use the official reference files for unchanged tasks.
 
-One more name needs care: the `score` field written by the `invsqrt` verifier is **that task's cost, Q×C**. It should be small. Calling that number the combined Kaggle score would be misleading.
+The `score` field written by the `invsqrt` verifier is **that task's cost, Q×C**: lower is better. The combined Kaggle score uses the geometric mean above.
 
 ## 9. The first files and environment to prepare
 
-The official data has no conventional `train.csv` and `test.csv`. The distribution we initially obtained contained 34 files totaling about 1.04 GB of original data. Its main parts are:
+The official distribution contains circuits, verifiers, and numerical data instead of conventional `train.csv` and `test.csv`. The initial package contained 34 files totaling about 1.04 GB:
 
 ```text
 official/
@@ -945,17 +941,17 @@ official/
 
 For a path with less installation work, begin with the official [starter notebook][starter-notebook] and [data][data]. Adding the supplied `kickmix/` directory to Python's search path allows the Kaggle distribution's library to be imported. Check the notebook's Input panel for the actual input mount path. Copying the same `.so` to a local machine with a different OS or Python ABI does not make it compatible.
 
-On October 23, 2026, the data description said that a PyPI release of `kickmix` was planned. This article therefore does not present `pip install kickmix` as a universally working installation method. Packages may change as the competition progresses, so check the current official data and metric versions when starting later.
+On October 23, 2026, the data description listed a PyPI release of `kickmix` as planned. Use the supplied library or a source build until `pip install kickmix` is available for the target platform.
 
-### The local path we used
+### Local build configuration
 
-Our reproduction ran on macOS arm64 with Python 3.12.13, NumPy 2.2.6, and an Apple C++20 toolchain. We built only the **standalone `kickmix` subpackage** from this commit in the official Qualtran repository:
+The local reproduction used macOS arm64, Python 3.12.13, NumPy 2.2.6, and an Apple C++20 toolchain. Its **standalone `kickmix` subpackage** was built from this official Qualtran commit:
 
 ```text
 638777fac4379bc62e2a1e4a52cf1a1753895d48
 ```
 
-The following commands start with the same configuration. They assume that `uv`, Git, and a C++20 compiler for the platform are already available. The installation targets and versions match those we used, but we have not separately tested this entire copy-and-paste sequence in a new environment.
+Installation commands for those package versions require `uv`, Git, and a C++20 compiler for the platform:
 
 ```sh
 mkdir quantum-circuit-start
@@ -978,7 +974,7 @@ kaggle kernels pull metric/google-quantum-ai-metric -p metric
 
 Keep the official reference circuits and verifiers unmodified. Generate candidate circuits in a separate directory, and record SHA-256 hashes of the originals, candidates, and verifier files. The metric notebook also performs preflight checks on circuit loading, permitted gates, registers, and submission structure. **Passing one task's verifier script does not check the entire submission path.**
 
-Whether a local source build matches the Linux binary supplied for Kaggle is a separate question. We have not established the exact source commit of that supplied binary. The results below were obtained with the original official verifier and the recorded local library; they do not establish equivalence with the Kaggle environment.
+The source commit used to build Kaggle's supplied Linux binary is undisclosed. Parity between that binary and the local source build remains unconfirmed.
 
 ## 10. Running the invsqrt baseline to completion
 
@@ -996,9 +992,9 @@ mkdir runs/invsqrt-smoke-001 && \
   2> runs/invsqrt-smoke-001/stderr.log
 ```
 
-This totals 4,096 shots. It checks installation and the interface; it does not reproduce correctness or final cost under the competition's full conditions. In particular, rotation-synthesis cost depends on the smallest error margin remaining over the checked range.
+The smoke profile uses 4,096 shots to check installation and the interface. Rotation-synthesis cost depends on the smallest error margin over the tested range, so it can differ from the full-profile cost.
 
-For a full run, restore the upper bound of x to 3,133,452. The arguments below match our completed local run; only the paths have been adapted to the introductory directory layout above.
+For a full run, restore the upper bound of x to 3,133,452. The completed local run used the following arguments, with paths adapted to the directory layout above.
 
 ```sh
 mkdir runs/invsqrt-full-001 && \
@@ -1014,7 +1010,7 @@ VECLIB_MAXIMUM_THREADS=1 NUMEXPR_NUM_THREADS=1 \
   2> runs/invsqrt-full-001/stderr.log
 ```
 
-Manage timeouts and system resources if you run this yourself. The command shows how to invoke the official script and has no timeout of its own. Our local harness imposed a 1,800-second limit from a separate parent process and recorded the start, finish, logs, and file hashes in a run receipt. We did not repeat the full verification while preparing this article.
+The command has no timeout of its own. The recorded local run used a separate parent process to impose a 1,800-second limit and record the start, finish, logs, and file hashes.
 
 Because output goes to files, the terminal may remain quiet during execution. Once the command finishes, open the result:
 
@@ -1022,7 +1018,7 @@ Because output goes to files, the terminal may remain quiet during execution. On
 .venv/bin/python -m json.tool runs/invsqrt-full-001/result.json
 ```
 
-Check that the process completed successfully, `status` is `PASS`, and `verified_shots` is 200,540,928. Compare `num_qubits` and `score` with the table below. For `FAIL`, read the JSON's `error` and `stderr.log`; an empty output or interrupted execution is not a completed result. This JSON has no elapsed-time field. The 199.921 seconds below was measured separately by the parent process and stored in the run receipt.
+Check that the process completed successfully, `status` is `PASS`, and `verified_shots` is 200,540,928. Compare `num_qubits` and `score` with the table below. For `FAIL`, read the JSON's `error` and `stderr.log`. This JSON has no elapsed-time field. The 199.921 seconds below was measured separately by the parent process and stored in the run receipt.
 
 ### The measured result
 
@@ -1041,7 +1037,7 @@ The full local run of the unmodified `sample_submission/invsqrt.kmb` produced th
 | Verification-process wall time | 199.921 seconds, about 3 minutes 20 seconds |
 | Verification workers | 4 |
 
-The JSON field `t_count: 1` does not mean rotation cost is negligible. Synthesis costs for the 37 rotations enter the final `toffoli_equivalent`. The largest ratio of phase error to allowed tolerance was approximately 0.476912, at x=2,588,411. This is a value observed in the recorded run, not a guarantee that an optimization can safely consume all remaining margin.
+The JSON field `t_count: 1` does not mean rotation cost is negligible. Synthesis costs for the 37 rotations enter the final `toffoli_equivalent`. The largest ratio of phase error to allowed tolerance was approximately 0.476912, at x=2,588,411. Any precision reduction changes that margin and requires another full check.
 
 The SHA-256 hash of the original circuit identifies the reproduction target:
 
@@ -1051,11 +1047,9 @@ e2bf8eb64350a4460a271fc7f1d591ef125b1e276377e9a0f64b96ab3ca321e1
 
 The measured time includes Python process startup, circuit loading, and verification, and excludes preflight file hashing. It is **the runtime of the local classical verifier**, not the hardware execution time of the quantum circuit. Its scope and environment also differ from the approximately 45 minutes quoted in the official overview for scoring a full submission.
 
-The supported conclusion is limited: “The original `invsqrt` circuit passed the official task verification, and we reproduced its cost under the recorded local environment and salt.” We have not measured the combined three-task score or Kaggle Public/Private results.
-
 ## 11. A minimal structure for continuing the experiments
 
-We do not need an elaborate management system at the outset, but we do need enough evidence to explain the next comparison. In this project, we separate official originals, candidate-generation code, and run results, giving each fact one authoritative home.
+Separate official originals, candidate-generation code, and run results so each comparison can be reproduced:
 
 ```text
 project/
@@ -1069,15 +1063,15 @@ project/
 └── runs/<run-id>/              # Results, logs, and receipt for one execution
 ```
 
-This layout explains the project's organizational principles; it is not an installation specification for a publicly distributed package. Parts such as `candidates/` will grow when actual experiments need them. Documentation and policy volume are not research results, so we first reproduce one baseline properly, then add only what the next question requires.
+Add candidate generators under `candidates/` as experiments require them.
 
 The essential record of a run is straightforward: **which original and candidate were run, with which code, environment, randomness, and resource limits; whether verification finished and passed; and what it cost in resources and time.** Preserve failed and interrupted attempts too. This keeps an incomplete run with an apparently low cost from being presented alongside a successful candidate as an improvement.
 
-Claude and Codex reviews are recorded in dated exchange documents. Proposals and acceptance or revision comments accumulate there, while `DECISIONS.md` owns settled choices, `TODO.md` owns current work, and run receipts own measurements. The purpose is to keep the next source to read and the next action clear even as the discussion grows.
+Claude and Codex reviews are recorded in dated exchange documents. Proposals and acceptance or revision comments accumulate there, while `DECISIONS.md` owns settled choices, `TODO.md` owns current work, and run receipts own measurements.
 
 ## 12. Submission format and dates to check
 
-The following files belong at the top level of the submission ZIP. This describes the format; no ZIP upload or Kaggle submission was performed while preparing this article.
+The following files belong at the top level of the submission ZIP:
 
 ```text
 submission.zip
@@ -1092,7 +1086,7 @@ submission.zip
 
 `submission.npz` contains `U`, `W`, `H2_I`, `H1_I`, `Hsym_lower`, and `tree_edges`. Generating circuit files alone does not make a submission ready. The full metric's preflight checks, each task's verification, ZIP paths, and required files must also be checked. The [official evaluation page][evaluation] documents the file contract.
 
-These dates were checked on the research date. Deadlines are at 23:59 UTC on the listed day, or 08:59 the next day in Korea.
+Deadlines are at 23:59 UTC on the listed day, or 08:59 the next day in Korea.
 
 | UTC date | Event |
 |---|---|
@@ -1102,9 +1096,21 @@ These dates were checked on the research date. Deadlines are at 23:59 UTC on the
 | 2027-01-13 | Rules-acceptance and team-merger deadline |
 | 2027-01-20 | Final submission deadline |
 
-The total prize pool is $150,000. Teams may have up to 5 members, with at most 5 submissions per day and 2 final selections. The intermediate, longest-leader, and task-specific additional prizes have separate requirements, including public materials; consult the [prize description][prizes] and [rules][rules]. Because this is early in the competition and dates or packages may change, reread the current official guidance before entering or submitting.
+The total prize pool is $150,000. Teams may have up to 5 members, with at most 5 submissions per day and 2 final selections. The intermediate, longest-leader, and task-specific additional prizes have separate requirements, including public materials; consult the [prize description][prizes] and [rules][rules].
 
-A sufficient first step is to obtain the official originals, run the `invsqrt` baseline, and confirm its PASS and cost. Then choose one change and compare it under the same contract. That is where our project currently stands: the original cost has been reproduced, and we are considering which calculations and workspace to reduce. A later article can follow an actual generated and verified candidate through its changes and results.
+Start with the official originals, run the `invsqrt` baseline, and confirm its PASS and cost. Then change one mechanism and compare it under the same verification conditions.
+
+## 13. How the competition may develop
+
+In Santa 2023, competitors designed moves around the mathematical structure of the puzzles and used cancellations between move sequences to shorten solutions. In Santa 2024, a lightweight neural network screened word permutations before expensive Gemma scoring. [Santa 2023 released solution](https://github.com/wata-orz/santa2023_permutation_puzzle) · [Santa 2024 released solution](https://github.com/Lgeu/santa2024)
+
+Here, the same proportional improvement contributes equally whichever task it comes from: the overall score is the geometric mean of the three improvement ratios. With the other two costs held constant, halving any task's cost multiplies the overall score by $2^{1/3}$. Each task also has a separate USD 10,000 performance prize, giving both single-task specialists and teams dividing the three tasks a reason to participate. [Official prizes][prizes]
+
+Reducing Toffolis alone is insufficient. DQI is particularly sensitive to qubit count because its cost includes Q². At the same failure-rate bound, halving the Toffoli count while increasing the qubit count by a factor of $\sqrt{2}$ leaves the cost unchanged. Designs that retain less intermediate state and uncompute cheaply may therefore matter more than a direct translation of a fast classical decoder.
+
+Adapting released circuits to the competition could produce large early gains. [Gu et al.](https://arxiv.org/html/2610.22367v1) replaced DQI's EEA with Berlekamp–Massey and reduced the intermediate storage needed for uncomputation. The [released implementation](https://github.com/andigu/uncompute) must be adapted to the competition's interface and cost model and checked with its official verifier. Later progress may combine refinements to these implementations with new approximations, decoders, factorizations, and QROM designs.
+
+Public-notebook requirements for milestone and longest-leader awards create an incentive to share improvements during the competition; the longest-leader award has its own publication deadline. Toward the end, implementation quality and adequate margins for phase error and DQI failure rates are likely to become increasingly important. Public and Private check the same submitted circuit using different salts and measurement outcomes. A circuit that survives those different checks should be a stronger final choice than one supported by a single favorable run. [Official prizes][prizes] · [Evaluation][evaluation] · [Metric implementation][metric]
 
 ## References
 

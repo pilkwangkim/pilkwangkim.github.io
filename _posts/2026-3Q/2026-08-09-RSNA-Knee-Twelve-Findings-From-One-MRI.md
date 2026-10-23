@@ -24,7 +24,7 @@ The [RSNA Knee Abnormality Detection competition](https://www.kaggle.com/competi
 
 The training data make supervision unusually important. There are 4,407 studies, but only 58 have the supplied expert annotations for the twelve findings. The remaining 4,349 rely on radiology reports written across nine languages. I need to convert those reports into training targets, although reports are unavailable at test time. The image model must ultimately learn the connection between visual evidence and the findings, rather than depend on the text used to supervise it.
 
-## The unit of prediction is an examination
+## Prediction unit and output structure
 
 A study contains several series acquired with different orientations and sequences. Each series contains a stack of slices. I can write the input and output schematically as
 
@@ -44,7 +44,7 @@ The study-level label also determines what supervision is missing. A report may 
 ![From an MRI examination and its training report to twelve predictions]({{ site.baseurl }}/assets/img/posts/rsna-knee-series/part0-task.png){: width="1920" height="1040" }
 _Figure 1. Images provide the test-time input. Reports supply training targets, attached to the examination rather than to individual slices._
 
-## AUC measures the ordering of studies
+## AUC and study ordering
 
 The competition score is the unweighted mean of twelve ROC AUCs:
 
@@ -67,7 +67,7 @@ This has two practical consequences. First, a strictly increasing transformation
 
 Score scale becomes relevant again in an ensemble. Averaging model probabilities retains the distances between their scores; averaging ranks replaces those distances with relative positions. Transforming separate predictors before combining them can change the final order even when each predictor's own AUC stays fixed. The aggregation operator is consequently part of the prediction model, not a neutral formatting choice.
 
-## An unmentioned finding is not an observed negative
+## Report omissions and image findings
 
 A radiology report records selected conclusions about an examination. It can assert a finding, explicitly deny it, qualify it, or say nothing about it. Converting the report into twelve values requires preserving those distinctions.
 
@@ -86,7 +86,7 @@ The resulting labels are **weak supervision**. An explicit negative can be encod
 
 The 58 expert-annotated studies let me examine disagreements between extracted labels and the supplied findings. That comparison addresses the label table. To evaluate the image learner, I also need held-out predictions. OOF predictions exclude each study from its corresponding model's training, but scoring them against extracted labels still measures agreement with those labels. Better report interpretation and better image prediction are connected questions that require separate comparisons.
 
-## Image representation and available evidence
+## Image representation and anatomical coverage
 
 A model cannot directly inspect anatomy removed during preparation; any inference about it must rely on the remaining evidence. Series selection, physical scale, and slice sampling therefore deserve as much attention as the encoder.
 
@@ -126,7 +126,7 @@ Slice sampling creates the same tension through the volume. With a fixed number 
 ![Physical ordering, crop size, and a fixed image grid]({{ site.baseurl }}/assets/img/posts/rsna-knee-series/part0-sampling.png){: width="1920" height="1040" }
 _Figure 3. Geometry establishes spatial order and scale. Crop size and sampling density then determine which anatomical evidence reaches the model._
 
-## Combining local evidence into twelve predictions
+## Aggregation across slices and views
 
 A pretrained encoder maps each selected image to a feature representation. The remaining model combines those representations across slices and views. This is where the difference between an image label and a study label becomes important: the model must discover which parts of the examination support each finding.
 
@@ -134,7 +134,7 @@ A simple average treats all selected images equally. Evidence confined to a few 
 
 The supervision and representation choices meet here. If an unmentioned finding is repeatedly treated as negative, the model may be penalized for recognizing visual evidence of it. If the relevant images are omitted, even an accurate positive target cannot teach their appearance. Changing a label table, crop, or aggregation method can therefore change the value of the other components. I need comparisons that make those changes explicit instead of attributing the whole result to the encoder's name.
 
-## Fitting the complete predictor into the inference budget
+## Inference paths and cost constraints
 
 The nine-hour allowance on two T4 GPUs applies to the complete hidden-test prediction. It must cover image decoding, preparation, model computation, aggregation, and writing the output. Training cost and test-time cost are consequently different constraints.
 
@@ -146,7 +146,7 @@ $$
 
 Doubling image width and height quadruples that term before masks and storage overhead. Increasing resolution affects preparation and storage as well as the model's GPU use.
 
-The first concrete allocation question was how many windows to read from each study. A window is one sampled group of images; several windows let the same learned model see different parts of the examination. For a probability-averaged read with $M$ checkpoints and $W$ windows, the output for one finding can be written as
+I have also compared how many windows to read from each study. A window is one sampled group of images; several windows let the same learned model see different parts of the examination. For a probability-averaged read with $M$ checkpoints and $W$ windows, the output for one finding can be written as
 
 $$
 \bar p_t=\frac{1}{MW}\sum_{m=1}^{M}\sum_{w=1}^{W}p_{m,w,t}.
@@ -154,11 +154,11 @@ $$
 
 An additional window can improve anatomical coverage or average away an unstable prediction. An additional independently trained model can change the representation or reduce some training variation. They spend the same inference allowance on different sources of error. Neither is equivalent to merely increasing the number of votes.
 
-The early local window sweep recorded AUCs of 0.8218, 0.8397, and 0.8428 for one, four, and ten windows. Four windows recovered most of the observed one-to-ten-window gain. Reading six more windows then added 0.0031, while nominal model work increased from four to ten window evaluations. These are local results from the August 8 record, not competition scores or a measured wall-time curve.
+In the August 8 local sweep, one, four, and ten windows produced AUCs of 0.8218, 0.8397, and 0.8428. Four windows recovered most of the observed one-to-ten-window gain. Reading six more windows added 0.0031, while nominal model work increased from four to ten window evaluations. These are local results, not competition scores or measured wall times.
 
 ![The early local window sweep beside its nominal computational work]({{ site.baseurl }}/assets/img/posts/rsna-knee-series/part0-windows.png){: width="1920" height="1040" }
 _Figure 4. Local AUC increased with additional windows, with diminishing gains in this recorded sweep. The second panel shows nominal work at a fixed model and input configuration; it is not measured runtime. This comparison did not separate better coverage from averaging effects._
 
-Ten windows could still be worth using if the rest of the predictor fit comfortably. A tighter budget would require comparing the last windows with another checkpoint or another input representation. The curve does not answer that later comparison, but it shows why inference design belongs inside model selection: a more informative examination read can matter as much as another trained model.
+Ten windows remain a useful option if the rest of the predictor fits comfortably. A tighter budget requires comparing the last windows with another checkpoint or another input representation. This curve alone cannot settle that choice. It does show why inference design belongs inside model selection: changing which images a trained model sees can change its predictions.
 
 An ensemble's inference cost depends on these shared computations. Models reading the same prepared images can reuse decoding and preprocessing; models requiring another crop or slice schedule may need additional preparation. Counting checkpoints therefore cannot determine what fits. The comparison has to concern the whole study predictor: the information it reads, the twelve scores it produces, and the time required to compute them on the permitted hardware.

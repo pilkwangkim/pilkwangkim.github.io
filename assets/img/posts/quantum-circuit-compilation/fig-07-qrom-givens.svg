@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="880" viewBox="0 0 1200 880" role="img" aria-labelledby="title desc">
-<title id="title">Lookup the angles; rotate pairs of components</title><desc id="desc">Two small teaching examples. Neither panel is a FeMoCo numerical result.</desc>
+<title id="title">Lookup the angles; rotate pairs of components</title><desc id="desc">QROM lookup and sequential Givens rotations.</desc>
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#526776"/></marker></defs>
 <rect width="1200" height="880" rx="18" fill="#fbfbf8"/>
 <text x="40" y="54" font-family="Arial, Helvetica, sans-serif" font-size="31" font-weight="700" text-anchor="start" fill="#183044">Lookup the angles; rotate pairs of components</text>
-<text x="40" y="91" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="start" fill="#526776">Two small teaching examples. Neither panel is a FeMoCo numerical result.</text>
+<text x="40" y="91" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" text-anchor="start" fill="#526776">QROM lookup and sequential Givens rotations.</text>
 <rect x="40" y="145" width="320" height="220" rx="14" fill="#fbefe5" stroke="#d6e0e5" stroke-width="2"/>
 <text x="60" y="184" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="700" text-anchor="start" fill="#183044">A  Classical table</text>
 <text x="60" y="227" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#183044">Address a     word dₐ</text>

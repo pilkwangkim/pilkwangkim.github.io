@@ -69,7 +69,7 @@
   description: Explore game AI design through farming economics, market structure, and replay analysis.
   tag: kaggriculture
 - id: quantum-circuit-compilation
-  group: physics
+  group: ai
   title: Verifiable Quantum Circuit Compilation
   description: Explore reversible circuit optimization, official verification, and resource costs in the Google Quantum AI competition.
   tag: quantum-circuit-compilation

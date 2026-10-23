@@ -22,9 +22,9 @@ image:
 
 An ensemble is a calculation applied to a set of predictions. Its quality depends on which predictions enter, how their numerical scales are combined, and which ranking errors the combination changes. The number of checkpoints is only an indirect description of that calculation. The same models can produce different study rankings under different reducers, and a larger collection can perform worse than a well-chosen subset.
 
-By October 4, I had a concrete example. Two locally trained model families reached Public 0.940 with rank averaging and 0.941 with probability averaging. Their planned inference cost was 207.7 minutes. Broader candidates used much more computation without exceeding them on Public. Getting to that result required two less obvious decisions: repairing a representation experiment whose optimizer had overwhelmed its input change, and choosing a practical first ensemble despite a larger competitor with a higher local estimate. The evidence below is limited to what was available by 21:00 KST on October 4.
+The strongest compact candidate I can select now combines two locally trained model families. It has scored Public 0.940 with rank averaging and 0.941 with probability averaging, at a planned inference cost of 207.7 minutes. Broader candidates have used much more computation without exceeding it on Public. These results raise two related questions: how to train models that add useful information, and how to choose among their combinations when the local estimate and the computational cost favor different candidates. A representation experiment and the first ensemble comparison show why I cannot answer either question from a standalone score.
 
-## Define the prediction before comparing ensembles
+## Prediction matrices and aggregation
 
 For one finding $t$, write the available predictions as a matrix $P^{(t)}$: studies occupy rows, and prediction sources occupy columns. Each column must refer to the same study keys and an understood evaluation procedure. In local comparisons, a complete family supplies OOF predictions from five fold models, with each study predicted by the model that excluded its fold. This makes the rows comparable without using that study's own fitted prediction.
 
@@ -42,7 +42,7 @@ Here $R_{jt}$ converts a source's predictions for one finding into percentile ra
 
 This distinction also explains why standalone AUC does not determine ensemble value. For a positive–negative pair, let $d_j=P_j(x^+)-P_j(x^-)$. A probability mean ranks the pair according to $\sum_jw_jd_j$. A second model helps when it reverses sufficiently many incorrect pair orderings without overturning too many correct ones. A model with slightly lower standalone AUC can therefore improve a stronger model; a highly ranked model can be redundant if both make the same consequential mistakes.
 
-Prediction correlation summarizes similarity, not whether disagreements are correct. A low correlation can reflect complementary information or simply a poor predictor. Because the metric averages twelve finding-level AUCs, the useful disagreements can also differ by finding. I needed aligned predictions and the intended combination to measure that contribution, rather than assigning a fixed value to another encoder or seed.
+Prediction correlation summarizes similarity, not whether disagreements are correct. A low correlation can reflect complementary information or simply a poor predictor. Because the metric averages twelve finding-level AUCs, the useful disagreements can also differ by finding. To measure a contribution, I need predictions on the same studies combined with the operator I intend to use. Another encoder or seed has no fixed ensemble value by itself.
 
 I use a **flat roster** for the same set of families across all twelve findings, and **target-specific selection** for separate sets by finding. These are different choices of membership, regardless of whether their predictions are combined by probability or rank averaging.
 
@@ -58,13 +58,13 @@ One rehearsal exposed a more basic mismatch. On September 22, a 1,322-study run 
 ![Intended and actual participation in the ensemble]({{ site.baseurl }}/assets/img/posts/rsna-knee-series/part2-members.png){: width="1920" height="1168" }
 _Figure 1. The intended composition includes all nine configurations in all twelve findings. The recorded mask uses seven configurations, with 10–25 participating members out of 45. Loading a model did not ensure that it affected the prediction._
 
-The same rehearsal shortened 26 members from ten windows to nine under an internal eight-hour timer. I removed that adaptation. Execution could change its order or chunk sizes, but not the selected models and windows. Otherwise, a local estimate and a scored run would describe different predictors.
+The same rehearsal shortened 26 members from ten windows to nine under an internal eight-hour timer. I removed that adaptation. The execution order or chunk sizes may change, but the selected models and windows must remain fixed. Otherwise, the local estimate and the scored run describe different predictors.
 
 </details>
 
-## Training models to complement an ensemble
+## Complementary model families
 
-Combination analysis can identify complementary predictions only after they exist. A complete family was therefore more useful than a promising first fold: it supplied predictions across the same eligible studies as the existing models. The more difficult investment was choosing a learning system capable of producing a useful difference.
+Combination analysis needs the candidate predictions before it can test their complementarity. A promising first fold is not enough for comparison across the bank; a complete family supplies held-out predictions on the same studies as the existing models. The earlier decision is harder: which learning system is worth training to produce those predictions?
 
 A public Raptor recipe suggested one such system. It combined a CoAtNet encoder, a 64-slice representation, attention over windows, and a training setup adapted to that representation. I retrained it on my folds to obtain usable OOF, rather than treating a competition-trained public checkpoint as though it had excluded my validation studies.
 
@@ -79,9 +79,9 @@ _Figure 2. The first-fold scores 0.8322 and 0.8701 use the same report-derived r
 
 The five folds finished on September 23. On the primary metric—the mean AUC against GPT and Opus reference labels—the coupled family exceeded the same-input, original-head family by 0.0303. It remained 0.0091 below the baseline family alone. Yet its correlation with the deployed composition was 0.789, and combination selection included it in all five outer folds. That was evidence of useful complementarity in the evaluated procedure, despite the weaker standalone result.
 
-The experiment supported reproducing an interacting recipe before judging its parts in an unchanged surrounding system. Its value came from the resulting held-out predictions. A different architecture name, a successful implementation, or a higher first-fold score would not have supplied the same ensemble comparison.
+The resulting held-out predictions let me compare the coupled recipe with the other families. A different architecture name, a successful implementation, or a higher first-fold score would not be enough for that comparison. The result is a reason to test interacting parts together, rather than reject the whole recipe after inserting one component into an otherwise unchanged system.
 
-### When a dense-input test also changes the optimizer
+### Dense inputs and optimization interactions
 
 Another set of experiments showed why the training recipe could not be separated from the representation by inspection alone. Two models with a denser 336-pixel, 30-slice input had large first-fold losses: about −0.054 for ConvNeXt-large and −0.125 for DINOv2-large. The proposed change sounded like “more slices.” The actual recipes also changed crop, fine-tuning depth, learning rate, schedule, and precision. They tested whole systems, so the losses did not identify which change was responsible.
 
@@ -109,9 +109,9 @@ It did. Relative to the same stored baseline, the complete dense configuration w
 ![Learning-rate and fine-tuning-depth interaction, followed by a rate-only repair of the dense configuration]({{ site.baseurl }}/assets/img/posts/rsna-knee-series/part2-read-interaction.png){: width="1920" height="1216" }
 _Figure 3. Left: four matched conditions show a large negative rate-by-depth interaction. Right: restoring the rate in the full dense recipe recovers much of its loss, while a residual geometry cost remains. All values use the same stored-baseline comparison; the results concern one DINOv2-small fold and seed._
 
-This supported a repaired dense recipe, not a blanket endorsement of more slices. The geometry bundle still lost about 0.03 under these references, and the experiment did not separate slice count from crop and band coverage. Applying the same numerical interaction to a larger encoder would also have exceeded the evidence. The next large-model comparison needed that encoder's own established optimization settings. I no longer treated the original test as a verdict on dense input: it had changed the representation together with an optimization combination that performed poorly.
+The repaired dense recipe is worth testing further, but this is not a blanket endorsement of more slices. The geometry bundle still loses about 0.03 under these references, and the experiment does not separate slice count from crop and band coverage. Nor does it establish the same numerical interaction in a larger encoder. For the next large-model comparison, I need that encoder's own established optimization settings. The original test changed the representation together with a poor optimization combination; it cannot decide the representation question on its own.
 
-## Optimize under the cost of the complete inference route
+## Inference routes and cost constraints
 
 The mathematical selection problem has both a statistical objective and a resource constraint. Let $c$ specify the models, reducer, and weights, and let $S_D(c)$ be macro AUC against the declared reference labels on studies $D$. The intended feasible problem is
 
@@ -137,11 +137,11 @@ $$
 
 The two-GPU term depends on scheduling. If different members run on separate devices, the slower lane determines when the stage finishes. Unequal workloads, serial decoding, and aggregation prevent a doubling of model throughput from halving the total time. Keeping decoded groups in memory can avoid repeated work, but their simultaneous residency can increase peak memory. Model selection, shared preparation, scheduling, and memory therefore have to be priced together.
 
-Before a full run, I had an estimate $\widehat T_{\mathrm{route}}$, rather than the exact hidden runtime. The selection program could use that estimate to propose compositions, but a 540-minute planning estimate was not a certificate of completion. Deliberate trials above the planning limit tested whether a useful exact composition could finish; they did not extend Kaggle's actual nine-hour allowance.
+Before a full run, I have an estimate $\widehat T_{\mathrm{route}}$, rather than the exact hidden runtime. The selection program uses that estimate to propose compositions, but a 540-minute planning estimate does not certify completion. Deliberate trials above the planning limit test whether a useful exact composition can finish; they do not extend Kaggle's actual nine-hour allowance.
 
 The observations illustrate the distinction. A candidate planned at 599.8 minutes failed with a certified time limit. Another planned at 567.8 minutes completed and scored 0.937. Their send-to-result intervals were about 9.18 and 8.89 hours, including platform and collection delay. Different contents and execution routes prevent treating those two points as a universal runtime boundary.
 
-## Evaluate the selection rule separately from its fitted roster
+## Cross-fitted selection and fitted rosters
 
 The September 20 bank already supplied a reason to compare replacements, not just additions. On 4,339 shared studies, a descriptive search over 76 complete configurations produced these fixed candidates:
 
@@ -181,7 +181,7 @@ A paired bootstrap with the chosen roster fixed resamples studies for those pred
 
 </details>
 
-### Why the higher local score was not the first trial
+### Local estimates and the first scored comparison
 
 By September 23, the candidate pool contained 83 configurations. I compared flat and target-specific selection while restricting both to input groups already exercised in a scored run. Under the 540-minute planning cap, target-specific selection had the higher cross-fitted primary gain: +0.0090 against flat selection's +0.0067. The difficult choice was whether that larger estimate justified taking the much larger construction first.
 
@@ -203,9 +203,9 @@ _Figure 5. The September 23 pool gives nearly stable flat-selection gains and a 
 
 The first trial used the flat construction: five families, 25 fold models, two input groups, and 233.8 planned minutes. Its members combined a small DINOv2 reader-label baseline, its fuller-depth variant, a hybrid-label variant, ConvNeXt-large, and the coupled 64-slice Raptor family. This was a new subset of the bank, not the previous package with one more family attached. It used less than half the planning cap while keeping the more ambitious target-specific option available for a later comparison.
 
-The submitted system reached Public 0.928 on September 23, up from 0.921; an external RadImageNet component was still included. A later target-specific composition scored 0.931. Those outcomes supported continuing the broader selection work, but they did not convert local gains into a general Public exchange rate. Contents and execution had changed together, and the later compact-pair results would test whether these larger rosters were the most useful way to use the bank.
+The submitted system reached Public 0.928 on September 23, up from 0.921; an external RadImageNet component was still included. A later target-specific composition scored 0.931. Those outcomes justified further selection comparisons, but they do not provide a general conversion from local gains to Public gains. Contents and execution changed together. I therefore also tested a compact pair, rather than assume that the larger selected rosters made the best use of the bank.
 
-## Results of the compact two-family ensemble
+## The compact two-family ensemble
 
 The strongest small combination paired an 80-slice gated model trained on GPT-derived labels with a 64-slice coupled model trained on publicly released Raptor labels. Both had complete OOF on my folds. Their standalone Public scores were 0.935 and 0.932. The ten fold models, combined by a flat rank mean, scored 0.940 on September 30. Probability averaging the same ten members scored 0.941 on October 3. Neither composition included an external checkpoint component.
 
@@ -214,8 +214,8 @@ At 207.7 planned minutes, the pair was substantially cheaper than the broad alte
 ![Public scores and planning costs of compact and broad candidates, with a separate timeout record]({{ site.baseurl }}/assets/img/posts/rsna-knee-series/part2-runtime.png){: width="1920" height="1120" }
 _Figure 6. The pair's rank and probability means scored 0.940 and 0.941 at the same 207.7-minute planning cost. Broader candidates planned at 539.8 and 567.8 minutes scored 0.935 and 0.937. The 599.8-minute trial timed out and supplied no AUC. Contents and operators differ across these comparisons._
 
-This made the compact pair a useful candidate, rather than establishing a general preference for fewer models. The broad compositions changed which predictions dominated and how their errors combined. Preserving all complete OOF remained important: another family or a different supported objective could make another subset useful. Selecting only additions to the current favorite would have prevented precisely the replacement that made the pair worth testing.
+The compact pair is now a useful candidate, but its result does not establish a general preference for fewer models. The broad compositions change which predictions dominate and how their errors combine. I am keeping all complete OOF: a new family or evidence for a different objective may favor another subset. If I compared only additions to the current favorite, I would miss replacements such as this pair.
 
-The operator comparison also had a limited, concrete interpretation. The displayed 0.940-to-0.941 change supported probability averaging for this fixed ten-model comparison. It did not establish a best general weighting rule. A few declared Public comparisons could test transfer without turning every small score change into another weight adjustment.
+The operator comparison supports probability averaging for these fixed ten models: its displayed score increased from 0.940 to 0.941. It does not establish a best general weighting rule. I want a few declared Public comparisons to check whether a proposed improvement holds on the competition sample, without adjusting the weights after every small score change.
 
-The cap comparisons had helped choose a useful first trial, and the dense-input repair had prevented an optimization failure from deciding an entire representation question. Neither resolved the local objective. The Raptor-labeled family scored 0.932 against 0.920 for its GPT-labeled visual control, although the primary reference preferred the control. Together with the broader ensembles' results, that disagreement made supervision and reference definitions the next questions to investigate. On October 4, I had a selectable two-family prediction and reusable OOF from the other models. I did not yet know which part of the supervision or evaluation process explained the different rankings.
+The cap comparisons helped me choose the first trial, and the dense-input repair separated an optimization failure from the representation question. The local objective is still unresolved. The Raptor-labeled family scored 0.932 against 0.920 for its GPT-labeled visual control, although the primary reference preferred the control. That disagreement also appears among the broader ensembles. I have a selectable two-family candidate and complete OOF from the other models, but I do not yet know why the local and Public rankings differ. My next comparisons need to examine the training targets and the reference labels, alongside the image models themselves.
