@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="481" viewBox="0 0 900 481" role="img" aria-labelledby="title"><title id="title">fig-08-replay-alignment</title><rect width="900" height="481" fill="#fcfcfa"/>
+<text x="32" y="32" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" fill="#182d3b">Replay rows are shifted</text>
+<text x="35" y="88" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#182d3b">Record 0</text>
+<rect x="35" y="122" width="37" height="37" rx="2" fill="#e4eadc" stroke="none" stroke-width="1.4"/>
+<rect x="74" y="122" width="37" height="37" rx="2" fill="#e4eadc" stroke="none" stroke-width="1.4"/>
+<rect x="113" y="122" width="37" height="37" rx="2" fill="#e4eadc" stroke="none" stroke-width="1.4"/>
+<rect x="35" y="161" width="37" height="37" rx="2" fill="#e8d9bd" stroke="none" stroke-width="1.4"/>
+<polyline points="40,171.92000000000002 67,171.92000000000002" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="40,182.45 67,182.45" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="40,192.2 67,192.2" fill="none" stroke="#cfbb95" stroke-width="1" />
+<rect x="74" y="161" width="37" height="37" rx="2" fill="#e8d9bd" stroke="none" stroke-width="1.4"/>
+<polyline points="79,171.92000000000002 106,171.92000000000002" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="79,182.45 106,182.45" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="79,192.2 106,192.2" fill="none" stroke="#cfbb95" stroke-width="1" />
+<rect x="113" y="161" width="37" height="37" rx="2" fill="#e8d9bd" stroke="none" stroke-width="1.4"/>
+<polyline points="118,171.92000000000002 145,171.92000000000002" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="118,182.45 145,182.45" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="118,192.2 145,192.2" fill="none" stroke="#cfbb95" stroke-width="1" />
+<rect x="40.85" y="135.26000000000002" width="24.96" height="21.840000000000003" rx="1" fill="#cad9e0" stroke="#718b9b" stroke-width="1.4"/>
+<polygon points="37.85,136.43 53.33,124.68 66.98,136.43" fill="#526d82"/>
+<rect x="50.21" y="143.45000000000002" width="7.02" height="13.649999999999999" rx="0" fill="#5c788c" stroke="none" stroke-width="1.4"/>
+<circle cx="93.5" cy="130.8173913043478" r="4.239130434782608" fill="#e1b48b" stroke="none" stroke-width="1.5"/>
+<rect x="86.71739130434783" y="126.57826086956521" width="13.565217391304348" height="2.5434782608695654" rx="0" fill="#d8aa45" stroke="none" stroke-width="1.4"/>
+<polyline points="93.5,135.90434782608696 93.5,146.0782608695652" fill="none" stroke="#356fa6" stroke-width="4.239130434782608" />
+<polyline points="87.56521739130434,139.29565217391303 93.5,138.44782608695652 99.43478260869566,141.8391304347826" fill="none" stroke="#356fa6" stroke-width="2.119565217391304" />
+<polyline points="88.41304347826087,152.8608695652174 93.5,145.23043478260868 98.58695652173913,152.8608695652174" fill="none" stroke="#356fa6" stroke-width="2.119565217391304" />
+<text x="35" y="235" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" fill="#182d3b">Cash 30, crop empty</text>
+<text x="35" y="385" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700" fill="#77509e">Action: none</text>
+<text x="330" y="88" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#182d3b">Record 1</text>
+<rect x="330" y="122" width="37" height="37" rx="2" fill="#e4eadc" stroke="none" stroke-width="1.4"/>
+<rect x="369" y="122" width="37" height="37" rx="2" fill="#e4eadc" stroke="none" stroke-width="1.4"/>
+<rect x="408" y="122" width="37" height="37" rx="2" fill="#e4eadc" stroke="none" stroke-width="1.4"/>
+<rect x="330" y="161" width="37" height="37" rx="2" fill="#e8d9bd" stroke="none" stroke-width="1.4"/>
+<polyline points="335,171.92000000000002 362,171.92000000000002" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="335,182.45 362,182.45" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="335,192.2 362,192.2" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="348.5,187.71052631578948 348.5,177.03684210526316" fill="none" stroke="#3d865d" stroke-width="1.642105263157895" />
+<polygon points="348.5,180.32105263157894 340.2894736842105,174.57368421052632 344.39473684210526,171.28947368421052 348.5,176.2157894736842" fill="#67a66a"/>
+<polygon points="348.5,179.5 356.7105263157895,172.93157894736842 352.60526315789474,169.64736842105262 348.5,176.2157894736842" fill="#498d5e"/>
+<rect x="369" y="161" width="37" height="37" rx="2" fill="#e8d9bd" stroke="none" stroke-width="1.4"/>
+<polyline points="374,171.92000000000002 401,171.92000000000002" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="374,182.45 401,182.45" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="374,192.2 401,192.2" fill="none" stroke="#cfbb95" stroke-width="1" />
+<rect x="408" y="161" width="37" height="37" rx="2" fill="#e8d9bd" stroke="none" stroke-width="1.4"/>
+<polyline points="413,171.92000000000002 440,171.92000000000002" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="413,182.45 440,182.45" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="413,192.2 440,192.2" fill="none" stroke="#cfbb95" stroke-width="1" />
+<rect x="335.85" y="135.26000000000002" width="24.96" height="21.840000000000003" rx="1" fill="#cad9e0" stroke="#718b9b" stroke-width="1.4"/>
+<polygon points="332.85,136.43 348.33000000000004,124.68 361.98,136.43" fill="#526d82"/>
+<rect x="345.21000000000004" y="143.45000000000002" width="7.02" height="13.649999999999999" rx="0" fill="#5c788c" stroke="none" stroke-width="1.4"/>
+<circle cx="388.5" cy="130.8173913043478" r="4.239130434782608" fill="#e1b48b" stroke="none" stroke-width="1.5"/>
+<rect x="381.7173913043478" y="126.57826086956521" width="13.565217391304348" height="2.5434782608695654" rx="0" fill="#d8aa45" stroke="none" stroke-width="1.4"/>
+<polyline points="388.5,135.90434782608696 388.5,146.0782608695652" fill="none" stroke="#356fa6" stroke-width="4.239130434782608" />
+<polyline points="382.5652173913044,139.29565217391303 388.5,138.44782608695652 394.4347826086956,141.8391304347826" fill="none" stroke="#356fa6" stroke-width="2.119565217391304" />
+<polyline points="383.4130434782609,152.8608695652174 388.5,145.23043478260868 393.5869565217391,152.8608695652174" fill="none" stroke="#356fa6" stroke-width="2.119565217391304" />
+<text x="330" y="235" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" fill="#182d3b">Cash 20, crop growing</text>
+<text x="330" y="385" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700" fill="#77509e">Action: PREPARE</text>
+<text x="625" y="88" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#182d3b">Record 2</text>
+<rect x="625" y="122" width="37" height="37" rx="2" fill="#e4eadc" stroke="none" stroke-width="1.4"/>
+<rect x="664" y="122" width="37" height="37" rx="2" fill="#e4eadc" stroke="none" stroke-width="1.4"/>
+<rect x="703" y="122" width="37" height="37" rx="2" fill="#e4eadc" stroke="none" stroke-width="1.4"/>
+<rect x="625" y="161" width="37" height="37" rx="2" fill="#e8d9bd" stroke="none" stroke-width="1.4"/>
+<polyline points="630,171.92000000000002 657,171.92000000000002" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="630,182.45 657,182.45" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="630,192.2 657,192.2" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="643.5,189.35263157894738 643.5,170.46842105263158" fill="none" stroke="#ac8430" stroke-width="1.642105263157895" />
+<polyline points="643.5,174.57368421052632 638.5736842105263,170.46842105263158" fill="none" stroke="#ceaa50" stroke-width="2.4631578947368427" />
+<polyline points="643.5,174.57368421052632 648.4263157894737,170.46842105263158" fill="none" stroke="#ceaa50" stroke-width="2.4631578947368427" />
+<polyline points="643.5,179.5 638.5736842105263,175.39473684210526" fill="none" stroke="#ceaa50" stroke-width="2.4631578947368427" />
+<polyline points="643.5,179.5 648.4263157894737,175.39473684210526" fill="none" stroke="#ceaa50" stroke-width="2.4631578947368427" />
+<polyline points="643.5,184.42631578947368 638.5736842105263,180.32105263157894" fill="none" stroke="#ceaa50" stroke-width="2.4631578947368427" />
+<polyline points="643.5,184.42631578947368 648.4263157894737,180.32105263157894" fill="none" stroke="#ceaa50" stroke-width="2.4631578947368427" />
+<rect x="664" y="161" width="37" height="37" rx="2" fill="#e8d9bd" stroke="none" stroke-width="1.4"/>
+<polyline points="669,171.92000000000002 696,171.92000000000002" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="669,182.45 696,182.45" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="669,192.2 696,192.2" fill="none" stroke="#cfbb95" stroke-width="1" />
+<rect x="703" y="161" width="37" height="37" rx="2" fill="#e8d9bd" stroke="none" stroke-width="1.4"/>
+<polyline points="708,171.92000000000002 735,171.92000000000002" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="708,182.45 735,182.45" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="708,192.2 735,192.2" fill="none" stroke="#cfbb95" stroke-width="1" />
+<rect x="630.85" y="135.26000000000002" width="24.96" height="21.840000000000003" rx="1" fill="#cad9e0" stroke="#718b9b" stroke-width="1.4"/>
+<polygon points="627.85,136.43 643.33,124.68 656.98,136.43" fill="#526d82"/>
+<rect x="640.21" y="143.45000000000002" width="7.02" height="13.649999999999999" rx="0" fill="#5c788c" stroke="none" stroke-width="1.4"/>
+<circle cx="683.5" cy="130.8173913043478" r="4.239130434782608" fill="#e1b48b" stroke="none" stroke-width="1.5"/>
+<rect x="676.7173913043479" y="126.57826086956521" width="13.565217391304348" height="2.5434782608695654" rx="0" fill="#d8aa45" stroke="none" stroke-width="1.4"/>
+<polyline points="683.5,135.90434782608696 683.5,146.0782608695652" fill="none" stroke="#356fa6" stroke-width="4.239130434782608" />
+<polyline points="677.5652173913044,139.29565217391303 683.5,138.44782608695652 689.4347826086956,141.8391304347826" fill="none" stroke="#356fa6" stroke-width="2.119565217391304" />
+<polyline points="678.4130434782609,152.8608695652174 683.5,145.23043478260868 688.5869565217391,152.8608695652174" fill="none" stroke="#356fa6" stroke-width="2.119565217391304" />
+<text x="625" y="235" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" fill="#182d3b">Cash 20, crop ripe</text>
+<text x="625" y="385" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700" fill="#77509e">Action: WATER</text>
+<polyline points="166,250 166,330 447,330 447,357" fill="none" stroke="#356da6" stroke-width="2.2" />
+<polygon points="447,357 443.0,347.0 451.0,347.0" fill="#356da6"/>
+<polyline points="461,250 461,350 742,350 742,367" fill="none" stroke="#356da6" stroke-width="2.2" />
+<polygon points="742,367 738.0,357.0 746.0,357.0" fill="#356da6"/>
+<text x="35" y="445" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" fill="#526575">The action stored in the next row was chosen from the previous observation.</text>
+</svg>

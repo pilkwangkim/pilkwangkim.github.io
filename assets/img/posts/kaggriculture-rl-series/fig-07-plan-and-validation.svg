@@ -1,0 +1,212 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="809" viewBox="0 0 900 809" role="img" aria-labelledby="title"><title id="title">fig-07-plan-and-validation</title><rect width="900" height="809" fill="#fcfcfa"/>
+<text x="32" y="32" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" fill="#182d3b">Investment is a bundle</text>
+<text x="75" y="88" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700" fill="#182d3b">A: keep existing farm</text>
+<rect x="75" y="119" width="46" height="46" rx="2" fill="#e4eadc" stroke="none" stroke-width="1.4"/>
+<rect x="123" y="119" width="46" height="46" rx="2" fill="#e4eadc" stroke="none" stroke-width="1.4"/>
+<rect x="75" y="167" width="46" height="46" rx="2" fill="#e8d9bd" stroke="none" stroke-width="1.4"/>
+<polyline points="80,180.44 116,180.44" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="80,193.4 116,193.4" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="80,205.4 116,205.4" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="98.0,202.1263157894737 98.0,178.8842105263158" fill="none" stroke="#ac8430" stroke-width="2.0210526315789474" />
+<polyline points="98.0,183.93684210526317 91.93684210526315,178.8842105263158" fill="none" stroke="#ceaa50" stroke-width="3.031578947368421" />
+<polyline points="98.0,183.93684210526317 104.06315789473685,178.8842105263158" fill="none" stroke="#ceaa50" stroke-width="3.031578947368421" />
+<polyline points="98.0,190.0 91.93684210526315,184.94736842105263" fill="none" stroke="#ceaa50" stroke-width="3.031578947368421" />
+<polyline points="98.0,190.0 104.06315789473685,184.94736842105263" fill="none" stroke="#ceaa50" stroke-width="3.031578947368421" />
+<polyline points="98.0,196.06315789473683 91.93684210526315,191.01052631578946" fill="none" stroke="#ceaa50" stroke-width="3.031578947368421" />
+<polyline points="98.0,196.06315789473683 104.06315789473685,191.01052631578946" fill="none" stroke="#ceaa50" stroke-width="3.031578947368421" />
+<rect x="123" y="167" width="46" height="46" rx="2" fill="#e8d9bd" stroke="none" stroke-width="1.4"/>
+<polyline points="128,180.44 164,180.44" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="128,193.4 164,193.4" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="128,205.4 164,205.4" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="146.0,202.1263157894737 146.0,178.8842105263158" fill="none" stroke="#ac8430" stroke-width="2.0210526315789474" />
+<polyline points="146.0,183.93684210526317 139.93684210526317,178.8842105263158" fill="none" stroke="#ceaa50" stroke-width="3.031578947368421" />
+<polyline points="146.0,183.93684210526317 152.06315789473683,178.8842105263158" fill="none" stroke="#ceaa50" stroke-width="3.031578947368421" />
+<polyline points="146.0,190.0 139.93684210526317,184.94736842105263" fill="none" stroke="#ceaa50" stroke-width="3.031578947368421" />
+<polyline points="146.0,190.0 152.06315789473683,184.94736842105263" fill="none" stroke="#ceaa50" stroke-width="3.031578947368421" />
+<polyline points="146.0,196.06315789473683 139.93684210526317,191.01052631578946" fill="none" stroke="#ceaa50" stroke-width="3.031578947368421" />
+<polyline points="146.0,196.06315789473683 152.06315789473683,191.01052631578946" fill="none" stroke="#ceaa50" stroke-width="3.031578947368421" />
+<rect x="75" y="215" width="46" height="46" rx="2" fill="#e8d9bd" stroke="none" stroke-width="1.4"/>
+<polyline points="80,228.44 116,228.44" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="80,241.4 116,241.4" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="80,253.4 116,253.4" fill="none" stroke="#cfbb95" stroke-width="1" />
+<rect x="123" y="215" width="46" height="46" rx="2" fill="#e8d9bd" stroke="none" stroke-width="1.4"/>
+<polyline points="128,228.44 164,228.44" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="128,241.4 164,241.4" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="128,253.4 164,253.4" fill="none" stroke="#cfbb95" stroke-width="1" />
+<rect x="82.2" y="135.32" width="30.72" height="26.880000000000003" rx="1" fill="#cad9e0" stroke="#718b9b" stroke-width="1.4"/>
+<polygon points="79.2,136.76 97.56,122.76 114.36000000000001,136.76" fill="#526d82"/>
+<rect x="93.72" y="145.4" width="8.64" height="16.799999999999997" rx="0" fill="#5c788c" stroke="none" stroke-width="1.4"/>
+<circle cx="147.0" cy="129.85217391304346" r="5.217391304347826" fill="#e1b48b" stroke="none" stroke-width="1.5"/>
+<rect x="138.65217391304347" y="124.63478260869564" width="16.695652173913043" height="3.1304347826086953" rx="0" fill="#d8aa45" stroke="none" stroke-width="1.4"/>
+<polyline points="147.0,136.11304347826086 147.0,148.63478260869564" fill="none" stroke="#356fa6" stroke-width="5.217391304347826" />
+<polyline points="139.69565217391303,140.2869565217391 147.0,139.24347826086955 154.30434782608697,143.4173913043478" fill="none" stroke="#356fa6" stroke-width="2.608695652173913" />
+<polyline points="140.73913043478262,156.98260869565217 147.0,147.59130434782608 153.26086956521738,156.98260869565217" fill="none" stroke="#356fa6" stroke-width="2.608695652173913" />
+<circle cx="87" cy="283.8" r="4.5" fill="#e1b48b" stroke="none" stroke-width="1.5"/>
+<rect x="79.8" y="279.3" width="14.4" height="2.7" rx="0" fill="#d8aa45" stroke="none" stroke-width="1.4"/>
+<polyline points="87,289.2 87,300.0" fill="none" stroke="#356fa6" stroke-width="4.5" />
+<polyline points="80.7,292.8 87,291.9 93.3,295.5" fill="none" stroke="#356fa6" stroke-width="2.25" />
+<polyline points="81.6,307.2 87,299.1 92.4,307.2" fill="none" stroke="#356fa6" stroke-width="2.25" />
+<circle cx="118" cy="283.8" r="4.5" fill="#e1b48b" stroke="none" stroke-width="1.5"/>
+<rect x="110.8" y="279.3" width="14.4" height="2.7" rx="0" fill="#d8aa45" stroke="none" stroke-width="1.4"/>
+<polyline points="118,289.2 118,300.0" fill="none" stroke="#356fa6" stroke-width="4.5" />
+<polyline points="111.7,292.8 118,291.9 124.3,295.5" fill="none" stroke="#356fa6" stroke-width="2.25" />
+<polyline points="112.6,307.2 118,299.1 123.4,307.2" fill="none" stroke="#356fa6" stroke-width="2.25" />
+<circle cx="149" cy="283.8" r="4.5" fill="#e1b48b" stroke="none" stroke-width="1.5"/>
+<rect x="141.8" y="279.3" width="14.4" height="2.7" rx="0" fill="#d8aa45" stroke="none" stroke-width="1.4"/>
+<polyline points="149,289.2 149,300.0" fill="none" stroke="#356fa6" stroke-width="4.5" />
+<polyline points="142.7,292.8 149,291.9 155.3,295.5" fill="none" stroke="#356fa6" stroke-width="2.25" />
+<polyline points="143.6,307.2 149,299.1 154.4,307.2" fill="none" stroke="#356fa6" stroke-width="2.25" />
+<circle cx="180" cy="283.8" r="4.5" fill="#e1b48b" stroke="none" stroke-width="1.5"/>
+<rect x="172.8" y="279.3" width="14.4" height="2.7" rx="0" fill="#d8aa45" stroke="none" stroke-width="1.4"/>
+<polyline points="180,289.2 180,300.0" fill="none" stroke="#356fa6" stroke-width="4.5" />
+<polyline points="173.7,292.8 180,291.9 186.3,295.5" fill="none" stroke="#356fa6" stroke-width="2.25" />
+<polyline points="174.6,307.2 180,299.1 185.4,307.2" fill="none" stroke="#356fa6" stroke-width="2.25" />
+<text x="75" y="335" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" fill="#182d3b">Total workforce: 4</text>
+<text x="520" y="88" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700" fill="#182d3b">B: hire + land + crops</text>
+<rect x="520" y="119" width="46" height="46" rx="2" fill="#e4eadc" stroke="none" stroke-width="1.4"/>
+<rect x="568" y="119" width="46" height="46" rx="2" fill="#e4eadc" stroke="none" stroke-width="1.4"/>
+<rect x="616" y="119" width="46" height="46" rx="2" fill="#e4eadc" stroke="none" stroke-width="1.4"/>
+<rect x="664" y="119" width="46" height="46" rx="2" fill="#e4eadc" stroke="none" stroke-width="1.4"/>
+<rect x="712" y="119" width="46" height="46" rx="2" fill="#e4eadc" stroke="none" stroke-width="1.4"/>
+<rect x="520" y="167" width="46" height="46" rx="2" fill="#e8d9bd" stroke="none" stroke-width="1.4"/>
+<polyline points="525,180.44 561,180.44" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="525,193.4 561,193.4" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="525,205.4 561,205.4" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="543.0,202.1263157894737 543.0,178.8842105263158" fill="none" stroke="#ac8430" stroke-width="2.0210526315789474" />
+<polyline points="543.0,183.93684210526317 536.9368421052632,178.8842105263158" fill="none" stroke="#ceaa50" stroke-width="3.031578947368421" />
+<polyline points="543.0,183.93684210526317 549.0631578947368,178.8842105263158" fill="none" stroke="#ceaa50" stroke-width="3.031578947368421" />
+<polyline points="543.0,190.0 536.9368421052632,184.94736842105263" fill="none" stroke="#ceaa50" stroke-width="3.031578947368421" />
+<polyline points="543.0,190.0 549.0631578947368,184.94736842105263" fill="none" stroke="#ceaa50" stroke-width="3.031578947368421" />
+<polyline points="543.0,196.06315789473683 536.9368421052632,191.01052631578946" fill="none" stroke="#ceaa50" stroke-width="3.031578947368421" />
+<polyline points="543.0,196.06315789473683 549.0631578947368,191.01052631578946" fill="none" stroke="#ceaa50" stroke-width="3.031578947368421" />
+<rect x="568" y="167" width="46" height="46" rx="2" fill="#e8d9bd" stroke="none" stroke-width="1.4"/>
+<polyline points="573,180.44 609,180.44" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="573,193.4 609,193.4" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="573,205.4 609,205.4" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="591.0,202.1263157894737 591.0,178.8842105263158" fill="none" stroke="#ac8430" stroke-width="2.0210526315789474" />
+<polyline points="591.0,183.93684210526317 584.9368421052632,178.8842105263158" fill="none" stroke="#ceaa50" stroke-width="3.031578947368421" />
+<polyline points="591.0,183.93684210526317 597.0631578947368,178.8842105263158" fill="none" stroke="#ceaa50" stroke-width="3.031578947368421" />
+<polyline points="591.0,190.0 584.9368421052632,184.94736842105263" fill="none" stroke="#ceaa50" stroke-width="3.031578947368421" />
+<polyline points="591.0,190.0 597.0631578947368,184.94736842105263" fill="none" stroke="#ceaa50" stroke-width="3.031578947368421" />
+<polyline points="591.0,196.06315789473683 584.9368421052632,191.01052631578946" fill="none" stroke="#ceaa50" stroke-width="3.031578947368421" />
+<polyline points="591.0,196.06315789473683 597.0631578947368,191.01052631578946" fill="none" stroke="#ceaa50" stroke-width="3.031578947368421" />
+<rect x="616" y="167" width="46" height="46" rx="2" fill="#e8d9bd" stroke="none" stroke-width="1.4"/>
+<polyline points="621,180.44 657,180.44" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="621,193.4 657,193.4" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="621,205.4 657,205.4" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="639.0,198.0842105263158 639.0,183.93684210526317" fill="none" stroke="#3b7954" stroke-width="2.0210526315789474" />
+<circle cx="634.9578947368421" cy="190.0" r="5.052631578947368" fill="#d65946" stroke="none" stroke-width="1.5"/>
+<circle cx="643.0421052631579" cy="193.03157894736842" r="5.052631578947368" fill="#e26d50" stroke="none" stroke-width="1.5"/>
+<polygon points="631.9263157894737,184.94736842105263 639.0,178.8842105263158 646.0736842105263,184.94736842105263 639.0,183.93684210526317" fill="#3f8157"/>
+<rect x="664" y="167" width="46" height="46" rx="2" fill="#e8d9bd" stroke="none" stroke-width="1.4"/>
+<polyline points="669,180.44 705,180.44" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="669,193.4 705,193.4" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="669,205.4 705,205.4" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="687.0,198.0842105263158 687.0,183.93684210526317" fill="none" stroke="#3b7954" stroke-width="2.0210526315789474" />
+<circle cx="682.9578947368421" cy="190.0" r="5.052631578947368" fill="#d65946" stroke="none" stroke-width="1.5"/>
+<circle cx="691.0421052631579" cy="193.03157894736842" r="5.052631578947368" fill="#e26d50" stroke="none" stroke-width="1.5"/>
+<polygon points="679.9263157894737,184.94736842105263 687.0,178.8842105263158 694.0736842105263,184.94736842105263 687.0,183.93684210526317" fill="#3f8157"/>
+<rect x="712" y="167" width="46" height="46" rx="2" fill="#e8d9bd" stroke="none" stroke-width="1.4"/>
+<polyline points="717,180.44 753,180.44" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="717,193.4 753,193.4" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="717,205.4 753,205.4" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="735.0,198.0842105263158 735.0,183.93684210526317" fill="none" stroke="#3b7954" stroke-width="2.0210526315789474" />
+<circle cx="730.9578947368421" cy="190.0" r="5.052631578947368" fill="#d65946" stroke="none" stroke-width="1.5"/>
+<circle cx="739.0421052631579" cy="193.03157894736842" r="5.052631578947368" fill="#e26d50" stroke="none" stroke-width="1.5"/>
+<polygon points="727.9263157894737,184.94736842105263 735.0,178.8842105263158 742.0736842105263,184.94736842105263 735.0,183.93684210526317" fill="#3f8157"/>
+<rect x="520" y="215" width="46" height="46" rx="2" fill="#e8d9bd" stroke="none" stroke-width="1.4"/>
+<polyline points="525,228.44 561,228.44" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="525,241.4 561,241.4" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="525,253.4 561,253.4" fill="none" stroke="#cfbb95" stroke-width="1" />
+<rect x="568" y="215" width="46" height="46" rx="2" fill="#e8d9bd" stroke="none" stroke-width="1.4"/>
+<polyline points="573,228.44 609,228.44" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="573,241.4 609,241.4" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="573,253.4 609,253.4" fill="none" stroke="#cfbb95" stroke-width="1" />
+<rect x="616" y="215" width="46" height="46" rx="2" fill="#e8d9bd" stroke="none" stroke-width="1.4"/>
+<polyline points="621,228.44 657,228.44" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="621,241.4 657,241.4" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="621,253.4 657,253.4" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polygon points="630.9157894736842,232.94736842105263 647.0842105263158,232.94736842105263 639.0,248.10526315789474" fill="#cf5272"/>
+<polygon points="629.9052631578948,231.93684210526317 637.9894736842106,225.8736842105263 648.0947368421052,231.93684210526317 639.0,230.92631578947368" fill="#3f8157"/>
+<circle cx="635.9684210526316" cy="238.0" r="0.9094736842105263" fill="#f6d99c" stroke="none" stroke-width="1.5"/>
+<circle cx="642.0315789473684" cy="238.0" r="0.9094736842105263" fill="#f6d99c" stroke="none" stroke-width="1.5"/>
+<circle cx="639.0" cy="243.05263157894737" r="0.9094736842105263" fill="#f6d99c" stroke="none" stroke-width="1.5"/>
+<rect x="664" y="215" width="46" height="46" rx="2" fill="#e8d9bd" stroke="none" stroke-width="1.4"/>
+<polyline points="669,228.44 705,228.44" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="669,241.4 705,241.4" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="669,253.4 705,253.4" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polygon points="678.9157894736842,232.94736842105263 695.0842105263158,232.94736842105263 687.0,248.10526315789474" fill="#cf5272"/>
+<polygon points="677.9052631578948,231.93684210526317 685.9894736842106,225.8736842105263 696.0947368421052,231.93684210526317 687.0,230.92631578947368" fill="#3f8157"/>
+<circle cx="683.9684210526316" cy="238.0" r="0.9094736842105263" fill="#f6d99c" stroke="none" stroke-width="1.5"/>
+<circle cx="690.0315789473684" cy="238.0" r="0.9094736842105263" fill="#f6d99c" stroke="none" stroke-width="1.5"/>
+<circle cx="687.0" cy="243.05263157894737" r="0.9094736842105263" fill="#f6d99c" stroke="none" stroke-width="1.5"/>
+<rect x="712" y="215" width="46" height="46" rx="2" fill="#e8d9bd" stroke="none" stroke-width="1.4"/>
+<polyline points="717,228.44 753,228.44" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="717,241.4 753,241.4" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="717,253.4 753,253.4" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polygon points="726.9157894736842,232.94736842105263 743.0842105263158,232.94736842105263 735.0,248.10526315789474" fill="#cf5272"/>
+<polygon points="725.9052631578948,231.93684210526317 733.9894736842106,225.8736842105263 744.0947368421052,231.93684210526317 735.0,230.92631578947368" fill="#3f8157"/>
+<circle cx="731.9684210526316" cy="238.0" r="0.9094736842105263" fill="#f6d99c" stroke="none" stroke-width="1.5"/>
+<circle cx="738.0315789473684" cy="238.0" r="0.9094736842105263" fill="#f6d99c" stroke="none" stroke-width="1.5"/>
+<circle cx="735.0" cy="243.05263157894737" r="0.9094736842105263" fill="#f6d99c" stroke="none" stroke-width="1.5"/>
+<rect x="527.2" y="135.32" width="30.72" height="26.880000000000003" rx="1" fill="#cad9e0" stroke="#718b9b" stroke-width="1.4"/>
+<polygon points="524.2,136.76 542.5600000000001,122.76 559.36,136.76" fill="#526d82"/>
+<rect x="538.72" y="145.4" width="8.64" height="16.799999999999997" rx="0" fill="#5c788c" stroke="none" stroke-width="1.4"/>
+<polyline points="615,165 759,165 759,262 615,262 615,165" fill="none" stroke="#b98428" stroke-width="2.5" stroke-dasharray="6 5"/>
+<polyline points="544.0,143.0 592.0,143.0 592.0,191.0 688.0,191.0 688.0,239.0" fill="none" stroke="#3b71aa" stroke-width="2.5" stroke-dasharray="6 5"/>
+<circle cx="592.0" cy="129.85217391304346" r="5.217391304347826" fill="#e1b48b" stroke="none" stroke-width="1.5"/>
+<rect x="583.6521739130435" y="124.63478260869564" width="16.695652173913043" height="3.1304347826086953" rx="0" fill="#d8aa45" stroke="none" stroke-width="1.4"/>
+<polyline points="592.0,136.11304347826086 592.0,148.63478260869564" fill="none" stroke="#356fa6" stroke-width="5.217391304347826" />
+<polyline points="584.695652173913,140.2869565217391 592.0,139.24347826086955 599.304347826087,143.4173913043478" fill="none" stroke="#356fa6" stroke-width="2.608695652173913" />
+<polyline points="585.7391304347826,156.98260869565217 592.0,147.59130434782608 598.2608695652174,156.98260869565217" fill="none" stroke="#356fa6" stroke-width="2.608695652173913" />
+<circle cx="532" cy="283.8" r="4.5" fill="#e1b48b" stroke="none" stroke-width="1.5"/>
+<rect x="524.8" y="279.3" width="14.4" height="2.7" rx="0" fill="#d8aa45" stroke="none" stroke-width="1.4"/>
+<polyline points="532,289.2 532,300.0" fill="none" stroke="#356fa6" stroke-width="4.5" />
+<polyline points="525.7,292.8 532,291.9 538.3,295.5" fill="none" stroke="#356fa6" stroke-width="2.25" />
+<polyline points="526.6,307.2 532,299.1 537.4,307.2" fill="none" stroke="#356fa6" stroke-width="2.25" />
+<circle cx="563" cy="283.8" r="4.5" fill="#e1b48b" stroke="none" stroke-width="1.5"/>
+<rect x="555.8" y="279.3" width="14.4" height="2.7" rx="0" fill="#d8aa45" stroke="none" stroke-width="1.4"/>
+<polyline points="563,289.2 563,300.0" fill="none" stroke="#356fa6" stroke-width="4.5" />
+<polyline points="556.7,292.8 563,291.9 569.3,295.5" fill="none" stroke="#356fa6" stroke-width="2.25" />
+<polyline points="557.6,307.2 563,299.1 568.4,307.2" fill="none" stroke="#356fa6" stroke-width="2.25" />
+<circle cx="594" cy="283.8" r="4.5" fill="#e1b48b" stroke="none" stroke-width="1.5"/>
+<rect x="586.8" y="279.3" width="14.4" height="2.7" rx="0" fill="#d8aa45" stroke="none" stroke-width="1.4"/>
+<polyline points="594,289.2 594,300.0" fill="none" stroke="#356fa6" stroke-width="4.5" />
+<polyline points="587.7,292.8 594,291.9 600.3,295.5" fill="none" stroke="#356fa6" stroke-width="2.25" />
+<polyline points="588.6,307.2 594,299.1 599.4,307.2" fill="none" stroke="#356fa6" stroke-width="2.25" />
+<circle cx="625" cy="283.8" r="4.5" fill="#e1b48b" stroke="none" stroke-width="1.5"/>
+<rect x="617.8" y="279.3" width="14.4" height="2.7" rx="0" fill="#d8aa45" stroke="none" stroke-width="1.4"/>
+<polyline points="625,289.2 625,300.0" fill="none" stroke="#356fa6" stroke-width="4.5" />
+<polyline points="618.7,292.8 625,291.9 631.3,295.5" fill="none" stroke="#356fa6" stroke-width="2.25" />
+<polyline points="619.6,307.2 625,299.1 630.4,307.2" fill="none" stroke="#356fa6" stroke-width="2.25" />
+<circle cx="656" cy="283.8" r="4.5" fill="#e1b48b" stroke="none" stroke-width="1.5"/>
+<rect x="648.8" y="279.3" width="14.4" height="2.7" rx="0" fill="#d8aa45" stroke="none" stroke-width="1.4"/>
+<polyline points="656,289.2 656,300.0" fill="none" stroke="#356fa6" stroke-width="4.5" />
+<polyline points="649.7,292.8 656,291.9 662.3,295.5" fill="none" stroke="#356fa6" stroke-width="2.25" />
+<polyline points="650.6,307.2 656,299.1 661.4,307.2" fill="none" stroke="#356fa6" stroke-width="2.25" />
+<circle cx="687" cy="283.8" r="4.5" fill="#e1b48b" stroke="none" stroke-width="1.5"/>
+<rect x="679.8" y="279.3" width="14.4" height="2.7" rx="0" fill="#d8aa45" stroke="none" stroke-width="1.4"/>
+<polyline points="687,289.2 687,300.0" fill="none" stroke="#356fa6" stroke-width="4.5" />
+<polyline points="680.7,292.8 687,291.9 693.3,295.5" fill="none" stroke="#356fa6" stroke-width="2.25" />
+<polyline points="681.6,307.2 687,299.1 692.4,307.2" fill="none" stroke="#356fa6" stroke-width="2.25" />
+<text x="520" y="335" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" fill="#182d3b">Total workforce: 6</text>
+<text x="30" y="390" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#182d3b">Added cost of B</text>
+<rect x="30" y="431" width="555.5555555555555" height="31" rx="0" fill="#c59848" stroke="none" stroke-width="1.4"/>
+<rect x="585.5555555555555" y="431" width="250.0" height="31" rx="0" fill="#c65d63" stroke="none" stroke-width="1.4"/>
+<rect x="835.5555555555555" y="431" width="4.444444444444445" height="31" rx="0" fill="#356fa6" stroke="none" stroke-width="1.4"/>
+<text x="30" y="496" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" fill="#182d3b">Land 1,000  +  seeds 450  +  wages 8</text>
+<text x="30" y="535" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700" fill="#182d3b">Total: 1,458</text>
+<text x="30" y="598" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#182d3b">Toy net value after cost (coins)</text>
+<text x="30" y="646" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" fill="#182d3b">A</text>
+<rect x="80" y="635" width="2" height="22" rx="0" fill="#b8c9d7" stroke="none" stroke-width="1.4"/>
+<text x="89.0" y="646" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" fill="#182d3b">0</text>
+<text x="30" y="688" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700" fill="#182d3b">B</text>
+<rect x="80" y="677" width="611.2034583272728" height="22" rx="0" fill="#28765f" stroke="none" stroke-width="1.4"/>
+<text x="700.2034583272728" y="688" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" fill="#182d3b">525</text>
+<text x="30" y="730" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" fill="#182d3b">C</text>
+<rect x="80" y="719" width="169.95607272727273" height="22" rx="0" fill="#b8c9d7" stroke="none" stroke-width="1.4"/>
+<text x="258.9560727272727" y="730" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" fill="#182d3b">146</text>
+<text x="30" y="772" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" fill="#182d3b">D</text>
+<rect x="80" y="761" width="536.8238545454547" height="22" rx="0" fill="#b8c9d7" stroke="none" stroke-width="1.4"/>
+<text x="625.8238545454547" y="772" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" fill="#182d3b">461</text>
+</svg>

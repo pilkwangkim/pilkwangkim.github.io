@@ -19,3 +19,6 @@
 - id: quantum-circuit-compilation
   title: Quantum Circuit Compilation Working Notes
   topic: quantum-circuit-compilation
+- id: kaggriculture-rl
+  title: Kaggriculture RL — From Replays to Stronger Policies
+  topic: kaggriculture

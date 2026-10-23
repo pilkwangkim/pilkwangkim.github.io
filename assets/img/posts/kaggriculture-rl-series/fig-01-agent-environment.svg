@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="370" viewBox="0 0 900 370" role="img" aria-labelledby="title"><title id="title">fig-01-agent-environment</title><rect width="900" height="370" fill="#fcfcfa"/>
+<text x="32" y="32" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" fill="#182d3b">Observation, action, next state</text>
+<rect x="42" y="124" width="42" height="42" rx="2" fill="#e4eadc" stroke="none" stroke-width="1.4"/>
+<rect x="86" y="124" width="42" height="42" rx="2" fill="#e4eadc" stroke="none" stroke-width="1.4"/>
+<rect x="130" y="124" width="42" height="42" rx="2" fill="#e4eadc" stroke="none" stroke-width="1.4"/>
+<rect x="42" y="168" width="42" height="42" rx="2" fill="#e8d9bd" stroke="none" stroke-width="1.4"/>
+<polyline points="47,180.32 79,180.32" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="47,192.2 79,192.2" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="47,203.2 79,203.2" fill="none" stroke="#cfbb95" stroke-width="1" />
+<rect x="86" y="168" width="42" height="42" rx="2" fill="#e8d9bd" stroke="none" stroke-width="1.4"/>
+<polyline points="91,180.32 123,180.32" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="91,192.2 123,192.2" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="91,203.2 123,203.2" fill="none" stroke="#cfbb95" stroke-width="1" />
+<rect x="130" y="168" width="42" height="42" rx="2" fill="#e8d9bd" stroke="none" stroke-width="1.4"/>
+<polyline points="135,180.32 167,180.32" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="135,192.2 167,192.2" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="135,203.2 167,203.2" fill="none" stroke="#cfbb95" stroke-width="1" />
+<rect x="48.6" y="138.96" width="28.16" height="24.64" rx="1" fill="#cad9e0" stroke="#718b9b" stroke-width="1.4"/>
+<polygon points="45.6,140.28 62.68,127.28 78.08,140.28" fill="#526d82"/>
+<rect x="59.16" y="148.2" width="7.92" height="15.399999999999999" rx="0" fill="#5c788c" stroke="none" stroke-width="1.4"/>
+<circle cx="108.0" cy="133.94782608695652" r="4.782608695652174" fill="#e1b48b" stroke="none" stroke-width="1.5"/>
+<rect x="100.34782608695652" y="129.16521739130434" width="15.304347826086957" height="2.8695652173913047" rx="0" fill="#d8aa45" stroke="none" stroke-width="1.4"/>
+<polyline points="108.0,139.68695652173912 108.0,151.16521739130434" fill="none" stroke="#356fa6" stroke-width="4.782608695652174" />
+<polyline points="101.30434782608695,143.51304347826087 108.0,142.55652173913043 114.69565217391305,146.38260869565218" fill="none" stroke="#356fa6" stroke-width="2.391304347826087" />
+<polyline points="102.26086956521739,158.81739130434784 108.0,150.2086956521739 113.73913043478261,158.81739130434784" fill="none" stroke="#356fa6" stroke-width="2.391304347826087" />
+<text x="42" y="86" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700" fill="#182d3b">Observation</text>
+<text x="42" y="245" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" fill="#182d3b">Cash 30  |  Empty plot</text>
+<polyline points="204,172 302,172" fill="none" stroke="#526575" stroke-width="2.2" />
+<polygon points="302,172 292.0,176.0 292.0,168.0" fill="#526575"/>
+<circle cx="371" cy="172" r="48" fill="#e9f2fb" stroke="#4b7ca9" stroke-width="2"/>
+<text x="371" y="169" dominant-baseline="central" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" fill="#356da6">{  }</text>
+<text x="371" y="251" dominant-baseline="central" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#182d3b">Policy program</text>
+<polyline points="432,172 519,172" fill="none" stroke="#526575" stroke-width="2.2" />
+<polygon points="519,172 509.0,176.0 509.0,168.0" fill="#526575"/>
+<text x="566" y="116" dominant-baseline="central" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" fill="#356da6">PREPARE</text>
+<text x="566" y="151" dominant-baseline="central" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" fill="#182d3b">spend 10</text>
+<polyline points="607,172 647,172" fill="none" stroke="#526575" stroke-width="2.2" />
+<polygon points="647,172 637.0,176.0 637.0,168.0" fill="#526575"/>
+<rect x="692" y="124" width="42" height="42" rx="2" fill="#e4eadc" stroke="none" stroke-width="1.4"/>
+<rect x="736" y="124" width="42" height="42" rx="2" fill="#e4eadc" stroke="none" stroke-width="1.4"/>
+<rect x="780" y="124" width="42" height="42" rx="2" fill="#e4eadc" stroke="none" stroke-width="1.4"/>
+<rect x="692" y="168" width="42" height="42" rx="2" fill="#e8d9bd" stroke="none" stroke-width="1.4"/>
+<polyline points="697,180.32 729,180.32" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="697,192.2 729,192.2" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="697,203.2 729,203.2" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="713.0,198.26315789473685 713.0,186.22105263157894" fill="none" stroke="#3d865d" stroke-width="1.8526315789473686" />
+<polygon points="713.0,189.92631578947368 703.7368421052631,183.44210526315788 708.3684210526316,179.73684210526315 713.0,185.29473684210527" fill="#67a66a"/>
+<polygon points="713.0,189.0 722.2631578947369,181.58947368421053 717.6315789473684,177.8842105263158 713.0,185.29473684210527" fill="#498d5e"/>
+<rect x="736" y="168" width="42" height="42" rx="2" fill="#e8d9bd" stroke="none" stroke-width="1.4"/>
+<polyline points="741,180.32 773,180.32" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="741,192.2 773,192.2" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="741,203.2 773,203.2" fill="none" stroke="#cfbb95" stroke-width="1" />
+<rect x="780" y="168" width="42" height="42" rx="2" fill="#e8d9bd" stroke="none" stroke-width="1.4"/>
+<polyline points="785,180.32 817,180.32" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="785,192.2 817,192.2" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="785,203.2 817,203.2" fill="none" stroke="#cfbb95" stroke-width="1" />
+<rect x="698.6" y="138.96" width="28.16" height="24.64" rx="1" fill="#cad9e0" stroke="#718b9b" stroke-width="1.4"/>
+<polygon points="695.6,140.28 712.6800000000001,127.28 728.08,140.28" fill="#526d82"/>
+<rect x="709.16" y="148.2" width="7.92" height="15.399999999999999" rx="0" fill="#5c788c" stroke="none" stroke-width="1.4"/>
+<circle cx="758.0" cy="133.94782608695652" r="4.782608695652174" fill="#e1b48b" stroke="none" stroke-width="1.5"/>
+<rect x="750.3478260869565" y="129.16521739130434" width="15.304347826086957" height="2.8695652173913047" rx="0" fill="#d8aa45" stroke="none" stroke-width="1.4"/>
+<polyline points="758.0,139.68695652173912 758.0,151.16521739130434" fill="none" stroke="#356fa6" stroke-width="4.782608695652174" />
+<polyline points="751.304347826087,143.51304347826087 758.0,142.55652173913043 764.695652173913,146.38260869565218" fill="none" stroke="#356fa6" stroke-width="2.391304347826087" />
+<polyline points="752.2608695652174,158.81739130434784 758.0,150.2086956521739 763.7391304347826,158.81739130434784" fill="none" stroke="#356fa6" stroke-width="2.391304347826087" />
+<text x="692" y="86" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700" fill="#182d3b">Next observation</text>
+<text x="692" y="245" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" fill="#182d3b">Cash 20</text>
+<text x="692" y="275" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" fill="#182d3b">Crop growing</text>
+<text x="435" y="332" dominant-baseline="central" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700" fill="#9d6830">Reward = -10</text>
+</svg>

@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1025" viewBox="0 0 900 1025" role="img" aria-labelledby="title"><title id="title">fig-09-paired-world</title><rect width="900" height="1025" fill="#fcfcfa"/>
+<text x="32" y="32" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" fill="#182d3b">Pair by world, then resample</text>
+<text x="30" y="86" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700" fill="#182d3b">Paired score change by opponent</text>
+<rect x="51.0" y="132" width="28" height="166" rx="0" fill="#e8f0f8" stroke="none" stroke-width="1.4"/>
+<polyline points="57,284.1666666666667 833,284.1666666666667" fill="none" stroke="#d8e0e5" stroke-width="1" />
+<text x="33" y="284.1666666666667" dominant-baseline="central" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" fill="#182d3b">-0.25</text>
+<polyline points="57,215.0 833,215.0" fill="none" stroke="#d8e0e5" stroke-width="1" />
+<text x="33" y="215.0" dominant-baseline="central" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" fill="#182d3b">+0.00</text>
+<polyline points="57,145.83333333333331 833,145.83333333333331" fill="none" stroke="#d8e0e5" stroke-width="1" />
+<text x="33" y="145.83333333333331" dominant-baseline="central" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" fill="#182d3b">+0.25</text>
+<circle cx="60.0" cy="145.83333333333331" r="5" fill="#356da6" stroke="none" stroke-width="1.5"/>
+<polygon points="70.0,139.83333333333331 64.0,149.83333333333331 76.0,149.83333333333331" fill="#b27934"/>
+<text x="65.0" y="322" dominant-baseline="central" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" fill="#182d3b">1</text>
+<circle cx="144.44444444444446" cy="145.83333333333331" r="5" fill="#356da6" stroke="none" stroke-width="1.5"/>
+<polygon points="154.44444444444446,139.83333333333331 148.44444444444446,149.83333333333331 160.44444444444446,149.83333333333331" fill="#b27934"/>
+<text x="149.44444444444446" y="322" dominant-baseline="central" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" fill="#182d3b">2</text>
+<circle cx="228.88888888888889" cy="145.83333333333331" r="5" fill="#356da6" stroke="none" stroke-width="1.5"/>
+<polygon points="238.88888888888889,278.1666666666667 232.88888888888889,288.1666666666667 244.88888888888889,288.1666666666667" fill="#b27934"/>
+<text x="233.88888888888889" y="322" dominant-baseline="central" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" fill="#182d3b">3</text>
+<circle cx="313.3333333333333" cy="145.83333333333331" r="5" fill="#356da6" stroke="none" stroke-width="1.5"/>
+<polygon points="323.3333333333333,278.1666666666667 317.3333333333333,288.1666666666667 329.3333333333333,288.1666666666667" fill="#b27934"/>
+<text x="318.3333333333333" y="322" dominant-baseline="central" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" fill="#182d3b">4</text>
+<circle cx="397.77777777777777" cy="215.0" r="5" fill="#356da6" stroke="none" stroke-width="1.5"/>
+<polygon points="407.77777777777777,209.0 401.77777777777777,219.0 413.77777777777777,219.0" fill="#b27934"/>
+<text x="402.77777777777777" y="322" dominant-baseline="central" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" fill="#182d3b">5</text>
+<circle cx="482.22222222222223" cy="215.0" r="5" fill="#356da6" stroke="none" stroke-width="1.5"/>
+<polygon points="492.22222222222223,209.0 486.22222222222223,219.0 498.22222222222223,219.0" fill="#b27934"/>
+<text x="487.22222222222223" y="322" dominant-baseline="central" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" fill="#182d3b">6</text>
+<circle cx="566.6666666666666" cy="215.0" r="5" fill="#356da6" stroke="none" stroke-width="1.5"/>
+<polygon points="576.6666666666666,209.0 570.6666666666666,219.0 582.6666666666666,219.0" fill="#b27934"/>
+<text x="571.6666666666666" y="322" dominant-baseline="central" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" fill="#182d3b">7</text>
+<circle cx="651.1111111111111" cy="215.0" r="5" fill="#356da6" stroke="none" stroke-width="1.5"/>
+<polygon points="661.1111111111111,209.0 655.1111111111111,219.0 667.1111111111111,219.0" fill="#b27934"/>
+<text x="656.1111111111111" y="322" dominant-baseline="central" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" fill="#182d3b">8</text>
+<circle cx="735.5555555555555" cy="215.0" r="5" fill="#356da6" stroke="none" stroke-width="1.5"/>
+<polygon points="745.5555555555555,209.0 739.5555555555555,219.0 751.5555555555555,219.0" fill="#b27934"/>
+<text x="740.5555555555555" y="322" dominant-baseline="central" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" fill="#182d3b">9</text>
+<circle cx="820.0" cy="215.0" r="5" fill="#356da6" stroke="none" stroke-width="1.5"/>
+<polygon points="830.0,209.0 824.0,219.0 836.0,219.0" fill="#b27934"/>
+<text x="825.0" y="322" dominant-baseline="central" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" fill="#182d3b">10</text>
+<text x="445.0" y="356" dominant-baseline="central" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" fill="#182d3b">World ID</text>
+<circle cx="40" cy="396" r="5" fill="#356da6" stroke="none" stroke-width="1.5"/>
+<text x="55" y="396" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" fill="#182d3b">E: weight 0.7</text>
+<polygon points="245,390 239,400 251,400" fill="#b27934"/>
+<text x="263" y="396" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" fill="#182d3b">H: weight 0.3</text>
+<text x="30" y="460" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700" fill="#182d3b">Weighted change for each world</text>
+<rect x="55.0" y="503.0" width="20" height="140.0" rx="0" fill="#70a18c" stroke="none" stroke-width="1.4"/>
+<rect x="139.44444444444446" y="503.0" width="20" height="140.0" rx="0" fill="#70a18c" stroke="none" stroke-width="1.4"/>
+<rect x="223.88888888888889" y="587.0" width="20" height="56.0" rx="0" fill="#70a18c" stroke="none" stroke-width="1.4"/>
+<rect x="308.3333333333333" y="587.0" width="20" height="56.0" rx="0" fill="#70a18c" stroke="none" stroke-width="1.4"/>
+<rect x="392.77777777777777" y="643.0" width="20" height="2" rx="0" fill="#70a18c" stroke="none" stroke-width="1.4"/>
+<rect x="477.22222222222223" y="643.0" width="20" height="2" rx="0" fill="#70a18c" stroke="none" stroke-width="1.4"/>
+<rect x="561.6666666666666" y="643.0" width="20" height="2" rx="0" fill="#70a18c" stroke="none" stroke-width="1.4"/>
+<rect x="646.1111111111111" y="643.0" width="20" height="2" rx="0" fill="#70a18c" stroke="none" stroke-width="1.4"/>
+<rect x="730.5555555555555" y="643.0" width="20" height="2" rx="0" fill="#70a18c" stroke="none" stroke-width="1.4"/>
+<rect x="815.0" y="643.0" width="20" height="2" rx="0" fill="#70a18c" stroke="none" stroke-width="1.4"/>
+<polyline points="55,603.8 833,603.8" fill="none" stroke="#b47832" stroke-width="1.7" stroke-dasharray="6 5"/>
+<text x="30" y="683" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#182d3b">Mean change: +0.07</text>
+<text x="30" y="722" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" fill="#526575">One world = 8 games kept together.</text>
+<text x="30" y="775" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700" fill="#182d3b">Bootstrap means: 1,000 resamples</text>
+<rect x="65.0" y="903.0578947368421" width="37.0" height="16.942105263157895" rx="0" fill="#9bb8d0" stroke="none" stroke-width="1.4"/>
+<rect x="103.0" y="900.7210526315789" width="37.0" height="19.278947368421054" rx="0" fill="#9bb8d0" stroke="none" stroke-width="1.4"/>
+<rect x="141.0" y="907.7315789473685" width="37.0" height="12.26842105263158" rx="0" fill="#9bb8d0" stroke="none" stroke-width="1.4"/>
+<rect x="179.0" y="865.6684210526316" width="37.0" height="54.33157894736842" rx="0" fill="#9bb8d0" stroke="none" stroke-width="1.4"/>
+<rect x="217.0" y="876.1842105263158" width="37.0" height="43.81578947368421" rx="0" fill="#9bb8d0" stroke="none" stroke-width="1.4"/>
+<rect x="255.0" y="855.7368421052631" width="37.0" height="64.26315789473685" rx="0" fill="#9bb8d0" stroke="none" stroke-width="1.4"/>
+<rect x="293.0" y="809.0" width="37.0" height="111.0" rx="0" fill="#9bb8d0" stroke="none" stroke-width="1.4"/>
+<rect x="331.0" y="858.6578947368421" width="37.0" height="61.3421052631579" rx="0" fill="#9bb8d0" stroke="none" stroke-width="1.4"/>
+<rect x="369.0" y="882.0263157894736" width="37.0" height="37.973684210526315" rx="0" fill="#9bb8d0" stroke="none" stroke-width="1.4"/>
+<rect x="407.0" y="865.6684210526316" width="37.0" height="54.33157894736842" rx="0" fill="#9bb8d0" stroke="none" stroke-width="1.4"/>
+<rect x="445.0" y="886.7" width="37.0" height="33.3" rx="0" fill="#9bb8d0" stroke="none" stroke-width="1.4"/>
+<rect x="483.0" y="892.5421052631579" width="37.0" height="27.457894736842103" rx="0" fill="#9bb8d0" stroke="none" stroke-width="1.4"/>
+<rect x="521.0" y="901.8894736842105" width="37.0" height="18.110526315789475" rx="0" fill="#9bb8d0" stroke="none" stroke-width="1.4"/>
+<rect x="559.0" y="902.4736842105264" width="37.0" height="17.526315789473685" rx="0" fill="#9bb8d0" stroke="none" stroke-width="1.4"/>
+<rect x="597.0" y="912.9894736842106" width="37.0" height="7.010526315789474" rx="0" fill="#9bb8d0" stroke="none" stroke-width="1.4"/>
+<rect x="635.0" y="916.4947368421052" width="37.0" height="3.505263157894737" rx="0" fill="#9bb8d0" stroke="none" stroke-width="1.4"/>
+<rect x="673.0" y="919.4157894736842" width="37.0" height="0.5842105263157895" rx="0" fill="#9bb8d0" stroke="none" stroke-width="1.4"/>
+<rect x="711.0" y="920.0" width="37.0" height="0.0" rx="0" fill="#9bb8d0" stroke="none" stroke-width="1.4"/>
+<rect x="749.0" y="920.0" width="37.0" height="0.0" rx="0" fill="#9bb8d0" stroke="none" stroke-width="1.4"/>
+<rect x="787.0" y="918.8315789473684" width="37.0" height="1.168421052631579" rx="0" fill="#9bb8d0" stroke="none" stroke-width="1.4"/>
+<text x="65.0" y="947" dominant-baseline="central" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" fill="#182d3b">0.00</text>
+<text x="255.0" y="947" dominant-baseline="central" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" fill="#182d3b">0.05</text>
+<text x="445.0" y="947" dominant-baseline="central" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" fill="#182d3b">0.10</text>
+<text x="634.9999999999999" y="947" dominant-baseline="central" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" fill="#182d3b">0.15</text>
+<text x="825.0" y="947" dominant-baseline="central" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" fill="#182d3b">0.20</text>
+<text x="30" y="989" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="700" fill="#182d3b">95% percentile interval: [0.010, 0.135]</text>
+</svg>

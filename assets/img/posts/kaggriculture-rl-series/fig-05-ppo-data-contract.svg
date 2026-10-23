@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="675" viewBox="0 0 900 675" role="img" aria-labelledby="title"><title id="title">fig-05-ppo-data-contract</title><rect width="900" height="675" fill="#fcfcfa"/>
+<text x="32" y="32" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" fill="#182d3b">PPO: collect, freeze, update</text>
+<polyline points="44.0,135.0 112.5,130.0" fill="none" stroke="#c9d8e6" stroke-width="1.2" />
+<polyline points="44.0,135.0 112.5,150.0" fill="none" stroke="#c9d8e6" stroke-width="1.2" />
+<polyline points="44.0,135.0 112.5,170.0" fill="none" stroke="#c9d8e6" stroke-width="1.2" />
+<polyline points="44.0,135.0 112.5,190.0" fill="none" stroke="#c9d8e6" stroke-width="1.2" />
+<polyline points="44.0,160.0 112.5,130.0" fill="none" stroke="#c9d8e6" stroke-width="1.2" />
+<polyline points="44.0,160.0 112.5,150.0" fill="none" stroke="#c9d8e6" stroke-width="1.2" />
+<polyline points="44.0,160.0 112.5,170.0" fill="none" stroke="#c9d8e6" stroke-width="1.2" />
+<polyline points="44.0,160.0 112.5,190.0" fill="none" stroke="#c9d8e6" stroke-width="1.2" />
+<polyline points="44.0,185.0 112.5,130.0" fill="none" stroke="#c9d8e6" stroke-width="1.2" />
+<polyline points="44.0,185.0 112.5,150.0" fill="none" stroke="#c9d8e6" stroke-width="1.2" />
+<polyline points="44.0,185.0 112.5,170.0" fill="none" stroke="#c9d8e6" stroke-width="1.2" />
+<polyline points="44.0,185.0 112.5,190.0" fill="none" stroke="#c9d8e6" stroke-width="1.2" />
+<polyline points="112.5,130.0 181.0,143.33333333333334" fill="none" stroke="#c9d8e6" stroke-width="1.2" />
+<polyline points="112.5,130.0 181.0,176.66666666666669" fill="none" stroke="#c9d8e6" stroke-width="1.2" />
+<polyline points="112.5,150.0 181.0,143.33333333333334" fill="none" stroke="#c9d8e6" stroke-width="1.2" />
+<polyline points="112.5,150.0 181.0,176.66666666666669" fill="none" stroke="#c9d8e6" stroke-width="1.2" />
+<polyline points="112.5,170.0 181.0,143.33333333333334" fill="none" stroke="#c9d8e6" stroke-width="1.2" />
+<polyline points="112.5,170.0 181.0,176.66666666666669" fill="none" stroke="#c9d8e6" stroke-width="1.2" />
+<polyline points="112.5,190.0 181.0,143.33333333333334" fill="none" stroke="#c9d8e6" stroke-width="1.2" />
+<polyline points="112.5,190.0 181.0,176.66666666666669" fill="none" stroke="#c9d8e6" stroke-width="1.2" />
+<circle cx="44.0" cy="135.0" r="6" fill="#fcfcfa" stroke="#356da6" stroke-width="2"/>
+<circle cx="44.0" cy="160.0" r="6" fill="#fcfcfa" stroke="#356da6" stroke-width="2"/>
+<circle cx="44.0" cy="185.0" r="6" fill="#fcfcfa" stroke="#356da6" stroke-width="2"/>
+<circle cx="112.5" cy="130.0" r="6" fill="#fcfcfa" stroke="#356da6" stroke-width="2"/>
+<circle cx="112.5" cy="150.0" r="6" fill="#fcfcfa" stroke="#356da6" stroke-width="2"/>
+<circle cx="112.5" cy="170.0" r="6" fill="#fcfcfa" stroke="#356da6" stroke-width="2"/>
+<circle cx="112.5" cy="190.0" r="6" fill="#fcfcfa" stroke="#356da6" stroke-width="2"/>
+<circle cx="181.0" cy="143.33333333333334" r="6" fill="#fcfcfa" stroke="#356da6" stroke-width="2"/>
+<circle cx="181.0" cy="176.66666666666669" r="6" fill="#fcfcfa" stroke="#356da6" stroke-width="2"/>
+<text x="115" y="246" dominant-baseline="central" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#182d3b">Old policy</text>
+<polyline points="205,160 302,160" fill="none" stroke="#356da6" stroke-width="2.2" />
+<polygon points="302,160 292.0,164.0 292.0,156.0" fill="#356da6"/>
+<rect x="335" y="107" width="36" height="36" rx="2" fill="#e4eadc" stroke="none" stroke-width="1.4"/>
+<rect x="373" y="107" width="36" height="36" rx="2" fill="#e4eadc" stroke="none" stroke-width="1.4"/>
+<rect x="411" y="107" width="36" height="36" rx="2" fill="#e4eadc" stroke="none" stroke-width="1.4"/>
+<rect x="335" y="145" width="36" height="36" rx="2" fill="#e8d9bd" stroke="none" stroke-width="1.4"/>
+<polyline points="340,155.64 366,155.64" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="340,165.9 366,165.9" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="340,175.4 366,175.4" fill="none" stroke="#cfbb95" stroke-width="1" />
+<rect x="373" y="145" width="36" height="36" rx="2" fill="#e8d9bd" stroke="none" stroke-width="1.4"/>
+<polyline points="378,155.64 404,155.64" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="378,165.9 404,165.9" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="378,175.4 404,175.4" fill="none" stroke="#cfbb95" stroke-width="1" />
+<rect x="411" y="145" width="36" height="36" rx="2" fill="#e8d9bd" stroke="none" stroke-width="1.4"/>
+<polyline points="416,155.64 442,155.64" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="416,165.9 442,165.9" fill="none" stroke="#cfbb95" stroke-width="1" />
+<polyline points="416,175.4 442,175.4" fill="none" stroke="#cfbb95" stroke-width="1" />
+<rect x="340.7" y="119.92" width="24.32" height="21.28" rx="1" fill="#cad9e0" stroke="#718b9b" stroke-width="1.4"/>
+<polygon points="337.7,121.06 352.86,109.56 366.15999999999997,121.06" fill="#526d82"/>
+<rect x="349.82" y="127.9" width="6.84" height="13.299999999999999" rx="0" fill="#5c788c" stroke="none" stroke-width="1.4"/>
+<circle cx="392.0" cy="115.5913043478261" r="4.130434782608695" fill="#e1b48b" stroke="none" stroke-width="1.5"/>
+<rect x="385.39130434782606" y="111.4608695652174" width="13.217391304347826" height="2.4782608695652173" rx="0" fill="#d8aa45" stroke="none" stroke-width="1.4"/>
+<polyline points="392.0,120.54782608695652 392.0,130.4608695652174" fill="none" stroke="#356fa6" stroke-width="4.130434782608695" />
+<polyline points="386.2173913043478,123.85217391304349 392.0,123.02608695652174 397.7826086956522,126.3304347826087" fill="none" stroke="#356fa6" stroke-width="2.0652173913043477" />
+<polyline points="387.04347826086956,137.0695652173913 392.0,129.63478260869564 396.95652173913044,137.0695652173913" fill="none" stroke="#356fa6" stroke-width="2.0652173913043477" />
+<text x="392" y="246" dominant-baseline="central" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#182d3b">New episodes</text>
+<polyline points="479,160 592,160" fill="none" stroke="#356da6" stroke-width="2.2" />
+<polygon points="592,160 582.0,164.0 582.0,156.0" fill="#356da6"/>
+<rect x="641" y="101" width="195" height="100" rx="3" fill="#f3f6fa" stroke="#8ca0b0" stroke-width="1.4"/>
+<rect x="636" y="106" width="195" height="100" rx="3" fill="#f3f6fa" stroke="#8ca0b0" stroke-width="1.4"/>
+<rect x="631" y="111" width="195" height="100" rx="3" fill="#f3f6fa" stroke="#8ca0b0" stroke-width="1.4"/>
+<circle cx="645" cy="129" r="3" fill="#3c75ad" stroke="none" stroke-width="1.5"/>
+<rect x="658" y="126" width="10" height="6" rx="0" fill="#b9cbdc" stroke="none" stroke-width="1.4"/>
+<rect x="673" y="126" width="10" height="6" rx="0" fill="#7da3c8" stroke="none" stroke-width="1.4"/>
+<rect x="688" y="126" width="10" height="6" rx="0" fill="#d9e4ee" stroke="none" stroke-width="1.4"/>
+<rect x="703" y="126" width="10" height="6" rx="0" fill="#b9cbdc" stroke="none" stroke-width="1.4"/>
+<rect x="718" y="126" width="10" height="6" rx="0" fill="#7da3c8" stroke="none" stroke-width="1.4"/>
+<circle cx="645" cy="146" r="3" fill="#3c75ad" stroke="none" stroke-width="1.5"/>
+<rect x="658" y="143" width="10" height="6" rx="0" fill="#7da3c8" stroke="none" stroke-width="1.4"/>
+<rect x="673" y="143" width="10" height="6" rx="0" fill="#d9e4ee" stroke="none" stroke-width="1.4"/>
+<rect x="688" y="143" width="10" height="6" rx="0" fill="#b9cbdc" stroke="none" stroke-width="1.4"/>
+<rect x="703" y="143" width="10" height="6" rx="0" fill="#7da3c8" stroke="none" stroke-width="1.4"/>
+<rect x="718" y="143" width="10" height="6" rx="0" fill="#d9e4ee" stroke="none" stroke-width="1.4"/>
+<circle cx="645" cy="163" r="3" fill="#3c75ad" stroke="none" stroke-width="1.5"/>
+<rect x="658" y="160" width="10" height="6" rx="0" fill="#d9e4ee" stroke="none" stroke-width="1.4"/>
+<rect x="673" y="160" width="10" height="6" rx="0" fill="#b9cbdc" stroke="none" stroke-width="1.4"/>
+<rect x="688" y="160" width="10" height="6" rx="0" fill="#7da3c8" stroke="none" stroke-width="1.4"/>
+<rect x="703" y="160" width="10" height="6" rx="0" fill="#d9e4ee" stroke="none" stroke-width="1.4"/>
+<rect x="718" y="160" width="10" height="6" rx="0" fill="#b9cbdc" stroke="none" stroke-width="1.4"/>
+<circle cx="645" cy="180" r="3" fill="#3c75ad" stroke="none" stroke-width="1.5"/>
+<rect x="658" y="177" width="10" height="6" rx="0" fill="#b9cbdc" stroke="none" stroke-width="1.4"/>
+<rect x="673" y="177" width="10" height="6" rx="0" fill="#7da3c8" stroke="none" stroke-width="1.4"/>
+<rect x="688" y="177" width="10" height="6" rx="0" fill="#d9e4ee" stroke="none" stroke-width="1.4"/>
+<rect x="703" y="177" width="10" height="6" rx="0" fill="#b9cbdc" stroke="none" stroke-width="1.4"/>
+<rect x="718" y="177" width="10" height="6" rx="0" fill="#7da3c8" stroke="none" stroke-width="1.4"/>
+<polyline points="843,130 843,123 849,119 855,123 855,130" fill="none" stroke="#647b8e" stroke-width="2" />
+<rect x="840" y="130" width="18" height="14" rx="2" fill="#dce6ec" stroke="#647b8e" stroke-width="1.4"/>
+<circle cx="849" cy="136" r="1.5" fill="#647b8e" stroke="none" stroke-width="1.5"/>
+<text x="728" y="246" dominant-baseline="central" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#182d3b">Rollout buffer</text>
+<text x="728" y="204" dominant-baseline="central" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" fill="#182d3b">obs / action / mask</text>
+<text x="728" y="285" dominant-baseline="central" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" fill="#182d3b">Old log p, value, reward</text>
+<polyline points="710,315 710,356 481,356 481,389" fill="none" stroke="#356da6" stroke-width="2.2" />
+<polygon points="481,389 477.0,379.0 485.0,379.0" fill="#356da6"/>
+<polyline points="411.0,433.0 482.0,428.2" fill="none" stroke="#c9d8e6" stroke-width="1.2" />
+<polyline points="411.0,433.0 482.0,447.4" fill="none" stroke="#c9d8e6" stroke-width="1.2" />
+<polyline points="411.0,433.0 482.0,466.6" fill="none" stroke="#c9d8e6" stroke-width="1.2" />
+<polyline points="411.0,433.0 482.0,485.8" fill="none" stroke="#c9d8e6" stroke-width="1.2" />
+<polyline points="411.0,457.0 482.0,428.2" fill="none" stroke="#c9d8e6" stroke-width="1.2" />
+<polyline points="411.0,457.0 482.0,447.4" fill="none" stroke="#c9d8e6" stroke-width="1.2" />
+<polyline points="411.0,457.0 482.0,466.6" fill="none" stroke="#c9d8e6" stroke-width="1.2" />
+<polyline points="411.0,457.0 482.0,485.8" fill="none" stroke="#c9d8e6" stroke-width="1.2" />
+<polyline points="411.0,481.0 482.0,428.2" fill="none" stroke="#c9d8e6" stroke-width="1.2" />
+<polyline points="411.0,481.0 482.0,447.4" fill="none" stroke="#c9d8e6" stroke-width="1.2" />
+<polyline points="411.0,481.0 482.0,466.6" fill="none" stroke="#c9d8e6" stroke-width="1.2" />
+<polyline points="411.0,481.0 482.0,485.8" fill="none" stroke="#c9d8e6" stroke-width="1.2" />
+<polyline points="482.0,428.2 553.0,441.0" fill="none" stroke="#c9d8e6" stroke-width="1.2" />
+<polyline points="482.0,428.2 553.0,473.0" fill="none" stroke="#c9d8e6" stroke-width="1.2" />
+<polyline points="482.0,447.4 553.0,441.0" fill="none" stroke="#c9d8e6" stroke-width="1.2" />
+<polyline points="482.0,447.4 553.0,473.0" fill="none" stroke="#c9d8e6" stroke-width="1.2" />
+<polyline points="482.0,466.6 553.0,441.0" fill="none" stroke="#c9d8e6" stroke-width="1.2" />
+<polyline points="482.0,466.6 553.0,473.0" fill="none" stroke="#c9d8e6" stroke-width="1.2" />
+<polyline points="482.0,485.8 553.0,441.0" fill="none" stroke="#c9d8e6" stroke-width="1.2" />
+<polyline points="482.0,485.8 553.0,473.0" fill="none" stroke="#c9d8e6" stroke-width="1.2" />
+<circle cx="411.0" cy="433.0" r="6" fill="#fcfcfa" stroke="#28765f" stroke-width="2"/>
+<circle cx="411.0" cy="457.0" r="6" fill="#fcfcfa" stroke="#28765f" stroke-width="2"/>
+<circle cx="411.0" cy="481.0" r="6" fill="#fcfcfa" stroke="#28765f" stroke-width="2"/>
+<circle cx="482.0" cy="428.2" r="6" fill="#fcfcfa" stroke="#28765f" stroke-width="2"/>
+<circle cx="482.0" cy="447.4" r="6" fill="#fcfcfa" stroke="#28765f" stroke-width="2"/>
+<circle cx="482.0" cy="466.6" r="6" fill="#fcfcfa" stroke="#28765f" stroke-width="2"/>
+<circle cx="482.0" cy="485.8" r="6" fill="#fcfcfa" stroke="#28765f" stroke-width="2"/>
+<circle cx="553.0" cy="441.0" r="6" fill="#fcfcfa" stroke="#28765f" stroke-width="2"/>
+<circle cx="553.0" cy="473.0" r="6" fill="#fcfcfa" stroke="#28765f" stroke-width="2"/>
+<text x="481" y="538" dominant-baseline="central" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#182d3b">Current policy</text>
+<polyline points="389,457 296,457" fill="none" stroke="#356da6" stroke-width="2.2" />
+<polygon points="296,457 306.0,453.0 306.0,461.0" fill="#356da6"/>
+<circle cx="224" cy="457" r="45" fill="#fff2df" stroke="#b47832" stroke-width="2"/>
+<text x="224" y="456" dominant-baseline="central" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700" fill="#182d3b">Loss</text>
+<polyline points="728,315 855,315 855,585 224,585 224,515" fill="none" stroke="#748a9a" stroke-width="1.6" />
+<polygon points="224,515 228.0,525.0 220.0,525.0" fill="#748a9a"/>
+<text x="224" y="373" dominant-baseline="central" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" fill="#182d3b">Clipped ratio-weighted</text>
+<text x="224" y="400" dominant-baseline="central" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" fill="#182d3b">advantage</text>
+<polyline points="268,483 327,536 389,483" fill="none" stroke="#bb7540" stroke-width="2.2" />
+<polygon points="389,483 383.9979111532979,492.53829686944675 378.7996619596662,486.45732611463234" fill="#bb7540"/>
+<text x="32" y="639" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" fill="#526575">Blue: forward computation     Orange: gradient     Lock: stored reference values</text>
+</svg>

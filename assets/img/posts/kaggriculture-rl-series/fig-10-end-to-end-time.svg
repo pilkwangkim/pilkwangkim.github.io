@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="522" viewBox="0 0 900 522" role="img" aria-labelledby="title"><title id="title">fig-10-end-to-end-time</title><rect width="900" height="522" fill="#fcfcfa"/>
+<text x="32" y="32" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" fill="#182d3b">Measure the whole training loop</text>
+<text x="30" y="131" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" fill="#182d3b">Baseline</text>
+<rect x="180" y="160" width="465.0" height="43" rx="0" fill="#356da6" stroke="none" stroke-width="1.4"/>
+<text x="412.5" y="181" dominant-baseline="central" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" fill="#ffffff">120 s</text>
+<rect x="645.0" y="160" width="116.25" height="43" rx="0" fill="#28765f" stroke="none" stroke-width="1.4"/>
+<polyline points="703.125,205 703.125,218" fill="none" stroke="#28765f" stroke-width="1.5" />
+<text x="703.125" y="238" dominant-baseline="central" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" fill="#182d3b">30 s</text>
+<rect x="761.25" y="160" width="38.75" height="43" rx="0" fill="#94a5b1" stroke="none" stroke-width="1.4"/>
+<polyline points="780.625,205 780.625,218" fill="none" stroke="#94a5b1" stroke-width="1.5" />
+<text x="780.625" y="238" dominant-baseline="central" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" fill="#182d3b">10 s</text>
+<text x="829" y="181" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" fill="#182d3b">160 s</text>
+<text x="30" y="257" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" fill="#182d3b">2x faster update</text>
+<rect x="180" y="286" width="465.0" height="43" rx="0" fill="#356da6" stroke="none" stroke-width="1.4"/>
+<text x="412.5" y="307" dominant-baseline="central" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" fill="#ffffff">120 s</text>
+<rect x="645.0" y="286" width="58.125" height="43" rx="0" fill="#28765f" stroke="none" stroke-width="1.4"/>
+<polyline points="674.0625,283 674.0625,273" fill="none" stroke="#28765f" stroke-width="1.5" />
+<text x="674.0625" y="258" dominant-baseline="central" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" fill="#182d3b">15 s</text>
+<rect x="703.125" y="286" width="38.75" height="43" rx="0" fill="#94a5b1" stroke="none" stroke-width="1.4"/>
+<polyline points="722.5,331 722.5,344" fill="none" stroke="#94a5b1" stroke-width="1.5" />
+<text x="722.5" y="364" dominant-baseline="central" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" fill="#182d3b">10 s</text>
+<text x="829" y="307" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" fill="#182d3b">145 s</text>
+<rect x="35" y="394" width="15" height="15" rx="0" fill="#356da6" stroke="none" stroke-width="1.4"/>
+<text x="59" y="401" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" fill="#182d3b">Rollout</text>
+<rect x="290" y="394" width="15" height="15" rx="0" fill="#28765f" stroke="none" stroke-width="1.4"/>
+<text x="314" y="401" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" fill="#182d3b">Update</text>
+<rect x="545" y="394" width="15" height="15" rx="0" fill="#94a5b1" stroke="none" stroke-width="1.4"/>
+<text x="569" y="401" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" fill="#182d3b">Save</text>
+<text x="30" y="450" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700" fill="#182d3b">160 s  -&gt;  145 s total</text>
+<text x="30" y="486" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" fill="#526575">Sequential execution; compilation and evaluation excluded.</text>
+</svg>

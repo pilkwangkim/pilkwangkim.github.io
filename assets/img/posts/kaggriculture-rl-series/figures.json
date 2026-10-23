@@ -1,0 +1,162 @@
+[
+  {
+    "name": "fig-01-agent-environment",
+    "width": 900,
+    "height": 370,
+    "text_items": 11,
+    "nodes": 0,
+    "arrows": 3,
+    "text_bounds_and_collisions": "passed",
+    "arrow_routes": "manual visual review required"
+  },
+  {
+    "name": "fig-04-bc-update",
+    "width": 900,
+    "height": 496,
+    "text_items": 21,
+    "nodes": 0,
+    "arrows": 0,
+    "text_bounds_and_collisions": "passed",
+    "arrow_routes": "manual visual review required"
+  },
+  {
+    "name": "fig-05-ppo-data-contract",
+    "width": 900,
+    "height": 675,
+    "text_items": 11,
+    "nodes": 0,
+    "arrows": 6,
+    "text_bounds_and_collisions": "passed",
+    "arrow_routes": "manual visual review required"
+  },
+  {
+    "name": "fig-06-ppo-clip",
+    "width": 900,
+    "height": 559,
+    "text_items": 26,
+    "nodes": 0,
+    "arrows": 0,
+    "text_bounds_and_collisions": "passed",
+    "arrow_routes": "manual visual review required"
+  },
+  {
+    "name": "fig-07-plan-and-validation",
+    "width": 900,
+    "height": 809,
+    "text_items": 17,
+    "nodes": 0,
+    "arrows": 0,
+    "text_bounds_and_collisions": "passed",
+    "arrow_routes": "manual visual review required"
+  },
+  {
+    "name": "fig-08-replay-alignment",
+    "width": 900,
+    "height": 481,
+    "text_items": 11,
+    "nodes": 0,
+    "arrows": 2,
+    "text_bounds_and_collisions": "passed",
+    "arrow_routes": "manual visual review required"
+  },
+  {
+    "name": "fig-09-paired-world",
+    "width": 900,
+    "height": 1025,
+    "text_items": 28,
+    "nodes": 0,
+    "arrows": 0,
+    "text_bounds_and_collisions": "passed",
+    "arrow_routes": "manual visual review required"
+  },
+  {
+    "name": "fig-10-end-to-end-time",
+    "width": 900,
+    "height": 522,
+    "text_items": 16,
+    "nodes": 0,
+    "arrows": 0,
+    "text_bounds_and_collisions": "passed",
+    "arrow_routes": "manual visual review required"
+  },
+  {
+    "name": "fig-01-agent-environment-mobile",
+    "width": 480,
+    "height": 826,
+    "text_items": 13,
+    "nodes": 0,
+    "arrows": 3,
+    "text_bounds_and_collisions": "passed",
+    "arrow_routes": "manual visual review required"
+  },
+  {
+    "name": "fig-04-bc-update-mobile",
+    "width": 480,
+    "height": 765,
+    "text_items": 23,
+    "nodes": 0,
+    "arrows": 0,
+    "text_bounds_and_collisions": "passed",
+    "arrow_routes": "manual visual review required"
+  },
+  {
+    "name": "fig-05-ppo-data-contract-mobile",
+    "width": 480,
+    "height": 959,
+    "text_items": 10,
+    "nodes": 0,
+    "arrows": 6,
+    "text_bounds_and_collisions": "passed",
+    "arrow_routes": "manual visual review required"
+  },
+  {
+    "name": "fig-06-ppo-clip-mobile",
+    "width": 480,
+    "height": 905,
+    "text_items": 26,
+    "nodes": 0,
+    "arrows": 0,
+    "text_bounds_and_collisions": "passed",
+    "arrow_routes": "manual visual review required"
+  },
+  {
+    "name": "fig-07-plan-and-validation-mobile",
+    "width": 480,
+    "height": 774,
+    "text_items": 17,
+    "nodes": 0,
+    "arrows": 0,
+    "text_bounds_and_collisions": "passed",
+    "arrow_routes": "manual visual review required"
+  },
+  {
+    "name": "fig-08-replay-alignment-mobile",
+    "width": 480,
+    "height": 758,
+    "text_items": 12,
+    "nodes": 0,
+    "arrows": 2,
+    "text_bounds_and_collisions": "passed",
+    "arrow_routes": "manual visual review required"
+  },
+  {
+    "name": "fig-09-paired-world-mobile",
+    "width": 480,
+    "height": 1025,
+    "text_items": 28,
+    "nodes": 0,
+    "arrows": 0,
+    "text_bounds_and_collisions": "passed",
+    "arrow_routes": "manual visual review required"
+  },
+  {
+    "name": "fig-10-end-to-end-time-mobile",
+    "width": 480,
+    "height": 520,
+    "text_items": 14,
+    "nodes": 0,
+    "arrows": 0,
+    "text_bounds_and_collisions": "passed",
+    "arrow_routes": "manual visual review required"
+  }
+]

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="496" viewBox="0 0 900 496" role="img" aria-labelledby="title"><title id="title">fig-04-bc-update</title><rect width="900" height="496" fill="#fcfcfa"/>
+<text x="32" y="32" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" fill="#182d3b">One BC update shifts action probabilities</text>
+<text x="30" y="84" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#77509e">Teacher action: SELL</text>
+<polyline points="290,96.0 290,73.0" fill="none" stroke="#ac8430" stroke-width="2.0" />
+<polyline points="290,78.0 284.0,73.0" fill="none" stroke="#ceaa50" stroke-width="3.0" />
+<polyline points="290,78.0 296.0,73.0" fill="none" stroke="#ceaa50" stroke-width="3.0" />
+<polyline points="290,84.0 284.0,79.0" fill="none" stroke="#ceaa50" stroke-width="3.0" />
+<polyline points="290,84.0 296.0,79.0" fill="none" stroke="#ceaa50" stroke-width="3.0" />
+<polyline points="290,90.0 284.0,85.0" fill="none" stroke="#ceaa50" stroke-width="3.0" />
+<polyline points="290,90.0 296.0,85.0" fill="none" stroke="#ceaa50" stroke-width="3.0" />
+<text x="30" y="128" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700" fill="#182d3b">Action probability</text>
+<polyline points="165.0,156 165.0,338" fill="none" stroke="#d8e0e5" stroke-width="1" />
+<text x="165.0" y="368" dominant-baseline="central" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" fill="#526575">0</text>
+<polyline points="265.0,156 265.0,338" fill="none" stroke="#d8e0e5" stroke-width="1" />
+<text x="265.0" y="368" dominant-baseline="central" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" fill="#526575">0.25</text>
+<polyline points="365.0,156 365.0,338" fill="none" stroke="#d8e0e5" stroke-width="1" />
+<text x="365.0" y="368" dominant-baseline="central" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" fill="#526575">0.5</text>
+<polyline points="465.0,156 465.0,338" fill="none" stroke="#d8e0e5" stroke-width="1" />
+<text x="465.0" y="368" dominant-baseline="central" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" fill="#526575">0.75</text>
+<text x="30" y="181" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" fill="#182d3b">SELL</text>
+<rect x="165" y="163" width="40.0" height="13" rx="0" fill="#b8cadd" stroke="none" stroke-width="1.4"/>
+<rect x="165" y="181" width="75.48305803456" height="13" rx="0" fill="#28765f" stroke="none" stroke-width="1.4"/>
+<text x="248.48305803456" y="188" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" fill="#182d3b">0.189</text>
+<text x="30" y="240" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" fill="#182d3b">BUY</text>
+<rect x="165" y="222" width="80.0" height="13" rx="0" fill="#b8cadd" stroke="none" stroke-width="1.4"/>
+<rect x="165" y="240" width="87.0998720399573" height="13" rx="0" fill="#28765f" stroke="none" stroke-width="1.4"/>
+<text x="260.0998720399573" y="247" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" fill="#182d3b">0.218</text>
+<text x="30" y="299" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" fill="#182d3b">WAIT</text>
+<rect x="165" y="281" width="279.99999999999994" height="13" rx="0" fill="#b8cadd" stroke="none" stroke-width="1.4"/>
+<rect x="165" y="299" width="237.4170699254827" height="13" rx="0" fill="#28765f" stroke="none" stroke-width="1.4"/>
+<text x="410.4170699254827" y="306" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" fill="#182d3b">0.594</text>
+<rect x="35" y="398" width="16" height="10" rx="0" fill="#b8cadd" stroke="none" stroke-width="1.4"/>
+<text x="60" y="403" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" fill="#182d3b">Before</text>
+<rect x="175" y="398" width="16" height="10" rx="0" fill="#28765f" stroke="none" stroke-width="1.4"/>
+<text x="200" y="403" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" fill="#182d3b">After one update</text>
+<text x="560" y="128" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700" fill="#182d3b">Logit change</text>
+<polyline points="655,156 655,338" fill="none" stroke="#526575" stroke-width="1.5" />
+<rect x="655" y="168" width="130.5" height="20" rx="0" fill="#28765f" stroke="none" stroke-width="1.4"/>
+<text x="793.5" y="178" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" fill="#182d3b">+0.45</text>
+<rect x="626.0" y="227" width="29.0" height="20" rx="0" fill="#cc8c57" stroke="none" stroke-width="1.4"/>
+<text x="663" y="237" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" fill="#182d3b">-0.10</text>
+<rect x="553.5" y="286" width="101.5" height="20" rx="0" fill="#cc8c57" stroke="none" stroke-width="1.4"/>
+<text x="663" y="296" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" fill="#182d3b">-0.35</text>
+<text x="560" y="385" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" fill="#526575">Step size: 0.5</text>
+<text x="32" y="458" dominant-baseline="central" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#182d3b">Cross-entropy loss: 2.303  -&gt;  1.668</text>
+</svg>
