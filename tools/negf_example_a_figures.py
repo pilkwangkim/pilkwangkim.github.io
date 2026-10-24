@@ -16,6 +16,7 @@ import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from matplotlib.ticker import LogLocator, MaxNLocator, NullFormatter
 import numpy as np
 
 import check_negf_occupation as physics
@@ -106,7 +107,29 @@ def calculate(refinement=16, eta=1e-9, tail_kT=18):
     return data, visual, report
 
 
-def plot_bookkeeping(data, destination):
+def figure_style(mobile=False):
+    """Keep physical text sizes readable at 691/358 CSS-pixel article widths."""
+    plt.rcParams.update({
+        "font.family": "DejaVu Sans", "font.size": 16,
+        "axes.labelsize": 18 if mobile else 19,
+        "axes.titlesize": 18, "xtick.labelsize": 16, "ytick.labelsize": 16,
+        "legend.fontsize": 16, "axes.titlepad": 13,
+        "axes.labelpad": 9, "axes.linewidth": 1.0,
+        "svg.fonttype": "path", "savefig.facecolor": "white",
+        "figure.constrained_layout.w_pad": 0.12,
+        "figure.constrained_layout.h_pad": 0.16,
+    })
+
+
+def save_figure(fig, destination):
+    fig.savefig(destination, dpi=180, bbox_inches="tight", pad_inches=0.12)
+    svg = destination.with_suffix(".svg")
+    fig.savefig(svg, dpi=180, bbox_inches="tight", pad_inches=0.12, metadata={"Date": None})
+    svg.write_text("\n".join(line.rstrip() for line in svg.read_text().splitlines()) + "\n")
+    plt.close(fig)
+
+
+def plot_bookkeeping(data, destination, mobile=False):
     """Keep the available/occupied comparison on the same energy samples."""
     energy = data["energy"]
     rho_left, rho_right = data["rho_left"], data["rho_right"]
@@ -118,58 +141,70 @@ def plot_bookkeeping(data, destination):
     ymax = 1.15 * positive.max()
     ymin = max(positive.min(), ymax * 1e-7)
 
-    fig, (available, occupied) = plt.subplots(1, 2, figsize=(11.8, 4.0), sharex=True, sharey=True)
-    available.semilogy(energy, rho_left, color="#1f77b4", lw=1.5,
-                      label=r"$\rho_{W,L}=\rho_{W,R}$ (symmetry)")
-    available.semilogy(energy, total, color="0.12", lw=2.0, ls=":",
+    figure_style(mobile)
+    shape = (2, 1) if mobile else (1, 2)
+    fig, axes = plt.subplots(*shape, figsize=(5, 12.6) if mobile else (10.8, 7.3),
+                             sharex=True, sharey=True, layout="constrained")
+    available, occupied = axes.flat
+    available.semilogy(energy, rho_left, color="#1f77b4", lw=2.2,
+                      label=r"$\rho_{W,L}=\rho_{W,R}$")
+    available.semilogy(energy, total, color="0.12", lw=2.5, ls=":",
                       label=r"$\rho_{W,L}+\rho_{W,R}$")
-    available.set_title("(a) available contact-resolved well spectrum")
-    available.set_ylabel("well-projected spectral density per spin (1/eV)")
-    occupied.semilogy(energy, occupied_left, color="#1f77b4", lw=1.5,
+    available.set_title("(a) Available well spectrum", loc="left")
+    available.set_ylabel("Well spectral density\nper spin (eV$^{-1}$)")
+    occupied.semilogy(energy, occupied_left, color="#1f77b4", lw=2.2,
                      label=r"$f_L\rho_{W,L}$")
-    occupied.semilogy(energy, occupied_right, color="#e67e22", lw=1.5, ls="--",
+    occupied.semilogy(energy, occupied_right, color="#e67e22", lw=2.2, ls="--",
                      label=r"$f_R\rho_{W,R}$")
-    occupied.semilogy(energy, occupied_total, color="0.12", lw=2.0, ls=":",
+    occupied.semilogy(energy, occupied_total, color="0.12", lw=2.5, ls=":",
                      label=r"$f_L\rho_{W,L}+f_R\rho_{W,R}$")
-    occupied.set_title("(b) the same states after reservoir filling")
+    occupied.set_title("(b) Occupied well spectrum", loc="left")
+    if mobile:
+        occupied.set_ylabel("Well spectral density\nper spin (eV$^{-1}$)")
     for ax in (available, occupied):
         ax.axvspan(data["mu_right"], data["mu_left"], color="gold", alpha=0.18,
-                   label=r"$[\mu_R,\mu_L]$")
-        ax.axvline(data["selected_energy"], color="#7d3c98", ls="--", lw=1.2,
-                   label=r"selected $E_\star$")
-        ax.set_xlabel("E (eV)")
+                   label=r"$[\mu_R,\mu_L]$" if ax is available else "_nolegend_")
+        ax.axvline(data["selected_energy"], color="#7d3c98", ls="--", lw=1.5,
+                   label=r"Selected $E_\star$" if ax is available else "_nolegend_")
+        ax.set_xlabel("Energy E (eV)")
         ax.set_xlim(0, data["energy"][-1])
         ax.set_ylim(ymin, ymax)
-        ax.grid(alpha=0.22, which="both")
-        ax.legend(fontsize=8.0, loc="lower left")
-    fig.tight_layout()
-    fig.savefig(destination, dpi=200, bbox_inches="tight")
-    fig.savefig(destination.with_suffix(".svg"), dpi=200, bbox_inches="tight",
-                metadata={"Date": None})
-    plt.close(fig)
+        ax.xaxis.set_major_locator(MaxNLocator(4))
+        ax.yaxis.set_major_locator(LogLocator(numticks=6))
+        ax.yaxis.set_minor_formatter(NullFormatter())
+        ax.tick_params(labelleft=True, labelbottom=True)
+        ax.grid(alpha=0.22, which="major")
+        ax.legend(loc="upper left", bbox_to_anchor=(0, -0.25), frameon=False,
+                  borderaxespad=0, handlelength=1.6, labelspacing=0.45)
+    save_figure(fig, destination)
 
 
-def plot_summary(data, visual, destination):
+def plot_summary(data, visual, destination, mobile=False):
     """Use resolved spectra for (a,b,d), and integrated populations for (c)."""
     sites = np.arange(100)
-    fig, axes = plt.subplots(2, 2, figsize=(12, 8))
+    figure_style(mobile)
+    fig, axes = plt.subplots(4, 1, figsize=(5, 23.4), layout="constrained") if mobile else plt.subplots(
+        2, 2, figsize=(10.8, 12.2), layout="constrained")
     transmission_ax, ldos_ax, density_ax, current_ax = axes.flat
 
     transmission_ax.semilogy(visual["energy"], visual["transmission"], color="#1f4e79", lw=1.8)
     for energy in visual["peak_energy"]:
         transmission_ax.axvline(energy, color="#c0392b", ls="--", lw=0.9, alpha=0.7)
     transmission_ax.plot(visual["peak_energy"], visual["peak_transmission"], "o",
-                         color="#c0392b", ms=4.5, label="refined resonance maxima")
+                         color="#c0392b", ms=5.5, label="Resonances")
     transmission_ax.axvspan(data["mu_right"], data["mu_left"], color="gold", alpha=0.25,
-                            label="main population-difference window")
+                            label=r"$[\mu_R,\mu_L]$")
     transmission_ax.axhline(1.0, color="0.6", ls=":", lw=1)
-    transmission_ax.set_xlabel("E (eV)")
+    transmission_ax.set_xlabel("Energy E (eV)")
     transmission_ax.set_ylabel("T(E)")
-    transmission_ax.set_title(r"(a) resonant tunneling: $T_{\rm peak}\to1$")
+    transmission_ax.set_title("(a) Resonant transmission", loc="left")
     transmission_ax.set_ylim(1e-7, 3)
     transmission_ax.set_xlim(0, 0.55)
-    transmission_ax.legend(fontsize=8.5, loc="lower right")
-    transmission_ax.grid(alpha=0.25, which="both")
+    transmission_ax.legend(loc="lower right", handlelength=1.3)
+    transmission_ax.xaxis.set_major_locator(MaxNLocator(4))
+    transmission_ax.yaxis.set_major_locator(LogLocator(numticks=5))
+    transmission_ax.yaxis.set_minor_formatter(NullFormatter())
+    transmission_ax.grid(alpha=0.25, which="major")
 
     # The percentile is measured on a uniform energy mesh, so adding many
     # samples near a resonance does not silently change the color scale.
@@ -177,54 +212,63 @@ def plot_summary(data, visual, destination):
                                cmap="inferno", vmin=0, vmax=visual["ldos_cap"], rasterized=True)
     for boundary in (39, 42, 58, 61):
         ldos_ax.axvline(boundary - 0.5, color="cyan", lw=0.7, alpha=0.5)
-    ldos_ax.set_xlabel("site $j$")
-    ldos_ax.set_ylabel("E (eV)")
-    ldos_ax.set_title(r"(b) LDOS$_j(E)$: quasi-bound well states")
+    ldos_ax.set_xlabel("Site $j$")
+    ldos_ax.set_ylabel("Energy E (eV)")
+    ldos_ax.set_title("(b) Well modes in the LDOS", loc="left")
     ldos_ax.set_ylim(0, 0.55)
-    fig.colorbar(image, ax=ldos_ax, label="LDOS per spin (1/eV)")
+    ldos_ax.xaxis.set_major_locator(MaxNLocator(4))
+    colorbar = fig.colorbar(image, ax=ldos_ax, orientation="horizontal" if mobile else "vertical",
+                           pad=0.11 if mobile else 0.035, shrink=0.94)
+    colorbar.set_label("LDOS per spin (eV$^{-1}$)", fontsize=16)
+    colorbar.ax.tick_params(labelsize=16)
+    colorbar.locator = MaxNLocator(4)
+    colorbar.update_ticks()
 
     density_ax.stackplot(sites, data["occupation_left"], data["occupation_right"],
                          colors=["#4c9ed9", "#f0a35e"], alpha=0.58,
-                         labels=[r"left-fed $n_j^{(L)}$", r"right-fed $n_j^{(R)}$"])
+                         labels=[r"$n_j^{(L)}$", r"$n_j^{(R)}$"])
     density_ax.plot(sites, data["occupation_left"] + data["occupation_right"],
-                    color="0.15", lw=1.7, label=r"total $n_j$")
-    density_ax.axvspan(38.5, 41.5, color="crimson", alpha=0.12, label="barriers")
+                    color="0.15", lw=2.1, label=r"$n_j$")
+    density_ax.axvspan(38.5, 41.5, color="crimson", alpha=0.12, label="Barriers")
     density_ax.axvspan(57.5, 60.5, color="crimson", alpha=0.12)
-    density_ax.axvspan(41.5, 57.5, color="gold", alpha=0.12, label="well")
-    density_ax.set_xlabel("site $j$")
+    density_ax.axvspan(41.5, 57.5, color="gold", alpha=0.12, label="Well")
+    density_ax.set_xlabel("Site $j$")
     density_ax.set_ylabel("$n_j$ (electrons/site)")
-    density_ax.set_title(r"(c) occupied population: $n_j^{(L)}+n_j^{(R)}$")
-    density_ax.legend(fontsize=7.8, loc="upper right", ncol=2)
+    density_ax.set_title("(c) Site occupation" if mobile else "(c) Integrated occupation", loc="left")
+    density_ax.legend(loc="upper left", bbox_to_anchor=(0, -0.23), frameon=False,
+                     ncol=2, columnspacing=0.8, handlelength=1.1, borderaxespad=0)
+    density_ax.xaxis.set_major_locator(MaxNLocator(4))
+    density_ax.yaxis.set_major_locator(MaxNLocator(5))
+    density_ax.set_ylim(0, 0.63)
     density_ax.grid(alpha=0.25)
 
     display = data["display_indices"]
     current_ax.fill_between(data["energy"][display], data["current_spectrum"][display], 0,
                             color="#2e8b57", alpha=0.30)
     current_ax.plot(data["energy"], data["current_spectrum"], color="#1f6f4a", lw=2.0,
-                    label=(r"$dI/dE_{\rm eV}=(2e/h)J_{\rm per\,eV}$"
-                           r"$\,T(f_L-f_R)$"))
+                    label=r"$dI/dE$")
     current_ax.axvspan(data["mu_right"], data["mu_left"], color="gold", alpha=0.15,
-                       label=r"main $f_L-f_R$ window")
+                       label=r"$[\mu_R,\mu_L]$")
     current_ax.axvline(data["selected_energy"], color="#7d3c98", ls="--", lw=1.2,
-                       label=r"selected $E_\star$")
-    current_ax.text(0.97, 0.94,
+                       label=r"Selected $E_\star$")
+    current_ax.text(0.97, 0.97,
                     (rf"area $=I={data['current_nA']:.4f}$ nA" "\n"
                      rf"$\Delta I_{{\rm bond}}/\bar I={data['bond_relative_spread']:.2e}$"),
-                    transform=current_ax.transAxes, ha="right", va="top", fontsize=8.7,
+                    transform=current_ax.transAxes, ha="right", va="top", fontsize=16,
                     bbox=dict(boxstyle="round", fc="white", ec="#2e8b57", alpha=0.92))
-    current_ax.set_xlabel("E (eV)")
-    current_ax.set_ylabel(r"spectral current density $dI/dE$ (nA/eV)")
-    current_ax.set_title("(d) current is the area of the weighted spectrum")
+    current_ax.set_xlabel("Energy E (eV)")
+    current_ax.set_ylabel("Spectral current\n$dI/dE$ (nA/eV)")
+    current_ax.set_title("(d) Spectral current" if mobile else "(d) Current from spectral area", loc="left")
     current_ax.set_xlim(0, data["energy"][-1])
-    current_ax.set_ylim(bottom=0)
-    current_ax.legend(fontsize=7.8, loc="upper left")
+    current_ax.set_ylim(0, data["current_spectrum"].max() * 1.45)
+    current_ax.ticklabel_format(axis="y", style="sci", scilimits=(0, 0), useMathText=True)
+    current_ax.yaxis.set_major_locator(MaxNLocator(5))
+    current_ax.xaxis.set_major_locator(MaxNLocator(4))
+    current_ax.legend(loc="upper left", bbox_to_anchor=(0, -0.23), frameon=False,
+                      handlelength=1.5, borderaxespad=0)
     current_ax.grid(alpha=0.25)
 
-    fig.tight_layout()
-    fig.savefig(destination, dpi=200, bbox_inches="tight")
-    fig.savefig(destination.with_suffix(".svg"), dpi=200, bbox_inches="tight",
-                metadata={"Date": None})
-    plt.close(fig)
+    save_figure(fig, destination)
 
 
 def main():
@@ -238,6 +282,8 @@ def main():
     args.output_dir.mkdir(parents=True, exist_ok=True)
     plot_bookkeeping(data, args.output_dir / "fig-09-example-a-spectral-bookkeeping.png")
     plot_summary(data, visual, args.output_dir / "fig-10-example-a-transport-summary.png")
+    plot_bookkeeping(data, args.output_dir / "fig-09-example-a-spectral-bookkeeping-mobile.png", mobile=True)
+    plot_summary(data, visual, args.output_dir / "fig-10-example-a-transport-summary-mobile.png", mobile=True)
     print(json.dumps(report, indent=2))
 
 

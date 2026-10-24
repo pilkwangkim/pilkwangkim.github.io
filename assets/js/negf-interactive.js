@@ -2,7 +2,7 @@
 (function () {
   'use strict';
   const NS = 'http://www.w3.org/2000/svg';
-  const BOX = { left: 68, right: 620, top: 24, bottom: 164 };
+  const BOX = { left: 68, right: 620, top: 40, bottom: 180 };
   const WIDTH = BOX.right - BOX.left;
   const HEIGHT = BOX.bottom - BOX.top;
 
@@ -25,8 +25,8 @@
       group.append(element('text', { x, y: BOX.bottom + 25, 'text-anchor': 'middle', class: 'negf-tick' }, label));
     });
     group.append(element('path', { d: `M${BOX.left},${BOX.top}V${BOX.bottom}H${BOX.right}`, class: 'negf-axis' }));
-    group.append(element('text', { x: (BOX.left + BOX.right) / 2, y: 214, 'text-anchor': 'middle', class: 'negf-axis-label' }, xLabel));
-    group.append(element('text', { x: BOX.left, y: 15, class: 'negf-axis-label' }, yLabel));
+    group.append(element('text', { x: (BOX.left + BOX.right) / 2, y: 248, 'text-anchor': 'middle', class: 'negf-axis-label' }, xLabel));
+    group.append(element('text', { x: BOX.left, y: 32, class: 'negf-axis-label' }, yLabel));
   }
 
   function initialize(root) {

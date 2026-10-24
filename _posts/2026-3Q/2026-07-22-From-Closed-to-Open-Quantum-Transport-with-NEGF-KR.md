@@ -2,7 +2,7 @@
 title: "닫힌 양자계에서 열린 양자 수송으로: NEGF를 처음부터 유도하기"
 date: 2026-07-22 09:00:00 +0900
 categories: [Physics, Quantum Transport]
-tags: [kaggle, quantum-transport, green-functions, landauer, negf, open-quantum-systems, physics, python, resonant-tunneling, self-energy, tight-binding]
+tags: [quantum-transport, physics, green-functions, kaggle, landauer, negf, open-quantum-systems, python, resonant-tunneling, self-energy, tight-binding]
 math: true
 interactive: negf-barrier
 pin: false
@@ -10,15 +10,13 @@ topic: quantum-transport
 lang: ko
 translation_key: quantum-transport-negf
 image:
-  path: /assets/img/posts/2026-07-22-negf-from-scratch/fig-03-exact-lead-elimination.png
+  path: /assets/img/posts/2026-07-22-negf-from-scratch/cover-exact-lead-elimination.png
   alt: "반무한 리드의 좌표를 정확히 소거해 유한한 소자에 에너지 의존 자기 에너지로 반영하는 과정."
   hide_caption: true
   fit: contain
-  width: 1329
-  height: 390
+  width: 1400
+  height: 1040
 ---
-
-# 닫힌 양자계에서 열린 양자 수송으로: NEGF를 처음부터 유도하기
 
 - 실행 가능한 노트북: [From Closed to Open: Quantum Transport with NEGF, From Scratch](https://www.kaggle.com/code/pilkwang/from-closed-to-open-quantum-transport-with-negf)
 - 소스 노트북: [negf_from_scratch.ipynb](https://github.com/pilkwangkim/Physics/blob/master/negf_from_scratch.ipynb)
@@ -26,17 +24,13 @@ image:
 
 유한한 Hamiltonian을 대각화하면 energy level과 eigenstate는 구할 수 있다. 그러나 이것만으로는 steady-state current를 계산할 수 없다. 수송 device는 열린계이기 때문이다. 전자는 한쪽 reservoir에서 들어와 device를 지난 뒤 다른 reservoir로 빠져나가야 하며, 계산 영역의 끝에서 반사되어 돌아오면 안 된다.
 
-이 글에서는 다음 문제를 다룬다.
-
 > 무한히 긴 lead가 달린 열린 수송 문제를, 임의의 absorbing boundary condition 없이 어떻게 유한 행렬로 정확히 표현할까?
 
 nonequilibrium Green's function (NEGF)에서는 lead의 **자유도**를 식에서 근사 없이 소거한다. 그렇다고 lead의 영향까지 없애는 것은 아니다. 그 영향은 energy-dependent self-energy로 바뀌어 device 방정식에 남는다.
 
-이 글에서는 이 과정에서 transmission, local density of states (LDOS), nonequilibrium occupation, 전류 보존, resonant tunneling, negative differential resistance (NDR)가 어떻게 차례로 이어지는지 설명한다.
+이 과정에서 transmission, local density of states (LDOS), nonequilibrium occupation, 전류 보존, resonant tunneling, negative differential resistance (NDR)가 하나의 계산 체계로 이어진다.
 
-노트북에서 생략하거나 간략히 제시한 유도는 이 글에서 한 단계씩 풀어 쓴다. wavefunction, Hamiltonian, eigenvalue problem, tight-binding band의 기본 개념만 알면 읽을 수 있다. Green's function이나 양자 수송을 미리 공부해 둘 필요는 없다.
-
-계산 과정을 처음부터 끝까지 직접 확인할 수 있도록 단순한 모형 하나만 사용한다.
+모형의 조건은 다음과 같다.
 
 - 유효질량 전자를 균일 격자에 놓은 1차원 모형
 - nearest-neighbor hopping과 spin degeneracy 2
@@ -44,19 +38,15 @@ nonequilibrium Green's function (NEGF)에서는 lead의 **자유도**를 식에�
 - 균일한 semi-infinite lead
 - Poisson equation을 self-consistent하게 푼 결과 대신 외부에서 정한 bias profile
 
-가정을 단순화했기 때문에 각 식의 유도 과정을 직접 확인할 수 있다. 다만 이 모형으로 설명할 수 있는 현상은 제한적이다.
-
 ---
 
 ## 0. 전체 계산 순서
 
-세부 식을 유도하기 전에 전체 계산 순서를 정리한다.
-
 <div class="negf-workflow-desktop">
-  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-00-negf-workflow.svg" alt="NEGF 계산 흐름도. device Hamiltonian과 lead self-energy로 retarded Green's function과 spectral function 및 transmission을 구하고, 별도로 주어진 reservoir의 Fermi function을 결합해 occupation, density, bond current와 Landauer current를 계산한다." width="100%">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-00-negf-workflow.svg" alt="NEGF 계산 흐름도. device Hamiltonian과 lead self-energy로 retarded Green's function과 spectral function 및 transmission을 구하고, 별도로 주어진 reservoir의 Fermi function을 결합해 occupation, density, bond current와 Landauer current를 계산한다." width="2280" height="2360">
 </div>
 <div class="negf-workflow-mobile">
-  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-00-negf-workflow-mobile.svg" alt="NEGF 계산 흐름도의 세로 배치. device와 lead 정보를 결합해 spectrum과 transmission을 계산하고, 독립적인 reservoir occupation을 더해 density와 current를 구한다." width="100%">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-00-negf-workflow-mobile.svg" alt="NEGF 계산 흐름도의 세로 배치. device와 lead 정보를 결합해 spectrum과 transmission을 계산하고, 독립적인 reservoir occupation을 더해 density와 current를 구한다." width="1000" height="3856">
 </div>
 
 *계산 흐름도.* device와 lead는 허용되는 state와 전파를 정하고, reservoir의 chemical potential과 온도는 각 state의 occupation을 정한다. $A_\alpha$에 $f_\alpha$를 곱하면 $G^n$과 density·bond current를, $T(E)$에 $f_L-f_R$를 곱해 적분하면 Landauer current를 얻는다. $\alpha=L,R$이며 그림의 식들은 coherent contact continuum에 대한 $\eta\to0^+$ 관계다.
@@ -187,9 +177,12 @@ $$
 
 Brillouin zone 끝에서 lattice dispersion이 포물선과 달라지는 이유는 실제 물질의 nonparabolicity 때문이 아니다. finite-difference lattice가 만드는 dispersion error다. 따라서 관심 에너지 범위에서 parabolic approximation이 충분히 정확한지 $a$를 줄여 가며 확인해야 한다.
 
-<p align="center">
-  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-01-lattice-dispersion.png" alt="finite-difference lattice의 dispersion relation과 hard-wall 유한 체인의 discrete spectrum" width="94%">
-</p>
+<div class="negf-figure-desktop">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-01-lattice-dispersion.svg" alt="finite-difference lattice의 dispersion relation과 hard-wall 유한 체인의 discrete spectrum" width="2160" height="1320">
+</div>
+<div class="negf-figure-mobile">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-01-lattice-dispersion-mobile.svg" alt="finite-difference lattice의 dispersion relation과 hard-wall 유한 체인의 discrete spectrum" width="1000" height="2280">
+</div>
 
 *그림 1.* $k=0$ 부근에서는 lattice dispersion과 continuum의 포물선이 일치한다. 그러나 lattice band의 폭은 $4t_0$로 유한하다. hard-wall 유한 chain에서는 boundary condition을 만족하는 discrete wavevector만 허용된다.
 
@@ -218,9 +211,12 @@ $$
 
 노트북에서 Hamiltonian을 직접 대각화한 결과도 analytic solution과 일치한다. analytic eigenvalue와 numerical eigenvalue의 최대 차이는 $1.33\times10^{-15}\ \mathrm{eV}$이고, eigenvector residual은 $\lVert H\psi_n-E_n\psi_n\rVert<5.5\times10^{-16}\ \mathrm{eV}$다.
 
-<p align="center">
-  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-02-closed-chain-eigenstates.png" alt="hard-wall 유한 tight-binding 체인의 처음 다섯 eigenstate를 각 eigenenergy 주변에 표시한 그림" width="90%">
-</p>
+<div class="negf-figure-desktop">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-02-closed-chain-eigenstates.svg" alt="hard-wall 유한 tight-binding 체인의 처음 다섯 eigenstate를 각 eigenenergy 주변에 표시한 그림" width="2160" height="1840">
+</div>
+<div class="negf-figure-mobile">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-02-closed-chain-eigenstates-mobile.svg" alt="hard-wall 유한 tight-binding 체인의 처음 다섯 eigenstate를 각 eigenenergy 주변에 표시한 그림" width="1000" height="2160">
+</div>
 
 *그림 2.* 각 eigenfunction은 해당 eigenenergy를 기준으로 위아래로 옮겨 그렸다. 곡선의 세로 변위는 energy uncertainty나 probability density를 뜻하지 않는다. 두 hard-wall boundary 사이의 실제 potential은 $U_j=0$이다.
 
@@ -385,9 +381,12 @@ $$
 
 로 정의한다. 행렬곱은 오른쪽부터 읽는다. 먼저 $\tau^\dagger$가 device 경계의 진폭을 lead로 보낸다. 이어서 $g_L^R$가 lead 안의 전파를 계산하고, 마지막으로 $\tau$가 진폭을 device로 되돌린다. 따라서 self-energy 한 항이 device와 lead 사이의 한 차례 왕복을 나타낸다.
 
-<p align="center">
-  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-03-exact-lead-elimination.png" alt="lead를 정확히 소거해 contact site에 energy-dependent self-energy를 남기는 과정과 surface의 자기유사성" width="96%">
-</p>
+<div class="negf-figure-desktop">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-03-exact-lead-elimination.svg" alt="lead를 정확히 소거해 contact site에 energy-dependent self-energy를 남기는 과정과 surface의 자기유사성" width="2160" height="2920">
+</div>
+<div class="negf-figure-mobile">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-03-exact-lead-elimination-mobile.svg" alt="lead를 정확히 소거해 contact site에 energy-dependent self-energy를 남기는 과정과 surface의 자기유사성" width="1000" height="3140">
+</div>
 
 *그림 3.* (a)는 device와 lead의 자유도를 모두 포함한 행렬이다. (b)는 lead 자유도를 소거하고 그 영향을 $\Sigma_L^R$로 표현한 식이다. (c)에서는 surface site를 하나 떼어 내도 같은 semi-infinite chain이 남으며, 이 자기유사성에서 surface recursion relation이 나온다.
 
@@ -640,9 +639,12 @@ $$
 
 를 이용하면 $\gamma=2t_0\sin ka=\hbar\lvert v\rvert/a$다. $\sin ka$가 band edge에서 0이 되므로 surface coupling과 group velocity도 함께 0으로 간다.
 
-<p align="center">
-  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-04-surface-green-function.png" alt="닫힌 체인과 열린 체인의 spectral response, contact self-energy의 실수부와 허수부, 복소평면에서의 retarded surface root" width="98%">
-</p>
+<div class="negf-figure-desktop">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-04-surface-green-function.svg" alt="닫힌 체인과 열린 체인의 spectral response, contact self-energy의 실수부와 허수부, 복소평면에서의 retarded surface root" width="2160" height="3900">
+</div>
+<div class="negf-figure-mobile">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-04-surface-green-function-mobile.svg" alt="닫힌 체인과 열린 체인의 spectral response, contact self-energy의 실수부와 허수부, 복소평면에서의 retarded surface root" width="1000" height="4040">
+</div>
 
 *그림 4.* hard-wall로 닫혀 있던 chain을 lead에 연결하면 discrete levels가 lead band 안의 continuum과 결합한다. self-energy의 실수부는 level의 위치를 바꾸고, broadening은 propagating band 밖에서 0이 된다. 복소 $q$ 평면에서는 어느 root가 retarded boundary condition을 만족하는지 확인할 수 있다.
 
@@ -753,11 +755,14 @@ def transmission(Gamma_L, GR, Gamma_R):
 
 먼저 입력으로 준 potential profile과 역행렬에 실제로 들어가는 Hamiltonian을 나란히 비교한다. 노트북은 깨끗한 device와 높이 $V_b=0.60\ \mathrm{eV}$, 폭 6개 site인 단일 장벽을 사용한다.
 
-<p align="center">
-  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-05-potential-and-hamiltonian.png" alt="단일 장벽의 potential energy 분포와 그에 대응하는 삼중대각 수송 Hamiltonian" width="94%">
-</p>
+<div class="negf-figure-desktop">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-05-potential-and-hamiltonian.svg" alt="단일 장벽의 potential energy 분포와 그에 대응하는 삼중대각 수송 Hamiltonian" width="2160" height="1500">
+</div>
+<div class="negf-figure-mobile">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-05-potential-and-hamiltonian-mobile.svg" alt="단일 장벽의 potential energy 분포와 그에 대응하는 삼중대각 수송 Hamiltonian" width="1000" height="2520">
+</div>
 
-*그림 5.* potential barrier를 넣으면 해당 구간의 대각 원소가 $2t_0$에서 $2t_0+V_b$로 올라가고, 비대각 hopping $-t_0$는 바뀌지 않는다. 주황색으로 표시한 $E_{\mathrm{probe}}=0.400\ \mathrm{eV}$는 장벽 구간의 local band lower edge보다 낮다. 뒤에서 이 에너지의 evanescent tunneling을 살펴본다.
+*그림 5.* potential barrier를 넣으면 해당 구간의 대각 원소가 $2t_0$에서 $2t_0+V_b$로 올라가고, 비대각 hopping $-t_0$는 바뀌지 않는다. 파란색 dash-dot 선으로 표시한 $E_{\mathrm{probe}}=0.400\ \mathrm{eV}$는 장벽 구간의 local band lower edge보다 낮다. 뒤에서 이 에너지의 evanescent tunneling을 살펴본다.
 
 potential energy가 $U$로 일정한 구간에서는 dispersion relation이
 
@@ -781,9 +786,12 @@ $$
 
 가 된다. 유한 장벽 안의 정확한 해에는 감쇠하는 성분과 증가하는 성분이 모두 들어가며, 두 성분의 비율은 양쪽 경계에서 wavefunction을 맞추어 정한다. 따라서 partial LDOS의 envelope가 모든 site에서 정확히 단조 감소할 필요는 없다.
 
-<p align="center">
-  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-06-clean-wire-and-barrier-transport.png" alt="matched wire와 단일 장벽의 transmission 및 왼쪽 contact 기원 partial LDOS" width="94%">
-</p>
+<div class="negf-figure-desktop">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-06-clean-wire-and-barrier-transport.svg" alt="matched wire와 단일 장벽의 transmission 및 왼쪽 contact 기원 partial LDOS" width="2160" height="1500">
+</div>
+<div class="negf-figure-mobile">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-06-clean-wire-and-barrier-transport-mobile.svg" alt="matched wire와 단일 장벽의 transmission 및 왼쪽 contact 기원 partial LDOS" width="1000" height="2520">
+</div>
 
 *그림 6.* device와 lead의 Hamiltonian이 완전히 같으면 반사를 일으킬 경계가 없으므로 open band 안에서 $T(E)=1$이다. 장벽을 넣으면 반사가 생겨 transmission이 에너지에 따라 달라지고, **왼쪽 contact에서 입사한 state의 partial LDOS** $[A_L]_{jj}/(2\pi)$도 위치에 따라 변한다. 이 값은 $f_L$을 곱하기 전의 available spectral weight이며, 실제로 점유된 전체 density는 아니다.
 
@@ -847,9 +855,12 @@ $$
 
 로 정의한다. 지금처럼 reciprocity가 성립하는 single-channel model의 coherent steady state에서는 이 값이 모든 내부 bond에서 같으며 transmission과도 일치한다.
 
-<p align="center">
-  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-07-sub-barrier-scattering-state.png" alt="유한 장벽을 tunneling하는 scattering state의 partial LDOS와 보존되는 spectral flux" width="94%">
-</p>
+<div class="negf-figure-desktop">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-07-sub-barrier-scattering-state.svg" alt="유한 장벽을 tunneling하는 scattering state의 partial LDOS와 보존되는 spectral flux" width="2160" height="1500">
+</div>
+<div class="negf-figure-mobile">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-07-sub-barrier-scattering-state-mobile.svg" alt="유한 장벽을 tunneling하는 scattering state의 partial LDOS와 보존되는 spectral flux" width="1000" height="2520">
+</div>
 
 *그림 7.* $E_{\mathrm{probe}}=0.400\ \mathrm{eV}$에서 partial LDOS는 장벽을 지나는 동안 크게 줄어들지만, 장벽 오른쪽에도 작은 transmitted component가 남는다. 위치에 따른 spectral weight는 크게 달라져도 spectral flux는 모든 bond에서 $T=2.8572\times10^{-3}$으로 같다.
 
@@ -997,11 +1008,14 @@ $$
 
 예제 A에서는 retarded 계산에 들어가는 Hamiltonian과 self-energy를 고정한 채 reservoir occupation만 바꾼다. 이를 통해 spectrum을 정하는 계산과 실제 occupation을 정하는 계산을 분리해서 볼 수 있다. device에는 높이 $0.40\ \mathrm{eV}$인 두 장벽이 있고, 그 사이의 well은 16개 site로 이루어져 있다. device Hamiltonian과 두 lead band, retarded self-energy는 바꾸지 않고 $\mu_L$과 $\mu_R$만 하나의 resonance 양쪽에 둔다.
 
-<p align="center">
-  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-08-example-a-double-barrier.png" alt="spectrum을 고정한 resonant-tunneling 예제의 이중 장벽 potential energy 분포" width="88%">
-</p>
+<div class="negf-figure-desktop">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-08-example-a-double-barrier.svg" alt="spectrum을 고정한 resonant-tunneling 예제의 이중 장벽 potential energy 분포" width="2160" height="800">
+</div>
+<div class="negf-figure-mobile">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-08-example-a-double-barrier-mobile.svg" alt="spectrum을 고정한 resonant-tunneling 예제의 이중 장벽 potential energy 분포" width="1000" height="1100">
+</div>
 
-*그림 8.* 초록색 선은 potential energy $U_j$이며 $H_{jj}$ 자체가 아니다. Hamiltonian의 대각 원소는 $2t_0+U_j$다. open boundary condition은 device 내부에 임의의 complex potential을 더해서 만드는 것이 아니라, 양 끝의 contact self-energy로 구현한다.
+*그림 8.* 그림의 선은 potential energy $U_j$이며 $H_{jj}$ 자체가 아니다. Hamiltonian의 대각 원소는 $2t_0+U_j$다. open boundary condition은 device 내부에 임의의 complex potential을 더해서 만드는 것이 아니라, 양 끝의 contact self-energy로 구현한다.
 
 {% include interactive/negf-barrier.html %}
 
@@ -1095,15 +1109,21 @@ $$
 f_L\rho_{W,L}+f_R\rho_{W,R}
 $$
 
-<p align="center">
-  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-09-example-a-spectral-bookkeeping.png" alt="contact별로 나눈 available well spectrum과 실제 occupied well spectrum" width="94%">
-</p>
+<div class="negf-figure-desktop">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-09-example-a-spectral-bookkeeping.svg" alt="contact별로 나눈 available well spectrum과 실제 occupied well spectrum" width="1944" height="1301">
+</div>
+<div class="negf-figure-mobile">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-09-example-a-spectral-bookkeeping-mobile.svg" alt="contact별로 나눈 available well spectrum과 실제 occupied well spectrum" width="919" height="2270">
+</div>
 
 *그림 9.* 양쪽 contact 모두 같은 resonance에 state를 공급할 수 있다. 이 예제에서 chemical potential을 바꾸어도 resonance의 모양은 변하지 않는다. 달라지는 것은 두 reservoir가 그 resonance를 채우는 비율이며, 두 기여를 합한 결과가 $G^n=A_Lf_L+A_Rf_R$다. 세로축은 spin 하나당 spectral density이며, occupied spectrum을 적분한 뒤 spin degeneracy 2를 곱하면 well의 전체 occupation이 된다.
 
-<p align="center">
-  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-10-example-a-transport-summary.png" alt="고정 spectrum resonant-tunneling 예제의 transmission, LDOS, contact별 점유, spectral current" width="96%">
-</p>
+<div class="negf-figure-desktop">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-10-example-a-transport-summary.svg" alt="고정 spectrum resonant-tunneling 예제의 transmission, LDOS, contact별 점유, spectral current" width="1944" height="2183">
+</div>
+<div class="negf-figure-mobile">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-10-example-a-transport-summary-mobile.svg" alt="고정 spectrum resonant-tunneling 예제의 transmission, LDOS, contact별 점유, spectral current" width="906" height="4221">
+</div>
 
 *그림 10.* (a)는 좁은 첫 resonance까지 분해한 transmission spectrum과 주된 occupation window다. (b)에는 LDOS의 quasi-bound well mode가 나타나 있다. (c)는 에너지에 대해 적분한 site occupation을 두 contact의 기여로 나눈 결과다. (d)에서 전류를 정하는 양은 transmission peak의 높이가 아니라 $dI/dE$를 적분한 **면적**이다. (c)와 (d)는 아래에서 설명할 resonance-local grid와 같은 적분 설정으로 다시 계산했다.
 
@@ -1233,9 +1253,12 @@ $$
 
 가 된다. $\mu_R$과 오른쪽 lead의 band edge가 같은 양만큼 내려가므로 둘 사이의 거리는 변하지 않는다. 그렇다고 bias를 두 번 적용한 것은 아니다. $\varepsilon_R$은 collector band의 energy range를 옮기고, $\mu_R$은 그 band를 어디까지 채울지를 정한다.
 
-<p align="center">
-  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-11-example-b-bias-profile.png" alt="zero bias와 finite bias에서의 이중 장벽 potential energy 분포와 이동한 contact 기준" width="88%">
-</p>
+<div class="negf-figure-desktop">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-11-example-b-bias-profile.svg" alt="zero bias와 finite bias에서의 이중 장벽 potential energy 분포와 이동한 contact 기준" width="1944" height="832">
+</div>
+<div class="negf-figure-mobile">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-11-example-b-bias-profile-mobile.svg" alt="zero bias와 finite bias에서의 이중 장벽 potential energy 분포와 이동한 contact 기준" width="900" height="1139">
+</div>
 
 *그림 11.* 선형 경사는 Poisson solution이 아니라 계산에 직접 넣은 bias profile이다. 같은 profile이 well과 barrier의 potential을 기울이고, collector의 에너지 기준도 아래로 옮긴다.
 
@@ -1334,11 +1357,14 @@ $$
 
 이고, 이를 negative differential resistance (NDR)라고 한다. NDR은 $I/V$가 음수라는 뜻이 아니라 differential conductance $dI/dV$가 음수라는 뜻이다.
 
-<p align="center">
-  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-12-example-b-ndr-summary.png" alt="NDR 예제의 전류-전압 곡선, differential conductance, resonance-transmission map, peak와 valley의 spectral current" width="96%">
-</p>
+<div class="negf-figure-desktop">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-12-example-b-ndr-summary.svg" alt="NDR 예제의 전류-전압 곡선, differential conductance, resonance-transmission map, peak와 valley의 spectral current" width="1946" height="3049">
+</div>
+<div class="negf-figure-mobile">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-12-example-b-ndr-summary-mobile.svg" alt="NDR 예제의 전류-전압 곡선, differential conductance, resonance-transmission map, peak와 valley의 spectral current" width="939" height="5065">
+</div>
 
-*그림 12.* 네 개의 main panel은 모두 가장 낮은 resonance가 만드는 첫 cycle을 확대해 분석한다. current는 $0.085\ \mathrm{V}$에서 peak에 도달하고, $0.149\ \mathrm{V}$에서 valley에 도달한다. 그 사이에서는 $dI/dV<0$이다. inset의 전체 sweep에는 약 $0.4\ \mathrm{V}$에서 훨씬 큰 두 번째 cycle도 나타난다. 여기서 보고한 PVCR은 첫 cycle의 peak와 valley로 계산했다.
+*그림 12.* (a)–(d)는 모두 가장 낮은 resonance가 만드는 첫 cycle을 확대해 분석한다. current는 $0.085\ \mathrm{V}$에서 peak에 도달하고, $0.149\ \mathrm{V}$에서 valley에 도달한다. 그 사이에서는 $dI/dV<0$이다. (e)의 전체 sweep에는 약 $0.4\ \mathrm{V}$에서 훨씬 큰 두 번째 cycle도 나타난다. 여기서 보고한 PVCR은 첫 cycle의 peak와 valley로 계산했다.
 
 첫 cycle의 정량 결과는
 

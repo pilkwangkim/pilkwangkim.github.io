@@ -37,7 +37,10 @@ plt.rcParams.update({
     "font.family": "DejaVu Sans",
     "font.size": 13,
     "mathtext.fontset": "stix",
-    "svg.fonttype": "none",
+    # Outline the actual math/text glyphs: STIX/DejaVu are not installed in
+    # every reader's browser, and font substitution changes both spacing
+    # and legibility. The article's image alt text supplies the description.
+    "svg.fonttype": "path",
     "axes.unicode_minus": False,
     "savefig.facecolor": "white",
 })
@@ -80,7 +83,7 @@ def note(ax, x, y, content, color=MUTED, size=11.5, **kwargs):
 CONTINUUM = r"$H=-\frac{\hbar^2}{2m^*}\frac{d^2}{dx^2}+U(x)$"
 FINITE = r"$(H_D)_{jj}=2t_0+U_j,\quad(H_D)_{j,j+1}=-t_0$"
 KINETIC = r"$t_0=\hbar^2/(2m^*a^2)$"
-LEAD = r"$H_\alpha,\quad\tau_\alpha$" + "  (device–surface coupling)"
+LEAD = r"$H_\alpha,\quad\tau_\alpha$"
 SURFACE = r"$g_{s,\alpha}^{R}=\langle s_\alpha|g_\alpha^{R}|s_\alpha\rangle$"
 LEAD_GREEN = r"$g_\alpha^{R}=[(E+i0^+)I-H_\alpha]^{-1}$"
 SIGMA = r"$\Sigma_\alpha^{R}=\tau_\alpha g_{s,\alpha}^{R}\tau_\alpha^\dagger$"
@@ -94,173 +97,186 @@ CURRENT = r"$I=\frac{2e}{h}\int dE\,T(E)[f_L(E)-f_R(E)]$"
 
 
 def desktop():
-    fig, ax = canvas(12.4, 12.2)
-    text(ax, 6.2, 11.82, "NEGF: dynamics and occupations", 21, weight="semibold")
-    note(ax, 6.2, 11.41, "Coherent, elastic transport with a prescribed device potential", size=12.3)
-    text(ax, 3.15, 10.97, "DEVICE DYNAMICS", 12.4, BLUE, "semibold")
-    text(ax, 9.25, 10.97, "LEAD BOUNDARIES", 12.4, TEAL, "semibold")
+    # At the article's 691 px content width, 21 pt labels become 17.7 px
+    # and 17 pt annotations become 14.3 px. Small outer margins reserve
+    # almost the full width for equations, rather than empty canvas.
+    fig, ax = canvas(11.4, 11.8)
+    left, right, width = 0.18, 5.90, 5.32
+    lc, rc, center = 2.84, 8.56, 5.70
+    text(ax, center, 11.46, "NEGF: dynamics and occupations", 26, weight="semibold")
+    note(ax, center, 11.06, "Coherent, elastic transport • prescribed device potential", size=17)
+    text(ax, lc, 10.63, "DEVICE DYNAMICS", 18, BLUE, "semibold")
+    text(ax, rc, 10.63, "LEAD BOUNDARIES", 18, TEAL, "semibold")
 
-    for x, color, fill in [(0.5, BLUE, BLUE_FILL), (6.6, TEAL, TEAL_FILL)]:
-        box(ax, x, 9.75, 5.3, 0.9, color, fill)
-        box(ax, x, 8.2, 5.3, 1.05, color, fill)
-        box(ax, x, 6.45, 5.3, 1.2, color, fill)
+    for x, color, fill in [(left, BLUE, BLUE_FILL), (right, TEAL, TEAL_FILL)]:
+        box(ax, x, 9.10, width, 1.25, color, fill)
+        box(ax, x, 7.27, width, 1.52, color, fill)
+        box(ax, x, 5.37, width, 1.54, color, fill)
 
-    text(ax, 3.15, 10.38, "Continuum Hamiltonian", 14, weight="semibold")
-    text(ax, 3.15, 10.03, CONTINUUM, 17)
-    text(ax, 3.15, 8.98, "Finite device Hamiltonian", 14, weight="semibold")
-    text(ax, 3.15, 8.64, FINITE, 15)
-    text(ax, 3.15, 8.36, KINETIC, 14)
-    text(ax, 3.15, 7.36, "Open-device propagation", 14, weight="semibold")
-    text(ax, 3.15, 6.89, RETARDED, 15.5)
+    text(ax, lc, 10.06, "Continuum Hamiltonian", 21, weight="semibold")
+    text(ax, lc, 9.51, CONTINUUM, 27)
+    text(ax, lc, 8.47, "Finite device Hamiltonian", 21, weight="semibold")
+    text(ax, lc, 7.99, FINITE, 23)
+    text(ax, lc, 7.49, KINETIC, 22)
+    text(ax, lc, 6.57, "Open-device propagation", 21, weight="semibold")
+    text(ax, lc, 5.91, RETARDED, 23)
 
-    text(ax, 9.25, 10.38, "Isolated semi-infinite leads", 14, weight="semibold")
-    text(ax, 9.25, 10.02, LEAD, 16)
-    text(ax, 9.25, 8.98, "Surface response", 14, weight="semibold")
-    text(ax, 9.25, 8.64, SURFACE, 16.5)
-    text(ax, 9.25, 8.34, LEAD_GREEN, 14)
-    text(ax, 9.25, 7.36, "Contact operators on the device", 14, weight="semibold")
-    text(ax, 9.25, 6.99, SIGMA, 17)
-    text(ax, 9.25, 6.66, GAMMA, 16.5)
+    text(ax, rc, 10.06, "Isolated semi-infinite leads", 21, weight="semibold")
+    text(ax, rc, 9.62, LEAD, 26)
+    note(ax, rc, 9.28, "device–surface coupling", color=TEAL, size=17)
+    text(ax, rc, 8.47, "Surface response", 21, weight="semibold")
+    text(ax, rc, 7.99, SURFACE, 27)
+    text(ax, rc, 7.48, LEAD_GREEN, 23)
+    text(ax, rc, 6.65, "Device contact operators", 21, weight="semibold")
+    text(ax, rc, 6.16, SIGMA, 27)
+    text(ax, rc, 5.62, GAMMA, 25)
 
-    arrow(ax, [(3.15, 9.75), (3.15, 9.25)])
-    note(ax, 4.05, 9.5, "finite difference", color=BLUE)
-    arrow(ax, [(9.25, 9.75), (9.25, 9.25)], TEAL)
-    note(ax, 10.25, 9.5, "surface projection", color=TEAL)
-    arrow(ax, [(3.15, 8.2), (3.15, 7.65)])
-    arrow(ax, [(9.25, 8.2), (9.25, 7.65)], TEAL)
-    note(ax, 10.34, 7.92, "exact elimination", color=TEAL)
-    arrow(ax, [(6.6, 7.05), (5.8, 7.05)], TEAL)
+    arrow(ax, [(lc, 9.10), (lc, 8.79)])
+    note(ax, 4.14, 8.95, "finite difference", color=BLUE, size=17)
+    arrow(ax, [(rc, 9.10), (rc, 8.79)], TEAL)
+    note(ax, 9.93, 8.95, "surface projection", color=TEAL, size=17)
+    arrow(ax, [(lc, 7.27), (lc, 6.91)], head=8)
+    arrow(ax, [(rc, 7.27), (rc, 6.91)], TEAL, head=8)
+    note(ax, 9.93, 7.09, "exact elimination", color=TEAL, size=17)
+    arrow(ax, [(right, 6.14), (left + width, 6.14)], TEAL)
 
     # Both G and Gamma feed this shared spectral stage. The grouping avoids
     # crossed arrows while retaining both dependencies for A_alpha and T.
-    box(ax, 0.5, 4.45, 11.4, 1.45, EDGE, "#F8FAFC")
-    ax.plot([6.2, 6.2], [4.68, 5.67], color="#D1DDE4", lw=0.8, zorder=3)
-    text(ax, 3.35, 5.54, "Contact-resolved spectrum", 14, weight="semibold")
-    text(ax, 3.35, 5.04, PARTIAL, 19)
-    text(ax, 9.05, 5.54, "Transmission", 14, weight="semibold")
-    text(ax, 9.05, 5.04, TRANSMISSION, 18)
-    ax.plot([3.15, 3.15, 6.2], [6.45, 6.17, 6.17], color=BLUE, lw=1.4, zorder=1)
-    note(ax, 2.52, 6.18, r"$G^R$", color=BLUE, size=13)
-    ax.plot([9.25, 9.25, 6.2], [6.45, 6.17, 6.17], color=TEAL, lw=1.4, zorder=1)
-    arrow(ax, [(6.2, 6.17), (6.2, 5.9)], MUTED)
-    note(ax, 10.04, 6.18, r"$\Gamma_L,\Gamma_R$", color=TEAL, size=13)
+    box(ax, left, 3.61, 11.04, 1.30, EDGE, "#F8FAFC")
+    ax.plot([center, center], [3.83, 4.70], color="#D1DDE4", lw=0.8, zorder=3)
+    text(ax, lc, 4.58, "Contact-resolved spectrum", 20.5, weight="semibold")
+    text(ax, lc, 4.06, PARTIAL, 28)
+    text(ax, rc, 4.58, "Transmission", 21, weight="semibold")
+    text(ax, rc, 4.06, TRANSMISSION, 26)
+    ax.plot([lc, lc, center], [5.37, 5.15, 5.15], color=BLUE, lw=1.4, zorder=1)
+    note(ax, 2.23, 5.15, r"$G^R$", color=BLUE, size=18)
+    ax.plot([rc, rc, center], [5.37, 5.15, 5.15], color=TEAL, lw=1.4, zorder=1)
+    arrow(ax, [(center, 5.15), (center, 4.91)], MUTED)
+    note(ax, 9.42, 5.15, r"$\Gamma_L,\Gamma_R$", color=TEAL, size=18)
 
     # Reservoir data is an independent input, with no arrow from the
     # Hamiltonian/spectral stage into this amber box.
-    box(ax, 4.2, 2.8, 4.0, 1.13, AMBER, AMBER_FILL)
-    text(ax, 6.2, 3.66, "Independent reservoir input", 13.4, AMBER, "semibold")
-    text(ax, 6.2, 3.28, FERMI, 17)
-    note(ax, 6.2, 3.01, "Fermi–Dirac occupation", color=AMBER)
+    box(ax, 3.20, 2.27, 5.0, 1.14, AMBER, AMBER_FILL)
+    text(ax, center, 3.14, "Independent reservoir input", 20, AMBER, "semibold")
+    text(ax, center, 2.79, FERMI, 25)
+    note(ax, center, 2.43, "Fermi–Dirac occupation", color=AMBER, size=17)
 
-    box(ax, 0.5, 1.1, 5.3, 1.15)
-    text(ax, 3.15, 1.97, "Contact-fed correlation", 14, weight="semibold")
-    text(ax, 3.15, 1.53, OCCUPIED, 19)
-    box(ax, 6.6, 1.1, 5.3, 1.15)
-    text(ax, 9.25, 1.97, "Landauer current", 14, weight="semibold")
-    text(ax, 9.25, 1.5, CURRENT, 16)
-    arrow(ax, [(2.1, 4.45), (2.1, 2.25)])
-    note(ax, 1.66, 3.37, r"$A_\alpha$", color=BLUE, size=14)
-    arrow(ax, [(10.3, 4.45), (10.3, 2.25)])
-    note(ax, 10.83, 3.37, r"$T(E)$", color=BLUE, size=14)
-    arrow(ax, [(6.2, 2.8), (6.2, 2.6), (4.5, 2.6), (4.5, 2.25)], AMBER)
-    arrow(ax, [(6.2, 2.6), (7.9, 2.6), (7.9, 2.25)], AMBER)
-    note(ax, 4.92, 2.42, r"$f_\alpha$", color=AMBER, size=13)
-    note(ax, 7.46, 2.42, r"$f_L-f_R$", color=AMBER, size=13)
-    arrow(ax, [(3.15, 1.1), (3.15, 0.7)])
-    box(ax, 0.5, 0.1, 5.3, 0.6)
-    text(ax, 3.15, 0.4, "Density and bond current", 14, weight="semibold")
-    note(ax, 9.25, 0.53, r"$\alpha=L,R\qquad G^A=(G^R)^\dagger$", size=13)
-    note(ax, 9.25, 0.2, "Spin degeneracy: 2", size=11.5)
+    box(ax, left, 0.73, width, 1.10)
+    text(ax, lc, 1.58, "Contact-fed correlation", 21, weight="semibold")
+    text(ax, lc, 1.08, OCCUPIED, 28)
+    box(ax, right, 0.73, width, 1.10)
+    text(ax, rc, 1.55, "Landauer current", 21, weight="semibold")
+    text(ax, rc, 1.07, CURRENT, 25)
+    arrow(ax, [(1.13, 3.61), (1.13, 1.83)])
+    note(ax, 0.65, 2.69, r"$A_\alpha$", color=BLUE, size=20)
+    arrow(ax, [(10.27, 3.61), (10.27, 1.83)])
+    note(ax, 10.79, 2.69, r"$T(E)$", color=BLUE, size=20)
+    arrow(ax, [(center, 2.27), (center, 1.99), (4.28, 1.99), (4.28, 1.83)], AMBER, head=8)
+    arrow(ax, [(center, 1.99), (7.12, 1.99), (7.12, 1.83)], AMBER, head=8)
+    note(ax, 4.81, 2.01, r"$f_\alpha$", color=AMBER, size=18,
+         bbox={"facecolor": "white", "edgecolor": "none", "pad": 1})
+    note(ax, 6.53, 2.01, r"$f_L-f_R$", color=AMBER, size=18,
+         bbox={"facecolor": "white", "edgecolor": "none", "pad": 1})
+    arrow(ax, [(lc, 0.73), (lc, 0.55)], head=8)
+    box(ax, left, 0.06, width, 0.49)
+    text(ax, lc, 0.31, "Density and bond current", 21, weight="semibold")
+    note(ax, rc, 0.40, r"$\alpha=L,R\qquad G^A=(G^R)^\dagger$", size=18)
+    note(ax, rc, 0.12, "Spin degeneracy: 2", size=17)
     return fig
 
 
 def mobile():
-    fig, ax = canvas(5.4, 20.0)
-    text(ax, 2.7, 19.61, "NEGF calculation map", 18.5, weight="semibold")
-    note(ax, 2.7, 19.2, "Coherent, elastic transport • prescribed potential", size=11.3)
-    text(ax, 2.7, 18.75, "DEVICE DYNAMICS", 12.3, BLUE, "semibold")
+    # 18 pt labels are about 18 px at a 358 px mobile article width.
+    fig, ax = canvas(5.0, 19.28)
+    ax.set_ylim(-1.28, 18.0)
+    x, width, center = 0.40, 4.20, 2.50
+    text(ax, center, 17.69, "NEGF calculation map", 22, weight="semibold")
+    note(ax, center, 17.32, "Coherent, elastic transport", size=15)
+    text(ax, center, 16.92, "DEVICE DYNAMICS", 16, BLUE, "semibold")
 
-    x, width, center = 0.52, 4.36, 2.7
-    box(ax, x, 17.55, width, 0.9)
-    text(ax, center, 18.2, "Continuum Hamiltonian", 13.3, weight="semibold")
-    text(ax, center, 17.83, CONTINUUM, 16)
-    box(ax, x, 16.15, width, 1.05)
-    text(ax, center, 16.94, "Finite device Hamiltonian", 13.3, weight="semibold")
-    text(ax, center, 16.59, FINITE, 13.3)
-    text(ax, center, 16.31, KINETIC, 13.3)
-    arrow(ax, [(center, 17.55), (center, 17.2)])
-    note(ax, 3.61, 17.39, "finite difference", color=BLUE, size=11.2)
+    box(ax, x, 15.57, width, 1.08)
+    text(ax, center, 16.36, "Continuum Hamiltonian", 18, weight="semibold")
+    text(ax, center, 15.87, CONTINUUM, 24)
+    box(ax, x, 13.94, width, 1.31)
+    text(ax, center, 14.96, "Finite device Hamiltonian", 18, weight="semibold")
+    text(ax, center, 14.52, FINITE, 20.5)
+    text(ax, center, 14.13, KINETIC, 20)
+    arrow(ax, [(center, 15.57), (center, 15.25)], head=8)
+    note(ax, 3.64, 15.41, "finite difference", color=BLUE, size=14.5)
 
-    text(ax, center, 15.68, "LEAD BOUNDARIES", 12.3, TEAL, "semibold")
-    box(ax, x, 14.55, width, 0.85, TEAL, TEAL_FILL)
-    text(ax, center, 15.15, "Isolated semi-infinite leads", 13.3, weight="semibold")
-    text(ax, center, 14.81, LEAD, 14.5)
-    box(ax, x, 13.05, width, 1.05, TEAL, TEAL_FILL)
-    text(ax, center, 13.86, "Surface response", 13.3, weight="semibold")
-    text(ax, center, 13.51, SURFACE, 16)
-    text(ax, center, 13.2, LEAD_GREEN, 13.1)
-    arrow(ax, [(center, 14.55), (center, 14.1)], TEAL)
-    note(ax, 3.72, 14.33, "surface projection", color=TEAL, size=11.2)
-    box(ax, x, 11.45, width, 1.15, TEAL, TEAL_FILL)
-    text(ax, center, 12.33, "Contact operators on the device", 12.9, weight="semibold")
-    text(ax, center, 11.97, SIGMA, 16.5)
-    text(ax, center, 11.63, GAMMA, 16)
-    arrow(ax, [(center, 13.05), (center, 12.6)], TEAL)
-    note(ax, 3.73, 12.83, "exact elimination", color=TEAL, size=11.2)
+    text(ax, center, 13.53, "LEAD BOUNDARIES", 16, TEAL, "semibold")
+    box(ax, x, 12.05, width, 1.16, TEAL, TEAL_FILL)
+    text(ax, center, 12.93, "Isolated semi-infinite leads", 17.5, weight="semibold")
+    text(ax, center, 12.52, LEAD, 23)
+    note(ax, center, 12.23, "device–surface coupling", color=TEAL, size=15)
+    box(ax, x, 10.41, width, 1.32, TEAL, TEAL_FILL)
+    text(ax, center, 11.44, "Surface response", 18, weight="semibold")
+    text(ax, center, 11.02, SURFACE, 24)
+    text(ax, center, 10.61, LEAD_GREEN, 20)
+    arrow(ax, [(center, 12.05), (center, 11.73)], TEAL, head=8)
+    note(ax, 3.65, 11.89, "surface projection", color=TEAL, size=14.5)
+    box(ax, x, 8.76, width, 1.45, TEAL, TEAL_FILL)
+    text(ax, center, 9.96, "Device contact operators", 18, weight="semibold")
+    text(ax, center, 9.50, SIGMA, 24)
+    text(ax, center, 8.98, GAMMA, 23)
+    arrow(ax, [(center, 10.41), (center, 10.21)], TEAL, head=8)
+    note(ax, 3.65, 10.31, "exact elimination", color=TEAL, size=14.5)
 
-    box(ax, x, 9.8, width, 1.1)
-    text(ax, center, 10.6, "Open-device propagation", 13.3, weight="semibold")
-    text(ax, center, 10.15, RETARDED, 13.3)
-    arrow(ax, [(center, 11.45), (center, 10.9)], TEAL)
-    note(ax, 3.55, 11.18, r"$\Sigma_L^R+\Sigma_R^R$", color=TEAL, size=12.5)
+    box(ax, x, 7.16, width, 1.13)
+    text(ax, center, 7.99, "Open-device propagation", 18, weight="semibold")
+    text(ax, center, 7.49, RETARDED, 20.5)
+    arrow(ax, [(center, 8.76), (center, 8.29)], TEAL)
+    note(ax, 3.45, 8.53, r"$\Sigma_L^R+\Sigma_R^R$", color=TEAL, size=17)
     # H_D bypasses the independent lead construction and enters G directly.
-    arrow(ax, [(x, 16.66), (0.15, 16.66), (0.15, 10.35), (x, 10.35)])
-    note(ax, 0.12, 13.3, r"$H_D$", color=BLUE, size=13, rotation=90,
+    arrow(ax, [(x, 14.52), (0.11, 14.52), (0.11, 7.72), (x, 7.72)], head=8)
+    note(ax, 0.17, 12.9, r"$H_D$", color=BLUE, size=17, rotation=90,
          bbox={"facecolor": "white", "edgecolor": "none", "pad": 2})
 
-    box(ax, x, 7.6, width, 1.7, EDGE, "#F8FAFC")
-    text(ax, center, 9.02, "Contact-resolved spectrum", 13.1, weight="semibold")
-    text(ax, center, 8.65, PARTIAL, 18)
-    ax.plot([0.8, 4.6], [8.39, 8.39], color="#D1DDE4", lw=0.8, zorder=3)
-    text(ax, center, 8.12, "Transmission", 13.1, weight="semibold")
-    text(ax, center, 7.83, TRANSMISSION, 15.6)
-    ax.plot([center, center], [9.8, 9.55], color=BLUE, lw=1.4, zorder=1)
-    arrow(ax, [(center, 9.55), (center, 9.3)], MUTED)
-    note(ax, 2.15, 9.55, r"$G^R$", color=BLUE, size=13)
-    ax.plot([4.88, 5.24, 5.24, center], [12.0, 12.0, 9.55, 9.55], color=TEAL, lw=1.4, zorder=1)
-    note(ax, 5.23, 10.08, r"$\Gamma_L,\Gamma_R$", color=TEAL, size=12,
+    box(ax, x, 4.91, width, 1.82, EDGE, "#F8FAFC")
+    text(ax, center, 6.44, "Contact-resolved spectrum", 17.5, weight="semibold")
+    text(ax, center, 6.02, PARTIAL, 25)
+    ax.plot([0.65, 4.35], [5.79, 5.79], color="#D1DDE4", lw=0.8, zorder=3)
+    text(ax, center, 5.54, "Transmission", 18, weight="semibold")
+    text(ax, center, 5.15, TRANSMISSION, 22)
+    ax.plot([center, center], [7.16, 6.94], color=BLUE, lw=1.4, zorder=1)
+    arrow(ax, [(center, 6.94), (center, 6.73)], MUTED, head=8)
+    note(ax, 1.94, 6.94, r"$G^R$", color=BLUE, size=17)
+    ax.plot([4.60, 4.89, 4.89, center], [9.38, 9.38, 6.94, 6.94], color=TEAL, lw=1.4, zorder=1)
+    note(ax, 4.88, 8.0, r"$\Gamma_L,\Gamma_R$", color=TEAL, size=16,
          rotation=90, bbox={"facecolor": "white", "edgecolor": "none", "pad": 2})
 
-    box(ax, x, 5.85, width, 1.15, AMBER, AMBER_FILL)
-    text(ax, center, 6.72, "Independent reservoir input", 12.8, AMBER, "semibold")
-    text(ax, center, 6.34, FERMI, 16.5)
-    note(ax, center, 6.06, "Fermi–Dirac occupation", color=AMBER, size=11.3)
+    box(ax, x, 3.45, width, 1.12, AMBER, AMBER_FILL)
+    text(ax, center, 4.30, "Independent reservoir input", 17.5, AMBER, "semibold")
+    text(ax, center, 3.90, FERMI, 23)
+    note(ax, center, 3.62, "Fermi–Dirac occupation", color=AMBER, size=15)
 
-    box(ax, x, 4.2, width, 1.1)
-    text(ax, center, 5.02, "Contact-fed correlation", 13.3, weight="semibold")
-    text(ax, center, 4.58, OCCUPIED, 18)
-    arrow(ax, [(center, 5.85), (center, 5.3)], AMBER)
-    note(ax, 3.22, 5.58, r"$f_\alpha$", color=AMBER, size=13)
-    arrow(ax, [(x, 8.65), (0.15, 8.65), (0.15, 4.75), (x, 4.75)])
-    note(ax, 0.13, 6.56, r"$A_\alpha$", color=BLUE, size=13, rotation=90,
+    box(ax, x, 1.96, width, 1.10)
+    text(ax, center, 2.77, "Contact-fed correlation", 18, weight="semibold")
+    text(ax, center, 2.33, OCCUPIED, 25)
+    arrow(ax, [(center, 3.45), (center, 3.06)], AMBER, head=8)
+    note(ax, 3.05, 3.26, r"$f_\alpha$", color=AMBER, size=17)
+    arrow(ax, [(x, 6.02), (0.11, 6.02), (0.11, 2.51), (x, 2.51)], head=8)
+    note(ax, 0.17, 4.21, r"$A_\alpha$", color=BLUE, size=17, rotation=90,
          bbox={"facecolor": "white", "edgecolor": "none", "pad": 2})
-    box(ax, x, 2.95, width, 0.65)
-    text(ax, center, 3.28, "Density and bond current", 13.3, weight="semibold")
-    arrow(ax, [(center, 4.2), (center, 3.6)])
+    box(ax, x, 1.12, width, 0.56)
+    text(ax, center, 1.40, "Density and bond current", 18, weight="semibold")
+    arrow(ax, [(center, 1.96), (center, 1.68)], head=8)
 
-    box(ax, x, 0.95, width, 1.35)
-    text(ax, center, 1.98, "Landauer current", 13.3, weight="semibold")
-    text(ax, center, 1.49, CURRENT, 14)
+    # The last current box sits below the density branch but has no arrow
+    # from it: only T(E) and the independent reservoir imbalance feed I.
+    box(ax, x, -0.42, width, 1.13)
+    text(ax, center, 0.43, "Landauer current", 18, weight="semibold")
+    text(ax, center, -0.05, CURRENT, 21)
     # Separate right-hand buses bring T(E) and reservoir imbalance to I;
     # they terminate at different ports and never join the Gn/density path.
-    arrow(ax, [(4.88, 7.83), (5.24, 7.83), (5.24, 1.35), (4.88, 1.35)])
-    note(ax, 5.23, 3.1, r"$T(E)$", color=BLUE, size=12.5, rotation=90,
-         bbox={"facecolor": "white", "edgecolor": "none", "pad": 2})
-    arrow(ax, [(4.88, 6.34), (5.02, 6.34), (5.02, 1.87), (4.88, 1.87)], AMBER, width=1.25, head=8)
-    note(ax, 4.99, 4.0, r"$f_L-f_R$", color=AMBER, size=12, rotation=90,
+    arrow(ax, [(4.60, 5.15), (4.89, 5.15), (4.89, -0.08), (4.60, -0.08)], head=8)
+    note(ax, 4.86, 1.05, r"$T(E)$", color=BLUE, size=16.5, rotation=90,
+         bbox={"facecolor": "white", "edgecolor": "none", "pad": 0})
+    arrow(ax, [(4.60, 3.90), (4.73, 3.90), (4.73, 0.42), (4.60, 0.42)], AMBER, width=1.25, head=8)
+    note(ax, 4.72, 1.83, r"$f_L-f_R$", color=AMBER, size=16, rotation=90,
          bbox={"facecolor": "white", "edgecolor": "none", "pad": 1})
-    note(ax, center, 0.57, r"$\alpha=L,R\qquad G^A=(G^R)^\dagger$", size=12.4)
-    note(ax, center, 0.23, "Spin degeneracy: 2", size=11.3)
+    note(ax, center, -0.77, r"$\alpha=L,R\qquad G^A=(G^R)^\dagger$", size=17)
+    note(ax, center, -1.08, "Spin degeneracy: 2", size=15)
     return fig
 
 
@@ -271,6 +287,12 @@ def save(fig, directory: Path, stem: str):
             "Title": "NEGF: dynamics and occupations",
             "Description": "Hamiltonian and lead inputs determine spectral quantities; independent reservoir occupations determine occupied correlations and current.",
         } if extension == "svg" else {"Title": "NEGF: dynamics and occupations"})
+        if extension == "svg":
+            # Matplotlib pads path-coordinate lines with spaces. Normalize
+            # generated XML formatting so figure updates pass diff checks.
+            svg = filename.read_text(encoding="utf-8")
+            filename.write_text("\n".join(line.rstrip() for line in svg.splitlines()) + "\n",
+                                encoding="utf-8")
         print(f"{filename}: {filename.stat().st_size:,} bytes")
     plt.close(fig)
 

@@ -23,6 +23,23 @@ series_order: 2
 ---
 
 <style>
+article.technical-article .content table.gemma-eval-setup {
+  width: 100%;
+  min-width: 0 !important;
+  table-layout: fixed;
+}
+article.technical-article .content table.gemma-eval-setup th,
+article.technical-article .content table.gemma-eval-setup td { min-width: 0 !important; }
+article.technical-article .content table.gemma-eval-setup th:first-child,
+article.technical-article .content table.gemma-eval-setup td:first-child {
+  width: 26%;
+  word-break: keep-all;
+  overflow-wrap: normal;
+}
+@media (max-width: 600px) {
+  article.technical-article .content table.gemma-eval-setup th:first-child,
+  article.technical-article .content table.gemma-eval-setup td:first-child { width: 36%; }
+}
 article.technical-article .content table.quick-summary {
   width: 100%;
   min-width: 0 !important;
@@ -331,6 +348,7 @@ thinking을 끈 trace에서는 연속 호출 쌍 1,382개 중 707개가 반복�
 | 실행 전 확인 | 위의 가짜 모델 경로 검사와 과제별 대조군 확인을 실행 묶음마다 통과해야 한다. |
 | 실행 조건 기록 | 모든 결과에 1절의 fingerprint를 남긴다. |
 | 결과 해석 | checkpoint마다 관찰한 사실과 잠정 해석을 남기고, 이후 근거가 나오면 수정한다. |
+{: .gemma-eval-setup }
 
 현재 verifier에서 재현한 테스트 이름 매칭 문제와, subprocess에서 발견한 경로 치환 문제는 적용 범위도 다르다. 후자는 셸 문자열 안에 적은 작업 경로까지 로컬 backend가 바꿔 버리는 동작이다. 이 때문에 셸로 파일 내용을 쓸 때 의도와 다른 경로가 들어갈 수 있다. 이 동작을 비공개 Docker sandbox에서도 확인한 것은 아니다. 재현 기록에 runtime과 backend를 함께 남겨야, 어느 결과를 다시 점검해야 하는지 알 수 있다.
 
@@ -544,9 +562,6 @@ Token ID를 tokenizer로 다시 문장으로 바꿔 입력 형식을 확인하�
 | adapter 작업을 재개할까? | 서빙 동작 확인, adapter와 base model의 호환성 검증, 처리량 측정, 비용을 산정한 성능 비교 | S1은 만들었다. zero-adapter 확인은 원인 불명 오류로 끝났으며 학습은 계속 보류 |
 | 새 수정 방식을 시도할 근거가 있는가? | 모델이 볼 수 있는 실패 사례와 그것을 다룰 작은 변경안. 예상 비용과 실패할 경우도 확인 | 이슈에 맞는 검사, 수정 후 재검사 시점, 코드 탐색을 살펴본 한정된 조사에서는 필요한 근거를 확보하지 못함 |
 | 로컬 시간으로 제출 위험을 가늠할 수 있는가? | 실제 채점과 같은 GPU 구성에서 환경 준비와 전체 과제를 포함한 시간 측정 | 로컬 비율은 경고 신호다. 보편적으로 안전한 비율은 모름 |
-| 이 기록으로 연구 글을 쓸 수 있을까? | 관찰, 제외, 해석 변경의 정확한 시간순 기록과 재현 가능한 공개 자료 | 범위를 좁힌 사례 연구를 준비 중이다. 새 에이전트 방법의 효과를 검증한 것은 아님 |
-
-선택 사항인 Paper Track 마감은 **11월 12일 23:59 UTC(한국 시간 11월 13일 08:59)**다. 이 기록이 뒷받침하는 연구 주제는 새로운 에이전트 기법의 우월성보다 비교 방법에 관한 사례 연구다. 채점 환경이 바뀌고, 로컬 과제를 반복해서 사용하며, 호스트 피드백을 드물게 받는 조건에서 어떤 비교를 유지하고 어떤 결론을 철회해야 했는지가 핵심이다.
 
 ## 출처
 

@@ -2,7 +2,7 @@
 title: "From Closed to Open Quantum Transport with NEGF: A Derivation from Scratch"
 date: 2026-07-22 09:00:00 +0900
 categories: [Physics, Quantum Transport]
-tags: [kaggle, quantum-transport, green-functions, landauer, negf, open-quantum-systems, physics, python, resonant-tunneling, self-energy, tight-binding]
+tags: [quantum-transport, physics, green-functions, kaggle, landauer, negf, open-quantum-systems, python, resonant-tunneling, self-energy, tight-binding]
 math: true
 interactive: negf-barrier
 pin: false
@@ -10,15 +10,13 @@ topic: quantum-transport
 lang: en
 translation_key: quantum-transport-negf
 image:
-  path: /assets/img/posts/2026-07-22-negf-from-scratch/fig-03-exact-lead-elimination.png
+  path: /assets/img/posts/2026-07-22-negf-from-scratch/cover-exact-lead-elimination.png
   alt: "Exact lead elimination replaces explicit semi-infinite lead coordinates with energy-dependent self-energy on the finite device."
   hide_caption: true
   fit: contain
-  width: 1329
-  height: 390
+  width: 1400
+  height: 1040
 ---
-
-# From Closed to Open Quantum Transport with NEGF: A Derivation from Scratch
 
 - Executable notebook: [From Closed to Open: Quantum Transport with NEGF, From Scratch](https://www.kaggle.com/code/pilkwang/from-closed-to-open-quantum-transport-with-negf)
 - Source notebook: [negf_from_scratch.ipynb](https://github.com/pilkwangkim/Physics/blob/master/negf_from_scratch.ipynb)
@@ -26,7 +24,7 @@ image:
 
 A finite Hamiltonian gives us discrete energies and beautiful eigenstates. It does **not**, by itself, give us a steady current. A current-carrying device is open: particles may enter from one macroscopic reservoir, cross a finite region, and disappear into another reservoir without reflecting from an artificial wall at the edge of our matrix.
 
-The central problem of this post is therefore simple to state and surprisingly rich to solve:
+The central problem is simple to state and surprisingly rich to solve:
 
 > How can an infinite, open transport problem be represented by a finite matrix without replacing the leads by an uncontrolled absorbing boundary?
 
@@ -34,9 +32,7 @@ The nonequilibrium Green's-function (NEGF) answer is that the lead coordinates c
 
 Once that step is understood, transmission, local density of states, nonequilibrium occupation, current conservation, resonant tunneling, and negative differential resistance all follow from one consistent chain of matrices.
 
-This article is deliberately slower than the notebook. It assumes basic quantum mechanics—wavefunctions, Hamiltonians, eigenstates, and the idea of a tight-binding band—but does not assume prior familiarity with Green's functions or quantum transport.
-
-The model used throughout is intentionally small:
+The model has the following assumptions:
 
 - a one-dimensional effective-mass electron discretized on a uniform grid,
 - nearest-neighbor hopping and spin degeneracy two,
@@ -44,19 +40,15 @@ The model used throughout is intentionally small:
 - clean semi-infinite leads,
 - and an imposed bias profile rather than a self-consistent Poisson solution.
 
-Those assumptions make the algebra visible. They also tell us exactly where the toy model ends; we will return to that point at the end.
-
 ---
 
 ## 0. The logical map
 
-It helps to see the whole calculation before entering the derivation:
-
 <div class="negf-workflow-desktop">
-  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-00-negf-workflow.svg" alt="NEGF calculation workflow. The device Hamiltonian and lead self-energies determine the retarded Green's function, spectral functions and transmission. Independent reservoir Fermi functions then determine occupation, density, bond current and Landauer current." width="100%">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-00-negf-workflow.svg" alt="NEGF calculation workflow. The device Hamiltonian and lead self-energies determine the retarded Green's function, spectral functions and transmission. Independent reservoir Fermi functions then determine occupation, density, bond current and Landauer current." width="2280" height="2360">
 </div>
 <div class="negf-workflow-mobile">
-  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-00-negf-workflow-mobile.svg" alt="Vertical NEGF workflow. Device and lead inputs determine the spectrum and transmission; independent reservoir occupations then determine density and current." width="100%">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-00-negf-workflow-mobile.svg" alt="Vertical NEGF workflow. Device and lead inputs determine the spectrum and transmission; independent reservoir occupations then determine density and current." width="1000" height="3856">
 </div>
 
 *Calculation workflow.* The device and leads determine the available states and propagation; reservoir chemical potentials and temperatures determine occupation. Combining $A_\alpha$ with $f_\alpha$ gives $G^n$, density and bond current. Integrating $T(E)[f_L-f_R]$ gives the Landauer current. Here $\alpha=L,R$, and the displayed identities apply to the coherent contact continuum as $\eta\to0^+$.
@@ -185,9 +177,12 @@ $$
 
 The finite-difference lattice recovers the continuum parabola only for $\lvert ka\rvert\ll1$. The flattening near the Brillouin-zone edge is a discretization effect, not a prediction that a real parabolic band suddenly becomes nonparabolic. Convergence means reducing $a$ until the energies of interest lie safely in the parabolic part.
 
-<p align="center">
-  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-01-lattice-dispersion.png" alt="Finite-difference lattice dispersion and the discrete spectrum of a finite hard-wall chain" width="94%">
-</p>
+<div class="negf-figure-desktop">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-01-lattice-dispersion.svg" alt="Finite-difference lattice dispersion and the discrete spectrum of a finite hard-wall chain" width="2160" height="1320">
+</div>
+<div class="negf-figure-mobile">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-01-lattice-dispersion-mobile.svg" alt="Finite-difference lattice dispersion and the discrete spectrum of a finite hard-wall chain" width="1000" height="2280">
+</div>
 
 *Figure 1.* The lattice dispersion agrees with the continuum parabola near $k=0$ and has a finite bandwidth $4t_0$. A finite hard-wall chain does not create a different band; it samples that band at quantized wave numbers.
 
@@ -218,9 +213,12 @@ $$
 
 Direct diagonalization in the notebook agrees with this formula to $1.33\times10^{-15}\ \mathrm{eV}$, and the analytic eigenvectors satisfy $\lVert H\psi_n-E_n\psi_n\rVert<5.5\times10^{-16}\ \mathrm{eV}$.
 
-<p align="center">
-  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-02-closed-chain-eigenstates.png" alt="First five eigenstates of a finite hard-wall tight-binding chain plotted around their eigenenergies" width="90%">
-</p>
+<div class="negf-figure-desktop">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-02-closed-chain-eigenstates.svg" alt="First five eigenstates of a finite hard-wall tight-binding chain plotted around their eigenenergies" width="2160" height="1840">
+</div>
+<div class="negf-figure-mobile">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-02-closed-chain-eigenstates-mobile.svg" alt="First five eigenstates of a finite hard-wall tight-binding chain plotted around their eigenenergies" width="1000" height="2160">
+</div>
 
 *Figure 2.* The vertical offset is only a display device: each signed eigenfunction is drawn around its own energy. The physical potential is $U_j=0$ between the two hard walls.
 
@@ -385,9 +383,12 @@ $$
 
 Read the product from right to left. An amplitude at the device boundary goes from $D$ to $L$ through $\tau^\dagger$, propagates through the isolated lead with $g_L^R$, and returns from $L$ to $D$ through $\tau$. The self-energy is the complete leave-propagate-return amplitude.
 
-<p align="center">
-  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-03-exact-lead-elimination.png" alt="Schematic of exact lead elimination, energy-dependent feedback at the contacted device site, and surface self-similarity" width="96%">
-</p>
+<div class="negf-figure-desktop">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-03-exact-lead-elimination.svg" alt="Schematic of exact lead elimination, energy-dependent feedback at the contacted device site, and surface self-similarity" width="2160" height="2920">
+</div>
+<div class="negf-figure-mobile">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-03-exact-lead-elimination-mobile.svg" alt="Schematic of exact lead elimination, energy-dependent feedback at the contacted device site, and surface self-similarity" width="1000" height="3140">
+</div>
 
 *Figure 3.* Panel (a) shows the explicit device-plus-lead coordinates. Panel (b) retains only the device but preserves the exact feedback $\Sigma_L^R$. Panel (c) previews why a uniform semi-infinite lead has a recursive surface response.
 
@@ -638,9 +639,12 @@ $$
 
 immediately gives $\gamma=2t_0\sin ka=\hbar\lvert v\rvert/a$. The same $\sin ka$ that closes the surface coupling at a band edge also drives the group velocity to zero.
 
-<p align="center">
-  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-04-surface-green-function.png" alt="Closed and open spectral response, real and imaginary parts of the contact self-energy, and the retarded surface root in the complex plane" width="98%">
-</p>
+<div class="negf-figure-desktop">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-04-surface-green-function.svg" alt="Closed and open spectral response, real and imaginary parts of the contact self-energy, and the retarded surface root in the complex plane" width="2160" height="3900">
+</div>
+<div class="negf-figure-mobile">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-04-surface-green-function-mobile.svg" alt="Closed and open spectral response, real and imaginary parts of the contact self-energy, and the retarded surface root in the complex plane" width="1000" height="4040">
+</div>
 
 *Figure 4.* Opening the chain turns discrete hard-wall levels into a continuum over the lead band. The real self-energy shifts levels, the broadening closes outside the propagating band, and the complex-$q$ plot makes the retarded root choice geometric.
 
@@ -753,11 +757,14 @@ def transmission(Gamma_L, GR, Gamma_R):
 
 Before looking at transmission, it is useful to draw both the spatial input and the matrix that the code actually inverts. The notebook compares a clean device with a six-site barrier of height $V_b=0.60\ \mathrm{eV}$.
 
-<p align="center">
-  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-05-potential-and-hamiltonian.png" alt="Single-barrier potential profile and the corresponding tridiagonal transport Hamiltonian" width="94%">
-</p>
+<div class="negf-figure-desktop">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-05-potential-and-hamiltonian.svg" alt="Single-barrier potential profile and the corresponding tridiagonal transport Hamiltonian" width="2160" height="1500">
+</div>
+<div class="negf-figure-mobile">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-05-potential-and-hamiltonian-mobile.svg" alt="Single-barrier potential profile and the corresponding tridiagonal transport Hamiltonian" width="1000" height="2520">
+</div>
 
-*Figure 5.* The barrier raises only the selected diagonal entries from $2t_0$ to $2t_0+V_b$. The off-diagonal hopping remains $-t_0$. The orange marker $E_{\mathrm{probe}}=0.400\ \mathrm{eV}$ lies below the local barrier bottom and is used later to visualize evanescent tunneling.
+*Figure 5.* The barrier raises only the selected diagonal entries from $2t_0$ to $2t_0+V_b$. The off-diagonal hopping remains $-t_0$. The blue dash-dot line $E_{\mathrm{probe}}=0.400\ \mathrm{eV}$ lies below the local barrier bottom and is used later to visualize evanescent tunneling.
 
 Within a locally uniform region of potential energy $U$, the lattice dispersion is
 
@@ -779,9 +786,12 @@ $$
 
 The exact state inside a finite barrier is a boundary-matched combination of growing and decaying evanescent pieces, not a single exponential. Its LDOS envelope therefore need not decrease perfectly monotonically on every site.
 
-<p align="center">
-  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-06-clean-wire-and-barrier-transport.png" alt="Transmission and left-injected partial local density of states for a matched clean wire and a single barrier" width="94%">
-</p>
+<div class="negf-figure-desktop">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-06-clean-wire-and-barrier-transport.svg" alt="Transmission and left-injected partial local density of states for a matched clean wire and a single barrier" width="2160" height="1500">
+</div>
+<div class="negf-figure-mobile">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-06-clean-wire-and-barrier-transport-mobile.svg" alt="Transmission and left-injected partial local density of states for a matched clean wire and a single barrier" width="1000" height="2520">
+</div>
 
 *Figure 6.* A device identical to its leads has no interface and therefore $T(E)=1$ inside the open band, apart from the singular band-edge limit. The barrier produces reflection, energy-dependent transmission, and a spatially structured **left-injected partial LDOS** $[A_L]_{jj}/(2\pi)$. This is available spectral weight before multiplication by $f_L$; it is not the total occupied density.
 
@@ -845,9 +855,12 @@ $$
 
 For coherent steady propagation, this flux is independent of $j$ and equals the transmission in the present reciprocal single-channel model.
 
-<p align="center">
-  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-07-sub-barrier-scattering-state.png" alt="Partial local density of states and conserved spectral flux for tunneling through a finite barrier" width="94%">
-</p>
+<div class="negf-figure-desktop">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-07-sub-barrier-scattering-state.svg" alt="Partial local density of states and conserved spectral flux for tunneling through a finite barrier" width="2160" height="1500">
+</div>
+<div class="negf-figure-mobile">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-07-sub-barrier-scattering-state-mobile.svg" alt="Partial local density of states and conserved spectral flux for tunneling through a finite barrier" width="1000" height="2520">
+</div>
 
 *Figure 7.* At $E_{\mathrm{probe}}=0.400\ \mathrm{eV}$, the partial LDOS is strongly suppressed through the barrier, yet a nonzero transmitted component survives. The spatial weight changes dramatically while the directed flux stays constant at $T=2.8572\times10^{-3}$.
 
@@ -1001,9 +1014,12 @@ The symbol $e>0$ denotes the magnitude of the elementary charge. The notebook ca
 
 The first resonant-tunneling example separates propagation from population as cleanly as possible. The device contains two barriers of height $0.40\ \mathrm{eV}$ around a 16-site well. The device Hamiltonian, both lead bands, and all retarded self-energies remain fixed while $\mu_L$ and $\mu_R$ are placed on opposite sides of one resonance.
 
-<p align="center">
-  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-08-example-a-double-barrier.png" alt="Double-barrier potential-energy profile for the fixed-spectrum resonant-tunneling example" width="88%">
-</p>
+<div class="negf-figure-desktop">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-08-example-a-double-barrier.svg" alt="Double-barrier potential-energy profile for the fixed-spectrum resonant-tunneling example" width="2160" height="800">
+</div>
+<div class="negf-figure-mobile">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-08-example-a-double-barrier-mobile.svg" alt="Double-barrier potential-energy profile for the fixed-spectrum resonant-tunneling example" width="1000" height="1100">
+</div>
 
 *Figure 8.* The plotted line is $U_j$, not the Hamiltonian diagonal $2t_0+U_j$. Openness enters later through endpoint self-energies; it is not drawn as an imaginary potential in the device interior.
 
@@ -1097,15 +1113,21 @@ $$
 f_L\rho_{W,L}+f_R\rho_{W,R}.
 $$
 
-<p align="center">
-  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-09-example-a-spectral-bookkeeping.png" alt="Available and occupied well spectral weight decomposed by the injecting contact" width="94%">
-</p>
+<div class="negf-figure-desktop">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-09-example-a-spectral-bookkeeping.svg" alt="Available and occupied well spectral weight decomposed by the injecting contact" width="1944" height="1301">
+</div>
+<div class="negf-figure-mobile">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-09-example-a-spectral-bookkeeping-mobile.svg" alt="Available and occupied well spectral weight decomposed by the injecting contact" width="919" height="2270">
+</div>
 
 *Figure 9.* The same fixed resonances are available to both contacts. The chemical potentials change only how the two reservoirs fill that spectrum, as in $G^n=A_Lf_L+A_Rf_R$. The vertical axis is a spectral density per spin; integrating the occupied spectrum and multiplying by the spin degeneracy of two gives the total well occupation.
 
-<p align="center">
-  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-10-example-a-transport-summary.png" alt="Transmission, LDOS, contact-resolved occupation, and spectral current for the fixed-spectrum resonant-tunneling example" width="96%">
-</p>
+<div class="negf-figure-desktop">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-10-example-a-transport-summary.svg" alt="Transmission, LDOS, contact-resolved occupation, and spectral current for the fixed-spectrum resonant-tunneling example" width="1944" height="2183">
+</div>
+<div class="negf-figure-mobile">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-10-example-a-transport-summary-mobile.svg" alt="Transmission, LDOS, contact-resolved occupation, and spectral current for the fixed-spectrum resonant-tunneling example" width="906" height="4221">
+</div>
 
 *Figure 10.* Panel (a) resolves the narrow first resonance as well as the higher transmission peaks and marks the main occupation window. Panel (b) shows the quasi-bound well modes in the LDOS. Panel (c) separates the energy-integrated site occupation into contributions from the two contacts. Panel (d) shows that current is the **area** of $dI/dE$. Panels (c) and (d) use the resonance-local integration grid described below.
 
@@ -1235,9 +1257,12 @@ $$
 
 Thus $\mu_R$ remains at the same filling relative to the shifted right-lead band bottom. The voltage is not applied twice.
 
-<p align="center">
-  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-11-example-b-bias-profile.png" alt="Zero-bias and finite-bias double-barrier potential-energy profiles with shifted contact references" width="88%">
-</p>
+<div class="negf-figure-desktop">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-11-example-b-bias-profile.svg" alt="Zero-bias and finite-bias double-barrier potential-energy profiles with shifted contact references" width="1944" height="832">
+</div>
+<div class="negf-figure-mobile">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-11-example-b-bias-profile-mobile.svg" alt="Zero-bias and finite-bias double-barrier potential-energy profiles with shifted contact references" width="900" height="1139">
+</div>
 
 *Figure 11.* The linear ramp is an input assumption, not the output of a Poisson solver. It tilts the well and barriers while the collector energy reference shifts downward.
 
@@ -1338,11 +1363,14 @@ $$
 
 which is negative differential resistance (NDR). It does not mean that $I/V$ must be negative.
 
-<p align="center">
-  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-12-example-b-ndr-summary.png" alt="Current-voltage curve, differential conductance, transmission resonance map, and peak-versus-valley spectral current for the NDR example" width="96%">
-</p>
+<div class="negf-figure-desktop">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-12-example-b-ndr-summary.svg" alt="Current-voltage curve, differential conductance, transmission resonance map, and peak-versus-valley spectral current for the NDR example" width="1946" height="3049">
+</div>
+<div class="negf-figure-mobile">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-12-example-b-ndr-summary-mobile.svg" alt="Current-voltage curve, differential conductance, transmission resonance map, and peak-versus-valley spectral current for the NDR example" width="939" height="5065">
+</div>
 
-*Figure 12.* Every main panel refers to the same lowest-resonance cycle. The first current peak is at $0.085\ \mathrm{V}$ and the following valley at $0.149\ \mathrm{V}$; this is the highlighted first NDR interval. The full-sweep inset also shows later, higher-resonance structure near the broader $0.4\ \mathrm{V}$ region, but it is not used to define the first-cycle PVCR.
+*Figure 12.* Panels (a)–(d) refer to the same lowest-resonance cycle. The first current peak is at $0.085\ \mathrm{V}$ and the following valley at $0.149\ \mathrm{V}$; this is the highlighted first NDR interval. Panel (e) shows the full sweep, including later, higher-resonance structure near the broader $0.4\ \mathrm{V}$ region. That later structure is not used to define the first-cycle PVCR.
 
 The quantitative values are
 

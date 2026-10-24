@@ -23,6 +23,23 @@ series_order: 2
 ---
 
 <style>
+article.technical-article .content table.gemma-eval-setup {
+  width: 100%;
+  min-width: 0 !important;
+  table-layout: fixed;
+}
+article.technical-article .content table.gemma-eval-setup th,
+article.technical-article .content table.gemma-eval-setup td { min-width: 0 !important; }
+article.technical-article .content table.gemma-eval-setup th:first-child,
+article.technical-article .content table.gemma-eval-setup td:first-child {
+  width: 26%;
+  word-break: keep-all;
+  overflow-wrap: normal;
+}
+@media (max-width: 600px) {
+  article.technical-article .content table.gemma-eval-setup th:first-child,
+  article.technical-article .content table.gemma-eval-setup td:first-child { width: 36%; }
+}
 article.technical-article .content table.quick-summary {
   width: 100%;
   min-width: 0 !important;
@@ -340,6 +357,7 @@ A verification replay fixes the captured patch and runs its tests again, so the 
 | Gates | The scripted-model route check and the per-task controls above, required before every block. |
 | Identity | Each result carries the fingerprint described in Section 1. |
 | Readings | Each checkpoint is recorded with observations and provisional readings that can be revised. |
+{: .gemma-eval-setup }
 
 Required-test matching and shell-path rewriting have different implementation scopes. The latter occurs when the local subprocess backend replaces workspace paths even inside shell string literals, potentially changing text written to a file. It has not been established for the hidden Docker sandbox. Recording runtime and backend with each reproduction identifies which results need rechecking.
 
@@ -543,9 +561,6 @@ The unchanged reference remained the working choice. The bounded prompt and navi
 | Should adapter work resume? | Verified serving behavior, adapter/base-model compatibility, measured throughput and a priced quality comparison | S1 exists; the zero-adapter check errored for an unknown reason; training remains parked |
 | Is another repair intervention justified? | A concrete model-visible failure that a small change could address, plus its costs and failure cases | The bounded scenario, stale-check, and navigation reviews did not establish that bridge |
 | Can local timing bound submission risk? | Target-topology measurements including setup and the whole task population | Local ratios are warning signals; no universal safe ratio is known |
-| Can these records support a research paper? | An exact chronology of observations, exclusions, changed interpretations, and reproducible public material | A narrow case-study scope is being prepared; it is not a validated new agent method |
-
-The optional Paper Track deadline is **November 12, 23:59 UTC (November 13, 08:59 KST)**. These records support a case study of comparison methods rather than a claim of a superior new agent: which comparisons remained usable, and which conclusions had to be withdrawn, as the evaluator changed, local tasks were reused, and hosted feedback arrived sparsely.
 
 ## Sources
 

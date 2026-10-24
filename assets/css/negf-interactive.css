@@ -1,7 +1,20 @@
 /* Scoped to the article component; follows Chirpy's light/dark theme. */
 /* Separate wrappers preserve Chirpy's image zoom links for both layouts. */
-.negf-workflow-desktop, .negf-workflow-mobile { margin: 1.4rem 0; }
-.negf-workflow-mobile { display: none; }
+.negf-workflow-desktop, .negf-workflow-mobile,
+.negf-figure-desktop, .negf-figure-mobile { margin: 1.4rem 0; }
+.negf-workflow-mobile, .negf-figure-mobile { display: none; }
+/* Reserve the full article width before a lazy image has loaded. */
+.negf-workflow-desktop > .img-link, .negf-workflow-mobile > .img-link,
+.negf-figure-desktop > .img-link, .negf-figure-mobile > .img-link {
+  display: block;
+  width: 100%;
+}
+.negf-workflow-desktop img, .negf-workflow-mobile img,
+.negf-figure-desktop img, .negf-figure-mobile img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
 /* MathJax's inline min-width must not widen the page on narrow screens. */
 .content mjx-container[display='true'] {
   min-width: 0 !important;
@@ -10,12 +23,12 @@
   overflow-y: hidden;
 }
 @media (max-width: 640px) {
-  .negf-workflow-desktop { display: none; }
-  .negf-workflow-mobile { display: block; }
+  .negf-workflow-desktop, .negf-figure-desktop { display: none; }
+  .negf-workflow-mobile, .negf-figure-mobile { display: block; }
 }
 @media print {
-  .negf-workflow-desktop { display: block; }
-  .negf-workflow-mobile { display: none; }
+  .negf-workflow-desktop, .negf-figure-desktop { display: block; }
+  .negf-workflow-mobile, .negf-figure-mobile { display: none; }
 }
 
 .negf-lab {
@@ -74,11 +87,11 @@ html[data-bs-theme='dark'] .negf-lab {
 .negf-range-ends { color: var(--text-muted-color, #6c757d); display: flex; justify-content: space-between; font-size: 0.62rem; font-variant-numeric: tabular-nums; line-height: 1.2; }
 .negf-plot-stack { grid-area: plots; display: grid; align-content: start; gap: 0.5rem; min-width: 0; }
 .negf-lab .negf-plot { margin: 0; padding: 0.4rem 0 0; border-top: 1px solid var(--negf-line); min-width: 0; }
-.negf-lab .negf-plot-heading { display: flex; justify-content: space-between; gap: 0.5rem; color: var(--text-color, #343a40); font-size: 0.77rem; font-weight: 600; margin: 0; text-align: left; }
+.negf-lab .negf-plot-heading { display: flex; justify-content: space-between; gap: 0.5rem; color: var(--text-color, #343a40); font-size: 0.85rem; font-weight: 600; margin: 0; text-align: left; }
 .negf-chart-symbol { color: var(--text-muted-color, #6c757d); font-family: Georgia, 'Times New Roman', serif; font-style: italic; font-weight: 400; }
 .negf-lab svg { display: block; width: 100%; height: auto; overflow: visible; }
-.negf-lab svg text { fill: var(--text-muted-color, #6c757d); font-family: inherit; font-size: 18px; }
-.negf-lab .negf-axis-label { font-size: 19px; }
+.negf-lab svg text { fill: var(--text-muted-color, #6c757d); font-family: inherit; font-size: 22px; }
+.negf-lab .negf-axis-label { font-size: 23px; }
 .negf-lab .negf-axis { stroke: var(--text-muted-color, #6c757d); stroke-width: 1; fill: none; }
 .negf-lab .negf-grid { stroke: var(--negf-grid); stroke-width: 1; fill: none; }
 .negf-lab .negf-potential-line { stroke: var(--negf-gold); stroke-width: 2.3; fill: none; stroke-linejoin: round; }
@@ -87,13 +100,13 @@ html[data-bs-theme='dark'] .negf-lab {
 .negf-lab .negf-probe-line { stroke: var(--negf-blue); stroke-width: 1.3; stroke-dasharray: 6 5; opacity: 0.8; }
 .negf-lab .negf-probe-dot { fill: var(--negf-blue); stroke: var(--card-bg, var(--main-bg, #fff)); stroke-width: 2; }
 .negf-lab .negf-resonance-dot { fill: var(--negf-blue); opacity: 0.6; }
-.negf-lab .negf-barrier-label { fill: var(--negf-gold); font-size: 17px; paint-order: stroke; stroke: var(--card-bg, var(--main-bg, #fff)); stroke-width: 4px; stroke-linejoin: round; }
-.negf-legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.2rem 1rem; font-size: 0.65rem; color: var(--text-muted-color, #6c757d); }
+.negf-lab .negf-barrier-label { fill: var(--negf-gold); font-size: 20px; paint-order: stroke; stroke: var(--card-bg, var(--main-bg, #fff)); stroke-width: 4px; stroke-linejoin: round; }
+.negf-legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.2rem 1rem; font-size: 0.76rem; color: var(--text-muted-color, #6c757d); }
 .negf-legend > span { display: inline-flex; align-items: center; gap: 0.4rem; }
 .negf-key { display: inline-block; width: 1rem; height: 0; border-top: 2px solid; }
 .negf-key-potential { border-color: var(--negf-gold); }
 .negf-key-energy { border-color: var(--negf-blue); border-top-style: dashed; }
-.negf-lab .negf-chart-hint { font-size: 0.66rem; line-height: 1.4; margin: 0.2rem 0 0; text-align: center; color: var(--text-muted-color, #6c757d); }
+.negf-lab .negf-chart-hint { font-size: 0.74rem; line-height: 1.4; margin: 0.2rem 0 0; text-align: center; color: var(--text-muted-color, #6c757d); }
 .negf-lab [data-negf-transmission] { cursor: crosshair; touch-action: pan-y; }
 .negf-resonances { display: flex; justify-content: center; flex-wrap: wrap; gap: 0.25rem; margin-top: 0.25rem; }
 .negf-resonances[hidden] { display: none; }
@@ -121,9 +134,9 @@ html[data-bs-theme='dark'] .negf-lab {
   .negf-control-label { font-size: 0.75rem; }
   .negf-readouts dd { font-size: 0.72rem; }
   .negf-readouts dt { font-size: 0.62rem; }
-  .negf-lab svg text { font-size: 24px; }
-  .negf-lab .negf-axis-label { font-size: 25px; }
-  .negf-lab .negf-barrier-label { font-size: 18px; }
+  .negf-lab svg text { font-size: 28px; }
+  .negf-lab .negf-axis-label { font-size: 29px; }
+  .negf-lab .negf-barrier-label { font-size: 26px; }
 }
 
 @container negf (min-width: 520px) {
@@ -135,15 +148,18 @@ html[data-bs-theme='dark'] .negf-lab {
 }
 
 @container negf (min-width: 520px) and (max-width: 619.98px) {
-  .negf-lab svg text { font-size: 23px; }
-  .negf-lab .negf-axis-label { font-size: 24px; }
+  .negf-lab svg text { font-size: 28px; }
+  .negf-lab .negf-axis-label { font-size: 29px; }
+  .negf-lab .negf-barrier-label { font-size: 26px; }
 }
 
 @container negf (min-width: 420px) and (max-width: 519.98px) {
   .negf-controls { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.75rem; }
   .negf-control-label { flex-wrap: wrap; gap: 0.1rem; }
-  .negf-plot-stack { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
-  .negf-lab svg text, .negf-lab .negf-axis-label { font-size: 30px; }
+  .negf-plot-stack { grid-template-columns: minmax(0, 1fr); gap: 0.75rem; }
+  .negf-lab svg text { font-size: 24px; }
+  .negf-lab .negf-axis-label { font-size: 25px; }
+  .negf-lab .negf-barrier-label { font-size: 22px; }
 }
 
 @media print {

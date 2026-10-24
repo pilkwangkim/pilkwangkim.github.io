@@ -1,0 +1,540 @@
+{
+  "generator": "tools/sorting_figures.py",
+  "assets": [
+    {
+      "stem": "fig-01-families",
+      "width": 1536,
+      "height": 1040,
+      "layout": {
+        "labels": 22,
+        "bounds": "PASS",
+        "text_collisions": "PASS",
+        "target_css_width": 690,
+        "minimum_label_css_px": 16.97
+      }
+    },
+    {
+      "stem": "fig-02-inversions",
+      "width": 1536,
+      "height": 976,
+      "layout": {
+        "labels": 15,
+        "bounds": "PASS",
+        "text_collisions": "PASS",
+        "target_css_width": 690,
+        "minimum_label_css_px": 19.97
+      }
+    },
+    {
+      "stem": "fig-03-merge-levels",
+      "width": 1536,
+      "height": 1360,
+      "layout": {
+        "labels": 37,
+        "bounds": "PASS",
+        "text_collisions": "PASS",
+        "target_css_width": 690,
+        "minimum_label_css_px": 18.97
+      }
+    },
+    {
+      "stem": "fig-04-partition",
+      "width": 1536,
+      "height": 1296,
+      "layout": {
+        "labels": 30,
+        "bounds": "PASS",
+        "text_collisions": "PASS",
+        "target_css_width": 690,
+        "minimum_label_css_px": 18.97
+      }
+    },
+    {
+      "stem": "fig-05-lower-bound",
+      "width": 1536,
+      "height": 1280,
+      "layout": {
+        "labels": 24,
+        "bounds": "PASS",
+        "text_collisions": "PASS",
+        "target_css_width": 690,
+        "minimum_label_css_px": 17.97
+      }
+    },
+    {
+      "stem": "fig-06-counting-radix",
+      "width": 1536,
+      "height": 1680,
+      "layout": {
+        "labels": 41,
+        "bounds": "PASS",
+        "text_collisions": "PASS",
+        "target_css_width": 690,
+        "minimum_label_css_px": 19.97
+      }
+    },
+    {
+      "stem": "fig-07-heap-network",
+      "width": 1536,
+      "height": 2000,
+      "layout": {
+        "labels": 30,
+        "bounds": "PASS",
+        "text_collisions": "PASS",
+        "target_css_width": 690,
+        "minimum_label_css_px": 17.97
+      }
+    },
+    {
+      "stem": "fig-08-exercises",
+      "width": 1536,
+      "height": 2320,
+      "layout": {
+        "labels": 35,
+        "bounds": "PASS",
+        "text_collisions": "PASS",
+        "target_css_width": 690,
+        "minimum_label_css_px": 17.97
+      }
+    },
+    {
+      "stem": "fig-01-families-mobile",
+      "width": 768,
+      "height": 1680,
+      "layout": {
+        "labels": 26,
+        "bounds": "PASS",
+        "text_collisions": "PASS",
+        "target_css_width": 358,
+        "minimum_label_css_px": 16.57
+      }
+    },
+    {
+      "stem": "fig-02-inversions-mobile",
+      "width": 768,
+      "height": 1256,
+      "layout": {
+        "labels": 15,
+        "bounds": "PASS",
+        "text_collisions": "PASS",
+        "target_css_width": 358,
+        "minimum_label_css_px": 18.65
+      }
+    },
+    {
+      "stem": "fig-03-merge-levels-mobile",
+      "width": 768,
+      "height": 1776,
+      "layout": {
+        "labels": 39,
+        "bounds": "PASS",
+        "text_collisions": "PASS",
+        "target_css_width": 358,
+        "minimum_label_css_px": 17.61
+      }
+    },
+    {
+      "stem": "fig-04-partition-mobile",
+      "width": 768,
+      "height": 1648,
+      "layout": {
+        "labels": 31,
+        "bounds": "PASS",
+        "text_collisions": "PASS",
+        "target_css_width": 358,
+        "minimum_label_css_px": 16.57
+      }
+    },
+    {
+      "stem": "fig-05-lower-bound-mobile",
+      "width": 768,
+      "height": 1824,
+      "layout": {
+        "labels": 25,
+        "bounds": "PASS",
+        "text_collisions": "PASS",
+        "target_css_width": 358,
+        "minimum_label_css_px": 16.57
+      }
+    },
+    {
+      "stem": "fig-06-counting-radix-mobile",
+      "width": 768,
+      "height": 1872,
+      "layout": {
+        "labels": 41,
+        "bounds": "PASS",
+        "text_collisions": "PASS",
+        "target_css_width": 358,
+        "minimum_label_css_px": 17.61
+      }
+    },
+    {
+      "stem": "fig-07-heap-network-mobile",
+      "width": 768,
+      "height": 1936,
+      "layout": {
+        "labels": 30,
+        "bounds": "PASS",
+        "text_collisions": "PASS",
+        "target_css_width": 358,
+        "minimum_label_css_px": 16.57
+      }
+    },
+    {
+      "stem": "fig-08-exercises-mobile",
+      "width": 768,
+      "height": 2384,
+      "layout": {
+        "labels": 35,
+        "bounds": "PASS",
+        "text_collisions": "PASS",
+        "target_css_width": 358,
+        "minimum_label_css_px": 16.57
+      }
+    },
+    {
+      "stem": "cover-sorting",
+      "width": 1600,
+      "height": 900,
+      "layout": {
+        "labels": 19,
+        "bounds": "PASS",
+        "text_collisions": "PASS",
+        "target_css_width": 690,
+        "minimum_label_css_px": 33.54
+      }
+    }
+  ],
+  "mathematics": {
+    "inversions": [
+      2,
+      1,
+      0
+    ],
+    "merge": {
+      "n": 8,
+      "merge_levels": 3,
+      "items_per_level": 8
+    },
+    "partition": {
+      "input": [
+        4,
+        2,
+        4,
+        1,
+        5,
+        4,
+        3
+      ],
+      "pivot": 4,
+      "valid_partition": [
+        [
+          2,
+          1,
+          3
+        ],
+        [
+          4,
+          4,
+          4
+        ],
+        [
+          5
+        ]
+      ],
+      "kind": "valid grouping, not an implementation trace"
+    },
+    "counting": {
+      "input": [
+        [
+          2,
+          "a"
+        ],
+        [
+          1,
+          "a"
+        ],
+        [
+          2,
+          "b"
+        ],
+        [
+          0,
+          "a"
+        ],
+        [
+          1,
+          "b"
+        ]
+      ],
+      "counts": [
+        1,
+        2,
+        2
+      ],
+      "exclusive_offsets": [
+        0,
+        1,
+        3
+      ],
+      "stable_output": [
+        [
+          0,
+          "a"
+        ],
+        [
+          1,
+          "a"
+        ],
+        [
+          1,
+          "b"
+        ],
+        [
+          2,
+          "a"
+        ],
+        [
+          2,
+          "b"
+        ]
+      ]
+    },
+    "radix": {
+      "input": [
+        [
+          21,
+          "a"
+        ],
+        [
+          13,
+          "a"
+        ],
+        [
+          21,
+          "b"
+        ],
+        [
+          12,
+          "a"
+        ]
+      ],
+      "ones": [
+        [
+          21,
+          "a"
+        ],
+        [
+          21,
+          "b"
+        ],
+        [
+          12,
+          "a"
+        ],
+        [
+          13,
+          "a"
+        ]
+      ],
+      "tens": [
+        [
+          12,
+          "a"
+        ],
+        [
+          13,
+          "a"
+        ],
+        [
+          21,
+          "a"
+        ],
+        [
+          21,
+          "b"
+        ]
+      ]
+    },
+    "decision_tree": [
+      {
+        "order": "abc",
+        "outcomes": [
+          true,
+          true
+        ]
+      },
+      {
+        "order": "acb",
+        "outcomes": [
+          true,
+          false,
+          true
+        ]
+      },
+      {
+        "order": "bac",
+        "outcomes": [
+          false,
+          true
+        ]
+      },
+      {
+        "order": "bca",
+        "outcomes": [
+          false,
+          false,
+          true
+        ]
+      },
+      {
+        "order": "cab",
+        "outcomes": [
+          true,
+          false,
+          false
+        ]
+      },
+      {
+        "order": "cba",
+        "outcomes": [
+          false,
+          false,
+          false
+        ]
+      }
+    ],
+    "bitonic": {
+      "n": 4,
+      "comparators": 6,
+      "depth": 3,
+      "stages": [
+        [
+          [
+            0,
+            1,
+            true
+          ],
+          [
+            2,
+            3,
+            false
+          ]
+        ],
+        [
+          [
+            0,
+            2,
+            true
+          ],
+          [
+            1,
+            3,
+            true
+          ]
+        ],
+        [
+          [
+            0,
+            1,
+            true
+          ],
+          [
+            2,
+            3,
+            true
+          ]
+        ]
+      ],
+      "permutations_checked": 24,
+      "binary_inputs_checked": 16
+    },
+    "heap": {
+      "array": [
+        9,
+        7,
+        8,
+        3,
+        4,
+        2,
+        6
+      ],
+      "build": "Theta(n)",
+      "worst_case_sort": "Theta(n log n)"
+    },
+    "exercises": {
+      "q1": [
+        "2a",
+        "1a",
+        "2b"
+      ],
+      "q2": [
+        4,
+        3,
+        2,
+        1
+      ],
+      "q3": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "q4": {
+        "values": [
+          0,
+          2,
+          7,
+          9,
+          1000000
+        ],
+        "range_inclusive": [
+          0,
+          1000000
+        ]
+      },
+      "q5": {
+        "input": [
+          1,
+          2,
+          0
+        ],
+        "low": 0,
+        "mid": 1,
+        "high": 2,
+        "a_mid": 2,
+        "classified_one_indices": [
+          0
+        ],
+        "unknown_indices": [
+          1,
+          2
+        ],
+        "state": "before the swap; no solution or pointer update shown"
+      }
+    }
+  },
+  "design": {
+    "revision": 2,
+    "background": "white",
+    "strokes": "thin",
+    "palette": {
+      "structure": "#315d80",
+      "stable_or_equal": "#187a75",
+      "unknown_or_digit_key": "#9b701c",
+      "inverted_or_greater": "#ad5149"
+    },
+    "families": [
+      "local updates",
+      "merge",
+      "partition",
+      "heap order",
+      "key distribution",
+      "fixed schedule"
+    ],
+    "dimensions": "unchanged from revision 1"
+  },
+  "svg_text": "Outlined paths; no installed-font dependency",
+  "inspection": "Contact sheets resize each figure to 690px desktop / 358px mobile; browser QA is separate."
+}

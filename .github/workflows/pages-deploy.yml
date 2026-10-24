@@ -76,6 +76,15 @@ jobs:
           node tools/local_editor/test_client_state.js
           node tools/local_editor/test_widget_state.js
 
+      - name: Check sorting article and exercises
+        run: |
+          node tools/test_sorting.js
+          python3 tools/test_sorting_python.py
+          python3 tools/check_sorting_article.py
+
+      - name: Check quantum transport interaction
+        run: node tools/test_negf_core.js
+
       - name: Build site
         run: bundle exec jekyll b -d "_site${{ steps.pages.outputs.base_path }}"
         env:
