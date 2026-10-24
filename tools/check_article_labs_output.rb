@@ -45,6 +45,16 @@ metadata.fetch('post_urls').each do |source, url|
   expected = declared.empty? ? [] : ['/assets/js/article-labs.js', *declared.map { |bundle| "/assets/js/article-labs-#{bundle}.js" }]
   check.call(scripts.grep(%r{/assets/js/article-labs(?:-[a-z-]+)?\.js\z}) == expected, "#{url}: incorrect isolated script loading/order")
   check.call(styles.count('/assets/css/article-labs.css') == (declared.empty? ? 0 : 1), "#{url}: incorrect isolated styles")
+  extra_styles = registry.values.select { |definition| declared.include?(definition['bundle']) && definition['stylesheet'] }.map { |definition| [definition['stylesheet'], definition['bundle']] }.uniq
+  extra_styles.each do |asset, bundle|
+    check.call(styles.count(asset) == 1, "#{url}: missing or duplicated bundle style #{asset}")
+    check.call(File.binread(File.join(root, asset.delete_prefix('/'))) == File.binread(File.join(site, asset.delete_prefix('/'))), "#{url}: stale bundle style #{asset}")
+    style_node = html.css('link[rel="stylesheet"][href]').find { |node| URI.parse(node['href']).path == asset }
+    script_node = html.css('script[src]').find { |node| URI.parse(node['src']).path == "/assets/js/article-labs-#{bundle}.js" }
+    check.call(style_node && script_node && URI.parse(style_node['href']).query == URI.parse(script_node['src']).query, "#{url}: bundle style fingerprint differs #{asset}")
+  end
+  other_styles = registry.values.filter_map { |definition| definition['stylesheet'] }.uniq - extra_styles.map(&:first)
+  check.call((styles & other_styles).empty?, "#{url}: unrelated activity stylesheet loaded")
   (expected + (declared.empty? ? [] : ['/assets/css/article-labs.css'])).each do |asset|
     relative = asset.delete_prefix('/')
     check.call(File.binread(File.join(root, relative)) == File.binread(File.join(site, relative)), "#{url}: stale generated asset #{asset}")

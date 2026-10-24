@@ -19,7 +19,7 @@ image:
   hide_caption: true
 math: true
 toc: true
-interactive_labs: [kaggriculture]
+interactive_labs: [kaggriculture, farm-game]
 ---
 
 <style>
@@ -449,6 +449,8 @@ Plan: 오늘의 농장 운영 후보
 `Option`에는 action 목록뿐 아니라 실행 뒤 칸 상태, 필요한 씨앗·먹이·비료, 생산물과 미래 가치 계산에 필요한 정보가 들어 있다. `Route`는 `(task 번호, option 번호)`를 순서대로 가진다. 경로가 하나 더 생기면 그날 사용할 인력도 늘어난다.
 
 이 표현 덕분에 “토마토 세 칸을 늘리고 일손 두 명을 추가한다”는 변경을 action 문자열 719개를 손으로 고치는 대신, **작업 대안과 경로의 재배치**로 다룰 수 있다. 수정된 표현을 실행 명령으로 내보내는 일은 별도의 실행기가 맡는다.
+
+{% include interactive/article-lab.html id="kaggriculture-farm-game" %}
 
 ## 6. 초반 투자안 구성: 고용·토지·작물의 동시 변경
 

@@ -38,19 +38,32 @@ Jekyll::Hooks.register :site, :post_read do |site|
   common = %w[assets/css/article-labs.css assets/js/article-labs.js _includes/interactive/article-lab.html]
   content = common.map { |path| path + "\0" + File.binread(File.join(site.source, path)) + "\0" }.join
   site.data['article_labs_version'] = Digest::SHA256.hexdigest(content)[0, 12]
+  stylesheets = {}
   site.data['article_lab_bundle_versions'] = bundles.keys.to_h do |bundle|
     path = "assets/js/article-labs-#{bundle}.js"
     raise Jekyll::Errors::FatalException, "Missing article lab bundle #{path}" unless File.file?(File.join(site.source, path))
 
     definitions = registry.select { |_, definition| definition['bundle'] == bundle }
+    styles = definitions.values.filter_map { |definition| definition['stylesheet'] }.uniq
+    raise Jekyll::Errors::FatalException, "Conflicting article lab styles for #{bundle}" if styles.length > 1
+
+    stylesheet = styles.first
+    if stylesheet
+      unless stylesheet.is_a?(String) && stylesheet.match?(%r{\A/assets/css/[a-z0-9-]+\.css\z})
+        raise Jekyll::Errors::FatalException, "Invalid article lab stylesheet for #{bundle}"
+      end
+      stylesheets[bundle] = stylesheet
+    end
     dependencies = definitions.values.flat_map { |definition| Array(definition['data']) }.uniq.sort.map do |asset|
       unless asset.is_a?(String) && asset.start_with?('/assets/') && !asset.split('/').include?('..')
         raise Jekyll::Errors::FatalException, "Invalid article lab data path #{asset.inspect}"
       end
       asset + "\0" + File.binread(File.join(site.source, asset.delete_prefix('/'))) + "\0"
     end.join
-    [bundle, Digest::SHA256.hexdigest(content + File.binread(File.join(site.source, path)) + ArticleLabAssets.registry_bytes(definitions) + dependencies)[0, 12]]
+    style_bytes = stylesheet ? stylesheet + "\0" + File.binread(File.join(site.source, stylesheet.delete_prefix('/'))) + "\0" : ''
+    [bundle, Digest::SHA256.hexdigest(content + File.binread(File.join(site.source, path)) + ArticleLabAssets.registry_bytes(definitions) + dependencies + style_bytes)[0, 12]]
   end
+  site.data['article_lab_stylesheets'] = stylesheets
   site.posts.docs.each do |post|
     declared = Array(post.data['interactive_labs'])
     declared.each do |bundle|

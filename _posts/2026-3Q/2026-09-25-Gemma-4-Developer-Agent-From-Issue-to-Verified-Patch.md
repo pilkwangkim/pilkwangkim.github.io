@@ -17,7 +17,7 @@ pin: false
 published: true
 topic: gemma-4
 lang: en
-interactive_labs: [gemma]
+interactive_labs: [gemma, agent-challenges]
 translation_key: gemma-4-developer-agent
 series: gemma-4
 series_order: 1
@@ -341,6 +341,8 @@ harness interprets. The resulting observation becomes part of the input for its 
 decision. A tool error is also an observation; silently ignoring it breaks this feedback loop.
 
 {% include interactive/article-lab.html id="gemma-bug" %}
+
+{% include interactive/article-lab.html id="gemma-test-challenge" %}
 
 ## 2. Why Google is asking for an open-model developer agent
 

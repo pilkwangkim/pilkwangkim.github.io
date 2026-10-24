@@ -25,7 +25,7 @@ layout: compress
     {% assign rendered_head = rendered_head | replace: '</head>', interactive_head %}
   {% endif %}
   {% if page.interactive_labs.size > 0 %}
-    {% capture labs_head %}<link rel="stylesheet" href="{{ '/assets/css/article-labs.css' | relative_url }}?v={{ site.data.article_labs_version }}"></head>{% endcapture %}
+    {% capture labs_head %}<link rel="stylesheet" href="{{ '/assets/css/article-labs.css' | relative_url }}?v={{ site.data.article_labs_version }}">{% for bundle in page.interactive_labs %}{% assign lab_stylesheet = site.data.article_lab_stylesheets[bundle] %}{% if lab_stylesheet %}<link rel="stylesheet" href="{{ lab_stylesheet | relative_url }}?v={{ site.data.article_lab_bundle_versions[bundle] }}">{% endif %}{% endfor %}</head>{% endcapture %}
     {% assign rendered_head = rendered_head | replace: '</head>', labs_head %}
   {% endif %}
   {{ rendered_head | replace: theme_css_original, theme_css_versioned }}

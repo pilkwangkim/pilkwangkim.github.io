@@ -5,7 +5,7 @@ date: 2026-10-23 10:00:00 +0900
 categories: [AI, Kaggle]
 tags: [kaggle, quantum-circuit-compilation, quantum-computing, coding-agents, verification, optimization, working-note]
 math: true
-interactive_labs: [quantum]
+interactive_labs: [quantum, quantum-workbench]
 mermaid: true
 image:
   path: /assets/img/posts/quantum-circuit-compilation/cover-3-flat-schematic.webp
@@ -178,6 +178,8 @@ $$
 *그림 2. 위쪽은 phase를 남기고 scratch를 비우는 일반적인 구조다. 아래쪽은 임시 AND 결과를 지우는 두 가지 방법이다. ●는 control, ⊕는 target bit 반전, 점선은 고전 측정 비트다. HMR을 쓰는 경로에는 측정 결과에 따른 phase 보정이 필요하다.*
 
 {% include interactive/article-lab.html id="quantum-cleanup" %}
+
+{% include interactive/article-lab.html id="quantum-circuit-puzzle" %}
 
 ### 2.4 측정으로 uncomputation 비용을 줄이는 방법
 

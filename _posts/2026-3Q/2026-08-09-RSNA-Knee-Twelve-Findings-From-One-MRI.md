@@ -18,7 +18,7 @@ lang: en
 translation_key: rsna-knee-competition-structure
 series: rsna-knee
 series_order: 0
-interactive_labs: [rsna]
+interactive_labs: [rsna, rsna-viewer]
 ---
 
 The [RSNA Knee Abnormality Detection competition](https://www.kaggle.com/competitions/rsna-knee-abnormality-detection) asks for twelve finding probabilities from one MRI study. The input is an entire examination, assembled from several image series; the output is a fixed-length vector. A useful model has to identify relevant evidence within that collection and combine it at the level of the examination.
@@ -130,6 +130,8 @@ Slice sampling creates the same tension through the volume. With a fixed number 
 _Figure 3. Geometry establishes spatial order and scale. Crop size and sampling density then determine which anatomical evidence reaches the model._
 
 {% include interactive/article-lab.html id="rsna-geometry" %}
+
+{% include interactive/article-lab.html id="rsna-linked-viewer" %}
 
 ## Aggregation across slices and views
 

@@ -1,0 +1,5 @@
+quantum-circuit-puzzle:
+  bundle: quantum-workbench
+  stylesheet: /assets/css/quantum-workbench.css
+  title: {en: "Circuit workshop: preserve the action, remove the gates", ko: "회로 퍼즐: 동작은 보존하고 gate는 줄이기"}
+  note: {en: "Exact complex state vectors for 2–3 qubits, using H, X, Z, S, T, CX, CZ and CCX. All computational data inputs are compared under one shared global phase; scratch qubits start and finish at zero. The maximum complex-amplitude discrepancy and scratch leakage probability must each be below 10⁻⁹. The editor allows at most 12 gates. This small full-state model does not run the competition verifier.", ko: "H, X, Z, S, T, CX, CZ, CCX로 2–3 qubit의 복소 상태를 직접 계산합니다. 모든 computational data 입력을 하나의 공통 global phase 아래 비교하고 scratch는 처음과 끝에 0이어야 합니다. 복소 amplitude 차이의 최댓값과 scratch 잔류 확률이 각각 10⁻⁹ 미만이어야 합니다. 편집 회로는 최대 12 gate입니다. 이 소규모 전체 상태 모형은 대회 verifier를 실행하지 않습니다."}

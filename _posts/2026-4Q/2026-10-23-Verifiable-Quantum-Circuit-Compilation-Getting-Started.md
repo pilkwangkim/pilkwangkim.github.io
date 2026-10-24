@@ -5,7 +5,7 @@ date: 2026-10-23 10:00:00 +0900
 categories: [AI, Kaggle]
 tags: [kaggle, quantum-circuit-compilation, quantum-computing, coding-agents, verification, optimization, working-note]
 math: true
-interactive_labs: [quantum]
+interactive_labs: [quantum, quantum-workbench]
 mermaid: true
 image:
   path: /assets/img/posts/quantum-circuit-compilation/cover-3-flat-schematic.webp
@@ -178,6 +178,8 @@ Here f(x) is actually an approximation represented with finitely many bits. The 
 *Figure 2. The upper path clears workspace while retaining the phase. The lower paths show two ways to erase a temporary AND. Dots are controls, ⊕ is a bit-flip target, and the dashed wire carries a classical measurement bit. The HMR path includes a phase correction controlled by its measurement result. Arbitrary computed values cannot always be erased for free.*
 
 {% include interactive/article-lab.html id="quantum-cleanup" %}
+
+{% include interactive/article-lab.html id="quantum-circuit-puzzle" %}
 
 ### 2.4 How measurement-based uncomputation saves a Toffoli
 

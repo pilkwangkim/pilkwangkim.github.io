@@ -12,7 +12,7 @@ image:
   alt: "Part 1 cover: the replay contract, trace-cell geometry, and trajectory search"
 topic: ai-agent-security
 lang: en
-interactive_labs: [security]
+interactive_labs: [security, agent-challenges]
 translation_key: ai-agent-security-01
 series: ai-agent-security
 series_order: 1
@@ -56,6 +56,8 @@ $$
 $$
 
 This is the **indirect prompt-injection** threat model (Greshake et al., 2023) wearing an agentic, multi-step body — the same lineage as academic agent-security benchmarks like AgentDojo (Debenedetti et al., 2024), where injected instructions hide inside the data an agent retrieves.
+
+{% include interactive/article-lab.html id="security-trust-puzzle" %}
 
 ### 1.2 The competition framing, host, and prizes
 

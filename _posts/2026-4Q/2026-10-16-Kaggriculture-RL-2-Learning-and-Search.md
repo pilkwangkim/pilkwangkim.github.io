@@ -19,7 +19,7 @@ image:
   hide_caption: true
 math: true
 toc: true
-interactive_labs: [kaggriculture]
+interactive_labs: [kaggriculture, farm-game]
 ---
 
 <style>
@@ -449,6 +449,8 @@ A `Task` contains coordinates and several `Option` alternatives. A crop tile can
 An `Option` stores not only actions but also the resulting tile state, required seeds, feed and fertilizer, products, and information needed for future-value calculations. A `Route` contains an ordered sequence of `(task index, option index)` pairs. Adding a route can increase the workforce used that day.
 
 This representation turns “add three tomato tiles and two workers” into **a rearrangement of task options and routes**, instead of a manual edit of 719 command strings. A separate executor converts the modified representation into engine commands.
+
+{% include interactive/article-lab.html id="kaggriculture-farm-game" %}
 
 ## 6. Change workers, land, and crops together
 

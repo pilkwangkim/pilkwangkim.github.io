@@ -17,7 +17,7 @@ pin: false
 published: true
 topic: gemma-4
 lang: ko
-interactive_labs: [gemma]
+interactive_labs: [gemma, agent-challenges]
 translation_key: gemma-4-developer-agent
 series: gemma-4
 series_order: 1
@@ -272,6 +272,8 @@ Illustrative outcome: resolved, if those independent verification checks pass.
 모델은 파일을 직접 읽는 대신 정해진 형식으로 요청을 보낸다. harness가 요청을 해석해 도구를 실행하면 그 결과가 다음 모델 호출의 입력에 포함된다. 명령이 실패했을 때 받은 오류 메시지도 마찬가지다. 에이전트가 이를 읽고 다음 시도를 바꿔야 하며, 성공한 것처럼 진행하면 이후 판단도 잘못된 전제 위에서 이루어진다.
 
 {% include interactive/article-lab.html id="gemma-bug" %}
+
+{% include interactive/article-lab.html id="gemma-test-challenge" %}
 
 ## 2. Google이 open-weight 개발 에이전트를 만들려는 이유
 

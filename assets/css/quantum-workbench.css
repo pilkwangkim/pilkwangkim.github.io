@@ -1,0 +1,37 @@
+/* Gate editing remains operable by keyboard and at narrow article widths. */
+.al-quantum-workbench .qw-circuit { display:flex; flex-wrap:wrap; align-items:stretch; gap:.35rem; padding:.5rem 0; }
+.al-quantum-workbench .qw-gate { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.14rem; min-width:48px; min-height:78px; padding:.3rem .4rem; color:inherit; border:1px solid var(--al-line); border-radius:.3rem; background:transparent; font:inherit; cursor:pointer; }
+.al-quantum-workbench .qw-gate[aria-pressed='true'] { border-color:var(--al-blue); box-shadow:inset 0 0 0 1px var(--al-blue); background:color-mix(in srgb,var(--al-blue) 9%,transparent); }
+.al-quantum-workbench .qw-step { font-size:.6rem; color:var(--text-muted-color); }
+.al-quantum-workbench .qw-wire { white-space:pre; font-family:var(--font-family-code,monospace); font-size:.7rem; }
+.al-quantum-workbench .qw-end { max-width:68px; font-size:.68rem; }
+.al-quantum-workbench .qw-goal { font-weight:600; }
+.al-quantum-workbench .qw-target { color:var(--al-blue); }
+.al-quantum-workbench .qw-verdict { padding:.45rem .55rem; border-left:2px solid var(--al-gold); }
+.al-quantum-workbench[data-solved='true'] .qw-verdict { border-left-color:var(--al-blue); }
+.al-quantum-workbench .qw-state { min-width:0; margin:.3rem 0; font-size:.72rem; }
+.al-quantum-workbench .qw-state summary { cursor:pointer; }
+.al-quantum-workbench .qw-solution { color:var(--al-blue); }
+.al-quantum-workbench .al-button:disabled { opacity:.45; cursor:default; }
+@container articlelab (max-width:419.98px) { .al-quantum-workbench .al-control:has(select) { grid-column:1 / -1; } }
+/* Editing is primary; probe controls stay nearby behind one disclosure. */
+.al-quantum-workbench .qw-actions { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.35rem; min-width:0; }
+.al-quantum-workbench .qw-actions .al-button { min-width:0; padding:.3rem .25rem; font-size:.68rem; }
+.al-quantum-workbench .qw-probe { min-width:0; font-size:.72rem; }
+.al-quantum-workbench .qw-probe summary { cursor:pointer; padding:.3rem 0; }
+.al-quantum-workbench .qw-probe .al-control { margin:.4rem 0; }
+.content .al-quantum-workbench :is(details.qw-probe,details.qw-state) { margin:.25rem 0; padding:0; border:0; background:transparent; }
+.content .al-quantum-workbench :is(details.qw-probe,details.qw-state) > summary { margin:0; font-weight:400; }
+.al-quantum-workbench .al-metrics { grid-template-columns:repeat(3,minmax(0,1fr)); border-top:0; border-bottom:1px solid var(--al-line); padding:0 0 .4rem; }
+.al-quantum-workbench .al-share { min-width:0; }
+.al-quantum-workbench .al-share-button { width:100%; }
+@container articlelab (min-width:520px) {
+  .al-quantum-workbench .al-body { grid-template-columns:210px minmax(0,1fr); }
+  .al-quantum-workbench .al-controls { grid-template-columns:minmax(0,1fr); gap:.45rem; }
+}
+@container articlelab (max-width:519.98px) {
+  .al-quantum-workbench .al-controls { grid-template-columns:repeat(2,minmax(0,1fr)); gap:.4rem; }
+  .al-quantum-workbench .qw-actions { grid-template-columns:repeat(3,minmax(0,1fr)); }
+  .al-quantum-workbench .qw-probe { grid-column:1 / -1; }
+  .al-quantum-workbench .al-controls > .al-control:has(select), .al-quantum-workbench .qw-actions, .al-quantum-workbench .al-share, .al-quantum-workbench .qw-probe[open] { grid-column:1 / -1; }
+}

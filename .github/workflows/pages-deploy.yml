@@ -51,6 +51,13 @@ jobs:
       - name: Check article asset fingerprints
         run: bundle exec ruby tools/test_article_lab_assets.rb
 
+      - name: Check article interactions
+        run: |
+          for test in tools/test_article_labs_*.js; do
+            node "$test"
+          done
+          node tools/check_article_labs_models.js
+
       - name: Build site
         run: bundle exec jekyll b -d "_site${{ steps.pages.outputs.base_path }}"
         env:

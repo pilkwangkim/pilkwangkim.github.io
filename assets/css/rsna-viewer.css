@@ -1,0 +1,23 @@
+.al-rsna-viewer .rv-provenance { color:var(--text-muted-color); font-size:.69rem; }
+.al-rsna-viewer .rv-planes { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.45rem; align-items:start; }
+.al-rsna-viewer .rv-tile { min-width:0; border:1px solid var(--al-line); border-radius:.3rem; overflow:hidden; }
+.al-rsna-viewer .rv-tile[data-active=true] { border-color:var(--al-blue); }
+.al-rsna-viewer .rv-plane-label { padding:.25rem; font-size:.64rem; text-align:center; }
+.al-rsna-viewer .rv-slice { width:100%; height:auto; display:block; cursor:crosshair; touch-action:none; background:#080808; }
+.al-rsna-viewer .rv-slice:focus-visible { outline:2px solid var(--al-blue); outline-offset:-3px; }
+.al-rsna-viewer .rv-crosshair { fill:none; stroke:#6db9e8; stroke-width:.7; vector-effect:non-scaling-stroke; pointer-events:none; }
+.al-rsna-viewer .rv-crop-box { fill:none; stroke:#e2bd68; stroke-width:1.4; vector-effect:non-scaling-stroke; pointer-events:none; }
+.al-rsna-viewer .rv-crop-panel { display:grid; grid-template-columns:96px minmax(0,1fr); align-items:center; gap:.6rem; padding-top:.45rem; border-top:1px solid var(--al-line); }
+.al-rsna-viewer .rv-cropped { width:96px; height:96px; display:block; background:#080808; border:1px solid var(--al-line); }
+.al-rsna-viewer .rv-crop-panel strong { font-size:.73rem; }
+.al-rsna-viewer .rv-crop-panel p { font-size:.69rem; }
+.content .al-rsna-viewer details.rv-coordinates { grid-column:1 / -1; margin:.25rem 0; padding:0; border:0; background:transparent; font-size:.72rem; }
+.content .al-rsna-viewer details.rv-coordinates > summary { margin:0; cursor:pointer; font-weight:400; }
+.al-rsna-viewer .rv-coordinates .al-control { margin:.35rem 0; }
+@container articlelab (max-width:519.98px) {
+  .al-rsna-viewer .rv-planes { grid-template-columns:minmax(0,1fr); width:192px; max-width:100%; margin:0 auto; }
+  .al-rsna-viewer .rv-tile:not([data-active=true]) { display:none; }
+  .al-rsna-viewer .rv-slice { width:100%; }
+  .al-rsna-viewer .rv-crop-panel { grid-template-columns:80px minmax(0,1fr); }
+  .al-rsna-viewer .rv-cropped { width:80px; height:80px; }
+}

@@ -1,0 +1,7 @@
+rsna-linked-viewer:
+  bundle: rsna-viewer
+  stylesheet: /assets/css/rsna-viewer.css
+  title: {en: "Explore one volume through three planes", ko: "세 단면에서 같은 위치 찾아보기"}
+  note:
+    en: "Analytic synthetic knee phantom, 96 × 96 × 128 mm. Ellipsoids and a 4 mm bright sphere define arbitrary grayscale values; these are geometric structures, not patient MRI, lesion labels or model predictions. Each plane samples the same volume. The full views use 40 horizontal samples; the square crop uses its selected output grid. Axes are schematic x/y/z, without DICOM patient orientation."
+    ko: "96 × 96 × 128 mm의 해석적 합성 무릎 모형입니다. 타원체와 반지름 4 mm의 밝은 구에 임의의 회색값을 부여했으며 환자 MRI·병변 라벨·모델 예측이 아닙니다. 세 단면은 같은 모형을 자릅니다. 전체 단면은 가로 40개 지점, crop은 선택한 출력 격자로 sampling합니다. x/y/z는 모형 좌표이며 DICOM 환자 방향을 나타내지 않습니다."

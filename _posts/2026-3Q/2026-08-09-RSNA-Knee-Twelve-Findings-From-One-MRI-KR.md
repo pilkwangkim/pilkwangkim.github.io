@@ -18,7 +18,7 @@ lang: ko
 translation_key: rsna-knee-competition-structure
 series: rsna-knee
 series_order: 0
-interactive_labs: [rsna]
+interactive_labs: [rsna, rsna-viewer]
 ---
 
 [RSNA Knee Abnormality Detection 대회](https://www.kaggle.com/competitions/rsna-knee-abnormality-detection)는 무릎 MRI 한 검사에서 열두 소견의 확률을 예측하는 문제다. 입력은 여러 촬영 series로 이뤄지지만 출력은 열두 숫자로 고정돼 있다. 모델은 각 소견을 판단하는 데 필요한 정보를 영상에서 찾아 검사 단위의 예측으로 모아야 한다.
@@ -130,6 +130,8 @@ Volume에서 slice를 고를 때도 비슷한 절충이 필요하다. 개수를 
 _그림 3. Geometry로 공간적 순서와 크기를 정한다. 이어서 crop과 표본화 밀도에 따라 모델에 들어가는 해부학적 근거가 달라진다._
 
 {% include interactive/article-lab.html id="rsna-geometry" %}
+
+{% include interactive/article-lab.html id="rsna-linked-viewer" %}
 
 ## 영상 특징과 검사 단위 예측
 

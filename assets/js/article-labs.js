@@ -34,7 +34,22 @@
     if (value !== 0 && Math.abs(value) < 1e-4) return value.toExponential(2);
     return value.toLocaleString('en-US', { maximumFractionDigits: digits, useGrouping: false });
   }
-  if (typeof module === 'object' && module.exports) module.exports = { parseCSV, format };
+  function encodeSharedState(key, state) {
+    if (typeof key !== 'string' || !/^[a-z][a-z0-9-]{0,79}$/.test(key)) throw new Error('Invalid experiment key');
+    const json = JSON.stringify({ v: 1, key, state });
+    const bytes = new TextEncoder().encode(json);
+    if (bytes.length > 6000) throw new Error('Experiment settings are too long');
+    return global.btoa(Array.from(bytes, b => String.fromCharCode(b)).join('')).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  }
+  function decodeSharedState(encoded) {
+    if (typeof encoded !== 'string' || encoded.length > 8000 || !/^[A-Za-z0-9_-]+$/.test(encoded)) throw new Error('Invalid experiment settings');
+    const bytes = Uint8Array.from(global.atob(encoded.replace(/-/g, '+').replace(/_/g, '/')), c => c.charCodeAt(0));
+    if (bytes.length > 6000) throw new Error('Experiment settings are too long');
+    const value = JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(bytes));
+    if (!value || value.v !== 1 || typeof value.key !== 'string' || !/^[a-z][a-z0-9-]{0,79}$/.test(value.key) || !Object.prototype.hasOwnProperty.call(value, 'state')) throw new Error('Invalid experiment settings');
+    return value;
+  }
+  if (typeof module === 'object' && module.exports) module.exports = { parseCSV, format, encodeSharedState, decodeSharedState };
   if (typeof document === 'undefined') return;
   const NS = 'http://www.w3.org/2000/svg';
   const factories = new Map();
@@ -129,7 +144,7 @@
     const text = (en, korean) => ko ? korean : en;
     const defaults = [];
     const updateLabels = [];
-    let render = () => {}, resetState = () => {};
+    let render = () => {}, resetState = () => {}, sharedState = null;
     const state = { phase: 'loading', invalid: false }; states.set(root, state);
     root.dataset.ready = 'loading'; root.setAttribute('aria-busy', 'true'); ui.disabled = true; reset.disabled = true;
     ui.replaceChildren(el('legend', { class: 'al-sr-only' }, text('Controls', '조작'))); metrics.replaceChildren(); view.replaceChildren(); status.textContent = '';
@@ -159,7 +174,31 @@
         const button = el('button', { type: 'button', class: 'al-button' }, text(en, korean)); button.addEventListener('click', () => safely(handler, false)); ui.append(button); return button;
       },
       onChange: handler => { render = handler; render(); },
-      onReset: handler => { resetState = handler; }
+      onReset: handler => { resetState = handler; },
+      stateLink: (key, config) => {
+        if (key !== root.dataset.articleLab || !config || typeof config.read !== 'function' || typeof config.write !== 'function') throw new Error('Invalid experiment link configuration');
+        root.classList.add('al-workshop');
+        sharedState = { key, ...config };
+        const fallback = el('input', { type: 'text', readonly: true, class: 'al-share-url', 'aria-label': text('Experiment link', '실험 설정 링크'), hidden: true });
+        const copy = el('button', { type: 'button', class: 'al-button al-share-button' }, text('Copy experiment link', '실험 설정 링크 복사'));
+        copy.addEventListener('click', async () => {
+          try {
+            const url = new URL(global.location.href);
+            url.searchParams.set('labstate', encodeSharedState(key, config.read()));
+            url.hash = root.id;
+            fallback.value = url.href;
+            try {
+              await global.navigator.clipboard.writeText(url.href);
+              fallback.hidden = true;
+              status.textContent = text('Experiment link copied.', '실험 설정 링크를 복사했습니다.');
+            } catch (_) {
+              fallback.hidden = false; fallback.focus(); fallback.select();
+              status.textContent = text('Copy the selected experiment link.', '선택한 실험 설정 링크를 복사해 주세요.');
+            }
+          } catch (_) { status.textContent = text('These settings cannot fit in a share link.', '설정이 길어 공유 링크를 만들 수 없습니다.'); }
+        });
+        ui.append(el('div', { class: 'al-share' }, [copy, fallback]));
+      }
     };
     const safely = (callback, validateFirst = true) => {
       const numbers = [...ui.querySelectorAll('input[type="number"]')];
@@ -188,10 +227,27 @@
     reset.onclick = () => {
       if (state.phase === 'error') { initialize(root, factory); return; }
       defaults.forEach(item => { item.input.value = item.value; item.input.checked = item.checked; item.input.dispatchEvent(new Event('change', { bubbles: false })); });
-      safely(() => { resetState(); render(); });
+      safely(() => { resetState(); render(); }, false);
     };
     try {
       await factory(ctx);
+      if (sharedState) {
+        const encoded = new URL(global.location.href).searchParams.get('labstate');
+        if (encoded) {
+          try {
+            const saved = decodeSharedState(encoded);
+            if (saved.key === sharedState.key) {
+              if (sharedState.write(saved.state) === false) throw new Error('Rejected experiment settings');
+              updateLabels.forEach(update => update());
+              status.textContent = text('Shared experiment settings restored.', '공유된 실험 설정을 불러왔습니다.');
+            }
+          } catch (_) {
+            defaults.forEach(item => { item.input.value = item.value; item.input.checked = item.checked; });
+            resetState(); render(); updateLabels.forEach(update => update());
+            status.textContent = text('Invalid shared settings. Initial settings are shown.', '공유 설정이 올바르지 않아 초기값을 표시합니다.');
+          }
+        }
+      }
       state.phase = 'ready'; root.dataset.ready = 'true'; ui.disabled = false;
     } catch (error) {
       state.phase = 'error'; root.dataset.ready = 'error';

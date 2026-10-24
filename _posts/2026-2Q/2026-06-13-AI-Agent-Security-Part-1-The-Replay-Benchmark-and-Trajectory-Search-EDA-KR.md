@@ -12,7 +12,7 @@ image:
   alt: "1편 표지: 리플레이 규칙, 트레이스 셀 구조, 트래젝터리 탐색"
 topic: ai-agent-security
 lang: ko
-interactive_labs: [security]
+interactive_labs: [security, agent-challenges]
 translation_key: ai-agent-security-01
 series: ai-agent-security
 series_order: 1
@@ -56,6 +56,8 @@ $$
 $$
 
 이것은 **indirect prompt-injection** 위협 모델(Greshake et al., 2023)이 agent 기반 multi-step 형태로 구체화된 것이며, agent가 가져오는 데이터 안에 지시가 숨어 있는 AgentDojo(Debenedetti et al., 2024) 같은 학술 agent-security 벤치마크와 같은 계보입니다.
+
+{% include interactive/article-lab.html id="security-trust-puzzle" %}
 
 ### 1.2 대회의 성격, 주최, 상금
 

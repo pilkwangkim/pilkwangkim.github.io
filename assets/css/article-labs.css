@@ -49,6 +49,17 @@ html[data-bs-theme='dark'] .article-lab { --al-blue:#8aaecd; --al-gold:#c8aa75; 
 .al-table-wrap th { position:sticky; top:0; background:var(--card-bg,var(--main-bg,#fff)); }
 .al-sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
 .article-lab[data-ready='error'] .al-status { color:var(--al-red); }
+.al-share { grid-column:1 / -1; display:grid; gap:.35rem; min-width:0; }
+.al-share-url { width:100%; min-width:0; font:inherit; font-size:.7rem; padding:.35rem; border:1px solid var(--al-line); border-radius:.25rem; color:inherit; background:var(--main-bg,#fff); }
+.al-share-url[hidden] { display:none; }
+/* Keep the five workbenches comfortable to read and operate on touch screens. */
+@media (max-width:767.98px), (pointer:coarse) {
+  .article-lab.al-workshop :is(select,textarea,input:not([type=range]):not([type=checkbox])) { font-size:16px; min-height:44px; }
+  .article-lab.al-workshop :is(button:not(.qw-gate),summary) { min-width:44px; min-height:44px; touch-action:manipulation; }
+  .article-lab.al-workshop input[type=range] { height:44px; min-height:44px; }
+  .article-lab.al-workshop .al-checkbox { min-height:44px; align-items:center; }
+  .article-lab.al-workshop .al-checkbox label { display:flex; align-items:center; min-height:44px; }
+}
 @media(max-width:575px) { .article-lab { padding:.75rem .65rem; } .al-chart text { font-size:25px; } .al-chart .al-axis-label { font-size:26px; } .al-chart .al-legend-label { font-size:20px; } .al-metrics dd { font-size:.72rem; } }
 @container articlelab (min-width:520px) { .al-body { grid-template-columns:170px minmax(0,1fr); gap:1rem; align-items:start; } .al-sidebar { display:grid; align-content:start; gap:.6rem; min-width:0; } .al-metrics { grid-template-columns:minmax(0,1fr); } }
 @container articlelab (min-width:420px) and (max-width:519.98px) { .al-controls { grid-template-columns:repeat(3,minmax(0,1fr)); } }
