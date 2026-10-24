@@ -36,3 +36,5 @@ The context has `root`, `ui` (controls), `view` (charts/content), `metrics` and 
 The root has `data-local-editor-skip` and `tex2jax_ignore`; no application state is saved to post source. Initial controls are unavailable until the factory succeeds. Errors show a concise status with retry via Reset. Do not add model/API calls, invented measured results or new dependencies. Historical records use discrete presets; synthetic examples state their exact assumptions. Module assets are fingerprinted and loaded only by posts naming that bundle.
 
 Declare every fetched JSON/CSV path in the registry's `data` array. Those source bytes participate in the bundle fingerprint and the versioned data URL.
+
+Registry fingerprints use sorted-key UTF-8 JSON rather than Ruby object inspection, so local and CI Ruby versions produce the same asset URLs. Run `bundle exec ruby tools/test_article_lab_assets.rb` to check this contract.

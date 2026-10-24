@@ -48,6 +48,9 @@ jobs:
       - name: Check post metadata
         run: bundle exec ruby tools/check_blog_metadata.rb
 
+      - name: Check article asset fingerprints
+        run: bundle exec ruby tools/test_article_lab_assets.rb
+
       - name: Build site
         run: bundle exec jekyll b -d "_site${{ steps.pages.outputs.base_path }}"
         env:

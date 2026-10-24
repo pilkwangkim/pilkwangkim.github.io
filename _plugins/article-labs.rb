@@ -1,6 +1,21 @@
 # frozen_string_literal: true
 
 require 'digest'
+require 'json'
+
+module ArticleLabAssets
+  def self.canonical(value)
+    case value
+    when Hash then value.keys.sort.to_h { |key| [key, canonical(value.fetch(key))] }
+    when Array then value.map { |item| canonical(item) }
+    else value
+    end
+  end
+
+  def self.registry_bytes(definitions)
+    JSON.generate(canonical(definitions)).b
+  end
+end
 
 Jekyll::Hooks.register :site, :post_read do |site|
   registry = {}
@@ -34,7 +49,7 @@ Jekyll::Hooks.register :site, :post_read do |site|
       end
       asset + "\0" + File.binread(File.join(site.source, asset.delete_prefix('/'))) + "\0"
     end.join
-    [bundle, Digest::SHA256.hexdigest(content + File.binread(File.join(site.source, path)) + definitions.to_s.b + dependencies)[0, 12]]
+    [bundle, Digest::SHA256.hexdigest(content + File.binread(File.join(site.source, path)) + ArticleLabAssets.registry_bytes(definitions) + dependencies)[0, 12]]
   end
   site.posts.docs.each do |post|
     declared = Array(post.data['interactive_labs'])
