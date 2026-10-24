@@ -1,5 +1,5 @@
 ---
-title: "정렬 알고리즘: 원리와 Python 구현, 복잡도 분석"
+title: "정렬 알고리즘: 원리와 구현, 시간 복잡도 분석"
 description: "정렬의 속도는 비교 횟수, record 이동, 입력의 구조에 따라 달라진다. Invariant와 연산 횟수는 correctness, stability, best·worst-case time complexity를 연결한다."
 date: 2026-10-17 09:00:00 +0900
 categories: ["Data Structure & Algorithm"]

@@ -1,5 +1,5 @@
 ---
-title: "Sorting Algorithms: Principles, Python Implementations, and Complexity"
+title: "Sorting Algorithms: Principles, Implementations, and Time Complexity Analysis"
 description: "Comparisons, partitions, heaps, and digit passes organize data in different ways. Their invariants and operation counts explain correctness, stability, and best- and worst-case performance."
 date: 2026-10-17 09:00:00 +0900
 categories: ["Data Structure & Algorithm"]
