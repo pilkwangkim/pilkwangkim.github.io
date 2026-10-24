@@ -12,6 +12,7 @@ image:
   alt: "5편 표지: 탐욕 디코딩, 오염 이력, 원점수 한계"
 topic: ai-agent-security
 lang: ko
+interactive_labs: [security]
 translation_key: ai-agent-security-05
 series: ai-agent-security
 series_order: 5
@@ -176,6 +177,8 @@ $$
 </figure>
 
 *그림 1. 판정 조건이 확인하는 최근 두 이벤트는 가드레일이 기억하는 최근 여덟 소스 안에 들어간다. 아래 비용 분해에서는 후보 처리 시간의 대부분이 상호작용 단계에서 발생했다.*
+
+{% include interactive/article-lab.html id="security-cost" %}
 
 ## 11. 숫자 하나가 말해줄 수 있는 것
 

@@ -16,6 +16,7 @@ lang: en
 translation_key: biohub-03
 series: biohub
 series_order: 3
+interactive_labs: [biohub]
 ---
 
 <style>
@@ -315,6 +316,8 @@ The gate also raised node recall by $$+0.001145$$ while lowering the score, the 
 Its picture was mixed: positive in aggregate, negative in one fold and one prefix. I submitted three variants as sanity checks of that rejection on unseen embryos. The two broadly applied variants scored $$0.004$$ lower than the $$0.916$$ division configuration described in Section 6, consistent with the local rejection.
 
 Together the two models became clause C4: judge a component by the graph it produces, in an exact replay, not by its own accuracy.
+
+{% include interactive/article-lab.html id="biohub-graph-stages" %}
 
 ### 4.3 The Better Classifier Inserted the Worse Nodes
 

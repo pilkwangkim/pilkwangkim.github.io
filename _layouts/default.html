@@ -20,6 +20,14 @@ layout: compress
   {% assign theme_css_url = '/assets/css/:THEME.css' | replace: ':THEME', site.theme | relative_url %}
   {% assign theme_css_original = theme_css_url | append: '"' %}
   {% assign theme_css_versioned = theme_css_url | append: '?v=' | append: site.data.blog_asset_version | append: '"' %}
+  {% if page.interactive == 'negf-barrier' %}
+    {% capture interactive_head %}<link rel="stylesheet" href="{{ '/assets/css/negf-interactive.css' | relative_url }}?v={{ site.data.negf_asset_version }}"></head>{% endcapture %}
+    {% assign rendered_head = rendered_head | replace: '</head>', interactive_head %}
+  {% endif %}
+  {% if page.interactive_labs.size > 0 %}
+    {% capture labs_head %}<link rel="stylesheet" href="{{ '/assets/css/article-labs.css' | relative_url }}?v={{ site.data.article_labs_version }}"></head>{% endcapture %}
+    {% assign rendered_head = rendered_head | replace: '</head>', labs_head %}
+  {% endif %}
   {{ rendered_head | replace: theme_css_original, theme_css_versioned }}
 
   <body lang="{{ lang }}">
@@ -88,5 +96,16 @@ layout: compress
     {% endfor %}
 
     {% include_cached search-loader.html lang=lang %}
+    {% if page.interactive == 'negf-barrier' %}
+      <script defer src="{{ '/assets/js/negf-core.js' | relative_url }}?v={{ site.data.negf_asset_version }}"></script>
+      <script defer src="{{ '/assets/js/negf-interactive.js' | relative_url }}?v={{ site.data.negf_asset_version }}"></script>
+    {% endif %}
+    {% if page.interactive_labs.size > 0 %}
+      <script defer src="{{ '/assets/js/article-labs.js' | relative_url }}?v={{ site.data.article_labs_version }}"></script>
+      {% for bundle in page.interactive_labs %}
+        {% assign bundle_path = '/assets/js/article-labs-' | append: bundle | append: '.js' %}
+        <script defer src="{{ bundle_path | relative_url }}?v={{ site.data.article_lab_bundle_versions[bundle] }}"></script>
+      {% endfor %}
+    {% endif %}
   </body>
 </html>

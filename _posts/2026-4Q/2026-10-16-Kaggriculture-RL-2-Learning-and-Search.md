@@ -19,6 +19,7 @@ image:
   hide_caption: true
 math: true
 toc: true
+interactive_labs: [kaggriculture]
 ---
 
 <style>
@@ -170,6 +171,8 @@ The GPU is not individually playing “a program with hiring rule 1 changed” a
 
 The actual BC implementation also has an auxiliary loss for predicting the opponent's trades. Future trade records serve as training targets; the submitted agent is not given future trade answers as inputs. The training arguments are in [`repro/02_train_bc.sh`](https://github.com/KawattaTaido/kaggriculture-release/blob/8aa34764564fa94848912a5abede8475ac48d3db/repro/02_train_bc.sh).
 
+{% include interactive/article-lab.html id="kaggriculture-bc" %}
+
 ### From individual imitation to a complete farming policy
 
 Teacher records contain connected behavior. Buying land is followed by states in which workers use the expanded farm. Planting tomatoes is followed by watering and harvesting. The model learns the next action at many points along these sequences.
@@ -280,6 +283,8 @@ for advantage, new_p in [(1, .22), (1, .30), (-1, .10),
 ```
 
 The final numbers are `1.1, 1.2, -0.8, -1.5`. Clipping does not forcibly confine the probability to 0.16–0.24. Other samples sharing the network weights, or other loss terms, can move it beyond that interval. Implementations therefore also monitor KL divergence, a measure of distribution change, and may stop updates. Even a small average KL does not guarantee that a deployed policy choosing only its highest-probability action will preserve its behavior. The [PPO paper](https://arxiv.org/abs/1707.06347) and [Spinning Up's equations and explanation](https://spinningup.openai.com/en/latest/algorithms/ppo.html#key-equations) explain the clipping distinction. The 5090 implementation's update is in [`ppo.py`](https://github.com/KawattaTaido/kaggriculture-release/blob/8aa34764564fa94848912a5abede8475ac48d3db/kaggri/train/ppo.py#L204-L274).
+
+{% include interactive/article-lab.html id="kaggriculture-ppo" %}
 
 ### The old probabilities and advantages stay fixed
 
@@ -662,6 +667,8 @@ The evaluator returns 0 for A, about 525 for B, 146 for C, and 461 for D, select
 The actual implementation aggregates production and consumption across tiles and updates `q` using the parts changed by a candidate modification. Work estimates produce daily wages. Prices respond to our supply and the opponent's supply rather than remaining fixed. The toy omits those details but retains the structure of comparing plans by aggregating dated income and costs.
 
 Which actual plan wins depends on the complete input: existing crops and their locations, revealed shops, inventory, opponent supply, and more. **The calculation has not discovered a fixed rule that six people and three tomato tiles are optimal.** It shows how to create feasible, connected alternatives for the current state and compare them with the same evaluator.
+
+{% include interactive/article-lab.html id="kaggriculture-plans" %}
 
 ### Fixed land costs can block useful search
 

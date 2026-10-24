@@ -16,6 +16,7 @@ lang: ko
 translation_key: biohub-07
 series: biohub
 series_order: 7
+interactive_labs: [biohub]
 ---
 
 <style>
@@ -229,6 +230,8 @@ _그림 1. 기존 매칭이 바뀌지 않는다고 가정한 계산이다. 로�
 
 ---
 
+{% include interactive/article-lab.html id="biohub-division" %}
+
 ## 2. 실패 원인 추적: precision부터, 그다음은 라벨 자체
 
 ### 2.1 Precision frontier에서 다시 시험한 두 번째 배치
@@ -366,6 +369,8 @@ $$
 
 ![한 프레임의 피크 수: primary 281, 기존 secondary와 섞으면 253, student 644, 정렬한 student 0, primary와 student를 섞으면 25]({{ site.baseurl }}/assets/img/posts/2026-09-12-biohub-working-note-7/fig-02-alignment-peaks.png)
 _그림 2. 밝은 예시 영상의 한 프레임을 제출 경로 그대로 처리했을 때의 피크. 프레임 전체 통계로 정렬하자, 새 검출기를 섞은 결과에는 피크가 $$25$$개만 남았다. primary만 쓰면 $$281$$개다. 한 프레임에서 메커니즘을 보여 주는 그림이고, 재현율을 잰 것은 아니다._
+
+{% include interactive/article-lab.html id="biohub-alignment" %}
 
 ### 6.2 로컬 검증이 이것을 보지 못한 이유
 

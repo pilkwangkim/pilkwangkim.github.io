@@ -12,6 +12,7 @@ image:
   alt: "9편 표지: 정확한 연쇄 호출, 밀도 게이트, K별 구문 한계"
 topic: ai-agent-security
 lang: ko
+interactive_labs: [security]
 translation_key: ai-agent-security-09
 series: ai-agent-security
 series_order: 9
@@ -390,6 +391,8 @@ $$
 </figure>
 
 *그림 1. 여섯 행의 비교는 Gemma 로컬 실험이었다. 이후 T4에서는 시험한 K2/K3 문구의 정확한 호출 수가 유지됐지만, 어느 경로도 서버 전체 평가의 점수 밀도까지 측정하지는 못했다.*
+
+{% include interactive/article-lab.html id="security-frontier" %}
 
 ## 9. K8 앞쪽 배치 결과: 유용한 뱅크이지만 보편적 결론은 아니다
 

@@ -4,6 +4,7 @@ date: 2026-06-10 21:00:00 +0900
 categories: [AI, Kaggle]
 tags: [kaggle, rogii, ensemble, geosteering, leakage-control, stratigraphy, target-free-alignment, tvt]
 math: true
+interactive_labs: [rogii]
 pin: false
 topic: rogii
 lang: en
@@ -421,6 +422,8 @@ The mode names are compact, but the meaning is geological: how much uncertainty 
 <p align="center">
   <img src="{{ site.baseurl }}/assets/img/posts/2026-06-04-rogii-target-free-tvt-alignment/fig-15.png" alt="Typewell alignment and sequence signals" width="90%">
 </p>
+
+{% include interactive/article-lab.html id="rogii-alignment" %}
 
 ## **4. Formation Coordinates**
 

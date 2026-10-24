@@ -15,6 +15,7 @@ lang: en
 translation_key: biohub-02
 series: biohub
 series_order: 2
+interactive_labs: [biohub]
 ---
 
 <style>
@@ -550,6 +551,8 @@ assert all(count == 1 for count in coverage.values())
 ```
 
 </details>
+
+{% include interactive/article-lab.html id="biohub-folds" preset="roles" %}
 
 ### 4.1 Selecting the Best Epoch on the Outer Holdout Is Leakage
 

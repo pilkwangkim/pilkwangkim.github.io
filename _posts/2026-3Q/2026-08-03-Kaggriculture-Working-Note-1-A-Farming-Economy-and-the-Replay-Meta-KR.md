@@ -11,6 +11,7 @@ image:
 topic: kaggriculture
 lang: ko
 translation_key: kaggriculture-working-note-1
+interactive_labs: [kaggriculture]
 ---
 
 # Kaggriculture Working Note (1편): 농장 경제 설계, 그리고 리플레이 메타
@@ -86,6 +87,8 @@ $$
 그리고 가축은 매일 밀을 먹는다. 목장이 열네 마리쯤 되면 하루에 밀 한 타일 몫이 고스란히
 사료로 사라진다. 그 밀을 직접 기르든가, 시즌 내내 값이 오르기만 하는 시장에서 사 오든가 —
 이 갈림길을 기억해 두시라. 4부의 주인공이다.
+
+{% include interactive/article-lab.html id="kaggriculture-harvest" %}
 
 ### 3. 진짜 게임은 시장에서 벌어진다
 
@@ -222,6 +225,8 @@ $$
 
 밀린 잡에, 한 번만 더 거르면 잃는 자산을 두 배로 얹고, 일꾼 하나가 하루에 쳐내는 서비스
 수로 나눈다. 그 피보나치 열세 번째 일꾼이 밥값을 하는지는 4부가 장부로 따진다.
+
+{% include interactive/article-lab.html id="kaggriculture-wages" %}
 
 ### 7. 하루를 확대해 보면
 

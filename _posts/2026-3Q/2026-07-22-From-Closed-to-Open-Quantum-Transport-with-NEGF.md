@@ -4,6 +4,7 @@ date: 2026-07-22 09:00:00 +0900
 categories: [Physics, Quantum Transport]
 tags: [kaggle, quantum-transport, green-functions, landauer, negf, open-quantum-systems, physics, python, resonant-tunneling, self-energy, tight-binding]
 math: true
+interactive: negf-barrier
 pin: false
 topic: quantum-transport
 lang: en
@@ -27,10 +28,7 @@ A finite Hamiltonian gives us discrete energies and beautiful eigenstates. It do
 
 The central problem of this post is therefore simple to state and surprisingly rich to solve:
 
-```text
-How can an infinite, open transport problem be represented by a finite matrix
-without replacing the leads by an uncontrolled absorbing boundary?
-```
+> How can an infinite, open transport problem be represented by a finite matrix without replacing the leads by an uncontrolled absorbing boundary?
 
 The nonequilibrium Green's-function (NEGF) answer is that the lead coordinates can be eliminated **exactly**. Their entire effect on the retained device appears as an energy-dependent self-energy.
 
@@ -54,21 +52,14 @@ Those assumptions make the algebra visible. They also tell us exactly where the 
 
 It helps to see the whole calculation before entering the derivation:
 
-```text
-continuum Schrödinger equation
-        ↓ finite difference
-finite tight-binding Hamiltonian H_D
-        ↓ attach semi-infinite leads and eliminate them
-retarded self-energies Σ_L^R(E), Σ_R^R(E)
-        ↓
-open-device Green's function G^R(E)
-        ↓                         ↓
-spectral functions A_L, A_R      transmission T(E)
-        ↓                         ↓
-reservoir fillings f_L, f_R      Landauer current
-        ↓
-occupied correlation G^n, density, and bond current
-```
+<div class="negf-workflow-desktop">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-00-negf-workflow.svg" alt="NEGF calculation workflow. The device Hamiltonian and lead self-energies determine the retarded Green's function, spectral functions and transmission. Independent reservoir Fermi functions then determine occupation, density, bond current and Landauer current." width="100%">
+</div>
+<div class="negf-workflow-mobile">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-00-negf-workflow-mobile.svg" alt="Vertical NEGF workflow. Device and lead inputs determine the spectrum and transmission; independent reservoir occupations then determine density and current." width="100%">
+</div>
+
+*Calculation workflow.* The device and leads determine the available states and propagation; reservoir chemical potentials and temperatures determine occupation. Combining $A_\alpha$ with $f_\alpha$ gives $G^n$, density and bond current. Integrating $T(E)[f_L-f_R]$ gives the Landauer current. Here $\alpha=L,R$, and the displayed identities apply to the coherent contact continuum as $\eta\to0^+$.
 
 There are three distinctions that must remain sharp from the beginning.
 
@@ -1016,11 +1007,13 @@ The first resonant-tunneling example separates propagation from population as cl
 
 *Figure 8.* The plotted line is $U_j$, not the Hamiltonian diagonal $2t_0+U_j$. Openness enters later through endpoint self-energies; it is not drawn as an imaginary potential in the device interior.
 
+{% include interactive/negf-barrier.html %}
+
 ### 8.1 From a closed-well level to an open resonance
 
 If the two barriers were infinitely high, the well would have discrete bound levels. Finite barriers couple those modes to left- and right-going continua.
 
-For an isolated resonance $r$, let $\lvert\phi_r\rangle$ be the normalized, device-region, closed-well-like orbital associated with that resonance. If the contact self-energies vary slowly across its width, the projected partial linewidths are approximately
+For an isolated resonance $r$, let $\lvert\phi_r\rangle$ be the associated mode, normalized over the device region. It is concentrated in the well but has tails through the finite barriers to the contact endpoints. If the contact self-energies vary slowly across its width, the projected partial linewidths are approximately
 
 $$
 \Gamma_{\alpha,r}\simeq
@@ -1065,14 +1058,16 @@ $$
 
 $\Gamma_r$ is an energy linewidth; the decay rate is $\Gamma_r/\hbar$. Using a distinct symbol $t_{\mathrm{life},r}$ avoids confusing the lifetime with the interface coupling matrix $\tau$.
 
-The resolved sub-barrier resonances in the notebook occur at
+Refining the resonances over the calculator's $0.001$–$0.600\ \mathrm{eV}$ range gives
 
 $$
-E_r\approx
-0.0639,\ 0.1413,\ 0.2453,\ 0.3713\ \mathrm{eV},
+\begin{aligned}
+E_r\approx{}&0.01613,\ 0.06387,\ 0.14131,\\
+            &0.24526,\ 0.37135,\ 0.51460\ \mathrm{eV}.
+\end{aligned}
 $$
 
-with an additional resolved feature near $0.5146\ \mathrm{eV}$. We select
+The original notebook's peak-detection list missed the narrow first resonance near $0.01613\ \mathrm{eV}$. We select the resonance near $0.14131\ \mathrm{eV}$ and set
 
 $$
 E_{\mathrm{res}}=0.1413\ \mathrm{eV},
@@ -1084,7 +1079,7 @@ E_{\mathrm{res}}=0.1413\ \mathrm{eV},
 k_BT=0.005\ \mathrm{eV}=5\ \mathrm{meV}.
 $$
 
-The last value corresponds to about $58\ \mathrm{K}$ and is an energy scale, not another transmission parameter. The resonance list is the set of detected and numerically refined peaks on this scan, not a theorem that no other arbitrarily narrow feature exists.
+The displayed energies are rounded. The calculation uses the refined $E_{\mathrm{res}}=0.14131276097\ \mathrm{eV}$ with $\mu_L=E_{\mathrm{res}}+0.06\ \mathrm{eV}$ and $\mu_R=E_{\mathrm{res}}-0.06\ \mathrm{eV}$. The thermal energy $k_BT=5\ \mathrm{meV}$ corresponds to about $58\ \mathrm{K}$.
 
 ### 8.2 Available spectrum is not occupied spectrum
 
@@ -1106,17 +1101,19 @@ $$
   <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-09-example-a-spectral-bookkeeping.png" alt="Available and occupied well spectral weight decomposed by the injecting contact" width="94%">
 </p>
 
-*Figure 9.* The same fixed resonances are available to both contacts. The chemical potentials change only how the two reservoirs fill that spectrum. This is the most direct visual meaning of $G^n=A_Lf_L+A_Rf_R$.
+*Figure 9.* The same fixed resonances are available to both contacts. The chemical potentials change only how the two reservoirs fill that spectrum, as in $G^n=A_Lf_L+A_Rf_R$. The vertical axis is a spectral density per spin; integrating the occupied spectrum and multiplying by the spin degeneracy of two gives the total well occupation.
 
 <p align="center">
   <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-10-example-a-transport-summary.png" alt="Transmission, LDOS, contact-resolved occupation, and spectral current for the fixed-spectrum resonant-tunneling example" width="96%">
 </p>
 
-*Figure 10.* Panel (a) shows the fixed transmission spectrum and the main occupation window. Panel (b) reveals quasi-bound well modes in the LDOS. Panel (c) separates left-fed and right-fed occupation. Panel (d) emphasizes that current is the **area** of $dI/dE$, not simply the height of a transmission peak.
+*Figure 10.* Panel (a) resolves the narrow first resonance as well as the higher transmission peaks and marks the main occupation window. Panel (b) shows the quasi-bound well modes in the LDOS. Panel (c) separates the energy-integrated site occupation into contributions from the two contacts. Panel (d) shows that current is the **area** of $dI/dE$. Panels (c) and (d) use the resonance-local integration grid described below.
 
 Resolving those areas is a numerical part of the physics. A uniform energy mesh can miss a narrow resonance or poorly sample the integrable one-dimensional threshold structure.
 
-The notebook therefore joins a geometric mesh close to the emitter band bottom to a fine linear mesh over the occupied range. It also refines every candidate transmission maximum locally instead of reporting the nearest plotted grid point as the resonance energy.
+The original notebook combines a geometric mesh near the emitter band bottom with a linear mesh over the occupied range. Refining a peak's position, however, does not ensure that its area is integrated accurately. The first resonance has a FWHM of about $61.3\ \mu\mathrm{eV}$, while the original 3,000-point linear mesh has a spacing of about $83.5\ \mu\mathrm{eV}$. That mesh does not converge the well occupation.
+
+The recalculation below supplements the global mesh with linewidth-based local meshes. Each covers $20\,\mathrm{FWHM}$ on either side of a peak, with spacing $\mathrm{FWHM}/(100r)$. The upper limit is extended to $E_{\max}=\mu_L+18k_BT$ to include the Fermi tail. Grid resolution $r$, the upper cutoff, and the numerical $\eta$ are varied separately when checking convergence.
 
 For a nonuniform mesh $E_0<\cdots<E_{M-1}$, the trapezoidal rule can be written as $\int dE\,F(E)\simeq\sum_iw_iF(E_i)$ with
 
@@ -1129,28 +1126,55 @@ $$
 Writing the weights explicitly makes it difficult to accidentally integrate an array as though its samples were equally spaced:
 
 ```python
-E = np.unique(np.concatenate((
-    np.geomspace(1e-10, 1e-3, 400, endpoint=False),
-    np.linspace(1e-3, mu_L + 0.05, 3000),
-)))
+E_res = 0.141312760965677
+mu_L, mu_R, kT = E_res + 0.06, E_res - 0.06, 0.005
+
+# (peak center, FWHM), in eV; resolve all four resonances in the integral.
+peak_data = [
+    (0.016126494083, 6.12837580566e-5),
+    (0.063869428566, 5.35092219254e-4),
+    (0.141312760935, 2.09218053569e-3),
+    (0.245260414529, 6.10631008345e-3),
+]
+r = 16                       # compare with r=8 to check convergence
+E_max = mu_L + 18 * kT        # include the Fermi tail beyond the main window
+parts = [
+    np.geomspace(1e-10, 1e-3, 400 * r, endpoint=False),
+    np.linspace(1e-3, E_max, 3000 * r + 1),
+]
+for center, width in peak_data:
+    local = center + width * np.linspace(-20, 20, 4000 * r + 1)
+    parts += [local[(local > 1e-10) & (local < E_max)], np.array([center])]
+E = np.unique(np.concatenate(parts))
+
+# Each weight accounts for the unequal spacing of this nonuniform mesh.
 w = np.empty_like(E)
 w[0], w[-1] = 0.5 * (E[1] - E[0]), 0.5 * (E[-1] - E[-2])
 w[1:-1] = 0.5 * (E[2:] - E[:-2])
 
+# Density accumulation inside the existing energy loop that computes Gn:
 n_per_spin += w[iE] * np.diag(Gn).real / (2.0 * np.pi)
+
+# After that loop: T_E stores transmission on this same E grid.
 n_site = 2.0 * n_per_spin                 # apply spin degeneracy once
-I = current_prefactor_A_per_eV * np.sum(w * T_E * (f_L - f_R))
+f_L_E = 1.0 / (1.0 + np.exp((E - mu_L) / kT))
+f_R_E = 1.0 / (1.0 + np.exp((E - mu_R) / kT))
+I = current_prefactor_A_per_eV * np.sum(w * T_E * (f_L_E - f_R_E))
 ```
 
 Here `current_prefactor_A_per_eV` already contains the spin factor and the eV-to-joule conversion; multiplying by another two would be an error. The same energy samples and the same weights are used for density, bond current, and terminal current, so discrepancies among them remain meaningful diagnostics rather than quadrature artifacts.
 
-The independent current calculations agree:
+Using this grid with $\eta=10^{-9}\ \mathrm{eV}$ gives
 
 $$
-I_{\mathrm{Landauer}}=263.0891\ \mathrm{nA},
+I_{\mathrm{Landauer}}\approx263.0911\ \mathrm{nA},
 $$
 
-while the mean bond current is $263.0900\ \mathrm{nA}$ with relative spatial spread $5.30\times10^{-5}$. The contact decomposition $n=n_L+n_R$ closes to $3.0\times10^{-15}$ relative error. Independently, integrating the occupied well spectrum and summing the site occupations both give $4.882464787$ electrons for this spin-degenerate model.
+with a mean bond current of $263.0919\ \mathrm{nA}$ and relative spatial spread $5.30\times10^{-5}$. Integrating the occupied well spectrum and summing the well-site occupations both give **about $4.87203$ electrons**; their difference is below $10^{-14}$ electrons. The original coarse-grid value of about $4.88246$ electrons was not quadrature-converged. The small increase in current comes from extending the cutoff from $\mu_L+10k_BT$ to $\mu_L+18k_BT$ and retaining the remaining Fermi tail.
+
+Agreement between two calculations on the same mesh checks the algebra; mesh convergence needs a separate check. Increasing $r$ from 8 to 16 changes the well occupation by $3.88\times10^{-7}$ electrons. Extending the upper limit from $\mu_L+18k_BT$ to $\mu_L+22k_BT$ changes it by $1.82\times10^{-8}$ electrons. The Landauer current changes by less than $10^{-7}\ \mathrm{nA}$ in either check.
+
+The regulator can be checked separately as well. On the same refined mesh, the $\eta\to0^+$ limit gives about $4.87211$ electrons and $263.0914\ \mathrm{nA}$, with bond and Landauer currents agreeing to numerical precision. The small discrepancy at finite $\eta$ comes from the numerical absorption discussed earlier.
 
 The lesson of Example A is narrow but foundational:
 
@@ -1421,7 +1445,7 @@ That is the real payoff of the exercise. NEGF is not a bag of unrelated formulas
 
 ## 12. Reproduce the calculation
 
-The full executable derivation, including all figures and numerical checks, is available in both locations:
+The baseline NEGF implementation and both transport examples are executable in the notebook below. The Example A values in this article use the refined energy grid given in Section 8.2 and therefore differ from the original notebook's coarse-grid output.
 
 - [Run the notebook on Kaggle](https://www.kaggle.com/code/pilkwang/from-closed-to-open-quantum-transport-with-negf)
 - [Read or download the source notebook on GitHub](https://github.com/pilkwangkim/Physics/blob/master/negf_from_scratch.ipynb)

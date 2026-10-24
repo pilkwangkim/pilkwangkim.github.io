@@ -1,0 +1,17 @@
+'use strict';
+const assert = require('node:assert/strict');
+const a = require('../assets/js/article-labs-arc.js');
+assert.equal(a.rhae(10, 8, true), 1.15);
+assert.equal(a.rhae(10, 20, true), .25);
+assert(Math.abs(a.rhae(10, 50, true) - .04) < 1e-12);
+assert.equal(a.rhae(10, 100, false), 0);
+assert(Math.abs(a.gameScore(Array.from({ length: 5 }, (_, i) => ({ h: 10, a: 8, done: i < 2 }))) - .2) < 1e-12);
+assert.equal(a.gameScore([{ h: 10, a: 10, done: true }]), 1);
+const budget = a.tokenBudget(110, 28, 7920, 204);
+assert.equal(budget.waves, 4);
+assert.equal(budget.wall, 31680);
+assert(Math.abs(budget.tokens - 57702.857142857145) < 1e-6);
+assert.deepEqual(a.gatedPlan([1, 2, 3, 4], [1, 0, 3, 4]), { executed: [1, 0], mismatch: 1, dropped: 2 });
+assert.equal(a.gatedPlan([1, 2], [1, 2]).mismatch, -1);
+assert.equal(a.gatedPlan([1], [0]).dropped, 0);
+console.log('ARC article labs: efficiency cap, token allocation, and mismatch-tail invariants pass.');

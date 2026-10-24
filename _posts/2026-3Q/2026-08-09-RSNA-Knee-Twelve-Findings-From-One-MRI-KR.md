@@ -18,6 +18,7 @@ lang: ko
 translation_key: rsna-knee-competition-structure
 series: rsna-knee
 series_order: 0
+interactive_labs: [rsna]
 ---
 
 [RSNA Knee Abnormality Detection 대회](https://www.kaggle.com/competitions/rsna-knee-abnormality-detection)는 무릎 MRI 한 검사에서 열두 소견의 확률을 예측하는 문제다. 입력은 여러 촬영 series로 이뤄지지만 출력은 열두 숫자로 고정돼 있다. 모델은 각 소견을 판단하는 데 필요한 정보를 영상에서 찾아 검사 단위의 예측으로 모아야 한다.
@@ -66,6 +67,8 @@ $$
 이 성질은 점수를 해석할 때도 중요하다. 첫째, 한 모델의 모든 예측값에 엄격히 증가하는 변환을 똑같이 적용하면 순서와 동점이 유지되므로 AUC도 유지된다. 따라서 AUC가 높다고 출력값 0.8이 임상적으로 보정된 80% 확률인 것은 아니다. 둘째, 각 소견은 발생 빈도와 관계없이 최종 점수에서 같은 비중을 차지한다. 흔한 소견에는 학습 예제가 더 많지만, 최종 평균에서 차지하는 비중까지 커지지는 않는다. 입력 구성을 바꿀 때도 전체 평균뿐 아니라 열두 소견 각각의 변화를 봐야 한다.
 
 Ensemble에서는 예측값의 척도가 다시 중요해진다. 확률을 평균하면 모델이 낸 점수 사이의 간격을 그대로 사용하고, rank를 평균하면 그 간격 대신 상대적인 순위를 사용한다. 각 모델의 AUC가 같아도 변환한 뒤 합친 예측의 순서는 달라질 수 있다. 따라서 예측을 합치는 방법도 모델의 일부로 봐야 한다.
+
+{% include interactive/article-lab.html id="rsna-ranking" %}
 
 ## 판독문 미언급과 영상 소견
 
@@ -125,6 +128,8 @@ Volume에서 slice를 고를 때도 비슷한 절충이 필요하다. 개수를 
 
 ![물리적 정렬과 crop 크기, 고정된 영상 격자의 관계]({{ site.baseurl }}/assets/img/posts/rsna-knee-series/part0-sampling.png){: width="1920" height="1040" }
 _그림 3. Geometry로 공간적 순서와 크기를 정한다. 이어서 crop과 표본화 밀도에 따라 모델에 들어가는 해부학적 근거가 달라진다._
+
+{% include interactive/article-lab.html id="rsna-geometry" %}
 
 ## 영상 특징과 검사 단위 예측
 

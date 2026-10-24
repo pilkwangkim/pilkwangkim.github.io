@@ -1,6 +1,6 @@
 ---
 title: "Gemma 4 Developer Agent, Part 1: Learning to Fix a Codebase, One Verified Patch at a Time"
-description: "From code completion to autonomous debugging: the research behind Google's Gemma 4 competition, how its agents are evaluated, and a practical route to a first meaningful experiment."
+description: "A Gemma 4 developer agent turns an issue and a repository into a verified patch: competition objectives, evaluation, runtime budgets, an inspectable baseline, and controlled comparisons."
 date: 2026-09-25 06:00:00 +0900
 categories: [AI, Kaggle]
 tags: [kaggle, gemma-4, adk, coding-agents, evaluation, lora, software-engineering, working-note]
@@ -17,10 +17,67 @@ pin: false
 published: true
 topic: gemma-4
 lang: en
+interactive_labs: [gemma]
 translation_key: gemma-4-developer-agent
 series: gemma-4
 series_order: 1
 ---
+
+<style>
+article.technical-article .content table.quick-summary {
+  width: 100%;
+  min-width: 0 !important;
+  table-layout: fixed;
+}
+article.technical-article .content table.quick-summary th,
+article.technical-article .content table.quick-summary td {
+  min-width: 0 !important;
+  vertical-align: top;
+  white-space: normal;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+article.technical-article .content table.quick-summary th:first-child,
+article.technical-article .content table.quick-summary td:first-child { width: 32%; }
+article.technical-article .content table.quick-summary code {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+article.technical-article .content .gemma-functional-figure {
+  margin: 1.7rem 0;
+  border: 1px solid var(--btn-border-color, #cbd5df);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+article.technical-article .content .gemma-functional-figure picture,
+article.technical-article .content .gemma-functional-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0;
+}
+article.technical-article .content .gemma-functional-figure figcaption {
+  padding: 0.8rem 1rem;
+  border-top: 1px solid var(--btn-border-color, #cbd5df);
+  color: var(--text-muted-color, #687787);
+  background: var(--main-bg, #ffffff);
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+
+article.technical-article .content .gemma-functional-figure a.img-link {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+}
+article.technical-article .content .gemma-figure-wide { display: block; }
+article.technical-article .content .gemma-figure-narrow { display: none; }
+@media (max-width: 600px) {
+  article.technical-article .content .gemma-figure-wide { display: none; }
+  article.technical-article .content .gemma-figure-narrow { display: block; }
+}
+</style>
+
 
 <style>
 article .content table:not(.rouge-table) th,
@@ -40,12 +97,12 @@ article .content .mermaid * {
 }
 </style>
 
-[한국어판 읽기]({{ site.baseurl }}/posts/Gemma-4-Developer-Agent-From-Issue-to-Verified-Patch-KR/)
+[Read in Korean]({{ site.baseurl }}/posts/Gemma-4-Developer-Agent-From-Issue-to-Verified-Patch-KR/)
 
 {% assign gemma_part2 = site.posts | where: "translation_key", "gemma-4-developer-agent-02" | where: "lang", "en" | first %}
 > **Update — October 23, 2026.** This guide preserves the September 25 specification and its unscored teaching example. The allowed model sizes, thinking settings, protected-file handling, and error recovery have since changed; the code below is version-specific. Our later working reference is a different public package, not a scored version of this example.{% if gemma_part2 %} [Part 2]({{ site.baseurl }}{{ gemma_part2.url }}) follows those changes and the subsequent experiments.{% endif %}
 
-## Start here: what this project is trying to build
+## The task: turn a new issue into a verified patch
 
 In a familiar Kaggle prediction competition, we build a model that turns an input into a
 prediction: a house's attributes into a price, for example. Here, the input is a report
@@ -53,10 +110,10 @@ that a program behaves incorrectly, together with that program's source code. Th
 must investigate the report and change the code. The location and the repair are both
 part of the problem.
 
-The [Google — Gemma 4 Developer Agent Competition][competition] gives every model-backed
-agent the same permitted Gemma base model. We build the procedure around it: how to find
-relevant code, make an edit, check the result, and decide what to do next. Kaggle runs that
-procedure on hidden issues and evaluates the resulting patches. **We submit a way of
+Under the September 25 rules of the [Google — Gemma 4 Developer Agent Competition][competition],
+every model-backed agent uses the same permitted Gemma base model. We build the procedure around
+it: how to find relevant code, make an edit, check the result, and decide what to do next. Kaggle
+runs that procedure on hidden issues and evaluates the resulting patches. **We submit a way of
 solving new issues, not a set of fixes for the public practice issues.**
 
 **A few useful places to start.** These sources have different jobs; you do not need to
@@ -77,11 +134,12 @@ read them all before continuing.
 | What do we submit here? | Often a prediction file or inference notebook. | An agent package, `submission.zip`, that generates patches when run. |
 | What determines success? | A metric comparing predictions with targets. | The fraction of tasks whose patches pass the evaluator's checks. |
 
-A code model can suggest a replacement once the faulty line is in its prompt. A developer
-agent must also work out which line to inspect and whether its suggestion actually helped.
-If a report says "a limit of zero returns ten items," the agent has to find where zero
-became ten, repair that behavior, and preserve the default when no limit was supplied.
-We will follow exactly that small example in Section 1.
+A model can suggest a repair when given the faulty function and its symptoms. A developer agent
+must first locate that function, then check whether the repair addresses the issue without
+breaking existing behavior. Consider a list API with a `limit` parameter: it sets the maximum
+number of items in the response. Suppose this API promises a default of ten when `limit` is
+omitted, and an empty result when `limit=0`. If an explicit zero instead returns ten items, the
+agent has to find where those two cases were conflated.
 
 This is why a coding agent makes repeated model calls. A search reveals a filename; reading
 it reveals a function; a test result can invalidate the first explanation. The useful next
@@ -90,9 +148,9 @@ ongoing investigation, rather than receiving every relevant fact in a single pro
 
 ### The three objects to keep separate
 
-A **repository** is the project's source files, tests, configuration, documentation, and
-recorded versions. An **issue** describes the behavior to fix or add. A **patch** records
-changes to the files; Git's textual representation of those changes is a **diff**.
+A **repository** contains a project's source files, tests, configuration, documentation, and
+version history. An **issue** describes behavior to fix or add. A **patch** records the file
+changes that implement the repair; a Git **diff** is their textual representation.
 
 We submit an **agent package** containing configuration, instructions, and any optional
 learned adapters. Running it produces a **patch for each issue**. A separate evaluator
@@ -100,21 +158,22 @@ applies that patch to a fresh copy and produces a **resolved or unresolved outco
 Loading the package, obtaining a nonempty diff, and passing verification are three
 different achievements. Only the final outcome contributes a resolved task to the score.
 
-![Project map: build an agent package, run its model–tool loop on each new issue, verify the resulting patch, and improve the next design using public development evidence.](/assets/img/gemma4-developer-agent/fig-00-project-map.svg)
-
-*Figure 1. The project has two loops. Inside one attempt, the agent reads, edits and checks
-a repository. Between public development runs, we inspect failures and revise the agent.
-Kaggle evaluates the submitted design on hidden issues; their reference answers do not
-enter the agent's input. The numbered columns show responsibilities, not measured results.*
 
 ### If the model is fixed, what can we improve?
 
-A **model** generates a response from its current input. An **agent** combines that model
-with instructions, tools, remembered observations, and a loop that continues the work.
-A **tool** performs an operation such as reading a file or running a command. The supplied
-**harness** connects these parts, prepares the repository environment, enforces limits, and
-checks the final patch. The model does not read the disk merely because the files exist.
-It has to request information through tools.
+The model supplies decisions, while tools carry out operations such as reading a file or running a
+command. The agent keeps that interaction going. The organizer's harness supplies the task
+environment, enforces its limits, and checks the final patch. These roles remain distinct even
+when the software runs on one machine.
+
+| Term | Its role in this competition |
+|---|---|
+| **Model** | Gemma generates the next reasoning step, tool call, or response. |
+| **Agent** | The model together with instructions, tools, state, and a procedure for continuing the work. |
+| **Tool** | An operation such as reading a file, running a command, or submitting the current changes. |
+| **Harness** | The organizer's software that loads the agent, prepares tasks, enforces limits, and evaluates patches. |
+| **Patch** | A Git diff describing changes relative to the prepared repository baseline. |
+{: .quick-summary }
 
 The fixed base model does not fix the agent's behavior. We can change the prompt, the
 registration and use of permitted tools, how tasks are delegated, and the chosen limits.
@@ -130,9 +189,9 @@ Kaggle accepts. Likewise, an agent's checks during debugging are evidence for it
 decision; the later evaluator verdict determines its score. The hidden verification tests
 are not an oracle the agent can query during the attempt.
 
-Optional **LoRA adapters** add learned changes to the permitted base model. They offer a
-second route to improvement once we know which behavior needs to be learned. More agents,
-more retrieval, and more training each consume resources; their value must show up in
+Optional **LoRA adapters** add learned changes to the permitted base model. They offer a second
+route to improvement once we identify a recurring behavior that training could address. More
+agents, more retrieval, and more training each consume resources; their value must show up in
 repairs that finish within the same evaluation constraints.
 
 ### Where the first experiment should begin
@@ -150,35 +209,28 @@ that experiment in order:
    agent with the baseline under matching conditions, including issues held out from
    development. Then consider training or delegation if the remaining failures justify it.
 
-This connects the competition's purpose to the work we will do: build an agent, observe
-where repairs fail, and test whether a specific change makes new repairs more reliable.
-Sections 1–4 follow one bug through the system and its score; Sections 5–8 explain the
-research, data, and limits; Sections 9–12 turn those ideas into a baseline and comparison.
-Training comes after that foundation in Section 13.
-
-The article assumes only that you can read simple Python. Framework and training terms
-are introduced when needed. The runnable settings are an **unmeasured teaching example**,
-separate from the project's experimental candidates. Competition details were checked on
-**September 25, 2026**; the longer code recipes are expandable.
-
 ## 1. A one-line bug can require a repository-sized investigation
 
-Imagine opening a two-sentence bug report on a Monday morning: a user set a limit to
-zero, but the application returned ten items. The repair may be one line, yet nobody has
-identified which line to change. The agent receives the report and a repository, then
-has to discover the cause. Here is the invented issue we will follow through the article:
+Suppose a list API has at least ten available items. Its `limit` parameter caps the number
+returned: `GET /items` uses the default of ten, while `GET /items?limit=0` should return an empty
+list. A request with `limit=5` should return five. This is the contract of this invented API;
+another API may define zero differently. The bug report is:
 
 > Setting a limit to zero unexpectedly restores the default limit. An omitted limit should
 > use the default, but an explicit zero should remain zero.
 
-The relevant implementation might contain:
+The request parser represents an omitted parameter as `None` and an explicit zero as the integer
+`0`. It then calls a helper to determine the item limit. The helper returns a number, not the list
+itself; later query code uses that number to select the response items:
 
 ```python
 def normalize_limit(value, default=10):
     return value or default
 ```
 
-Python treats both `None` and `0` as false in this expression. A plausible fix is:
+Python treats both `None` and `0` as false in this expression, so either input produces the
+default, 10. The query code therefore receives a limit of ten even when the caller explicitly
+requested zero. Checking specifically for `None` preserves the distinction:
 
 ```diff
  def normalize_limit(value, default=10):
@@ -215,11 +267,25 @@ program, rather than producing a pile of text for the model to read.
 
 A small behavioral table clarifies what the issue actually promises:
 
-| Input to the helper | Current result | Required result under this invented issue |
+| Parsed input to the helper | Current limit | Required limit |
 |---|---:|---:|
 | `None` | 10 | 10: the default applies. |
 | `0` | 10 | 0: the explicit value must survive. |
 | `5` | 5 | 5: ordinary values must keep working. |
+
+<figure class="gemma-functional-figure">
+<div class="gemma-figure-wide">
+<img src="{{ site.baseurl }}/assets/img/posts/gemma-4-series/part1-fig1-issue-to-fix.png" alt="An explicit zero becomes ten in the shared helper; an explicit None check repairs the bug and preserves all three input cases" width="2240" height="1650" loading="lazy">
+</div>
+<div class="gemma-figure-narrow">
+<img src="{{ site.baseurl }}/assets/img/posts/gemma-4-series/part1-fig1-issue-to-fix-mobile.png" alt="An explicit zero becomes ten in the shared helper; an explicit None check repairs the bug and preserves all three input cases" width="780" height="3020" loading="lazy">
+</div>
+<figcaption markdown="1">
+
+Figure 1. This list API must return an empty list for limit=0. The old helper changes zero to the default of ten. Using the default only for None preserves omitted, zero and ordinary inputs as separate cases.
+
+</figcaption>
+</figure>
 
 The three rows have different jobs. Zero reproduces the defect. `None` checks that the
 repair preserves the fallback. Five checks that an ordinary request has not changed.
@@ -237,20 +303,9 @@ change? Did an unsuccessful edit leave the file untouched? Did it accidentally i
 temporary script? A final natural-language message saying "fixed" cannot answer those
 questions. The patch is what another environment will receive.
 
-Five terms help keep the rest of the system straight:
-
-| Term | Its role in this competition |
-|---|---|
-| **Model** | Gemma generates the next reasoning step, tool call, or response. |
-| **Agent** | The model together with instructions, tools, state, and a procedure for continuing the work. |
-| **Tool** | An operation such as reading a file, running a command, or submitting the current changes. |
-| **Harness** | The organizer's software that loads the agent, prepares tasks, enforces limits, and evaluates patches. |
-| **Patch** | A Git diff describing changes relative to the prepared repository baseline. |
-
-These terms describe a division of labor. The model proposes what to do. The agent loop
-arranges for an allowed tool to do it and returns the observation to the model. The harness
-decides which environment exists, how long the process can continue, and whether the patch
-passes verification. Improving any one of these interfaces can change the final result.
+A useful trajectory makes those responsibilities visible: what the model requested, what the tool
+actually did, and what observation reached the next model call. A correct plan can fail at any of
+those interfaces.
 
 A **trajectory** is the recorded sequence of messages, actions, and observations during
 that process. It might show a search, two file reads, a failed reproduction, an edit, and a
@@ -285,17 +340,26 @@ The model does not directly inspect the disk. It emits a structured request that
 harness interprets. The resulting observation becomes part of the input for its next
 decision. A tool error is also an observation; silently ignoring it breaks this feedback loop.
 
+{% include interactive/article-lab.html id="gemma-bug" %}
+
 ## 2. Why Google is asking for an open-model developer agent
 
-A language model stores learned numerical parameters, often called **weights**.
-**Inference** uses these weights and the current input to generate a response or choose an
-action. The output is generated in tokens: units of text processing that can be word
-fragments, punctuation or pieces of a code identifier.
+A language model stores learned numerical parameters, often called **weights**. Its current input
+is the **context**: instructions, the issue, and any code or observations supplied so far.
+**Inference** uses the weights and context to generate a response or choose an action. Text is
+processed as tokens, which can be word fragments, punctuation, or pieces of a code identifier.
 
-Reading a new file changes the **context**, the working material available for the next
-decision. It does not itself update the weights. **Training** changes learned parameters
-using examples or a learning signal. An agent can investigate an issue over many tool calls
-without retraining each time it reads another file.
+Reading a new file changes the context for the next decision. **Training**, in contrast, changes
+learned parameters using examples or a learning signal. An agent can therefore investigate an
+issue over many tool calls without retraining each time it reads another file.
+
+| Concept | What changes, or what it does |
+|---|---|
+| Weights | Learned parameters reused across model calls. |
+| Context | The information available for the current call; tool results can add to it. |
+| Inference | Generates the next response using the weights and current context. |
+| Training | Updates learned parameters so future calls can behave differently. |
+{: .quick-summary }
 
 This distinction gives us two paths to improvement. A prompt or tool change can help the
 same weights use better evidence. Training can teach different behavior across many such
@@ -308,7 +372,7 @@ This gives developers a different set of deployment choices from an application 
 only send requests to a hosted service. Google's April 2, 2026 [Gemma 4 announcement][gemma-launch]
 presents an Apache 2.0 model family with reasoning and agent-oriented capabilities,
 including function calling and structured output. The family includes several sizes;
-the competition chooses one specific 31B variation from that broader release.
+the September 25 competition specification chooses one specific 31B variation from that broader release.
 
 Here, **31B** describes the approximate parameter scale, not a number of files the model
 can understand or steps it can take. **Instruction tuning** prepares a model to respond
@@ -364,10 +428,9 @@ being withheld from conditions that disallowed AI. The authors considered their 
 estimate an unreliable measure of the current productivity effect. Taking either headline
 as a universal answer would erase what the studies actually measured.
 
-For this competition, I would keep the claim narrow and useful: a resolved issue shows
-that the submitted system produced a patch accepted by that evaluator. Raising that rate
-is meaningful progress toward a dependable coding assistant. Establishing its effect on
-human engineering work would require additional evidence.
+A resolved issue establishes that the submitted system produced a patch accepted by this
+evaluator. Raising that rate is meaningful progress toward a dependable coding assistant.
+Establishing its effect on human engineering work requires additional evidence.
 
 ## 3. Follow one issue through the evaluator
 
@@ -384,43 +447,63 @@ reference fix or verification tests to the agent. [Dataset specification][data]
 
 The documented evaluation uses separate environments for producing and checking a patch:
 
-```mermaid
-%%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#eef3f8', 'primaryTextColor': '#20334a', 'primaryBorderColor': '#7794b0', 'lineColor': '#64788e', 'secondaryColor': '#f5f7fa', 'tertiaryColor': '#ffffff', 'clusterBkg': '#f8fafc', 'clusterBorder': '#b6c5d3', 'fontFamily': 'Arial, sans-serif'}}}%%
-flowchart TB
-    C[Agent configuration and optional adapters] --> H[Harness and agent loop]
-    I[Issue description] --> H
-    H <-->|Requests and responses| M[Gemma model server]
-    H <-->|Tools and observations| A[Agent sandbox: editable /workspace]
-    R[Original repository snapshot] --> A
-    R --> V[Fresh verification sandbox]
-    A -->|Extracted Git diff| V
-    T[Evaluator-held verification tests] --> V
-    V --> S[Resolved or unresolved]
-```
+<figure class="gemma-functional-figure">
+<div class="gemma-figure-wide">
+<img src="{{ site.baseurl }}/assets/img/posts/gemma-4-series/part1-fig2-agent-verifier.png" alt="Separate model serving, agent execution, editable workspace and fresh verification, connected by the extracted Git diff" width="2240" height="1770" loading="lazy">
+</div>
+<div class="gemma-figure-narrow">
+<img src="{{ site.baseurl }}/assets/img/posts/gemma-4-series/part1-fig2-agent-verifier-mobile.png" alt="Separate model serving, agent execution, editable workspace and fresh verification, connected by the extracted Git diff" width="780" height="3180" loading="lazy">
+</div>
+<figcaption markdown="1">
 
-*Figure 2. The execution boundaries around one repair. The harness connects Gemma's
-requests to tools in the editable repository sandbox. The resulting Git diff is checked
-on a fresh baseline with evaluator-held tests. The model server and the repository sandbox
-have separate resource limits. This is a schematic, not a measurement of performance.*
+Figure 2. The model server generates tool calls; the harness executes file operations and commands in the agent sandbox. Verification starts from a fresh copy of the same base code, applies the diff, and runs evaluator-held tests. Running processes and in-memory state do not transfer with the patch.
+
+</figcaption>
+</figure>
 
 The agent repeats a practical loop: inspect the code, form a hypothesis, edit, run a
 focused check, and use the observation to decide what to do next. That loop belongs to the
 patch-generation attempt. The fresh verifier later asks whether the extracted patch works
 without the agent's running process or temporary environment.
 
-In the first environment, the agent explores and edits. The released `submit_patch()`
-tool makes untracked files visible to Git and first tries to capture a binary-capable diff
-against the prepared baseline:
+The three stages produce different outputs. Repository state is useful during debugging; only the
+extracted patch is transferred to verification.
+
+| Stage | Input → output |
+|---|---|
+| Agent attempt | Issue and editable repository → file changes, checks, and a trajectory. |
+| Patch extraction | Working-tree changes against the prepared baseline → a Git diff. |
+| Fresh verification | Baseline, agent diff, and evaluator tests → a resolved or unresolved result. |
+{: .quick-summary }
+
+In the inspected `swegemma 0.2.7`, environment setup records the prepared file state in a baseline commit and points the tag
+`_swegemma_baseline`—a name for that version—to it. The agent then edits files in `/workspace`. Git already tracks
+existing files such as `query/limits.py`, so an edit to that file appears in a diff. A newly
+created file such as `repro_limit.py` is initially **untracked** and does not appear in an
+ordinary diff. The released `submit_patch()` tool handles that distinction with these commands:
 
 ```bash
 git add -N .
 git diff --binary _swegemma_baseline
 ```
 
-If that named baseline is unavailable, the tool falls back to `git diff --binary HEAD`.
-The first command does not create a commit; it lets new files appear in the diff. This is
-why a temporary reproduction script left in the repository can accidentally become part
-of the submitted patch. [Released patch-extraction source][wheelhouse]
+The two commands run in sequence, but perform different jobs.
+
+| Command | What it does |
+|---|---|
+| `git add -N .` | Registers new file paths so Git includes them in the comparison. It does not save their contents in a commit. |
+| `git diff --binary _swegemma_baseline` | Compares current files with the baseline version and emits the changes as patch text, including the newly registered files. |
+{: .quick-summary }
+
+`-N` means **intent to add** and applies to new, non-ignored files under the current directory.
+`--binary` allows binary changes in the patch too. If the baseline tag is unavailable, the
+tool falls back to `git diff --binary HEAD`; `HEAD` denotes the current commit.
+
+For example, editing `query/limits.py` and leaving a new `/workspace/repro_limit.py` produces a
+patch with both the repair and the reproduction script after `git add -N .`. The script need not
+have been committed. Remove scratch files from the repository before extraction, or create them
+outside it, such as under `/tmp`, when the task permits. New implementation files that belong to
+the repair should remain. [Released patch-extraction source][wheelhouse]
 
 In the second environment, the harness applies that patch to a fresh baseline, attempts to
 restore protected test and runner-configuration files, applies the evaluator's `test_patch`,
@@ -458,6 +541,8 @@ Second, success should be reproducible from the extracted patch alone. An in-mem
 a package installed interactively, or an unrecorded environment adjustment is not a reliable
 solution artifact.
 
+{% include interactive/article-lab.html id="gemma-patch" %}
+
 ## 4. What earns a point
 
 For an evaluation split with $N$ tasks, define $r_i=1$ when the submitted patch resolves task
@@ -494,10 +579,10 @@ Only the last observation is the competition objective. The other two explain wh
 was lost. An agent timeout may still leave a patch that the local harness recovers and
 verifies, so runtime status and resolved status should both be retained.
 
-The Public leaderboard uses roughly half the hidden test data. Final placement uses the
-other half. A change selected repeatedly because it improves the Public score can therefore
-be a poor choice for the final set. The public development tasks are where I want to explain
-an improvement before using a scarce leaderboard submission to test whether it transfers.
+The Public leaderboard uses roughly half the hidden test data, while final placement uses the
+other half. Repeatedly selecting changes from Public scores can favor configurations that do not
+transfer to the final set. Development-task traces provide a way to investigate why a change helps
+before spending a limited leaderboard submission to test its transfer.
 
 ### 4.1 Reliability accumulates across the whole attempt
 
@@ -528,7 +613,7 @@ model of this illustrated workflow; Kaggle does not award separate points for th
 
 Suppose each conditional success rate is an illustrative 0.8. Then $0.8^4=0.4096$,
 or about 41%. Out of 100 starting attempts, about 80 complete the first stage, 64 the
-second, 51 the third, and 41 all four. These are invented numbers, not measurements of Gemma.
+second, 51 the third, and 41 all four.
 
 The example shows why a model that often seems to understand the issue can still have a
 disappointing final score. Several opportunities to fail sit between understanding and
@@ -552,11 +637,11 @@ agent's expected resolution rate.
 
 ## 5. How code generation became repository work
 
-We now have a concrete task and a definition of success. The research is useful because
-each project studies one part of that picture: whether generated code works, how actions
-produce new evidence, how repository context is found, or how the agent uses a computer.
-Read the following as a map of design questions. The studies use different models, datasets
-and budgets, so their headline scores are not a ranking for this competition.
+Repository repair combines several research problems: checking whether generated code works,
+choosing actions from tool observations, navigating unfamiliar code, and learning a useful
+procedure. The following studies isolate different parts of that system. Their models, datasets,
+and budgets differ, so their headline scores provide design context rather than estimates of this
+competition's performance.
 
 ### 5.1 First, judge code by running it
 
@@ -667,10 +752,9 @@ selection is still development: we are learning which design works on the exampl
 A holdout is useful because it asks whether that choice works on examples we did not use
 to make it. It becomes less informative when we keep consulting it and adjusting to it.
 
-The goal is not to memorize the 129 released repairs. They give us inspectable examples
-of a much larger procedure: understanding a project, locating a fault, editing safely and
-checking the result. The hidden evaluation asks that procedure to work on other issues.
-This is why the distribution of the practice problems matters.
+The released repairs provide examples of a procedure that must work on other issues: understand
+the project, locate the fault, edit the implementation, and check the result. The distribution of
+those examples determines which behaviors development results can meaningfully test.
 
 The data page lists **129 public development tasks**, 782 files, and approximately 22.42 GB.
 The repositories are FastAPI, Rich, Requests, and HTTPX. Each task has a frozen repository
@@ -692,11 +776,21 @@ who has never used these projects can see the consequence: a method that happens
 the two largest groups can dominate the average while adding little evidence about the
 smaller groups.
 
-![Public development task counts: FastAPI 67, Rich 48, Requests 13, HTTPX 1.](/assets/img/gemma4-developer-agent/fig-01-public-task-composition.svg)
+<figure class="gemma-functional-figure">
+<div class="gemma-figure-wide">
+<img src="{{ site.baseurl }}/assets/img/posts/gemma-4-series/part1-fig3-task-composition.png" alt="Public development task counts: FastAPI 67, Rich 48, Requests 13, HTTPX 1." width="2000" height="1040" loading="lazy">
+</div>
+<div class="gemma-figure-narrow">
+<img src="{{ site.baseurl }}/assets/img/posts/gemma-4-series/part1-fig3-task-composition-mobile.png" alt="Public development task counts: FastAPI 67, Rich 48, Requests 13, HTTPX 1." width="919" height="1340" loading="lazy">
+</div>
+<figcaption markdown="1">
 
-*Figure 3. Public development task composition. FastAPI and Rich account for 115 of 129
+Figure 3. Public development task composition. FastAPI and Rich account for 115 of 129
 tasks (89.1%). This distribution does not describe the hidden repositories. Source: the
-released task inventory checked on September 25, 2026. [Dataset][data]*
+released task inventory checked on September 25, 2026. [Dataset][data]
+
+</figcaption>
+</figure>
 
 For someone coming from a conventional Kaggle competition, the data format is another
 important change. A row is an executable work assignment. It does not just contain input
@@ -711,12 +805,11 @@ endpoint accepting both a file and a form field. A web **endpoint** is a functio
 handles a particular kind of request. A form field might contain a name; a file field
 might contain an uploaded document.
 
-The supplied description reports that putting the `Form` parameter before the `File`
-parameter causes a validation error with response code 422, whereas declaring the file
-first avoids it. It also calls for coverage of multiple files and parameter-order
-independence. The [public pull request][fastapi-example] corroborates that description.
-This is an actual task description; the investigation below is my proposed approach,
-not a reproduction of a model run.
+The supplied description reports that putting the `Form` parameter before the `File` parameter
+causes a validation error with response code 422, whereas declaring the file first avoids it. It
+also calls for coverage of multiple files and parameter-order independence. The [public pull
+request][fastapi-example] corroborates that description. The following investigation is a proposed
+approach to that task, rather than an observed agent trajectory.
 
 The desired behavior is easy to explain to a user: rearranging the declaration of these
 inputs should not change whether an otherwise valid upload works. The implementation
@@ -724,16 +817,16 @@ question is more subtle. Does the ordering affect the description of the request
 the extraction of individual fields, or validation after extraction? Which assumption
 about the first parameter could incorrectly affect later parameters?
 
-My first two observations would be the existing file/form tests and the code that turns
-endpoint parameters into request-processing behavior. A compact reproduction would compare
-the two parameter orders with equivalent input. I would inspect the returned validation
-details before deciding which layer to edit. That approach derives a search strategy
-from the symptom instead of using the reference patch to reveal the repair location.
+A first investigation would read the existing file/form tests and the code that turns endpoint
+parameters into request-processing behavior. A compact reproduction would compare the two
+parameter orders with equivalent input. The returned validation details can then help locate which
+processing layer to inspect. This derives a search strategy from the symptom instead of using the
+reference patch to reveal the repair location.
 
-The task is now explicitly part of this article's development examples, so its later
-success should not be counted as untouched holdout evidence. The repository snapshot in
-the dataset remains the evaluation starting point; today's upstream source may already
-contain changes made long after that snapshot.
+`fastapi_11194` belongs in the development partition once its description and reference material
+have informed the design. A later success on it is then a result on a familiar task, rather than
+untouched holdout evidence. Evaluation should still use the dataset's repository snapshot; the
+upstream source may contain changes made long after that snapshot.
 
 ### 6.2 What is inside the task bundle
 
@@ -807,24 +900,33 @@ that the second symbol contains the bug. The supplied tool starts from an existi
 Searching from an arbitrary issue description would require a compatible query-embedding
 method; the formula alone does not supply one.
 
-A practical hybrid procedure can therefore start with literal names from the issue,
-inspect the matching source, and use indexed similarity or graph neighbors to expand a
-specific hypothesis. Keep text search as a fallback. Combining these sources does not
-require inventing a weighted score: first compare whether each extra retrieval step finds
-useful code within the available time and context.
+These tools answer different navigation questions. A hybrid procedure can begin with a literal
+name from the issue and expand only after identifying relevant source or an indexed symbol.
+
+| Question during investigation | Suitable lookup |
+|---|---|
+| Where is this API name, error text, or field used? | Text search in source files; no graph entry is required. |
+| Which indexed symbols are connected to this one? | `get_code_neighbors`; inspect the returned relationships. |
+| What is the connected code around these indexed symbols? | `get_code_subgraph`; select a bounded region. |
+| Which indexed code items resemble a known symbol? | `search_similar_code`; start from an existing embedding key or suffix. |
+{: .quick-summary }
+
+If a lookup returns nothing, inspect the source and continue with text search. A missing graph
+entry does not establish that the implementation is absent. Compare whether each added lookup
+finds useful code within the time and context budgets before introducing a more elaborate
+retrieval policy.
 
 There is also a difference between a static map and a running program. Python can choose
 functions dynamically, generate attributes, or dispatch through wrappers. A graph can
 therefore guide navigation without containing every relationship that matters at runtime.
 The source and an appropriate execution check remain part of the investigation.
 
-The development data currently has a known area to audit. The competition file listing
-checked for this article reports 129 zero-byte entries in `graphs/` and another 129 in
-`embeddings/`. A [participant investigation][graph-discussion] attributes the empty copies
-to the handling of task-name and commit-name hard links, and also reports missing async
-functions. The empty-file sizes were checked against the live listing for this article; the
-async coverage measurements remain attributed to that participant. The host has acknowledged
-the report and is investigating.
+The September 25 competition file listing reports 129 zero-byte entries in `graphs/` and another
+129 in `embeddings/`. A [participant investigation][graph-discussion] attributes the empty copies
+to the handling of task-name and commit-name hard links, and also reports missing async functions.
+The zero-byte file sizes were checked against that listing; the async coverage measurements are
+the participant's findings. At that date, the host had acknowledged the report and was
+investigating.
 
 That makes a useful first design requirement: **the agent must still navigate when graph
 lookup fails or an expected symbol is absent.** Ordinary file inspection, text search, and
@@ -833,7 +935,8 @@ an issue, and keep any local repair separate so the comparison records which dat
 
 ## 7. The constraints become part of the algorithm
 
-The current [competition model rule][competition] permits one specific model:
+The [competition model specification][competition] checked on September 25 permits one specific
+model:
 
 ```text
 gemma-4-31b-it-qat-w4a16-ct
@@ -862,9 +965,10 @@ checkpoint still matters when loading an adapter or reproducing an experiment.
 | Restricted declarative agent configuration | Use registered tools and sandboxed skills instead of an arbitrary host-side Python entrypoint. |
 | Twelve hours for all patch generation | Budget across tasks, including sandbox setup; verification time is excluded from this stated limit. |
 
-These specifications come from the [harness guide][data]. Some defaults in that guide describe
-the reusable local library; the hosted scorer has its own integration. Where they differ,
-the distinction needs to remain visible.
+These are the September 25 conditions in the [harness guide][data]. Some defaults describe the
+reusable local library, while the hosted scorer has its own integration. The distinction matters
+when reproducing a run: a valid local configuration does not establish which limits the hosted
+integration applies.
 
 GPU memory and the repository sandbox's RAM are separate limits. The model server performs
 inference on the GPUs. The agent's command that imports a package or runs pytest executes
@@ -889,10 +993,10 @@ The local agent-session timer begins after preparation of the task environment. 
 12-hour limit includes that preparation. Reducing the per-task agent timeout therefore
 controls only part of the total duration.
 
-In a [host reply checked on September 25][runtime-discussion], Kaggle states that hidden
-tasks run sequentially. At that time, exhausting the global limit produces a submission
-error. The host plans to change the behavior so unfinished tasks receive zero, but the reply
-does not establish that the change is already deployed.
+A [host reply checked on September 25][runtime-discussion] states that hidden tasks run
+sequentially. Under the behavior described in that reply, exhausting the global limit produces a
+submission error. The host planned to assign zero to unfinished tasks instead, but the reply did
+not establish that this change had been deployed.
 
 A useful accounting equation for sequential patch generation is:
 
@@ -924,12 +1028,22 @@ leaving a nominal 360 minutes for setup and other counted overhead. Actual start
 cleanup, task count, and timeout enforcement must still be measured. A per-task setting
 alone cannot certify that the complete submission fits.
 
-![Illustrative twelve-hour budget: one to six agent minutes per task consume two to twelve hours across 120 tasks; three minutes leaves six hours for setup and overhead.](/assets/img/gemma4-developer-agent/fig-02-global-generation-budget.svg)
+<figure class="gemma-functional-figure">
+<div class="gemma-figure-wide">
+<img src="{{ site.baseurl }}/assets/img/posts/gemma-4-series/part1-fig4-generation-budget.png" alt="Illustrative twelve-hour budget: one to six agent minutes per task consume two to twelve hours across 120 tasks; three minutes leaves six hours for setup and overhead." width="2000" height="1120" loading="lazy">
+</div>
+<div class="gemma-figure-narrow">
+<img src="{{ site.baseurl }}/assets/img/posts/gemma-4-series/part1-fig4-generation-budget-mobile.png" alt="Illustrative twelve-hour budget: one to six agent minutes per task consume two to twelve hours across 120 tasks; three minutes leaves six hours for setup and overhead." width="919" height="1440" loading="lazy">
+</div>
+<figcaption markdown="1">
 
-*Figure 4. Agent work and setup share the generation budget. Each bar assumes 120
+Figure 4. Agent work and setup share the generation budget. Each bar assumes 120
 sequential tasks using their full agent allowance. At three minutes per task, 360 minutes
 remain for setup and other counted overhead. At six minutes, none remain. Verification is
-excluded. This is planning arithmetic, not a runtime measurement.*
+excluded. This is planning arithmetic, not a runtime measurement.
+
+</figcaption>
+</figure>
 
 <details markdown="1">
 <summary>Optional: express the time-allocation problem mathematically</summary>
@@ -987,10 +1101,10 @@ continue, but it cannot choose which debugging facts the agent should have made 
 
 ## 8. Before the first model run: learn what one task asks of you
 
-It is tempting to start by downloading weights and launching a training job. That makes
-the first interesting output a GPU log, even though several cheaper questions remain
-unanswered. I would begin by learning the task as a developer, then make sure the evaluator
-can distinguish a broken repository from a repaired one.
+Several prerequisites can be checked before loading model weights. Read a practice issue as a
+developer, identify what would distinguish a repair from the original behavior, and verify that
+the local evaluator can detect that difference. This separates a failure to reconstruct the
+environment from a failure by the model to solve the issue.
 
 ### 8.1 Choose the practice issue before looking at solutions
 
@@ -1045,17 +1159,16 @@ turned this practice task into an answer lookup.
 
 ### 8.3 Separate three kinds of preparation
 
-There are useful tasks at three different resource levels:
+| Preparation level | What it establishes |
+|---|---|
+| CPU machine | Rules, task inventory and split are recorded; agent files and archive layout are inspectable. |
+| Docker with prepared task data | The historical repository and dependencies can be reconstructed; unchanged/reference controls can be checked without inference. |
+| Compatible GPU host | Gemma serves model requests and the full agent–tool–verification path can be exercised. |
+{: .quick-summary }
 
-1. **On a normal CPU machine:** understand the rules, inspect task metadata, choose the
-   evaluation partitions, write the agent configuration, and check the archive layout.
-2. **With Docker and the prepared data:** inspect whether a repository snapshot and its
-   tests can be reconstructed. The repository's test process is separate from model inference.
-3. **On a compatible GPU host:** serve the fixed model and exercise the complete agent loop.
-
-The order prevents an expensive model run from becoming the first time we discover that
-a snapshot is missing or a dependency cannot be installed. It also gives a beginner useful
-work to do before access to four GPUs has been arranged.
+This order catches missing snapshots and dependency failures before an expensive model run. The
+repository's tests execute separately from inference, so access to four GPUs is not a prerequisite
+for checking the first two levels.
 
 The first GPU session should answer operational questions: can the model call the tools,
 can the harness extract the patch, and how much time does each stage take? Start with one
@@ -1064,14 +1177,10 @@ Once the path works, a panel of roughly 8–12 issues can expose timing and fail
 before a broader quality comparison. These are planning sizes, conditional on the frozen
 split and available compute, not statistically reliable evaluations.
 
-By the end of this preparation, we should be able to explain one task without reciting
-its answer, identify the experiment's task set, and tell what a valid evaluation result
-looks like. Those are more useful prerequisites for training than a folder full of
-unexamined model outputs.
-
 ## 9. Build a baseline whose behavior is easy to inspect
 
-We will ask the first agent to follow this loop. Its trace will tell us whether it actually does:
+The baseline prompt specifies the following loop. Its trace is needed to determine whether the
+agent actually follows it:
 
 1. Translate the issue into a concrete expected behavior.
 2. Locate the implementation and relevant existing tests.
@@ -1091,10 +1200,10 @@ The initial package below has no adapter declaration. This matters because the s
 sample demonstrates multi-LoRA routing and names example adapters. Copying those declarations
 without providing the corresponding weights would not produce a clean no-adapter baseline.
 
-Before creating files, connect each file to a decision in the diagram. **YAML** is a
-text format for naming settings and nested objects. In this competition, those settings
-tell the harness which supported agent and tools to construct. A prompt file supplies
-instructions to the model; it is not Python that runs independently on the host.
+Each configuration file controls a different part of the loop. **YAML** is a text format for
+settings and nested objects; here it tells the harness which supported agent and tools to
+construct. A prompt file supplies instructions for model calls. The harness reads both, rather
+than running them as independent host-side programs.
 
 | Design choice | Where the example expresses it | What to look for in the run |
 |---|---|---|
@@ -1213,13 +1322,12 @@ your edits. Call submit_patch when the patch is ready; treat it as the final
 tool action. Keep your final message brief and factual.
 ```
 
-The prompt specifies actions the agent can take and observations it should use. It does not
-assert that every issue is simple, prescribe an arbitrary line-count limit, or require a
-test run that cannot fit in the remaining time. The task's execution rules take precedence over a generic testing habit. The released
-local configuration enables sandbox testing by default, but the generated task prompt
-also supports environments that disable pytest and unittest and request inline assertions.
-Read that prompt before choosing a check. The instruction to avoid committing edits keeps
-manual diff review simple; final extraction uses the harness's prepared baseline.
+The prompt connects each action to evidence the agent should inspect. Check selection still
+depends on the task's execution rules. The released local configuration enables sandbox testing by
+default, while the generated task prompt also supports environments that disable pytest and
+unittest and request inline assertions. Read that prompt before choosing a check. Keeping edits
+uncommitted simplifies working-tree diff review; final extraction compares against the harness's
+prepared baseline.
 
 ### 9.2 Set the hosted task limits explicitly
 
@@ -1321,22 +1429,21 @@ configuration; archive checks alone do not establish that behavior.
 
 ## 10. Prepare local evaluation in the right environment
 
-There are three separate things to prepare: the development data, a model-serving process,
-and the harness that talks to that process. Installing a package named `swegemma` does not
-by itself prepare the other two.
+Local evaluation needs the task data, a model-serving process, and the harness that coordinates
+the agent. The harness also starts repository sandboxes for tool execution and fresh verification.
+Installing `swegemma` supplies evaluation software; it does not download the tasks or start the
+model server.
 
-The small package-building exercise works on a CPU laptop. If moving to another machine,
-copy the project directory there before continuing. The local inference path below
-targets a **Linux NVIDIA GPU machine** with a working CUDA software stack and Docker. The
-documented hosted setup uses four GPUs and tensor parallelism of four, which divides the
-model across them. A different local hardware arrangement requires its own serving and
-memory checks. The version-specific commands below were checked against the released
-source, but have not been run through GPU evaluation for this article.
+The package can be written on a CPU machine. The inference commands below target a **Linux NVIDIA
+GPU machine** with CUDA and Docker; copy the project directory there if it was created elsewhere.
+The September 25 hosted setup uses four GPUs with tensor parallelism of four, dividing the model
+across those devices. Other hardware requires its own serving and memory checks. The commands are
+examples checked against the pinned source, with end-to-end GPU execution left to validation on
+that host.
 
-Before running the commands, locate the work. "Local evaluation" means that we run the
-evaluation machinery ourselves; the machine may be a Linux GPU server rather than a laptop.
-Writing the package on a CPU machine does not load the 31B model. The following components
-have separate jobs, even when several run on the same host.
+“Local evaluation” means running the evaluation machinery under our control; it can take place on
+a GPU server rather than a laptop. Within that machine, the following components have separate
+responsibilities and failure modes.
 
 | Running component | What it does | What should become observable |
 |---|---|---|
@@ -1345,13 +1452,21 @@ have separate jobs, even when several run on the same host.
 | Repository sandbox | Holds the task's code and executes permitted commands. | File changes, command output and resource/time errors. |
 | Fresh verification sandbox | Reconstructs the task and checks the extracted patch. | Verification logs and a resolved/unresolved outcome. |
 
-The steps below produce checkpoints in that order of responsibility: an identifiable
-package; task data and an environment whose unchanged/reference controls behave as expected;
-a ready model endpoint; then one recorded agent attempt. The reference-control script
-checks the measuring environment without asking the model to solve an issue. The GPU run
-then tests whether the agent can use that environment. Model weights, downloaded tasks,
-reference-control scripts and result logs are development resources outside the submitted
-agent directory.
+Prepare these components in dependency order. In particular, the reference controls can check the
+evaluator before any model inference is needed.
+
+| Step | Required result before continuing |
+|---|---|
+| Download task data | Task records, snapshots and dependency files are available. |
+| Install host packages | The pinned harness APIs can load the agent configuration. |
+| Build the sandbox and run controls | Logs explain whether unchanged and reference-patched code behave as expected. |
+| Start the model server | The intended model name answers a request at the selected endpoint. |
+| Run one agent task | Trace, extracted patch, verification result and timings are retained together. |
+{: .quick-summary }
+
+Model weights, task data, control scripts, and result logs are development resources. Keep them
+outside the submitted agent directory; the submission contains only the configuration and
+resources the agent itself needs.
 
 ### 10.1 Get the data and keep a record of its version
 
@@ -1383,7 +1498,7 @@ python3 -m zipfile -e downloads/gemma-4-developer-agent.zip data
 Keep the downloaded archive as the raw copy, and use a separate working copy if
 investigating the graph-file issue.
 
-After extraction, the working layout used in this note is:
+After extraction, organize the files as follows:
 
 ```text
 data/
@@ -1419,7 +1534,7 @@ bundle can change results even when the agent prompt is identical.
 
 ### 10.2 Install the released evaluation packages
 
-The [official wheelhouse][wheelhouse] inspected for this note contains these core versions:
+The [official wheelhouse][wheelhouse] checked on September 25 contains these core versions:
 
 | Package | Version |
 |---|---:|
@@ -1480,9 +1595,9 @@ assert validate_single_declared_model(root) == "gemma-4-31b-it-qat-w4a16-ct"
 print("Directory and root schema checks passed.")
 ```
 
-This source-checked API example needs the installed host dependencies but does not call the
-model. A schema error here should be fixed before inference. Registry compilation and actual
-tool execution are exercised by the subsequent evaluator run.
+This configuration check needs the installed host dependencies but makes no model request. Fix
+schema errors at this stage. The subsequent evaluator run exercises registry compilation and
+actual tool execution.
 
 ### 10.3 Prepare the repository sandbox and check the controls
 
@@ -1502,11 +1617,10 @@ Building the image uses the network to prepare packages. Evaluated Docker tasks 
 with networking disabled. Do not confuse an online image build with permission for the
 agent to install arbitrary packages during an issue.
 
-With the host dependencies, data, and Docker image prepared, the verifier can be exercised
-without starting a model server. The two recipes below use the same practice task and
-command timeout. They were checked against the `swegemma 0.2.7` source, but have not been
-executed for this article. They provide the concrete environment-control step introduced
-earlier; neither is an agent performance result.
+Once the host dependencies, task data, and Docker image are ready, the verifier can run without a
+model server. Both controls below use the same practice task and command timeout through the
+`swegemma 0.2.7` verification path. They check environment reconstruction and grading, rather than
+the agent's repair ability.
 
 <details markdown="1">
 <summary>Copyable controls: verify the unchanged repository and the reference patch without inference</summary>
@@ -1618,13 +1732,12 @@ In the local setup below, the endpoint serves Gemma on the GPU host. A tool call
 by that server is then executed by the harness in the repository sandbox, and its output
 becomes a later model observation.
 
-The released CLI connects to a model endpoint. It does not start that endpoint or download
-the base model. On the [official model page][model], select the permitted variation, fulfill
-any access requirements, and use its **Download** control to obtain that variation's files.
-Extract the download under a directory such as `models/` and locate the directory containing
-`config.json` and the model weights. That directory is the model path below. At the time of
-this review, the page shows Version 2 and 23.3 GB of files, including `model.safetensors`.
-Record the downloaded model version; do not substitute a similarly named variation.
+The released CLI connects to a model endpoint; it does not start the server or download the base
+model. On the [official model page][model], select the permitted variation, fulfill its access
+requirements, and use **Download** to obtain the files. Extract them under a directory such as
+`models/` and locate `config.json` with the model weights. That directory is the model path below.
+On September 25, the page listed Version 2 and 23.3 GB of files, including `model.safetensors`.
+Record the downloaded version as well as the variation name.
 
 On a compatible four-GPU host, the following is a serving template matching the documented
 model name, parsers, tensor parallelism, and context length:
@@ -1713,7 +1826,7 @@ results directory. The guide describes `summary.json`, `task_results.jsonl`, `pa
 `test_outputs/`, and `traces/`. Start with the actual files created by your installed
 version, then follow one task from its recorded outcome back through its patch and trace.
 
-I would read a first run in this order:
+Read the result in this order:
 
 1. **Initialization:** Did the intended model and repository environment start?
 2. **Localization:** Which implementation did the agent inspect, and why?
@@ -1733,6 +1846,7 @@ avoids the opposite mistake: a clean program exit does not establish that the pa
 | Patch does not apply | The actual diff and the baseline used for generation. |
 | Tests fail after a valid patch | The implementation hypothesis, missed cases, and regressions. |
 | Task consumes its entire budget | Search scope, repeated reasoning, oversized outputs, and test duration. |
+{: .quick-summary }
 
 For a local panel, save the task identifier, repository, resolved status, error category,
 setup and agent times where available, token and tool usage, patch path, and verification
@@ -1807,15 +1921,24 @@ The baseline resolves four and the candidate five: 33.3% versus 41.7%, a differe
 five changed outcomes: three gains and two regressions. Read those five traces.
 Perhaps a stronger testing instruction recovers the gains but causes timeouts on the
 regressions. That suggests a more selective testing policy, not a conclusion that the
-new prompt is uniformly better. Twelve invented outcomes establish no statistical claim
-about a future run or the hidden set. In a real comparison, keep the manifest fixed and
+new prompt is uniformly better. In a real comparison, keep the manifest fixed and
 account for every task; silently dropping failed attempts changes the denominator.
 
-![Invented paired results: both agents resolve 2 tasks, baseline only 2, candidate only 3, neither 5; totals are 4 versus 5 out of 12.](/assets/img/gemma4-developer-agent/fig-03-paired-outcomes.svg)
+<figure class="gemma-functional-figure">
+<div class="gemma-figure-wide">
+<img src="{{ site.baseurl }}/assets/img/posts/gemma-4-series/part1-fig5-paired-outcomes.png" alt="Invented paired results: both agents resolve 2 tasks, baseline only 2, candidate only 3, neither 5; totals are 4 versus 5 out of 12." width="2000" height="1200" loading="lazy">
+</div>
+<div class="gemma-figure-narrow">
+<img src="{{ site.baseurl }}/assets/img/posts/gemma-4-series/part1-fig5-paired-outcomes-mobile.png" alt="Invented paired results: both agents resolve 2 tasks, baseline only 2, candidate only 3, neither 5; totals are 4 versus 5 out of 12." width="919" height="1460" loading="lazy">
+</div>
+<figcaption markdown="1">
 
-*Figure 5. One net gain can hide five changed outcomes. Read each cell as the two agents'
+Figure 5. One net gain can hide five changed outcomes. Read each cell as the two agents'
 results on the same issues: the blue cell contains the candidate's three gains; the warm
-cell contains its two regressions. All numbers are invented to explain a paired comparison.*
+cell contains its two regressions. All numbers are invented to explain a paired comparison.
+
+</figcaption>
+</figure>
 
 Begin with questions that the panel can actually answer:
 
@@ -1839,6 +1962,8 @@ even a better score gives little guidance about which change helped. If the budg
 is the experimental variable, report the quality and time tradeoff explicitly rather
 than describing the conditions as identical.
 
+{% include interactive/article-lab.html id="gemma-paired" %}
+
 ### 12.1 Follow one failure all the way to a decision
 
 Return to the invented failed edit from the previous section. The model identified
@@ -1852,10 +1977,9 @@ For a candidate experiment, add the following instruction to `agent/prompts/syst
 > After an edit tool reports failure, read the affected lines again. Use the current file
 > contents to make a smaller valid edit, then confirm the saved change before testing it.
 
-Keep the base model, tools, issue list, runtime, sampling settings and time limits unchanged.
-The prompt addition is the intervention. It is a request to the model, so the trace must
-show whether it follows it; the sentence itself does not guarantee recovery. This candidate
-is a proposal for an experiment, not a change already evaluated in this article.
+Keep the base model, tools, issue list, runtime, sampling settings, and time limits unchanged. The
+prompt addition is the intervention. Check whether it changes the next actions after a failed
+edit; the written instruction alone does not establish that the agent recovered.
 
 The first measurement is behavioral: when an edit fails, does the next action re-read the
 file, and is the intended change eventually saved? The second is the actual objective:
@@ -2003,18 +2127,26 @@ entire unpacked submission, including every adapter, must still fit below 3 GiB.
 directory contains `adapter_config.json` and `adapter_model.safetensors`, and an agent names
 it using the `adapter` field. [Adapter contract][data]
 
-The training objective should address an observed failure. Supervised fine-tuning can teach
-successful sequences of investigation, tool calls, edits, and verification. Reinforcement
-learning can use executable outcomes as a reward, but it adds the cost of producing and
-checking trajectories. Rewarding shorter episodes indiscriminately could teach an agent to
-quit before fixing the bug; rewarding only final success without examining the environment
-could hide a broken verification process.
+Training needs a target behavior and a source of feedback. Supervised fine-tuning can teach
+verified sequences of investigation, tool calls, and edits. Reinforcement learning can use
+executable outcomes as a reward, but also requires producing and checking trajectories. A reward
+for short episodes can encourage quitting; a reward for apparent success can reinforce a broken
+verification process. The evaluator and the examples therefore matter as much as the optimization
+method.
 
-It helps to separate **how parameters are updated** from **what teaches the update**.
-LoRA is a way to represent and train a compact parameter change. Supervised fine-tuning
-and reinforcement learning describe forms of training signal. They are not three mutually
-exclusive algorithms to choose from on a menu; a LoRA adapter can be trained using a
-supervised objective, for example. [Original LoRA paper][lora-paper]
+LoRA, supervised fine-tuning, and reinforcement learning describe different choices, so they can
+be combined.
+
+| Choice | Question it answers |
+|---|---|
+| LoRA | Which compact weight update is learned while the base weights stay frozen? |
+| Supervised fine-tuning (SFT) | Which demonstrated responses or actions should the model learn to produce? |
+| Reinforcement learning (RL) | Which outcomes receive reward, and how should the policy change to obtain them? |
+{: .quick-summary }
+
+For example, SFT can train a LoRA adapter from verified recovery episodes. LoRA determines the
+form of the parameter update; the supervised objective supplies its learning signal. [Original
+LoRA paper][lora-paper]
 
 In supervised fine-tuning, an example can pair a situation with a desirable next action.
 For a coding agent, that situation includes the issue and previous observations. A useful
@@ -2058,29 +2190,28 @@ trajectory that discovered the change. Creating useful training episodes require
 for producing those steps and verifying the resulting patch. Keep failed attempts as well
 as successful ones when diagnosing what the training signal teaches.
 
-At this stage, I would choose adapter rank, training data, and optimization method after
-seeing the baseline's failure distribution. A syntactically valid adapter and a successful
-training run are intermediate artifacts; held-out patch resolution remains the test.
+The baseline's recurring failures should guide adapter rank, training data, and optimization
+choices. A valid adapter and a completed training run are intermediate artifacts; held-out patch
+resolution remains the test.
 
 ### 13.4 External teachers are an unresolved rule question
 
 The [rules][rules] permit external data subject to accessibility and other conditions. A
-separate [discussion][distillation-discussion] asks whether proprietary API models may
-generate patches and trajectories for distillation, and how their terms interact with the
-winner's release obligations. The host reply checked for this note says an answer is still
-being prepared.
+[discussion][distillation-discussion] asks whether proprietary API models may generate patches and
+trajectories for distillation, and how their terms interact with the winner's release obligations.
+In the host reply checked on September 25, an answer was still being prepared.
 
 That leaves a concrete dependency for a teacher-based training plan. Obtain the host's
 clarification, check the chosen data and provider terms, and establish what can be released
 before investing in that dataset. This does not prevent building and evaluating the
 no-adapter agent now.
 
-## 14. How I expect the competition to develop
+## 14. Research paths suggested by the opening conditions
 
-The competition is only at its opening stage as I write this. Rather than predict a
-winning architecture, I see three plausible paths. These are forecasts based on the
-fixed model, executable tasks, small development set, and total time budget. They are
-not reports of what other teams are building.
+The opening conditions on September 25 suggest three plausible research paths: recover failures in
+the agent's procedure, train a recurring missing skill, or improve transfer beyond familiar
+repositories. These are conditional forecasts based on the fixed model, executable tasks, small
+development set, and total time budget.
 
 ### 14.1 The model knows more than its current procedure lets it use
 
@@ -2147,10 +2278,9 @@ meaningful. A teacher-model ruling could admit or rule out a proposed source of 
 trajectories. [Runtime discussion][runtime-discussion] · [Graph discussion][graph-discussion]
 · [Distillation discussion][distillation-discussion]
 
-A sensible project should be able to respond to those changes without losing its control
-experiment. Keep the agent version, task set, and runtime identifiable, then test the
-specific implication of the update. My initial bet is that reliable evidence about these
-three paths will be more valuable than choosing an elaborate architecture on the first day.
+Versioned agents, fixed task sets, and recorded runtimes preserve the comparison when host
+conditions change. Retain the old evidence, identify which part of the experiment an update
+affects, and test that implication before crediting the resulting score change to the agent.
 
 ## 15. Submit an artifact you can identify
 
@@ -2167,15 +2297,13 @@ The submission dialog inspected on September 25 offers **File Upload**, **Notebo
 3. Choose the archive named **`submission.zip`**.
 4. Enter a description that identifies the agent version and complete the submission flow.
 
-The ZIP must contain the agent package. The hosted system runs it on hidden tasks and
-produces its own patch predictions; a table of development-task fixes is not a replacement
-for that package. The standalone example in this article has not been uploaded or scored;
-the dialog inspection is separate from the project's other submission activity.
+The ZIP contains the agent package. Kaggle runs it on hidden tasks to generate and score patches.
+The evaluated artifact is therefore the packaged procedure, rather than a table of fixes to public
+development tasks.
 
-Submission starts the hosted evaluation and consumes an available submission opportunity.
-Wait for the recorded outcome, inspect any error message, and retain the resulting score
-alongside the submitted artifact's identity. In the current rules, teams can submit at most
-**once per day** and select up to **two final submissions**. [Submission limits][rules]
+Submitting consumes a submission opportunity and queues the hosted evaluation. Retain the eventual
+error or score alongside the submitted ZIP's identity. The rules checked on September 25 allow at
+most **one submission per day** and up to **two final submissions**. [Submission limits][rules]
 
 A hosted run can reveal compatibility or population differences that a local panel missed.
 Use that result to form a specific question, then investigate it locally. Repeatedly changing
@@ -2211,10 +2339,10 @@ checks against repair time. The organizers also invite work on tuning, code comp
 tasks and benchmarks, and graph reasoning. A focused, reproducible finding can be worth
 reporting even when it is not a claim to the highest leaderboard score.
 
-Notice that the paper deadline arrives before the main competition deadline. A research
-writeup therefore needs a bounded question and evidence collected early enough to analyze.
-It is better to explain one comparison carefully—including failures and limitations—than
-to promise a general solution while the evaluation pipeline is still uncertain.
+The paper deadline arrives before the main competition deadline, so a research writeup needs a
+bounded question and evidence collected early enough to analyze. One well-supported comparison can
+explain its failures and limitations; an uncertain evaluation pipeline cannot support a general
+claim about agent quality.
 
 ### 16.1 A realistic first week is a sequence of answers
 
@@ -2237,23 +2365,15 @@ and how completed task results will be preserved if it is interrupted. A configu
 that repeatedly fails before the first useful action should be repaired in a small run;
 repeating that failure across the full panel does not measure reasoning quality.
 
-For a reader following this walkthrough, the first milestone is a baseline with a traceable outcome: a working
-agent package and a small fixed panel evaluated end to end, with per-task patches, test
-logs, and timings. The next milestone is one controlled
-change that improves the result on tasks held out from its design.
+The first milestone is an inspectable baseline: an identifiable package evaluated end to end on a
+small fixed panel, with per-task traces, patches, test logs, and timings. The next milestone is a
+controlled change that improves outcomes on tasks held out from its design.
 
 The first empirical question is therefore specific: **where does the permitted model lose
 tasks in this environment, and which change recovers those tasks within the same time
 budget?** That question gives the next experiment a purpose.
 
 ## Reading guide and source notes
-
-**About the illustrations.** The cover uses the series template, with the official competition
-header shown in a panel; that header was simplified with built-in image generation.
-Figure 1 maps the project's responsibilities and two loops; Figure 2 shows execution
-boundaries. Figure 3 summarizes the released task inventory. Figures 4 and 5 are explicitly
-labeled planning and teaching examples. The charts were
-drawn from explicit counts and calculations, not generated as illustrative artwork.
 
 You do not need to read every paper before trying the baseline. Choose the next source
 according to the question you are trying to answer. For a first pass through a paper,
@@ -2279,7 +2399,7 @@ competition sources govern the submission:
 - [Development data, starter files, and `HARNESS_README.md`][data].
 - [Competition rules: submissions, teams, external resources, and winner obligations][rules].
 - [Official Gemma 4 model variant][model].
-- [Official evaluation wheelhouse][wheelhouse]. Source inspection for this article used
+- [Official evaluation wheelhouse][wheelhouse]. Source versions checked on September 25:
   `swegemma 0.2.7`, `adk-submission 0.2.11`, and `adk-eval-core 0.1.0`.
 - [Host clarification on sequential tasks, evaluation fields, and the global timeout][runtime-discussion].
 - [Graph and embedding issue report, with host acknowledgment][graph-discussion].

@@ -1,0 +1,32 @@
+kaggriculture-return:
+  bundle: kaggriculture
+  title: {en: "Follow the money through three decisions", ko: "세 번의 결정에서 현금과 수익 따라가기"}
+  note: {en: "The article’s hypothetical three-transition farm: cash starts at 30; rewards are −10, 0, +20. This is not the Kaggriculture engine or its competition reward.", ko: "본문의 가상 농장 예제입니다. 초기 현금은 30, 세 전이의 보상은 −10, 0, +20입니다. Kaggriculture 엔진이나 대회 보상 자체를 재현하지는 않습니다."}
+kaggriculture-bc:
+  bundle: kaggriculture
+  title: {en: "One teacher action, changing probabilities", ko: "교사 행동에 따라 달라지는 확률"}
+  note: {en: "Direct gradient descent on three logits, initially log([0.1, 0.2, 0.7]), with cross-entropy and gradient p−one_hot(target). Neural-network inputs, shared weights and generalization are omitted.", ko: "초깃값 log([0.1, 0.2, 0.7])인 로짓 세 개를 직접 경사 하강합니다. 교차 엔트로피의 경사는 p−one_hot(target)입니다. 신경망 입력·공유 가중치·일반화는 생략했습니다."}
+kaggriculture-ppo:
+  bundle: kaggriculture
+  title: {en: "Where PPO stops rewarding a larger step", ko: "PPO에서 더 큰 변화의 이득이 멈추는 지점"}
+  note: {en: "One sample’s objective is min(rA, clip(r, 1−ε, 1+ε)A). Advantage is held fixed. This shows the clipped surrogate, not a policy update, reward clipping or a guarantee on the final probability ratio.", ko: "한 표본의 목적함수 min(rA, clip(r, 1−ε, 1+ε)A)를 표시합니다. 어드밴티지는 고정합니다. 정책 갱신이나 보상 클리핑을 수행하지 않으며, 최종 확률 비율의 범위를 보장하는 그림도 아닙니다."}
+kaggriculture-replay:
+  bundle: kaggriculture
+  title: {en: "Pair the observation with the right action row", ko: "관측과 올바른 행동 행 짝짓기"}
+  note: {en: "A four-row miniature with the replay convention discussed in the article: row t contains observation t and the action that led there; the action selected from observation t is in row t+1. TEND abbreviates the example’s water action.", ko: "본문에서 설명한 리플레이 규약을 네 행으로 줄였습니다. t행에는 관측 t와 그 상태를 만든 행동이 있고, 관측 t에서 선택한 행동은 t+1행에 있습니다. TEND는 예제의 물 주기 행동을 줄여 쓴 것입니다."}
+kaggriculture-paired:
+  bundle: kaggriculture
+  title: {en: "Ten worlds, eighty results", ko: "열 개 월드와 여든 개 결과"}
+  note: {en: "Uses the article’s fictional E/H seat-paired table. World differences are 0.25 in worlds 1–2, 0.25(2w−1) in worlds 3–4, and zero otherwise. All 66 multinomial count combinations give the exact distribution of ten-world empirical bootstrap means. Opponents and weights remain fixed.", ko: "본문의 가상 E/H 좌석 비교표를 사용합니다. 월드별 차이는 1–2번에서 0.25, 3–4번에서 0.25(2w−1), 나머지에서 0입니다. 다항분포의 66개 개수 조합으로 10개 월드를 재표집한 평균의 분포를 정확히 계산합니다. 상대와 가중치는 고정합니다."}
+kaggriculture-harvest:
+  bundle: kaggriculture
+  title: {en: "Can the crop pay back before the season ends?", ko: "시즌이 끝나기 전에 작물값을 회수할 수 있을까?"}
+  note: {en: "Uses the crop table’s seed cost, base price, first-yield delay and cadence. One base unit per yield; planting day is 0-based. Assumes immediate harvest and sale, constant prices and perfect daily care. Labor, travel, bonuses, stock capacity and market effects are omitted. Revenue is a teaching calculation, not a game forecast.", ko: "본문 표의 씨앗 비용·기준 가격·첫 수확 기간·생산 주기를 사용합니다. 매 수확의 기본 생산량은 1, 파종일은 0부터 셉니다. 즉시 수확·판매, 고정 가격, 완전한 일일 관리를 가정하며 노동·이동·보너스·창고 한도·시장 효과는 생략합니다. 게임 결과를 예측하는 값은 아닙니다."}
+kaggriculture-wages:
+  bundle: kaggriculture
+  title: {en: "The thirteenth worker’s price", ko: "열세 번째 일꾼의 가격"}
+  note: {en: "Fibonacci daily hiring costs start 1, 1, 2, 3, 5, … . Twelve hires cost 376 in total; the thirteenth costs 233 alone. The free farmer is excluded. Productivity and hiring limits are not modeled.", ko: "하루 고용비는 피보나치 수열 1, 1, 2, 3, 5, …를 따릅니다. 열두 명의 총임금은 376, 열세 번째 한 명은 233입니다. 무료 농부는 제외했으며 생산성과 고용 한도는 모형에 포함하지 않았습니다."}
+kaggriculture-plans:
+  bundle: kaggriculture
+  title: {en: "Which complete farm plan clears the costs?", ko: "어떤 완성된 농장 계획이 비용을 넘길까?"}
+  note: {en: "Recalculates the article’s four-plan, two-period toy evaluator: discounts [0.9, 0.81], three fixed price scenarios, 75 operating reserve, new-land cost 1000. J = mean(future flow) − penalty × population standard deviation − today’s cost. The strawberry multiplier changes all scenario strawberry prices. Routing, market feedback and the actual planner are omitted.", ko: "본문의 네 계획·두 기간 toy evaluator를 다시 계산합니다. 할인율 [0.9, 0.81], 고정된 가격 시나리오 세 개, 운영 예비금 75, 새 토지 비용 1000을 사용합니다. J = 미래 흐름 평균 − 페널티 × 모집단 표준편차 − 당일 비용입니다. 딸기 배수는 모든 시나리오의 딸기 가격에 적용합니다. 경로·시장 피드백·실제 planner는 생략합니다."}

@@ -18,6 +18,7 @@ series: rsna-knee
 series_order: 5
 translation_key: rsna-knee-05
 lang: ko
+interactive_labs: [rsna]
 ---
 <nav aria-label="RSNA Knee 시리즈" markdown="1">
 **시리즈 전체 보기**
@@ -119,6 +120,8 @@ _그림 2. 실제 제출 시각을 기준으로 Public과 Private를 표시했�
 </details>
 
 막판 2주에는 여러 경로를 함께 시험했다. N 단독 모델, teacher student, S6F 재현, 공개 모델 혼합은 서로 다른 가설을 다룬 실험이었다. 고정된 ensemble에 모델을 하나씩 추가해 간 기록으로 보면 흐름을 잘못 이해하기 쉽다. 중요한 것은 모델이 몇 개 늘었느냐가 아니라, 각 모델군의 정보를 어떤 구성으로 써야 실행 비용에 걸맞은 성능을 얻을 수 있느냐였다.
+
+{% include interactive/article-lab.html id="rsna-history" %}
 
 ## 학습 라벨과 Private 성능
 

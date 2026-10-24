@@ -18,6 +18,7 @@ lang: en
 translation_key: rsna-knee-01
 series: rsna-knee
 series_order: 1
+interactive_labs: [rsna]
 ---
 
 By August 19, my RSNA Knee system had reached a Public AUC of 0.921. The next experiment could change the report reader, give the model a more detailed view of the knee, or use another pretrained encoder. Each is a reasonable possibility, but I first need to distinguish what each comparison can establish. Label-table quality, image-model performance, and a selected ensemble can all be measured by AUC while answering different questions.
@@ -67,6 +68,8 @@ Consider an illustrative example. The model currently predicts 0.20. With a targ
 _Figure 1. Illustrative values at a fixed prediction of 0.20. The two target encodings produce opposite update directions. This explains the loss, rather than estimating the cause or size of an observed model-score change._
 
 Rank-based targets can still be useful. They need to be evaluated as a changed learning task, rather than treated as probabilities with an unchanged meaning. Confidence weighting makes a different change: it leaves the target values alone and alters how strongly each cell contributes to the loss. The next label experiment makes that distinction concrete.
+
+{% include interactive/article-lab.html id="rsna-target-loss" %}
 
 ## Report omissions and training loss
 
@@ -163,6 +166,8 @@ The candidate improved the minimum while worsening both other scores. Their decl
 _Figure 5. The recorded example and the 200-candidate check expose the same mechanism: v1 controls the minimum because its score level is lower. This conclusion is limited to the evaluated candidates._
 
 In response, I replaced the minimum with the mean of Opus and GPT as my working primary score, retaining v1 as a separate veto check. Gains and losses under Opus and GPT can now affect selection. This does not make the two references independent or uniquely correct. I still need to interpret them alongside individual findings, annotated cases, and competition results.
+
+{% include interactive/article-lab.html id="rsna-reference-objective" %}
 
 ## Encoder adaptation and further training
 

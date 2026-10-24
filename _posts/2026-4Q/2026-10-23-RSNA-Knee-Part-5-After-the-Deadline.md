@@ -18,6 +18,7 @@ series: rsna-knee
 series_order: 5
 translation_key: rsna-knee-05
 lang: en
+interactive_labs: [rsna]
 ---
 <nav aria-label="RSNA Knee series" markdown="1">
 **The complete series**
@@ -119,6 +120,8 @@ The early gains came from making the images and the supervision usable: fine-tun
 </details>
 
 The final fortnight followed several branches at once. An individual N model, a teacher student, an S6F reproduction and a public mixture tested different hypotheses. They were not successive additions to one fixed ensemble. The question was how to use the information in those families to obtain a prediction worth the cost of executing it.
+
+{% include interactive/article-lab.html id="rsna-history" %}
 
 ## Training targets and Private performance
 

@@ -1,0 +1,29 @@
+quantum-phase:
+  bundle: quantum
+  title: {en: "Turn phase into a measurement", ko: "phase를 측정 확률로 바꾸기"}
+  note: {en: "Exact one-qubit H–phase–H calculation. The phase is relative; H is used for the concept and is not an independent kickmix submission instruction.", ko: "한 qubit의 H–phase–H를 정확하게 계산합니다. 상대 phase를 바꾸며, 여기서 H는 개념 설명용입니다. 독립 H는 kickmix 제출 instruction이 아닙니다."}
+quantum-cleanup:
+  bundle: quantum
+  title: {en: "Keep the phase, clear the scratch", ko: "phase는 남기고 scratch는 비우기"}
+  note: {en: "Exact two-qubit state, initially |00⟩. H(data) → CX → optional Z(scratch) → optional CX → H(data). The scratch stores f(x)=x; no measurement or reset is used.", ko: "초기 상태가 |00⟩인 두 qubit을 정확하게 계산합니다. H(data) → CX → 선택적 Z(scratch) → 선택적 CX → H(data) 순서입니다. scratch에는 f(x)=x를 저장하며 측정이나 reset은 사용하지 않습니다."}
+quantum-fixedpoint:
+  bundle: quantum
+  title: {en: "Normalize, approximate, correct", ko: "정규화하고 근사한 뒤 보정하기"}
+  note: {en: "Uses the article’s 22-bit input normalization. Choose an initial relative error; floor y₀ and the final Newton value to F fractional bits. Intermediate Newton arithmetic is real-valued. This is a rounding model, not the reference circuit’s polynomial or column-truncated multiplication.", ko: "본문의 22비트 입력 정규화를 사용합니다. 초기 상대 오차를 정하고 y₀와 최종 Newton 값을 소수부 F비트로 버림합니다. Newton 중간 연산은 실수로 계산합니다. 기준 회로의 다항식이나 column-truncated 곱셈을 재현하는 모형은 아닙니다."}
+quantum-gf4:
+  bundle: quantum
+  title: {en: "Decode a syndrome and recover its sign", ko: "syndrome을 풀고 필요한 부호 찾기"}
+  note: {en: "Exact GF(4), modulus u²+u+1, RS(3,1), exactly one nonzero symbol error. Symbols 0,1,α,α² have bits 00,01,10,11. Other masks are zero. This small decoder does not model the official GF(2¹²) workload.", ko: "u²+u+1을 modulus로 하는 GF(4), RS(3,1), 0이 아닌 symbol 오류 한 개를 정확하게 계산합니다. 0,1,α,α²의 비트는 00,01,10,11입니다. 다른 위치의 mask는 0입니다. 공식 GF(2¹²) workload를 재현하는 decoder는 아닙니다."}
+quantum-givens:
+  bundle: quantum
+  title: {en: "The same angles, a different vector", ko: "같은 각도, 다른 벡터"}
+  note: {en: "Start with (1,0,0); rotate edges (0,1) and (0,2) in the selected order. Angle words use nearest-grid rounding modulo 2π. Vector error is not a Hamiltonian residual or a ground-state energy error.", ko: "(1,0,0)에서 시작해 (0,1), (0,2) edge를 선택한 순서로 회전합니다. 각도 word는 2π 주기의 가장 가까운 격자로 반올림합니다. 벡터 오차는 Hamiltonian residual이나 ground-state energy 오차가 아닙니다."}
+quantum-stages:
+  bundle: quantum
+  data: [/assets/img/posts/quantum-circuit-compilation/invsqrt-stage-counts.json]
+  title: {en: "Where a gate saving matters", ko: "어느 단계의 gate를 줄일까"}
+  note: {en: "Reference static counts come from the bundled invsqrt-stage-counts.json (7,735 Toffolis). The selected percentage is a hypothetical reduction applied to both directions, rounding saved gates down to integers. It makes no claim about circuit correctness, qubits or synthesis margin.", ko: "기준 정적 수치는 번들 invsqrt-stage-counts.json의 Toffoli 7,735개입니다. 선택한 절감률은 compute와 uncompute 양쪽에 적용하는 가정이며 절감 gate 수는 정수로 버림합니다. 회로의 정확성, qubit 수, synthesis margin을 판정하지 않습니다."}
+quantum-cost:
+  bundle: quantum
+  title: {en: "Spend gates or save qubits?", ko: "gate와 qubit의 교환 비용"}
+  note: {en: "Resource ratios are hypothetical. Invsqrt uses QC; DQI uses RQ²T; chemistry uses λTQ. Overall score assumes the other two tasks stay at reference. Correctness, failure bounds and chemical acceptance remain separate checks.", ko: "자원 비율은 가정한 값입니다. invsqrt는 QC, DQI는 RQ²T, 분자 task는 λTQ를 사용합니다. 전체 점수는 다른 두 task가 기준 회로와 같다고 가정합니다. 정확성, 실패율 상한, 분자 task의 허용 조건은 별도 검사입니다."}

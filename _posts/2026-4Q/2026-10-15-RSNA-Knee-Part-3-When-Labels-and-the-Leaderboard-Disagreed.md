@@ -18,6 +18,7 @@ series: rsna-knee
 series_order: 3
 translation_key: rsna-knee-03
 lang: en
+interactive_labs: [rsna]
 ---
 
 Recent comparisons do not support a single, reliable ordering of my models. In early October, changing the training labels made local scores worse and leaderboard scores better across five matched imaging setups. Changing only the training objective improved both scores in another experiment. A third comparison kept the labels fixed, changed the image recipe, and again reversed the local ordering on Public. Averaging the scores would hide these differences. I need to distinguish what each experiment changed before deciding what to train next.
@@ -91,6 +92,8 @@ Here the empirical comparison agreed across channels. With the backbone, labels,
 _Figure 2. A controlled objective change transferred in the local direction; a whole-image-recipe change with the same labels did not. Local intervals are the saved paired intervals for fixed OOF predictions and references. Public points are displayed outcomes, without an assumed noise model. The two contrasts do not isolate a general architecture effect._
 
 Keeping the labels fixed does not make every local ordering hold on Public. Keeping the architecture fixed helps interpret a label intervention, but does not make the references independent of the target content. I am using local evidence within the scope of each comparison and keeping complete OOF for ensemble analysis. A limited number of declared Public comparisons can then check whether the proposed changes improve test performance. Discarding OOF merely because architectures differ would lose potentially complementary predictions; treating every local ordering as the test ranking would repeat my G25 mistake.
+
+{% include interactive/article-lab.html id="rsna-window-loss" preset="windows" %}
 
 ## Public recipes: components and reproduction hypotheses
 
@@ -197,5 +200,7 @@ The **G25 T\*** student scored **0.945** on October 14, against **0.939** for it
 These results support further work on stronger visual supervision, but the optimistic local values remain unsuitable for clean-ensemble selection. A comparison against a B2 teacher would change teacher content and training construction together; it would not isolate the effect of leakage. I am preserving clean image-held-out families for conditional ensemble analysis and evaluating final-only students through declared external comparisons, with their teacher ancestry recorded.
 
 The next decisions depend on three comparisons. N-mm12's Public result is still unknown. R949F and S6F need complete reproduction and runtime evidence before I can judge whether their improvement justifies the preparation and inference cost. Stronger teacher-derived students also need to be compared alongside the image models: they may complement them, or mostly repeat rankings inherited from shared teachers. I will allocate the next training and inference time using those results. No single report reader, reused expert panel, or Public point can settle all three comparisons.
+
+{% include interactive/article-lab.html id="rsna-teacher-folds" %}
 
 **Next:** [Part 4: Conflicting Evidence and Two Final Candidates]({{ site.baseurl }}/posts/RSNA-Knee-Part-4-The-Final-Two-Before-the-Deadline/)

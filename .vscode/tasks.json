@@ -2,6 +2,13 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "Edit Blog Visually",
+      "type": "shell",
+      "command": "./tools/edit.sh",
+      "problemMatcher": [],
+      "detail": "Open the actual blog with local click-to-edit text, protected equations and tables."
+    },
+    {
       "label": "Run Jekyll Server",
       "type": "shell",
       "command": "./tools/run.sh",

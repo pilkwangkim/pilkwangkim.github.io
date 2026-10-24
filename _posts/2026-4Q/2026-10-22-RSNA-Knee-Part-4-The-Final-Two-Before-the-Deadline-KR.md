@@ -18,6 +18,7 @@ series: rsna-knee
 series_order: 4
 translation_key: rsna-knee-04
 lang: ko
+interactive_labs: [rsna]
 ---
 
 현재 최종 제출로 골라 둔 것은 **0.957의 v229**와 **0.953의 v236**이다. 공개 Helios 예측 H는 0.958로 더 높고, 두 번째 후보와 구성이 비슷한 clean 조합도 0.954를 받았다. Public 점수만 보면 더 높은 대안이 있는데도 이 둘을 선택했다. 로컬 평가와 Public이 서로 다른 쪽을 지지하기 때문이다.
@@ -91,6 +92,8 @@ $z_m$은 S6F checkpoint의 logit이다. $B_{10}$은 seed 두 개에서 다섯 fo
 | 가까운 대안 | v227, 자체 비중 0.50, Public 0.956 | v231, S6F 한 seed, Public 0.954 |
 
 현재 고른 두 후보는 H 중심의 순위 조합과 S6F 비중이 큰 clean 확률 조합이다. 둘 다 N과 V3를 쓰므로 구성이 다르다는 이유만으로 서로 독립적인 예측이 되는 것은 아니다.
+
+{% include interactive/article-lab.html id="rsna-ensemble" preset="nested" %}
 
 ## 학습량 확대와 seed 추가의 비교
 

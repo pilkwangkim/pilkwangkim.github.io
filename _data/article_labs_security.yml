@@ -1,0 +1,56 @@
+security-score:
+  bundle: security
+  title: {en: "Events and distinct cells contribute differently", ko: "event와 별도 cell의 기여는 다르다"}
+  note: {en: "One-row scoring arithmetic: severity-5 weight 16, one +2 bonus per unique finding cell, /200 normalization. All findings shown succeed.", ko: "한 row의 점수 계산: severity 5의 가중치 16, 고유 finding cell당 +2, /200 정규화입니다. 표시한 finding은 모두 성공한다고 가정합니다."}
+security-fill:
+  bundle: security
+  title: {en: "A fixed bank can leave the faster model idle", ko: "고정 bank는 빠른 model의 시간을 남긴다"}
+  note: {en: "Historical v3.1.2 planning preset: independent 9,000-second model budgets and a 2,000-candidate cap. Times are adjustable assumptions.", ko: "당시 v3.1.2의 model별 9,000초 예산과 candidate 2,000개 제한을 사용합니다. 시간은 조절 가능한 가정입니다."}
+security-linear:
+  bundle: security
+  title: {en: "The single-post line counts effective findings", ko: "single-post 직선은 실제 성공 finding을 센다"}
+  note: {en: "Historical Part 2 K1 observations. The score identity assumes successful findings with distinct cells; it does not estimate the runtime budget.", ko: "Part 2의 당시 K1 관측값입니다. 성공한 finding마다 cell이 다르다는 점수 항등식이며 실행 예산을 추정하는 계산은 아닙니다."}
+security-density:
+  bundle: security
+  title: {en: "More events help only if their cost pays", ko: "event를 늘리려면 추가 비용을 넘어야 한다"}
+  note: {en: "R(K)=16K+2 and T(K)=F+Kg. The initial local Part 4 costs are not hosted timings; exact K is assumed.", ko: "R(K)=16K+2, T(K)=F+Kg입니다. 초기값은 Part 4의 로컬 비용이며 hosted 시간이 아닙니다. 정확한 K를 가정합니다."}
+security-cost:
+  bundle: security
+  title: {en: "Which stage is worth making faster?", ko: "어느 구간을 줄여야 전체가 빨라지는가"}
+  note: {en: "Fixed local Part 5 timings: build .047 s, reset .014 s, interaction .976 s. Speedup changes one component only.", ko: "Part 5의 고정된 로컬 시간: 생성 .047초, 초기화 .014초, interaction .976초입니다. 한 구간만 빠르게 바꿉니다."}
+security-stop:
+  bundle: security
+  title: {en: "An inactive coefficient cannot increase N", ko: "작동하지 않는 계수로 N을 늘릴 수는 없다"}
+  note: {en: "Part 6's two stop conditions, with illustrative timing constants. This is a control-flow calculation, not a fit to noisy hosted scores.", ko: "Part 6의 두 중단 조건에 예제 시간을 넣은 계산입니다. hosted 점수의 변동에 맞춘 모형이 아니라 제어 흐름의 결과입니다."}
+security-deadline:
+  bundle: security
+  title: {en: "A deadline can erase work or bank a prefix", ko: "deadline은 작업을 지우거나 완료 prefix를 남긴다"}
+  note: {en: "Compare the pre-August overrun cliff with the August source's 8,750-second inner prefix banking. Candidate exceptions remain a separate failure.", ko: "8월 이전의 초과 무효 규칙과 8월 소스의 8,750초 inner prefix 보존을 비교합니다. candidate 예외는 별도의 실패입니다."}
+security-frontier:
+  bundle: security
+  title: {en: "Requested K is not realized K", ko: "요청한 K와 실제 K는 다르다"}
+  note: {en: "Six frozen Gemma-local syntax rows from Part 9; token efficiency does not establish hosted replay density.", ko: "Part 9의 고정된 Gemma 로컬 구문 6개 결과입니다. token 효율만으로 hosted replay 밀도가 성립하지 않습니다."}
+security-prefix:
+  bundle: security
+  title: {en: "A fixed tail becomes reachable when the prefix gets cheaper", ko: "prefix가 빨라지면 고정 tail에 도달한다"}
+  note: {en: "Intended selected-route counts published in Part 11; editable latencies are assumptions. Hosted route and private row traces were not logged.", ko: "Part 11에 공개한 의도된 selected-route 개수입니다. 조절하는 시간은 가정이며 hosted route와 private row trace는 기록되지 않았습니다."}
+security-pairs:
+  bundle: security
+  title: {en: "Compare Public and Private for the same artifact", ko: "같은 artifact의 Public과 Private를 비교한다"}
+  note: {en: "Exact-reference results disclosed in Part 11. An ex-post best-of-two comparison cannot identify the hidden guardrail.", ko: "Part 11에 공개한 동일 reference 결과입니다. 사후 best-of-two 비교로 숨겨진 guardrail을 식별할 수는 없습니다."}
+security-order:
+  bundle: security
+  title: {en: "The deadline reaches positions, not an unordered set", ko: "deadline은 순서 없는 집합이 아니라 앞쪽부터 도달한다"}
+  note: {en: "Illustrative 2,000-candidate ordered bank, 8,750-second replay budget, and assumed per-candidate latencies. No hosted route is reconstructed.", ko: "candidate 2,000개의 순서형 bank, replay 8,750초, 가정한 candidate별 시간입니다. hosted route를 복원한 것이 아닙니다."}
+security-portfolio:
+  bundle: security
+  title: {en: "What did the second slot add?", ko: "두 번째 slot은 무엇을 더했는가"}
+  note: {en: "Realized Part 11 outcomes, not an ex-ante forecast. The better private score of the selected two submissions counts.", ko: "사전 예측이 아닌 Part 11의 실제 결과입니다. 선택한 두 제출의 private 점수 중 높은 값이 반영됩니다."}
+security-accounting:
+  bundle: security
+  title: {en: "A faster first stage can make the complete run slower", ko: "첫 구간이 빨라도 전체 실행은 느려질 수 있다"}
+  note: {en: "Initial controls reproduce the fifth-place author's early 200-finding, 200-cell comparison; slider changes are hypothetical. Residual is not tool time alone.", ko: "초기값은 5위 저자의 초기 finding 200개·cell 200개 비교를 재현합니다. 조절값은 가정이며 residual은 tool 시간만이 아닙니다."}
+security-scenarios:
+  bundle: security
+  title: {en: "A second mechanism adds value when failures differ", ko: "실패가 달라야 다른 mechanism이 가치를 더한다"}
+  note: {en: "Part 7 public baselines with hypothetical survival fractions and a necessary replay timing condition. These are scenario inputs, not hidden-defense forecasts.", ko: "Part 7의 public 기준에 가정한 생존 비율과 필요한 replay 시간 조건을 적용합니다. hidden-defense 예측이 아닌 시나리오 입력입니다."}

@@ -12,6 +12,7 @@ image:
   alt: "Part 3 cover: two model rows, separate budgets, and hop economics"
 topic: ai-agent-security
 lang: en
+interactive_labs: [security]
 translation_key: ai-agent-security-03
 series: ai-agent-security
 series_order: 3
@@ -116,6 +117,8 @@ A **fixed $N$ ships the same list to both models**, wasting `gemma`'s speed — 
 </figure>
 
 *Figure 1. A fixed 357-row bank leaves the faster row underused; deadline-aware fill keeps that row working longer. Candidate counts are approximate, while 49.770 is the observed public mean.*
+
+{% include interactive/article-lab.html id="security-fill" %}
 
 ## 4. Three directions that don't pay
 

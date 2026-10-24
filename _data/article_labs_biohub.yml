@@ -1,0 +1,36 @@
+biohub-lineage:
+  bundle: biohub
+  title: {en: "Match nodes before scoring edges", ko: "Node를 매칭한 뒤 edge 채점하기"}
+  note: {en: "Synthetic two-frame graph with three fully annotated links. Voxel scale (z,y,x)=(1.625,0.40625,0.40625) µm; matching gate 7 µm; division term fixed at zero. This example does not cover every sparse-context scorer rule.", ko: "완전히 주석한 연결 3개의 가상 2-frame graph입니다. Voxel scale (z,y,x)=(1.625,0.40625,0.40625) µm, 매칭 gate 7 µm, division 항은 0입니다. 희소 주석 scorer의 모든 규칙을 포함하지는 않습니다."}
+biohub-folds:
+  bundle: biohub
+  title: {en: "Which embryo did each learned stage see?", ko: "각 학습 단계가 본 배아 확인하기"}
+  note: {en: "Two recorded embryo sizes: 71 and 128 movies. Balanced four-fold counts instantiate the article's approximate prefix-balanced construction. Epoch selection is a separate information path.", ko: "두 배아의 영상 수는 71·128편입니다. 균형 4-fold 수는 원문의 근사 배아 비율 구성을 구체화한 값입니다. Epoch 선택은 별도의 정보 경로입니다."}
+biohub-graph-stages:
+  bundle: biohub
+  title: {en: "A correct parent switch can change pruning", ko: "올바른 parent 변경이 pruning을 바꾸는 과정"}
+  note: {en: "Seven synthetic nodes and five fully annotated true edges. One-to-one parent occupancy is respected. Component pruning and node-count adjustment are recomputed after the switch; these are not historical movie outputs.", ko: "가상 node 7개와 완전히 주석한 true edge 5개입니다. Parent의 일대일 점유를 지키며 변경 뒤 component pruning과 node 수 보정을 다시 계산합니다. 과거 영상의 실제 출력은 아닙니다."}
+biohub-reach:
+  bundle: biohub
+  title: {en: "A ranker can select only available candidates", ko: "Ranker가 선택할 수 있는 후보의 범위"}
+  note: {en: "Discrete inventories from Note 5. Reconstructed swaps, previously selected actions and division geometry are different populations; none enumerates all feasible graph edits.", ko: "Note 5에 기록된 목록입니다. 재구성한 swap·이미 선택된 편집·분열 geometry는 서로 다른 모집단이며 가능한 모든 graph 편집을 열거하지 않습니다."}
+biohub-tail:
+  bundle: biohub
+  title: {en: "How large must the improved tail be?", ko: "개선된 tail의 비율은 얼마나 커야 할까"}
+  note: {en: "Five recorded detector compositions on seven worst and eight near-median movies. The slider computes a movie-count screening mixture, not the official denominator-weighted aggregate.", ko: "최악 7편·중앙값 부근 8편에서 기록한 검출기 구성 5개입니다. Slider는 영상 수 가중 선별 근사값을 계산하며 공식 분모 가중 종합 점수가 아닙니다."}
+biohub-division:
+  bundle: biohub
+  title: {en: "Division precision and the break-even point", ko: "Division precision과 손익분기점"}
+  note: {en: "New true events recover existing false negatives. Existing event matches, edge and node terms stay fixed. J=0.32 is the article's hypothetical starting point, not an observed hidden score.", ko: "새 true event는 기존 FN을 복원합니다. 기존 사건 매칭과 edge·node 항은 고정합니다. J=0.32는 원문의 가정한 출발점이며 관측된 hidden 점수가 아닙니다."}
+biohub-alignment:
+  bundle: biohub
+  title: {en: "When field alignment erases peaks", ko: "Field 정렬이 peak를 지우는 조건"}
+  note: {en: "Three Gaussian peaks on 81 synthetic voxels. The alignment and blend follow the article's formula; peak counts are computed locally, separately from the recorded microscopy frame.", ko: "가상 voxel 81개에 Gaussian peak 3개를 놓았습니다. 원문의 정렬·혼합 식을 적용하며 peak 수는 기록된 현미경 frame과 별도로 이 예제에서 계산합니다."}
+biohub-registration:
+  bundle: biohub
+  title: {en: "Separate stage translation from cell motion", ko: "Stage 이동과 세포 이동 분리하기"}
+  note: {en: "Four synthetic cells each move 1 µm; one global stage translation is added. This example supplies the exact translation and uses a 7 µm matching gate. It does not reproduce the competition registration estimator.", ko: "가상 세포 4개가 각각 1 µm 이동하고 stage의 전체 이동을 더합니다. 예제에는 정확한 전체 이동량과 7 µm matching gate를 주었으며 대회 registration 추정기를 재현하지 않습니다."}
+biohub-research-arms:
+  bundle: biohub
+  title: {en: "Choose the experiment that answers the question", ko: "질문에 맞는 실험군 고르기"}
+  note: {en: "P₀, a fixed plug-in, a declared training-side adaptation and a separately developed P₁ answer different questions. This schematic assigns no performance to an unrun pipeline.", ko: "P₀·고정 plug-in·선언한 학습 측 조정·별도로 개발한 P₁은 다른 질문에 답합니다. 이 모식도는 미실행 pipeline의 성능을 부여하지 않습니다."}

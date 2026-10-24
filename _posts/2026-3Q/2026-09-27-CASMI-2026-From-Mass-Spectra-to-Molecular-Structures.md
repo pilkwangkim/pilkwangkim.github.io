@@ -5,6 +5,7 @@ date: 2026-09-27 09:00:00 +0900
 categories: [AI, Kaggle]
 tags: [kaggle, casmi-2026, cheminformatics, mass-spectrometry, metabolomics, molecular-identification, working-note]
 math: true
+interactive_labs: [casmi]
 mermaid: false
 image:
   path: /assets/img/casmi-2026-guide/hero.png?v=af0e6fe7c947
@@ -208,6 +209,8 @@ A retrieval pool of K = 1,000 and the final 25 candidates are different stages. 
   <img src="/assets/img/casmi-2026-guide/candidate-diagnosis.png?v=189117638ef7" alt="Eugenol and Isoeugenol candidate lists with reciprocal-rank calculations" width="1630" height="914" loading="lazy">
   <figcaption><strong>Figure 3.</strong> Constructed candidate lists with Eugenol as the known answer. Omitting it gives zero, placing it behind Isoeugenol gives 0.5, and ranking it first gives 1. These lists separate coverage from ordering; they are not model results.</figcaption>
 </figure>
+
+{% include interactive/article-lab.html id="casmi-ranking" %}
 
 ### What counts as the same molecule?
 
@@ -463,6 +466,8 @@ Thus even the first step of finding nearby masses requires adduct interpretation
 
 The Caffeine precursor gives a direct check: **195.0877 − 1.0072764666 = 194.0804235334 Da**, consistent with the source's rounded neutral exact mass of 194.0804. A 5 ppm neutral-mass window here is about ±0.0009704 Da. Misreading the adduct as `[M+Na]+` instead shifts the inferred neutral mass by nearly 22 Da; increasing a ppm tolerance cannot repair that categorical error.
 
+{% include interactive/article-lab.html id="casmi-mass" %}
+
 ### Where the proton sits can change fragmentation
 
 The notation <code>[M+H]+</code> tells us that a proton has been added, but does not specify its location. Molecules with several nitrogen or oxygen atoms can have multiple protonation sites, and the proton can move during fragmentation. Charge location changes electron distribution and the pathways available for dissociation. A [CIDMD study of small molecules][protonation-study] examines why this matters for spectrum prediction.
@@ -615,6 +620,8 @@ In the actual series, the 138 peak changes from **0.03693 → 1.0000 → 1.0000*
 
 For aggregation, compare a mean over spectra with a mean over distinct condition groups. If one condition has ten near-duplicate measurements and another only one, an unweighted row mean gives the first condition ten times the influence. That may reflect sampling frequency rather than ten independent pieces of structural evidence.
 
+{% include interactive/article-lab.html id="casmi-spectra" %}
+
 ### Turning the background into a prediction problem
 
 Let $$c$$ be the unknown structure, $$\mathcal S$$ the collection of spectra, and $$\Theta$$ the measurement conditions. Identification can be viewed as an inverse problem:
@@ -732,6 +739,8 @@ Using all listed peaks from the public Caffeine records, match peaks one-to-one 
 Cosine is a transparent worked example. The reproduced engine also uses entropy-based and adduct-shifted search channels. One of its analog features takes a **maximum** of spectral-similarity cubed times fingerprint Tanimoto, rather than the illustrative sum above. If two analog references give `(spectral similarity, Tanimoto)` values `(0.8, 0.6)` and `(0.7, 0.9)`, their supports are **0.3072 and 0.3087**, and the maximum is 0.3087. Summation would give 0.6159 and reward repeated related references differently. These assumed inputs show why aggregation is a modeling choice, not a probability identity.
 
 Retrieving candidates does not finish the decision. If Eugenol and Isoeugenol both remain, we can next ask which structural features the unknown spectrum supports.
+
+{% include interactive/article-lab.html id="casmi-cosine" %}
 
 ## 8. Predict structural evidence for each candidate
 

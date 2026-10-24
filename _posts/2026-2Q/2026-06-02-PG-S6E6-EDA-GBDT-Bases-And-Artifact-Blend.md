@@ -7,6 +7,7 @@ math: true
 pin: false
 topic: playground-series
 lang: en
+interactive_labs: [predictive]
 translation_key: playground-s6e6-stellar-classification
 image:
   path: /assets/img/posts/2026-06-02-pg-s6e6-eda-gbdt-artifact-blend/fig-04-photometric-geometry.png
@@ -292,6 +293,8 @@ for a, b in color_pairs:
 ```
 
 </details>
+
+{% include interactive/article-lab.html id="predictive-colors" %}
 
 ## **5. Why Redshift Is Expanded**
 
@@ -738,6 +741,8 @@ The final submission class share reflects this:
 | `STAR` | `0.143283` | `0.159731` |
 
 The shift is not arbitrary. It is a consequence of optimizing recall balance.
+
+{% include interactive/article-lab.html id="predictive-multipliers" %}
 
 ## **13. Artifact Output As A Probability Object**
 

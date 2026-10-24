@@ -12,6 +12,7 @@ image:
   alt: "Part 1 cover: the replay contract, trace-cell geometry, and trajectory search"
 topic: ai-agent-security
 lang: en
+interactive_labs: [security]
 translation_key: ai-agent-security-01
 series: ai-agent-security
 series_order: 1
@@ -299,6 +300,8 @@ The same logic generalizes: `email.send` diversity is recipient-driven, `web.ope
 This single fact reorganizes the entire search: you stop tuning wording and start enumerating argument axes.
 
 ---
+
+{% include interactive/article-lab.html id="security-score" %}
 
 ## 5. The Guardrail Boundary
 

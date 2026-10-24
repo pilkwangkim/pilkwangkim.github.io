@@ -12,6 +12,7 @@ image:
   path: /assets/img/technical-covers/pokemon-tcg-working-note-1/cover.webp
   alt: "Replay-based behavior cloning and a rule fallback rank legal trading-card choices from the visible board before full-game evaluation."
   hide_caption: true
+interactive_labs: [games]
 ---
 
 # Pokémon TCG AI Battle Working Note (Part 1): From Rules to an RL Pilot
@@ -585,6 +586,8 @@ run without importing the local repository
 Package import, deck initialization, first action, mirror play, and runtime profiling belong to the
 learning experiment. A good loss curve is irrelevant if the Validation Episode fails.
 
+
+{% include interactive/article-lab.html id="games-pokemon-policy" %}
 
 ### 15. Opponent routing must respect the information boundary
 

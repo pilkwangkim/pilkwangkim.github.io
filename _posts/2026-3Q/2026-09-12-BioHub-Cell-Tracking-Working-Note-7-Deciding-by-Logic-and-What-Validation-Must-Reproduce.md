@@ -16,6 +16,7 @@ lang: en
 translation_key: biohub-07
 series: biohub
 series_order: 7
+interactive_labs: [biohub]
 ---
 
 <style>
@@ -228,6 +229,8 @@ And I withdrew Note 6's working expectation that division changes are not damped
 
 ---
 
+{% include interactive/article-lab.html id="biohub-division" %}
+
 ## 2. Tracing the Failure: Precision First, Then the Labels Themselves
 
 ### 2.1 A Second Batch, at the Precision Frontier
@@ -367,6 +370,8 @@ Sliding it down by about ten drags its real peaks below the threshold too (Figur
 
 ![Peaks on one frame: primary 281, with the old secondary 253, student 644, aligned student 0, primary with student 25]({{ site.baseurl }}/assets/img/posts/2026-09-12-biohub-working-note-7/fig-02-alignment-peaks.png)
 _Figure 2. Peaks on one frame of a bright example movie, through the deployed path. Aligned by whole-frame statistics, the new detector left $$25$$ peaks where the primary alone had $$281$$. This is a mechanism on one frame, not a recall measurement._
+
+{% include interactive/article-lab.html id="biohub-alignment" %}
 
 ### 6.2 Why Local Validation Could Not See It
 

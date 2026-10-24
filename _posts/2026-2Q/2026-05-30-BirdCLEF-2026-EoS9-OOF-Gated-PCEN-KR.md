@@ -15,6 +15,7 @@ image:
   fit: contain
   width: 1600
   height: 900
+interactive_labs: [birdclef]
 ---
 
 # BirdCLEF 2026: EoS9 Anchor 먼저 — OOF-Gated PCEN 보정은 그 다음
@@ -373,6 +374,8 @@ def _load_exp002_gate_weights(asset_root, class_cols):
 ```
 
 </details>
+
+{% include interactive/article-lab.html id="birdclef-gated-ranks" %}
 
 ## **5. PCEN/ConvNeXt Correction Logic**
 

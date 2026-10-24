@@ -1,0 +1,12 @@
+arc-rhae:
+  bundle: arc
+  title: {en: "Completion and action efficiency both shape RHAE", ko: "완료와 action 효율이 함께 RHAE를 정한다"}
+  note: {en: "Five-level example using the article's scoring formula, including the completed-level cap. No game or benchmark is executed.", ko: "완료 level cap을 포함해 글의 점수식을 사용하는 5-level 예제입니다. game이나 benchmark를 실행하지 않습니다."}
+arc-token-budget:
+  bundle: arc
+  title: {en: "Concurrency divides the available thinking tokens", ko: "동시 run이 가용 thinking token을 나눈다"}
+  note: {en: "Historical Part 2 preset: 110 runs, 7,920 s, concurrency 28, aggregate 204 tokens/s. Changing concurrency holds aggregate throughput fixed only as an assumption.", ko: "Part 2의 당시 기준: run 110개, 7,920초, 동시 28개, 전체 204 token/초입니다. 동시 수를 바꿀 때 전체 처리량은 계산 가정으로만 고정합니다."}
+arc-mismatch:
+  bundle: arc
+  title: {en: "Stop the batch at the first prediction mismatch", ko: "첫 예측 불일치에서 batch를 멈춘다"}
+  note: {en: "Illustrative five-cell transition model, not an ARC trace. The action that reveals a mismatch has executed; only the unexecuted tail is dropped.", ko: "ARC trace가 아닌 5-cell 전이 예제입니다. mismatch를 발견한 action은 이미 실행되었고 아직 실행하지 않은 tail만 버립니다."}

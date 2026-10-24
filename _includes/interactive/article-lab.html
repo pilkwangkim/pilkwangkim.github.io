@@ -1,0 +1,19 @@
+{% assign lab = site.data.article_labs[include.id] %}
+{% assign lab_language = page.lang | default: 'en' %}
+{% if lab_language != 'ko' %}{% assign lab_language = 'en' %}{% endif %}
+<section id="lab-{{ include.key | default: include.id }}" class="article-lab tex2jax_ignore" data-article-lab="{{ include.id }}" data-preset="{{ include.preset | default: '' | escape }}" data-language="{{ lab_language }}" data-baseurl="{{ site.baseurl }}" data-asset-version="{{ site.data.article_lab_bundle_versions[lab.bundle] }}" data-local-editor-skip aria-labelledby="lab-title-{{ include.key | default: include.id }}" aria-busy="true">
+  <header class="al-header">
+    <h3 id="lab-title-{{ include.key | default: include.id }}" data-toc-skip>{{ lab.title[lab_language] | default: lab.title.en | escape }}</h3>
+    <button type="button" class="al-reset" data-lab-reset disabled>{% if lab_language == 'ko' %}초기값으로{% else %}Reset{% endif %}</button>
+  </header>
+  <div class="al-body">
+    <div class="al-sidebar">
+      <fieldset class="al-controls" data-lab-controls disabled><legend class="al-sr-only">{% if lab_language == 'ko' %}조작{% else %}Controls{% endif %}</legend></fieldset>
+      <dl class="al-metrics" data-lab-metrics></dl>
+    </div>
+    <div class="al-view" data-lab-view><p class="al-loading">{% if lab_language == 'ko' %}계산기를 불러오는 중…{% else %}Loading interactive model…{% endif %}</p></div>
+  </div>
+  <p class="al-status" data-lab-status role="status" aria-live="polite"></p>
+  <details class="al-model"><summary>{% if lab_language == 'ko' %}모델·자료{% else %}Model &amp; data{% endif %}</summary><p data-lab-note>{{ lab.note[lab_language] | default: lab.note.en | escape }}</p></details>
+  <noscript><p>{% if lab_language == 'ko' %}JavaScript를 켜면 이 예제를 조작할 수 있습니다. 본문의 수식·표·그림은 그대로 읽을 수 있습니다.{% else %}Enable JavaScript to explore this example. The article's equations, tables and figures remain available.{% endif %}</p></noscript>
+</section>

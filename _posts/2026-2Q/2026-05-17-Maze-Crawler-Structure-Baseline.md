@@ -15,6 +15,7 @@ image:
   fit: contain
   width: 1916
   height: 821
+interactive_labs: [games]
 ---
 
 # Maze Crawler: Structure Baseline
@@ -614,6 +615,8 @@ PROFILE = "baseline_route_floor_hybrid"
 
 The profile does not try to maximize short-term energy.
 It tries to keep a reliable route floor, then uses surplus margin to add economy.
+
+{% include interactive/article-lab.html id="games-maze-tempo" %}
 
 ## **9. Strategy And Safety Planner**
 

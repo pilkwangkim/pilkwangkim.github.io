@@ -5,6 +5,7 @@ date: 2026-10-23 10:00:00 +0900
 categories: [AI, Kaggle]
 tags: [kaggle, quantum-circuit-compilation, quantum-computing, coding-agents, verification, optimization, working-note]
 math: true
+interactive_labs: [quantum]
 mermaid: true
 image:
   path: /assets/img/posts/quantum-circuit-compilation/cover-3-flat-schematic.webp
@@ -93,6 +94,8 @@ At the final H, the amplitude of `|0⟩` is (1−1)/2=0, while the amplitude of 
 
 Multiplying the entire state by the same eⁱφ gives a **global phase**, which does not change measurement probabilities for that state alone. The competition needs phases that depend on the input x. Different terms of a superposition receive different factors, changing their relative phases and therefore the behavior of later operations. [Examples of phase and interference][ibm-phase]
 
+{% include interactive/article-lab.html id="quantum-phase" %}
+
 ### 1.3 A quantum circuit is a program that transforms the state in order
 
 In a circuit diagram, each horizontal wire represents a qubit, and gates usually run from left to right. A gate is a small operation acting on one or more wires. In matrix notation, applying a gate means multiplying the state vector by its matrix:
@@ -173,6 +176,8 @@ Here f(x) is actually an approximation represented with finitely many bits. The 
 ![A compute–phase–uncompute path and two ways to clean a temporary AND](/assets/img/posts/quantum-circuit-compilation/fig-02-uncomputation.svg){: width="1200" height="1010" }
 
 *Figure 2. The upper path clears workspace while retaining the phase. The lower paths show two ways to erase a temporary AND. Dots are controls, ⊕ is a bit-flip target, and the dashed wire carries a classical measurement bit. The HMR path includes a phase correction controlled by its measurement result. Arbitrary computed values cannot always be erased for free.*
+
+{% include interactive/article-lab.html id="quantum-cleanup" %}
 
 ### 2.4 How measurement-based uncomputation saves a Toffoli
 
@@ -383,6 +388,8 @@ An initial relative error of $10^{-4}$ becomes approximately $1.5\times10^{-8}$ 
 
 The official generator does not multiply by $1/2$ explicitly. It computes $p\approx y_0(3-My_0^2)\approx2/\sqrt M$. Its stored integer `p` has 29 fractional bits, is shifted by s to produce Y, and is finally interpreted as $Y/2^{40}$. The factor of $1/2$ is absorbed into the output binary point. For x=64 and M=1, write the ideal real-valued target as $p_*=2$. Its final phase-word target is $Y_*=2^{29}p_*2^7=2^{37}$, giving $Y_*/2^{40}=1/8$. The actual p register has 29 fractional bits and one integer bit, 30 bits in total, so it represents values below 2. The boundary value 2 belongs to the ideal calculation; the stored, truncated value must satisfy the tolerance.
 
+{% include interactive/article-lab.html id="quantum-fixedpoint" %}
+
 ### 5.6 Apply phase bit by bit, then clear the calculation
 
 If $Y=\sum_{j=0}^{39}b_j2^j$, the required phase is $Y/2^{40}=\sum_jb_j2^{j-40}$ turns. A rotation of $2^{j-40}$ turns conditioned on each set bit $b_j$ adds up to the desired phase. This decomposes a large phase operation into small controlled phases.
@@ -414,6 +421,8 @@ After applying phase, the circuit reverses the shifts, Newton arithmetic, polyno
 Multiplication, squaring, and subtraction together account for 6,902 gates in both directions, approximately 89% of the total. Changing the arithmetic structure or precision is therefore more likely to change the quantum cost directly than reducing Python function calls. Phase-rotation synthesis adds further cost: about 253 Toffoli equivalents in the existing local result.
 
 `del_and` already uses measurement-based cleanup for temporary ANDs. In both directions, `_add_row` builds partial-product ANDs, performs an addition or subtraction, and clears those ANDs through measurement. Restoring carries and an earlier accumulator cannot automatically be made free in the same way as erasing one temporary AND.
+
+{% include interactive/article-lab.html id="quantum-stages" %}
 
 ### 5.8 Precision is both an acceptance condition and a cost variable
 
@@ -559,6 +568,8 @@ The required final operation is $\lvert 1,\alpha\rangle\lvert 0\rangle_W\mapsto-
 ![A synthetic GF(4) decoding example: syndromes determine a single error, and a classical mask selects a negative phase.](/assets/img/posts/quantum-circuit-compilation/fig-05-dqi-decoding.svg){: width="1200" height="815" }
 
 _Figure 5. In this GF(4) teaching example, the received syndromes are $(1,\alpha)$. Decoding recovers the single error $e_1=\alpha^2$; the mask parity is odd, so the required sign is −1._
+
+{% include interactive/article-lab.html id="quantum-gf4" %}
 
 ### 6.6. The reference circuit: EEA → Chien → Forney → uncomputation
 
@@ -801,6 +812,8 @@ The interval [0,2π) is therefore divided into a finite grid. At 12 bits, the gr
 
 _Figure 7. A two-address coherent QROM mapping and two successive two-mode Givens rotations._
 
+{% include interactive/article-lab.html id="quantum-givens" %}
+
 ### 7.6 Streaming 75 angles through a smaller register
 
 Loading J angles at a time allows the same word registers to be reused. The baseline uses b_rot=12 and J=8, so the angle words occupy 96 qubits, and 75 angles are streamed in 10 batches. There are N+RB=76+65×60=3,976 vector addresses, requiring a 12-qubit address register.
@@ -913,6 +926,8 @@ $$
 A submission package must contain all three tasks. Use the official reference files for unchanged tasks.
 
 The `score` field written by the `invsqrt` verifier is **that task's cost, Q×C**: lower is better. The combined Kaggle score uses the geometric mean above.
+
+{% include interactive/article-lab.html id="quantum-cost" %}
 
 ## 9. The first files and environment to prepare
 

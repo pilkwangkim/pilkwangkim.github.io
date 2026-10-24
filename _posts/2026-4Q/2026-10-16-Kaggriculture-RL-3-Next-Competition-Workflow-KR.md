@@ -19,6 +19,7 @@ image:
 math: true
 toc: true
 description: "Kaggriculture의 전체 리플레이·자기 경기·리더보드를 학습 자료로 연결하고, 교사 선택과 BC·PPO, 상대 리그, 독립 검증, GPU 비용 측정을 거쳐 다음 정책을 만드는 구체적인 절차."
+interactive_labs: [kaggriculture]
 ---
 
 <style>
@@ -208,6 +209,8 @@ print("submission 10:", points, "/", len(mine),
 ```
 
 `3 → 4 → 5`의 왕복이 틀리면 교사를 완벽히 외워도 약한 농장이 된다. 전체 정확도만 보면 이런 문제를 놓치기 쉽다. 이동과 PASS를 잘 맞히면서 드문 고용 한 번을 놓치면 그 뒤 수백 수의 생산이 바뀔 수 있기 때문이다.
+
+{% include interactive/article-lab.html id="kaggriculture-replay" %}
 
 ### 시장 주문의 순서와 체결량 처리
 
@@ -405,6 +408,8 @@ print("bootstrap interval:", round(lo, 3), round(hi, 3))
 다시 뽑는 값은 `[0.25, 0.25, 0.10, 0.10, 0, …, 0]`다. 경기 80개를 따로 뽑아 원래의 짝을 깨는 방식과 다르다. 코드가 1,000개 평균을 정렬한 뒤, `percentile()`로 2.5%와 97.5% 위치의 값을 보간해 구간을 만든다. 어떤 세계가 표본에 들어가느냐에 따라 평균이 얼마나 달라질 수 있는지 보는 계산이다. 새 세계 하나에서 개선될 확률이 95%라는 뜻은 아니다.
 
 세계가 열 개뿐인 이 가상 예제의 bootstrap 구간을 그대로 채택 기준으로 삼을 수는 없다. 실제로는 세계 수, 시험한 상대가 실전을 얼마나 대표하는지, 후보를 몇 번 골랐는지도 함께 본다. 예제에서 확인할 것은 결과 80개가 어떻게 10개의 묶음이 되고, 가중치가 최종 평균에 어떻게 들어가는지다.
+
+{% include interactive/article-lab.html id="kaggriculture-paired" %}
 
 ### World 단위 bootstrap과 유효 표본 수
 

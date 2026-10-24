@@ -4,6 +4,7 @@ date: 2026-08-06 09:00:00 +0900
 categories: [AI, Kaggle]
 tags: [kaggle, rogii, competition-retrospective, geosteering, public-private-gap, silver-medal, stratigraphy, tvt]
 math: true
+interactive_labs: [rogii]
 pin: false
 image:
   path: /assets/img/posts/2026-08-06-rogii-competition-retrospective/cover.png
@@ -248,6 +249,8 @@ Visible-prefix calibration, bimodal hedging, and guarded contact reconstruction 
 I changed the unit of experimentation from “one submission score” to “a preregistered hypothesis and a parent-child contrast.”
 
 ---
+
+{% include interactive/article-lab.html id="rogii-hedge" %}
 
 ## The 7.x cluster: when the public leaderboard became a shared search set
 
@@ -602,6 +605,8 @@ distribution-robust: validated under a credible unseen-group shift
 ```
 
 ---
+
+{% include interactive/article-lab.html id="rogii-portfolio" %}
 
 ## Lessons worth carrying forward
 

@@ -19,6 +19,7 @@ image:
   hide_caption: true
 math: true
 toc: true
+interactive_labs: [kaggriculture]
 ---
 
 <style>
@@ -170,6 +171,8 @@ GPU는 “고용 규칙 1번을 바꾼 프로그램”과 “판매 규칙 2번�
 
 실제 BC에는 상대의 거래를 예측하는 보조 loss도 있다. 상대 거래의 미래 기록을 학습 목표로 쓰는 것이며, 제출 때 미래 거래 정답을 미리 입력받는 것은 아니다. 실제 학습 인수는 [`repro/02_train_bc.sh`](https://github.com/KawattaTaido/kaggriculture-release/blob/8aa34764564fa94848912a5abede8475ac48d3db/repro/02_train_bc.sh)에서 확인할 수 있다.
 
+{% include interactive/article-lab.html id="kaggriculture-bc" %}
+
 ### 한 수의 모방에서 전체 농장 운영으로
 
 teacher 기록에는 연결이 들어 있다. 땅을 사는 상태 다음에는 넓어진 땅에서 작업하는 상태가, 토마토를 심은 다음에는 물을 주고 수확하는 상태가 따라온다. 모델은 이 연쇄의 여러 지점에서 다음 action을 배운다.
@@ -280,6 +283,8 @@ for advantage, new_p in [(1, .22), (1, .30), (-1, .10),
 ```
 
 마지막 숫자는 차례로 `1.1, 1.2, -0.8, -1.5`다. clip은 확률을 강제로 0.16~0.24에 가두는 명령이 아니다. 신경망 가중치를 공유하는 다른 표본의 gradient나 다른 loss 항 때문에 그 범위를 벗어날 수 있다. 그래서 확률 분포의 변화를 재는 KL을 확인하고 갱신을 중단하는 장치도 사용한다. 작은 평균 KL도 배포 때 가장 높은 확률의 action만 고르는 policy의 운영을 보존하지는 못한다. [PPO 논문](https://arxiv.org/abs/1707.06347)과 [Spinning Up의 수식·해설](https://spinningup.openai.com/en/latest/algorithms/ppo.html#key-equations)이 이 구분을 설명한다. 실제 5090 사례의 갱신은 [`ppo.py`](https://github.com/KawattaTaido/kaggriculture-release/blob/8aa34764564fa94848912a5abede8475ac48d3db/kaggri/train/ppo.py#L204-L274)에 있다.
+
+{% include interactive/article-lab.html id="kaggriculture-ppo" %}
 
 ### PPO 갱신 중 old probability와 advantage의 고정
 
@@ -662,6 +667,8 @@ for name, plan in plans.items():
 실제 코드에서는 각 칸의 생산량과 소모량을 합산하고, 후보를 수정하면 바뀐 부분만 반영해 `q`를 만든다. 작업량에서는 날짜별 고용비를 추정한다. 시장 가격도 고정된 값이 아니라 우리와 상대의 공급에 따라 변한다. 이 작은 예제는 그런 세부 계산을 생략했지만, 날짜별 수입·비용을 합산해 후보를 비교하는 구조는 같다.
 
 실제 A·B·C·D 중 어느 것이 이기는지는 기존 밭의 상태와 위치, 공개 상점, 재고, 상대 공급 등 전체 입력에 달려 있다. **인력 6명과 토마토 3칸이 정답이라는 고정 규칙을 발견한 계산이 아니다.** 현재 상태에서 가능한 여러 연결 계획을 만들고, 같은 평가식으로 고르는 방법이다.
+
+{% include interactive/article-lab.html id="kaggriculture-plans" %}
 
 ### 토지의 고정 비용과 부분 계획의 조기 기각
 

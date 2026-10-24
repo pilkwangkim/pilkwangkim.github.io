@@ -12,6 +12,7 @@ image:
   alt: "Part 10 cover: the public staircase, artifact identity, and a two-slot portfolio"
 topic: ai-agent-security
 lang: en
+interactive_labs: [security]
 translation_key: ai-agent-security-10
 series: ai-agent-security
 series_order: 10
@@ -396,6 +397,8 @@ This observation supported two different designs that must not be conflated:
 2. **ordered contingent tail** — the public prefix is intended to dominate normally, while a tail becomes relevant only if the prefix is rejected quickly under another guardrail.
 
 The second is a timing-contingent hedge, not a conventional mixture. Its success requires at least three conditions: the prefix must fail, those failures must be substantially faster than successful public traces, and the tail itself must fire reliably when reached. If any condition fails, the tail contributes little or nothing.
+
+{% include interactive/article-lab.html id="security-order" %}
 
 ## 10. PICK2BE, FRAME64, and PICK2B: three increasingly precise lessons
 

@@ -12,6 +12,7 @@ image:
   alt: "Part 4 cover: model routing, the replay cliff, and reasoning collapse"
 topic: ai-agent-security
 lang: en
+interactive_labs: [security]
 translation_key: ai-agent-security-04
 series: ai-agent-security
 series_order: 4
@@ -176,6 +177,8 @@ $$
 $$
 
 which, with $F$ this small, is largest at $K=1$: each extra post is a full generation of its own, with almost no fixed cost for it to amortise. Worse, the $+2$ novelty cell is credited once per candidate, so packing three posts into one candidate spends that bonus a third as often. Measured against a single post, a triple lands at **0.97×** — a hair *below*. Chaining had to clear $F/g > \tfrac{3\cdot 18 - 50}{50 - 18} = 0.125$ to pay, and it comes in under. The ratio is a count of prefill tokens over decode tokens, not a wall-clock speed, so it is the same on the evaluator's slower GPU and for the non-reasoning row too. The four multi-post framings that landed below the single-post floor were not a compliance failure. They were this: a scorer that pays per post, over an agent whose posts do not amortise.
+
+{% include interactive/article-lab.html id="security-density" %}
 
 ## 14. The knobs, on a scale
 

@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="825" viewBox="0 0 1120 825" role="img" aria-labelledby="title desc">
+<title id="title">Follow an explicit zero from request to repair</title><desc id="desc">A toy API uses limit as the maximum returned item count. An explicit zero becomes ten through value or default. A None-only fallback preserves None to ten, zero to zero, and five to five.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9" fill="none" stroke="context-stroke" stroke-width="1.6"/></marker></defs>
+<rect x="0" y="0" width="1120" height="825" rx="0" fill="#fbfbf8" stroke="none" stroke-width="1.5"/>
+<text x="35" y="45" font-family="Arial, Helvetica, sans-serif" font-size="29" font-weight="700" fill="#183044" text-anchor="start" xml:space="preserve">Follow an explicit zero from request to repair</text>
+<text x="35" y="79" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" fill="#5c6d78" text-anchor="start" xml:space="preserve">limit = the maximum number of items returned by the API</text>
+<circle cx="48" cy="123" r="13" fill="#183044" stroke="#183044" stroke-width="1.5"/>
+<text x="48" y="129" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle" xml:space="preserve">1</text>
+<text x="71" y="131" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" fill="#183044" text-anchor="start" xml:space="preserve">Reproduce the mismatch</text>
+<rect x="35" y="152" width="430" height="88" rx="10" fill="#ffffff" stroke="#183044" stroke-width="1.5"/>
+<rect x="35" y="152" width="430" height="30" rx="10" fill="#183044" stroke="#183044" stroke-width="1.5"/>
+<rect x="35" y="169" width="430" height="13" rx="0" fill="#183044" stroke="#183044" stroke-width="1.5"/>
+<circle cx="49" cy="167" r="2.5" fill="#9ab3be" stroke="none" stroke-width="1.5"/>
+<circle cx="61" cy="167" r="2.5" fill="#9ab3be" stroke="none" stroke-width="1.5"/>
+<circle cx="73" cy="167" r="2.5" fill="#9ab3be" stroke="none" stroke-width="1.5"/>
+<text x="453" y="173" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" fill="#ffffff" text-anchor="end" xml:space="preserve">API request</text>
+<text x="51" y="210" font-family="Menlo, Consolas, monospace" font-size="22" font-weight="400" fill="#183044" text-anchor="start" xml:space="preserve">GET /items?limit=0</text>
+<path d="M250,245 L250,274" fill="none" stroke="#183044" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+<text x="60" y="305" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700" fill="#167d82" text-anchor="start" xml:space="preserve">Expected</text>
+<text x="60" y="352" font-family="Menlo, Consolas, monospace" font-size="40" font-weight="400" fill="#167d82" text-anchor="start" xml:space="preserve">[]</text>
+<text x="245" y="305" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700" fill="#ad6825" text-anchor="start" xml:space="preserve">Current response</text>
+<path d="M257.0,320.0 H249.0 V374.0 H257.0" fill="none" stroke="#ad6825" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="266.0" y="323.0" width="18.0" height="20.0" rx="3.0" fill="#fcf0dc" stroke="#ad6825" stroke-width="1.5"/>
+<path d="M270.0,330.0 L280.0,330.0" fill="none" stroke="#ad6825" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="290.0" y="323.0" width="18.0" height="20.0" rx="3.0" fill="#fcf0dc" stroke="#ad6825" stroke-width="1.5"/>
+<path d="M294.0,330.0 L304.0,330.0" fill="none" stroke="#ad6825" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="314.0" y="323.0" width="18.0" height="20.0" rx="3.0" fill="#fcf0dc" stroke="#ad6825" stroke-width="1.5"/>
+<path d="M318.0,330.0 L328.0,330.0" fill="none" stroke="#ad6825" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="338.0" y="323.0" width="18.0" height="20.0" rx="3.0" fill="#fcf0dc" stroke="#ad6825" stroke-width="1.5"/>
+<path d="M342.0,330.0 L352.0,330.0" fill="none" stroke="#ad6825" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="362.0" y="323.0" width="18.0" height="20.0" rx="3.0" fill="#fcf0dc" stroke="#ad6825" stroke-width="1.5"/>
+<path d="M366.0,330.0 L376.0,330.0" fill="none" stroke="#ad6825" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="266.0" y="351.0" width="18.0" height="20.0" rx="3.0" fill="#fcf0dc" stroke="#ad6825" stroke-width="1.5"/>
+<path d="M270.0,358.0 L280.0,358.0" fill="none" stroke="#ad6825" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="290.0" y="351.0" width="18.0" height="20.0" rx="3.0" fill="#fcf0dc" stroke="#ad6825" stroke-width="1.5"/>
+<path d="M294.0,358.0 L304.0,358.0" fill="none" stroke="#ad6825" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="314.0" y="351.0" width="18.0" height="20.0" rx="3.0" fill="#fcf0dc" stroke="#ad6825" stroke-width="1.5"/>
+<path d="M318.0,358.0 L328.0,358.0" fill="none" stroke="#ad6825" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="338.0" y="351.0" width="18.0" height="20.0" rx="3.0" fill="#fcf0dc" stroke="#ad6825" stroke-width="1.5"/>
+<path d="M342.0,358.0 L352.0,358.0" fill="none" stroke="#ad6825" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="362.0" y="351.0" width="18.0" height="20.0" rx="3.0" fill="#fcf0dc" stroke="#ad6825" stroke-width="1.5"/>
+<path d="M366.0,358.0 L376.0,358.0" fill="none" stroke="#ad6825" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M394.0,320.0 H402.0 V374.0 H394.0" fill="none" stroke="#ad6825" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="60" y="400" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" fill="#167d82" text-anchor="start" xml:space="preserve">0 items</text>
+<text x="245" y="400" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" fill="#ad6825" text-anchor="start" xml:space="preserve">10 items</text>
+<path d="M479,284 L535,284" fill="none" stroke="#183044" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+<circle cx="566" cy="123" r="13" fill="#183044" stroke="#183044" stroke-width="1.5"/>
+<text x="566" y="129" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle" xml:space="preserve">2</text>
+<text x="589" y="131" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" fill="#183044" text-anchor="start" xml:space="preserve">Locate the shared conversion</text>
+<path d="M558,181 v-12 h186.96 l12,12 h293.04 v77 H558 Z" fill="none" stroke="#183044" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M558,181 h492" fill="none" stroke="#183044" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="572" y="211" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700" fill="#183044" text-anchor="start" xml:space="preserve">query/</text>
+<text x="575" y="236" font-family="Menlo, Consolas, monospace" font-size="20" font-weight="400" fill="#5c6d78" text-anchor="start" xml:space="preserve">options.py</text>
+<path d="M740,230 L794,230" fill="none" stroke="#167d82" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+<rect x="810" y="209" width="215" height="34" rx="6" fill="#e8f4f2" stroke="none" stroke-width="1.5"/>
+<text x="824" y="234" font-family="Menlo, Consolas, monospace" font-size="20" font-weight="700" fill="#167d82" text-anchor="start" xml:space="preserve">limits.py</text>
+<rect x="558" y="278" width="492" height="92" rx="10" fill="#ffffff" stroke="#183044" stroke-width="1.5"/>
+<rect x="558" y="278" width="492" height="30" rx="10" fill="#183044" stroke="#183044" stroke-width="1.5"/>
+<rect x="558" y="295" width="492" height="13" rx="0" fill="#183044" stroke="#183044" stroke-width="1.5"/>
+<circle cx="572" cy="293" r="2.5" fill="#9ab3be" stroke="none" stroke-width="1.5"/>
+<circle cx="584" cy="293" r="2.5" fill="#9ab3be" stroke="none" stroke-width="1.5"/>
+<circle cx="596" cy="293" r="2.5" fill="#9ab3be" stroke="none" stroke-width="1.5"/>
+<text x="1038" y="299" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" fill="#ffffff" text-anchor="end" xml:space="preserve">normalize_limit</text>
+<text x="574" y="336" font-family="Menlo, Consolas, monospace" font-size="22" font-weight="400" fill="#183044" text-anchor="start" xml:space="preserve">return value or default</text>
+<text x="558" y="407" font-family="Menlo, Consolas, monospace" font-size="23" font-weight="700" fill="#ad6825" text-anchor="start" xml:space="preserve">0</text>
+<path d="M588,400 L638,400" fill="none" stroke="#ad6825" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+<text x="652" y="407" font-family="Menlo, Consolas, monospace" font-size="23" font-weight="700" fill="#ad6825" text-anchor="start" xml:space="preserve">10</text>
+<text x="711" y="407" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" fill="#5c6d78" text-anchor="start" xml:space="preserve">0 is falsy; default is 10</text>
+<path d="M805,424 V455 H342 V480" fill="none" stroke="#183044" stroke-width="2.3" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+<circle cx="48" cy="512" r="13" fill="#183044" stroke="#183044" stroke-width="1.5"/>
+<text x="48" y="518" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle" xml:space="preserve">3</text>
+<text x="71" y="520" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" fill="#183044" text-anchor="start" xml:space="preserve">Make the fallback explicit</text>
+<rect x="35" y="545" width="600" height="195" rx="10" fill="#ffffff" stroke="#183044" stroke-width="1.5"/>
+<rect x="35" y="545" width="600" height="30" rx="10" fill="#183044" stroke="#183044" stroke-width="1.5"/>
+<rect x="35" y="562" width="600" height="13" rx="0" fill="#183044" stroke="#183044" stroke-width="1.5"/>
+<circle cx="49" cy="560" r="2.5" fill="#9ab3be" stroke="none" stroke-width="1.5"/>
+<circle cx="61" cy="560" r="2.5" fill="#9ab3be" stroke="none" stroke-width="1.5"/>
+<circle cx="73" cy="560" r="2.5" fill="#9ab3be" stroke="none" stroke-width="1.5"/>
+<text x="623" y="566" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" fill="#ffffff" text-anchor="end" xml:space="preserve">query/limits.py</text>
+<text x="51" y="603" font-family="Menlo, Consolas, monospace" font-size="23" font-weight="400" fill="#167d82" text-anchor="start" xml:space="preserve">if value is None:</text>
+<text x="51" y="637" font-family="Menlo, Consolas, monospace" font-size="23" font-weight="400" fill="#167d82" text-anchor="start" xml:space="preserve">    return default</text>
+<text x="51" y="671" font-family="Menlo, Consolas, monospace" font-size="23" font-weight="400" fill="#167d82" text-anchor="start" xml:space="preserve">return value</text>
+<path d="M651,637 L706,637" fill="none" stroke="#183044" stroke-width="2.3" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+<circle cx="738" cy="512" r="13" fill="#183044" stroke="#183044" stroke-width="1.5"/>
+<text x="738" y="518" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle" xml:space="preserve">4</text>
+<text x="761" y="520" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" fill="#183044" text-anchor="start" xml:space="preserve">Verify the contract</text>
+<rect x="725" y="545" width="360" height="192" rx="9" fill="#ffffff" stroke="#cbd8dd" stroke-width="1.5"/>
+<rect x="725" y="545" width="360" height="48" rx="9" fill="#183044" stroke="#183044" stroke-width="1.5"/>
+<rect x="725" y="583" width="360" height="10" rx="0" fill="#183044" stroke="#183044" stroke-width="1.5"/>
+<text x="743" y="576.68" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" fill="#ffffff" text-anchor="start" xml:space="preserve">Input</text>
+<text x="897.8" y="576.68" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" fill="#ffffff" text-anchor="middle" xml:space="preserve">Before</text>
+<text x="1002.2" y="576.68" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" fill="#ffffff" text-anchor="middle" xml:space="preserve">After</text>
+<path d="M725,593 L1085,593" fill="none" stroke="#cbd8dd" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="743" y="624.2" font-family="Menlo, Consolas, monospace" font-size="21" font-weight="400" fill="#183044" text-anchor="start" xml:space="preserve">None</text>
+<text x="897.8" y="624.2" font-family="Menlo, Consolas, monospace" font-size="21" font-weight="400" fill="#5c6d78" text-anchor="middle" xml:space="preserve">10</text>
+<text x="1002.2" y="624.2" font-family="Menlo, Consolas, monospace" font-size="21" font-weight="700" fill="#167d82" text-anchor="middle" xml:space="preserve">10</text>
+<circle cx="1068" cy="618.44" r="8.0" fill="#e8f4f2" stroke="#167d82" stroke-width="1.3"/>
+<path d="M1064.32,618.44 l2.56,2.88 l5.44,-6.08" fill="none" stroke="#167d82" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="726" y="641" width="358" height="48" rx="0" fill="#e8f4f2" stroke="none" stroke-width="1.5"/>
+<path d="M725,641 L1085,641" fill="none" stroke="#cbd8dd" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="743" y="672.2" font-family="Menlo, Consolas, monospace" font-size="21" font-weight="400" fill="#183044" text-anchor="start" xml:space="preserve">0</text>
+<text x="897.8" y="672.2" font-family="Menlo, Consolas, monospace" font-size="21" font-weight="400" fill="#ad6825" text-anchor="middle" xml:space="preserve">10</text>
+<text x="1002.2" y="672.2" font-family="Menlo, Consolas, monospace" font-size="21" font-weight="700" fill="#167d82" text-anchor="middle" xml:space="preserve">0</text>
+<circle cx="1068" cy="666.44" r="8.0" fill="#e8f4f2" stroke="#167d82" stroke-width="1.3"/>
+<path d="M1064.32,666.44 l2.56,2.88 l5.44,-6.08" fill="none" stroke="#167d82" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M725,689 L1085,689" fill="none" stroke="#cbd8dd" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="743" y="720.2" font-family="Menlo, Consolas, monospace" font-size="21" font-weight="400" fill="#183044" text-anchor="start" xml:space="preserve">5</text>
+<text x="897.8" y="720.2" font-family="Menlo, Consolas, monospace" font-size="21" font-weight="400" fill="#5c6d78" text-anchor="middle" xml:space="preserve">5</text>
+<text x="1002.2" y="720.2" font-family="Menlo, Consolas, monospace" font-size="21" font-weight="700" fill="#167d82" text-anchor="middle" xml:space="preserve">5</text>
+<circle cx="1068" cy="714.44" r="8.0" fill="#e8f4f2" stroke="#167d82" stroke-width="1.3"/>
+<path d="M1064.32,714.44 l2.56,2.88 l5.44,-6.08" fill="none" stroke="#167d82" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="35" y="788" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="400" fill="#5c6d78" text-anchor="start" xml:space="preserve">Use the default only when limit is omitted; preserve explicit values.</text>
+</svg>

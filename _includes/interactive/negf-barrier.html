@@ -1,0 +1,81 @@
+{% assign negf_ko = false %}
+{% if page.lang == 'ko' %}{% assign negf_ko = true %}{% endif %}
+<section class="negf-lab tex2jax_ignore" data-negf-lab data-lang="{% if negf_ko %}ko{% else %}en{% endif %}" data-local-editor-skip aria-labelledby="negf-lab-title">
+  <header class="negf-lab-header">
+    <h3 id="negf-lab-title" data-toc-skip>{% if negf_ko %}공명 터널링 실험실{% else %}Resonant tunneling lab{% endif %}</h3>
+  </header>
+  <div class="negf-lab-body">
+    <div class="negf-sidebar">
+      <div class="negf-controls">
+        <div class="negf-control">
+          <div class="negf-control-label">
+            <label for="negf-barrier-height">{% if negf_ko %}장벽 높이{% else %}Barrier height{% endif %}</label>
+            <output for="negf-barrier-height" data-negf-height-value>0.40 eV</output>
+          </div>
+          <input id="negf-barrier-height" data-negf-height disabled type="range" min="0" max="0.65" step="0.01" value="0.40">
+          <div class="negf-range-ends" aria-hidden="true"><span>0</span><span>0.65 eV</span></div>
+        </div>
+        <div class="negf-control">
+          <div class="negf-control-label">
+            <label for="negf-well-width">{% if negf_ko %}우물 폭{% else %}Well width{% endif %}</label>
+            <output for="negf-well-width" data-negf-width-value>16 nm</output>
+          </div>
+          <input id="negf-well-width" data-negf-width disabled type="range" min="6" max="30" step="1" value="16">
+          <div class="negf-range-ends" aria-hidden="true"><span>6</span><span>30 nm</span></div>
+        </div>
+        <div class="negf-control negf-energy-control">
+          <div class="negf-control-label">
+            <label for="negf-probe-energy">{% if negf_ko %}선택 에너지{% else %}Probe energy{% endif %}</label>
+            <output for="negf-probe-energy" data-negf-energy-value>0.1413 eV</output>
+          </div>
+          <input id="negf-probe-energy" data-negf-energy disabled type="range" min="0.001" max="0.60" step="0.0001" value="0.1413">
+          <div class="negf-range-ends" aria-hidden="true"><span>0.001</span><span>0.60 eV</span></div>
+        </div>
+      </div>
+      <dl class="negf-readouts" aria-label="{% if negf_ko %}계산 결과{% else %}Calculation results{% endif %}">
+        <div><dt>{% if negf_ko %}선택 에너지{% else %}Probe energy{% endif %}</dt><dd data-negf-probe-energy>—</dd></div>
+        <div><dt>{% if negf_ko %}선택 에너지의 투과율{% else %}Transmission at probe{% endif %}</dt><dd data-negf-probe-transmission>—</dd></div>
+        <div><dt>{% if negf_ko %}첫 공명 에너지{% else %}First resonance{% endif %}</dt><dd><span data-negf-first-resonance>—</span><small data-negf-first-width></small></dd></div>
+      </dl>
+      <button class="negf-reset" data-negf-reset disabled type="button">{% if negf_ko %}초기값으로{% else %}Reset{% endif %}</button>
+    </div>
+    <div class="negf-plot-stack">
+      <figure class="negf-plot">
+        <figcaption class="negf-plot-heading">
+          <span>{% if negf_ko %}퍼텐셜 에너지{% else %}Potential energy{% endif %}</span>
+          <span class="negf-chart-symbol" lang="en">U(x)</span>
+        </figcaption>
+        <svg data-negf-potential viewBox="0 0 640 220" role="img" aria-labelledby="negf-potential-title negf-potential-desc">
+          <title id="negf-potential-title">{% if negf_ko %}위치에 따른 이중 장벽 퍼텐셜{% else %}Double-barrier potential as a function of position{% endif %}</title>
+          <desc id="negf-potential-desc">{% if negf_ko %}금색 선은 퍼텐셜 에너지, 파란 점선은 선택한 입사 에너지입니다. 장벽 높이와 우물 폭을 조절하면 퍼텐셜이 바뀝니다.{% else %}The gold line shows potential energy and the dashed blue line shows the selected incident energy. The sliders change the barrier height and the distance between the barriers.{% endif %}</desc>
+          <g data-negf-chart><text x="320" y="110" text-anchor="middle" class="negf-placeholder">{% if negf_ko %}계산 중…{% else %}Calculating…{% endif %}</text></g>
+        </svg>
+        <div class="negf-legend" aria-hidden="true">
+          <span><i class="negf-key negf-key-potential"></i>{% if negf_ko %}퍼텐셜{% else %}Potential{% endif %}</span>
+          <span><i class="negf-key negf-key-energy"></i>{% if negf_ko %}선택 에너지{% else %}Probe energy{% endif %}</span>
+        </div>
+      </figure>
+      <figure class="negf-plot">
+        <figcaption class="negf-plot-heading">
+          <span>{% if negf_ko %}투과율{% else %}Transmission{% endif %}</span>
+          <span class="negf-chart-symbol" lang="en">T(E)</span>
+        </figcaption>
+        <svg data-negf-transmission viewBox="0 0 640 220" role="img" aria-labelledby="negf-transmission-title negf-transmission-desc">
+          <title id="negf-transmission-title">{% if negf_ko %}입사 에너지에 따른 투과율{% else %}Transmission as a function of incident energy{% endif %}</title>
+          <desc id="negf-transmission-desc">{% if negf_ko %}파란 선은 투과율입니다. 선택 에너지는 점과 세로 점선으로 표시됩니다. 선택 에너지 슬라이더로 같은 값을 조절할 수 있습니다.{% else %}The blue curve shows transmission. A dot and vertical dashed line mark the selected energy. The probe-energy slider provides the same energy selection with the keyboard.{% endif %}</desc>
+          <g data-negf-chart><text x="320" y="110" text-anchor="middle" class="negf-placeholder">{% if negf_ko %}계산 중…{% else %}Calculating…{% endif %}</text></g>
+        </svg>
+        <div class="negf-resonances" data-negf-resonances aria-label="{% if negf_ko %}공명 에너지 (eV){% else %}Resonance energies (eV){% endif %}" role="group"></div>
+        <p class="negf-chart-hint">{% if negf_ko %}그래프 또는 공명 에너지를 눌러 선택하세요.{% else %}Select the curve or a resonance energy to inspect transmission.{% endif %}</p>
+      </figure>
+    </div>
+  </div>
+  <div class="negf-lab-footer">
+    <p class="negf-status" data-negf-status role="status" aria-live="polite">{% if negf_ko %}투과율을 계산하고 있습니다.{% else %}Calculating transmission.{% endif %}</p>
+  </div>
+  <details class="negf-model-details">
+    <summary>{% if negf_ko %}모델 설정{% else %}Model details{% endif %}</summary>
+    <p class="negf-model-note" data-negf-model-note>{% if negf_ko %}영전압의 1차원 coherent tight-binding 모델. 100-site device, 유효질량 m* = 0.067m₀, 격자 간격 a = 1 nm. 각 장벽의 폭은 3 nm로 고정하며, 우물 폭은 격자 한 칸씩 바뀝니다.{% else %}Zero-bias, one-dimensional coherent tight-binding model with a 100-site device. Effective mass m* = 0.067m₀; lattice spacing a = 1 nm. Each barrier stays 3 nm wide; the well changes one site at a time.{% endif %}</p>
+  </details>
+  <noscript><p class="negf-noscript">{% if negf_ko %}이 계산기는 JavaScript가 필요합니다. 위의 정적 그림과 아래의 유도 과정에서 이중 장벽의 퍼텐셜과 공명 터널링을 확인할 수 있습니다.{% else %}This calculator requires JavaScript. The static figure above and the derivation below describe the double-barrier potential and resonant tunneling.{% endif %}</p></noscript>
+</section>

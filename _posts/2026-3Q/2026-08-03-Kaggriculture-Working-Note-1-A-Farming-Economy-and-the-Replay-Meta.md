@@ -11,6 +11,7 @@ image:
 topic: kaggriculture
 lang: en
 translation_key: kaggriculture-working-note-1
+interactive_labs: [kaggriculture]
 ---
 
 # Kaggriculture Working Note (Part 1): A Farming Economy and the Replay Meta
@@ -91,6 +92,8 @@ And animals eat wheat daily, which couples the livestock economy to the crop eco
 fourteen-animal herd burns a wheat-tile's worth of output every single day, all season. You either
 grow that feed, or you buy it on a market whose price is drifting upward the whole time. Keep this
 coupling in mind — it becomes the main character of Part IV.
+
+{% include interactive/article-lab.html id="kaggriculture-harvest" %}
 
 ### 3. The market is the game
 
@@ -233,6 +236,8 @@ $$
 jobs due plus a double weight on assets one missed service away from loss, seven services per hand
 per day, capped by a maturity-dependent ceiling. Whether that thirteenth Fibonacci hand ever pays
 for itself is a question Part IV answers with a ledger.
+
+{% include interactive/article-lab.html id="kaggriculture-wages" %}
 
 ### 7. A day in the life
 

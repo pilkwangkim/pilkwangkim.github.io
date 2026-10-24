@@ -12,6 +12,7 @@ image:
   alt: "Part 8 cover: partial banking, two clocks, and a discrete leaderboard gap"
 topic: ai-agent-security
 lang: en
+interactive_labs: [security]
 translation_key: ai-agent-security-08
 series: ai-agent-security
 series_order: 8
@@ -143,6 +144,8 @@ So the precise rule was stronger than the first announcement-day interpretation:
 There was still an important non-timeout cliff. A candidate that simply failed to fire contributed zero and replay continued. A **candidate exception** during environment construction, interaction, export, predicate evaluation, or cell construction was caught and re-raised as a gateway error. That could still invalidate the whole evaluation. Partial banking made an oversized list deadline-safe, not exception-proof.
 
 A useful mental model is an inner stopwatch inside an outer circuit breaker. The inner 8750-second deadline is supposed to stop work cleanly and return what has already been banked. The outer deadline exists to kill a request that fails to stop cleanly. The extra 175-second response buffer increased the chance that the stopwatch would win that race. It did nothing for malformed candidates that raised an exception before the graceful deadline path could run.
+
+{% include interactive/article-lab.html id="security-deadline" %}
 
 ### 2.2 The Gemma parser fix was real, but not active in our prompts
 

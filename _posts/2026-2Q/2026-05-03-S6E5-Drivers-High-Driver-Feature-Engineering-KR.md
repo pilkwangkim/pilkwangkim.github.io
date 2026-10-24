@@ -7,6 +7,7 @@ math: true
 pin: false
 topic: playground-series
 lang: ko
+interactive_labs: [predictive]
 translation_key: playground-s6e5-driver-features
 image:
   path: /assets/img/technical-covers/playground-s6e5-driver-features/cover.webp
@@ -372,6 +373,8 @@ def fit_target_maps(fit_df, columns, target, weight=None, alpha=80):
 ```
 
 </details>
+
+{% include interactive/article-lab.html id="predictive-target-encoding" %}
 
 ## **5. Fold-Safe Validation**
 

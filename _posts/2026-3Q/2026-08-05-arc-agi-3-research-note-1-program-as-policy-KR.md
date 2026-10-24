@@ -7,6 +7,7 @@ math: true
 pin: false
 topic: arc-agi-3
 lang: ko
+interactive_labs: [arc]
 translation_key: arc-agi-3-research-r1
 image:
   path: /assets/img/technical-covers/arc-agi-3-research-r1/cover.webp
@@ -69,6 +70,8 @@ Schema 팀이 공개한 [트레이스 데이터셋](https://huggingface.co/datas
 | dc22 (어려움, 98.7%) | 218 | 1,205 | 5.5 | ~63만 |
 
 턴당 3~11액션 — 우리의 중앙값 1과 자릿수가 다릅니다. 그리고 **쉬운·중간 게임은 프런티어 모델 기준으로도 ~6만 토큰 안에서 끝납니다. 우리의 런당 예산과 같은 자리입니다.**
+
+{% include interactive/article-lab.html id="arc-mismatch" %}
 
 ## 4. 이식 설계: 우리 제약에서의 D1
 

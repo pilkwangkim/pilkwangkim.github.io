@@ -7,6 +7,7 @@ math: true
 pin: false
 topic: arc-agi-3
 lang: en
+interactive_labs: [arc]
 translation_key: arc-agi-3-introduction
 series: arc-agi-3-main
 series_order: 1
@@ -560,6 +561,8 @@ $$
 $$
 
 That cap is there because later levels are where the game usually tests whether the agent really understood the mechanic. Early levels can be tutorial-like; late levels combine rules.
+
+{% include interactive/article-lab.html id="arc-rhae" %}
 
 ### What RHAE changes about development
 

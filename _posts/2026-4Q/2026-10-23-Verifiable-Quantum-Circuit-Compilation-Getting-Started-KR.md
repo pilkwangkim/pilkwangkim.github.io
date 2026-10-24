@@ -5,6 +5,7 @@ date: 2026-10-23 10:00:00 +0900
 categories: [AI, Kaggle]
 tags: [kaggle, quantum-circuit-compilation, quantum-computing, coding-agents, verification, optimization, working-note]
 math: true
+interactive_labs: [quantum]
 mermaid: true
 image:
   path: /assets/img/posts/quantum-circuit-compilation/cover-3-flat-schematic.webp
@@ -93,6 +94,8 @@ $$
 
 상태 전체에 똑같은 eⁱφ를 곱하는 경우는 다르다. 이때는 **global phase**만 바뀌고, 그 상태를 측정했을 때의 확률은 변하지 않는다. 대회에서 구현해야 하는 phase는 입력 x마다 다르다. superposition의 각 항에 서로 다른 phase를 곱하면 relative phase가 달라지고, 뒤따르는 계산 결과에도 영향을 준다. [phase와 interference 예제][ibm-phase]를 함께 보면 이해하기 쉽다.
 
+{% include interactive/article-lab.html id="quantum-phase" %}
+
 ### 1.3 회로도에서는 gate를 왼쪽부터 적용한다
 
 보통 회로도의 가로선 하나가 qubit 하나다. 왼쪽에서 오른쪽으로 읽으면서 gate를 차례로 적용한다. gate는 qubit 하나에만 작용할 수도 있고, 여러 qubit에 함께 작용할 수도 있다. 아래처럼 gate를 행렬로 적으면, 상태 벡터에 그 행렬을 곱해서 적용 후의 상태를 구할 수 있다.
@@ -173,6 +176,8 @@ $$
 ![계산과 위상 적용 뒤 작업 공간을 복원하는 경로와 AND 임시값의 측정 기반 정리](/assets/img/posts/quantum-circuit-compilation/fig-02-uncomputation.svg){: width="1200" height="1010" }
 
 *그림 2. 위쪽은 phase를 남기고 scratch를 비우는 일반적인 구조다. 아래쪽은 임시 AND 결과를 지우는 두 가지 방법이다. ●는 control, ⊕는 target bit 반전, 점선은 고전 측정 비트다. HMR을 쓰는 경로에는 측정 결과에 따른 phase 보정이 필요하다.*
+
+{% include interactive/article-lab.html id="quantum-cleanup" %}
 
 ### 2.4 측정으로 uncomputation 비용을 줄이는 방법
 
@@ -382,6 +387,8 @@ $$
 
 **공식 코드를 읽을 때는 배율을 처리하는 위치에 주의하자.** 생성기는 위 식의 $1/2$를 직접 곱하지 않고 $p\approx y_0(3-My_0^2)\approx2/\sqrt M$를 계산한다. 소수부 29비트로 표현한 정수 `p`를 $s$만큼 shift한 값이 $Y$이며, 이를 $2^{40}$으로 나누어 해석한다. 즉 $1/2$는 출력의 소수점 위치에 반영한다. $x=64$, $M=1$에서 실수 연산의 이상적인 목표를 $p_*=2$라 쓰면, 출력 목표는 $Y_*=2^{29}p_*2^7=2^{37}$이고 $Y_*/2^{40}=1/8$이다. 실제 p register는 소수부 29비트에 정수부 1비트를 더한 총 30비트이므로 2 미만의 값만 표현한다. 위 손계산에서 나온 경계값 2를 그대로 저장할 수 있는 것은 아니다. 실제로 계산한 근삿값이 허용오차 안에 들어오는지 확인해야 한다.
 
+{% include interactive/article-lab.html id="quantum-fixedpoint" %}
+
 ### 5.6 비트별로 phase를 적용하고 작업용 register를 복원한다
 
 $Y=\sum_{j=0}^{39}b_j2^j$라면 목표 phase는 $Y/2^{40}=\sum_jb_j2^{j-40}$바퀴다. $b_j=1$인 비트마다 $2^{j-40}$바퀴의 phase를 적용하면 전체 합이 목표 phase가 된다. 이처럼 큰 phase 연산을 작은 비트별 연산으로 나누어 구현한다. 다만 `Z_POW`의 인자는 반 바퀴 단위여서, 코드에는 $2^{j-39}$를 넣는다. `Z_POW q t`는 $\lvert 1\rangle$ 성분에 $e^{i\pi t}$를 곱하는 연산이다. 일반적으로 $2^{j-F}$바퀴를 적용하려면 $t=2^{j-F+1}$로 지정해야 한다. Turn과 Z_POW 인자의 단위를 혼동하면 각도가 두 배 어긋난다.
@@ -411,6 +418,8 @@ Phase를 적용한 다음에는 shift부터 Newton 계산, 다항식, 구간 선
 곱셈·제곱·뺄셈에 compute와 uncompute를 합쳐 6,902개, 전체의 약 89%가 들어간다. 따라서 Python 코드를 짧게 만드는 것보다 산술 구조와 정밀도를 바꾸는 쪽이 회로 비용에 직접적인 영향을 준다. 여기에 phase rotation의 synthesis 비용이 추가된다. 기존 로컬 결과에서 이 비용은 Toffoli 약 253개에 해당했다.
 
 Uncompute가 절반 가까이를 차지한다고 해서 측정으로 그 비용을 전부 없앨 수 있는 것은 아니다. 임시 AND를 지우는 `del_and`에는 이미 **measurement-based uncomputation**을 사용한다. `_add_row`는 compute와 uncompute 양쪽에서 partial product의 AND를 만들고, 덧셈 또는 뺄셈을 한 뒤 해당 AND를 측정해 지운다. carry와 이전 accumulator 값까지 복원해야 하는 계산 전체에 임시 AND 하나의 처리 방식을 그대로 적용할 수는 없다.
+
+{% include interactive/article-lab.html id="quantum-stages" %}
 
 ### 5.8 비트 수를 줄인다고 최종 비용도 줄어들까
 
@@ -555,6 +564,8 @@ $$
 ![GF4 예제의 오류 복원과 bit mask에 따른 부호 계산](/assets/img/posts/quantum-circuit-compilation/fig-05-dqi-decoding.svg){: width="1200" height="815" }
 
 *그림 5. 작은 GF(4) 예제에서 syndrome (1,α)로 위치 1과 오류값 α²를 복원한다. mask가 선택한 비트의 parity를 구하면 적용할 −1 phase가 정해진다.*
+
+{% include interactive/article-lab.html id="quantum-gf4" %}
 
 ### 6.6 baseline은 EEA → Chien → Forney 순서로 계산한다
 
@@ -794,6 +805,8 @@ $$
 
 *그림 7. 위쪽 QROM은 주소를 측정하지 않고 주소별 데이터를 읽는다. 아래쪽 예에서는 두 성분씩 회전해 unit vector를 만든다.*
 
+{% include interactive/article-lab.html id="quantum-givens" %}
+
 ### 7.6 각도 75개를 batch로 나눠 register를 재사용한다
 
 각도를 J개씩 묶어 읽으면 같은 word register를 재사용할 수 있다. 기준 설정은 b_rot=12, J=8이다. 데이터 word에 필요한 qubit은 96개이고, 각도 75개를 10개 batch로 나눠 읽는다. 벡터 주소는 N+RB=76+65×60=3,976개이므로 주소 register에는 12 qubit을 쓴다.
@@ -902,6 +915,8 @@ $$
 세 과제를 모두 개선해야만 점수가 오르는 것은 아니다. 한 과제만 개선해도 전체 점수는 올라간다. 다만 제출 패키지에는 세 과제의 파일이 모두 필요하므로, 아직 개선하지 않은 과제에는 공식 baseline 파일을 넣으면 된다.
 
 검증 결과 JSON을 읽을 때는 필드 이름에 주의해야 한다. `invsqrt` 검증기의 `score`는 **해당 과제의 비용 Q×C**다. 이 값은 작아야 좋으며, 세 과제를 합친 Kaggle 리더보드 점수와는 다르다.
+
+{% include interactive/article-lab.html id="quantum-cost" %}
 
 ## 9. 공식 파일을 받고 실행 환경을 준비하기
 

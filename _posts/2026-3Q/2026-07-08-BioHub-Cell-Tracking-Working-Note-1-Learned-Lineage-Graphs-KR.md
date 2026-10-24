@@ -15,6 +15,7 @@ lang: ko
 translation_key: biohub-01
 series: biohub
 series_order: 1
+interactive_labs: [biohub]
 ---
 
 <style>
@@ -352,6 +353,8 @@ $$
 ```
 
 ---
+
+{% include interactive/article-lab.html id="biohub-lineage" %}
 
 ## 3. 좌표계와 그래프 표현
 

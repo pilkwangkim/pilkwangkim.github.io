@@ -1,0 +1,18 @@
+casmi-spectra:
+  bundle: casmi
+  data: [/assets/img/casmi-2026-guide/data/caffeine-massbank.json]
+  title: {en: "One molecule, three measured spectra", ko: "같은 분자의 실측 스펙트럼 세 개"}
+  note: {en: "Experimental Caffeine HCD records EA030309/EA030311/EA030312, LTQ Orbitrap XL, nominal 30/60/75%. Stravs, Schymanski and Singer, Eawag/MassBank, CC BY. All listed peaks are bundled with source hashes. Each record is normalized separately; nominal percentages are not eV. Peak separations use observed peaks, not selected-precursor metadata. Formula mass matches do not establish a sequential reaction or locate lost atoms.", ko: "Caffeine HCD 실측 record EA030309/EA030311/EA030312, LTQ Orbitrap XL, nominal 30/60/75%입니다. Stravs, Schymanski, Singer, Eawag/MassBank, CC BY. 원본 해시와 기록된 모든 피크를 번들에 포함했습니다. record별로 독립 정규화하며 nominal %는 eV가 아닙니다. 질량 차는 selected-precursor metadata 대신 관측 피크로 계산합니다. 분자식 질량이 일치해도 순차 반응이나 떨어져 나간 원자의 위치를 증명하지는 않습니다."}
+casmi-cosine:
+  bundle: casmi
+  data: [/assets/img/casmi-2026-guide/data/caffeine-massbank.json]
+  title: {en: "See which peaks make the match", ko: "어떤 피크가 유사도를 만드는가"}
+  note: {en: "Uses the same public Caffeine measurements. Matches nearest masses one-to-one using the symmetric mean-mass ppm distance; matches are unambiguous for these records at 0–25 ppm. All retained peaks remain in vector norms. Optional precursor removal excludes peaks within ±10 ppm of the record’s precursor metadata. These are similarities between the same molecule’s measurements, not classification scores.", ko: "같은 공개 Caffeine 측정값을 사용합니다. 두 질량의 평균을 분모로 한 ppm 차이로 가까운 질량을 일대일 대응합니다. 이 record는 0–25 ppm 범위에서 대응이 모호하지 않습니다. 대응하지 않는 피크도 norm에 남깁니다. precursor 제외 시 metadata의 precursor 질량 ±10 ppm 안의 피크를 뺍니다. 같은 분자의 측정 간 유사도이며 분류 정확도는 아닙니다."}
+casmi-ranking:
+  bundle: casmi
+  title: {en: "Find the answer, then move it up", ko: "정답을 찾은 뒤 앞으로 옮기기"}
+  note: {en: "Four constructed queries, equally weighted. Initial correct ranks are 1,2,5 and absent, giving MRR@25=0.425. Queries 1–3 retain the correct candidate; query 4 lets you separate pool availability from final ranking. A wrong candidate inserted first shifts all existing ranks by one. No trained-model result or chemical inference is represented.", ko: "네 query를 동일한 가중치로 구성했습니다. 초기 정답 순위는 1,2,5위와 누락이며 MRR@25는 0.425입니다. query 1–3은 pool에 정답이 있고 query 4는 후보 유무와 최종 순위를 따로 바꿉니다. 틀린 후보를 맨 앞에 넣으면 기존 순위가 하나씩 밀립니다. 학습한 모델의 결과나 화학적 추론을 나타내지 않습니다."}
+casmi-mass:
+  bundle: casmi
+  title: {en: "An adduct error is bigger than a ppm window", ko: "adduct 오류와 ppm 허용오차"}
+  note: {en: "Singly charged examples only. Neutral mass = observed m/z − signed adduct mass change. Caffeine uses the public source’s rounded neutral mass 194.0804 Da; Eugenol/Isoeugenol use the article’s calculated 164.083730 Da. The Caffeine preset is measured; the Eugenol precursor preset is a calculated example. This is a fixed three-candidate mass filter, not database search.", ko: "단일 전하 예제입니다. 중성 질량 = 관측 m/z − 부호 있는 adduct 질량 변화입니다. Caffeine은 공개 원본의 반올림한 중성 질량 194.0804 Da, Eugenol/Isoeugenol은 본문의 계산값 164.083730 Da를 사용합니다. Caffeine preset은 실측값이고 Eugenol precursor preset은 계산 예제입니다. 데이터베이스 검색 대신 고정 후보 세 개의 질량 통과 여부를 계산합니다."}

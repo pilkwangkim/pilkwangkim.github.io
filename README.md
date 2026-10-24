@@ -27,6 +27,11 @@ latest version of the **Chirpy** theme and the [CD][CD] workflow to here, so tha
 
 ## Usage
 
+For local click-to-edit writing in the actual blog layout, run `./tools/edit.sh`.
+The Metadata panel also edits tags, categories, topic, series, publication date and language.
+Tables & equations opens cell-by-cell table editing and LaTeX previews for inline and display equations.
+See [the local editor guide](docs/local-editor.md) for saving, undo and protected content.
+
 Check out the [theme's docs](https://github.com/cotes2020/jekyll-theme-chirpy/wiki).
 
 ## Contributing

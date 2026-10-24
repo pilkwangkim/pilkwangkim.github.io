@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="390" height="1590" viewBox="0 0 390 1590" role="img" aria-labelledby="title desc">
+<title id="title">Separate the repair workspace from fresh verification</title><desc id="desc">The GPU model server requests tools through the harness and agent loop. Two independent sandboxes start from the same repository snapshot. Only the extracted Git diff is transferred from the agent workspace to fresh verification; evaluator-held tests stay with the verifier.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9" fill="none" stroke="context-stroke" stroke-width="1.6"/></marker></defs>
+<rect x="0" y="0" width="390" height="1590" rx="0" fill="#fbfbf8" stroke="none" stroke-width="1.5"/>
+<text x="24" y="35" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700" fill="#183044" text-anchor="start" xml:space="preserve">Two checkouts, one patch</text>
+<text x="24" y="65" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" fill="#5c6d78" text-anchor="start" xml:space="preserve">Agent work and verification are isolated.</text>
+<path d="M62,115 v-12 h110.96000000000001 l12,12 h169.04 v60 H62 Z" fill="none" stroke="#183044" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M62,115 h292" fill="none" stroke="#183044" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="76" y="145" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" fill="#183044" text-anchor="start" xml:space="preserve">Repository @ base commit</text>
+<text x="62" y="200" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" fill="#5c6d78" text-anchor="start" xml:space="preserve">Two independent checkouts</text>
+<rect x="30" y="235" width="340" height="620" rx="14" fill="#e8f4f2" stroke="#b9d4d4" stroke-width="1.5"/>
+<text x="48" y="267" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" fill="#167d82" text-anchor="start" xml:space="preserve">PATCH GENERATION</text>
+<path d="M130,294 L130,302" fill="none" stroke="#183044" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M130,410 L130,418" fill="none" stroke="#183044" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M151,294 L151,302" fill="none" stroke="#183044" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M151,410 L151,418" fill="none" stroke="#183044" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M172,294 L172,302" fill="none" stroke="#183044" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M172,410 L172,418" fill="none" stroke="#183044" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M193,294 L193,302" fill="none" stroke="#183044" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M193,410 L193,418" fill="none" stroke="#183044" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M214,294 L214,302" fill="none" stroke="#183044" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M214,410 L214,418" fill="none" stroke="#183044" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M235,294 L235,302" fill="none" stroke="#183044" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M235,410 L235,418" fill="none" stroke="#183044" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M256,294 L256,302" fill="none" stroke="#183044" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M256,410 L256,418" fill="none" stroke="#183044" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M277,294 L277,302" fill="none" stroke="#183044" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M277,410 L277,418" fill="none" stroke="#183044" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M104,320 L112,320" fill="none" stroke="#183044" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M287,320 L295,320" fill="none" stroke="#183044" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M104,341 L112,341" fill="none" stroke="#183044" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M287,341 L295,341" fill="none" stroke="#183044" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M104,362 L112,362" fill="none" stroke="#183044" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M287,362 L295,362" fill="none" stroke="#183044" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M104,383 L112,383" fill="none" stroke="#183044" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M287,383 L295,383" fill="none" stroke="#183044" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="112" y="302" width="175" height="108" rx="9" fill="#183044" stroke="#183044" stroke-width="1.5"/>
+<rect x="121" y="311" width="157" height="90" rx="6" fill="#183044" stroke="#6e8b9c" stroke-width="1.5"/>
+<text x="199.5" y="354.0" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" fill="#ffffff" text-anchor="middle" xml:space="preserve">Gemma</text>
+<text x="199.5" y="381.0" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" fill="#c9dde5" text-anchor="middle" xml:space="preserve">GPU model server</text>
+<path d="M180,427 L180,472" fill="none" stroke="#183044" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+<path d="M217,472 L217,427" fill="none" stroke="#167d82" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+<text x="42" y="444" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" fill="#183044" text-anchor="start" xml:space="preserve">tool call</text>
+<text x="237" y="465" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" fill="#167d82" text-anchor="start" xml:space="preserve">observation</text>
+<rect x="60" y="490" width="280" height="109" rx="10" fill="#ffffff" stroke="#183044" stroke-width="1.5"/>
+<rect x="60" y="490" width="280" height="30" rx="10" fill="#183044" stroke="#183044" stroke-width="1.5"/>
+<rect x="60" y="507" width="280" height="13" rx="0" fill="#183044" stroke="#183044" stroke-width="1.5"/>
+<text x="328" y="511" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" fill="#ffffff" text-anchor="end" xml:space="preserve">Harness / agent loop</text>
+<text x="76" y="548" font-family="Menlo, Consolas, monospace" font-size="17" font-weight="400" fill="#183044" text-anchor="start" xml:space="preserve">read · edit · test</text>
+<path d="M180,606 L180,661" fill="none" stroke="#183044" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+<path d="M217,661 L217,606" fill="none" stroke="#167d82" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+<text x="47" y="643" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" fill="#183044" text-anchor="start" xml:space="preserve">tools</text>
+<text x="237" y="643" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" fill="#167d82" text-anchor="start" xml:space="preserve">result</text>
+<path d="M60,697 v-12 h106.4 l12,12 h161.6 v145 H60 Z" fill="none" stroke="#183044" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M60,697 h280" fill="none" stroke="#183044" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="74" y="727" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#183044" text-anchor="start" xml:space="preserve">Agent sandbox</text>
+<path d="M78,740 L78,752" fill="none" stroke="#cbd8dd" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M78,752 L91,752" fill="none" stroke="#cbd8dd" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="100" y="755" font-family="Menlo, Consolas, monospace" font-size="17" font-weight="400" fill="#183044" text-anchor="start" xml:space="preserve">src/</text>
+<path d="M78,770 L78,782" fill="none" stroke="#cbd8dd" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M78,782 L91,782" fill="none" stroke="#cbd8dd" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="100" y="785" font-family="Menlo, Consolas, monospace" font-size="17" font-weight="400" fill="#183044" text-anchor="start" xml:space="preserve">tests/</text>
+<path d="M265,734 H298 L315,751 V798 H265 Z" fill="#e8f4f2" stroke="#167d82" stroke-width="1.8"/>
+<path d="M298,734 v17 h17" fill="none" stroke="#167d82" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M275,760 L304,760" fill="none" stroke="#167d82" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M275,770 L304,770" fill="none" stroke="#167d82" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M275,780 L304,780" fill="none" stroke="#167d82" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="74" y="830" font-family="Menlo, Consolas, monospace" font-size="16" font-weight="400" fill="#5c6d78" text-anchor="start" xml:space="preserve">/workspace</text>
+<path d="M99,879 H274 L291,896 V989 H99 Z" fill="#ffffff" stroke="#167d82" stroke-width="1.8"/>
+<path d="M274,879 v17 h17" fill="none" stroke="#167d82" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="115" y="910" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#167d82" text-anchor="start" xml:space="preserve">Git diff</text>
+<text x="115" y="939" font-family="Menlo, Consolas, monospace" font-size="17" font-weight="400" fill="#a24d3e" text-anchor="start" xml:space="preserve">− old line</text>
+<text x="115" y="968" font-family="Menlo, Consolas, monospace" font-size="17" font-weight="400" fill="#167d82" text-anchor="start" xml:space="preserve">+ new line</text>
+<path d="M195,860 L195,871" fill="none" stroke="#167d82" stroke-width="2.3" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+<text x="195" y="1030" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#167d82" text-anchor="middle" xml:space="preserve">Only the diff crosses over</text>
+<rect x="30" y="1067" width="340" height="495" rx="14" fill="#ffffff" stroke="#cbd8dd" stroke-width="1.5"/>
+<text x="48" y="1098" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" fill="#183044" text-anchor="start" xml:space="preserve">VERIFICATION SANDBOX</text>
+<path d="M60,1138 v-12 h106.4 l12,12 h161.6 v117 H60 Z" fill="none" stroke="#183044" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M60,1138 h280" fill="none" stroke="#183044" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="74" y="1168" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#183044" text-anchor="start" xml:space="preserve">Fresh checkout + diff</text>
+<path d="M78,1181 L78,1193" fill="none" stroke="#cbd8dd" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M78,1193 L91,1193" fill="none" stroke="#cbd8dd" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="100" y="1196" font-family="Menlo, Consolas, monospace" font-size="17" font-weight="400" fill="#183044" text-anchor="start" xml:space="preserve">src/</text>
+<path d="M78,1211 L78,1223" fill="none" stroke="#cbd8dd" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M78,1223 L91,1223" fill="none" stroke="#cbd8dd" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="100" y="1226" font-family="Menlo, Consolas, monospace" font-size="17" font-weight="400" fill="#183044" text-anchor="start" xml:space="preserve">tests/</text>
+<path d="M265,1175 H298 L315,1192 V1239 H265 Z" fill="#e8f4f2" stroke="#167d82" stroke-width="1.8"/>
+<path d="M298,1175 v17 h17" fill="none" stroke="#167d82" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M275,1201 L304,1201" fill="none" stroke="#167d82" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M275,1211 L304,1211" fill="none" stroke="#167d82" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M275,1221 L304,1221" fill="none" stroke="#167d82" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M254,1263 L254,1321" fill="none" stroke="#167d82" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+<path d="M61,1312 H155 L172,1329 V1430 H61 Z" fill="#ffffff" stroke="#183044" stroke-width="1.8"/>
+<path d="M155,1312 v17 h17" fill="none" stroke="#183044" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M94,1352 v-8 a13,13 0 0 1 26,0 v8" fill="none" stroke="#183044" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="91" y="1352" width="32" height="25" rx="4" fill="#183044" stroke="#183044" stroke-width="1.5"/>
+<text x="116" y="1401" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" fill="#183044" text-anchor="middle" xml:space="preserve">Held-out</text>
+<text x="116" y="1423" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="400" fill="#183044" text-anchor="middle" xml:space="preserve">tests</text>
+<path d="M180,1370 L214,1370" fill="none" stroke="#183044" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+<path d="M263.5,1326 Q286.6,1338 302,1339 V1372.0 Q302,1399.6 263.5,1418 Q225,1399.6 225,1372.0 V1339 Q240.4,1338 263.5,1326 Z" fill="#e8f4f2" stroke="#167d82" stroke-width="2"/>
+<path d="M244.25,1371.08 l13.86,16.56 l26.180000000000003,-31.28" fill="none" stroke="#167d82" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="265" y="1454" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" fill="#183044" text-anchor="middle" xml:space="preserve">Verifier</text>
+<text x="200" y="1519" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" fill="#167d82" text-anchor="middle" xml:space="preserve">Resolved / unresolved</text>
+<path d="M264,1466 L264,1490" fill="none" stroke="#167d82" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+<path d="M62,139 H17 V1199 H57" fill="none" stroke="#5c6d78" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+<path d="M17,759 H57" fill="none" stroke="#5c6d78" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+<path d="M195,994 L195,1005" fill="none" stroke="#167d82" stroke-width="2.3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M195,1048 V1052 H378 V1185 H349" fill="none" stroke="#167d82" stroke-width="2.3" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+</svg>

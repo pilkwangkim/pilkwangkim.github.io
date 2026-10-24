@@ -15,6 +15,7 @@ image:
   fit: contain
   width: 1916
   height: 821
+interactive_labs: [games]
 ---
 
 # Maze Crawler: 먼저 살아남기 — 구조적 Rule-Based 베이스라인
@@ -565,6 +566,8 @@ PROFILE = "baseline_route_floor_hybrid"
 ```
 
 짧은 에너지 이득을 최대화하려는 설정이 아닙니다. 안정적인 route floor를 지킨 뒤, 남는 margin으로 economy를 붙이는 설정입니다.
+
+{% include interactive/article-lab.html id="games-maze-tempo" %}
 
 ## **9. 전략층과 안전 계획**
 

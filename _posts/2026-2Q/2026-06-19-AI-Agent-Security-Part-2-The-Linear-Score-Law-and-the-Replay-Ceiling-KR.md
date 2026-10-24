@@ -12,6 +12,7 @@ image:
   alt: "2편 표지: K=1 단일 POST 점수식, 리플레이 절벽, 판별기 간 차이"
 topic: ai-agent-security
 lang: ko
+interactive_labs: [security]
 translation_key: ai-agent-security-02
 series: ai-agent-security
 series_order: 2
@@ -109,6 +110,8 @@ $R^2 = 1.0$이 말해 주는 범위를 정확히 구분할 필요가 있습니�
 따라서 당시 데이터의 정확한 해석은 이랬습니다. *"데이터는 회계 항등식을 확인하고, 두 상수를 못 박는다 — trace당 수율(18)과 budget 벽($N_{\text{eff}}$가 $N$ 따라가기를 멈추는 지점)."* 이를 "fitted model"이라 부르면 과장이고, "그냥 산수"라 부르면 그 산수를 성립시키는 두 사실을 과소평가하는 것입니다. 글의 나머지는 사실상 두 번째 상수의 값을 찾는 과정이고, 첫 번째 상수는 그 시점까지 깨지지 않았다는 관찰입니다.
 
 ---
+
+{% include interactive/article-lab.html id="security-linear" %}
 
 ## 2. Severity stacking이 실패한 이유
 

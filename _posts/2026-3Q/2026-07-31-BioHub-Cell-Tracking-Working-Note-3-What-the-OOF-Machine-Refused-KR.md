@@ -16,6 +16,7 @@ lang: ko
 translation_key: biohub-03
 series: biohub
 series_order: 3
+interactive_labs: [biohub]
 ---
 
 <style>
@@ -290,6 +291,8 @@ $$
 **기각 검증.** higher-order matcher는 폴드 게이트와 prefix 게이트를 통과하지 못해 승격하지 않았다. 근거가 엇갈려서(합산은 양수, 폴드 하나와 prefix 하나는 음수) 변형 세 개를 이 기각의 sanity check(로컬 판단을 처음 보는 배아에서 확인하는 Public 제출)로 제출했다. 넓게 적용한 두 변형은 6절에서 다룰 $$0.916$$ 분열 설정보다 $$0.004$$ 낮았고, 기각과 방향이 같았다.
 
 두 모델에서 C4가 나왔다. 구성 요소는 자체 정확도가 아니라, 파이프라인을 그대로 replay해 만든 그래프로 평가한다.
+
+{% include interactive/article-lab.html id="biohub-graph-stages" %}
 
 ### 4.3 분류를 더 잘하는 모델이 더 나쁜 노드를 넣었다
 

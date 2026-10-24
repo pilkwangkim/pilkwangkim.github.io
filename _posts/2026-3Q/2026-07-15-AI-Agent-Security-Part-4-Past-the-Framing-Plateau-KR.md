@@ -12,6 +12,7 @@ image:
   alt: "4편 표지: 모델별 분기, 리플레이 절벽, 추론 구간 축소"
 topic: ai-agent-security
 lang: ko
+interactive_labs: [security]
 translation_key: ai-agent-security-04
 series: ai-agent-security
 series_order: 4
@@ -176,6 +177,8 @@ $$
 $$
 
 입니다. $F$가 이처럼 작으면 $K=1$에서 처리량이 가장 큽니다. post를 하나 추가할 때마다 온전한 generation 비용이 들고, 여러 post에 나누어 상쇄할 고정비용은 거의 없기 때문입니다. 게다가 $+2$ novelty cell은 후보당 한 번만 주어지므로, post 세 개를 한 후보에 넣으면 이 보너스의 활용도도 3분의 1로 줄어듭니다. single post를 기준으로 triple은 **0.97×**로 소폭 낮았습니다. 체인이 이득이 되려면 $F/g > \tfrac{3\cdot 18 - 50}{50 - 18} = 0.125$여야 하지만 측정값은 그보다 작았습니다. 이 비율은 prefill 토큰과 decode 토큰 수의 관계에 가깝기 때문에 GPU가 느려져도 결론은 크게 달라지지 않습니다. 멀티포스트 프레이밍이 single-post보다 낮았던 이유는 compliance 실패가 아니라, post마다 점수는 붙지만 비용은 분산되지 않는 구조였습니다.
+
+{% include interactive/article-lab.html id="security-density" %}
 
 ## 14. 각 변경의 효과를 따로 측정하면
 

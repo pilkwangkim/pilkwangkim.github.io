@@ -4,6 +4,7 @@ date: 2026-07-03 21:00:00 +0900
 categories: [AI, Kaggle]
 tags: [kaggle, rogii, error-anatomy, geosteering, stratigraphy, target-free-alignment, tvt, working-note]
 math: true
+interactive_labs: [rogii]
 pin: false
 topic: rogii
 lang: ko
@@ -281,6 +282,8 @@ $$
 
 ---
 
+{% include interactive/article-lab.html id="rogii-alignment" %}
+
 ### 4.1 Notebook snippet: GR shift landscape
 
 GR이 정답 라벨이 아니라 likelihood landscape라는 말은 다음과 같은 scan으로 확인할 수 있다. prefix 구간에서만 여러 vertical shift $\delta$를 시험하고, typewell GR과 horizontal GR의 mismatch를 계산한다.
@@ -512,6 +515,8 @@ $$
 즉 $p$가 완전히 0 또는 1에 가깝지 않다면, hard decision은 squared loss에서 불필요하게 위험하다. 이것이 tie well에서 hedge가 단순한 요령이 아니라 loss function과 맞는 정책인 이유다.
 
 ---
+
+{% include interactive/article-lab.html id="rogii-hedge" %}
 
 ## 9. Evidence-to-architecture ladder
 

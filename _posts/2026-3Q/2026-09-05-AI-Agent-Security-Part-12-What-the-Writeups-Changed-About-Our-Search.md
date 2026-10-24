@@ -12,6 +12,7 @@ image:
   alt: "Five published solutions examined together after the competition"
 topic: ai-agent-security
 lang: en
+interactive_labs: [security]
 translation_key: ai-agent-security-12
 series: ai-agent-security
 series_order: 12
@@ -277,6 +278,8 @@ Public-best HTTP submission v50 ultimately scored **115.240 → 0.000**, while s
 Other experiments found different ways for a promising change to disappoint. Shorter requests sometimes brought back longer output. Changing a destination could preserve 200 successful calls but lose distinct cells. Warming up the first candidate could speed it up while slowing the whole portfolio. A multi-action sequence could execute correctly without earning more score per second. Hardware failures left some comparisons inconclusive; they said nothing about whether the message had become worse.
 
 I would not write off the time spent on a public-only family simply because it failed privately. That work could still teach us something useful elsewhere. Rodríguez learned how the full execution behaved, then did the additional work needed to apply that knowledge to another family. Our throughput analysis had identified part of the same problem. We also needed to decide where else to use it.
+
+{% include interactive/article-lab.html id="security-accounting" %}
 
 ## 7. Sixth place: when a useful constraint became a limit
 

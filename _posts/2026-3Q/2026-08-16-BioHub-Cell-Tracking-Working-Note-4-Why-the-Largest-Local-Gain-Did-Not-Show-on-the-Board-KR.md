@@ -16,6 +16,7 @@ lang: ko
 translation_key: biohub-04
 series: biohub
 series_order: 4
+interactive_labs: [biohub]
 ---
 
 <style>
@@ -287,6 +288,8 @@ $$
 _그림 2. 이 기간의 가장 큰 수치가 나온 4-fold replay는 폴드마다 두 배아를 고르게 나눠 담았다. 08-10에 고정한 평가 규약은 폴드마다 배아 하나를 통째로 뺀다._
 
 각 정책 폴드는 평가할 배아의 다른 영상으로 학습했다. 두 prefix의 비율을 맞춰도 처음 보는 배아에 대한 평가가 되지는 않는다. 8월 6일의 설명은 backbone의 embryo-out 조건을 정책 분할까지 확인하지 않은 채 전체 조합에 적용한 셈이었다.
+
+{% include interactive/article-lab.html id="biohub-folds" preset="embryo" %}
 
 ### 3.4 08-10 점검과 거기서 찾은 누수
 

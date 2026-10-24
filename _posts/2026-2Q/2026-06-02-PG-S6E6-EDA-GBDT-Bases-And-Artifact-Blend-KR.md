@@ -7,6 +7,7 @@ math: true
 pin: false
 topic: playground-series
 lang: ko
+interactive_labs: [predictive]
 translation_key: playground-s6e6-stellar-classification
 image:
   path: /assets/img/posts/2026-06-02-pg-s6e6-eda-gbdt-artifact-blend/fig-04-photometric-geometry.png
@@ -281,6 +282,8 @@ for a, b in color_pairs:
 ```
 
 </details>
+
+{% include interactive/article-lab.html id="predictive-colors" %}
 
 ## **5. 적색편이를 여러 형태로 확장하는 이유**
 
@@ -667,6 +670,8 @@ $$
 | `STAR` | `0.143283` | `0.159731` |
 
 이건 임의의 조작이 아니라 클래스별 recall을 균형 있게 맞춘 결과입니다.
+
+{% include interactive/article-lab.html id="predictive-multipliers" %}
 
 ## **13. 제출 파일보다 확률 아티팩트가 중요합니다**
 

@@ -16,6 +16,7 @@ lang: en
 translation_key: biohub-08
 series: biohub
 series_order: 8
+interactive_labs: [biohub]
 ---
 
 <style>
@@ -245,6 +246,8 @@ The motion relink links a $$z$$-neighbor instead of the true successor, and the 
 The fix estimates one global translation per transition from the detections alone and feeds it into the relink and the line-fit.
 The registration step fits no additional model and uses no labels at inference; the trained detectors and association head remain those of v90.
 Because the error belongs to the stage, the mechanism predicts more than a pooled gain: gain should tend to increase with jump frequency when motion estimation is accurate and the same failure occurs. Transfer to another embryo remained a hypothesis.
+
+{% include interactive/article-lab.html id="biohub-registration" %}
 
 ### 3.3 Gates Written Before the Results
 

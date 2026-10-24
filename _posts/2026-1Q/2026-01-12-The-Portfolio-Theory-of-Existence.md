@@ -12,6 +12,7 @@ image:
   path: /assets/img/essays/the-portfolio-theory-of-existence/cover.webp
   alt: "A balanced mobile of distinct shapes, suggesting a life supported by several meaningful commitments"
   hide_caption: true
+interactive_labs: [essays]
 ---
 
 **Subtitle: A life should not be optimized as a single asset**
@@ -92,6 +93,8 @@ $$
 The term \(\rho_{ij}\) matters. It measures correlation.
 
 In life, correlation is the hidden killer. If career failure destroys income, identity, social network, self-esteem, and future imagination at the same time, then those domains were never truly diversified. They were different labels attached to one underlying bet.
+
+{% include interactive/article-lab.html id="essays-correlation" %}
 
 ## **3. The Problem of Correlated Identities**
 

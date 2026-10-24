@@ -16,6 +16,7 @@ lang: en
 translation_key: biohub-05
 series: biohub
 series_order: 5
+interactive_labs: [biohub]
 ---
 
 <style>
@@ -267,6 +268,8 @@ A separate replay reconstructed 58,427 candidate edges using the available gener
 _Figure 1. Coverage of one reconstructed candidate generator: $$183$$ of $$38{,}060$$ missing edges had a replacement, at most $$115$$ a legal swap. This inventory does not include node insertion or division edits, and does not prove the contents of every historical candidate table._
 
 A better ranker cannot select an absent candidate. This inventory therefore explained why improving the ranking signal alone might do little for the current generator.
+
+{% include interactive/article-lab.html id="biohub-reach" %}
 
 ### 2.3 What the board could tell us
 

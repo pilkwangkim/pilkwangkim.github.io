@@ -1,0 +1,4 @@
+birdclef-gated-ranks:
+  bundle: birdclef
+  title: {en: "Which rank corrections survive the gates?", ko: "어떤 rank 보정이 gate를 통과하는가"}
+  note: {en: "Six synthetic rows and twelve taxa; class gates are illustrative. Percentiles are calculated down columns and top-k masks across rows. Genus groups and two broader class groups are authored examples. Acceptance uses a 75% active-cell cap and 90% top-3/top-10 overlap, without evaluating competition AUC.", ko: "가상 행 6개와 taxon 12개이며 class gate도 예시입니다. Percentile은 열을 따라, top-k mask는 행을 따라 계산합니다. Genus와 두 상위 class 묶음은 작성한 예제입니다. 변경 칸 75% 상한과 top-3·top-10 일치율 90%로 적용 여부를 정하며 대회 AUC를 평가하지 않습니다."}

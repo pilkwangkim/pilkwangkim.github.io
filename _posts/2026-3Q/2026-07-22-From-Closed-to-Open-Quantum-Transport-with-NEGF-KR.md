@@ -4,6 +4,7 @@ date: 2026-07-22 09:00:00 +0900
 categories: [Physics, Quantum Transport]
 tags: [kaggle, quantum-transport, green-functions, landauer, negf, open-quantum-systems, physics, python, resonant-tunneling, self-energy, tight-binding]
 math: true
+interactive: negf-barrier
 pin: false
 topic: quantum-transport
 lang: ko
@@ -27,10 +28,7 @@ image:
 
 이 글에서는 다음 문제를 다룬다.
 
-```text
-무한히 긴 lead가 달린 열린 수송 문제를,
-임의의 absorbing boundary condition 없이 어떻게 유한 행렬로 정확히 표현할까?
-```
+> 무한히 긴 lead가 달린 열린 수송 문제를, 임의의 absorbing boundary condition 없이 어떻게 유한 행렬로 정확히 표현할까?
 
 nonequilibrium Green's function (NEGF)에서는 lead의 **자유도**를 식에서 근사 없이 소거한다. 그렇다고 lead의 영향까지 없애는 것은 아니다. 그 영향은 energy-dependent self-energy로 바뀌어 device 방정식에 남는다.
 
@@ -54,21 +52,14 @@ nonequilibrium Green's function (NEGF)에서는 lead의 **자유도**를 식에�
 
 세부 식을 유도하기 전에 전체 계산 순서를 정리한다.
 
-```text
-continuum Schrödinger equation
-        ↓ finite difference
-유한 tight-binding Hamiltonian H_D
-        ↓ semi-infinite lead를 붙이고 정확히 소거
-retarded self-energy Σ_L^R(E), Σ_R^R(E)
-        ↓
-open-device Green's function G^R(E)
-        ↓                         ↓
-spectral function A_L, A_R          transmission T(E)
-        ↓                         ↓
-reservoir 점유 f_L, f_R            Landauer 전류
-        ↓
-electron correlation function G^n, 밀도, 결합 전류
-```
+<div class="negf-workflow-desktop">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-00-negf-workflow.svg" alt="NEGF 계산 흐름도. device Hamiltonian과 lead self-energy로 retarded Green's function과 spectral function 및 transmission을 구하고, 별도로 주어진 reservoir의 Fermi function을 결합해 occupation, density, bond current와 Landauer current를 계산한다." width="100%">
+</div>
+<div class="negf-workflow-mobile">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-00-negf-workflow-mobile.svg" alt="NEGF 계산 흐름도의 세로 배치. device와 lead 정보를 결합해 spectrum과 transmission을 계산하고, 독립적인 reservoir occupation을 더해 density와 current를 구한다." width="100%">
+</div>
+
+*계산 흐름도.* device와 lead는 허용되는 state와 전파를 정하고, reservoir의 chemical potential과 온도는 각 state의 occupation을 정한다. $A_\alpha$에 $f_\alpha$를 곱하면 $G^n$과 density·bond current를, $T(E)$에 $f_L-f_R$를 곱해 적분하면 Landauer current를 얻는다. $\alpha=L,R$이며 그림의 식들은 coherent contact continuum에 대한 $\eta\to0^+$ 관계다.
 
 먼저 lead, reservoir, contact를 구분한다.
 
@@ -1012,11 +1003,13 @@ $$
 
 *그림 8.* 초록색 선은 potential energy $U_j$이며 $H_{jj}$ 자체가 아니다. Hamiltonian의 대각 원소는 $2t_0+U_j$다. open boundary condition은 device 내부에 임의의 complex potential을 더해서 만드는 것이 아니라, 양 끝의 contact self-energy로 구현한다.
 
+{% include interactive/negf-barrier.html %}
+
 ### 8.1 닫힌 well의 bound level이 resonance가 되는 과정
 
 두 장벽의 높이가 무한하면 well 안에는 discrete bound levels가 생긴다. 장벽이 유한하면 각 mode의 wavefunction이 장벽 바깥까지 이어지고, 그 결과 양쪽 lead continuum과 결합한다.
 
-isolated resonance $r$에 대응하는 closed-well orbital을 $\lvert\phi_r\rangle$라 하고 device 영역에서 정규화하자. contact self-energy가 resonance width 안에서 천천히 변한다면, contact별 partial broadening은
+isolated resonance $r$에 대응하는 mode를 $\lvert\phi_r\rangle$라 하고 device 영역에서 정규화하자. 이 mode는 주로 well 안에 분포하지만, 유한 장벽을 지나 contact 끝점까지 tail이 이어져 있다. contact self-energy가 resonance width 안에서 천천히 변한다면, contact별 partial broadening은
 
 $$
 \Gamma_{\alpha,r}\simeq
@@ -1063,14 +1056,16 @@ $$
 
 이다. $\Gamma_r$는 energy linewidth이며, escape rate는 $\Gamma_r/\hbar$다. lifetime 기호로 $t_{\mathrm{life},r}$를 쓴 이유는 contact coupling matrix $\tau$와 혼동하지 않기 위해서다.
 
-노트북의 energy scan에서 서로 분리된 resonance peak를 찾고 그 위치를 정밀하게 계산한 결과는 다음과 같다.
+위 계산기에서 resonance peak를 찾고 위치를 정밀하게 계산한 결과는 다음과 같다.
 
 $$
-E_r\approx
-0.0639,\ 0.1413,\ 0.2453,\ 0.3713\ \mathrm{eV}
+\begin{aligned}
+E_r\approx{}&0.01613,\ 0.06387,\ 0.14131,\\
+            &0.24526,\ 0.37135,\ 0.51460\ \mathrm{eV}
+\end{aligned}
 $$
 
-$0.5146\ \mathrm{eV}$ 부근에도 별도의 peak가 있다. 이 가운데 두 번째 resonance를 택해
+이 목록은 위 계산기의 refinement로 확인한 $0.001$–$0.600\ \mathrm{eV}$ 구간의 resonance다. 원래 노트북의 peak 검출 목록에서는 $0.01613\ \mathrm{eV}$ 부근의 좁은 첫 resonance를 놓쳤다. 여기서는 $0.14131\ \mathrm{eV}$ 부근의 resonance를 택해
 
 $$
 E_{\mathrm{res}}=0.1413\ \mathrm{eV},
@@ -1082,7 +1077,7 @@ E_{\mathrm{res}}=0.1413\ \mathrm{eV},
 k_BT=0.005\ \mathrm{eV}=5\ \mathrm{meV}
 $$
 
-로 둔다. $k_BT=5\ \mathrm{meV}$는 약 $58\ \mathrm{K}$에 해당한다. 위 resonance 목록에는 현재 energy scan에서 서로 분리해 확인할 수 있는 peak만 포함했다. 이보다 훨씬 좁은 peak가 하나도 없다는 뜻은 아니다.
+로 둔다. 표시한 에너지는 반올림한 값이며, 실제 계산에서는 refinement로 구한 $E_{\mathrm{res}}=0.14131276097\ \mathrm{eV}$와 $\mu_L=E_{\mathrm{res}}+0.06\ \mathrm{eV}$, $\mu_R=E_{\mathrm{res}}-0.06\ \mathrm{eV}$를 사용한다. $k_BT=5\ \mathrm{meV}$는 약 $58\ \mathrm{K}$에 해당한다.
 
 ### 8.2 available spectrum과 실제 occupation
 
@@ -1104,17 +1099,19 @@ $$
   <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-09-example-a-spectral-bookkeeping.png" alt="contact별로 나눈 available well spectrum과 실제 occupied well spectrum" width="94%">
 </p>
 
-*그림 9.* 양쪽 contact 모두 같은 resonance에 state를 공급할 수 있다. 이 예제에서 chemical potential을 바꾸어도 resonance의 모양은 변하지 않는다. 달라지는 것은 두 reservoir가 그 resonance를 채우는 비율이며, 두 기여를 합한 결과가 $G^n=A_Lf_L+A_Rf_R$다.
+*그림 9.* 양쪽 contact 모두 같은 resonance에 state를 공급할 수 있다. 이 예제에서 chemical potential을 바꾸어도 resonance의 모양은 변하지 않는다. 달라지는 것은 두 reservoir가 그 resonance를 채우는 비율이며, 두 기여를 합한 결과가 $G^n=A_Lf_L+A_Rf_R$다. 세로축은 spin 하나당 spectral density이며, occupied spectrum을 적분한 뒤 spin degeneracy 2를 곱하면 well의 전체 occupation이 된다.
 
 <p align="center">
   <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-10-example-a-transport-summary.png" alt="고정 spectrum resonant-tunneling 예제의 transmission, LDOS, contact별 점유, spectral current" width="96%">
 </p>
 
-*그림 10.* (a)에는 고정된 transmission spectrum과 주된 occupation window가, (b)에는 LDOS의 quasi-bound well mode가 나타나 있다. (c)는 occupied spectral weight를 contact별로 나눈 결과다. (d)에서 전류를 정하는 양은 transmission peak의 높이가 아니라 $dI/dE$를 에너지에 대해 적분한 **면적**이다.
+*그림 10.* (a)는 좁은 첫 resonance까지 분해한 transmission spectrum과 주된 occupation window다. (b)에는 LDOS의 quasi-bound well mode가 나타나 있다. (c)는 에너지에 대해 적분한 site occupation을 두 contact의 기여로 나눈 결과다. (d)에서 전류를 정하는 양은 transmission peak의 높이가 아니라 $dI/dE$를 적분한 **면적**이다. (c)와 (d)는 아래에서 설명할 resonance-local grid와 같은 적분 설정으로 다시 계산했다.
 
 이 면적을 정확히 구하려면 energy grid도 충분한 해상도를 가져야 한다. uniform grid는 linewidth가 매우 좁은 resonance peak 자체를 건너뛸 수 있다. 1차원 band edge처럼 적분값은 유한하지만 함수가 급격히 변하는 구간도 제대로 잡지 못할 수 있다.
 
-노트북에서는 emitter band edge 근처에 geometric grid를 놓고, 나머지 occupied-energy 구간에는 촘촘한 linear grid를 쓴다. 두 grid를 합친 뒤 각 transmission peak 후보의 주변을 따로 탐색해 정확한 위치를 구한다. 따라서 plotting grid에서 가장 높은 grid point를 resonance energy로 그대로 사용하지 않는다.
+원래 노트북은 emitter band edge 근처의 geometric grid와 occupied-energy 구간의 linear grid를 합친다. 하지만 peak의 위치를 정밀하게 찾는 것과 peak의 면적을 정확히 적분하는 것은 별개의 문제다. 첫 resonance의 FWHM은 약 $61.3\ \mu\mathrm{eV}$인데, 기존 3,000-point linear grid의 간격은 약 $83.5\ \mu\mathrm{eV}$다. 이 grid로는 well occupation이 수렴하지 않는다.
+
+아래 재계산에서는 전체 구간의 grid에 각 resonance의 linewidth를 기준으로 한 local grid를 추가한다. 각 peak의 양쪽 $20\,\mathrm{FWHM}$ 범위에 점을 더 놓고, 그 안의 간격은 $\mathrm{FWHM}/(100r)$로 정한다. Fermi tail도 포함하도록 적분 상한을 $E_{\max}=\mu_L+18k_BT$까지 늘린다. 수렴 검증에서는 grid 해상도를 정하는 $r$, 적분 상한, 수치적 $\eta$를 각각 바꾸어 본다.
 
 비균일 grid $E_0<\cdots<E_{M-1}$에서 사다리꼴 적분을 $\int dE\,F(E)\simeq\sum_iw_iF(E_i)$로 쓰면 각 점의 weight는
 
@@ -1127,28 +1124,55 @@ $$
 로 정해진다. 비균일 grid에서는 각 함수값을 단순히 더하면 안 된다. 코드에 $w_i$를 명시하면 서로 다른 간격이 적분에 올바르게 반영된다.
 
 ```python
-E = np.unique(np.concatenate((
-    np.geomspace(1e-10, 1e-3, 400, endpoint=False),
-    np.linspace(1e-3, mu_L + 0.05, 3000),
-)))
+E_res = 0.141312760965677
+mu_L, mu_R, kT = E_res + 0.06, E_res - 0.06, 0.005
+
+# (peak center, FWHM), eV 단위. 적분 구간 안의 네 resonance를 모두 분해한다.
+peak_data = [
+    (0.016126494083, 6.12837580566e-5),
+    (0.063869428566, 5.35092219254e-4),
+    (0.141312760935, 2.09218053569e-3),
+    (0.245260414529, 6.10631008345e-3),
+]
+r = 16                       # r=8과 비교해 적분값의 수렴을 확인
+E_max = mu_L + 18 * kT        # occupation window 밖의 Fermi tail도 포함
+parts = [
+    np.geomspace(1e-10, 1e-3, 400 * r, endpoint=False),
+    np.linspace(1e-3, E_max, 3000 * r + 1),
+]
+for center, width in peak_data:
+    local = center + width * np.linspace(-20, 20, 4000 * r + 1)
+    parts += [local[(local > 1e-10) & (local < E_max)], np.array([center])]
+E = np.unique(np.concatenate(parts))
+
+# 비균일 grid의 각 점이 대표하는 에너지 구간을 weight에 반영한다.
 w = np.empty_like(E)
 w[0], w[-1] = 0.5 * (E[1] - E[0]), 0.5 * (E[-1] - E[-2])
 w[1:-1] = 0.5 * (E[2:] - E[:-2])
 
+# 각 에너지에서 Gn을 구하는 기존 loop 안의 density 누적 항:
 n_per_spin += w[iE] * np.diag(Gn).real / (2.0 * np.pi)
+
+# loop가 끝난 뒤: T_E는 같은 E grid에서 계산한 transmission 배열이다.
 n_site = 2.0 * n_per_spin                 # spin degeneracy는 한 번만 적용
-I = current_prefactor_A_per_eV * np.sum(w * T_E * (f_L - f_R))
+f_L_E = 1.0 / (1.0 + np.exp((E - mu_L) / kT))
+f_R_E = 1.0 / (1.0 + np.exp((E - mu_R) / kT))
+I = current_prefactor_A_per_eV * np.sum(w * T_E * (f_L_E - f_R_E))
 ```
 
 `current_prefactor_A_per_eV`에는 spin factor와 eV–joule 변환 계수가 이미 포함되어 있으므로 2를 다시 곱하면 안 된다. density, bond current, terminal current에는 모두 같은 energy grid와 quadrature weight를 사용한다. 그래야 서로 다른 적분 규칙 때문에 생긴 차이를 물리적 불일치로 오해하지 않는다.
 
-Landauer 식으로 계산한 전류는
+$\eta=10^{-9}\ \mathrm{eV}$에서 이 grid로 다시 계산한 Landauer current는
 
 $$
-I_{\mathrm{Landauer}}=263.0891\ \mathrm{nA}
+I_{\mathrm{Landauer}}\approx263.0911\ \mathrm{nA}
 $$
 
-이다. 이와 독립적으로 구한 평균 bond current는 $263.0900\ \mathrm{nA}$이며, bond 사이의 상대 편차는 $5.30\times10^{-5}$다. contact별 occupation을 더한 $n=n_L+n_R$도 상대오차 $3.0\times10^{-15}$ 이내에서 맞는다. occupied well spectrum을 적분한 값과 well site의 occupation을 합한 값은 모두 $4.882464787$ 전자다.
+이다. 평균 bond current는 $263.0919\ \mathrm{nA}$, bond 사이의 상대 편차는 $5.30\times10^{-5}$다. occupied well spectrum의 적분과 well site의 occupation 합은 모두 **약 $4.87203$ 전자**이며, 두 계산의 차이는 $10^{-14}$ 전자보다 작다. 원래의 coarse grid에서 나온 약 $4.88246$ 전자는 적분이 수렴하기 전의 값이다. 전류가 기존 값에서 조금 늘어난 것은 상한을 $\mu_L+10k_BT$에서 $\mu_L+18k_BT$로 확장해 남아 있던 Fermi tail을 포함했기 때문이다.
+
+같은 grid를 사용한 두 계산이 일치하는지 확인하는 것과 grid 자체의 수렴을 확인하는 것은 구분해야 한다. $r=8$에서 $16$으로 늘리면 well occupation은 $3.88\times10^{-7}$ 전자만큼 변한다. 적분 상한을 $\mu_L+18k_BT$에서 $\mu_L+22k_BT$로 늘렸을 때의 변화는 $1.82\times10^{-8}$ 전자다. 두 경우 모두 Landauer current의 변화는 $10^{-7}\ \mathrm{nA}$보다 작다.
+
+수치적 $\eta$의 영향도 따로 확인할 수 있다. 같은 refined grid에서 $\eta\to0^+$로 보내면 well occupation은 약 $4.87211$ 전자, current는 약 $263.0914\ \mathrm{nA}$로 간다. 이때 bond current와 Landauer current는 수치 정밀도 안에서 일치한다. 유한한 $\eta$에서 남았던 작은 차이는 앞서 설명한 수치적 absorption 때문이다.
 
 예제 A의 결과를 두 줄로 정리하면 다음과 같다.
 
@@ -1405,7 +1429,7 @@ NEGF 계산에서는 boundary condition과 available spectrum을 retarded self-e
 
 ## 12. 노트북으로 직접 계산하기
 
-본문의 그림과 수치 검증은 아래 노트북에서 모두 재현할 수 있다.
+기본 NEGF 구현과 두 transport 예제는 아래 노트북에서 실행할 수 있다. 이 글의 예제 A 수치는 8.2절에 제시한 refined energy grid로 다시 계산했으므로, 원래 노트북의 coarse-grid 출력과는 차이가 있다.
 
 - [Kaggle에서 노트북 실행하기](https://www.kaggle.com/code/pilkwang/from-closed-to-open-quantum-transport-with-negf)
 - [GitHub에서 소스 노트북 읽기](https://github.com/pilkwangkim/Physics/blob/master/negf_from_scratch.ipynb)

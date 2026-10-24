@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="720pt" height="374.4pt" viewBox="0 0 720 374.4" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-10-24T11:50:12.779481</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 374.4 
+L 720 374.4 
+L 720 0 
+L 0 0 
+z
+" style="fill: #fbfbf8"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 72 307.008 
+L 662.4 307.008 
+L 662.4 104.832 
+L 72 104.832 
+z
+" style="fill: #fbfbf8"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <path d="M 72 307.008 
+L 72 104.832 
+" clip-path="url(#p458b123e89)" style="fill: none; stroke: #d7dfe1; stroke-width: 0.7; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_2"/>
+     <g id="text_1">
+      <text style="font-size: 14px; font-family: 'Arial'; text-anchor: middle; fill: #5c6d78" x="72" y="320.528938" transform="rotate(-0 72 320.528938)">0</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_3">
+      <path d="M 268.8 307.008 
+L 268.8 104.832 
+" clip-path="url(#p458b123e89)" style="fill: none; stroke: #d7dfe1; stroke-width: 0.7; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_4"/>
+     <g id="text_2">
+      <text style="font-size: 14px; font-family: 'Arial'; text-anchor: middle; fill: #5c6d78" x="268.8" y="320.528938" transform="rotate(-0 268.8 320.528938)">25</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_5">
+      <path d="M 465.6 307.008 
+L 465.6 104.832 
+" clip-path="url(#p458b123e89)" style="fill: none; stroke: #d7dfe1; stroke-width: 0.7; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_6"/>
+     <g id="text_3">
+      <text style="font-size: 14px; font-family: 'Arial'; text-anchor: middle; fill: #5c6d78" x="465.6" y="320.528938" transform="rotate(-0 465.6 320.528938)">50</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_7">
+      <path d="M 662.4 307.008 
+L 662.4 104.832 
+" clip-path="url(#p458b123e89)" style="fill: none; stroke: #d7dfe1; stroke-width: 0.7; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_8"/>
+     <g id="text_4">
+      <text style="font-size: 14px; font-family: 'Arial'; text-anchor: middle; fill: #5c6d78" x="662.4" y="320.528938" transform="rotate(-0 662.4 320.528938)">75</text>
+     </g>
+    </g>
+    <g id="text_5">
+     <text style="font-size: 14px; font-family: 'Arial'; text-anchor: middle; fill: #183044" x="367.2" y="337.332375" transform="rotate(-0 367.2 337.332375)">Tasks</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2"/>
+   <g id="text_6">
+    <text style="font-size: 14px; font-family: 'Arial'; text-anchor: start; fill: #183044" x="72" y="127.524426" transform="rotate(-0 72 127.524426)">FastAPI</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 14px; font-family: 'Arial'; text-anchor: end; fill: #183044" x="662.4" y="127.524426" transform="rotate(-0 662.4 127.524426)">67 · 51.9%</text>
+   </g>
+   <g id="patch_3">
+    <path d="M 72 143.614189 
+L 599.424 143.614189 
+L 599.424 132.170264 
+L 72 132.170264 
+z
+" clip-path="url(#p458b123e89)" style="fill: #25806f"/>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 14px; font-family: 'Arial'; text-anchor: start; fill: #183044" x="72" y="178.386313" transform="rotate(-0 72 178.386313)">Rich</text>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 14px; font-family: 'Arial'; text-anchor: end; fill: #183044" x="662.4" y="178.386313" transform="rotate(-0 662.4 178.386313)">48 · 37.2%</text>
+   </g>
+   <g id="patch_4">
+    <path d="M 72 194.476075 
+L 449.856 194.476075 
+L 449.856 183.032151 
+L 72 183.032151 
+z
+" clip-path="url(#p458b123e89)" style="fill: #3b6fa1"/>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 14px; font-family: 'Arial'; text-anchor: start; fill: #183044" x="72" y="229.2482" transform="rotate(-0 72 229.2482)">Requests</text>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 14px; font-family: 'Arial'; text-anchor: end; fill: #183044" x="662.4" y="229.2482" transform="rotate(-0 662.4 229.2482)">13 · 10.1%</text>
+   </g>
+   <g id="patch_5">
+    <path d="M 72 245.337962 
+L 174.336 245.337962 
+L 174.336 233.894038 
+L 72 233.894038 
+z
+" clip-path="url(#p458b123e89)" style="fill: #a2adb4"/>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 14px; font-family: 'Arial'; text-anchor: start; fill: #183044" x="72" y="280.110087" transform="rotate(-0 72 280.110087)">HTTPX</text>
+   </g>
+   <g id="text_13">
+    <text style="font-size: 14px; font-family: 'Arial'; text-anchor: end; fill: #183044" x="662.4" y="280.110087" transform="rotate(-0 662.4 280.110087)">1 · 0.8%</text>
+   </g>
+   <g id="patch_6">
+    <path d="M 72 296.199849 
+L 79.872 296.199849 
+L 79.872 284.755925 
+L 72 284.755925 
+z
+" clip-path="url(#p458b123e89)" style="fill: #a2adb4"/>
+   </g>
+  </g>
+  <g id="text_14">
+   <text style="font-weight: 700; font-size: 21px; font-family: 'Arial'; text-anchor: start; fill: #183044" x="50.4" y="30.007406" transform="rotate(-0 50.4 30.007406)">Development tasks by repository</text>
+  </g>
+  <g id="text_15">
+   <text style="font-size: 14px; font-family: 'Arial'; text-anchor: start; fill: #5c6d78" x="50.4" y="64.479562" transform="rotate(-0 50.4 64.479562)">129 tasks · 4 Python projects · Inventory: 25 September 2026</text>
+  </g>
+  <g id="text_16">
+   <text style="font-size: 13px; font-family: 'Arial'; text-anchor: start; fill: #5c6d78" x="50.4" y="361.296" transform="rotate(-0 50.4 361.296)">FastAPI + Rich: 115 / 129 tasks (89.1%)</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p458b123e89">
+   <rect x="72" y="104.832" width="590.4" height="202.176"/>
+  </clipPath>
+ </defs>
+</svg>

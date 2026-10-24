@@ -12,6 +12,7 @@ image:
   alt: "Part 6 cover: throughput equations, cache layout, and corrected instruments"
 topic: ai-agent-security
 lang: en
+interactive_labs: [security]
 translation_key: ai-agent-security-06
 series: ai-agent-security
 series_order: 6
@@ -332,6 +333,8 @@ $$
 Sharper still: overhead outside the timer (message construction, the stop check, and the append) landed on the *wall* side, moving the crossover slightly above 1. **COEF = 1.0 was therefore inert on this path**; the replay bound could bind only above that threshold. Of our five variants, only Z5 (1.05) qualified, and the source model predicted that it would trim the affected row's `N` by about 4.8%.
 
 I tested the proof against its main alternative: uncounted overhead might invalidate the substitution. Tracing that overhead showed the opposite; it sat on the wall-bound side and therefore strengthened the conclusion. The pre-slot test is now a source-level stop-condition table followed by a small boundary simulation.
+
+{% include interactive/article-lab.html id="security-stop" %}
 
 ### 13.2 So it's not a crater, and not a rejection either
 

@@ -16,6 +16,7 @@ lang: en
 translation_key: biohub-06
 series: biohub
 series_order: 6
+interactive_labs: [biohub]
 ---
 
 <style>
@@ -442,6 +443,8 @@ On one median movie estimated at $$5{,}257$$ cells, the hole-filling arm took th
 **Losses with nearly unchanged node counts.** In the gentlest arms one movie went from $$0.767$$ to $$0.722$$ at $$+0.2\%$$ nodes: a nearly unchanged total node count can still hide changes in peak identity, position and graph connectivity. This observation alone does not attribute the loss to sub-voxel displacement.
 Raising the extraction threshold halved the tail gain and barely changed the median loss, so that threshold change did not resolve the composition problem.
 A control on 2026-09-04 with an ordinary third seed in the detection-only role lost $$-0.0063$$ on the same median eight ($$6$$ of $$8$$ negative), close to the augmented model's $$-0.0073$$: the similar losses suggest that adding a third field mattered, but do not provide a causal decomposition of augmentation and mixing.
+
+{% include interactive/article-lab.html id="biohub-tail" %}
 
 ### 7.4 Why the Program Was Closed
 

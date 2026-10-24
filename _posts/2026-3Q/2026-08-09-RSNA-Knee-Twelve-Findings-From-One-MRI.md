@@ -18,6 +18,7 @@ lang: en
 translation_key: rsna-knee-competition-structure
 series: rsna-knee
 series_order: 0
+interactive_labs: [rsna]
 ---
 
 The [RSNA Knee Abnormality Detection competition](https://www.kaggle.com/competitions/rsna-knee-abnormality-detection) asks for twelve finding probabilities from one MRI study. The input is an entire examination, assembled from several image series; the output is a fixed-length vector. A useful model has to identify relevant evidence within that collection and combine it at the level of the examination.
@@ -66,6 +67,8 @@ Each correctly ordered pair contributes one, a reversed pair contributes zero, a
 This has two practical consequences. First, a strictly increasing transformation preserves one predictor's AUC when ordering and ties remain unchanged. A high AUC therefore does not establish that an output of 0.8 is a clinically calibrated 80% probability. Second, the twelve findings receive equal weight regardless of prevalence. Common findings provide more positive training examples, but do not receive a larger coefficient in the final average. I need to inspect changes across all twelve targets, especially when a representation favors some anatomical structures over others.
 
 Score scale becomes relevant again in an ensemble. Averaging model probabilities retains the distances between their scores; averaging ranks replaces those distances with relative positions. Transforming separate predictors before combining them can change the final order even when each predictor's own AUC stays fixed. The aggregation operator is consequently part of the prediction model, not a neutral formatting choice.
+
+{% include interactive/article-lab.html id="rsna-ranking" %}
 
 ## Report omissions and image findings
 
@@ -125,6 +128,8 @@ Slice sampling creates the same tension through the volume. With a fixed number 
 
 ![Physical ordering, crop size, and a fixed image grid]({{ site.baseurl }}/assets/img/posts/rsna-knee-series/part0-sampling.png){: width="1920" height="1040" }
 _Figure 3. Geometry establishes spatial order and scale. Crop size and sampling density then determine which anatomical evidence reaches the model._
+
+{% include interactive/article-lab.html id="rsna-geometry" %}
 
 ## Aggregation across slices and views
 

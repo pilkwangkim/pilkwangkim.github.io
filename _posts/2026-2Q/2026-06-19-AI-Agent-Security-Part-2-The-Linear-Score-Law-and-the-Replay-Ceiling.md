@@ -12,6 +12,7 @@ image:
   alt: "Part 2 cover: the K=1 single-post score law, replay cliff, and recognizer gap"
 topic: ai-agent-security
 lang: en
+interactive_labs: [security]
 translation_key: ai-agent-security-02
 series: ai-agent-security
 series_order: 2
@@ -109,6 +110,8 @@ The actual empirical content hides in two facts that the clean line *encodes*:
 So the honest reading is: *"the data confirms an accounting identity, and pins two constants — the per-trace yield (18) and the budget wall (where $N_{\text{eff}}$ stops following $N$)."* Calling it a "fitted model" would overstate it; calling it "just arithmetic" would understate the two facts that make the arithmetic hold. The rest of the post is, in effect, the search for the value of that second constant and the finding that the first one has not been beaten so far.
 
 ---
+
+{% include interactive/article-lab.html id="security-linear" %}
 
 ## 2. Why Severity Stacking Is Dead
 

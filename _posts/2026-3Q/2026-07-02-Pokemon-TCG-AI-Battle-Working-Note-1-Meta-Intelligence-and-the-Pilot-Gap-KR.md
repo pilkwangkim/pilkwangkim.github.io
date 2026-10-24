@@ -12,6 +12,7 @@ image:
   path: /assets/img/technical-covers/pokemon-tcg-working-note-1/cover.webp
   alt: "리플레이로 학습한 행동 모방 모델과 규칙 기반 대안이 공개된 카드판을 보고 합법적 선택지를 평가하며, 이후 전체 게임으로 파일럿을 검증한다."
   hide_caption: true
+interactive_labs: [games]
 ---
 
 # Pokémon TCG AI Battle Working Note (1편): 규칙 기반에서 RL 파일럿까지
@@ -604,6 +605,8 @@ minCount와 maxCount를 지킨다.
 학습 결과가 아무리 좋아도 Validation Episode에서 패키지가 깨지면 아무 의미가 없다. 따라서 모델
 평가에는 모듈 불러오기, 첫 호출의 덱 반환, 첫 행동, 미러 게임, 실행 시간 검사까지 포함한다.
 
+
+{% include interactive/article-lab.html id="games-pokemon-policy" %}
 
 ### 15. 상대를 읽는 모델은 숨겨진 정답을 보면 안 된다
 

@@ -7,6 +7,7 @@ math: true
 pin: false
 topic: arc-agi-3
 lang: ko
+interactive_labs: [arc]
 translation_key: arc-agi-3-introduction
 series: arc-agi-3-main
 series_order: 1
@@ -635,6 +636,8 @@ $$
 $$
 
 뒤 level을 못 풀면 앞 level을 아무리 빨리 풀어도 game 전체 점수는 높아지지 않습니다. 뒤 level이야말로 mechanic을 정말 이해했는지를 묻는 곳이기 때문입니다.
+
+{% include interactive/article-lab.html id="arc-rhae" %}
 
 ### RHAE가 개발 방식을 어떻게 바꾸는가
 

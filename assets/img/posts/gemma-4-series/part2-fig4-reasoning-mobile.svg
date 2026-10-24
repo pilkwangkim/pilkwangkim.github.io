@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="360pt" height="957.6pt" viewBox="0 0 360 957.6" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-10-24T11:53:34.432712</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 957.6 
+L 360 957.6 
+L 360 0 
+L 0 0 
+z
+" style="fill: #fbfbf8"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 82.8 366.7608 
+L 334.8 366.7608 
+L 334.8 266.2128 
+L 82.8 266.2128 
+z
+" style="fill: #fbfbf8"/>
+   </g>
+   <g id="matplotlib.axis_1"/>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_1"/>
+     <g id="text_1">
+      <text style="font-size: 15px; font-family: 'Arial'; text-anchor: end; fill: #5c6d78" x="75.8" y="299.099435" transform="rotate(-0 75.8 299.099435)">Off</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_2"/>
+     <g id="text_2">
+      <text style="font-size: 15px; font-family: 'Arial'; text-anchor: end; fill: #5c6d78" x="75.8" y="344.798823" transform="rotate(-0 75.8 344.798823)">512</text>
+     </g>
+    </g>
+   </g>
+   <g id="patch_3">
+    <path d="M 82.8 305.060891 
+L 226.8 305.060891 
+L 226.8 282.209073 
+L 82.8 282.209073 
+z
+" clip-path="url(#pe1b888a3be)" style="fill: #3b6fa1"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 82.8 350.764527 
+L 284.4 350.764527 
+L 284.4 327.912709 
+L 82.8 327.912709 
+z
+" clip-path="url(#pe1b888a3be)" style="fill: #bc6537"/>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 16px; font-family: 'Arial'; text-anchor: start; fill: #183044" x="233.856" y="297.775607" transform="rotate(-0 233.856 297.775607)">5</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 16px; font-family: 'Arial'; text-anchor: start; fill: #183044" x="291.456" y="343.479243" transform="rotate(-0 291.456 343.479243)">7</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 16px; font-family: 'Arial'; text-anchor: start; fill: #183044" x="82.8" y="254.2128" transform="rotate(-0 82.8 254.2128)">Resolved tasks (of 22)</text>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="patch_5">
+    <path d="M 82.8 541.044 
+L 334.8 541.044 
+L 334.8 440.496 
+L 82.8 440.496 
+z
+" style="fill: #fbfbf8"/>
+   </g>
+   <g id="matplotlib.axis_3"/>
+   <g id="matplotlib.axis_4">
+    <g id="ytick_3">
+     <g id="line2d_3"/>
+     <g id="text_6">
+      <text style="font-size: 15px; font-family: 'Arial'; text-anchor: end; fill: #5c6d78" x="75.8" y="473.382635" transform="rotate(-0 75.8 473.382635)">Off</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_4"/>
+     <g id="text_7">
+      <text style="font-size: 15px; font-family: 'Arial'; text-anchor: end; fill: #5c6d78" x="75.8" y="519.082023" transform="rotate(-0 75.8 519.082023)">512</text>
+     </g>
+    </g>
+   </g>
+   <g id="patch_6">
+    <path d="M 82.8 479.344091 
+L 284.4 479.344091 
+L 284.4 456.492273 
+L 82.8 456.492273 
+z
+" clip-path="url(#p766d1a7d38)" style="fill: #3b6fa1"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 82.8 525.047727 
+L 82.8 525.047727 
+L 82.8 502.195909 
+L 82.8 502.195909 
+z
+" clip-path="url(#p766d1a7d38)" style="fill: #bc6537"/>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 16px; font-family: 'Arial'; text-anchor: start; fill: #183044" x="291.456" y="472.058807" transform="rotate(-0 291.456 472.058807)">11</text>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 16px; font-family: 'Arial'; text-anchor: start; fill: #183044" x="89.856" y="517.762443" transform="rotate(-0 89.856 517.762443)">0</text>
+   </g>
+   <g id="text_10">
+    <text style="font-weight: 700; font-size: 16px; font-family: 'Arial'; fill: #183044" transform="translate(82.8 409.746469)">Runs with 20+</text>
+    <text style="font-weight: 700; font-size: 16px; font-family: 'Arial'; fill: #183044" transform="translate(82.8 428.496)">identical calls</text>
+   </g>
+  </g>
+  <g id="axes_3">
+   <g id="patch_8">
+    <path d="M 82.8 715.3272 
+L 334.8 715.3272 
+L 334.8 614.7792 
+L 82.8 614.7792 
+z
+" style="fill: #fbfbf8"/>
+   </g>
+   <g id="matplotlib.axis_5"/>
+   <g id="matplotlib.axis_6">
+    <g id="ytick_5">
+     <g id="line2d_5"/>
+     <g id="text_11">
+      <text style="font-size: 15px; font-family: 'Arial'; text-anchor: end; fill: #5c6d78" x="75.8" y="647.665835" transform="rotate(-0 75.8 647.665835)">Off</text>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_6"/>
+     <g id="text_12">
+      <text style="font-size: 15px; font-family: 'Arial'; text-anchor: end; fill: #5c6d78" x="75.8" y="693.365223" transform="rotate(-0 75.8 693.365223)">512</text>
+     </g>
+    </g>
+   </g>
+   <g id="patch_9">
+    <path d="M 82.8 653.627291 
+L 284.4 653.627291 
+L 284.4 630.775473 
+L 82.8 630.775473 
+z
+" clip-path="url(#pffc997799e)" style="fill: #3b6fa1"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 82.8 699.330927 
+L 104.496861 699.330927 
+L 104.496861 676.479109 
+L 82.8 676.479109 
+z
+" clip-path="url(#pffc997799e)" style="fill: #bc6537"/>
+   </g>
+   <g id="text_13">
+    <text style="font-size: 16px; font-family: 'Arial'; text-anchor: start; fill: #183044" x="291.456" y="646.342007" transform="rotate(-0 291.456 646.342007)">223</text>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 16px; font-family: 'Arial'; text-anchor: start; fill: #183044" x="111.552861" y="692.045643" transform="rotate(-0 111.552861 692.045643)">24</text>
+   </g>
+   <g id="text_15">
+    <text style="font-weight: 700; font-size: 16px; font-family: 'Arial'; fill: #183044" transform="translate(82.8 585.599669)">Malformed calls</text>
+    <text style="font-weight: 700; font-size: 16px; font-family: 'Arial'; fill: #183044" transform="translate(82.8 602.7792)">(delimiter slips)</text>
+   </g>
+  </g>
+  <g id="axes_4">
+   <g id="patch_11">
+    <path d="M 82.8 889.6104 
+L 334.8 889.6104 
+L 334.8 789.0624 
+L 82.8 789.0624 
+z
+" style="fill: #fbfbf8"/>
+   </g>
+   <g id="matplotlib.axis_7"/>
+   <g id="matplotlib.axis_8">
+    <g id="ytick_7">
+     <g id="line2d_7"/>
+     <g id="text_16">
+      <text style="font-size: 15px; font-family: 'Arial'; text-anchor: end; fill: #5c6d78" x="75.8" y="821.949035" transform="rotate(-0 75.8 821.949035)">Off</text>
+     </g>
+    </g>
+    <g id="ytick_8">
+     <g id="line2d_8"/>
+     <g id="text_17">
+      <text style="font-size: 15px; font-family: 'Arial'; text-anchor: end; fill: #5c6d78" x="75.8" y="867.648423" transform="rotate(-0 75.8 867.648423)">512</text>
+     </g>
+    </g>
+   </g>
+   <g id="patch_12">
+    <path d="M 82.8 827.910491 
+L 284.4 827.910491 
+L 284.4 805.058673 
+L 82.8 805.058673 
+z
+" clip-path="url(#p38529711b6)" style="fill: #3b6fa1"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 82.8 873.614127 
+L 125.64 873.614127 
+L 125.64 850.762309 
+L 82.8 850.762309 
+z
+" clip-path="url(#p38529711b6)" style="fill: #bc6537"/>
+   </g>
+   <g id="text_18">
+    <text style="font-size: 16px; font-family: 'Arial'; text-anchor: start; fill: #183044" x="291.456" y="820.625207" transform="rotate(-0 291.456 820.625207)">80</text>
+   </g>
+   <g id="text_19">
+    <text style="font-size: 16px; font-family: 'Arial'; text-anchor: start; fill: #183044" x="132.696" y="866.328843" transform="rotate(-0 132.696 866.328843)">17</text>
+   </g>
+   <g id="text_20">
+    <text style="font-weight: 700; font-size: 16px; font-family: 'Arial'; fill: #183044" transform="translate(82.8 758.390369)">Calls missing</text>
+    <text style="font-weight: 700; font-size: 16px; font-family: 'Arial'; fill: #183044" transform="translate(82.8 777.0624)">required arguments</text>
+   </g>
+  </g>
+  <g id="text_21">
+   <text style="font-weight: 700; font-size: 19px; font-family: 'Arial'; fill: #183044" transform="translate(23.4 39.617412)">Reasoning and</text>
+   <text style="font-weight: 700; font-size: 19px; font-family: 'Arial'; fill: #183044" transform="translate(23.4 63.259424)">execution outcomes</text>
+  </g>
+  <g id="text_22">
+   <text style="font-size: 15px; font-family: 'Arial'; text-anchor: start; fill: #5c6d78" x="23.4" y="117.21401" transform="rotate(-0 23.4 117.21401)">Same 22 tasks, runtime, sampling</text>
+  </g>
+  <g id="text_23">
+   <text style="font-size: 15px; font-family: 'Arial'; text-anchor: start; fill: #5c6d78" x="23.4" y="148.81481" transform="rotate(-0 23.4 148.81481)">E0005 · thinking off</text>
+  </g>
+  <g id="text_24">
+   <text style="font-size: 15px; font-family: 'Arial'; text-anchor: start; fill: #5c6d78" x="23.4" y="180.41561" transform="rotate(-0 23.4 180.41561)">E0050 · reasoning 512</text>
+  </g>
+  <g id="text_25">
+   <text style="font-size: 15px; font-family: 'Arial'; text-anchor: start; fill: #5c6d78" x="23.4" y="924.084" transform="rotate(-0 23.4 924.084)">Blue: thinking off · Orange: reasoning 512</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pe1b888a3be">
+   <rect x="82.8" y="266.2128" width="252" height="100.548"/>
+  </clipPath>
+  <clipPath id="p766d1a7d38">
+   <rect x="82.8" y="440.496" width="252" height="100.548"/>
+  </clipPath>
+  <clipPath id="pffc997799e">
+   <rect x="82.8" y="614.7792" width="252" height="100.548"/>
+  </clipPath>
+  <clipPath id="p38529711b6">
+   <rect x="82.8" y="789.0624" width="252" height="100.548"/>
+  </clipPath>
+ </defs>
+</svg>

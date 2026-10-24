@@ -12,6 +12,7 @@ image:
   alt: "10편 표지: 공개 점수의 계단, 아티팩트 식별, 두 자리 포트폴리오"
 topic: ai-agent-security
 lang: ko
+interactive_labs: [security]
 translation_key: ai-agent-security-10
 series: ai-agent-security
 series_order: 10
@@ -396,6 +397,8 @@ $$
 2. **조건에 따라 쓰이는 순서형 후반부 후보군** — 평소에는 공개용 앞쪽 후보가 주로 기여하고, 다른 가드레일에서 이 후보들이 빠르게 거부될 때에만 후반부 후보가 의미를 갖는다.
 
 두 번째는 일반적인 혼합이 아니라 실행 시간에 따라 작동 여부가 갈리는 대비책이다. 성공하려면 최소 세 조건이 필요하다. 앞쪽 후보가 실패해야 하고, 그 실패가 공개 평가에서 성공한 실행보다 상당히 빨라야 하며, 후반부 후보는 실제로 처리될 때 의도대로 안정적으로 작동해야 한다. 하나라도 충족하지 않으면 후반부 후보는 거의 기여하지 못한다.
+
+{% include interactive/article-lab.html id="security-order" %}
 
 ## 10. PICK2BE, FRAME64, PICK2B: 점점 더 정밀해진 세 가지 교훈
 

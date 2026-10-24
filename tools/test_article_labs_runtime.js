@@ -1,0 +1,10 @@
+const assert = require('node:assert/strict');
+const { parseCSV, format } = require('../assets/js/article-labs.js');
+assert.deepEqual(parseCSV('\uFEFFname,value\r\n"A, B","a""b"\r\nC,"line1\nline2"\r\n'), [{ name: 'A, B', value: 'a"b' }, { name: 'C', value: 'line1\nline2' }]);
+assert.deepEqual(parseCSV('a,b\n1,\n'), [{ a: '1', b: '' }]);
+assert.deepEqual(parseCSV(''), []);
+assert.throws(() => parseCSV('a,b\n1,2,3'), /column/);
+assert.throws(() => parseCSV('a,a\n1,2'), /Duplicate/);
+assert.throws(() => parseCSV('a,b\n"bad,2'), /Unclosed/);
+assert.equal(format(NaN), '—'); assert.equal(format(0.0000001), '1.00e-7');
+console.log('PASS runtime CSV quoting, malformed-data rejection and numeric formatting');

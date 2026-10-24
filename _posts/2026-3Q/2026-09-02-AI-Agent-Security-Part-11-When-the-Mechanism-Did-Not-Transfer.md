@@ -12,6 +12,7 @@ image:
   alt: "Several public attack constructions converging on one shared mechanism before a held-out guardrail"
 topic: ai-agent-security
 lang: en
+interactive_labs: [security]
 translation_key: ai-agent-security-11
 series: ai-agent-security
 series_order: 11
@@ -173,6 +174,8 @@ The wording is deliberately framed at the family level. We do **not** have priva
 
 Proper HTTPS scoring zero makes an explanation based only on empty or malformed URLs insufficient for the audited submissions. It does not reveal the deeper rule. Nor can I conclude that the entire private competition was an “email benchmark.” The winner scored 46.425, far above our pure-mail bank, and other teams may have found mechanisms absent from our submitted set.
 
+{% include interactive/article-lab.html id="security-pairs" %}
+
 ## 3. The tail designed to become reachable
 
 On its intended selected routes, reference `55926763`, **AAS URL18 Static42 Deputy Mail Tail**, placed two ordered regions on each model leg:
@@ -203,6 +206,8 @@ $$
 This is not an exact completion rate because the hosted route and row-level private traces are unavailable. Nevertheless, the selected hybrid produced a private payoff equal to about 82% of the standalone mail score while preserving the strongest public score among these submissions.
 
 The 21.340 result, the positive private scores of other mail-bearing variants, and the zeros from nearby pure-HTTP controls are therefore strongly consistent with a mail-bearing route becoming reachable. They do not identify the exact route or row allocation in `55926763`. The bounded conclusion is still important: the tail-bearing family appears to have prevented our selected pair from collapsing to zero.
+
+{% include interactive/article-lab.html id="security-prefix" %}
 
 ## 4. Was the most adverse scenario foreseeable?
 
@@ -265,6 +270,8 @@ The counterfactual would have raised the best private score from 21.340 to 26.01
 This counterfactual changes how I assess the final selection. Choosing Both-no-empty was not a careless comparison between 117 and 25 public points. It was a bet that, after the first slot's conditional mail insurance, the larger remaining risk was a construction-specific block rather than a total family collapse. The realized regime shows that this allocation left private value on the table. One outcome, however, is not enough to show that the ex-ante probability judgment was irrational or poorly calibrated; the reasoning was defensible given the evidence then available.
 
 The final two-slot comparison also exposed an earlier ceiling in the option set: we had not found a higher-density alternative predicate or a source-grounded family with competitive replay economics. Final selection could choose only among the mechanisms already banked. Once the best independent mechanism topped out at about 26, changing the final pair alone could not have produced gold from the submitted candidates.
+
+{% include interactive/article-lab.html id="security-portfolio" %}
 
 ## 6. How the first ten parts change after the reveal
 

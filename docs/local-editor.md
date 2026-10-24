@@ -1,0 +1,53 @@
+# 화면에서 글 수정하기
+
+블로그 폴더에서 다음 명령을 실행합니다.
+
+```sh
+./tools/edit.sh
+```
+
+브라우저가 `http://127.0.0.1:4210/`으로 열립니다. 글을 연 뒤 하단의 **Edit page**를 누르면 제목·소개·본문 문장·캡션을 화면에서 직접 수정할 수 있습니다. 기존 링크나 강조가 있는 문장은 서식 사이의 글자 부분을 각각 수정합니다.
+
+- **Save changes** 또는 **⌘S / Ctrl+S**: 원본 파일에 저장하고 새 미리보기를 만듭니다. 완료되면 같은 글로 돌아옵니다.
+- **Discard**: 아직 저장하지 않은 수정을 취소합니다. 편집 중인 문장 하나만 취소하려면 **Esc**를 누릅니다.
+- **Undo last save**: 마지막 저장을 되돌립니다. 외부에서 파일이 바뀌었으면 덮어쓰지 않습니다.
+- **Finish editing**: 편집 표시를 끄고 글을 읽습니다.
+- **Metadata**: 태그·카테고리·주제·시리즈·발행 날짜·언어를 수정하는 패널을 엽니다. 본문 편집을 켜지 않아도 사용할 수 있습니다.
+- **Tables & equations**: 현재 글의 표와 수식을 골라 수정합니다. **Edit page**를 켠 상태에서는 본문의 표·수식을 직접 눌러도 같은 창이 열립니다.
+- **Refresh preview**: 다른 편집기에서 바꾼 내용으로 미리보기를 다시 만듭니다. 저장하지 않은 수정은 먼저 저장하거나 취소합니다.
+
+**Metadata 패널**에서 태그와 카테고리는 쉼표로 구분해 입력합니다. 기존 항목을 참고할 수 있고 새 태그도 추가할 수 있습니다. 주제와 시리즈는 등록된 목록에서 선택하며, 시리즈를 선택하면 **Series order**에 0 이상의 순번을 입력합니다. 선택한 주제의 대표 태그는 저장할 때 포함됩니다. 날짜는 발행 시각과 시간대를 함께 지정합니다. 미래 날짜로 바꾼 글도 로컬 편집 화면에서는 계속 보입니다. 언어는 **English** 또는 **한국어**를 선택합니다.
+
+태그·카테고리·주제·시리즈·순번은 같은 글에 연결된 번역판과 원문/Compact에 함께 적용됩니다. 날짜와 언어는 현재 글에만 적용됩니다. 패널에서 수정한 내용과 본문의 수정은 같은 **Save changes**로 저장하며, **Discard**와 **Undo last save**도 함께 적용됩니다. 연결된 파일을 다른 편집기에서 바꿨거나 언어·시리즈 순번이 중복되는 경우에는 덮어쓰지 않고 오류를 표시합니다.
+
+**수식 편집창**에서는 LaTeX를 입력하고 미리보기로 결과를 확인합니다. `$...$`, `$$...$$` 같은 바깥 구분자는 입력하지 않습니다. 인라인 수식도 본문에서 직접 선택할 수 있으며, 한 줄로 입력합니다. 집합 괄호는 `\{1,2\}`, 아래첨자는 `x_i`처럼 입력하면 됩니다. 독립 수식은 여러 줄과 `aligned` 등을 사용할 수 있습니다. 잘못된 수식에는 오류가 표시되며 적용 버튼이 비활성화됩니다. 수식 안에서 새 매크로를 정의하거나 링크·HTML을 삽입하는 명령은 지원하지 않습니다.
+
+**표 편집창**에서는 각 셀을 따로 수정합니다. 일반 글자는 그대로 입력하고, 강조는 `**강조**`, 셀 안의 수식은 `$x^2$`처럼 Markdown으로 입력합니다. 미리보기에는 표 전체가 표시됩니다. 행·열 개수와 머리글·열 정렬은 유지되며, 행이나 열을 추가·삭제하는 기능은 없습니다. 셀 내용은 한 줄로 입력하고, 셀 안의 줄바꿈이 필요하면 `<br>`를 사용합니다. 일반 문장의 `|`는 저장할 때 열 구분자로 오인되지 않도록 처리됩니다.
+
+표와 수식은 **Apply to draft**로 임시 반영한 뒤 **Save changes**로 파일에 저장합니다. 창의 **Close / Esc**는 그 창에서 아직 적용하지 않은 내용을 취소합니다. 본문·표·수식·메타데이터의 수정은 함께 저장되며 **Discard**와 **Undo last save**도 함께 적용됩니다.
+
+표·수식 편집창에 입력하고 아직 **Apply to draft**를 누르지 않았더라도, 페이지를 새로고침하거나 떠나려 하면 입력 유실을 막는 브라우저 경고가 표시됩니다. 창을 열기만 했거나 **Close / Esc**로 취소한 내용에는 경고가 표시되지 않습니다.
+
+일반 문장 편집에서는 수식 주변의 글자 부분을 각각 수정합니다. 표 캡션도 표 바깥 설명 문장을 수정할 수 있습니다. 일반 문장에 여러 줄을 붙여 넣으면 한 문장으로 합칩니다. 코드·이미지 경로와 서식 추가는 Markdown 소스에서 수정합니다. 한국어 입력과 일반 텍스트 붙여 넣기를 지원합니다.
+
+저장할 때 수정한 원본 조각만 바꾸므로 나머지 Markdown, 수식, 표, 링크와 HTML 구조는 유지됩니다. 원본이 달라졌거나 화면과 원본이 확실히 대응하지 않는 부분은 수정하지 않습니다. 제목이나 메타데이터를 바꿔도 파일명·주소·번역 연결 키는 바뀌지 않습니다.
+
+원본 수정 전의 파일과 되돌리기 기록은 `.local-editor/backups/`에 저장됩니다. **Undo last save**는 편집 서버를 실행 중인 동안 새로고침 후에도 사용할 수 있습니다. 서버를 종료하고 다시 실행하면 버튼의 되돌리기 기록은 초기화되며, 백업 파일은 남아 있습니다.
+
+Liquid 조건문·반복문처럼 렌더링하면서 줄 위치가 바뀔 수 있는 구간은 본문 일부가 잠길 수 있습니다. 원본과 확실히 대응하지 않는 수식이나 직접 작성한 HTML 표도 보호됩니다. 잠긴 부분은 Markdown 소스에서 수정한 다음 **Refresh preview**로 확인합니다.
+
+빌드·기록·백업은 Git과 공개 사이트에서 제외됩니다. 이 편집기는 localhost에서만 실행되며, 저장은 로컬 파일에만 반영됩니다. commit/push는 별도 작업입니다.
+
+종료하려면 실행한 터미널에서 **Ctrl+C**를 누릅니다. 다른 포트를 쓰려면 `./tools/edit.sh --port 4211`, 브라우저를 자동으로 열지 않으려면 `./tools/edit.sh --no-open`을 사용합니다. VS Code에서는 **Tasks: Run Task → Edit Blog Visually**로 실행할 수도 있습니다.
+
+구현 검사는 다음 명령으로 실행합니다.
+
+```sh
+PATH=/opt/homebrew/opt/ruby/bin:$PATH bundle exec ruby tools/local_editor/test_source.rb
+PATH=/opt/homebrew/opt/ruby/bin:$PATH bundle exec ruby tools/local_editor/test_server.rb
+PATH=/opt/homebrew/opt/ruby/bin:$PATH bundle exec ruby tools/local_editor/test_metadata.rb
+PATH=/opt/homebrew/opt/ruby/bin:$PATH bundle exec ruby tools/local_editor/test_math.rb
+PATH=/opt/homebrew/opt/ruby/bin:$PATH bundle exec ruby tools/local_editor/test_tables.rb
+PATH=/opt/homebrew/opt/ruby/bin:$PATH bundle exec ruby tools/local_editor/test_structures.rb
+node tools/local_editor/test_client_state.js
+```

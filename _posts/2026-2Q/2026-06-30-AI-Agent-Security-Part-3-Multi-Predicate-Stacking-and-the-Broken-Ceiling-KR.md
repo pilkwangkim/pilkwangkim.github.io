@@ -12,6 +12,7 @@ image:
   alt: "3편 표지: 두 모델 행, 서로 다른 시간 예산, 홉별 비용"
 topic: ai-agent-security
 lang: ko
+interactive_labs: [security]
 translation_key: ai-agent-security-03
 series: ai-agent-security
 series_order: 3
@@ -105,6 +106,8 @@ for model in [gpt_oss, gemma]:
 </figure>
 
 *그림 1. 357개로 고정한 뱅크는 더 빠른 행의 시간 예산을 남긴다. 마감 시각에 맞춰 채우면 그 행을 더 오래 활용할 수 있다. 후보 수는 근삿값이고, 49.770은 실제 공개 점수 평균이다.*
+
+{% include interactive/article-lab.html id="security-fill" %}
 
 ## 4. 점수로 이어지지 않은 세 갈래
 

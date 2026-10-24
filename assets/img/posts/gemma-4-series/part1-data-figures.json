@@ -1,0 +1,31 @@
+{
+  "inventory_date": "2026-09-25",
+  "repository_task_counts": {
+    "FastAPI": 67,
+    "Rich": 48,
+    "Requests": 13,
+    "HTTPX": 1
+  },
+  "budget_example": {
+    "tasks": 120,
+    "limit_hours": 12,
+    "session_caps_minutes": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "hypothetical": true,
+    "verification_in_budget": false
+  },
+  "paired_example": {
+    "both_solve": 2,
+    "baseline_only": 2,
+    "candidate_only": 3,
+    "neither_solves": 5,
+    "hypothetical": true
+  },
+  "source": "Values retained from the published Part 1. No new measurement."
+}

@@ -18,6 +18,7 @@ series: rsna-knee
 series_order: 3
 translation_key: rsna-knee-03
 lang: ko
+interactive_labs: [rsna]
 ---
 
 최근 비교 결과를 보면 모델들의 우열을 하나의 로컬 순위로 정하기 어렵다. 10월 초에는 학습 라벨을 바꾸자 로컬 점수가 내려가고 리더보드 점수는 올라가는 현상을 영상 조건을 맞춘 다섯 실험에서 봤다. 목적함수만 바꾼 다른 실험에서는 두 점수가 함께 올랐다. 라벨을 유지하고 영상 모델의 전체 구성을 바꾼 비교에서는 다시 로컬과 Public의 순서가 뒤집혔다. 점수들을 평균내면 이런 차이가 가려진다. 다음에 무엇을 학습할지 정하려면 각 실험에서 바꾼 조건부터 구분해야 한다.
@@ -91,6 +92,8 @@ $$
 _그림 2. 다른 조건을 고정한 목적함수 변경은 로컬의 개선 방향이 Public에서도 유지됐다. 같은 라벨로 영상 전체 구성을 바꾼 비교에서는 유지되지 않았다. 로컬 구간은 고정된 OOF 예측과 기준 라벨로 계산해 저장한 짝지은 비교 구간이다. Public은 별도의 잡음 모형을 가정하지 않은 실제 표시 점수다. 두 비교만으로 일반적인 architecture 효과를 분리할 수는 없다._
 
 학습 라벨이 같다고 로컬 순서가 Public에서도 유지되는 것은 아니다. Architecture를 고정하면 라벨 변경을 해석하기는 쉬워져도 기준 라벨이 학습값의 내용과 독립적이 되지는 않는다. 로컬 결과는 실제로 비교한 조건 안에서 해석하고, 완전한 OOF는 ensemble 분석에 계속 쓴다. Public에서는 시험할 변경을 먼저 정해 몇 차례 비교하면서 test에서도 성능이 나아지는지 확인하려 한다. Architecture가 다르다는 이유로 OOF를 버리면 서로 보완할 수 있는 예측을 놓친다. 반대로 모든 로컬 순위를 test의 순서로 받아들이면 G25에서 했던 잘못된 판단을 되풀이하게 된다.
+
+{% include interactive/article-lab.html id="rsna-window-loss" preset="windows" %}
 
 ## 공개 recipe의 구성 요소와 재현 가설
 
@@ -197,5 +200,7 @@ _그림 5. B2는 student의 검증 fold와 teacher 예측을 받을 학습 사�
 더 강한 영상 기반 학습 신호를 계속 시험할 근거는 있다. 다만 낙관적인 로컬 점수를 clean ensemble 선택에 쓸 수는 없다. B2 teacher와 비교해도 teacher의 내용과 학습 구성이 함께 달라지므로, 누수의 효과만 분리한 실험이 되지는 않는다. 평가 fold를 제외하고 학습한 모델들의 예측은 보존해 ensemble을 분석한다. Final-only student는 teacher의 출처를 기록하고, 미리 정한 외부 비교로 평가하려 한다.
 
 다음 판단에는 세 가지 비교가 필요하다. N-mm12의 로컬 개선이 Public에서도 유지되는지는 아직 모른다. R949F와 S6F는 완전한 재현과 추론 시간 측정이 나와야 준비·추론 비용을 들일 만큼 나아졌는지 판단할 수 있다. 더 강한 teacher로 학습한 student도 영상 모델들과 함께 비교해야 한다. 서로 보완할 수도 있고, 같은 teacher에서 받은 순위를 대부분 되풀이할 수도 있다. 이 결과들을 보고 다음 학습과 추론에 자원을 배분하려 한다. 판독문 해석 모델 하나나 반복해 사용한 전문가 집합, Public 점수 하나로 세 비교를 모두 대신할 수는 없다.
+
+{% include interactive/article-lab.html id="rsna-teacher-folds" %}
 
 **다음:** [Part 4: 엇갈린 근거와 최종 두 후보]({{ site.baseurl }}/posts/RSNA-Knee-Part-4-The-Final-Two-Before-the-Deadline-KR/)

@@ -1,0 +1,12 @@
+rogii-alignment:
+  bundle: rogii
+  title: {en: "A good GR match can have two depths", ko: "잘 맞는 GR 무늬가 두 깊이에 있을 때"}
+  note: {en: "Authored teaching curves, not competition well data. Reference g(t)=55+12 sin(2πt/20)+5 cos(4πt/20), with optional 10 exp(−((t−11)/2.5)²). Observation: g(t+5)+1.2 sin(1.7t)+0.8 cos(3.1t), 49 equally spaced points on [0,12] ft. Gap mode removes t∈[4,9]. C is RMSE over available points. Uniform shifts [−5,35] ft in 0.25-ft steps; q∝exp(−C²/τ), normalized over that finite grid. τ is chosen, not calibrated; q is not a measured correctness probability.", ko: "대회 well 자료 대신 구성한 학습용 곡선입니다. reference는 g(t)=55+12 sin(2πt/20)+5 cos(4πt/20)이며 선택에 따라 10 exp(−((t−11)/2.5)²)를 더합니다. 관측은 g(t+5)+1.2 sin(1.7t)+0.8 cos(3.1t)로 [0,12] ft의 등간격 49개 점입니다. 결측 모드는 t∈[4,9]를 제외합니다. C는 남은 점의 RMSE입니다. 이동은 [−5,35] ft를 0.25 ft 간격으로 검사하고 q∝exp(−C²/τ)를 유한 격자에서 정규화합니다. τ는 선택한 값이며 q는 실측한 정답 확률이 아닙니다."}
+rogii-hedge:
+  bundle: rogii
+  title: {en: "When the midpoint has lower squared risk", ko: "중간값의 제곱 오차 위험이 더 작을 때"}
+  note: {en: "Exact two-point model: true coordinate is a=0 with probability p, or b=d with probability 1−p. Mean prediction is (1−p)d; hard prediction is the more probable mode (a at a tie). Risk is p(estimate−a)²+(1−p)(estimate−b)². Probabilities and separation are chosen assumptions, not ROGII validation results or calibrated GR weights.", ko: "실제 좌표가 확률 p로 a=0, 확률 1−p로 b=d인 두 점 모형을 정확하게 계산합니다. 평균 예측은 (1−p)d이고, 확정 예측은 가능성이 높은 mode입니다. 동률이면 a를 택합니다. 위험은 p(예측−a)²+(1−p)(예측−b)²입니다. 확률과 간격은 선택한 가정이며 ROGII 검증 결과나 보정된 GR 가중치가 아닙니다."}
+rogii-portfolio:
+  bundle: rogii
+  title: {en: "The same five candidates, two rankings", ko: "같은 후보 다섯 개의 두 순위"}
+  note: {en: "Historical same-submission Public/Private pairs copied from the article’s final 3+2 table, August 2026. Ranks shown here compare only these five personal candidates, not the competition leaderboard. Private sorting is a retrospective view. Dynamic inference and bounded corrections did not establish statistical superiority on unseen wells.", ko: "본문의 2026년 8월 최종 3+2 표에서 옮긴, 같은 제출의 Public/Private 점수 쌍입니다. 여기서 순위는 개인 후보 다섯 개끼리 비교한 것이며 대회 순위가 아닙니다. Private 정렬은 사후 비교입니다. 동적 추론과 제한된 보정 자체가 새 well에서의 통계적 우위를 보장하지는 않았습니다."}

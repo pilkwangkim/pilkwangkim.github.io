@@ -12,6 +12,7 @@ image:
   alt: "Part 9 cover: exact chains, density gates, and the per-K syntax frontier"
 topic: ai-agent-security
 lang: en
+interactive_labs: [security]
 translation_key: ai-agent-security-09
 series: ai-agent-security
 series_order: 9
@@ -390,6 +391,8 @@ The contradiction was not resolved by the leaderboard alone. It created a sharpe
 </figure>
 
 *Figure 1. The six-row sweep was Gemma-local. Later T4 checks preserved exact K2/K3 counts for the tested wording, but neither path measured end-to-end hosted density.*
+
+{% include interactive/article-lab.html id="security-frontier" %}
 
 ## 9. The K8 frontload result: a useful bank, not a universal verdict
 

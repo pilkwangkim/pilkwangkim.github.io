@@ -12,6 +12,7 @@ image:
   path: /assets/img/technical-covers/orbit-wars-structured-baseline/cover.webp
   alt: "태양을 가로지르는 경로는 거부하고 움직이는 행성의 도착 시점 위치로 함대를 직선 발사하며, 물리·월드 모델·전략과 발사 기록으로 에이전트를 구성한다."
   hide_caption: true
+interactive_labs: [games]
 ---
 
 # Orbit Wars: 도착 시점을 기준으로 — 물리·월드·전략 분리 설계
@@ -373,6 +374,8 @@ def search_safe_intercept(src, target, ships, initial_by_id, ang_vel, comets, co
 </details>
 
 여기서 좋은 점은 목표 위치 예측과 ETA 계산이 서로 맞아야 한다는 점입니다. 단순히 “미래 위치를 하나 찍고 쏜다”가 아니라, **그 위치를 향해 쐈을 때 실제 도착 턴이 다시 그 위치의 시점과 맞는지** 확인합니다.
+
+{% include interactive/article-lab.html id="games-orbit-intercept" %}
 
 ## **6. 월드 모델: 도착 턴의 소유권**
 

@@ -4,6 +4,7 @@ date: 2026-07-03 21:00:00 +0900
 categories: [AI, Kaggle]
 tags: [kaggle, rogii, error-anatomy, geosteering, stratigraphy, target-free-alignment, tvt, working-note]
 math: true
+interactive_labs: [rogii]
 pin: false
 topic: rogii
 lang: en
@@ -283,6 +284,8 @@ So the useful task is not to keep reforking a single argmin rule. It is to read 
 
 ---
 
+{% include interactive/article-lab.html id="rogii-alignment" %}
+
 ### 4.1 Notebook Snippet: GR Shift Landscape
 
 The claim that GR is a likelihood landscape rather than a label can be checked with a simple prefix-only shift scan. We try a grid of vertical shifts $\delta$ and compute the mismatch between horizontal GR and typewell GR over the visible prefix.
@@ -514,6 +517,8 @@ $$
 So unless $p$ is already very close to 0 or 1, a hard decision is unnecessarily risky under squared loss. This is why hedging tie wells is not just a leaderboard trick; it matches the loss function.
 
 ---
+
+{% include interactive/article-lab.html id="rogii-hedge" %}
 
 ## 9. Evidence-to-Architecture Ladder
 

@@ -12,6 +12,7 @@ image:
   alt: "Part 5 cover: greedy decoding, taint memory, and the raw-score frontier"
 topic: ai-agent-security
 lang: en
+interactive_labs: [security]
 translation_key: ai-agent-security-05
 series: ai-agent-security
 series_order: 5
@@ -176,6 +177,8 @@ Two things follow. The fixed per-candidate cost $F$ that the multipost throughpu
 </figure>
 
 *Figure 1. The predicate's two-event lookback sits inside the guardrail's eight-source taint memory; the lower panel shows that interaction dominated the measured candidate time.*
+
+{% include interactive/article-lab.html id="security-cost" %}
 
 ## 11. What one number can say
 

@@ -19,6 +19,7 @@ image:
 math: true
 toc: true
 description: "Connect Kaggriculture replays, agent logs, and leaderboard records to teacher selection, BC and PPO, opponent leagues, paired evaluation, and GPU budgeting for the next competition."
+interactive_labs: [kaggriculture]
 ---
 
 <style>
@@ -210,6 +211,8 @@ Expand a sample into five fields to make errors easier to find.
 ```
 
 If the `3 → 4 → 5` round trip is wrong, perfect imitation of the labels can still produce a weak farm. Overall accuracy can hide this. Matching movement and PASS while missing a rare hiring order can change hundreds of subsequent production decisions.
+
+{% include interactive/article-lab.html id="kaggriculture-replay" %}
 
 ### Preserve order positions and executed quantities
 
@@ -407,6 +410,8 @@ The output includes `weighted change: 0.07` and `bootstrap interval: 0.01 0.135`
 The values being resampled are `[0.25, 0.25, 0.10, 0.10, 0, …, 0]`. This preserves the pairing rather than drawing 80 individual games independently. The code sorts 1,000 means, then `percentile()` interpolates the values at their 2.5th and 97.5th percentiles. It assesses how the mean can vary with the worlds included in the sample. It does not mean a candidate improves in one new world with probability 95%.
 
 The bootstrap interval from this ten-world toy example is not a universal acceptance rule. In practice, consider the world count, how well the tested opponents represent the field, and how often candidates have been selected. The example establishes how 80 outcomes become ten clusters and how weights enter the final mean.
+
+{% include interactive/article-lab.html id="kaggriculture-paired" %}
 
 ### Do not inflate the independent sample count
 

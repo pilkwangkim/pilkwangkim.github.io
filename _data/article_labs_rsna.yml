@@ -1,0 +1,37 @@
+rsna-ranking:
+  bundle: rsna
+  title: {en: "Move a study, change the pairs", ko: "검사 점수와 양성·음성 쌍의 순위"}
+  note: {en: "Eight synthetic studies, four positive and four negative; ties receive half credit. The threshold does not enter AUC.", ko: "가상 검사 8개 중 양성·음성은 각각 4개입니다. 동점은 0.5점이며, 판정 임계값은 AUC에 들어가지 않습니다."}
+rsna-geometry:
+  bundle: rsna
+  title: {en: "Field of view, sampling and cache", ko: "시야·sampling·cache의 관계"}
+  note: {en: "Schematic structures and uniform sampling. Cache is the leading uint8 term for 4,407 studies and six slots, without overhead; it does not estimate runtime or AUC.", ko: "구조와 균일 sampling의 모식도입니다. Cache는 검사 4,407개와 슬롯 6개의 uint8 주요 항으로 overhead를 제외하며, 실행 시간이나 AUC를 추정하지 않습니다."}
+rsna-target-loss:
+  bundle: rsna
+  title: {en: "What target does the gradient teach?", ko: "Gradient가 가르치는 학습값"}
+  note: {en: "Binary cross-entropy with soft target q, prediction p and weight w. One displayed update uses logit gradient descent with learning rate 0.5.", ko: "Soft target q, 예측 p, 가중치 w를 쓰는 binary cross-entropy입니다. 표시한 한 번의 갱신은 학습률 0.5의 logit gradient descent입니다."}
+rsna-window-loss:
+  bundle: rsna
+  title: {en: "One study target, two windows", ko: "검사 라벨 하나와 window 두 개"}
+  note: {en: "Two synthetic probabilities share one study target. Compare the mean of two BCE losses with BCE after averaging probabilities; gradients are with respect to each window logit.", ko: "가상 확률 두 개에 검사 단위 학습값 하나를 적용합니다. BCE 두 개의 평균과 확률 평균 뒤의 BCE를 비교하며, gradient는 각 window의 logit에 대한 값입니다."}
+rsna-reference-objective:
+  bundle: rsna
+  title: {en: "Which reference controls the objective?", ko: "어떤 기준이 목적함수를 결정하는가"}
+  note: {en: "Two recorded ensembles evaluated against Rules v1, Opus and GPT. Values retain the article's displayed precision; no intermediate ensemble score is inferred.", ko: "기록된 ensemble 두 개를 Rules v1·Opus·GPT로 평가한 값입니다. 원문의 표시 정밀도를 유지하며 중간 조합의 점수를 추정하지 않습니다."}
+rsna-ensemble:
+  bundle: rsna
+  title: {en: "Members, reducers and family shares", ko: "Member·집계 연산·계열별 비중"}
+  note: {en: "Six synthetic studies, two families and two members per family. Percentile ranks are computed across studies separately for each member; outer family shares sum to one.", ko: "가상 검사 6개, 계열 2개, 계열당 member 2개입니다. Percentile rank는 각 member의 검사 사이에서 계산하며 최종 계열 비중의 합은 1입니다."}
+rsna-budget:
+  bundle: rsna
+  title: {en: "A larger cap need not improve held-out selection", ko: "시간 한도가 커져도 평가 점수가 늘지는 않는다"}
+  note: {en: "Recorded September 23 cross-fitted gains at six planning caps. Local procedure estimates and separately executed Public results are different measurements.", ko: "9월 23일 planning cap 6개에서 기록한 cross-fit 개선량입니다. 로컬 선택 절차 추정값과 별도로 실행한 Public 결과는 서로 다른 측정입니다."}
+rsna-teacher-folds:
+  bundle: rsna
+  title: {en: "Follow the teacher's information path", ko: "Teacher의 정보 경로 추적"}
+  note: {en: "Five-fold ancestry schematic. A student excludes evaluation fold j; the B2 teacher additionally excludes the training example's fold k. This checks declared fold membership, separately from label-design exposure.", ko: "5-fold 계보 모식도입니다. Student는 평가 fold j를, B2 teacher는 학습 예제의 fold k도 제외합니다. 라벨 설계의 자료 노출과 별도로 선언한 fold 구성을 확인합니다."}
+rsna-history:
+  bundle: rsna
+  data: [/assets/img/posts/rsna-knee-series/part5-submission-history.csv]
+  title: {en: "Explore the paired submission history", ko: "동일 제출의 Public·Private 기록 탐색"}
+  note: {en: "Bundled October 23 CSV: 154 paired numerical outcomes at Kaggle's three-decimal display precision. Private scores are retrospective. Public-best team rank and selected-submission scores are distinct.", ko: "10월 23일 CSV의 수치 점수 쌍 154개이며 Kaggle의 소수 셋째 자리 표시 정밀도입니다. Private는 사후 결과입니다. 팀 Public 최고 순위와 선택한 제출의 점수는 구분합니다."}

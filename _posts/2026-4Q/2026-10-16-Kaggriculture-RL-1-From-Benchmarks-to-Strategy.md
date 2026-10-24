@@ -19,6 +19,7 @@ image:
   hide_caption: true
 math: true
 toc: true
+interactive_labs: [kaggriculture]
 ---
 
 <style>
@@ -190,6 +191,8 @@ Cash did not increase by 6.2. It increased from 30 to 40; the discounted return 
 A **critic** predicts the return obtained by continuing with the policy from the current state. That prediction is called the **value**. At the start of this farm, its target is neither the current cash of 30 nor the final cash of 40, but the return of 6.2 under the chosen discount. In a real game the future is uncertain, so the model learns this expectation from multiple experiences.
 
 Kaggriculture does not rank agents by the cash-reward sum in this small example. The final balance determines each game's outcome, and results against multiple opponents contribute to the final evaluation. **Keep the training reward, the return predicted by the critic, and the competition objective distinct.** That distinction also matters when comparing the single-5090 solution's money-difference reward with the winning team's win/loss reward.
+
+{% include interactive/article-lab.html id="kaggriculture-return" %}
 
 ## 3. Candidate quality and the limits of selection
 

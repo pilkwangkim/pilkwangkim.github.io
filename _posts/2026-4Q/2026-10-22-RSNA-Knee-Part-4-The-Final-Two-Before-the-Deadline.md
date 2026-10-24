@@ -18,6 +18,7 @@ series: rsna-knee
 series_order: 4
 translation_key: rsna-knee-04
 lang: en
+interactive_labs: [rsna]
 ---
 
 My current final selections are **v229 at 0.957** and **v236 at 0.953**. The public Helios prediction, H, scores higher at 0.958, and a clean composition close to my second choice has scored 0.954. I have selected the pair despite those stronger Public alternatives because the local evaluations and Public favor different candidates.
@@ -91,6 +92,8 @@ This nesting is important. Sigmoid of mean logits is not mean probability; avera
 | Close alternative | v227, own share 0.50, Public 0.956 | v231, one S6F seed, Public 0.954 |
 
 My current pair consists of an H-dominated rank blend and an S6F-heavy clean probability blend. Both contain N and V3, so the different construction does not make them independent.
+
+{% include interactive/article-lab.html id="rsna-ensemble" preset="nested" %}
 
 ## Longer training versus additional seeds
 

@@ -12,6 +12,7 @@ image:
   path: /assets/img/technical-covers/orbit-wars-structured-baseline/cover.webp
   alt: "A straight fleet launch intercepts a moving planet at arrival, while a sun-crossing shot is rejected; physics, world model, strategy, and committed launches organize the agent."
   hide_caption: true
+interactive_labs: [games]
 ---
 
 # 🛰️ Orbit Wars: Structured Baseline Methodology
@@ -561,6 +562,8 @@ def best_probe_aim(self, src_id, target_id, source_cap, hints=(), anchor_turn=No
 ```
 
 </details>
+
+{% include interactive/article-lab.html id="games-orbit-intercept" %}
 
 ## 🌍 Layer 2: Ownership At Arrival Time
 

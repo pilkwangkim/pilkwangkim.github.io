@@ -4,6 +4,7 @@ date: 2026-08-06 09:00:00 +0900
 categories: [AI, Kaggle]
 tags: [kaggle, rogii, competition-retrospective, geosteering, public-private-gap, silver-medal, stratigraphy, tvt]
 math: true
+interactive_labs: [rogii]
 pin: false
 image:
   path: /assets/img/posts/2026-08-06-rogii-competition-retrospective/cover.png
@@ -248,6 +249,8 @@ $$
 그래서 실험의 단위를 “제출 한 번의 점수”가 아니라 “명시적인 가설과 기준 모델 대비 변화”로 바꿨다.
 
 ---
+
+{% include interactive/article-lab.html id="rogii-hedge" %}
 
 ## 7점대 군집: Public LB가 공동 탐색셋이 된 순간
 
@@ -603,6 +606,8 @@ Public 순서는 `PS1 -> PS3 -> M3 -> M5 -> M4`였지만 Private에서는 `M5 ->
 - **분포 강건성(distribution-robust)**: 실제와 비슷한 미관측 집단의 분포 이동에서도 성능이 유지되는가?
 
 ---
+
+{% include interactive/article-lab.html id="rogii-portfolio" %}
 
 ## 이번 대회에서 얻은 것
 

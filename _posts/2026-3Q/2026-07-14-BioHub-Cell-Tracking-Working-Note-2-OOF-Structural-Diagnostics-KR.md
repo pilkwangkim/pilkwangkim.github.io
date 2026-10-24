@@ -15,6 +15,7 @@ lang: ko
 translation_key: biohub-02
 series: biohub
 series_order: 2
+interactive_labs: [biohub]
 ---
 
 <style>
@@ -575,6 +576,8 @@ assert all(count == 1 for count in coverage.values())
 ```
 
 </details>
+
+{% include interactive/article-lab.html id="biohub-folds" preset="roles" %}
 
 ### 4.1 외부 검증 폴드로 최적 학습 시점을 고르면 OOF가 아니다
 

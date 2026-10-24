@@ -16,6 +16,7 @@ lang: ko
 translation_key: biohub-05
 series: biohub
 series_order: 5
+interactive_labs: [biohub]
 ---
 
 <style>
@@ -261,6 +262,8 @@ $$
 _그림 1. 현재 소스의 후보 생성기를 복원한 결과다. 노드를 고정한 채 가능한 모든 편집의 목록은 아니며, 과거 실행에서 사용한 후보 바이트가 완전히 같았다는 증명도 아니다. 분열 편집은 이 집계 밖이다._
 
 ranker가 아무리 좋아도 후보에 없는 간선은 고를 수 없다. 이 목록은 현재 생성기를 그대로 둔 채 순위 모델만 개선해서는 효과가 작을 수 있는 이유를 보여 줬다.
+
+{% include interactive/article-lab.html id="biohub-reach" %}
 
 ### 2.3 Public 점수로 환산할 수는 없다
 

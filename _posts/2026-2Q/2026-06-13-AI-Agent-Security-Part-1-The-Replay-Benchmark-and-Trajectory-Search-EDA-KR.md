@@ -12,6 +12,7 @@ image:
   alt: "1편 표지: 리플레이 규칙, 트레이스 셀 구조, 트래젝터리 탐색"
 topic: ai-agent-security
 lang: ko
+interactive_labs: [security]
 translation_key: ai-agent-security-01
 series: ai-agent-security
 series_order: 1
@@ -299,6 +300,8 @@ $$
 이 사실 하나가 검색 전체를 재편합니다: 더 이상 문구를 튜닝하지 않고, argument 축을 열거하기 시작하는 것이죠.
 
 ---
+
+{% include interactive/article-lab.html id="security-score" %}
 
 ## 5. Guardrail 경계
 

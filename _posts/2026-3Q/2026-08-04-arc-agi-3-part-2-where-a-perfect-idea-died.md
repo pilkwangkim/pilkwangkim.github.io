@@ -10,6 +10,7 @@ image:
   alt: "ARC-AGI-3 — an agent cycling through observe, hypothesize, act, feedback"
 topic: arc-agi-3
 lang: en
+interactive_labs: [arc]
 translation_key: arc-agi-3-part-2
 series: arc-agi-3-main
 series_order: 2
@@ -121,6 +122,8 @@ $$
 50–60k tokens per run — roughly **30 to 150 actions**. Meanwhile, I had been observing my agent in an offline 4-game commit run at ~190k tokens per run. An environment more than three times richer. The bottleneck I kept seeing there — 900-action thrash on a single level — is a phenomenon that **doesn't even have time to occur** in the scored regime. What the scored regime actually showed: 13 of 28 runs (46%) clear level 1, often cheaply (8–38 actions) — and **nobody reaches level 2.** The problem was never waste. It was depth.
 
 After this, I replaced the commit pipeline with the competition simulator. If the place you measure differs from the place you are scored, every A/B built on top is noise.
+
+{% include interactive/article-lab.html id="arc-token-budget" %}
 
 ## 5. v6: one gap the rules left open, one bug nobody saw
 

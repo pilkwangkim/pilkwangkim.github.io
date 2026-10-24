@@ -19,6 +19,7 @@ image:
   hide_caption: true
 math: true
 toc: true
+interactive_labs: [kaggriculture]
 ---
 
 <style>
@@ -190,6 +191,8 @@ $$
 **Critic**은 현재 state에서 그 policy를 계속 따랐을 때의 return을 예측하는 모델이다. 그 예측을 **value**라고 한다. 위 농장의 시작 state에서 목표로 삼는 값은 현금 30이나 최종 현금 40이 아니라, 정한 할인율로 계산한 return 6.2다. 실제 게임은 미래가 정해져 있지 않으므로 여러 경험에서 그 기대값을 배운다.
 
 Kaggriculture 순위는 이 작은 예제의 현금 reward 합으로 정하지 않는다. 경기에서는 최종 잔액으로 승패를 가르고, 여러 상대와의 결과로 최종 평가를 한다. **학습에 쓰는 reward, critic이 예측하는 return, 대회에서 높여야 할 성적을 구분해야** 무엇이 좋아졌는지 알 수 있다. 단일 5090 사례의 자금 차 reward와 우승팀의 승패 reward도 이 기준으로 비교해야 한다.
+
+{% include interactive/article-lab.html id="kaggriculture-return" %}
 
 ## 3. 전략 선택 모델과 후보 전략의 한계
 

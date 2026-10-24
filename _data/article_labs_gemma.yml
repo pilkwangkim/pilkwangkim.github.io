@@ -1,0 +1,24 @@
+gemma-bug:
+  bundle: gemma
+  title: {en: "Follow the explicit zero into the helper", ko: "명시한 0이 helper에서 어떻게 바뀌는가"}
+  note: {en: "Invented API with at least ten items. Omitted → 10, zero → 0, five → 5. No model or Python process runs.", ko: "item이 10개 이상인 가상 API입니다. 생략 → 10, 0 → 0, 5 → 5가 계약이며 model이나 Python process를 실행하지 않습니다."}
+gemma-patch:
+  bundle: gemma
+  title: {en: "Only the extracted patch crosses to fresh verification", ko: "새 검증 환경에는 추출한 patch가 전달된다"}
+  note: {en: "Bounded illustration of the inspected swegemma 0.2.7 extraction boundary; no repository is edited. Delivery and verified correctness are different outcomes.", ko: "확인한 swegemma 0.2.7의 추출 경계를 보여 주는 예제이며 저장소를 수정하지 않습니다. 전달과 검증된 정확성은 서로 다른 결과입니다."}
+gemma-parser:
+  bundle: gemma
+  title: {en: "Watch a missing delimiter change the request", ko: "delimiter 하나가 요청을 어떻게 바꾸는가"}
+  note: {en: "Teaching reconstruction from recorded parsed arguments. Original generated tokens were not retained; this is not a raw-token replay.", ko: "기록된 parsed argument에서 만든 학습용 재구성입니다. 원래 생성 token이 보존되지 않아 raw-token replay는 아닙니다."}
+gemma-context:
+  bundle: gemma
+  title: {en: "Repeated calls consume the next request's context", ko: "반복 call은 다음 요청의 context를 소비한다"}
+  note: {en: "32,768-token admission limit; constant per-call growth, no compaction. Initial values reproduce the published 55-call diagnostic arithmetic.", ko: "허용 한도 32,768 token, call당 일정한 증가량, compaction 없음을 가정합니다. 초기값은 글의 55-call 진단 계산을 재현합니다."}
+gemma-timing:
+  bundle: gemma
+  title: {en: "A repair gain still needs the whole run to finish", ko: "수정 품질이 좋아져도 전체 실행은 끝나야 한다"}
+  note: {en: "Hypothetical independent normal task times; 120 tasks, 20-minute startup, reference SD 2.5 minutes. The 58-task Public denominator is conditional, not disclosed.", ko: "독립적인 정규 task 시간을 가정합니다. task 120개, 시작 20분, 기준 SD 2.5분입니다. Public 58개는 확인된 수가 아니라 조건부 해석입니다."}
+gemma-paired:
+  bundle: gemma
+  title: {en: "One net gain can hide several changed outcomes", ko: "한 개의 순증가 뒤에 여러 변화가 있다"}
+  note: {en: "Invented paired task outcomes. Each task belongs to exactly one cell; changing the counts changes the panel size.", ko: "가정한 paired task 결과입니다. 각 task는 한 칸에만 속하며 개수를 바꾸면 panel 크기도 달라집니다."}

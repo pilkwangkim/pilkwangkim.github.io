@@ -16,6 +16,7 @@ lang: en
 translation_key: biohub-04
 series: biohub
 series_order: 4
+interactive_labs: [biohub]
 ---
 
 <style>
@@ -307,6 +308,8 @@ Every fold held movies from both embryos: movie-out, which cannot estimate perfo
 _Figure 2. The four-fold replay behind the fortnight's largest numbers balanced every fold across both embryos. The contract frozen on 08-10 holds out one whole embryo per fold._
 
 Each policy fold trained on other movies from the embryo it evaluated. Balancing the two prefixes did not provide an unseen-embryo test. The August 6 explanation had extended the backbone's embryo-out status to the whole composition without checking the policy splits.
+
+{% include interactive/article-lab.html id="biohub-folds" preset="embryo" %}
 
 ### 3.4 The audit of 08-10, and the leak it found
 

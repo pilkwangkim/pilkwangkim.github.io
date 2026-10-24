@@ -1,0 +1,8 @@
+essays-assignment:
+  bundle: essays
+  title: {en: "Change the assignment, compare the total", ko: "배치를 바꾸고 총효용 비교하기"}
+  note: {en: "The essay’s additive two-person, two-task model. Utilities are fixed per person–task pair, with no cooperation, learning, incentive or retention effects. Initial values are the original payoff table; the calculation does not measure a person’s worth.", ko: "에세이의 두 사람·두 과업 가산 모형입니다. 사람과 과업 쌍의 효용은 고정하며 협업·학습·유인·이탈 효과는 생략합니다. 초깃값은 원래 표와 같으며 사람의 가치를 측정하는 계산은 아닙니다."}
+essays-correlation:
+  bundle: essays
+  title: {en: "When two risks move together", ko: "두 위험이 함께 움직일 때"}
+  note: {en: "A mathematical illustration of the covariance term: two unit-standard-deviation variables, weights w and 1−w, correlation ρ. Life domains do not come with calibrated variances or portfolio weights; the chart illustrates the analogy’s arithmetic.", ko: "공분산 항의 수학적 예제입니다. 표준편차가 각각 1인 두 변수에 비중 w와 1−w, 상관계수 ρ를 사용합니다. 삶의 영역에 보정된 분산이나 포트폴리오 비중이 있다는 뜻은 아니며 비유의 계산 구조만 나타냅니다."}

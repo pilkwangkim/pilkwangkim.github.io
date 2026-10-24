@@ -12,6 +12,7 @@ image:
   alt: "7편 표지: 공개 점수 밀도, 작동 방식의 범위, 홀드아웃 전이"
 topic: ai-agent-security
 lang: ko
+interactive_labs: [security]
 translation_key: ai-agent-security-07
 series: ai-agent-security
 series_order: 7
@@ -320,6 +321,8 @@ $$
 </figure>
 
 *그림 1. 공개 점수는 리플레이 밀도를 측정했을 뿐, 홀드아웃 평가에서 살아남는지를 측정하지 않았다. 시험한 다른 작동 방식들은 기능적 범위를 넓히는 대신 공개 점수가 크게 낮아졌다.*
+
+{% include interactive/article-lab.html id="security-scenarios" %}
 
 ## 14. 8월 3일: 공개 점수 상한과 패킹을 다시 검토하다
 

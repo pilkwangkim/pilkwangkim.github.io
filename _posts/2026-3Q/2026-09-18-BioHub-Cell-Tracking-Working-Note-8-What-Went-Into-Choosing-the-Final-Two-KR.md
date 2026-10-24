@@ -16,6 +16,7 @@ lang: ko
 translation_key: biohub-08
 series: biohub
 series_order: 8
+interactive_labs: [biohub]
 ---
 
 <style>
@@ -230,6 +231,8 @@ Public 점수에서는 한 가지만 본다. 배포 기준 버전(parent)보다 
 일부 프레임 사이에서 현미경 스테이지가 움직이면 세포 전체가 한꺼번에 몇 마이크로미터씩 이동한다. 이것이 **stage jitter**다. 이 데이터에서는 한 번 일어나면 $$3$$에서 $$9\,\mu\mathrm{m}$$이고, 학습 데이터의 프레임 전환 가운데 $$11.6\%$$가 $$3\,\mu\mathrm{m}$$ 이상 움직인다.
 
 배포된 단계 가운데 두 곳이 이런 프레임을 잘못 처리한다. motion relink는 실제 후속 노드 대신 $$z$$ 방향 이웃에 연결하고, 이어서 line-fit smoother가 점프한 프레임의 좌표를 되돌린다. registration은 프레임 전환마다 검출 결과만으로 전역 이동량 하나를 추정해 relink와 line-fit에 넣는다. 이 단계는 별도 모델을 학습하지 않고 추론 중 정답 라벨도 쓰지 않는다. 검출기와 association head는 v90에 쓰던 학습 모델 그대로다. 스테이지 이동이 주요 오류 원인이라면, 점프가 잦은 영상에서 보정 이득이 클 것이라는 가설이었다. 배아가 달라도 반드시 같은 관계가 유지된다는 보장은 없었다.
+
+{% include interactive/article-lab.html id="biohub-registration" %}
 
 ### 3.3 결과 전에 적어 둔 게이트
 

@@ -7,6 +7,7 @@ math: true
 pin: false
 topic: arc-agi-3
 lang: en
+interactive_labs: [arc]
 translation_key: arc-agi-3-research-r1
 image:
   path: /assets/img/technical-covers/arc-agi-3-research-r1/cover.webp
@@ -69,6 +70,8 @@ The economics, measured:
 | dc22 (hard, 98.7%) | 218 | 1,205 | 5.5 | ~634k |
 
 3–11 actions per turn — a different order of magnitude from our median of 1. And **easy/mid games finish within ~60k content tokens even for frontier models — the same order as our per-run budget.**
+
+{% include interactive/article-lab.html id="arc-mismatch" %}
 
 ## 4. The port: D1 under our constraints
 

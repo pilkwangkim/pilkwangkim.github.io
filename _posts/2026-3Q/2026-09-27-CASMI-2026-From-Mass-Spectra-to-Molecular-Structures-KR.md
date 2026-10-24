@@ -5,6 +5,7 @@ date: 2026-09-27 09:00:00 +0900
 categories: [AI, Kaggle]
 tags: [kaggle, casmi-2026, cheminformatics, mass-spectrometry, metabolomics, molecular-identification, working-note]
 math: true
+interactive_labs: [casmi]
 mermaid: false
 image:
   path: /assets/img/casmi-2026-guide/hero.png?v=af0e6fe7c947
@@ -208,6 +209,8 @@ K가 1,000인 검색 후보 풀과 최종 25개 목록은 서로 다른 단계�
   <img src="/assets/img/casmi-2026-guide/candidate-diagnosis.png?v=189117638ef7" alt="Eugenol과 Isoeugenol 후보 목록의 reciprocal rank 계산" width="1630" height="914" loading="lazy">
   <figcaption><strong>그림 3.</strong> Eugenol을 정답으로 두고 만든 후보 목록. 정답이 빠지면 0, Isoeugenol 뒤에 있으면 0.5, 맨 앞이면 1이다. 후보 포함 여부와 순서의 효과를 구분하는 계산 예제이며 모델 측정 결과가 아니다.</figcaption>
 </figure>
+
+{% include interactive/article-lab.html id="casmi-ranking" %}
 
 ### 무엇을 같은 분자로 인정하는가
 
@@ -463,6 +466,8 @@ $$
 
 Caffeine 전구체로 직접 확인하면 **195.0877 − 1.0072764666 = 194.0804235334 Da**다. 원문에 반올림해 적힌 중성 정확질량 194.0804와 일치한다. 여기서 5 ppm 창은 약 ±0.0009704 Da다. 이온 형태를 `[M+Na]+`로 잘못 읽으면 중성 질량이 약 22 Da 어긋난다. 이런 범주 오류는 ppm 허용 폭을 조금 넓혀 해결할 수 없다.
 
+{% include interactive/article-lab.html id="casmi-mass" %}
+
 ### 양성자가 어디에 붙었는지도 분해를 바꾼다
 
 `[M+H]+`는 양성자가 하나 더 있다는 조성 정보이지, 그 양성자의 위치까지 지정한 구조식은 아니다. 질소와 산소를 여러 개 가진 분자에서는 서로 다른 위치가 양성자를 받을 수 있고, 분해 중 양성자가 이동할 수도 있다. 전하 위치가 달라지면 결합의 전자 분포와 접근하기 쉬운 분해 경로도 달라진다. 소분자를 대상으로 이를 조사한 [CIDMD 연구][protonation-study]는 이런 차이가 스펙트럼 예측에 중요함을 보여 준다.
@@ -615,6 +620,8 @@ $$
 
 관찰을 합칠 때는 스펙트럼별 평균과 측정 조건별 평균을 비교해 볼 수 있다. 한 조건에서 거의 같은 측정을 열 번 하고 다른 조건에서 한 번 했다면 단순 행 평균에서는 첫 조건의 영향이 열 배다. 이것이 독립적인 구조 증거 열 개를 뜻하는지, 단지 측정 빈도 차이인지는 구분해야 한다.
 
+{% include interactive/article-lab.html id="casmi-spectra" %}
+
 ### 이 배경을 예측 문제로 옮기면
 
 미지 구조를 $$c$$, 관찰 스펙트럼 묶음을 $$\mathcal S$$, 측정 조건들을 $$\Theta$$라고 쓰면 구조 동정은 다음과 같은 역문제로 생각할 수 있다.
@@ -732,6 +739,8 @@ $$
 Cosine은 계산을 직접 따라갈 수 있는 예제다. 재현한 엔진에는 entropy 기반 검색과 이온 형태에 따른 질량 이동을 고려한 검색 채널도 들어 있다. 주요 유사 구조 특징 중 하나는 앞의 설명용 합산식과 달리 스펙트럼 유사도의 세제곱과 Tanimoto의 곱을 **최댓값**으로 모은다. 두 참조의 `(스펙트럼 유사도, Tanimoto)`가 `(0.8, 0.6)`, `(0.7, 0.9)`라고 가정하면 지지 점수는 **0.3072, 0.3087**이고 최댓값은 0.3087이다. 합산하면 0.6159가 되어 유사한 참조가 반복될 때 다른 효과가 난다. 이 가정값은 집계 방식이 확률의 항등식이 아니라 모델 선택임을 보여 준다.
 
 검색으로 후보를 모았다고 선택까지 끝난 것은 아니다. Eugenol과 Isoeugenol이 모두 남았다면, 다음에는 미지 스펙트럼이 어느 구조의 특징을 더 지지하는지 물을 수 있다.
+
+{% include interactive/article-lab.html id="casmi-cosine" %}
 
 ## 8. 각 후보를 뒷받침하는 구조 특징을 예측한다
 

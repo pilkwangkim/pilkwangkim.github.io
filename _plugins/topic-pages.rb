@@ -23,6 +23,10 @@ module Jekyll
       site.data['contained_cover_paths'] = contained_covers
       asset_content += "contained-covers\0" + contained_covers.join("\0")
       site.data['blog_asset_version'] = Digest::SHA256.hexdigest(asset_content)[0, 12]
+      interactive_sources = %w[assets/js/negf-core.js assets/js/negf-interactive.js assets/css/negf-interactive.css]
+      site.data['negf_asset_version'] = Digest::SHA256.hexdigest(interactive_sources.map do |path|
+        path + "\0" + File.binread(File.join(site.source, path)) + "\0"
+      end.join)[0, 12]
       add_topic_labels(site)
       posts = site.posts.docs.reject { |post| post.data['hidden'] == true }
       topics = Array(site.data['topics'])

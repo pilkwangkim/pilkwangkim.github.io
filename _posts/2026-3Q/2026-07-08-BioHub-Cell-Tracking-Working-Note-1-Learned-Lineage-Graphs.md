@@ -15,6 +15,7 @@ lang: en
 translation_key: biohub-01
 series: biohub
 series_order: 1
+interactive_labs: [biohub]
 ---
 
 <style>
@@ -354,6 +355,8 @@ prune fragments that are unlikely to produce true edges
 ```
 
 ---
+
+{% include interactive/article-lab.html id="biohub-lineage" %}
 
 ## 3. The Data Model In Code
 

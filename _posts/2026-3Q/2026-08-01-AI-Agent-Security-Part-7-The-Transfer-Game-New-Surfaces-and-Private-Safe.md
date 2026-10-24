@@ -12,6 +12,7 @@ image:
   alt: "Part 7 cover: public density, mechanism coverage, and held-out transfer"
 topic: ai-agent-security
 lang: en
+interactive_labs: [security]
 translation_key: ai-agent-security-07
 series: ai-agent-security
 series_order: 7
@@ -320,6 +321,8 @@ The low public score of `cd_single`, together with the locally valid `web_share`
 </figure>
 
 *Figure 1. Public score measured replay density, not held-out survival. The tested alternative mechanisms widened functional coverage at a large observed public cost.*
+
+{% include interactive/article-lab.html id="security-scenarios" %}
 
 ## 14. 3 August: reopening the public ceiling and auditing packing
 

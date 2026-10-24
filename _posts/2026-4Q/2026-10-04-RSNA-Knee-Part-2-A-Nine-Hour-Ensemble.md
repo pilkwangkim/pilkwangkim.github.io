@@ -18,6 +18,7 @@ image:
   height: 948
   fit: contain
   hide_caption: true
+interactive_labs: [rsna]
 ---
 
 An ensemble is a calculation applied to a set of predictions. Its quality depends on which predictions enter, how their numerical scales are combined, and which ranking errors the combination changes. The number of checkpoints is only an indirect description of that calculation. The same models can produce different study rankings under different reducers, and a larger collection can perform worse than a well-chosen subset.
@@ -61,6 +62,8 @@ _Figure 1. The intended composition includes all nine configurations in all twel
 The same rehearsal shortened 26 members from ten windows to nine under an internal eight-hour timer. I removed that adaptation. The execution order or chunk sizes may change, but the selected models and windows must remain fixed. Otherwise, the local estimate and the scored run describe different predictors.
 
 </details>
+
+{% include interactive/article-lab.html id="rsna-ensemble" %}
 
 ## Complementary model families
 
@@ -204,6 +207,8 @@ _Figure 5. The September 23 pool gives nearly stable flat-selection gains and a 
 The first trial used the flat construction: five families, 25 fold models, two input groups, and 233.8 planned minutes. Its members combined a small DINOv2 reader-label baseline, its fuller-depth variant, a hybrid-label variant, ConvNeXt-large, and the coupled 64-slice Raptor family. This was a new subset of the bank, not the previous package with one more family attached. It used less than half the planning cap while keeping the more ambitious target-specific option available for a later comparison.
 
 The submitted system reached Public 0.928 on September 23, up from 0.921; an external RadImageNet component was still included. A later target-specific composition scored 0.931. Those outcomes justified further selection comparisons, but they do not provide a general conversion from local gains to Public gains. Contents and execution changed together. I therefore also tested a compact pair, rather than assume that the larger selected rosters made the best use of the bank.
+
+{% include interactive/article-lab.html id="rsna-budget" %}
 
 ## The compact two-family ensemble
 

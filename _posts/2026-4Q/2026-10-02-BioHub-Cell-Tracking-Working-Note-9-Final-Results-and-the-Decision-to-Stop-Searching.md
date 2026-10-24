@@ -17,6 +17,7 @@ topic: biohub
 translation_key: biohub-09
 series: biohub
 series_order: 9
+interactive_labs: [biohub]
 ---
 
 <style>
@@ -285,6 +286,8 @@ The July roadmap already recognized this for blending. I needed to carry that di
 {:/nomarkdown}
 
 _Figure 1. P₀ is the established pipeline; P_D adds D; P₁ is a separately developed pipeline with explicitly stated components. The two routes answer different questions. This is an experiment-design schematic, not a measured optimization landscape._
+
+{% include interactive/article-lab.html id="biohub-research-arms" %}
 
 ## 6. My continuation criteria made correcting course harder
 

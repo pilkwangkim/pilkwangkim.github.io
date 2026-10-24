@@ -13,6 +13,7 @@ image:
   path: /assets/img/essays/organization-dynamics-and-the-assignment-problem-paradox/cover.webp
   alt: "A large support carries the platform while a smaller form receives the spotlight."
   hide_caption: true
+interactive_labs: [essays]
 ---
 
 **Subtitle: Why top talent can be rationally sidelined by short-term assignment logic**
@@ -115,6 +116,8 @@ This is the mathematical twist. The organization gets a higher immediate output 
 | **Comparative advantage** | A on β, B on α | 1.8 | Strong person absorbs the weak person's failure zone |
 
 The organization chooses \(U_2\), not because A is better, but because B is competent enough to prevent α from collapsing.
+
+{% include interactive/article-lab.html id="essays-assignment" %}
 
 ## **4. The Hidden Opportunity Cost**
 

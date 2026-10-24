@@ -17,6 +17,7 @@ topic: biohub
 translation_key: biohub-09
 series: biohub
 series_order: 9
+interactive_labs: [biohub]
 ---
 
 <style>
@@ -286,6 +287,8 @@ $$
 {:/nomarkdown}
 
 _그림 1. P₀는 기존 pipeline, P_D는 D를 추가한 구성, P₁은 component를 명시해 별도로 개발한 pipeline이다. 두 경로는 서로 다른 질문에 답한다. 실험 설계를 설명하는 개념도이며, 실제로 측정한 최적화 지형을 그린 것은 아니다._
+
+{% include interactive/article-lab.html id="biohub-research-arms" %}
 
 ## 6. 계속할지 판단하는 기준이 방향을 바꾸기 어렵게 했다
 
