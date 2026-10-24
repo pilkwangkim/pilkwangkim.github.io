@@ -338,12 +338,14 @@ html:not([data-navigation-ready='true']) .topic-latest-posts { display: none; }
     th:nth-child(2), td:nth-child(2) { width: 52%; white-space: normal; }
     th:nth-child(n+3), td:nth-child(n+3) { width: 16%; }
   }
-  mjx-container[display='true'] {
-    max-width: 100%;
-    overflow-x: auto;
-    overflow-y: hidden;
-    padding: 0.4rem 0;
-  }
+}
+
+/* Keep wide equations scrollable in every article, including older posts. */
+.content mjx-container[display='true'] {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.4rem 0;
 }
 
 @media (max-width: 575.98px) {
