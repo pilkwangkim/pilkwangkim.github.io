@@ -32,6 +32,10 @@
 
 저장할 때 수정한 원본 조각만 바꾸므로 나머지 Markdown, 수식, 표, 링크와 HTML 구조는 유지됩니다. 원본이 달라졌거나 화면과 원본이 확실히 대응하지 않는 부분은 수정하지 않습니다. 제목이나 메타데이터를 바꿔도 파일명·주소·번역 연결 키는 바뀌지 않습니다.
 
+인터랙티브 실험은 편집 중에도 조작할 수 있습니다. 위젯 안의 제목·조작 설명·계산 결과와 동적으로 만든 표·그림은 본문 편집 대상에서 제외됩니다. 위젯 사이의 일반 문장·캡션·표·수식은 각각 편집할 수 있습니다. 위젯 자체의 문구나 기본 설정은 해당 데이터·코드에서 수정합니다.
+
+**Save changes**, **Undo last save**, **Refresh preview**로 다시 열린 미리보기에는 실험 설정도 복원됩니다. 회로 편집, 농장 진행·분기, 보안 퍼즐의 선택, Gemma 테스트 목록·입력 중인 값, MRI 좌표·crop과 NEGF 선택 에너지를 유지합니다. 이 상태는 해당 탭에서 갱신을 이어 주는 임시 정보이며 글의 Markdown에 저장되지 않습니다. 위젯 코드나 구성이 달라져 상태를 안전하게 적용할 수 없으면 초기값을 사용하고 복원하지 못한 설정이 있음을 표시합니다. 위젯의 **Reset**은 실험을, 편집기의 **Discard**는 글의 미저장 수정을 취소합니다.
+
 원본 수정 전의 파일과 되돌리기 기록은 `.local-editor/backups/`에 저장됩니다. **Undo last save**는 편집 서버를 실행 중인 동안 새로고침 후에도 사용할 수 있습니다. 서버를 종료하고 다시 실행하면 버튼의 되돌리기 기록은 초기화되며, 백업 파일은 남아 있습니다.
 
 Liquid 조건문·반복문처럼 렌더링하면서 줄 위치가 바뀔 수 있는 구간은 본문 일부가 잠길 수 있습니다. 원본과 확실히 대응하지 않는 수식이나 직접 작성한 HTML 표도 보호됩니다. 잠긴 부분은 Markdown 소스에서 수정한 다음 **Refresh preview**로 확인합니다.
@@ -50,4 +54,5 @@ PATH=/opt/homebrew/opt/ruby/bin:$PATH bundle exec ruby tools/local_editor/test_m
 PATH=/opt/homebrew/opt/ruby/bin:$PATH bundle exec ruby tools/local_editor/test_tables.rb
 PATH=/opt/homebrew/opt/ruby/bin:$PATH bundle exec ruby tools/local_editor/test_structures.rb
 node tools/local_editor/test_client_state.js
+node tools/local_editor/test_widget_state.js
 ```

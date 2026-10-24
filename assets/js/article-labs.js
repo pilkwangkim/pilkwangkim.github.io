@@ -54,7 +54,99 @@
   const NS = 'http://www.w3.org/2000/svg';
   const factories = new Map();
   const states = new WeakMap();
+  const pending = new Set();
   let fieldNumber = 0;
+  // A checkpoint contains settings only, never markup or executable code.
+  function copySettings(value, limit = 262144) {
+    const encoded = JSON.stringify(value, (key, item) => {
+      if (['__proto__', 'prototype', 'constructor'].includes(key) ||
+          ['function', 'undefined', 'symbol', 'bigint'].includes(typeof item) ||
+          typeof item === 'number' && !Number.isFinite(item)) throw new Error('Invalid checkpoint data');
+      return item;
+    });
+    if (!encoded || new TextEncoder().encode(encoded).length > limit) throw new Error('Checkpoint is too large');
+    return JSON.parse(encoded);
+  }
+  function fields(root) {
+    return [...root.querySelectorAll('input, select, textarea')].filter(node =>
+      !node.readOnly && !node.hasAttribute('readonly') && !['hidden', 'button', 'submit', 'reset', 'file'].includes(node.type));
+  }
+  function fieldValues(root) {
+    return fields(root).map(node => ({ tag: node.tagName.toLowerCase(), type: node.type || '', value: node.value, checked: Boolean(node.checked) }));
+  }
+  const invalidNumber = node => node.type === 'number' && (node.value.trim() === '' || !node.validity.valid);
+  function identity(root) {
+    return { id: root.id, key: root.dataset.articleLab, preset: root.dataset.preset || '', language: root.dataset.language || '', assetVersion: root.dataset.assetVersion || '' };
+  }
+  function detailValues(root) {
+    return [...root.querySelectorAll('details')].map((node, index) => ({ index, signature: (node.className + '|' + (node.querySelector('summary')?.textContent || '')).slice(0, 300), open: Boolean(node.open) }));
+  }
+  function remember(root, state, shared) {
+    const complete = !fields(root).some(invalidNumber);
+    if (complete) state.applied = fieldValues(root);
+    if (shared && complete) {
+      try { state.model = copySettings(shared.read(), 65536); } catch (_) { /* Keep the last complete numeric state while a field is unfinished. */ }
+    }
+  }
+  function capture(root, state) {
+    const controls = fieldValues(root);
+    let model;
+    if (state.shared) {
+      try { model = copySettings(fields(root).some(invalidNumber) ? state.model : state.shared.read(), 65536); }
+      catch (_) { model = copySettings(state.model, 65536); }
+    }
+    return copySettings({ ...identity(root), controls, applied: fields(root).some(invalidNumber) ? state.applied : controls,
+      details: detailValues(root), ...(state.shared ? { model } : {}) }, 65536);
+  }
+  function validateEntry(entry, root, state) {
+    if (!entry || typeof entry !== 'object' || Array.isArray(entry) || Object.entries(identity(root)).some(([key, value]) => entry[key] !== value)) throw new Error('Experiment identity or asset version changed');
+    const current = fields(root);
+    for (const list of [entry.controls, entry.applied]) {
+      if (!Array.isArray(list) || list.length !== current.length || list.length > 128) throw new Error('Experiment controls changed');
+      list.forEach((value, index) => {
+        const node = current[index];
+        if (!value || value.tag !== node.tagName.toLowerCase() || value.type !== (node.type || '') || typeof value.value !== 'string' || value.value.length > 12000 || typeof value.checked !== 'boolean') throw new Error('Invalid experiment control');
+      });
+    }
+    if (!Array.isArray(entry.details) || entry.details.length > 128 || entry.details.some((value, index) => !value || value.index !== index || typeof value.signature !== 'string' || value.signature.length > 300 || typeof value.open !== 'boolean')) throw new Error('Invalid experiment details');
+    if (Boolean(state.shared) !== Object.hasOwn(entry, 'model')) throw new Error('Experiment settings changed');
+    copySettings(entry, 65536);
+  }
+  function setFields(root, values, validate = true) {
+    const current = fields(root);
+    if (current.length !== values.length) throw new Error('Experiment controls changed');
+    values.forEach((value, index) => {
+      const node = current[index];
+      if (validate && node.tagName === 'SELECT' && ![...node.options].some(option => option.value === value.value)) throw new Error('Invalid experiment option');
+      node.value = value.value; node.checked = value.checked;
+      if (validate && node.value !== value.value) throw new Error('Unsupported experiment value');
+    });
+  }
+  function applyEntry(root, state, entry) {
+    if (state.shared && state.shared.write(copySettings(entry.model, 65536)) === false) throw new Error('Rejected experiment settings');
+    // Render using the last complete numeric settings, then put unfinished
+    // drafts back without running them through a model or parsing JSON input.
+    setFields(root, entry.applied);
+    if (!state.shared) {
+      fields(root).forEach(node => node.dispatchEvent(new Event('change', { bubbles: false })));
+      setFields(root, entry.applied);
+    }
+    if (fields(root).some(invalidNumber)) throw new Error('Invalid applied experiment settings');
+    state.render(); state.labels.forEach(update => update());
+    setFields(root, entry.controls);
+    state.applied = copySettings(entry.applied, 65536);
+    if (state.shared) state.model = copySettings(entry.model, 65536);
+    state.validateDraft();
+    [...root.querySelectorAll('details')].forEach((node, index) => {
+      const saved = entry.details[index];
+      const signature = (node.className + '|' + (node.querySelector('summary')?.textContent || '')).slice(0, 300);
+      if (saved?.signature === signature) node.open = saved.open;
+    });
+  }
+  function start(root, factory) {
+    const job = initialize(root, factory); pending.add(job);
+    job.finally(() => pending.delete(job));
+  }
   function childrenInto(parent, children) {
     for (const child of [children].flat(Infinity)) {
       if (child === null || child === undefined || child === false) continue;
@@ -144,7 +236,7 @@
     const text = (en, korean) => ko ? korean : en;
     const defaults = [];
     const updateLabels = [];
-    let render = () => {}, resetState = () => {}, sharedState = null;
+    let render = () => {}, resetState = () => {}, sharedState = null, checkpointProvider = null;
     const state = { phase: 'loading', invalid: false }; states.set(root, state);
     root.dataset.ready = 'loading'; root.setAttribute('aria-busy', 'true'); ui.disabled = true; reset.disabled = true;
     ui.replaceChildren(el('legend', { class: 'al-sr-only' }, text('Controls', '조작'))); metrics.replaceChildren(); view.replaceChildren(); status.textContent = '';
@@ -175,7 +267,13 @@
       },
       onChange: handler => { render = handler; render(); },
       onReset: handler => { resetState = handler; },
+      checkpointState: config => {
+        if (sharedState || checkpointProvider) throw new Error('Duplicate experiment settings provider');
+        if (!config || typeof config.read !== 'function' || typeof config.write !== 'function') throw new Error('Invalid experiment settings provider');
+        checkpointProvider = config;
+      },
       stateLink: (key, config) => {
+        if (sharedState || checkpointProvider) throw new Error('Duplicate experiment settings provider');
         if (key !== root.dataset.articleLab || !config || typeof config.read !== 'function' || typeof config.write !== 'function') throw new Error('Invalid experiment link configuration');
         root.classList.add('al-workshop');
         sharedState = { key, ...config };
@@ -217,6 +315,7 @@
         numbers.forEach(input => input.setAttribute('aria-invalid', String(input === remaining)));
         state.invalid = Boolean(remaining);
         if (remaining) status.textContent = warning;
+        remember(root, state, sharedState || checkpointProvider);
       }
       catch (error) { root.dataset.ready = 'error'; status.textContent = text('Calculation failed. Reset to retry.', '계산하지 못했습니다. 초기값으로 다시 시도해 주세요.'); console.error('Article lab ' + root.dataset.articleLab, error); }
     };
@@ -225,7 +324,7 @@
     ctx.fetchJSON = async path => { const response = await fetch(dataURL(path)); if (!response.ok) throw new Error('Data unavailable: ' + response.status); return response.json(); };
     ctx.fetchCSV = async path => { const response = await fetch(dataURL(path)); if (!response.ok) throw new Error('Data unavailable: ' + response.status); return parseCSV(await response.text()); };
     reset.onclick = () => {
-      if (state.phase === 'error') { initialize(root, factory); return; }
+      if (state.phase === 'error') { start(root, factory); return; }
       defaults.forEach(item => { item.input.value = item.value; item.input.checked = item.checked; item.input.dispatchEvent(new Event('change', { bubbles: false })); });
       safely(() => { resetState(); render(); }, false);
     };
@@ -248,6 +347,9 @@
           }
         }
       }
+      state.shared = sharedState || checkpointProvider; state.render = () => render(); state.labels = updateLabels;
+      state.validateDraft = () => safely(() => {}, false);
+      remember(root, state, sharedState || checkpointProvider);
       state.phase = 'ready'; root.dataset.ready = 'true'; ui.disabled = false;
     } catch (error) {
       state.phase = 'error'; root.dataset.ready = 'error';
@@ -256,11 +358,49 @@
     } finally { reset.disabled = false; root.setAttribute('aria-busy', 'false'); }
   }
   global.ArticleLabs = Object.freeze({
+    checkpoint() {
+      const labs = [...document.querySelectorAll('[data-article-lab]')].filter(root => states.get(root)?.phase === 'ready' && root.dataset.ready === 'true').map(root => capture(root, states.get(root)));
+      return copySettings({ v: 1, labs });
+    },
+    async restoreCheckpoint(snapshot) {
+      let saved;
+      try {
+        saved = copySettings(snapshot);
+        if (!saved || saved.v !== 1 || !Array.isArray(saved.labs) || saved.labs.length > 128 || saved.labs.some(item => !item || typeof item.id !== 'string' || !item.id || item.id.length > 160) || new Set(saved.labs.map(item => item.id)).size !== saved.labs.length) throw new Error('Invalid checkpoint');
+      } catch (_) { return { restored: [], failures: [{ id: '', reason: 'Invalid checkpoint' }] }; }
+      const deadline = Date.now() + 15000;
+      while (pending.size && Date.now() < deadline) {
+        let timer;
+        const complete = await Promise.race([
+          Promise.allSettled([...pending]).then(() => true),
+          new Promise(resolve => { timer = global.setTimeout(() => resolve(false), Math.max(0, deadline - Date.now())); })
+        ]);
+        global.clearTimeout(timer);
+        if (!complete) break;
+      }
+      const result = { restored: [], failures: [] };
+      for (const entry of saved.labs) {
+        const root = [...document.querySelectorAll('[data-article-lab]')].find(node => node.id === entry.id);
+        const state = root && states.get(root);
+        let previous;
+        try {
+          if (!state || state.phase !== 'ready') throw new Error('Experiment is not ready');
+          validateEntry(entry, root, state);
+          previous = capture(root, state);
+          applyEntry(root, state, entry);
+          result.restored.push(entry.id);
+        } catch (error) {
+          if (previous) { try { applyEntry(root, state, previous); } catch (_) { /* The original model remains available through Reset. */ } }
+          result.failures.push({ id: entry.id, reason: error.message || 'Experiment settings could not be restored' });
+        }
+      }
+      return result;
+    },
     register(id, factory) {
       if (factories.has(id)) throw new Error('Duplicate article lab ' + id);
       factories.set(id, factory);
       document.querySelectorAll('[data-article-lab]').forEach(root => {
-        if (root.dataset.articleLab === id && !states.has(root)) initialize(root, factory);
+        if (root.dataset.articleLab === id && !states.has(root)) start(root, factory);
       });
     }
   });

@@ -47,7 +47,7 @@ let renders = 0, actions = 0;
 for (const [id, factory] of Object.entries(factories)) for (const ko of [false, true]) {
   const controls = [], buttons = [], ctx = { root: { dataset: {} }, ko, text: (en, kr) => ko ? kr : en, el: node, svg: node, view: node(), status: node(), metric: node, format: (v, n = 4) => Number(v).toFixed(n), table: () => node(),
     control(en, kr, opts) { const input = { ...node(), value: String(opts.value), checked: Boolean(opts.value), opts }; controls.push(input); return input; }, onChange(fn) { ctx.render = fn; fn(); },
-    button(en, kr, fn) { buttons.push(fn); }, onReset(fn) { ctx.reset = fn; },
+    button(en, kr, fn) { buttons.push(fn); }, onReset(fn) { ctx.reset = fn; }, checkpointState(config) { ctx.checkpoint = config; },
     plot(spec) { for (const s of spec.series || []) for (const [x, y] of s.points) { assert.ok(Number.isFinite(x) && Number.isFinite(y)); assert.ok(x >= spec.x[0] - 1e-8 && x <= spec.x[1] + 1e-8); assert.ok(y >= spec.y[0] - 1e-8 && y <= spec.y[1] + 1e-8); } return node(); }
   };
   factory(ctx); renders++;
@@ -59,5 +59,19 @@ for (const [id, factory] of Object.entries(factories)) for (const ko of [false, 
   }
   for (const button of buttons) { button(); actions++; }
   if (ctx.reset) { ctx.reset(); ctx.render(); renders++; }
+  if (id === 'games-maze-tempo') {
+    buttons[0]();
+    const saved = ctx.checkpoint.read(), message = ctx.status.textContent;
+    assert.equal(saved.history.length, 1);
+    ctx.reset(); ctx.render();
+    assert.equal(ctx.checkpoint.read().history.length, 0);
+    ctx.checkpoint.write(saved);
+    assert.deepEqual(ctx.checkpoint.read(), saved);
+    assert.equal(ctx.status.textContent, message, 'Restored board must replay the same transition');
+    for (const invalid of [{ ...saved, v: 2 }, { v: 1, history: [{ actor: 'bad', type: 'IDLE', amount: 0 }] }, { v: 1, history: [{ actor: 'factory', type: 'IDLE', amount: 11 }] }]) {
+      assert.throws(() => ctx.checkpoint.write(invalid));
+      assert.deepEqual(ctx.checkpoint.read(), saved, 'Invalid history leaves the current board intact');
+    }
+  }
 }
 console.log(`Games physics, turn-order, cooldown, transfer and legal-menu invariants; ${renders} bilingual renders and ${actions} button actions passed (3 factories).`);

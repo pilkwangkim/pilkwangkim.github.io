@@ -1,0 +1,66 @@
+/* Article-local game boards: all important labels remain HTML text at reading size. */
+.article-lab.su-lab { --su-wall:#35465a; --su-blue-bg:#d8edf7; --su-blue-fg:#214b63; --su-gold-bg:#f9dc9d; --su-gold-fg:#593b10; --su-green-bg:#bce6cf; --su-green-fg:#164630; --su-gray-bg:#e5e9ee; --su-gray-fg:#485766; font-size:.9rem; }
+.su-lab .al-body { grid-template-columns:minmax(0,1fr); gap:.8rem; }
+.su-lab .al-sidebar { display:contents; }
+.su-lab .al-controls { grid-template-columns:repeat(3,minmax(0,1fr)); gap:.45rem; }
+.su-lab .al-controls .al-control { grid-column:span 1; }
+.su-lab .al-controls .al-button { min-height:2.4rem; font-size:.8rem; }
+.su-lab .al-control-label,.su-lab .al-control :is(select,input[type=number]) { font-size:.83rem; }
+.su-lab .al-metrics { grid-template-columns:repeat(3,minmax(0,1fr)); }
+.su-lab .al-metrics dt { font-size:.75rem; line-height:1.4; }
+.su-lab .al-metrics dd { font-size:.9rem; }
+.su-lab .al-view p,.su-lab .al-status,.su-lab .al-model,.su-lab .al-model p { font-size:.84rem; line-height:1.6; }
+.su-lab .al-view { grid-template-columns:minmax(0,1fr); }
+.su-lab .al-view p.su-phase { font-size:1rem; font-weight:650; line-height:1.5; margin:.1rem 0 .3rem; }
+.su-lab .su-maze-board,.su-lab .su-queen-board { width:100%; max-width:480px; display:grid; grid-template-columns:repeat(var(--su-cols),minmax(0,1fr)); margin:.2rem auto .45rem; }
+.su-lab .su-maze-board { border:2px solid var(--su-wall); border-radius:3px; overflow:hidden; }
+.su-lab .su-queen-board { border:2px solid var(--su-wall); border-radius:3px; overflow:hidden; max-width:400px; }
+.article-lab.su-lab.al-workshop .su-maze-cell,.article-lab.su-lab.al-workshop .su-queen-cell { aspect-ratio:1; min-width:0; min-height:0; margin:0; padding:0; border-radius:0; font:650 1.12rem/1 system-ui,sans-serif; color:#243b50; background:#fbfcfe; box-shadow:none; touch-action:manipulation; }
+.su-lab .su-maze-cell { border:2px solid var(--su-wall); }
+.su-lab .su-queen-cell { border:1px solid #d4dce6; }
+.su-lab .su-queen-cell.su-dark-square { background:#e1e8f0; }
+.su-lab .su-queen-cell.su-next-column { box-shadow:inset 0 0 0 3px #5e99ba; }
+.su-lab .su-queen-cell.su-queen { color:#1b3758; font-size:2rem; background:#c9dfef; }
+.su-lab .su-queen-cell.su-reject { background:#f4c8c8; color:#8a2c2c; }
+.su-lab .su-maze-cell.su-frontier,.su-lab .su-pill.su-frontier { background:var(--su-blue-bg); color:var(--su-blue-fg); }
+.su-lab .su-maze-cell.su-current,.su-lab .su-pill.su-current { background:var(--su-gold-bg); color:var(--su-gold-fg); }
+.su-lab .su-maze-cell.su-expanded,.su-lab .su-pill.su-expanded { background:var(--su-gray-bg); color:var(--su-gray-fg); }
+.su-lab .su-maze-cell.su-path { background:var(--su-green-bg); color:var(--su-green-fg); }
+.su-lab :is(.su-maze-cell,.su-queen-cell):focus-visible { outline:3px solid #b03570; outline-offset:-4px; position:relative; z-index:1; }
+.su-lab .su-pills,.su-lab .su-route,.su-lab .su-word-options,.su-lab .su-jug-actions { display:flex; align-items:center; flex-wrap:wrap; gap:.35rem; min-width:0; }
+.su-lab .su-route { gap:.3rem; padding:.25rem 0; }
+.su-lab .su-pill { display:inline-flex; align-items:center; min-height:1.8rem; padding:.12rem .42rem; border:1px solid var(--al-line); border-radius:.3rem; font:500 .82rem/1.5 ui-monospace,SFMono-Regular,Consolas,monospace; white-space:nowrap; }
+.su-lab .su-chip { padding:.4rem .65rem; min-height:2.5rem; border:1px solid var(--al-line); border-radius:.35rem; color:inherit; background:transparent; font:600 .88rem/1.4 system-ui,sans-serif; cursor:pointer; }
+.su-lab .su-chip:hover,.su-lab .su-chip.su-active { color:var(--su-blue-fg); background:var(--su-blue-bg); border-color:#5e99ba; }
+.su-lab .su-chip:disabled { cursor:default; opacity:.4; background:transparent; color:inherit; }
+.su-lab .su-word-options .su-chip { letter-spacing:.06em; }
+.su-lab .su-layers { display:grid; gap:.3rem; max-height:260px; overflow:auto; padding:.2rem; border:1px solid var(--al-line); border-radius:.3rem; }
+.su-lab .su-layer { display:grid; grid-template-columns:2.8rem minmax(0,1fr); align-items:baseline; gap:.4rem; }
+.su-lab .su-layer strong { font:.78rem/1.6 ui-monospace,SFMono-Regular,Consolas,monospace; }
+.su-lab .su-dictionary { font-size:.83rem; padding:.3rem 0; }
+.su-lab .su-dictionary summary { cursor:pointer; padding:.25rem 0; }
+.su-lab .su-saved-solutions { display:grid; gap:.4rem; padding:.65rem 0 .15rem; border-top:1px solid var(--al-line); }
+.su-lab .su-saved-solutions[hidden] { display:none; }
+.su-lab .su-solution-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(100px,1fr)); gap:.35rem; }
+.su-lab .su-vessels { display:flex; justify-content:center; align-items:end; gap:1.5rem; max-width:400px; margin:0 auto; width:100%; }
+.su-lab .su-vessel { width:140px; min-width:0; flex:0 1 140px; text-align:center; font-size:.95rem; }
+.su-lab .su-jug-svg { width:100%; height:auto; display:block; overflow:visible; }
+.su-lab .su-vessel output { font-size:1.1rem; font-weight:700; }
+.su-lab .su-water { fill:#78bce0; fill-opacity:.8; }
+.su-lab .su-jug-outline { fill:none; stroke:var(--su-wall); stroke-width:4; stroke-linejoin:round; }
+.su-lab .su-jug-tick { stroke:var(--su-wall); stroke-width:1.5; }
+.su-lab .su-jug-actions { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); }
+.content .su-lab .al-table-wrap table { font-size:.8rem; }
+html[data-bs-theme='dark'] .su-lab { --su-wall:#a6b9c9; }
+@container articlelab (max-width:519.98px) {
+  .su-lab .al-controls { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .su-lab .al-controls .al-control { grid-column:span 1; }
+  .su-lab .al-view p,.su-lab .al-status,.su-lab .al-model p { font-size:.86rem; }
+  .su-lab .al-control-label,.su-lab .al-metrics dt { font-size:.78rem; }
+  .su-lab .al-controls :is(select,input[type=number]) { font-size:16px; }
+  .su-lab .su-jug-actions { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .su-lab .su-layer { grid-template-columns:2.4rem minmax(0,1fr); }
+  .su-lab .su-vessels { gap:.8rem; }
+  .su-lab .su-queen-cell.su-queen { font-size:1.7rem; }
+}
+@media print { .su-lab .su-chip { display:none; } .su-lab .su-layers { max-height:none; } }

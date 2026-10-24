@@ -78,6 +78,11 @@
   title: Quantum Transport
   description: Derive NEGF and Landauer current from first principles, moving from closed quantum systems to open transport.
   tag: quantum-transport
+- id: search-algorithms
+  group: physics
+  title: Data Structure & Algorithm
+  description: Data structures and algorithms, with visual explanations, executable code, and interactive examples.
+  tag: search-algorithms
 - id: essays
   group: essays
   title: Essays

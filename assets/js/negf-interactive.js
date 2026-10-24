@@ -183,6 +183,23 @@
       root.setAttribute('aria-busy', 'true');
       frame = window.requestAnimationFrame(update);
     }
+    // Preserve exact probe energies when a local preview rebuild reloads the page.
+    root.addEventListener('article-preview:capture', event => {
+      event.detail.state = { v: 1, height: Number(controls.height.value), width: Number(controls.width.value), energy };
+    });
+    root.addEventListener('article-preview:restore', event => {
+      const saved = event.detail.state;
+      if (!saved || saved.v !== 1 || !Number.isFinite(saved.height) || saved.height < Number(controls.height.min) || saved.height > Number(controls.height.max) ||
+          !Number.isInteger(saved.width) || saved.width < Number(controls.width.min) || saved.width > Number(controls.width.max) ||
+          !Number.isFinite(saved.energy) || saved.energy < limits.energyMinEV || saved.energy > limits.energyMaxEV) return;
+      controls.height.value = String(saved.height);
+      controls.width.value = String(saved.width);
+      energy = saved.energy;
+      controls.energy.value = String(energy);
+      if (frame) { window.cancelAnimationFrame(frame); frame = 0; }
+      update();
+      event.detail.restored = root.dataset.ready === 'true';
+    });
     controls.height.addEventListener('input', schedule);
     controls.width.addEventListener('input', schedule);
     controls.energy.addEventListener('input', () => { energy = Number(controls.energy.value); if (device) updateProbe(); });

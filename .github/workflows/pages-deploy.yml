@@ -58,6 +58,24 @@ jobs:
           done
           node tools/check_article_labs_models.js
 
+      - name: Check A-star article and exercises
+        run: |
+          node tools/test_pathfinding_core.js
+          node tools/test_search_unweighted.js
+          node tools/test_search_dijkstra.js
+          node tools/test_search_astar.js
+          node tools/test_astar_exercises.js
+          node tools/test_search_checkpoints.js
+          python3 tools/check_astar_article.py
+
+      - name: Check local editor boundaries
+        run: |
+          for test in tools/local_editor/test_*.rb; do
+            bundle exec ruby "$test"
+          done
+          node tools/local_editor/test_client_state.js
+          node tools/local_editor/test_widget_state.js
+
       - name: Build site
         run: bundle exec jekyll b -d "_site${{ steps.pages.outputs.base_path }}"
         env:

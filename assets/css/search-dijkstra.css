@@ -1,0 +1,56 @@
+/* The network needs the full article width: keep its numbers readable on phones. */
+.article-lab.sd-lab .al-body { display: flex; flex-direction: column; gap: .8rem; }
+.article-lab.sd-lab .al-sidebar { display: contents; }
+.article-lab.sd-lab .al-controls { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: .55rem; }
+.article-lab.sd-lab .al-control { grid-column: span 1; }
+.article-lab.sd-lab .al-control-label,
+.article-lab.sd-lab .al-control :is(select,input),
+.article-lab.sd-lab .al-button { font-size: .86rem; }
+.article-lab.sd-lab .al-button { min-height: 44px; padding: .4rem .5rem; }
+.article-lab.sd-lab .al-metrics { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: .7rem; }
+.article-lab.sd-lab .al-metrics dt { font-size: .78rem; }
+.article-lab.sd-lab .al-metrics dd { font-size: .95rem; }
+.article-lab.sd-lab .al-view { width: 100%; }
+.article-lab.sd-lab .sd-board { max-width: 580px; width: 100%; margin: 0 auto; }
+.article-lab.sd-lab .sd-network { display: block; width: 100%; height: auto; overflow: visible; }
+.article-lab.sd-lab .sd-road { fill: none; stroke: #8495a5; stroke-width: 4; }
+.article-lab.sd-lab .sd-closed-road { stroke: #b85f63; stroke-dasharray: 5 7; }
+.article-lab.sd-lab .sd-solution-road { stroke: #b88722; stroke-width: 9; }
+.article-lab.sd-lab .sd-manual-road { stroke: #2767a8; stroke-width: 6; stroke-dasharray: 9 7; }
+.article-lab.sd-lab .sd-weight rect { fill: var(--card-bg,var(--main-bg,#fff)); stroke: var(--al-line); stroke-width: 1; }
+.article-lab.sd-lab .sd-weight text { fill: var(--text-color,#343a40); font: 600 26px/1 system-ui,sans-serif; }
+.article-lab.sd-lab .sd-node { cursor: pointer; }
+.article-lab.sd-lab .sd-node circle { fill: #edf1f5; stroke: #7b8fa3; stroke-width: 3; stroke-dasharray: 4 4; }
+.article-lab.sd-lab .sd-node-id { fill: #21334a; font: 700 27px/1 system-ui,sans-serif; }
+.article-lab.sd-lab .sd-distance { fill: var(--text-muted-color,#677483); font: 500 25px/1 system-ui,sans-serif; paint-order: stroke; stroke: var(--card-bg,var(--main-bg,#fff)); stroke-width: 5; stroke-linejoin: round; }
+.article-lab.sd-lab .sd-settled circle { stroke-dasharray: none; stroke-width: 5; fill: #d6e5ed; }
+.article-lab.sd-lab .sd-current circle { stroke: #b88722; stroke-width: 6; }
+.article-lab.sd-lab .sd-chosen circle { stroke: #7c3d8a; stroke-width: 6; }
+.article-lab.sd-lab .sd-node:focus-visible circle { stroke: #db397b; stroke-width: 6; }
+.article-lab.sd-lab .sd-station-ring { fill: none; stroke: #526c87; stroke-width: 3; }
+.article-lab.sd-lab .sd-owner-one circle,
+.article-lab.sd-lab .sd-key.sd-owner-one { fill: #d6e8f7; background: #d6e8f7; color: #223d5a; }
+.article-lab.sd-lab .sd-owner-two circle,
+.article-lab.sd-lab .sd-key.sd-owner-two { fill: #f3dfb4; background: #f3dfb4; color: #55401e; }
+.article-lab.sd-lab .sd-legend { display: flex; flex-wrap: wrap; gap: .35rem .6rem; font-size: .85rem; }
+.article-lab.sd-lab .sd-key { padding: .15rem .4rem; border: 1px solid var(--al-line); border-radius: .25rem; }
+.content .article-lab.sd-lab .al-view p { font-size: .9rem; line-height: 1.6; margin: .2rem 0; }
+.article-lab.sd-lab .sd-outcome { padding: .65rem; border-left: 3px solid var(--al-blue); background: color-mix(in srgb,var(--al-blue) 7%,transparent); }
+.article-lab.sd-lab .sd-event { border-top: 1px solid var(--al-line); padding-top: .6rem; }
+.content .article-lab.sd-lab .al-table-wrap table { width: 100%; font-size: .84rem; }
+.article-lab.sd-lab .al-table-wrap { max-height: 270px; }
+.article-lab.sd-lab .sd-stop-names,
+.article-lab.sd-lab .al-model,
+.article-lab.sd-lab .al-model p,
+.article-lab.sd-lab .al-status { font-size: .82rem; line-height: 1.6; }
+.article-lab.sd-lab .sd-stop-names summary { cursor: pointer; padding: .3rem 0; }
+@media (max-width: 540px) {
+  .article-lab.sd-lab .al-controls { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .article-lab.sd-lab .al-control { grid-column: 1 / -1; }
+  .article-lab.sd-lab .al-control :is(select,input) { font-size: 16px; min-height: 44px; }
+  .article-lab.sd-lab .al-metrics { grid-template-columns: 1fr; gap: .35rem; }
+  .content .article-lab.sd-lab .al-table-wrap table { font-size: .8rem; }
+  .article-lab.sd-lab .sd-weight text { font-size: 28px; }
+  .article-lab.sd-lab .sd-node-id { font-size: 28px; }
+  .article-lab.sd-lab .sd-distance { font-size: 26px; }
+}

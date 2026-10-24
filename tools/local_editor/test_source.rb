@@ -416,6 +416,174 @@ class LocalEditorSourceTest
     assert_equal original, read_post
   end
 
+  def interactive_component(id, key: id, preset: '')
+    <<~HTML
+      <section id="lab-#{key}" class="article-lab" data-article-lab="#{id}" data-preset="#{preset}" data-local-editor-skip>
+      <p>Repeated. $x+1$</p>
+      </section>
+    HTML
+  end
+
+  def test_multiple_interactive_includes_keep_literal_islands_equations_and_tables_editable
+    body = <<~'MARKDOWN'
+
+      [Translation]({{ site.baseurl }}/posts/translation/)
+
+      Repeated.
+
+      {% include interactive/article-lab.html id="first" %}
+
+      Repeated.
+
+      한글 문장 $x+1$ 뒤의 설명입니다.
+      다음 줄도 같은 문단입니다.
+
+      $$
+      y = \frac{a}{b}
+      $$
+
+      | Symbol | Value |
+      |:---|---:|
+      | $x$ | **2** |
+
+      {% include interactive/negf-barrier.html %}
+
+      두 번째 중간 문단입니다.
+
+      {% include interactive/article-lab.html id='second' key="alternate" preset="sample" %}
+
+      Repeated.
+    MARKDOWN
+    editor = write_post(body)
+    original = read_post
+    input = body.sub("\n", '').sub('{{ site.baseurl }}', '/blog')
+                .sub('{% include interactive/article-lab.html id="first" %}', "\n" + interactive_component('first'))
+                .sub('{% include interactive/negf-barrier.html %}', "\n<section class=\"negf-lab\" data-negf-lab data-local-editor-skip>\n<p>두 번째 중간 문단입니다. $x+1$</p>\n</section>\n")
+                .sub("{% include interactive/article-lab.html id='second' key=\"alternate\" preset=\"sample\" %}", interactive_component('second', key: 'alternate', preset: 'sample'))
+    document = Kramdown::Document.new(input, input: 'GFM', hard_wrap: false)
+    unannotated = Nokogiri::HTML.fragment(document.to_html)
+    editor.annotate(document.root, input: input)
+    rendered = Nokogiri::HTML.fragment(document.to_html)
+    ids = rendered.css('[data-local-edit-id]').map { |node| node['data-local-edit-id'] }
+    repeated = editor.document[:segments].select { |item| item[:text] == 'Repeated.' }
+    assert_equal 3, repeated.length
+    assert_equal repeated.map { |item| item[:id] }, rendered.css('[data-local-edit-id]').select { |node| node.text == 'Repeated.' }.map { |node| node['data-local-edit-id'] }
+    ['한글 문장 ', ' 뒤의 설명입니다.', '다음 줄도 같은 문단입니다.', '두 번째 중간 문단입니다.'].each do |text|
+      assert ids.include?(segment(editor.document, text)[:id]), "Missing middle-island text: #{text}"
+    end
+    assert_equal editor.document[:structures][:math].map { |item| item[:id] }, rendered.css('[data-local-math-id]').map { |node| node['data-local-math-id'] }
+    assert_equal editor.document[:structures][:tables].map { |item| item[:id] }, rendered.css('[data-local-table-id]').map { |node| node['data-local-table-id'] }
+    assert_empty rendered.css('[data-local-editor-skip] [data-local-edit-id], [data-local-editor-skip] [data-local-math-id], [data-local-editor-skip] [data-local-table-id], [data-local-editor-skip] [data-local-cell-id]')
+    rendered.css('[data-local-edit-id], [data-local-math-id]').each { |node| node.replace(node.children) }
+    rendered.css('[data-local-table-id], [data-local-cell-id]').each do |node|
+      node.remove_attribute('data-local-table-id')
+      node.remove_attribute('data-local-cell-id')
+    end
+    assert_equal unannotated.to_html.gsub(/\n{2,}/, "\n\n"), rendered.to_html.gsub(/\n{2,}/, "\n\n")
+    editor.save(revision: editor.revision, edits: [{ id: repeated[1][:id], text: 'The middle occurrence.', original: 'Repeated.' }])
+    expected = original.sub("%}\n\nRepeated.", "%}\n\nThe middle occurrence\\.")
+    assert_equal expected, read_post
+  end
+
+  def test_interactive_islands_refuse_fake_missing_nested_or_mismatched_components
+    body = "Early prose.\n\n{% include interactive/article-lab.html id=\"first\" %}\n\nMiddle prose.\n\n{% include interactive/article-lab.html id=\"second\" %}\n\nLate prose.\n"
+    first = interactive_component('first')
+    second = interactive_component('second')
+    variants = [
+      [body, first.sub('data-article-lab="first"', 'data-article-lab="fake"'), second],
+      [body, first, ''],
+      [body, first.sub('</section>', '<section data-local-editor-skip>Nested</section></section>'), second],
+      [body, first + interactive_component('extra'), second],
+      [body.sub('id="first"', 'id=page.component'), first, second],
+      [body.sub('{% include interactive/article-lab.html id="first" %}', '{% if site.example %}' + "\n" + '{% include interactive/article-lab.html id="first" %}' + "\n" + '{% endif %}'), first, second],
+      [body.sub('{% include interactive/article-lab.html id="first" %}', '{% include interactive/article-lab.html id="first" %} inline'), first, second],
+      [body, first.sub('id="lab-first"', 'id="lab-wrong"'), second]
+    ]
+    variants.each do |source_body, rendered_first, rendered_second|
+      editor = write_post(source_body)
+      input = "Early prose.\n\n#{rendered_first}\n\nMiddle prose.\n\n#{rendered_second}\n\nLate prose.\n"
+      document = Kramdown::Document.new(input, input: 'GFM', hard_wrap: false)
+      editor.annotate(document.root, input: input)
+      rendered = Nokogiri::HTML.fragment(document.to_html)
+      refute rendered.css('[data-local-edit-id]').map(&:text).include?('Middle prose.')
+      assert_empty rendered.css('[data-local-editor-skip] [data-local-edit-id]')
+    end
+  end
+
+  def test_interactive_islands_require_the_entire_intervening_literal_span_to_match
+    body = "Early prose.\n\n{% include interactive/article-lab.html id=\"first\" %}\n\nRepeated.\n\nMiddle prose.\n\n{% include interactive/article-lab.html id=\"second\" %}\n\nLate prose.\n"
+    editor = write_post(body)
+    input = body.sub('{% include interactive/article-lab.html id="first" %}', interactive_component('first'))
+                .sub('{% include interactive/article-lab.html id="second" %}', interactive_component('second'))
+                .sub("\n\nRepeated.\n", "\n\nGenerated extra text.\n\nRepeated.\n")
+    document = Kramdown::Document.new(input, input: 'GFM', hard_wrap: false)
+    editor.annotate(document.root, input: input)
+    rendered = Nokogiri::HTML.fragment(document.to_html)
+    refute rendered.css('[data-local-edit-id]').map(&:text).include?('Middle prose.')
+  end
+
+  def test_closed_template_intro_and_outro_leave_interactive_literal_islands_editable
+    body = <<~'MARKDOWN'
+      Early prose.
+
+      {% assign later = site.posts | first %}
+      > Update.{% if later %} [Later]({{ later.url }}){% endif %}
+
+      The literal introduction after the update.
+
+      {% include interactive/article-lab.html id="first" %}
+
+      Middle prose. $x+1$
+
+      {% include interactive/article-lab.html id="second" %}
+
+      The literal ending before the footer.
+
+      {% if site.footer %}
+      Footer.
+      {% endif %}
+
+      Late prose.
+    MARKDOWN
+    editor = write_post(body)
+    input = body.sub('{% assign later = site.posts | first %}', '')
+                .sub('> Update.{% if later %} [Later]({{ later.url }}){% endif %}', '> Update. [Later](/later/)')
+                .sub('{% include interactive/article-lab.html id="first" %}', interactive_component('first'))
+                .sub('{% include interactive/article-lab.html id="second" %}', interactive_component('second'))
+                .sub('{% if site.footer %}', '').sub('{% endif %}', '')
+    document = Kramdown::Document.new(input, input: 'GFM', hard_wrap: false)
+    editor.annotate(document.root, input: input)
+    rendered = Nokogiri::HTML.fragment(document.to_html)
+    texts = rendered.css('[data-local-edit-id]').map(&:text)
+    ['Early prose.', 'The literal introduction after the update.', 'Middle prose. ', 'The literal ending before the footer.', 'Late prose.'].each do |text|
+      assert texts.include?(text), "Missing template-adjacent literal: #{text}"
+    end
+    refute texts.include?('Footer.')
+    refute texts.include?('Update.')
+    assert_equal editor.document[:structures][:math].map { |item| item[:id] }, rendered.css('[data-local-math-id]').map { |node| node['data-local-math-id'] }
+    assert_empty rendered.css('[data-local-editor-skip] [data-local-edit-id]')
+  end
+
+  def test_template_control_blocks_crossing_interactive_components_stay_locked
+    wrappers = [
+      ['{% if site.enabled %}', '{% endif %}'],
+      ['{% for item in site.items %}', '{% endfor %}'],
+      ['{% capture output %}', '{% endcapture %}']
+    ]
+    wrappers.each do |opening, closing|
+      body = "Early prose.\n\n#{opening}\n\n{% include interactive/article-lab.html id=\"first\" %}\n\nMiddle prose.\n\n{% include interactive/article-lab.html id=\"second\" %}\n\n#{closing}\n\nLate prose.\n"
+      editor = write_post(body)
+      input = body.sub(opening, '').sub(closing, '')
+                  .sub('{% include interactive/article-lab.html id="first" %}', interactive_component('first'))
+                  .sub('{% include interactive/article-lab.html id="second" %}', interactive_component('second'))
+      document = Kramdown::Document.new(input, input: 'GFM', hard_wrap: false)
+      editor.annotate(document.root, input: input)
+      rendered = Nokogiri::HTML.fragment(document.to_html)
+      refute rendered.css('[data-local-edit-id]').map(&:text).include?('Middle prose.')
+      assert_empty rendered.css('[data-local-editor-skip] [data-local-edit-id]')
+    end
+  end
+
   def test_single_line_url_tags_preserve_adjacent_prefix_and_suffix_targets
     body = "<style>p { color: blue; }</style>\n\n[Read]({% post_url 2026-10-24-test %})\n[Download]({% link assets/example.csv %})\n\nEarly prose.\n\n{% include example %}\n\nLate prose.\n\n[Again]({% link assets/example.csv %})\n"
     editor = write_post(body)

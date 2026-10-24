@@ -1,0 +1,388 @@
+{
+  "inputs": {
+    "01-goal": {
+      "edges": [
+        [
+          "S",
+          "G",
+          10
+        ],
+        [
+          "S",
+          "A",
+          1
+        ],
+        [
+          "A",
+          "G",
+          1
+        ]
+      ],
+      "heuristic": {
+        "S": 0,
+        "A": 0,
+        "G": 0
+      }
+    },
+    "02-reopening": {
+      "edges": [
+        [
+          "S",
+          "A",
+          3
+        ],
+        [
+          "S",
+          "B",
+          1
+        ],
+        [
+          "B",
+          "A",
+          1
+        ],
+        [
+          "A",
+          "G",
+          3
+        ],
+        [
+          "B",
+          "G",
+          100
+        ]
+      ],
+      "heuristic": {
+        "S": 5,
+        "A": 0,
+        "B": 4,
+        "G": 0
+      }
+    },
+    "03-moves": {
+      "start": [
+        0,
+        0
+      ],
+      "goal": [
+        3,
+        2
+      ],
+      "obstacles": [],
+      "models": [
+        {
+          "directions": 4,
+          "orthogonal_cost": 1
+        },
+        {
+          "directions": 8,
+          "orthogonal_cost": 1,
+          "diagonal_cost": "sqrt(2)"
+        },
+        {
+          "directions": 8,
+          "orthogonal_cost": 1,
+          "diagonal_cost": 1
+        }
+      ]
+    },
+    "04-boundaries": {
+      "cases": [
+        {
+          "name": "start-is-goal",
+          "start": "S",
+          "goal": "S",
+          "edges": []
+        },
+        {
+          "name": "unreachable",
+          "start": "S",
+          "goal": "G",
+          "edges": [
+            [
+              "S",
+              "A",
+              1
+            ]
+          ]
+        },
+        {
+          "name": "zero-cycle",
+          "start": "S",
+          "goal": "G",
+          "edges": [
+            [
+              "S",
+              "A",
+              0
+            ],
+            [
+              "A",
+              "S",
+              0
+            ],
+            [
+              "A",
+              "G",
+              2
+            ]
+          ]
+        }
+      ]
+    },
+    "05-teleport": {
+      "straight_line_km": 60,
+      "road_length_km": 90,
+      "maximum_road_speed_kmh": 120,
+      "teleport_cost_hours": 0
+    },
+    "06-code": {
+      "edges": [
+        [
+          "S",
+          "A",
+          1
+        ],
+        [
+          "A",
+          "G",
+          20
+        ],
+        [
+          "S",
+          "B",
+          4
+        ],
+        [
+          "B",
+          "G",
+          1
+        ]
+      ],
+      "heuristic": {
+        "S": 5,
+        "A": 0,
+        "B": 1,
+        "G": 0
+      }
+    }
+  },
+  "verification": {
+    "01-goal": {
+      "shortest_cost": 2,
+      "heuristic_admissible": true
+    },
+    "02-reopening": {
+      "shortest_cost": 5,
+      "heuristic_admissible": true
+    },
+    "06-code": {
+      "shortest_cost": 5,
+      "heuristic_admissible": true
+    },
+    "03-moves": "All three movement costs verified by enumerated graph",
+    "04-boundaries": "Start=goal, no-route and zero-cycle inputs verified",
+    "05-teleport": "km / (km/h) has hours; zero-time edge changes the graph"
+  },
+  "original_figure_data_sha256": "2b346d7af4b0942da81b38ee8bea06e9470ce9e9da7f14b37efffc3163da83a9",
+  "assets": [
+    {
+      "stem": "exercise-01-goal",
+      "width": 1512,
+      "height": 630,
+      "svg_width_pt": 777.6,
+      "svg_height_pt": 324.0,
+      "layout": {
+        "labels_checked": 8,
+        "text_bounds": "PASS",
+        "text_collisions": "PASS",
+        "non_cost_labels_checked_against_arrows": 1,
+        "arrows_avoid_non_cost_labels": "PASS",
+        "labels_fit_nodes": "PASS"
+      }
+    },
+    {
+      "stem": "exercise-02-reopening",
+      "width": 1512,
+      "height": 756,
+      "svg_width_pt": 777.6,
+      "svg_height_pt": 388.8,
+      "layout": {
+        "labels_checked": 14,
+        "text_bounds": "PASS",
+        "text_collisions": "PASS",
+        "non_cost_labels_checked_against_arrows": 4,
+        "arrows_avoid_non_cost_labels": "PASS",
+        "labels_fit_nodes": "PASS"
+      }
+    },
+    {
+      "stem": "exercise-03-moves",
+      "width": 1512,
+      "height": 742,
+      "svg_width_pt": 777.6,
+      "svg_height_pt": 381.6,
+      "layout": {
+        "labels_checked": 18,
+        "text_bounds": "PASS",
+        "text_collisions": "PASS",
+        "non_cost_labels_checked_against_arrows": 9,
+        "arrows_avoid_non_cost_labels": "PASS",
+        "labels_fit_nodes": "PASS"
+      }
+    },
+    {
+      "stem": "exercise-04-boundaries",
+      "width": 1512,
+      "height": 672,
+      "svg_width_pt": 777.6,
+      "svg_height_pt": 345.6,
+      "layout": {
+        "labels_checked": 17,
+        "text_bounds": "PASS",
+        "text_collisions": "PASS",
+        "non_cost_labels_checked_against_arrows": 3,
+        "arrows_avoid_non_cost_labels": "PASS",
+        "labels_fit_nodes": "PASS"
+      }
+    },
+    {
+      "stem": "exercise-05-teleport",
+      "width": 1512,
+      "height": 686,
+      "svg_width_pt": 777.6,
+      "svg_height_pt": 352.8,
+      "layout": {
+        "labels_checked": 12,
+        "text_bounds": "PASS",
+        "text_collisions": "PASS",
+        "non_cost_labels_checked_against_arrows": 6,
+        "arrows_avoid_non_cost_labels": "PASS",
+        "labels_fit_nodes": "PASS"
+      }
+    },
+    {
+      "stem": "exercise-06-code",
+      "width": 1512,
+      "height": 756,
+      "svg_width_pt": 777.6,
+      "svg_height_pt": 388.8,
+      "layout": {
+        "labels_checked": 13,
+        "text_bounds": "PASS",
+        "text_collisions": "PASS",
+        "non_cost_labels_checked_against_arrows": 4,
+        "arrows_avoid_non_cost_labels": "PASS",
+        "labels_fit_nodes": "PASS"
+      }
+    },
+    {
+      "stem": "exercise-01-goal-mobile",
+      "width": 700,
+      "height": 630,
+      "svg_width_pt": 360,
+      "svg_height_pt": 324.0,
+      "layout": {
+        "labels_checked": 8,
+        "text_bounds": "PASS",
+        "text_collisions": "PASS",
+        "non_cost_labels_checked_against_arrows": 1,
+        "arrows_avoid_non_cost_labels": "PASS",
+        "labels_fit_nodes": "PASS"
+      }
+    },
+    {
+      "stem": "exercise-02-reopening-mobile",
+      "width": 700,
+      "height": 756,
+      "svg_width_pt": 360,
+      "svg_height_pt": 388.8,
+      "layout": {
+        "labels_checked": 14,
+        "text_bounds": "PASS",
+        "text_collisions": "PASS",
+        "non_cost_labels_checked_against_arrows": 4,
+        "arrows_avoid_non_cost_labels": "PASS",
+        "labels_fit_nodes": "PASS"
+      }
+    },
+    {
+      "stem": "exercise-03-moves-mobile",
+      "width": 700,
+      "height": 2163,
+      "svg_width_pt": 360,
+      "svg_height_pt": 1112.4,
+      "layout": {
+        "labels_checked": 18,
+        "text_bounds": "PASS",
+        "text_collisions": "PASS",
+        "non_cost_labels_checked_against_arrows": 9,
+        "arrows_avoid_non_cost_labels": "PASS",
+        "labels_fit_nodes": "PASS"
+      }
+    },
+    {
+      "stem": "exercise-04-boundaries-mobile",
+      "width": 700,
+      "height": 1638,
+      "svg_width_pt": 360,
+      "svg_height_pt": 842.4,
+      "layout": {
+        "labels_checked": 17,
+        "text_bounds": "PASS",
+        "text_collisions": "PASS",
+        "non_cost_labels_checked_against_arrows": 3,
+        "arrows_avoid_non_cost_labels": "PASS",
+        "labels_fit_nodes": "PASS"
+      }
+    },
+    {
+      "stem": "exercise-05-teleport-mobile",
+      "width": 700,
+      "height": 1372,
+      "svg_width_pt": 360,
+      "svg_height_pt": 705.6,
+      "layout": {
+        "labels_checked": 12,
+        "text_bounds": "PASS",
+        "text_collisions": "PASS",
+        "non_cost_labels_checked_against_arrows": 6,
+        "arrows_avoid_non_cost_labels": "PASS",
+        "labels_fit_nodes": "PASS"
+      }
+    },
+    {
+      "stem": "exercise-06-code-mobile",
+      "width": 700,
+      "height": 756,
+      "svg_width_pt": 360,
+      "svg_height_pt": 388.8,
+      "layout": {
+        "labels_checked": 13,
+        "text_bounds": "PASS",
+        "text_collisions": "PASS",
+        "non_cost_labels_checked_against_arrows": 4,
+        "arrows_avoid_non_cost_labels": "PASS",
+        "labels_fit_nodes": "PASS"
+      }
+    }
+  ],
+  "inspection_contact_sheets": [
+    {
+      "stem": "exercise-contactsheet-desktop",
+      "width": 1400,
+      "height": 1067,
+      "individual_image_width": 691,
+      "scope": "Resized native figures only; final browser rendering must be checked separately."
+    },
+    {
+      "stem": "exercise-contactsheet-mobile",
+      "width": 1020,
+      "height": 1800,
+      "individual_image_width": 328,
+      "scope": "Resized native figures only; final browser rendering must be checked separately."
+    }
+  ],
+  "answer_visibility": "Figures show given inputs only; no solution route or cost is marked.",
+  "coordinate_convention": "Exercise 03 uses x rightwards and y upwards; (0,0) is S."
+}

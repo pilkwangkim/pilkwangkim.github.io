@@ -97,7 +97,7 @@ begin
         raise "Unknown mapped target: #{id}" unless segment
         raise "Duplicate mapped target: #{id}" if seen[id]
         raise "Mapped text differs from source: #{id}" unless node.text == segment[:text]
-        raise "Protected content was mapped: #{id}" if node.ancestors.any? { |parent| protected_names.include?(parent.name) } || node.xpath('.//*').any? { |child| protected_names.include?(child.name) }
+        raise "Protected content was mapped: #{id}" if node.ancestors.any? { |parent| protected_names.include?(parent.name) || parent.key?('data-local-editor-skip') } || node.key?('data-local-editor-skip') || node.xpath('.//*').any? { |child| protected_names.include?(child.name) }
 
         seen[id] = true
         stats[segment[:field] ? :mapped_metadata_targets : :mapped_body_targets] += 1
@@ -107,6 +107,7 @@ begin
       end
 
       structures = document.fetch(:structures)
+      raise 'An interactive component contains source editing targets.' unless local_content.css('[data-local-editor-skip] [data-local-edit-id], [data-local-editor-skip] [data-local-math-id], [data-local-editor-skip] [data-local-table-id], [data-local-editor-skip] [data-local-cell-id]').empty?
       equations = structures[:math].to_h { |item| [item[:id], item] }
       tables = structures[:tables].to_h { |item| [item[:id], item] }
       local_content.css('[data-local-math-id]').each do |node|

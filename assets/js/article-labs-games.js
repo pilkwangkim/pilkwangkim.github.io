@@ -103,7 +103,7 @@
   });
 
   register('games-maze-tempo', ctx => {
-    let state = initialMaze();
+    let state = initialMaze(), history = [];
     const actor = ctx.control('Acting unit', '행동할 유닛', { type: 'select', value: 'scout', options: [{ value: 'factory', en: 'Factory F', ko: 'Factory F' }, { value: 'scout', en: 'Scout S', ko: 'Scout S' }] });
     const action = ctx.control('One action this turn', '이번 턴의 행동 하나', { type: 'select', value: 'TRANSFER', options: [{ value: 'TRANSFER', en: 'TRANSFER to adjacent ally', ko: 'TRANSFER: 인접 아군에 전달' }, { value: 'MOVE_N', en: 'MOVE north', ko: 'MOVE 북쪽' }, { value: 'MOVE_E', en: 'MOVE east', ko: 'MOVE 동쪽' }, { value: 'MOVE_W', en: 'MOVE west', ko: 'MOVE 서쪽' }, { value: 'MOVE_S', en: 'MOVE south', ko: 'MOVE 남쪽' }, { value: 'JUMP_N', en: 'Factory JUMP two cells north', ko: 'Factory JUMP 북쪽 두 칸' }, { value: 'IDLE', en: 'IDLE', ko: 'IDLE' }] });
     const amount = ctx.control('Transfer request', '에너지 전달 요청량', { type: 'range', min: 0, max: 10, step: 1, value: 7 });
@@ -120,9 +120,30 @@
       ctx.view.append(ctx.el('p', {}, ctx.text('North ↑ · red edges are walls.', '북쪽 ↑ · 빨간 edge는 벽입니다.')));
       ctx.status.textContent = ctx.text(...messages[state.lost ? 'ended' : state.message]);
     }
-    ctx.button('Advance one turn', '한 턴 진행', () => { state = mazeStep(state, { actor: actor.value, type: action.value, amount: number(amount) }); render(); });
-    ctx.button('Restart this board', '보드 다시 시작', () => { state = initialMaze(); render(); });
-    ctx.onReset(() => { state = initialMaze(); }); ctx.onChange(render);
+    ctx.button('Advance one turn', '한 턴 진행', () => {
+      if (!state.lost) {
+        const next = { actor: actor.value, type: action.value, amount: number(amount) };
+        state = mazeStep(state, next); history.push(next);
+      }
+      render();
+    });
+    ctx.button('Restart this board', '보드 다시 시작', () => { state = initialMaze(); history = []; render(); });
+    ctx.onReset(() => { state = initialMaze(); history = []; }); ctx.onChange(render);
+    if (ctx.checkpointState) ctx.checkpointState({
+      read: () => ({ v: 1, history: history.map(item => ({ ...item })) }),
+      write: saved => {
+        if (!saved || saved.v !== 1 || !Array.isArray(saved.history) || saved.history.length > 20) throw new Error('Invalid maze history');
+        let restored = initialMaze();
+        const actions = saved.history.map(item => {
+          if (!item || !['factory', 'scout'].includes(item.actor) || !['TRANSFER', 'MOVE_N', 'MOVE_E', 'MOVE_W', 'MOVE_S', 'JUMP_N', 'IDLE'].includes(item.type) ||
+              !Number.isInteger(item.amount) || item.amount < 0 || item.amount > 10 || restored.lost) throw new Error('Invalid maze action');
+          const next = { actor: item.actor, type: item.type, amount: item.amount };
+          restored = mazeStep(restored, next);
+          return next;
+        });
+        state = restored; history = actions; render();
+      }
+    });
   });
 
   register('games-pokemon-policy', ctx => {

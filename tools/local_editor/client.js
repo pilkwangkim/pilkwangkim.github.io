@@ -48,6 +48,50 @@
   const sameValue = (a, b) => JSON.stringify(a) === JSON.stringify(b);
   const listValue = value => [...new Set(value.split(',').map(item => item.trim()).filter(Boolean))];
   const baselineMetadata = () => snapshot?.metadata?.values || {};
+  const widgetCheckpointKey = `local-editor:widgets:${url}`;
+
+  function saveWidgetCheckpoint(revision = snapshot.revision) {
+    try {
+      const negf = [...document.querySelectorAll('main article [data-negf-lab]')].map((root, index) => {
+        const detail = {};
+        root.dispatchEvent(new CustomEvent('article-preview:capture', { detail }));
+        return { index, state: detail.state };
+      }).filter(item => item.state);
+      const data = {
+        v: 1, route: location.pathname + location.search, revision,
+        created: Date.now(), labs: window.ArticleLabs?.checkpoint(), negf
+      };
+      const encoded = JSON.stringify(data);
+      if (encoded.length > 256000) throw new Error('Experiment checkpoint is too large');
+      sessionStorage.setItem(widgetCheckpointKey, encoded);
+    } catch (_) { sessionStorage.removeItem(widgetCheckpointKey); }
+  }
+
+  async function restoreWidgetCheckpoint() {
+    const encoded = sessionStorage.getItem(widgetCheckpointKey);
+    sessionStorage.removeItem(widgetCheckpointKey);
+    if (!encoded) return false;
+    try {
+      if (encoded.length > 256000) throw new Error('Experiment checkpoint is too large');
+      const data = JSON.parse(encoded);
+      if (data.v !== 1 || data.route !== location.pathname + location.search || data.revision !== snapshot.revision ||
+          !Number.isFinite(data.created) || Date.now() - data.created < 0 || Date.now() - data.created > 600000 ||
+          !Array.isArray(data.negf) || data.negf.length > 20) return false;
+      let incomplete = false;
+      if (data.labs) {
+        if (!window.ArticleLabs?.restoreCheckpoint) incomplete = true;
+        else incomplete = (await window.ArticleLabs.restoreCheckpoint(data.labs)).failures.length > 0;
+      }
+      const roots = [...document.querySelectorAll('main article [data-negf-lab]')];
+      for (const item of data.negf) {
+        if (!Number.isInteger(item.index) || !roots[item.index]) { incomplete = true; continue; }
+        const detail = { state: item.state, restored: false };
+        roots[item.index].dispatchEvent(new CustomEvent('article-preview:restore', { detail }));
+        if (!detail.restored) incomplete = true;
+      }
+      return incomplete;
+    } catch (_) { return true; }
+  }
 
   function changedMessage() {
     const parts = [];
@@ -603,13 +647,13 @@
       structuredTargets.set(item.id, { type, item, node, button, label });
     };
     (snapshot.structures?.math || []).forEach(item => {
-      const node = [...document.querySelectorAll('main article [data-local-math-id]')].find(candidate => candidate.dataset.localMathId === item.id && !candidate.closest('table'));
+      const node = [...document.querySelectorAll('main article [data-local-math-id]')].find(candidate => candidate.dataset.localMathId === item.id && !candidate.closest('table, [data-local-editor-skip]'));
       if (!node) return;
       availableMath.set(item.id, item);
       register('math', item, node, availableMath.size - 1);
     });
     (snapshot.structures?.tables || []).forEach(item => {
-      const node = [...document.querySelectorAll('main article table[data-local-table-id]')].find(candidate => candidate.dataset.localTableId === item.id);
+      const node = [...document.querySelectorAll('main article table[data-local-table-id]')].find(candidate => candidate.dataset.localTableId === item.id && !candidate.closest('[data-local-editor-skip]'));
       if (!node || !item.rows?.length || tableCells(item).some(cell => ![...node.querySelectorAll('[data-local-cell-id]')].some(candidate => candidate.dataset.localCellId === cell.id))) return;
       availableTables.set(item.id, item);
       register('table', item, node, availableTables.size - 1);
@@ -715,7 +759,7 @@
       const segment = byId.get(node.dataset.localEditId);
       // A rendered token can be uneditable (e.g. smart punctuation). Never infer
       // the corresponding source from a similar-looking string.
-      if (!segment || node.textContent !== segment.text || node.closest('table, pre, code, mjx-container, .highlight')) return;
+      if (!segment || node.textContent !== segment.text || node.closest('table, pre, code, mjx-container, .highlight, [data-local-editor-skip]')) return;
       nodes.set(segment.id, { node, segment });
       node.classList.add('local-editor-text');
       node.addEventListener('input', () => { if (!composing) noteChange(node, segment); });
@@ -795,6 +839,10 @@
       if (build.status === 'ready') {
         changes.clear();
         sessionStorage.setItem(`local-editor:notice:${url}`, operation);
+        // An external source edit changes the revision during Refresh preview.
+        // Bind the checkpoint to the completed build, not the old open page.
+        const rebuilt = operation === 'Preview refreshed' ? await request(`document?url=${encodeURIComponent(url)}`) : undefined;
+        saveWidgetCheckpoint(rebuilt ? (rebuilt.document || rebuilt).revision : snapshot.revision);
         location.reload();
         return;
       }
@@ -889,10 +937,11 @@
       }
       setEditing(sessionStorage.getItem(`local-editor:editing:${url}`) === '1');
       setMetadataOpen(sessionStorage.getItem(`local-editor:metadata:${url}`) === '1');
+      const incompleteWidgets = await restoreWidgetCheckpoint();
       const position = sessionStorage.getItem(`local-editor:position:${url}`);
       if (position) { window.scrollTo(0, Number(position)); sessionStorage.removeItem(`local-editor:position:${url}`); }
       const notice = sessionStorage.getItem(`local-editor:notice:${url}`);
-      if (notice) { message(notice); sessionStorage.removeItem(`local-editor:notice:${url}`); }
+      if (notice) { message(notice + (incompleteWidgets ? ' · some experiment settings could not be restored' : '')); sessionStorage.removeItem(`local-editor:notice:${url}`); }
     } catch (error) { message(error.message, true); }
   }
   initialize();

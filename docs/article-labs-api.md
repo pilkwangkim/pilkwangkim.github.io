@@ -27,6 +27,7 @@ The context has `root`, `ui` (controls), `view` (charts/content), `metrics` and 
 - `ctx.onChange(render)` delegates native input/change events and invokes `render()` immediately. Custom buttons may call the same render function. Reset restores all native fields and runs render.
 - `ctx.onReset(handler)` optionally resets custom JS state before the common render.
 - `ctx.stateLink(id, {read, write})` adds an experiment-link button. `read()` returns bounded JSON state. `write(state)` must validate the complete state before changing anything, then restore and render; throw or return `false` for invalid settings. Register after `onChange` and `onReset`. Matching shared settings restore after factory initialization. The versioned UTF-8 payload lives in the `labstate` URL parameter; the normal section anchor stays intact. No server state or post edits are involved.
+- `ctx.checkpointState({read, write})` provides the same validated state contract for local preview reloads without adding a share button. Use it for internal board/history state that is not derived from controls. A lab may register only one provider; `stateLink` already provides checkpoint support.
 - `ctx.note(en, ko)` replaces the collapsible model/data note.
 - `ctx.plot(spec)` returns a chart wrapper with an accessible SVG (viewBox `0 0 640 200`), wrapping HTML axis labels and an optional legend; append it to `ctx.view`. Spec: `{x:[min,max],y:[min,max],xLabel,yLabel,title,series:[{points:[[x,y],...],color:'blue'|'gold'|'muted'|'red',dash:false,label}],markers:[{x,y,label,color}],bars:[{x,y,width,color,label}],bands:[{x0,x1,y0,y1,color}],xTicks:[number...],yTicks:[number...]}`. Optional ticks; defaults are generated. No chart clipping to hide invalid model values. Keep units explicit.
 - `ctx.table(headers, rows)` returns a horizontally contained semantic table. Arrays contain display strings/numbers.
@@ -35,6 +36,8 @@ The context has `root`, `ui` (controls), `view` (charts/content), `metrics` and 
 - `await ctx.fetchJSON(path)` and `await ctx.fetchCSV(path)` load bundled public data. CSV returns an array of objects and supports quoted cells.
 
 The root has `data-local-editor-skip` and `tex2jax_ignore`; no application state is saved to post source. Initial controls are unavailable until the factory succeeds. Errors show a concise status with retry via Reset. Do not add model/API calls, invented measured results or new dependencies. Historical records use discrete presets; synthetic examples state their exact assumptions. Module assets are fingerprinted and loaded only by posts naming that bundle.
+
+`ArticleLabs.checkpoint()` returns bounded JSON settings for ready roots. `await ArticleLabs.restoreCheckpoint(snapshot)` restores matching root IDs, languages, presets and asset versions and returns `{restored, failures}`. Each model validates before mutation; rejected entries roll back independently. Raw field drafts and open details also survive a local editor rebuild. This API does not write source files, browser storage or URL state; the local editor manages its single-use session checkpoint.
 
 Declare every fetched JSON/CSV path in the registry's `data` array. Those source bytes participate in the bundle fingerprint and the versioned data URL.
 

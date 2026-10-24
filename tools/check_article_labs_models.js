@@ -142,6 +142,7 @@ async function main() {
       button: (_en, _ko, handler) => { const node = new StubNode('button', { type: 'button', class: 'al-button' }); buttons.push(handler); node.addEventListener('click', handler); ctx.ui.append(node); return node; },
       onReset: fn => { resetState = fn; }, onChange: fn => { render = () => { renders++; fn(); }; render(); },
       stateLink: (key, config) => { assert.equal(key, id, id + ': share key does not match factory'); assert.equal(typeof config.read, 'function'); assert.equal(typeof config.write, 'function'); sharedState = config; },
+      checkpointState: config => { assert.equal(sharedState, undefined, id + ': duplicate state provider'); assert.equal(typeof config.read, 'function'); assert.equal(typeof config.write, 'function'); sharedState = config; },
       plot: spec => {
         plots++; assert(spec.x[1] > spec.x[0] && spec.y[1] > spec.y[0], id + ': invalid plot domain');
         assert([...spec.x, ...spec.y].every(Number.isFinite), id + ': nonfinite domain');
@@ -216,7 +217,9 @@ async function main() {
     }
     for (const handler of buttons) handler();
     // Custom view buttons (gate selection and plot selection) participate too.
-    for (const node of ctx.view.querySelectorAll('button')) node.dispatchEvent(new StubEvent('click', { bubbles: true }));
+    for (const node of ctx.view.querySelectorAll('button')) {
+      if (node.closest('[data-article-lab]') === root) node.dispatchEvent(new StubEvent('click', { bubbles: true }));
+    }
     if (sharedState) sharedRoundTrip();
     if (customFields.length) {
       const values = customFields.map(node => node.value);

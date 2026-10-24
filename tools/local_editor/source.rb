@@ -151,6 +151,13 @@ module LocalEditor
                      end
                      mapping
                    end
+      # Known interactive includes replace complete standalone lines with
+      # component-owned sections. Their ordered boundaries can establish the
+      # literal islands between several includes without searching for similar
+      # prose or trusting generic Liquid output.
+      if input.is_a?(String) && (islands = interactive_include_line_map(root, input, adjustment))
+        line_map = line_map.merge(islands) { |_line, existing, mapped| existing == mapped ? mapped : nil }
+      end
       @table_source.annotate(root, input: input || @body, line_map: line_map)
       @math_source.annotate(root, input: input || @body, line_map: line_map)
       Mapper.new(@body, @body_offset, allowed_ids: @segments.to_h { |segment| [segment[:id], true] },
@@ -284,6 +291,149 @@ module LocalEditor
     end
 
     private
+
+    def interactive_include_line_map(root, input, adjustment)
+      original_lines = @body.lines
+      includes = original_lines.each_with_index.filter_map do |line, index|
+        descriptor = interactive_include_descriptor(line)
+        descriptor&.merge(line: index, token: line.strip)
+      end
+      return if includes.empty?
+
+      # A loop or conditional must not cross any component boundary. Closed
+      # template regions before/after the complete component span can retain
+      # their existing fail-closed mapping without locking its literal middle.
+      prefix = []
+      suffix = []
+      known = includes.map { |item| item[:token] }
+      @body.to_enum(:scan, /\{\{.*?\}\}|\{%.*?%\}/m).each do
+        match = Regexp.last_match
+        token = match[0]
+        next if single_line_url_token?(token)
+
+        first_line = @body[0...match.begin(0)].count("\n")
+        last_line = @body[0...match.end(0)].count("\n")
+        if (descriptor = includes.find { |item| item[:line] == first_line && item[:token] == token })
+          known.delete_at(known.index(descriptor[:token]))
+        elsif last_line < includes.first[:line]
+          prefix << { token: token, first: first_line, last: last_line }
+        elsif first_line > includes.last[:line]
+          suffix << { token: token, first: first_line, last: last_line }
+        else
+          return
+        end
+      end
+      return unless known.empty? && closed_template_region?(prefix) && closed_template_region?(suffix)
+
+      rendered_lines = input.lines
+      ranges = SkippedContent.ranges(input)
+      components = root.children.select { |node| SkippedContent.node?(node) }
+      return unless ranges.length == includes.length && components.length == includes.length
+
+      rendered_bounds = ranges.sort_by(&:first).zip(includes, components).map do |(first, finish), descriptor, node|
+        return unless node.value.to_s.downcase == 'section'
+        return unless interactive_component_matches?(node.attr, descriptor)
+
+        first_line = input.b.byteslice(0...first).count("\n")
+        last_line = input.b.byteslice(0...finish).count("\n")
+        return unless node.options[:location] == first_line + 1
+
+        line_start = rendered_lines.take(first_line).sum(&:bytesize)
+        line_finish = rendered_lines.take(last_line + 1).sum(&:bytesize)
+        return unless input.b.byteslice(line_start...first).match?(/\A[ \t]*\z/n)
+        return unless input.b.byteslice(finish...line_finish).match?(/\A[ \t]*(?:\r?\n)?\z/n)
+        return unless input.b.byteslice(first...finish).match?(%r{</section\s*>\z}in)
+
+        [first_line, last_line + 1]
+      end
+
+      mapping = {}
+      source_cursor = adjustment
+      rendered_cursor = 0
+      # Each entire island must agree, allowing only the same narrow URL
+      # substitutions as the existing prefix/suffix mapper. Leading/trailing
+      # blank lines belong to include formatting and never identify text.
+      (includes + [nil]).each_with_index do |descriptor, index|
+        source_finish = descriptor ? descriptor[:line] : original_lines.length
+        rendered_finish = descriptor ? rendered_bounds[index].first : rendered_lines.length
+        source_cursor = [source_cursor, prefix.last[:last] + 1].max if index.zero? && prefix.any?
+        source_finish = [source_finish, suffix.first[:first]].min if !descriptor && suffix.any?
+        source_rows = (source_cursor...source_finish).to_a
+        rendered_rows = (rendered_cursor...rendered_finish).to_a
+        source_rows.shift while source_rows.any? && original_lines[source_rows.first].strip.empty?
+        source_rows.pop while source_rows.any? && original_lines[source_rows.last].strip.empty?
+        rendered_rows.shift while rendered_rows.any? && rendered_lines[rendered_rows.first].strip.empty?
+        rendered_rows.pop while rendered_rows.any? && rendered_lines[rendered_rows.last].strip.empty?
+        rendered_rows = source_rows.empty? ? [] : rendered_rows.last(source_rows.length) if index.zero? && prefix.any?
+        rendered_rows = rendered_rows.first(source_rows.length) if !descriptor && suffix.any?
+        return unless source_rows.length == rendered_rows.length
+        return unless source_rows.zip(rendered_rows).all? do |source_row, rendered_row|
+          matching_url_expanded_line?(original_lines[source_row], rendered_lines[rendered_row])
+        end
+
+        source_rows.zip(rendered_rows).each do |source_row, rendered_row|
+          mapping[rendered_row + 1] = source_row + 1 if original_lines[source_row] == rendered_lines[rendered_row]
+        end
+        next unless descriptor
+
+        source_cursor = descriptor[:line] + 1
+        rendered_cursor = rendered_bounds[index].last
+      end
+      mapping
+    end
+
+    def closed_template_region?(tokens)
+      stack = []
+      blocks = %w[if unless case for tablerow capture comment raw ifchanged]
+      singles = %w[assign echo include render cycle increment decrement break continue]
+      tokens.all? do |entry|
+        token = entry[:token]
+        next true if token.start_with?('{{')
+
+        name = token[/\A\{%-?\s*([a-z_]+)/, 1]
+        if blocks.include?(name)
+          stack << name
+          true
+        elsif name&.start_with?('end')
+          stack.pop == name.delete_prefix('end')
+        elsif %w[else elsif when].include?(name)
+          !stack.empty?
+        else
+          singles.include?(name)
+        end
+      end && stack.empty?
+    end
+
+    def interactive_include_descriptor(line)
+      match = line.match(/\A[ \t]*\{%\s*include\s+interactive\/(article-lab|negf-barrier)\.html([^\r\n{}]*?)%\}[ \t]*(?:\r?\n|\z)\z/)
+      return unless match
+
+      kind, remaining = match.captures
+      values = {}
+      until remaining.strip.empty?
+        parameter = remaining.match(/\A\s+(id|key|preset)=(["'])([A-Za-z0-9_.-]*)\2/)
+        return unless parameter && !values.key?(parameter[1])
+
+        values[parameter[1]] = parameter[3]
+        remaining = remaining[parameter.end(0)..]
+      end
+      return if kind == 'negf-barrier' && !values.empty?
+      return if kind == 'article-lab' && (values['id'].to_s.empty? || (values.key?('key') && values['key'].empty?))
+
+      { kind: kind, values: values }
+    end
+
+    def interactive_component_matches?(attributes, descriptor)
+      values = descriptor[:values]
+      if descriptor[:kind] == 'article-lab'
+        attributes['class'].to_s.split.include?('article-lab') &&
+          attributes['data-article-lab'] == values['id'] &&
+          attributes['id'] == "lab-#{values['key'] || values['id']}" &&
+          attributes['data-preset'].to_s == values.fetch('preset', '')
+      else
+        attributes['class'].to_s.split.include?('negf-lab') && attributes.key?('data-negf-lab')
+      end
+    end
 
     # URL outputs preserve the line count, so their surrounding literal bytes
     # can anchor adjacent unchanged lines. Never map the expanded line itself:

@@ -1,0 +1,51 @@
+/* Only the two state-space games use these selectors. */
+.article-lab.sa-lab { font-size: .95rem; line-height: 1.55; }
+.sa-lab .al-body { grid-template-columns: minmax(145px,.65fr) minmax(0,1.7fr); }
+.sa-lab .al-control-label,.sa-lab .al-control select,.sa-lab .al-control input,.sa-lab .al-button { font-size: .84rem; }
+.sa-lab .al-button { min-height: 38px; }
+.sa-lab .al-control select { min-height: 40px; }
+.sa-lab .al-metrics dt,.sa-lab .al-status,.sa-lab .al-model,.sa-lab .al-model p { font-size: .8rem; }
+.sa-lab .al-metrics dd { font-size: .92rem; }
+.sa-lab .sa-boards { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1rem; }
+.content .sa-lab .sa-board-title { font-size: .95rem; font-weight: 600; margin: 0 0 .5rem; line-height: 1.4; }
+.sa-lab .sa-board { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 4px; padding: 5px; background: var(--al-line); border-radius: 8px; width: 100%; max-width: 250px; }
+.sa-lab .sa-board:focus-visible { outline: 2px solid var(--al-blue); outline-offset: 3px; }
+.article-lab.sa-lab .sa-tile { display: grid; place-items: center; width: 100%; min-width: 0; min-height: 0; aspect-ratio: 1; padding: 0; margin: 0; border: 1px solid var(--al-blue); border-radius: 5px; background: var(--main-bg,#fff); color: var(--text-color,#27384a); font: 700 1.55rem/1 system-ui,sans-serif; }
+.sa-lab button.sa-tile { cursor: pointer; }
+.sa-lab .sa-tile:disabled { opacity: .85; cursor: default; }
+.sa-lab .sa-tile.sa-blank { color: var(--text-muted-color,#667); background: transparent; border-color: transparent; }
+.sa-lab .sa-tile.sa-hint { box-shadow: inset 0 0 0 4px var(--al-gold); }
+.sa-lab .al-view :is(.sa-readout,.sa-instruction,.sa-announcement,.sa-event,.sa-violation) { margin: .4rem 0; font-size: .87rem; line-height: 1.6; overflow-wrap: anywhere; }
+.sa-lab .sa-announcement { color: var(--al-blue); font-weight: 600; }
+.sa-lab .sa-event,.sa-lab .sa-violation { color: var(--al-red); }
+.sa-lab .sa-frontier .al-table-wrap,.sa-lab .sa-inspection .al-table-wrap { max-height: 210px; }
+.content .sa-lab .al-table-wrap table { font-size: .84rem; width: 100%; margin: 0; }
+.content .sa-lab .al-table-wrap :is(th,td) { padding: .35rem; }
+.sa-lab .sa-graph { display: block; width: 100%; height: auto; overflow: visible; }
+.sa-lab .sa-graph text { font-family: system-ui,sans-serif; fill: var(--text-color,#27384a); }
+.sa-lab .sa-graph .sa-edge-label { font-size: 21px; font-weight: 600; paint-order: stroke; stroke: var(--main-bg,#fff); stroke-width: 6px; stroke-linejoin: round; }
+.sa-lab .sa-graph .sa-node { fill: var(--main-bg,#fff); stroke: var(--al-blue); stroke-width: 2px; }
+.sa-lab .sa-graph .sa-node-current { fill: #f4ce86; stroke: #826118; }
+.sa-lab .sa-graph .sa-node-closed { fill: #ccd6df; }
+.sa-lab .sa-graph .sa-node-label { font-size: 23px; font-weight: 700; fill: #24364a; }
+.sa-lab .sa-graph .sa-node:not(.sa-node-current):not(.sa-node-closed) + .sa-node-label { fill: var(--text-color,#27384a); }
+.sa-lab .sa-guesses { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; }
+.sa-lab .sa-guesses p { width: 100%; font-size: .9rem; margin: 0 0 .3rem; }
+.sa-lab .sa-guesses button { min-width: 44px; }
+@container articlelab (max-width: 570px) {
+  .sa-lab .al-body { grid-template-columns: minmax(0,1fr); }
+  .sa-lab .al-sidebar { display: contents; }
+  .sa-lab .al-controls { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .sa-lab .al-metrics { grid-template-columns: repeat(3,minmax(0,1fr)); }
+}
+@media (max-width: 600px) {
+  .sa-lab .al-body { grid-template-columns: minmax(0,1fr); }
+  .sa-lab .al-sidebar { display: contents; }
+  .sa-lab .al-controls { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .sa-lab .sa-boards { gap: .7rem; }
+  .sa-lab .al-metrics { grid-template-columns: repeat(3,minmax(0,1fr)); }
+  .sa-lab .al-control select { font-size: 16px; min-height: 44px; }
+  .sa-lab .al-button { font-size: .87rem; }
+  .content .sa-lab .al-table-wrap table { font-size: .85rem; }
+}
+@media print { .sa-lab .sa-guesses { display: none; } }

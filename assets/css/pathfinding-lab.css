@@ -1,0 +1,100 @@
+/* Scoped pathfinding controls: text remains readable at the article's real width. */
+.content:has(.astar-figure-desktop) { min-width: 0; }
+.content:has(.astar-figure-desktop) mjx-container[display="true"] { display: block; max-width: 100%; overflow-x: auto; overflow-y: hidden; padding: .3em 0; }
+.pf-lab .al-body { grid-template-columns: minmax(190px, .75fr) minmax(0, 1.65fr); }
+.pf-lab:is([data-article-lab="astar-quiz"],[data-article-lab="astar-code-test"]) .al-body { grid-template-columns: 1fr; }
+.pf-lab:is([data-article-lab="astar-quiz"],[data-article-lab="astar-code-test"]) .al-controls { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.pf-lab:is([data-article-lab="astar-quiz"],[data-article-lab="astar-code-test"]) .al-control { grid-column: 1 / -1; }
+.pf-lab .al-view { min-width: 0; }
+.pf-lab .pf-grid-scroll { min-width: 0; max-width: 100%; overflow-x: auto; overscroll-behavior-x: contain; }
+.pf-lab .pf-grid-scroll:focus-visible { outline: 2px solid var(--al-blue); outline-offset: 2px; }
+.pf-lab:is([data-article-lab="astar-quiz"],[data-article-lab="astar-code-test"]) .al-view { grid-template-columns: minmax(0, 1fr); }
+.pf-lab .al-control-label, .pf-lab .al-control :is(select,input[type=number]) { font-size: .85rem; }
+.pf-lab .al-metrics dt { font-size: .78rem; }
+.pf-lab .al-metrics dd { font-size: .9rem; }
+.pf-lab .al-status, .pf-lab .al-model, .pf-lab .al-model p { font-size: .8rem; line-height: 1.6; }
+.content .pf-lab .al-table-wrap table { font-size: .8rem; }
+.pf-lab .pf-board { display: grid; gap: 0; width: 100%; margin: .4rem 0 .6rem; border: 2px solid var(--al-muted); border-radius: 4px; overflow: hidden; }
+.pf-lab .pf-row { display: grid; grid-template-columns: repeat(13, minmax(0, 1fr)); }
+.pf-lab .pf-cell { padding: 0; margin: 0; min-width: 0; aspect-ratio: 1; border: 1px solid color-mix(in srgb, var(--al-muted) 35%, transparent); border-radius: 0; color: #152537; background: #fafbfc; font: 700 clamp(.72rem, 1.5vw, .9rem)/1 system-ui, sans-serif; box-shadow: none; }
+.pf-lab .pf-cell:focus-visible { z-index: 1; outline: 3px solid #d64a85; outline-offset: -3px; }
+.article-lab.pf-lab.al-workshop button.pf-cell { min-width: 0; min-height: 0; touch-action: manipulation; }
+.pf-lab .pf-cell.pf-selected { box-shadow: inset 0 0 0 2px #d64a85; }
+.pf-lab .pf-wall { color: #fff; background: #354052; }
+.pf-lab .pf-terrain { color: #594200; background: #f3d98d; }
+.pf-lab .pf-frontier { color: #12425b; background: #c4e5f5; }
+.pf-lab .pf-expanded { color: #3d4752; background: #d5dce2; }
+.pf-lab .pf-current { color: #573400; background: #f6bb66; }
+.pf-lab .pf-path { color: #0b4531; background: #8dd9ad; }
+.pf-lab .pf-legend { display: flex; flex-wrap: wrap; gap: .35rem .65rem; font-size: .81rem; line-height: 1.5; }
+.pf-lab .pf-key { padding: .08rem .32rem; border: 1px solid #a5afb9; border-radius: 3px; }
+.pf-lab .pf-detail { font-size: .9rem; line-height: 1.6; margin: .7rem 0; overflow-wrap: anywhere; }
+.pf-lab .pf-frontier-view > p { font-size: .85rem; margin: .5rem 0 .25rem; }
+.pf-lab .pf-frontier-view .al-table-wrap { max-height: 230px; overflow: auto; }
+.pf-lab .pf-instruction { font-size: .82rem; line-height: 1.6; margin-top: .75rem; }
+.pf-lab .pf-expression-label { display: flex; flex-direction: column; gap: .3rem; font-size: .87rem; }
+.pf-lab .pf-expression { width: 100%; min-width: 0; padding: .5rem; font: 1rem/1.5 ui-monospace, monospace; border: 1px solid var(--al-muted); border-radius: 4px; color: inherit; background: transparent; }
+.pf-lab .pf-expression[aria-invalid="true"] { border-color: var(--al-red); }
+.pf-lab .pf-answer { padding: .6rem 0; border-bottom: 1px solid var(--al-muted); }
+.pf-lab .pf-answer p { font-size: .9rem; line-height: 1.65; margin: .3rem 0; }
+.pf-lab .pf-exercise-title { font-size: 1.12rem; line-height: 1.5; margin: .6rem 0; }
+.pf-lab .pf-exercise-figure { margin: .5rem 0 1rem; width: 100%; }
+.pf-lab .pf-exercise-figure :is(picture,img) { display: block; width: 100%; max-width: 100%; height: auto; }
+.pf-lab .pf-exercise-figure figcaption { font-size: .88rem; line-height: 1.6; margin-top: .5rem; text-align: left; }
+/* The shared compact-lab paragraph rule is more specific than a class alone.
+   Questions and explanations are reading text, not tiny chart annotations. */
+.content .pf-lab p.pf-exercise-prompt { font-size: 1rem; line-height: 1.8; margin: .7rem 0 1rem; }
+.content .pf-lab p.pf-answer-label { font-size: .95rem; font-weight: 600; margin: .7rem 0 .35rem; }
+.content .pf-lab .pf-answer p { font-size: 1rem; line-height: 1.75; }
+.pf-lab .pf-answer-options { display: grid; gap: .5rem; }
+.pf-lab button.pf-answer-option { width: 100%; min-width: 0; max-width: 100%; text-align: start; white-space: normal; overflow-wrap: anywhere; font-size: 1rem; line-height: 1.65; padding: .65rem .7rem; color: inherit; background: transparent; border: 1px solid var(--al-muted); border-radius: 4px; }
+.pf-lab button.pf-answer-option[aria-checked="true"] { border-color: var(--al-blue); background: color-mix(in srgb, var(--al-blue) 12%, transparent); box-shadow: inset 3px 0 0 var(--al-blue); }
+.pf-lab button.pf-answer-option:focus-visible { outline: 3px solid var(--al-blue); outline-offset: 2px; }
+.pf-lab .pf-exercise-hint:not(:empty) { font-size: .9rem; line-height: 1.7; padding: .7rem; margin: .8rem 0; border-inline-start: 3px solid var(--al-gold); background: color-mix(in srgb, var(--al-gold) 9%, transparent); }
+.pf-lab .pf-exercise-followup { color: var(--text-muted-color); }
+.pf-lab[data-article-lab="astar-code-test"] .pf-expression-label { grid-column: 1 / -1; }
+.pf-lab .pf-code-scaffold { min-width: 0; max-width: 100%; margin: .75rem 0; }
+.pf-lab .pf-code-scaffold summary { font-size: .9rem; font-weight: 600; line-height: 1.6; }
+.pf-lab .pf-code-scaffold pre { max-height: 25rem; max-width: 100%; overflow: auto; padding: .75rem; margin: .6rem 0; font-size: .79rem; line-height: 1.65; border: 1px solid var(--al-muted); border-radius: 4px; }
+.pf-lab .pf-code-scaffold code { white-space: pre; }
+.content .pf-lab p.pf-code-failure, .content .pf-lab p.pf-code-counter-note { font-size: .92rem; line-height: 1.7; margin: .6rem 0; overflow-wrap: anywhere; }
+.pf-lab .pf-code-results { min-width: 0; max-width: 100%; }
+.pf-lab .pf-code-results .al-table-wrap { max-width: 100%; }
+.content .pf-lab .pf-code-results table { min-width: 35rem; }
+.astar-figure-desktop, .astar-figure-mobile { width: 100%; margin: 1.25rem 0 .5rem; }
+.astar-figure-desktop > a, .astar-figure-mobile > a { display: block; width: 100%; }
+.astar-figure-desktop img, .astar-figure-mobile img { display: block; width: 100%; height: auto; }
+.astar-figure-mobile { display: none; }
+.content:has(.astar-figure-desktop) mjx-container[display="true"] { min-width: 0 !important; }
+@media (max-width: 640px) {
+  /* Keep dense map cells usable without widening the article itself. */
+  .pf-lab .pf-board { min-width: calc(13 * 28px + 4px); }
+  .astar-figure-desktop { display: none; }
+  .astar-figure-mobile { display: block; }
+  /* Short worked traces should fit beside their explanation, not inherit
+     the site's minimum width for wide data/comparison tables. */
+  .content:has(.astar-figure-desktop) table.astar-worked-table { min-width: 0; width: 100%; }
+  .content:has(.astar-figure-desktop) table.astar-worked-table :is(th,td) { white-space: normal; overflow-wrap: anywhere; padding: .45rem .4rem; }
+  .content:has(.astar-figure-desktop) table.astar-worked-table code { white-space: normal; }
+}
+@media print {
+  .astar-figure-desktop { display: block; }
+  .astar-figure-mobile { display: none; }
+}
+@media (max-width: 760px) {
+  .pf-lab .al-body { grid-template-columns: 1fr; }
+  .pf-lab .al-controls { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pf-lab .al-metrics { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .pf-lab .pf-cell { font-size: .8rem; }
+  .pf-lab:is([data-article-lab="astar-quiz"],[data-article-lab="astar-code-test"]) .al-controls { grid-template-columns: 1fr; }
+}
+@media (max-width: 420px) {
+  .pf-lab .al-metrics { grid-template-columns: 1fr; }
+  .pf-lab .pf-cell { font-size: .72rem; }
+  .pf-lab .pf-expression-label { grid-column: 1 / -1; }
+}
+/* These two compact readouts remain side by side, including phone widths. */
+.pf-lab:is([data-article-lab="astar-quiz"],[data-article-lab="astar-code-test"]) .al-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (min-width: 761px) {
+  .pf-lab[data-article-lab="astar-code-test"] .al-controls > .pf-expression-label { grid-column: auto; }
+}

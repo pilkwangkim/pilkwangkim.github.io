@@ -1,0 +1,42 @@
+astar-traversal:
+  bundle: pathfinding
+  stylesheet: /assets/css/pathfinding-lab.css
+  title: {en: "DFS and BFS: inspect the frontier", ko: "DFS와 BFS: frontier를 한 단계씩 살펴보기"}
+  note: {en: "Finite 13×9 authored grid. Four-direction movement, unit edge costs, neighbor order right/down/left/up. DFS uses a stack and BFS a queue; both mark states discovered when inserted. Goal detection occurs when removed from the frontier. Expanded counts states whose successors were examined; the goal is not expanded. Frontier and peak count distinct active states. Colors and letters distinguish frontier, expanded, current and final path.", ko: "13×9 예제 grid에서 상하좌우로 이동하며 모든 edge 비용은 1입니다. 이웃 순서는 오른쪽·아래·왼쪽·위입니다. DFS는 stack, BFS는 queue를 쓰고 frontier에 넣을 때 discovered로 표시합니다. frontier에서 꺼낸 뒤 goal인지 확인합니다. Expanded는 이웃을 살펴본 state 수이며 goal은 포함하지 않습니다. Frontier와 최댓값은 중복을 제외한 active state 수입니다. 색과 글자로 frontier·expanded·current·최종 경로를 구분합니다."}
+astar-weighted:
+  bundle: pathfinding
+  stylesheet: /assets/css/pathfinding-lab.css
+  title: {en: "Weighted routes: compare the priorities", ko: "Weighted 경로: priority를 바꾸며 비교하기"}
+  note: {en: "Directed edge cost c(u,v)=step length×terrain(v); terrain is 1 or 5, and the start has no entry charge. Orthogonal steps cost length 1; diagonals length √2. Diagonals require both adjacent orthogonal cells to be open. Heuristics use the minimum terrain multiplier 1. Manhattan is restricted to four-direction movement; Euclidean and octile are safe for eight. A* uses g+w h, with reopening on every strict g improvement and stale-entry rejection. Ties use lower h then insertion order. Reference cost is freshly computed by Dijkstra on the same edited grid. Expanded counts successor expansions, including repeat expansions after reopening, but excluding the goal. Frontier and peak count distinct active states, not raw heap entries; obsolete heap entries are excluded.", ko: "Edge 비용은 c(u,v)=이동 거리×terrain(v)입니다. Terrain은 1 또는 5이고 시작 cell에는 진입 비용이 없습니다. 직선 이동 거리는 1, 대각선은 √2입니다. 대각선 양옆의 직선 cell이 모두 열려 있어야 이동할 수 있습니다. Heuristic은 최소 terrain 계수 1을 씁니다. Manhattan은 4방향에서만, Euclidean과 octile은 8방향에서도 사용할 수 있습니다. A*는 g+w h를 쓰며 더 작은 g가 나오면 다시 열고 오래된 heap entry는 버립니다. 동점이면 h가 작은 쪽, 그다음 먼저 넣은 쪽을 고릅니다. Reference는 수정된 같은 grid에서 Dijkstra로 다시 계산합니다. Expanded는 reopening에 따른 중복을 포함한 이웃 검사 횟수이고 goal은 제외합니다. Frontier와 최댓값은 중복을 제외한 active state 수입니다. 오래된 entry를 포함한 heap 크기와는 다릅니다."}
+astar-priority-lab:
+  bundle: pathfinding
+  stylesheet: /assets/css/pathfinding-lab.css
+  title: {en: "Write a priority expression", ko: "Priority 수식을 직접 써 보기"}
+  note: {en: "Restricted arithmetic editor, not a Python or JavaScript interpreter. Grammar: g, h, finite numbers, + - * / and parentheses; unary + and - are accepted. No functions, assignment, property access, loops or external code. At most 80 characters, 80 tokens and 16 nesting levels. Each run is bounded to 10,000 valid pops. Three authored four-direction test grids compare returned costs with Dijkstra. Passing these examples does not prove admissibility, consistency, completeness or optimality in general.", ko: "Python이나 JavaScript를 실행하는 환경이 아니라 제한된 산술식 editor입니다. g·h·유한한 숫자·+ - * /·괄호만 사용할 수 있고 단항 + -도 허용합니다. 함수·대입·속성 접근·반복문·외부 코드는 지원하지 않습니다. 80자·80 token·괄호 깊이 16으로 제한하고 한 번의 탐색은 유효 pop 10,000번까지만 실행합니다. 4방향 예제 grid 세 개에서 Dijkstra 비용과 비교합니다. 이 예제를 통과해도 일반적인 admissibility·consistency·completeness·optimality가 증명되는 것은 아닙니다."}
+astar-quiz:
+  bundle: pathfinding
+  stylesheet: /assets/css/pathfinding-lab.css
+  title: {en: "Five illustrated A* exercises", ko: "그림으로 풀어 보는 A* 연습문제"}
+  data:
+    - /assets/data/astar-exercises.json
+    - /assets/img/posts/2026-10-24-astar-from-scratch/exercise-01-goal.svg
+    - /assets/img/posts/2026-10-24-astar-from-scratch/exercise-01-goal-mobile.svg
+    - /assets/img/posts/2026-10-24-astar-from-scratch/exercise-02-reopening.svg
+    - /assets/img/posts/2026-10-24-astar-from-scratch/exercise-02-reopening-mobile.svg
+    - /assets/img/posts/2026-10-24-astar-from-scratch/exercise-03-moves.svg
+    - /assets/img/posts/2026-10-24-astar-from-scratch/exercise-03-moves-mobile.svg
+    - /assets/img/posts/2026-10-24-astar-from-scratch/exercise-04-boundaries.svg
+    - /assets/img/posts/2026-10-24-astar-from-scratch/exercise-04-boundaries-mobile.svg
+    - /assets/img/posts/2026-10-24-astar-from-scratch/exercise-05-teleport.svg
+    - /assets/img/posts/2026-10-24-astar-from-scratch/exercise-05-teleport-mobile.svg
+    - /assets/img/posts/2026-10-24-astar-from-scratch/exercise-06-code.svg
+    - /assets/img/posts/2026-10-24-astar-from-scratch/exercise-06-code-mobile.svg
+  note: {en: "Five finite illustrated problems cover goal acceptance, reopening, move-dependent distance, boundary cases and a speed-based heuristic. Arrow labels are directed edge costs unless stated otherwise. Answers and hints remain only in this page session; Reset clears them. Diagrams and bilingual explanations come from one local JSON source shared with the notebooks.", ko: "Goal 확인 시점, reopening, 이동 규칙에 맞는 거리, 경계 조건, 속도 기반 heuristic을 그림 다섯 개로 확인합니다. 별도 설명이 없으면 화살표의 숫자는 directed edge의 비용입니다. 답과 힌트는 현재 페이지에서만 유지하며 초기값으로 돌아가면 지웁니다. 그림 정보와 한·영 해설은 notebook과 같은 로컬 JSON을 사용합니다."}
+astar-code-test:
+  bundle: pathfinding
+  stylesheet: /assets/css/pathfinding-lab.css
+  data: [/assets/data/astar-exercises.json]
+  title: {en: "Coding test: complete the three A* decisions", ko: "코드 테스트: A*의 빈칸 세 개 채우기"}
+  note:
+    en: "Guided coding test, not an arbitrary Python interpreter. Priority accepts g, h, finite numbers, + - * / and parentheses (80 characters, 80 tokens, depth 16). Relaxation accepts only candidate compared with old_g using <, <=, >, >=, == or !=. Goal testing is selected as valid-pop or discovery. Eight finite nonnegative-cost graph cases use lower-h then insertion-order ties, reopening and stale-entry rejection. Every run has a 5000-raw-pop limit, reported separately from no route. Expanded counts states whose successors were generated or examined; repeated expansions count again and an accepted goal is excluded. The at-most 40 expansion budget applies only to the supplied 15×15 open unit grid with Manhattan h; it is not a general runtime bound. The full Python scaffold is available in the notebook."
+    ko: "전체 Python 코드를 실행하는 환경이 아니라 빈칸 세 개를 채우는 코드 테스트입니다. Priority에는 g·h·유한한 숫자·+ - * /·괄호를 쓸 수 있습니다(80자·80 token·깊이 16). 갱신 조건은 candidate와 old_g를 <, <=, >, >=, ==, !=로 비교하는 식만 허용합니다. Goal 확인 위치는 유효 pop 또는 발견 시점 중에서 고릅니다. 비용이 0 이상인 유한 graph 여덟 개를 사용하며, 동점이면 h가 작은 쪽, 그다음 먼저 넣은 쪽을 고릅니다. Reopening과 오래된 entry 건너뛰기는 고정 코드에 포함되어 있습니다. 실행마다 raw pop 5000회 상한을 두고, 상한 도달과 경로 없음을 구분합니다. Expanded는 successor를 생성·검사한 state 수입니다. 같은 state를 재확장하면 다시 세고, 정답으로 받아들인 goal은 제외합니다. 40회 이하 조건은 주어진 15×15 빈 단위 비용 grid와 Manhattan h에만 적용하며 일반적인 실행 시간 상한은 아닙니다. 전체 Python 코드는 notebook에서 수정하고 실행할 수 있습니다."
