@@ -85,6 +85,18 @@ jobs:
       - name: Check quantum transport interaction
         run: node tools/test_negf_core.js
 
+      - name: Setup Python for Galois checks
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Check Galois article and exercises
+        run: |
+          python -m pip install sympy==1.14.0
+          node tools/test_galois.js
+          python tools/test_galois_math.py --sympy required --require-assets
+          python tools/check_galois_article.py
+
       - name: Build site
         run: bundle exec jekyll b -d "_site${{ steps.pages.outputs.base_path }}"
         env:

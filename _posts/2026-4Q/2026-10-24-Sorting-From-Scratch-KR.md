@@ -12,7 +12,7 @@ lang: ko
 translation_key: sorting-from-scratch
 image:
   path: /assets/img/posts/2026-10-24-sorting-from-scratch/cover-sorting.png
-  alt: "같은 여덟 값을 정렬 전후의 막대 높이로 보여 주는 그림."
+  alt: "여섯 input record가 오름차순의 어느 위치로 이동하는지 선으로 연결한 그림. Key가 4인 record를 강조했다."
   width: 1600
   height: 900
   fit: contain
@@ -132,10 +132,10 @@ $O$는 upper bound, $\Omega$는 lower bound를 나타내며, $\Theta$는 같은 
 
 한 알고리즘에서 여러 방법을 조합하기도 한다. Run-based sort는 입력에서 이미 정렬된 구간을 찾아 merge한다. Introsort는 partition의 depth budget에 도달하면 heap으로 전환한다.
 
-<div class="sorting-figure-desktop"><img src="{{ site.baseurl }}/assets/img/posts/2026-10-24-sorting-from-scratch/fig-01-families.svg" alt="Local update, merge, partition, heap order, key distribution, fixed schedule의 여섯 정렬 방식." width="1536" height="1040"></div>
-<div class="sorting-figure-mobile"><img src="{{ site.baseurl }}/assets/img/posts/2026-10-24-sorting-from-scratch/fig-01-families-mobile.svg" alt="여섯 정렬 방식과 각각 이용하는 구조를 세로로 배치한 그림." width="768" height="1680"></div>
+<div class="sorting-figure-desktop"><img src="{{ site.baseurl }}/assets/img/posts/2026-10-24-sorting-from-scratch/fig-01-families.svg" alt="이웃한 두 값의 swap, 두 run의 merge, pivot 3을 기준으로 한 partition, max-heap, key별 배치, 4-wire sorting network를 실제 숫자로 보여 주는 여섯 패널." width="1536" height="1632"></div>
+<div class="sorting-figure-mobile"><img src="{{ site.baseurl }}/assets/img/posts/2026-10-24-sorting-from-scratch/fig-01-families-mobile.svg" alt="숫자와 이동 화살표, heap의 연결선, comparator wire로 여섯 정렬 방식을 보여 주는 세로 배치 그림." width="768" height="3072"></div>
 
-*Figure 1. Record의 순서를 정하는 여섯 가지 방식. 각 행은 어떤 정보를 이용해 정렬하는지 보여 준다. 위아래 순서가 성능 순위를 뜻하지는 않는다. Hybrid sort는 여러 방식을 조합한다.*
+*Figure 1. (a) Bubble sort에서 순서가 뒤집힌 이웃을 한 번 바꾼다. 전체 정렬은 아직 끝나지 않았다. (b) 정렬된 두 run을 merge한다. 색은 각 record가 어느 run에서 왔는지 나타낸다. (c) Pivot 3보다 작은 값, 같은 값, 큰 값으로 나눈다. 왼쪽 구간의 2와 1은 아직 정렬되지 않았다. (d) Max-heap은 parent와 child 사이의 순서만 보장하며, sibling끼리의 순서는 정하지 않는다. (e) Key 값에 따라 목적지를 정한다. (f) Bitonic network는 고정된 comparator 여섯 개로 [3, 1, 4, 2]를 정렬한다. 왼쪽에서 오른쪽으로 진행하며, 각 화살표 끝으로 작은 값이 간다. 패널마다 별도의 예제를 사용한다.*
 
 ‘이진 정렬’이라는 이름만으로는 알고리즘을 특정하기 어렵다. **Binary insertion sort**는 삽입 위치를 binary search로 찾고, **binary heapsort**는 binary heap을 쓴다. **Bitonic sort**는 비교 순서가 정해진 network를 이용한다. 이름이 비슷해도 원리와 time complexity는 서로 다르다.
 

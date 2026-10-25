@@ -12,7 +12,7 @@ lang: en
 translation_key: sorting-from-scratch
 image:
   path: /assets/img/posts/2026-10-24-sorting-from-scratch/cover-sorting.png
-  alt: "The same eight records before and after sorting, shown as aligned bar charts."
+  alt: "Paths connect six input records to their ascending positions; the record with key 4 is highlighted."
   width: 1600
   height: 900
   fit: contain
@@ -130,10 +130,10 @@ Sorting methods can be grouped by the structure they use:
 
 These mechanisms can be combined. Run-based sorting reuses existing order before merging; introsort switches from partitioning to a heap when its depth budget is exhausted.
 
-<div class="sorting-figure-desktop"><img src="{{ site.baseurl }}/assets/img/posts/2026-10-24-sorting-from-scratch/fig-01-families.svg" alt="Six sorting mechanisms: local updates, merge, partition, heap order, key distribution, and fixed comparator schedules." width="1536" height="1040"></div>
-<div class="sorting-figure-mobile"><img src="{{ site.baseurl }}/assets/img/posts/2026-10-24-sorting-from-scratch/fig-01-families-mobile.svg" alt="Six sorting mechanisms and their organizing principles, stacked vertically." width="768" height="1680"></div>
+<div class="sorting-figure-desktop"><img src="{{ site.baseurl }}/assets/img/posts/2026-10-24-sorting-from-scratch/fig-01-families.svg" alt="Six worked diagrams: an adjacent swap, merging two colored runs, grouping around pivot 3, a max-heap, scattering keys into destinations, and a four-wire sorting network." width="1536" height="1632"></div>
+<div class="sorting-figure-mobile"><img src="{{ site.baseurl }}/assets/img/posts/2026-10-24-sorting-from-scratch/fig-01-families-mobile.svg" alt="Six worked sorting-mechanism diagrams stacked vertically, with values, arrows, heap edges, and comparator wires." width="768" height="3072"></div>
 
-*Figure 1. Six mechanisms for organizing records. The rows distinguish the information each operation uses; they are not a performance ranking. Hybrid algorithms combine several mechanisms.*
+*Figure 1. (a) Bubble sort swaps an inverted adjacent pair; the array is not yet sorted. (b) Merge combines two sorted runs; colors identify the source run. (c) Partition groups keys below, equal to, and above 3; the left group remains unsorted. (d) A max-heap orders each parent against its children, not the siblings against one another. (e) Key values select destinations. (f) A bitonic network sorts [3, 1, 4, 2] with six fixed comparators: time runs left to right, and each arrowhead receives the smaller value. Each panel uses its own example.*
 
 The phrase “binary sort” needs care. **Binary insertion sort** uses binary search to locate an insertion point. **Binary heapsort** uses a binary heap. **Bitonic sort** uses a comparison network. These are different algorithms; the word “binary” does not establish a time bound.
 

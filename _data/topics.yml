@@ -83,6 +83,11 @@
   title: Data Structure & Algorithm
   description: Data structures and algorithms, with visual explanations, executable code, and interactive examples.
   tag: search-algorithms
+- id: galois-theory
+  group: physics
+  title: Galois Theory
+  description: Field extensions, root symmetries, and the obstruction to solving the general quintic by radicals.
+  tag: galois-theory
 - id: essays
   group: essays
   title: Essays

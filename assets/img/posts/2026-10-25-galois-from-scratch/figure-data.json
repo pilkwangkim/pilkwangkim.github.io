@@ -1,0 +1,600 @@
+{
+  "generator": "tools/galois_figures.py",
+  "assets": [
+    {
+      "stem": "fig-01-formula",
+      "source_width": 960,
+      "source_height": 470,
+      "png_width": 1440,
+      "png_height": 705,
+      "layout": {
+        "labels": 8,
+        "text_bounds": "passed",
+        "text_collisions": 0,
+        "minimum_css_font_px": 17.49,
+        "review_width_css_px": 691
+      }
+    },
+    {
+      "stem": "fig-02-quadratic-field",
+      "source_width": 960,
+      "source_height": 515,
+      "png_width": 1440,
+      "png_height": 772,
+      "layout": {
+        "labels": 24,
+        "text_bounds": "passed",
+        "text_collisions": 0,
+        "minimum_css_font_px": 17.49,
+        "review_width_css_px": 691
+      }
+    },
+    {
+      "stem": "fig-03-permutations",
+      "source_width": 960,
+      "source_height": 480,
+      "png_width": 1440,
+      "png_height": 720,
+      "layout": {
+        "labels": 14,
+        "text_bounds": "passed",
+        "text_collisions": 0,
+        "minimum_css_font_px": 17.49,
+        "review_width_css_px": 691
+      }
+    },
+    {
+      "stem": "fig-04-correspondence",
+      "source_width": 960,
+      "source_height": 590,
+      "png_width": 1440,
+      "png_height": 885,
+      "layout": {
+        "labels": 13,
+        "text_bounds": "passed",
+        "text_collisions": 0,
+        "minimum_css_font_px": 17.99,
+        "review_width_css_px": 691
+      }
+    },
+    {
+      "stem": "fig-05-cubic",
+      "source_width": 960,
+      "source_height": 550,
+      "png_width": 1440,
+      "png_height": 825,
+      "layout": {
+        "labels": 15,
+        "text_bounds": "passed",
+        "text_collisions": 0,
+        "minimum_css_font_px": 17.99,
+        "review_width_css_px": 691
+      },
+      "semantics": {
+        "roots": [
+          [
+            1.2599210498948732,
+            0.0
+          ],
+          [
+            -0.6299605249474364,
+            1.0911236359717216
+          ],
+          [
+            -0.6299605249474372,
+            -1.0911236359717211
+          ]
+        ],
+        "rho_degrees": 120,
+        "conjugation": "reflection across real axis"
+      }
+    },
+    {
+      "stem": "fig-06-radical-tower",
+      "source_width": 960,
+      "source_height": 560,
+      "png_width": 1440,
+      "png_height": 840,
+      "layout": {
+        "labels": 9,
+        "text_bounds": "passed",
+        "text_collisions": 0,
+        "minimum_css_font_px": 18.99,
+        "review_width_css_px": 691
+      },
+      "semantics": {
+        "base": "Q(zeta5)",
+        "beta": "5th root of 2",
+        "extension_degree": 5,
+        "rotation_degrees": 72,
+        "group": "Gal(K(beta)/K) = C5"
+      }
+    },
+    {
+      "stem": "fig-07-derived-series",
+      "source_width": 960,
+      "source_height": 520,
+      "png_width": 1440,
+      "png_height": 780,
+      "layout": {
+        "labels": 23,
+        "text_bounds": "passed",
+        "text_collisions": 0,
+        "minimum_css_font_px": 17.49,
+        "review_width_css_px": 691
+      }
+    },
+    {
+      "stem": "fig-08-a5",
+      "source_width": 960,
+      "source_height": 560,
+      "png_width": 1440,
+      "png_height": 840,
+      "layout": {
+        "labels": 16,
+        "text_bounds": "passed",
+        "text_collisions": 0,
+        "minimum_css_font_px": 21.99,
+        "review_width_css_px": 691
+      },
+      "semantics": {
+        "operation_order": [
+          "h^-1",
+          "g^-1",
+          "h",
+          "g"
+        ],
+        "tracks": [
+          [
+            1,
+            2,
+            1,
+            2,
+            1
+          ],
+          [
+            2,
+            1,
+            2,
+            1,
+            2
+          ],
+          [
+            3,
+            5,
+            5,
+            3,
+            4
+          ],
+          [
+            4,
+            4,
+            3,
+            5,
+            5
+          ],
+          [
+            5,
+            3,
+            4,
+            4,
+            3
+          ]
+        ],
+        "commutator": "(345)"
+      }
+    },
+    {
+      "stem": "fig-09-quintic",
+      "source_width": 960,
+      "source_height": 570,
+      "png_width": 1440,
+      "png_height": 855,
+      "layout": {
+        "labels": 23,
+        "text_bounds": "passed",
+        "text_collisions": 0,
+        "minimum_css_font_px": 17.49,
+        "review_width_css_px": 691
+      },
+      "semantics": {
+        "real_roots": [
+          -1.5416516841045245,
+          0.20006410262997543,
+          1.4405003973415604
+        ],
+        "nonreal_roots": [
+          [
+            -0.049456407933505336,
+            -1.4994413672391498
+          ],
+          [
+            -0.049456407933505336,
+            1.4994413672391498
+          ]
+        ],
+        "complex_conjugation": "one transposition"
+      }
+    },
+    {
+      "stem": "fig-10-exercises",
+      "source_width": 960,
+      "source_height": 1180,
+      "png_width": 1440,
+      "png_height": 1770,
+      "layout": {
+        "labels": 50,
+        "text_bounds": "passed",
+        "text_collisions": 0,
+        "minimum_css_font_px": 17.49,
+        "review_width_css_px": 691
+      }
+    },
+    {
+      "stem": "fig-01-formula-mobile",
+      "source_width": 480,
+      "source_height": 510,
+      "png_width": 720,
+      "png_height": 765,
+      "layout": {
+        "labels": 8,
+        "text_bounds": "passed",
+        "text_collisions": 0,
+        "minimum_css_font_px": 18.03,
+        "review_width_css_px": 328
+      }
+    },
+    {
+      "stem": "fig-02-quadratic-field-mobile",
+      "source_width": 480,
+      "source_height": 920,
+      "png_width": 720,
+      "png_height": 1380,
+      "layout": {
+        "labels": 24,
+        "text_bounds": "passed",
+        "text_collisions": 0,
+        "minimum_css_font_px": 18.03,
+        "review_width_css_px": 328
+      }
+    },
+    {
+      "stem": "fig-03-permutations-mobile",
+      "source_width": 480,
+      "source_height": 800,
+      "png_width": 720,
+      "png_height": 1200,
+      "layout": {
+        "labels": 14,
+        "text_bounds": "passed",
+        "text_collisions": 0,
+        "minimum_css_font_px": 18.03,
+        "review_width_css_px": 328
+      }
+    },
+    {
+      "stem": "fig-04-correspondence-mobile",
+      "source_width": 480,
+      "source_height": 710,
+      "png_width": 720,
+      "png_height": 1065,
+      "layout": {
+        "labels": 13,
+        "text_bounds": "passed",
+        "text_collisions": 0,
+        "minimum_css_font_px": 18.98,
+        "review_width_css_px": 328
+      }
+    },
+    {
+      "stem": "fig-05-cubic-mobile",
+      "source_width": 480,
+      "source_height": 960,
+      "png_width": 720,
+      "png_height": 1440,
+      "layout": {
+        "labels": 15,
+        "text_bounds": "passed",
+        "text_collisions": 0,
+        "minimum_css_font_px": 18.98,
+        "review_width_css_px": 328
+      },
+      "semantics": {
+        "roots": [
+          [
+            1.2599210498948732,
+            0.0
+          ],
+          [
+            -0.6299605249474364,
+            1.0911236359717216
+          ],
+          [
+            -0.6299605249474372,
+            -1.0911236359717211
+          ]
+        ],
+        "rho_degrees": 120,
+        "conjugation": "reflection across real axis"
+      }
+    },
+    {
+      "stem": "fig-06-radical-tower-mobile",
+      "source_width": 480,
+      "source_height": 650,
+      "png_width": 720,
+      "png_height": 975,
+      "layout": {
+        "labels": 9,
+        "text_bounds": "passed",
+        "text_collisions": 0,
+        "minimum_css_font_px": 19.93,
+        "review_width_css_px": 328
+      },
+      "semantics": {
+        "base": "Q(zeta5)",
+        "beta": "5th root of 2",
+        "extension_degree": 5,
+        "rotation_degrees": 72,
+        "group": "Gal(K(beta)/K) = C5"
+      }
+    },
+    {
+      "stem": "fig-07-derived-series-mobile",
+      "source_width": 480,
+      "source_height": 600,
+      "png_width": 720,
+      "png_height": 900,
+      "layout": {
+        "labels": 23,
+        "text_bounds": "passed",
+        "text_collisions": 0,
+        "minimum_css_font_px": 18.03,
+        "review_width_css_px": 328
+      }
+    },
+    {
+      "stem": "fig-08-a5-mobile",
+      "source_width": 480,
+      "source_height": 910,
+      "png_width": 720,
+      "png_height": 1365,
+      "layout": {
+        "labels": 17,
+        "text_bounds": "passed",
+        "text_collisions": 0,
+        "minimum_css_font_px": 21.83,
+        "review_width_css_px": 328
+      },
+      "semantics": {
+        "operation_order": [
+          "h^-1",
+          "g^-1",
+          "h",
+          "g"
+        ],
+        "tracks": [
+          [
+            1,
+            2,
+            1,
+            2,
+            1
+          ],
+          [
+            2,
+            1,
+            2,
+            1,
+            2
+          ],
+          [
+            3,
+            5,
+            5,
+            3,
+            4
+          ],
+          [
+            4,
+            4,
+            3,
+            5,
+            5
+          ],
+          [
+            5,
+            3,
+            4,
+            4,
+            3
+          ]
+        ],
+        "commutator": "(345)"
+      }
+    },
+    {
+      "stem": "fig-09-quintic-mobile",
+      "source_width": 480,
+      "source_height": 940,
+      "png_width": 720,
+      "png_height": 1410,
+      "layout": {
+        "labels": 23,
+        "text_bounds": "passed",
+        "text_collisions": 0,
+        "minimum_css_font_px": 18.03,
+        "review_width_css_px": 328
+      },
+      "semantics": {
+        "real_roots": [
+          -1.5416516841045245,
+          0.20006410262997543,
+          1.4405003973415604
+        ],
+        "nonreal_roots": [
+          [
+            -0.049456407933505336,
+            -1.4994413672391498
+          ],
+          [
+            -0.049456407933505336,
+            1.4994413672391498
+          ]
+        ],
+        "complex_conjugation": "one transposition"
+      }
+    },
+    {
+      "stem": "fig-10-exercises-mobile",
+      "source_width": 480,
+      "source_height": 1740,
+      "png_width": 720,
+      "png_height": 2610,
+      "layout": {
+        "labels": 50,
+        "text_bounds": "passed",
+        "text_collisions": 0,
+        "minimum_css_font_px": 18.03,
+        "review_width_css_px": 328
+      }
+    },
+    {
+      "stem": "cover-galois",
+      "source_width": 1600,
+      "source_height": 900,
+      "png_width": 1600,
+      "png_height": 900,
+      "layout": {
+        "labels": 5,
+        "text_bounds": "passed",
+        "text_collisions": 0,
+        "minimum_css_font_px": 16.51,
+        "review_width_css_px": 328
+      },
+      "semantics": {
+        "vertices": 60,
+        "edges": 90,
+        "degree": 3,
+        "a": [
+          1,
+          2,
+          3,
+          4,
+          0
+        ],
+        "b": [
+          0,
+          2,
+          1,
+          4,
+          3
+        ],
+        "embedding": "adjacency-preserving"
+      }
+    }
+  ],
+  "mathematics": {
+    "quintic": {
+      "polynomial": "x^5-5x+1",
+      "shifted_coefficients": [
+        1,
+        -5,
+        10,
+        -10,
+        0,
+        5
+      ],
+      "eisenstein_prime": 5,
+      "real_root_count": 3,
+      "nonreal_conjugate_pairs": 1,
+      "numerical_roots": [
+        [
+          -1.5416516841045245,
+          0.0
+        ],
+        [
+          -0.049456407933505336,
+          1.4994413672391498
+        ],
+        [
+          -0.049456407933505336,
+          -1.4994413672391498
+        ],
+        [
+          1.4405003973415604,
+          0.0
+        ],
+        [
+          0.20006410262997543,
+          0.0
+        ]
+      ]
+    },
+    "A5_commutator": {
+      "g": "(12)(34)",
+      "h": "(12)(35)",
+      "convention": "rightmost first",
+      "commutator": "(345)",
+      "image_list_zero_based": [
+        0,
+        1,
+        3,
+        4,
+        2
+      ]
+    },
+    "derived_orders": {
+      "S3": [
+        6,
+        3,
+        1
+      ],
+      "S4": [
+        24,
+        12,
+        4,
+        1
+      ],
+      "S5": [
+        120,
+        60,
+        60
+      ]
+    },
+    "quiz_figure_inputs": [
+      "finite arithmetic and radical operations",
+      "T(a+b*sqrt2)=a+2b*sqrt2",
+      "exchange the sqrt2 and sqrt3 root pairs, fixing 2 and 3",
+      "E=Q(sqrt3), sigma flips sqrt2 and fixes sqrt3",
+      "derived orders S3:6,3,1 and S5:120,60,60"
+    ],
+    "biquadratic_field": {
+      "degree": 4,
+      "group": "C2 x C2",
+      "sigma": "flip sqrt2",
+      "tau": "flip sqrt3",
+      "fixed_fields": {
+        "e": "L",
+        "sigma": "Q(sqrt3)",
+        "tau": "Q(sqrt2)",
+        "sigma*tau": "Q(sqrt6)",
+        "G": "Q"
+      }
+    }
+  },
+  "design": {
+    "version": 2,
+    "svg_text": "outlined",
+    "desktop_article_width": 691,
+    "mobile_article_width": 328,
+    "type": "data plots, coordinate transformations, group actions and Hasse diagrams",
+    "palette": {
+      "first_family": "#315f87",
+      "action": "#16877d",
+      "second_family": "#b17b3f",
+      "obstruction": "#b4544b"
+    }
+  },
+  "scope": "Computed mathematical geometry. Root locations illustrate the exact algebra; graph shape is not a solvability proof."
+}

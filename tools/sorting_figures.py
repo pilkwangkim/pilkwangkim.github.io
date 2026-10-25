@@ -16,7 +16,8 @@ from pathlib import Path
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-from matplotlib.patches import Circle, FancyArrowPatch, Rectangle
+from matplotlib.patches import Circle, FancyArrowPatch, PathPatch, Rectangle
+from matplotlib.path import Path as PlotPath
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -104,37 +105,108 @@ def down(ax, x, y1, y2, color=MUTED):
 
 
 def fig01(mobile):
-    fig, ax = canvas(mobile, 1050 if mobile else 650)
-    w = 480 if mobile else 960
-    heading(ax, w/2, 43, "Sorting mechanisms")
-    families = [
-        ("Local updates", "selection · bubble · insertion", "Repair a prefix or adjacent pair"),
-        ("Merge", "merge sort", "Combine already sorted runs"),
-        ("Partition", "quicksort", "Separate keys around a pivot"),
-        ("Heap order", "heapsort", "Expose the next maximum at the root"),
-        ("Key distribution", "counting · radix · bucket", "Use key values to select destinations"),
-        ("Fixed schedule", "bitonic network", "Apply predetermined comparators"),
-    ]
-    if mobile:
-        text(ax, w/2, 94, "Independent mechanisms, not a ranking", size=16, color=MUTED)
-        for j, (title, names, principle) in enumerate(families):
-            y = 146+j*146
-            line(ax, 28, y-15, 452, y-15)
-            text(ax, 29, y+9, f"0{j+1}", color=MUTED, ha="left", size=16)
-            text(ax, 78, y+9, title, color=BLUE, weight="bold", ha="left", size=20)
-            text(ax, 78, y+54, names, ha="left", size=16 if j == 0 else 18)
-            text(ax, 78, y+98, "\n".join(textwrap.wrap(principle, 30)),
-                 ha="left", color=MUTED, size=16)
-    else:
-        text(ax, w/2, 91, "Different sources of order, not a ranking", color=MUTED, size=20)
-        text(ax, 68, 146, "MECHANISM", color=MUTED, ha="left", size=17)
-        text(ax, 355, 146, "ALGORITHMS AND ORGANIZING PRINCIPLE", color=MUTED, ha="left", size=17)
-        for j, (title, names, principle) in enumerate(families):
-            y = 191+j*75
-            line(ax, 48, y-26, 912, y-26)
-            text(ax, 68, y+5, title, color=BLUE, weight="bold", ha="left", size=21)
-            text(ax, 355, y-4, names, ha="left", size=20)
-            text(ax, 355, y+29, principle, ha="left", color=MUTED, size=17)
+    """Six concrete mechanisms, not a text taxonomy disguised as an image."""
+    fig, ax = canvas(mobile, 1920 if mobile else 1020)
+    titles = ["Local update", "Merge", "Partition", "Heap order",
+              "Key distribution", "Fixed schedule"]
+
+    def boxes(values, cx, y, colors=None, cell=48, gap=5):
+        width = len(values)*cell+(len(values)-1)*gap
+        left = cx-width/2
+        centers = []
+        for k, value in enumerate(values):
+            x = left+k*(cell+gap)
+            color = (colors or [BLUE]*len(values))[k]
+            ax.add_patch(Rectangle((x, y), cell, 43, facecolor=PALE,
+                                   edgecolor=color, linewidth=1.2, zorder=4))
+            text(ax, x+cell/2, y+21.5, str(value), size=19,
+                 color=color, weight="bold")
+            centers.append((x+cell/2, y+21.5))
+        return centers
+
+    def node(x, y, value, color=BLUE):
+        ax.add_patch(Circle((x, y), 22, facecolor=LIGHT,
+                            edgecolor=color, linewidth=1.6, zorder=4))
+        text(ax, x, y, str(value), size=19, color=color, weight="bold")
+
+    for j, title in enumerate(titles):
+        x = 28 if mobile else 32+(j % 2)*480
+        y = 18+j*318 if mobile else 18+(j // 2)*334
+        width = 424 if mobile else 416
+        cx = x+width/2
+        line(ax, x, y, x+width, y, GRID, lw=1)
+        panel_title(ax, x+4, y+32, chr(97+j), title, size=21)
+        if j == 0:
+            text(ax, cx, y+73, "Bubble sort: one adjacent swap", size=17, color=MUTED)
+            boxes([3, 1, 2], cx, y+107, [CORAL, CORAL, BLUE])
+            # The two arrows connect exactly the exchanged record identities.
+            boxes([1, 3, 2], cx, y+215, [TEAL, TEAL, BLUE])
+            left, right = cx-53, cx
+            arrow(ax, (left, y+155), (right, y+210), CORAL)
+            arrow(ax, (right, y+155), (left, y+210), TEAL)
+        elif j == 1:
+            text(ax, cx, y+73, "Two sorted runs → one sorted run", size=17, color=MUTED)
+            boxes([1, 4], cx-94, y+107, [BLUE]*2)
+            boxes([2, 3], cx+94, y+107, [TEAL]*2)
+            line(ax, cx-94, y+157, cx, y+181, BLUE)
+            line(ax, cx+94, y+157, cx, y+181, TEAL)
+            down(ax, cx, y+181, y+208)
+            boxes([1, 2, 3, 4], cx, y+215, [BLUE, TEAL, TEAL, BLUE])
+        elif j == 2:
+            text(ax, cx, y+73, "Quicksort: pivot = 3", size=17, color=MUTED)
+            boxes([4, 2, 5, 1, 3], cx, y+105,
+                  [CORAL, BLUE, CORAL, BLUE, TEAL], cell=43)
+            down(ax, cx, y+155, y+185)
+            # This is a valid grouping, not a trace of a specific partition code.
+            boxes([2, 1], cx-113, y+200, [BLUE]*2, cell=40)
+            boxes([3], cx, y+200, [TEAL], cell=40)
+            boxes([4, 5], cx+113, y+200, [CORAL]*2, cell=40)
+            for offset, label, color in [(-113, "< 3", BLUE), (0, "= 3", TEAL), (113, "> 3", CORAL)]:
+                text(ax, cx+offset, y+272, label, color=color, size=19)
+        elif j == 3:
+            text(ax, cx, y+73, "Max-heap: only parent ≥ child", size=17, color=MUTED)
+            line(ax, cx, y+130, cx-84, y+213, BLUE)
+            line(ax, cx, y+130, cx+84, y+213, BLUE)
+            node(cx, y+130, 5, TEAL)
+            node(cx-84, y+213, 3)
+            node(cx+84, y+213, 4)
+            text(ax, cx, y+276, "Siblings need not be sorted", size=17, color=MUTED)
+        elif j == 4:
+            text(ax, cx, y+73, "Key value selects a destination", size=17, color=MUTED)
+            starts = boxes([2, 0, 2, 1], cx, y+106,
+                           [GOLD, BLUE, GOLD, TEAL], cell=42)
+            targets = [cx-119, cx, cx+119]
+            for start, value in zip(starts, [2, 0, 2, 1]):
+                arrow(ax, (start[0], y+154), (targets[value], y+207),
+                      [BLUE, TEAL, GOLD][value], lw=1.2)
+            boxes([0], targets[0], y+214, [BLUE], cell=40)
+            boxes([1], targets[1], y+214, [TEAL], cell=40)
+            boxes([2, 2], targets[2], y+214, [GOLD]*2, cell=40)
+            for value, target in enumerate(targets):
+                text(ax, target, y+279, f"Key {value}", size=17, color=MUTED)
+        else:
+            text(ax, cx, y+73, "4-wire bitonic sorting network", size=17, color=MUTED)
+            left, right = cx-151, cx+151
+            ys = [y+121+i*42 for i in range(4)]
+            for yy in ys:
+                line(ax, left, yy, right, yy, MUTED, lw=1.2)
+            for yy, incoming, outgoing in zip(ys, [3, 1, 4, 2], [1, 2, 3, 4]):
+                text(ax, cx-180, yy, str(incoming), size=19, color=BLUE)
+                text(ax, cx+180, yy, str(outgoing), size=19, color=TEAL)
+            # Each arrow points toward the smaller output; the first stage
+            # has opposite directions, exactly as in the article's network.
+            for xx, stage in zip([cx-105, cx, cx+105],
+                                 [[(0, 1, True), (2, 3, False)],
+                                  [(0, 2, True), (1, 3, True)],
+                                  [(0, 1, True), (2, 3, True)]]):
+                for k, (a, b, ascending) in enumerate(stage):
+                    xxx = xx+(k*16-8 if abs(a-b) == 2 else 0)
+                    end, start = (ys[a], ys[b]) if ascending else (ys[b], ys[a])
+                    arrow(ax, (xxx, start), (xxx, end), TEAL, lw=1.6)
+                    for yy in [ys[a], ys[b]]:
+                        ax.add_patch(Circle((xxx, yy), 3, facecolor=TEAL,
+                                            edgecolor=TEAL, zorder=5))
+            text(ax, cx, y+282, "→ time     arrowhead = min output", size=16, color=MUTED)
     return fig
 
 
@@ -489,26 +561,34 @@ def fig08(mobile):
 
 
 def cover():
-    # 1600 × 900 source pixels; font sizes are intentionally much larger than
-    # a figure caption. Even at 328 CSS px, every retained label is about 16 px.
+    """A permutation flow: every path joins the same record before and after."""
     fig, ax = canvas(False, 900)
     fig.set_size_inches(16, 9)
     ax.set(xlim=(0, 1600), ylim=(900, 0))
-    text(ax, 80, 105, "SORTING ALGORITHMS", size=76, color=INK, weight="bold", ha="left")
-    line(ax, 80, 205, 1520, 205, GRID, lw=1.6)
-    values = [5, 1, 7, 3, 8, 2, 6, 4]
-    ordered = sorted(values)
-    x0, dx, bw = 100, 180, 110
-    text(ax, 83, 260, "(a)  Unsorted", size=58, ha="left", weight="bold")
-    text(ax, 83, 620, "(b)  Sorted", size=58, ha="left", weight="bold")
-    for row, bottom in [(values, 482), (ordered, 810)]:
-        for i, value in enumerate(row):
-            x, height = x0+i*dx, value*18+12
-            ax.add_patch(Rectangle((x, bottom-height), bw, height,
-                                   facecolor=PALE if bottom == 482 else BLUE,
-                                   edgecolor=BLUE, linewidth=1.5))
-            text(ax, x+bw/2, bottom+44, str(value), size=56, color=BLUE)
-        line(ax, 80, bottom, 1520, bottom, BLUE, lw=1.4)
+    text(ax, 90, 106, "Sorting algorithms", size=67, color=INK,
+         weight="medium", ha="left")
+    line(ax, 92, 185, 250, 185, TEAL, lw=4)
+    text(ax, 231, 263, "Input", size=51, color=MUTED)
+    text(ax, 1369, 263, "Sorted", size=51, color=MUTED)
+    values = [5, 1, 6, 2, 4, 3]
+    ys = [356+i*88 for i in range(6)]
+    # Muted paths carry all records; one accent makes record identity easy to
+    # follow without suggesting that the curves are an algorithm execution.
+    for value in [1, 2, 3, 5, 6, 4]:
+        start = ys[values.index(value)]
+        end = ys[value-1]
+        vertices = [(303, start), (652, start), (948, end), (1297, end)]
+        path = PlotPath(vertices, [PlotPath.MOVETO]+[PlotPath.CURVE4]*3)
+        ax.add_patch(PathPatch(path, fill=False, color=TEAL if value == 4 else "#8095a3",
+                               linewidth=5.5 if value == 4 else 3, zorder=2 if value == 4 else 1))
+    for sequence, x in [(values, 174), (sorted(values), 1312)]:
+        for value, yy in zip(sequence, ys):
+            color = TEAL if value == 4 else BLUE
+            ax.add_patch(Rectangle((x, yy-42), 114, 84,
+                                   facecolor="#e5f2f0" if value == 4 else PALE,
+                                   edgecolor=color, linewidth=1.3, zorder=4))
+            text(ax, x+57, yy, str(value), size=51, color=color,
+                 weight="medium")
     return fig
 
 
@@ -539,6 +619,20 @@ def validate(fig, stem):
 
 
 def sanity():
+    local_input, local_output = [3, 1, 2], [1, 3, 2]
+    assert local_output == [local_input[1], local_input[0], local_input[2]]
+    merge_input, merge_output = [[1, 4], [2, 3]], [1, 2, 3, 4]
+    assert all(run == sorted(run) for run in merge_input)
+    assert merge_output == sorted(itertools.chain.from_iterable(merge_input))
+    family_partition = [[2, 1], [3], [4, 5]]
+    assert sorted(itertools.chain.from_iterable(family_partition)) == sorted([4, 2, 5, 1, 3])
+    assert all(x < 3 for x in family_partition[0]) and family_partition[1] == [3]
+    assert all(x > 3 for x in family_partition[2])
+    assert family_partition[0] != sorted(family_partition[0])
+    assert 5 >= 3 and 5 >= 4
+    distribution = [2, 0, 2, 1]
+    destinations = [[x for x in distribution if x == k] for k in range(3)]
+    assert destinations == [[0], [1], [2, 2]]
     inv = lambda a: sum(a[i] > a[j] for i in range(len(a)) for j in range(i+1, len(a)))
     assert [inv(a) for a in [[3, 1, 2], [1, 3, 2], [1, 2, 3]]] == [2, 1, 0]
     counting = [(2, "a"), (1, "a"), (2, "b"), (0, "a"), (1, "b")]
@@ -594,7 +688,15 @@ def sanity():
     assert all(x < 4 for x in partition_groups[0])
     assert all(x == 4 for x in partition_groups[1])
     assert all(x > 4 for x in partition_groups[2])
-    return {"inversions": [2, 1, 0], "merge": {"n": 8, "merge_levels": 3, "items_per_level": 8},
+    return {"families": {"local_swap": {"input": local_input, "output": local_output},
+                         "merge": {"input_runs": merge_input, "output": merge_output},
+                         "partition": {"input": [4, 2, 5, 1, 3], "pivot": 3,
+                                       "groups": family_partition},
+                         "heap": [5, 3, 4],
+                         "distribution": {"input": distribution, "destinations": destinations},
+                         "network": {"input": [3, 1, 4, 2], "output": [1, 2, 3, 4],
+                                     "stages": stages, "arrowhead": "minimum output"}},
+            "inversions": [2, 1, 0], "merge": {"n": 8, "merge_levels": 3, "items_per_level": 8},
             "partition": {"input": [4, 2, 4, 1, 5, 4, 3], "pivot": 4,
                           "valid_partition": [[2, 1, 3], [4, 4, 4], [5]], "kind": "valid grouping, not an implementation trace"},
             "counting": {"input": counting, "counts": counts, "exclusive_offsets": starts,
@@ -660,12 +762,14 @@ def main():
     for mobile in [False, True]:
         contact_sheet(mobile)
     record = {"generator": "tools/sorting_figures.py", "assets": assets, "mathematics": sanity(),
-              "design": {"revision": 2, "background": "white", "strokes": "thin",
+              "design": {"revision": 3, "background": "white", "strokes": "thin",
                          "palette": {"structure": BLUE, "stable_or_equal": TEAL,
                                      "unknown_or_digit_key": GOLD, "inverted_or_greater": CORAL},
                          "families": ["local updates", "merge", "partition", "heap order",
                                       "key distribution", "fixed schedule"],
-                         "dimensions": "unchanged from revision 1"},
+                         "dimensions": "Figure 1: six mechanism panels; other figure and cover dimensions unchanged",
+                         "cover": {"input": [5, 1, 6, 2, 4, 3], "output": [1, 2, 3, 4, 5, 6],
+                                   "highlight_key": 4, "paths": "record identity, not execution steps"}},
               "svg_text": "Outlined paths; no installed-font dependency",
               "inspection": "Contact sheets resize each figure to 690px desktop / 358px mobile; browser QA is separate."}
     (OUT / "figure-data.json").write_text(json.dumps(record, indent=2, ensure_ascii=False)+"\n")

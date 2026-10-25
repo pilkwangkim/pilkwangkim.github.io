@@ -4,13 +4,13 @@
     {
       "stem": "fig-01-families",
       "width": 1536,
-      "height": 1040,
+      "height": 1632,
       "layout": {
-        "labels": 22,
+        "labels": 63,
         "bounds": "PASS",
         "text_collisions": "PASS",
         "target_css_width": 690,
-        "minimum_label_css_px": 16.97
+        "minimum_label_css_px": 15.97
       }
     },
     {
@@ -100,9 +100,9 @@
     {
       "stem": "fig-01-families-mobile",
       "width": 768,
-      "height": 1680,
+      "height": 3072,
       "layout": {
-        "labels": 26,
+        "labels": 63,
         "bounds": "PASS",
         "text_collisions": "PASS",
         "target_css_width": 358,
@@ -198,15 +198,148 @@
       "width": 1600,
       "height": 900,
       "layout": {
-        "labels": 19,
+        "labels": 15,
         "bounds": "PASS",
         "text_collisions": "PASS",
         "target_css_width": 690,
-        "minimum_label_css_px": 33.54
+        "minimum_label_css_px": 30.55
       }
     }
   ],
   "mathematics": {
+    "families": {
+      "local_swap": {
+        "input": [
+          3,
+          1,
+          2
+        ],
+        "output": [
+          1,
+          3,
+          2
+        ]
+      },
+      "merge": {
+        "input_runs": [
+          [
+            1,
+            4
+          ],
+          [
+            2,
+            3
+          ]
+        ],
+        "output": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "partition": {
+        "input": [
+          4,
+          2,
+          5,
+          1,
+          3
+        ],
+        "pivot": 3,
+        "groups": [
+          [
+            2,
+            1
+          ],
+          [
+            3
+          ],
+          [
+            4,
+            5
+          ]
+        ]
+      },
+      "heap": [
+        5,
+        3,
+        4
+      ],
+      "distribution": {
+        "input": [
+          2,
+          0,
+          2,
+          1
+        ],
+        "destinations": [
+          [
+            0
+          ],
+          [
+            1
+          ],
+          [
+            2,
+            2
+          ]
+        ]
+      },
+      "network": {
+        "input": [
+          3,
+          1,
+          4,
+          2
+        ],
+        "output": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "stages": [
+          [
+            [
+              0,
+              1,
+              true
+            ],
+            [
+              2,
+              3,
+              false
+            ]
+          ],
+          [
+            [
+              0,
+              2,
+              true
+            ],
+            [
+              1,
+              3,
+              true
+            ]
+          ],
+          [
+            [
+              0,
+              1,
+              true
+            ],
+            [
+              2,
+              3,
+              true
+            ]
+          ]
+        ],
+        "arrowhead": "minimum output"
+      }
+    },
     "inversions": [
       2,
       1,
@@ -516,7 +649,7 @@
     }
   },
   "design": {
-    "revision": 2,
+    "revision": 3,
     "background": "white",
     "strokes": "thin",
     "palette": {
@@ -533,7 +666,27 @@
       "key distribution",
       "fixed schedule"
     ],
-    "dimensions": "unchanged from revision 1"
+    "dimensions": "Figure 1: six mechanism panels; other figure and cover dimensions unchanged",
+    "cover": {
+      "input": [
+        5,
+        1,
+        6,
+        2,
+        4,
+        3
+      ],
+      "output": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "highlight_key": 4,
+      "paths": "record identity, not execution steps"
+    }
   },
   "svg_text": "Outlined paths; no installed-font dependency",
   "inspection": "Contact sheets resize each figure to 690px desktop / 358px mobile; browser QA is separate."

@@ -142,3 +142,7 @@ The prose distinguishes problem states from search records, expansion order from
 ## Sorting tutorial
 
 The paired `Sorting-From-Scratch` articles use the existing Data Structure & Algorithm topic and the `sorting` bundle. Eight bilingual activities cover sorting traces, random shuffles, inversions, stable merging, three-way partitioning, counting/radix passes, a five-question quiz, and a bounded coding exercise. Their settings, progress and answers participate in local-editor checkpoints. See [Sorting tutorial assets and checks](sorting-article.md) for source ownership, operation-count conventions, downloadable Python implementations and notebooks, and reproduction commands.
+
+## Galois theory tutorial
+
+The paired `Galois-Theory-From-Scratch` articles use the Mathematics category, the Galois Theory topic, and the `galois` bundle. Six bilingual activities cover arithmetic in Q(√2), root permutations, fixed fields, derived series, numerical quintic roots, and a five-question quiz. Settings and answers participate in local-editor checkpoints. The ten figures have separate desktop and mobile compositions. See [Galois tutorial assets and verification](galois-article.md) for exact calculation conventions, source ownership, notebook requirements, and reproduction commands.
