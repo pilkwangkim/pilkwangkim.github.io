@@ -78,7 +78,8 @@ def main():
         assert source.count('<details markdown="1">') == source.count("</details>")
         assert source.count("```") % 2 == 0
         assert "date: 2026-09-25 09:00:00 +0900" in source
-        assert "topic: galois-theory" in source
+        assert "topic: algebra" in source
+        assert "categories: [Algebra]" in source
         assert "translation_key: galois-theory-from-scratch" in source
         assert f"lang: {['en','ko'][index]}" in source
         assert len(re.findall(r"(?m)^## \d+\.", source)) == 18

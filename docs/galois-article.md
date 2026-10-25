@@ -2,7 +2,7 @@
 
 The paired articles are
 `_posts/2026-4Q/2026-10-25-Galois-Theory-From-Scratch{,-KR}.md`.
-They belong to Mathematics and the Galois Theory topic. English was authored
+They belong to the shared Algebra category and topic. English was authored
 first; the Korean version preserves all displayed equations and Python fences.
 
 The main concrete obstruction is `x^5-5x+1`: translating by `x-1` exposes

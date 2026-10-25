@@ -2,12 +2,12 @@
 title: "Galois Theory: On Formulas for Solving Fifth-Degree Equations"
 description: "Can arithmetic and operations such as square and cube roots solve every fifth-degree equation? The structure of the transformations that preserve relationships among the roots determines the answer."
 date: 2026-09-25 09:00:00 +0900
-categories: [Mathematics]
-tags: [galois-theory, mathematics, abstract-algebra, field-theory, group-theory, python]
+categories: [Algebra]
+tags: [algebra, mathematics, abstract-algebra, field-theory, galois-theory, group-theory, python]
 math: true
 interactive_labs: [galois]
 pin: false
-topic: galois-theory
+topic: algebra
 lang: en
 translation_key: galois-theory-from-scratch
 image:

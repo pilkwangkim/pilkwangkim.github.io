@@ -2,12 +2,12 @@
 title: "갈루아 이론: 5차방정식의 근의 공식에 대하여"
 description: "사칙연산과 제곱근·세제곱근 같은 연산으로 모든 5차방정식을 풀 수 있을까? 근 사이의 관계를 보존하는 변환의 구조가 그 가능성을 결정한다."
 date: 2026-09-25 09:00:00 +0900
-categories: [Mathematics]
-tags: [galois-theory, mathematics, abstract-algebra, field-theory, group-theory, python]
+categories: [Algebra]
+tags: [algebra, mathematics, abstract-algebra, field-theory, galois-theory, group-theory, python]
 math: true
 interactive_labs: [galois]
 pin: false
-topic: galois-theory
+topic: algebra
 lang: ko
 translation_key: galois-theory-from-scratch
 image:
