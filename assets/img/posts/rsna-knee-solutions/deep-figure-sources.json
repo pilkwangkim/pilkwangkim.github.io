@@ -1,0 +1,292 @@
+{
+  "figures": {
+    "pairwise-complementarity": {
+      "scope": "Assumed four-study binary examples, not competition results. P1/P2 positive, N1/N2 negative. Average ranks use average tie handling.",
+      "examples": [
+        {
+          "case": "A",
+          "label": "Complementary errors",
+          "base": [
+            0.9,
+            0.4,
+            0.6,
+            0.1
+          ],
+          "candidate": [
+            0.5,
+            0.9,
+            0.1,
+            0.6
+          ],
+          "mean_scores": [
+            0.7,
+            0.65,
+            0.35,
+            0.35
+          ],
+          "mean_ranks": [
+            0.75,
+            0.75,
+            0.5,
+            0.5
+          ],
+          "aucs": {
+            "base": 0.75,
+            "candidate": 0.75,
+            "mean_scores": 1.0,
+            "mean_ranks": 1.0
+          }
+        },
+        {
+          "case": "B",
+          "label": "A shared hard negative",
+          "base": [
+            0.9,
+            0.4,
+            0.8,
+            0.1
+          ],
+          "candidate": [
+            0.4,
+            0.9,
+            0.8,
+            0.1
+          ],
+          "mean_scores": [
+            0.65,
+            0.65,
+            0.8,
+            0.1
+          ],
+          "mean_ranks": [
+            0.75,
+            0.75,
+            0.75,
+            0.25
+          ],
+          "aucs": {
+            "base": 0.75,
+            "candidate": 0.75,
+            "mean_scores": 0.5,
+            "mean_ranks": 0.75
+          }
+        }
+      ]
+    },
+    "composition-placement": {
+      "scope": "Reduced two-branch pre-rank coefficient example. Excludes reader arm. Coefficient is not causal influence on final prediction or AUC.",
+      "internal_beta": 0.3,
+      "outside_delta": 0.2,
+      "targets": [
+        {
+          "target": "Synovitis",
+          "w": 0.8,
+          "internal": 0.059999999999999984,
+          "outside": 0.2
+        },
+        {
+          "target": "PF OA",
+          "w": 0.6,
+          "internal": 0.12,
+          "outside": 0.2
+        },
+        {
+          "target": "Baker’s cyst",
+          "w": 0.35,
+          "internal": 0.195,
+          "outside": 0.2
+        },
+        {
+          "target": "Lateral OA",
+          "w": 0.2,
+          "internal": 0.24,
+          "outside": 0.2
+        },
+        {
+          "target": "Other findings",
+          "w": 0.5,
+          "internal": 0.15,
+          "outside": 0.2
+        }
+      ]
+    },
+    "teacher-anchor": {
+      "scope": "Direct explicit coefficient on original S outside the teacher; does not quantify total recursive supervision ancestry.",
+      "rounds": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "fixed": [
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "recursive": [
+        0.6,
+        0.36,
+        0.21599999999999997,
+        0.1296,
+        0.07775999999999998
+      ],
+      "related_source": "https://www.kaggle.com/competitions/rsna-knee-abnormality-detection/writeups/8th-place-solution"
+    },
+    "sampling-density": {
+      "scope": "Author-reported comparison; opening does not state original span or identify metric as Private AUC.",
+      "rows": [
+        {
+          "slices": 44,
+          "span": "Original span",
+          "score": 0.926
+        },
+        {
+          "slices": 44,
+          "span": "2–98% span",
+          "score": 0.917
+        },
+        {
+          "slices": 64,
+          "span": "2–98% span",
+          "score": 0.928
+        }
+      ],
+      "source_url": "https://www.kaggle.com/competitions/rsna-knee-abnormality-detection/discussion/752231"
+    }
+  },
+  "dimensions": [
+    {
+      "stem": "pairwise-complementarity",
+      "width": 1800,
+      "height": 1200,
+      "text_bounds": "passed"
+    },
+    {
+      "stem": "composition-placement",
+      "width": 1800,
+      "height": 1080,
+      "text_bounds": "passed"
+    },
+    {
+      "stem": "teacher-anchor",
+      "width": 1800,
+      "height": 1050,
+      "text_bounds": "passed"
+    },
+    {
+      "stem": "sampling-density",
+      "width": 1800,
+      "height": 1050,
+      "text_bounds": "passed"
+    },
+    {
+      "stem": "pairwise-complementarity-mobile",
+      "width": 760,
+      "height": 2100,
+      "text_bounds": "passed"
+    },
+    {
+      "stem": "composition-placement-mobile",
+      "width": 760,
+      "height": 1500,
+      "text_bounds": "passed"
+    },
+    {
+      "stem": "teacher-anchor-mobile",
+      "width": 760,
+      "height": 1350,
+      "text_bounds": "passed"
+    },
+    {
+      "stem": "sampling-density-mobile",
+      "width": 760,
+      "height": 1350,
+      "text_bounds": "passed"
+    }
+  ],
+  "files": [
+    {
+      "path": "assets/img/posts/rsna-knee-solutions/pairwise-complementarity.png",
+      "bytes": 158940,
+      "sha256": "5aa7878ebfd4b8744582909f3a9382af21c10adb96bebd6359c699ff7bf0ad12"
+    },
+    {
+      "path": "assets/img/posts/rsna-knee-solutions/pairwise-complementarity.svg",
+      "bytes": 31423,
+      "sha256": "2b5651696f1c0f7741ab70d0d1c14fc919dbcc3082dbc3efd26acd0cb3f7839a"
+    },
+    {
+      "path": "assets/img/posts/rsna-knee-solutions/composition-placement.png",
+      "bytes": 183884,
+      "sha256": "e3fbe32b14946b9b5c263cfc6fa4074027dc4f9be8f681b38231e070ce683126"
+    },
+    {
+      "path": "assets/img/posts/rsna-knee-solutions/composition-placement.svg",
+      "bytes": 13116,
+      "sha256": "93f366d5f9d97a5b9844e666c356380a8d7cc57e6f628e903d533de3ad83faea"
+    },
+    {
+      "path": "assets/img/posts/rsna-knee-solutions/teacher-anchor.png",
+      "bytes": 141717,
+      "sha256": "622e2e7a30bf34bcc1d2dbb2a1e132a1353ba6d6da51719301f638f136839f5e"
+    },
+    {
+      "path": "assets/img/posts/rsna-knee-solutions/teacher-anchor.svg",
+      "bytes": 14270,
+      "sha256": "db71427676e5956b958f5f7f9b077da8cba05f56bc2dc5a2dc38a36bf4150d10"
+    },
+    {
+      "path": "assets/img/posts/rsna-knee-solutions/sampling-density.png",
+      "bytes": 169218,
+      "sha256": "8f373272682fef39d18fd09bb87b7c4bb13b3febb60ae4ade5ef36de1b48953e"
+    },
+    {
+      "path": "assets/img/posts/rsna-knee-solutions/sampling-density.svg",
+      "bytes": 10025,
+      "sha256": "e56b4b3bdde7a10ad8bfa441030ef214578709af51cbb29af8aad9700408239a"
+    },
+    {
+      "path": "assets/img/posts/rsna-knee-solutions/pairwise-complementarity-mobile.png",
+      "bytes": 131190,
+      "sha256": "60e101125cb93cbf6693bc7aa95352e2ec3c76cd99a9a0b3face7dc767208ba0"
+    },
+    {
+      "path": "assets/img/posts/rsna-knee-solutions/pairwise-complementarity-mobile.svg",
+      "bytes": 31794,
+      "sha256": "56ba0864e716998d67a817c85f355d8ba7e228c6addf1f65c452cd4440d55fbd"
+    },
+    {
+      "path": "assets/img/posts/rsna-knee-solutions/composition-placement-mobile.png",
+      "bytes": 108115,
+      "sha256": "178631532513e559f8ad3636cb63b0a0d0c723016a3b24c115f9cfc0b6cd8280"
+    },
+    {
+      "path": "assets/img/posts/rsna-knee-solutions/composition-placement-mobile.svg",
+      "bytes": 12811,
+      "sha256": "44ea974304fd078e2e462fae3afee1fde15a597fb516973a1504177676ef6395"
+    },
+    {
+      "path": "assets/img/posts/rsna-knee-solutions/teacher-anchor-mobile.png",
+      "bytes": 94755,
+      "sha256": "cec8a41d2f5da808b8de672cbc2b2f2a86fb1b32890d433e05f28b60a2d212a6"
+    },
+    {
+      "path": "assets/img/posts/rsna-knee-solutions/teacher-anchor-mobile.svg",
+      "bytes": 16359,
+      "sha256": "bb5433672d1ecd4fc5dee06c548cc5ad7dff35f275186ed5ee977a38646104fd"
+    },
+    {
+      "path": "assets/img/posts/rsna-knee-solutions/sampling-density-mobile.png",
+      "bytes": 109816,
+      "sha256": "9ae6b3114987f41aa36295dbf3f54893635b26db53c253f8f13ff7151ccbe577"
+    },
+    {
+      "path": "assets/img/posts/rsna-knee-solutions/sampling-density-mobile.svg",
+      "bytes": 10146,
+      "sha256": "6edd3d41b0b7f863d8a9b2bbd3dd42d9ed453fc4ecb3f0dd4828219bc8e8bd52"
+    }
+  ]
+}

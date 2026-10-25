@@ -311,6 +311,7 @@ html:not([data-navigation-ready='true']) .topic-latest-posts { display: none; }
   .rsna-results-figure {
     display: block;
     margin: 1.4rem 0 0;
+    > picture { display: block; }
     img { display: block; width: 100%; height: auto; }
     + p > em:only-child {
       display: block;

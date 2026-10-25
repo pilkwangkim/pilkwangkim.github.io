@@ -58,7 +58,7 @@ AI · Kaggle의 첫 화면과 사이드바에는 `_data/topic_categories.yml`에
 
 최신 보기에는 선택한 언어의 최근 5편에 포함된 글만 최신순으로 표시하며, `View all articles`로 해당 주제의 전체 묶음을 펼칩니다. 모든 AI 주제 묶음은 최신 보기와 전체 보기 모두 기본으로 접혀 있습니다. Latest/All 버튼으로 보기를 바꿀 때도 접힌 상태로 돌아가고, 사용자가 묶음의 제목이나 전체 글 링크를 직접 선택했을 때 펼칩니다. 묶음의 글 수와 전체 글 링크의 편수는 선택한 언어를 기준으로 계산합니다. ARC-AGI-3는 본편 1·2편과 Research Note R1을 한 주제 묶음에 담고, Playground는 서로 다른 회차를 한 주제 묶음에 담습니다.
 
-`_data/series.yml`은 `id`, `title`, `topic`을 갖는 목록입니다. 현재 AI Agent Security 1–12편, BioHub 1–9편, ROGII 1–3편, ARC-AGI-3 본편 1–2편, RSNA Knee 0–5편, Gemma 4 Developer Agent 1–2편, Quantum Circuit Compilation 0편, Kaggriculture RL 1–3편이 등록되어 있습니다. 글 본문의 시리즈 목차와 이전·다음 링크는 이 실제 시리즈의 같은 언어 글을 `series_order` 순서로 연결합니다. 목록에서 같은 주제로 묶어도 글의 `series`와 `series_order`는 바꾸지 않습니다. ARC-AGI-3 Research Note R1은 본편 3편으로 취급하지 않으며, Playground의 서로 다른 회차나 단일 Working Note에 임의의 연속 순번을 붙이지 않습니다. 기존 시리즈의 전체 목록 앵커도 유지합니다.
+`_data/series.yml`은 `id`, `title`, `topic`을 갖는 목록입니다. 현재 AI Agent Security 1–12편, BioHub 1–9편, ROGII 1–3편, ARC-AGI-3 본편 1–2편, RSNA Knee 0–6편, Gemma 4 Developer Agent 1–2편, Quantum Circuit Compilation 0편, Kaggriculture RL 1–3편이 등록되어 있습니다. 글 본문의 시리즈 목차와 이전·다음 링크는 이 실제 시리즈의 같은 언어 글을 `series_order` 순서로 연결합니다. 목록에서 같은 주제로 묶어도 글의 `series`와 `series_order`는 바꾸지 않습니다. ARC-AGI-3 Research Note R1은 본편 3편으로 취급하지 않으며, Playground의 서로 다른 회차나 단일 Working Note에 임의의 연속 순번을 붙이지 않습니다. 기존 시리즈의 전체 목록 앵커도 유지합니다.
 
 새 글을 추가한 뒤 메타데이터 검사와 Jekyll 빌드를 실행하고, 주제 목록·번역 링크·시리즈 순서가 실제 화면에서 맞는지 확인합니다.
 

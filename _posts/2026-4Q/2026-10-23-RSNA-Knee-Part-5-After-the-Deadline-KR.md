@@ -29,9 +29,10 @@ interactive_labs: [rsna]
 - [3편 · 학습 신호와 Public 성능]({% post_url /2026-4Q/2026-10-15-RSNA-Knee-Part-3-When-Labels-and-the-Leaderboard-Disagreed-KR %})
 - [4편 · 엇갈린 근거와 최종 두 후보]({% post_url /2026-4Q/2026-10-22-RSNA-Knee-Part-4-The-Final-Two-Before-the-Deadline-KR %})
 - [5편 · 모델을 쌓는 동안 달라진 대회]({% post_url /2026-4Q/2026-10-23-RSNA-Knee-Part-5-After-the-Deadline-KR %}) — 현재 글
+- [6편 · 상위권 해법 종합 분석]({% post_url /2026-4Q/2026-10-25-RSNA-Knee-Top-Solutions-Analysis-KR %})
 </nav>
 
-**이번 글에서는**
+**대회 회고**
 
 혼자 참가한 이번 대회를 6,425팀 중 560위, Bronze Medal로 마쳤다. 이 글에서는 최종 리더보드와 Public·Private 점수가 모두 나온 제출 154건을 비교한다. 어떤 모델과 학습 라벨이 Private에서도 성능을 높였는지, 막판에는 왜 더 나아가지 못했는지를 살펴본다. 공개 H는 내가 완성한 clean 조합보다 Private에서도 강했다. 내 예측을 섞어 최종 점수를 조금 높이기는 했지만, 자체 시스템이 그보다 약했다는 사실은 남는다. 이 결과를 바탕으로 OOF에 들인 시간과 supervision의 역할, 공개 자료가 바꾼 경쟁의 양상, 그리고 이 과정에서 느낀 허탈함을 돌아본다.
 

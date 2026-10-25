@@ -1,0 +1,145 @@
+{
+  "sources": {
+    "label-transfer": {
+      "url": "https://www.kaggle.com/competitions/rsna-knee-abnormality-detection/discussion/752125",
+      "scope": "Author-reported matched five-fold models at fixed epoch 16. OOF evaluated on 832 predefined random studies against VLM references; gold-58 is a reused expert development set.",
+      "rows": [
+        {
+          "model": "ConvNeXt-Tiny",
+          "report_oof": 0.94109,
+          "vlm_oof": 0.95248,
+          "report_gold": 0.90922,
+          "vlm_gold": 0.93528
+        },
+        {
+          "model": "ConvNeXt-Small",
+          "report_oof": 0.93862,
+          "vlm_oof": 0.95957,
+          "report_gold": 0.91472,
+          "vlm_gold": 0.94282
+        }
+      ],
+      "archived_response_sha256": "1a2fa35661f6ead7c047317cf163d9b57cb8cd42221caaab1d449f1c1efc14ce"
+    },
+    "site-ablation": {
+      "url": "https://www.kaggle.com/competitions/rsna-knee-abnormality-detection/discussion/752111",
+      "scope": "Author-reported local diagnostic paragraph, and separately the exact 288px competition ablation. Do not substitute later teacher-retrained label scores.",
+      "local": [
+        {
+          "metric": "Pooled report OOF",
+          "before": 0.912,
+          "after": 0.906
+        },
+        {
+          "metric": "Within-site OOF",
+          "before": 0.906,
+          "after": 0.907
+        }
+      ],
+      "competition_288": [
+        {
+          "metric": "Public",
+          "before": 0.947,
+          "after": 0.953
+        },
+        {
+          "metric": "Private",
+          "before": 0.932,
+          "after": 0.939
+        }
+      ],
+      "archived_response_sha256": "4808701c30fa59e7efb4b89b43f0328ce9b0b55bb0e94bc504568072350eca7f"
+    },
+    "spatial-supervision": {
+      "url": "https://www.kaggle.com/competitions/rsna-knee-abnormality-detection/discussion/752474",
+      "scope": "Sakaku training-only annotation branch. Anatomy is structure support, lesion is abnormal evidence. Inference omits annotation losses; not a statement about the detector-based tascj branch.",
+      "archived_response_sha256": "a9a41d71a5d3e58e96cbccf1604d25f95f7558c5a3dd591c151da76f7097ae1d"
+    },
+    "distillation-folds": {
+      "url": "https://www.kaggle.com/competitions/rsna-knee-abnormality-detection/discussion/752125",
+      "scope": "21st: teacher and student train on the same outer-train four folds; teacher predictions on A are in-sample. Outer validation B excluded. Original VLM q_B is the validation reference.",
+      "archived_response_sha256": "1a2fa35661f6ead7c047317cf163d9b57cb8cd42221caaab1d449f1c1efc14ce"
+    },
+    "target-site": {
+      "scope": "Conceptual information paths, not an identified causal model. Site contains scanner appearance and reporting practice; also may carry real case-mix."
+    }
+  },
+  "figures": [
+    {
+      "name": "cover",
+      "width": 1660,
+      "height": 948,
+      "sha256": "787e1d04c11aac5e03632d2e9cc3b757ddd76c45d85fccbdddce7096c7b92d38"
+    },
+    {
+      "name": "target-site",
+      "width": 1800,
+      "height": 1050,
+      "text_bounds": "passed",
+      "sha256": "aae898b958e57fd9118686a2c1be7ca9b1b9b19d3d868d2f9c04ec8a2db5331c"
+    },
+    {
+      "name": "target-site-mobile",
+      "width": 760,
+      "height": 1120,
+      "text_bounds": "passed",
+      "sha256": "4222bd3b819e35eb7fd9f1d6f6051abe5544a781f0a6094b0203b32c8183b7fd"
+    },
+    {
+      "name": "label-transfer",
+      "width": 1800,
+      "height": 1050,
+      "text_bounds": "passed",
+      "sha256": "2ba58f6e4c5637a7f7dc6701f3c7bfa24a81527c169a5fbf39c836539432e01b"
+    },
+    {
+      "name": "label-transfer-mobile",
+      "width": 760,
+      "height": 1280,
+      "text_bounds": "passed",
+      "sha256": "c85dfd0655e26d6090b24c000a0b418826ab5a15c3825b4baabd44f8330c275b"
+    },
+    {
+      "name": "site-ablation",
+      "width": 1800,
+      "height": 990,
+      "text_bounds": "passed",
+      "sha256": "3440f5400b4c69e22f8e4c631424bda70771a166ba8426a8392a160a7542bd8a"
+    },
+    {
+      "name": "site-ablation-mobile",
+      "width": 760,
+      "height": 1280,
+      "text_bounds": "passed",
+      "sha256": "292c4d58b0aa7de07a2dccb081f2d897503b40b15598d5a2c4d017187d1466ab"
+    },
+    {
+      "name": "spatial-supervision",
+      "width": 1800,
+      "height": 1200,
+      "text_bounds": "passed",
+      "sha256": "8dede2fb32eef4e9d1fa468000cd5edc2431f688bc41b9dd8d2c843af32124a4"
+    },
+    {
+      "name": "spatial-supervision-mobile",
+      "width": 760,
+      "height": 1480,
+      "text_bounds": "passed",
+      "sha256": "ffdf4f36a43d0bb7362d10c6429919173b8ba12660ea78241acb5f404fc8cb83"
+    },
+    {
+      "name": "distillation-folds",
+      "width": 1800,
+      "height": 1050,
+      "text_bounds": "passed",
+      "sha256": "3542604b13f7d61124d581dc3386ffce9a833c026cae9a2a9479064620d93ec3"
+    },
+    {
+      "name": "distillation-folds-mobile",
+      "width": 760,
+      "height": 1600,
+      "text_bounds": "passed",
+      "sha256": "7419b1fecad9372b4895059d921e61baefbda2d2bda89708ada42af48acb769f"
+    }
+  ]
+}

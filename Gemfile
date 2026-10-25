@@ -5,6 +5,9 @@ source "https://rubygems.org"
 # Local layout overrides are based on this release; review them before upgrading.
 gem "jekyll-theme-chirpy", "7.6.0"
 
+# Preserve responsive picture markup around the theme's image zoom links.
+gem "nokogiri", "~> 1.19"
+
 gem "html-proofer", "~> 5.0", group: :test
 
 platforms :mingw, :x64_mingw, :mswin, :jruby do

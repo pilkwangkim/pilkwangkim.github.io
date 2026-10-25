@@ -29,11 +29,12 @@ interactive_labs: [rsna]
 - [Part 3 · Supervision and Public performance]({% post_url /2026-4Q/2026-10-15-RSNA-Knee-Part-3-When-Labels-and-the-Leaderboard-Disagreed %})
 - [Part 4 · Conflicting evidence and two final candidates]({% post_url /2026-4Q/2026-10-22-RSNA-Knee-Part-4-The-Final-Two-Before-the-Deadline %})
 - [Part 5 · Model building in a changing competition]({% post_url /2026-4Q/2026-10-23-RSNA-Knee-Part-5-After-the-Deadline %}) — this article
+- [Part 6 · A technical review of the leading solutions]({% post_url /2026-4Q/2026-10-25-RSNA-Knee-Top-Solutions-Analysis %})
 </nav>
 
-**In this final part**
+**Competition retrospective**
 
-Competing solo, I finished 560th out of 6,425 teams, with a Bronze Medal. This final article follows the development through the standings and 154 paired submission scores: which model and supervision changes improved Private, and why the late extensions did not take the results further. The public H system remained stronger than my best completed clean composition. Adding my predictions improved the final H mixture, but that small contribution left the weakness of my own system unresolved. I revisit the OOF investment, the role of supervision and public releases, and the frustration of spending so much time on a result I had wanted to be stronger.
+Competing solo, I finished 560th out of 6,425 teams, with a Bronze Medal. This retrospective follows the development through the standings and 154 paired submission scores: which model and supervision changes improved Private, and why the late extensions did not take the results further. The public H system remained stronger than my best completed clean composition. Adding my predictions improved the final H mixture, but that small contribution left the weakness of my own system unresolved. I revisit the OOF investment, the role of supervision and public releases, and the frustration of spending so much time on a result I had wanted to be stronger.
 
 ---
 

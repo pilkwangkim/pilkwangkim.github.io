@@ -20,7 +20,7 @@ source['posts'].each do |post|
     errors << "Missing route #{post['url']}"
     next
   end
-  doc = Nokogiri::HTML(File.read(file))
+  doc = Nokogiri::HTML5(File.read(file))
   article = doc.at_css('article.rsna-series')
   errors << "#{post['url']}: missing scoped layout" unless article
   next unless article
@@ -34,7 +34,9 @@ source['posts'].each do |post|
   content = article.at_css('.content')
   errors << "#{post['url']}: missing content" unless content
   next unless content
-  explanations = content.css('details')
+  explanations = content.css('details').reject do |detail|
+    detail.ancestors.any? { |node| node['class'].to_s.split.include?('article-lab') }
+  end
   errors << "#{post['url']}: explanation count differs" unless explanations.size == post['explanations']
   explanations.each do |detail|
     errors << "#{post['url']}: malformed explanation" unless detail.css('summary').size == 1 && !detail.at_css('summary').text.strip.empty?
@@ -61,11 +63,14 @@ source['posts'].each do |post|
     present ||= article.css('picture source').any? { |src| src['srcset'].to_s.split(',').any? { |candidate| candidate.strip.split.first == url } }
     errors << "#{post['url']}: image absent in output #{url}" unless present
   end
+  content.css('picture').each do |picture|
+    errors << "#{post['url']}: responsive picture lacks a direct fallback image" unless picture.element_children.any? { |node| node.name == 'img' }
+  end
   rows << { 'url'=>post['url'], 'lang'=>post['lang'], 'date'=>post['date'], 'tables'=>tables.size, 'explanations'=>explanations.size,
             'formulas'=>formulae.size, 'html_sha256'=>Digest::SHA256.file(file).hexdigest }
 end
 report = { 'status'=>errors.empty? ? 'passed' : 'failed', 'pages'=>rows, 'errors'=>errors,
-           'limits'=>'Generated HTML structure and TeX preservation only. Browser desktop/mobile layout was blocked by the origin approval gate.' }
+           'limits'=>'Generated HTML structure and TeX preservation only. Browser layout checks are recorded separately.' }
 File.write(File.join(checks, 'output-check.json'), JSON.pretty_generate(report)+"\n")
 puts JSON.pretty_generate({status:report['status'],pages:rows.size,tables:rows.sum { |r| r['tables'] },explanations:rows.sum { |r| r['explanations'] }, errors:errors})
 exit(errors.empty? ? 0 : 1)
