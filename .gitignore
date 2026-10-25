@@ -1,30 +1,65 @@
-# Bundler cache
-.bundle
-vendor
-Gemfile.lock
+# Bundler dependencies and local lockfile
+/.bundle/
+/vendor/
+/Gemfile.lock
 
-# Jekyll cache
-.jekyll-cache
-.jekyll-metadata
-_site
+# Jekyll build output and caches
+/.jekyll-cache/
+/.jekyll-metadata
+/.sass-cache/
+/_site/
 
 # RubyGems
 *.gem
 
-# NPM dependencies
-node_modules
-package-lock.json
+# NPM dependencies and local lockfile
+node_modules/
+/package-lock.json
 
 # IDE configurations
-.idea
-.vscode/*
-!.vscode/settings.json
-!.vscode/extensions.json
-!.vscode/tasks.json
+.idea/
+/.vscode/*
+!/.vscode/settings.json
+!/.vscode/extensions.json
+!/.vscode/tasks.json
 
-# Misc
-_sass/vendors
-assets/js/dist
+# Generated theme assets
+/_sass/vendors/
+/assets/js/dist/
 
-# Local visual editor previews, source maps, and undo backups
-.local-editor/
+# Local manuscripts, research notes, QA reports, screenshots and site snapshots.
+# Published articles belong in _posts/; permanent documentation belongs in docs/.
+/_draft/
+
+# Local visual editor previews, source maps and undo backups
+/.local-editor/
+
+# Generated inspection sheets; article figures and covers remain versioned.
+/assets/img/**/contact-sheet*.png
+/assets/img/**/exercise-contactsheet*.png
+
+# Python environments, bytecode and tool caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# Local environment settings; sanitized examples remain versioned.
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+
+# Operating-system metadata and editor temporary files
+.DS_Store
+._*
+Thumbs.db
+Desktop.ini
+*~
+*.swp
+*.swo

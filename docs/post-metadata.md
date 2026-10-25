@@ -72,7 +72,7 @@ JEKYLL_ENV=production bundle exec jekyll build
 bundle exec htmlproofer _site --disable-external
 ```
 
-이 Mac에서 시스템 Ruby 대신 설치된 Ruby를 쓰려면 명령 앞에 `PATH=/opt/homebrew/opt/ruby/bin:$PATH`를 붙입니다. 전체 정리 때의 본문·주소 보존 기록은 `_draft/_checks/layout-20261007/`에 있습니다.
+이 Mac에서 시스템 Ruby 대신 설치된 Ruby를 쓰려면 명령 앞에 `PATH=/opt/homebrew/opt/ruby/bin:$PATH`를 붙입니다. 전체 정리 때의 본문·주소 보존 기록은 로컬 `_draft/_checks/layout-20261007/`에 있습니다. `_draft/`는 Git에서 제외하며, 영구적으로 공유할 지침은 `docs/`, 재사용할 생성·검사 코드는 `tools/`에서 관리합니다.
 
 사이드바의 PC 접기 기능은 모바일 기본 메뉴와 따로 동작하며 선택을 브라우저에 저장합니다. 사이드바 안의 AI·Kaggle, 물리·수학·알고리즘, 에세이 그룹은 각각 접고 펼칠 수 있고, 글이나 주제 안내를 읽을 때는 해당 그룹이 자동으로 열립니다. 주제 링크는 공개 주제 데이터에서 자동 생성합니다. 메뉴가 화면보다 길면 메뉴 영역 안에서 스크롤합니다.
 
