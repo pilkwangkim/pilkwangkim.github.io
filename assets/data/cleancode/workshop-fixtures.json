@@ -1,0 +1,564 @@
+{
+  "schema_version": 1,
+  "contract": {
+    "keys": [
+      "capacity",
+      "confirmed",
+      "waiting"
+    ],
+    "capacity": "positive integer; bool is not accepted",
+    "participant_id": "exact nonempty string; case and whitespace preserved",
+    "invariants": [
+      "IDs unique across both lists",
+      "confirmed <= capacity",
+      "waiting nonempty implies confirmed is full"
+    ],
+    "copy_policy": "input unchanged; output dict and both lists are independent, even on a value no-op",
+    "execution": "single-process sequential; no concurrent-update guarantees"
+  },
+  "cases": [
+    {
+      "id": "free-seat-boundary",
+      "initial": {
+        "capacity": 2,
+        "confirmed": [],
+        "waiting": []
+      },
+      "steps": [
+        {
+          "operation": "register",
+          "participant_id": "Ada",
+          "expected": {
+            "capacity": 2,
+            "confirmed": [
+              "Ada"
+            ],
+            "waiting": []
+          }
+        },
+        {
+          "operation": "register",
+          "participant_id": "Bo",
+          "expected": {
+            "capacity": 2,
+            "confirmed": [
+              "Ada",
+              "Bo"
+            ],
+            "waiting": []
+          }
+        },
+        {
+          "operation": "register",
+          "participant_id": "Cy",
+          "expected": {
+            "capacity": 2,
+            "confirmed": [
+              "Ada",
+              "Bo"
+            ],
+            "waiting": [
+              "Cy"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "fifo-promotion",
+      "initial": {
+        "capacity": 1,
+        "confirmed": [
+          "Ada"
+        ],
+        "waiting": [
+          "Bo",
+          "Cy",
+          "Di"
+        ]
+      },
+      "steps": [
+        {
+          "operation": "cancel",
+          "participant_id": "Ada",
+          "expected": {
+            "capacity": 1,
+            "confirmed": [
+              "Bo"
+            ],
+            "waiting": [
+              "Cy",
+              "Di"
+            ]
+          }
+        },
+        {
+          "operation": "cancel",
+          "participant_id": "Bo",
+          "expected": {
+            "capacity": 1,
+            "confirmed": [
+              "Cy"
+            ],
+            "waiting": [
+              "Di"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "duplicate-confirmed",
+      "initial": {
+        "capacity": 1,
+        "confirmed": [
+          "Ada"
+        ],
+        "waiting": [
+          "Bo"
+        ]
+      },
+      "steps": [
+        {
+          "operation": "register",
+          "participant_id": "Ada",
+          "expected": {
+            "capacity": 1,
+            "confirmed": [
+              "Ada"
+            ],
+            "waiting": [
+              "Bo"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "duplicate-waiting",
+      "initial": {
+        "capacity": 1,
+        "confirmed": [
+          "Ada"
+        ],
+        "waiting": [
+          "Bo",
+          "Cy"
+        ]
+      },
+      "steps": [
+        {
+          "operation": "register",
+          "participant_id": "Bo",
+          "expected": {
+            "capacity": 1,
+            "confirmed": [
+              "Ada"
+            ],
+            "waiting": [
+              "Bo",
+              "Cy"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "cancel-middle-waiting",
+      "initial": {
+        "capacity": 2,
+        "confirmed": [
+          "Ada",
+          "Bo"
+        ],
+        "waiting": [
+          "Cy",
+          "Di",
+          "Ez"
+        ]
+      },
+      "steps": [
+        {
+          "operation": "cancel",
+          "participant_id": "Di",
+          "expected": {
+            "capacity": 2,
+            "confirmed": [
+              "Ada",
+              "Bo"
+            ],
+            "waiting": [
+              "Cy",
+              "Ez"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "cancel-no-waiting",
+      "initial": {
+        "capacity": 2,
+        "confirmed": [
+          "Ada",
+          "Bo"
+        ],
+        "waiting": []
+      },
+      "steps": [
+        {
+          "operation": "cancel",
+          "participant_id": "Ada",
+          "expected": {
+            "capacity": 2,
+            "confirmed": [
+              "Bo"
+            ],
+            "waiting": []
+          }
+        },
+        {
+          "operation": "register",
+          "participant_id": "Cy",
+          "expected": {
+            "capacity": 2,
+            "confirmed": [
+              "Bo",
+              "Cy"
+            ],
+            "waiting": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "unknown-cancel",
+      "initial": {
+        "capacity": 1,
+        "confirmed": [
+          "Ada"
+        ],
+        "waiting": [
+          "Bo"
+        ]
+      },
+      "steps": [
+        {
+          "operation": "cancel",
+          "participant_id": "missing",
+          "expected": {
+            "capacity": 1,
+            "confirmed": [
+              "Ada"
+            ],
+            "waiting": [
+              "Bo"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "empty-cancel",
+      "initial": {
+        "capacity": 1,
+        "confirmed": [],
+        "waiting": []
+      },
+      "steps": [
+        {
+          "operation": "cancel",
+          "participant_id": "Ada",
+          "expected": {
+            "capacity": 1,
+            "confirmed": [],
+            "waiting": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "exact-id-case-whitespace",
+      "initial": {
+        "capacity": 3,
+        "confirmed": [],
+        "waiting": []
+      },
+      "steps": [
+        {
+          "operation": "register",
+          "participant_id": "Ada",
+          "expected": {
+            "capacity": 3,
+            "confirmed": [
+              "Ada"
+            ],
+            "waiting": []
+          }
+        },
+        {
+          "operation": "register",
+          "participant_id": "ada",
+          "expected": {
+            "capacity": 3,
+            "confirmed": [
+              "Ada",
+              "ada"
+            ],
+            "waiting": []
+          }
+        },
+        {
+          "operation": "register",
+          "participant_id": " ",
+          "expected": {
+            "capacity": 3,
+            "confirmed": [
+              "Ada",
+              "ada",
+              " "
+            ],
+            "waiting": []
+          }
+        },
+        {
+          "operation": "cancel",
+          "participant_id": "ADA",
+          "expected": {
+            "capacity": 3,
+            "confirmed": [
+              "Ada",
+              "ada",
+              " "
+            ],
+            "waiting": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "unicode-id",
+      "initial": {
+        "capacity": 1,
+        "confirmed": [],
+        "waiting": []
+      },
+      "steps": [
+        {
+          "operation": "register",
+          "participant_id": "아다",
+          "expected": {
+            "capacity": 1,
+            "confirmed": [
+              "아다"
+            ],
+            "waiting": []
+          }
+        },
+        {
+          "operation": "register",
+          "participant_id": "보",
+          "expected": {
+            "capacity": 1,
+            "confirmed": [
+              "아다"
+            ],
+            "waiting": [
+              "보"
+            ]
+          }
+        },
+        {
+          "operation": "cancel",
+          "participant_id": "아다",
+          "expected": {
+            "capacity": 1,
+            "confirmed": [
+              "보"
+            ],
+            "waiting": []
+          }
+        }
+      ]
+    }
+  ],
+  "invalid_cases": [
+    {
+      "id": "zero-capacity",
+      "operation": "new_workshop",
+      "capacity": 0,
+      "error": "ValueError"
+    },
+    {
+      "id": "negative-capacity",
+      "operation": "new_workshop",
+      "capacity": -1,
+      "error": "ValueError"
+    },
+    {
+      "id": "boolean-capacity",
+      "operation": "new_workshop",
+      "capacity": true,
+      "error": "ValueError"
+    },
+    {
+      "id": "string-capacity",
+      "operation": "new_workshop",
+      "capacity": "2",
+      "error": "ValueError"
+    },
+    {
+      "id": "empty-id",
+      "operation": "register",
+      "initial": {
+        "capacity": 1,
+        "confirmed": [],
+        "waiting": []
+      },
+      "participant_id": "",
+      "error": "ValueError"
+    },
+    {
+      "id": "nonstring-id",
+      "operation": "cancel",
+      "initial": {
+        "capacity": 1,
+        "confirmed": [],
+        "waiting": []
+      },
+      "participant_id": 1,
+      "error": "ValueError"
+    },
+    {
+      "id": "null-id",
+      "operation": "register",
+      "initial": {
+        "capacity": 1,
+        "confirmed": [],
+        "waiting": []
+      },
+      "participant_id": null,
+      "error": "ValueError"
+    },
+    {
+      "id": "duplicate-in-confirmed",
+      "operation": "register",
+      "initial": {
+        "capacity": 2,
+        "confirmed": [
+          "Ada",
+          "Ada"
+        ],
+        "waiting": []
+      },
+      "participant_id": "Cy",
+      "error": "ValueError"
+    },
+    {
+      "id": "duplicate-across-lists",
+      "operation": "cancel",
+      "initial": {
+        "capacity": 1,
+        "confirmed": [
+          "Ada"
+        ],
+        "waiting": [
+          "Ada"
+        ]
+      },
+      "participant_id": "Ada",
+      "error": "ValueError"
+    },
+    {
+      "id": "duplicate-in-waiting",
+      "operation": "register",
+      "initial": {
+        "capacity": 1,
+        "confirmed": [
+          "Ada"
+        ],
+        "waiting": [
+          "Bo",
+          "Bo"
+        ]
+      },
+      "participant_id": "Cy",
+      "error": "ValueError"
+    },
+    {
+      "id": "over-capacity",
+      "operation": "cancel",
+      "initial": {
+        "capacity": 1,
+        "confirmed": [
+          "Ada",
+          "Bo"
+        ],
+        "waiting": []
+      },
+      "participant_id": "Bo",
+      "error": "ValueError"
+    },
+    {
+      "id": "waiting-with-free-seat",
+      "operation": "register",
+      "initial": {
+        "capacity": 2,
+        "confirmed": [
+          "Ada"
+        ],
+        "waiting": [
+          "Bo"
+        ]
+      },
+      "participant_id": "Cy",
+      "error": "ValueError"
+    },
+    {
+      "id": "missing-key",
+      "operation": "register",
+      "initial": {
+        "capacity": 1,
+        "confirmed": []
+      },
+      "participant_id": "Ada",
+      "error": "ValueError"
+    },
+    {
+      "id": "extra-key",
+      "operation": "cancel",
+      "initial": {
+        "capacity": 1,
+        "confirmed": [],
+        "waiting": [],
+        "extra": 1
+      },
+      "participant_id": "Ada",
+      "error": "ValueError"
+    },
+    {
+      "id": "lists-required",
+      "operation": "register",
+      "initial": {
+        "capacity": 1,
+        "confirmed": "Ada",
+        "waiting": []
+      },
+      "participant_id": "Bo",
+      "error": "ValueError"
+    },
+    {
+      "id": "invalid-stored-id",
+      "operation": "cancel",
+      "initial": {
+        "capacity": 1,
+        "confirmed": [
+          ""
+        ],
+        "waiting": []
+      },
+      "participant_id": "Ada",
+      "error": "ValueError"
+    }
+  ]
+}

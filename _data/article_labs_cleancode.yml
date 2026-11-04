@@ -1,0 +1,23 @@
+cleancode-state:
+  bundle: cleancode
+  stylesheet: /assets/css/cleancode-lab.css
+  title: {en: "Run a workshop registration desk", ko: "워크숍 신청·취소 처리하기"}
+  note: {en: "Capacity 1–4, IDs A–F, at most 30 actions. Capacity stays fixed after the first action until Reset. Confirmed IDs and the FIFO waiting list are disjoint; a nonempty waiting list requires a full workshop. Every action returns a new state value and preserves its input.", ko: "정원 1–4명, ID A–F, 동작 최대 30회입니다. 첫 동작 이후 정원은 초기화 전까지 고정합니다. 확정·대기 명단에 중복은 없고, 대기자가 있으면 정원이 차 있어야 합니다. 모든 동작은 입력을 유지하고 새 상태 값을 반환합니다."}
+  data: [/assets/data/cleancode/workshop-fixtures.json]
+cleancode-tdd:
+  bundle: cleancode
+  title: {en: "Real Red–Green–Refactor records", ko: "실제 Red–Green–Refactor 기록"}
+  note: {en: "Discrete, saved local Python/pytest execution records. The browser displays the recorded source, command, output, exit status and reason; it does not execute Python, pytest or arbitrary code.", ko: "로컬 Python·pytest 실행을 단계별로 저장한 기록입니다. 브라우저는 당시 소스·명령·출력·종료 상태·이유를 보여 주며 Python·pytest나 임의 코드를 실행하지 않습니다."}
+  data: [/assets/data/cleancode/tdd-runs.json]
+cleancode-refactor:
+  bundle: cleancode
+  title: {en: "Compare a refactor with a rule change", ko: "Refactor와 규칙 변경 비교하기"}
+  note: {en: "Four valid registration input presets, a nested implementation, a guard-clause implementation and an explicit wrong-boundary implementation. Compare the returned capacity and ordered ID lists. Agreement on these inputs is a finite check, not a universal proof or a cleanliness score.", ko: "유효한 신청 입력 네 가지에 중첩 분기·guard clause·경계 오류 구현을 적용합니다. 반환된 정원과 ID 순서를 비교합니다. 이 입력에서 결과가 같다는 것은 유한한 검사이며, 모든 입력에 대한 증명이나 코드 품질 점수는 아닙니다."}
+cleancode-tests:
+  bundle: cleancode
+  title: {en: "Choose tests and expose concrete faults", ko: "테스트를 골라 구체적인 오류 찾기"}
+  note: {en: "Six named tests execute four finite JavaScript fault implementations: wrong full-capacity boundary, duplicate registration, LIFO promotion and source mutation. PASS/FAIL refers to each stated assertion; the observed value is either the returned state or, for an input-preservation assertion, the caller's input after the call.", ko: "이름이 있는 테스트 여섯 개로 JavaScript 오류 구현 네 가지를 실행합니다. 오류는 정원 경계·중복 신청·LIFO 승급·원본 변경입니다. PASS·FAIL은 각 assertion의 결과이며, 실제 검사값은 반환된 상태이거나, 원본 보존을 검사할 때는 호출 후의 원본 상태입니다."}
+cleancode-quiz:
+  bundle: cleancode
+  title: {en: "Check five testing decisions", ko: "테스트 판단 다섯 가지 확인하기"}
+  note: {en: "Five authored questions use workshop states and code cards. Each option has specific feedback. Answers remain editable and are included in the validated experiment link.", ko: "워크숍 상태와 코드 카드로 다섯 문항을 풉니다. 선택지마다 다른 설명을 제공하며, 답은 수정할 수 있고 검증된 실험 링크에 포함됩니다."}

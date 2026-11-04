@@ -1,0 +1,3213 @@
+{
+  "generator": "tools/cleancode_figures.py",
+  "assets": [
+    {
+      "stem": "fig-01-state",
+      "width": 960,
+      "height": 670,
+      "layout": {
+        "review_width_css_px": 649,
+        "minimum_css_font_px": 18.93,
+        "labels": [
+          {
+            "text": "Cancel A; promote the first waiting ID",
+            "bbox_source_px": [
+              32.0,
+              618.5,
+              634.25,
+              649.5
+            ],
+            "font_source_px": 32.0,
+            "font_css_px": 21.63
+          },
+          {
+            "text": "capacity = 2",
+            "bbox_source_px": [
+              32.0,
+              571.0,
+              234.5,
+              599.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "Input snapshot",
+            "bbox_source_px": [
+              54.0,
+              515.5,
+              278.25,
+              544.5
+            ],
+            "font_source_px": 30.0,
+            "font_css_px": 20.28
+          },
+          {
+            "text": "Returned state",
+            "bbox_source_px": [
+              602.0,
+              515.5,
+              824.62,
+              544.5
+            ],
+            "font_source_px": 30.0,
+            "font_css_px": 20.28
+          },
+          {
+            "text": "confirmed",
+            "bbox_source_px": [
+              54.0,
+              472.0,
+              205.88,
+              500.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "A",
+            "bbox_source_px": [
+              117.94,
+              404.0,
+              142.06,
+              444.0
+            ],
+            "font_source_px": 40.0,
+            "font_css_px": 27.04
+          },
+          {
+            "text": "0",
+            "bbox_source_px": [
+              121.56,
+              358.0,
+              138.44,
+              386.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "B",
+            "bbox_source_px": [
+              257.94,
+              404.0,
+              282.06,
+              444.0
+            ],
+            "font_source_px": 40.0,
+            "font_css_px": 27.04
+          },
+          {
+            "text": "1",
+            "bbox_source_px": [
+              261.56,
+              358.0,
+              278.44,
+              386.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "confirmed",
+            "bbox_source_px": [
+              602.0,
+              472.0,
+              753.88,
+              500.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "B",
+            "bbox_source_px": [
+              647.94,
+              404.0,
+              672.06,
+              444.0
+            ],
+            "font_source_px": 40.0,
+            "font_css_px": 27.04
+          },
+          {
+            "text": "0",
+            "bbox_source_px": [
+              651.56,
+              358.0,
+              668.44,
+              386.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "C",
+            "bbox_source_px": [
+              787.94,
+              404.0,
+              812.06,
+              444.0
+            ],
+            "font_source_px": 40.0,
+            "font_css_px": 27.04
+          },
+          {
+            "text": "1",
+            "bbox_source_px": [
+              791.56,
+              358.0,
+              808.44,
+              386.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "waiting \u00b7 FIFO",
+            "bbox_source_px": [
+              54.0,
+              81.0,
+              290.25,
+              109.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "C",
+            "bbox_source_px": [
+              117.94,
+              181.0,
+              142.06,
+              221.0
+            ],
+            "font_source_px": 40.0,
+            "font_css_px": 27.04
+          },
+          {
+            "text": "0",
+            "bbox_source_px": [
+              121.56,
+              135.0,
+              138.44,
+              163.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "D",
+            "bbox_source_px": [
+              257.94,
+              181.0,
+              282.06,
+              221.0
+            ],
+            "font_source_px": 40.0,
+            "font_css_px": 27.04
+          },
+          {
+            "text": "1",
+            "bbox_source_px": [
+              261.56,
+              135.0,
+              278.44,
+              163.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "waiting",
+            "bbox_source_px": [
+              602.0,
+              81.0,
+              720.12,
+              109.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "D",
+            "bbox_source_px": [
+              647.94,
+              181.0,
+              672.06,
+              221.0
+            ],
+            "font_source_px": 40.0,
+            "font_css_px": 27.04
+          },
+          {
+            "text": "0",
+            "bbox_source_px": [
+              651.56,
+              135.0,
+              668.44,
+              163.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "B: 1 \u2192 0",
+            "bbox_source_px": [
+              398.5,
+              419.0,
+              533.5,
+              447.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "D: 1 \u2192 0",
+            "bbox_source_px": [
+              398.5,
+              196.0,
+              533.5,
+              224.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "C: waiting[0] \u2192 confirmed[1]",
+            "bbox_source_px": [
+              243.75,
+              308.0,
+              716.25,
+              336.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "Input stays unchanged",
+            "bbox_source_px": [
+              54.0,
+              21.0,
+              373.75,
+              49.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "New dict + new lists",
+            "bbox_source_px": [
+              602.0,
+              21.0,
+              887.12,
+              49.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          }
+        ],
+        "text_collisions": 0,
+        "text_out_of_bounds": 0
+      },
+      "semantics": {
+        "initial": {
+          "capacity": 2,
+          "confirmed": [
+            "A",
+            "B"
+          ],
+          "waiting": [
+            "C",
+            "D"
+          ]
+        },
+        "operation": "cancel(A)",
+        "result": {
+          "capacity": 2,
+          "confirmed": [
+            "B",
+            "C"
+          ],
+          "waiting": [
+            "D"
+          ]
+        },
+        "indices": {
+          "B": [
+            1,
+            0
+          ],
+          "D": [
+            1,
+            0
+          ],
+          "C": [
+            "waiting[0]",
+            "confirmed[1]"
+          ]
+        },
+        "input_mutated": false
+      }
+    },
+    {
+      "stem": "fig-02-test",
+      "width": 960,
+      "height": 810,
+      "layout": {
+        "review_width_css_px": 649,
+        "minimum_css_font_px": 18.93,
+        "labels": [
+          {
+            "text": "Same count. Different people.",
+            "bbox_source_px": [
+              36.0,
+              758.5,
+              487.5,
+              787.5
+            ],
+            "font_source_px": 30.0,
+            "font_css_px": 20.28
+          },
+          {
+            "text": "cancel(state, \"A\")",
+            "bbox_source_px": [
+              36.0,
+              698.0,
+              351.0,
+              726.0
+            ],
+            "font_source_px": 29.0,
+            "font_css_px": 19.61
+          },
+          {
+            "text": "Confirmed \u00b7 capacity 2",
+            "bbox_source_px": [
+              36.0,
+              645.0,
+              352.0,
+              673.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "A",
+            "bbox_source_px": [
+              93.38,
+              580.5,
+              116.62,
+              613.5
+            ],
+            "font_source_px": 34.0,
+            "font_css_px": 22.99
+          },
+          {
+            "text": "B",
+            "bbox_source_px": [
+              161.38,
+              580.5,
+              184.62,
+              613.5
+            ],
+            "font_source_px": 34.0,
+            "font_css_px": 22.99
+          },
+          {
+            "text": "Waiting \u00b7 FIFO",
+            "bbox_source_px": [
+              489.0,
+              645.0,
+              682.88,
+              673.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "C",
+            "bbox_source_px": [
+              554.12,
+              580.5,
+              577.88,
+              613.5
+            ],
+            "font_source_px": 34.0,
+            "font_css_px": 22.99
+          },
+          {
+            "text": "D",
+            "bbox_source_px": [
+              620.94,
+              580.5,
+              647.06,
+              613.5
+            ],
+            "font_source_px": 34.0,
+            "font_css_px": 22.99
+          },
+          {
+            "text": "head",
+            "bbox_source_px": [
+              531.19,
+              533.0,
+              600.81,
+              561.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "From the FIFO rule",
+            "bbox_source_px": [
+              119.75,
+              482.0,
+              378.25,
+              510.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "Faulty implementation",
+            "bbox_source_px": [
+              554.31,
+              482.0,
+              867.69,
+              510.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "Expected",
+            "bbox_source_px": [
+              181.38,
+              393.0,
+              316.62,
+              421.0
+            ],
+            "font_source_px": 29.0,
+            "font_css_px": 19.61
+          },
+          {
+            "text": "Confirmed",
+            "bbox_source_px": [
+              176.5,
+              325.0,
+              321.5,
+              353.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "B",
+            "bbox_source_px": [
+              203.38,
+              238.5,
+              226.62,
+              271.5
+            ],
+            "font_source_px": 34.0,
+            "font_css_px": 22.99
+          },
+          {
+            "text": "0",
+            "bbox_source_px": [
+              206.56,
+              295.0,
+              223.44,
+              323.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "C",
+            "bbox_source_px": [
+              271.12,
+              238.5,
+              294.88,
+              271.5
+            ],
+            "font_source_px": 34.0,
+            "font_css_px": 22.99
+          },
+          {
+            "text": "1",
+            "bbox_source_px": [
+              274.56,
+              295.0,
+              291.44,
+              323.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "Waiting",
+            "bbox_source_px": [
+              196.69,
+              177.0,
+              301.31,
+              205.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "D",
+            "bbox_source_px": [
+              235.94,
+              119.5,
+              262.06,
+              152.5
+            ],
+            "font_source_px": 34.0,
+            "font_css_px": 22.99
+          },
+          {
+            "text": "2 confirmed",
+            "bbox_source_px": [
+              165.31,
+              59.0,
+              332.69,
+              87.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "Faulty actual",
+            "bbox_source_px": [
+              618.31,
+              393.0,
+              803.69,
+              421.0
+            ],
+            "font_source_px": 29.0,
+            "font_css_px": 19.61
+          },
+          {
+            "text": "Confirmed",
+            "bbox_source_px": [
+              638.5,
+              325.0,
+              783.5,
+              353.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "B",
+            "bbox_source_px": [
+              665.38,
+              238.5,
+              688.62,
+              271.5
+            ],
+            "font_source_px": 34.0,
+            "font_css_px": 22.99
+          },
+          {
+            "text": "0",
+            "bbox_source_px": [
+              668.56,
+              295.0,
+              685.44,
+              323.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "D",
+            "bbox_source_px": [
+              731.94,
+              238.5,
+              758.06,
+              271.5
+            ],
+            "font_source_px": 34.0,
+            "font_css_px": 22.99
+          },
+          {
+            "text": "1",
+            "bbox_source_px": [
+              736.56,
+              295.0,
+              753.44,
+              323.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "Waiting",
+            "bbox_source_px": [
+              658.69,
+              177.0,
+              763.31,
+              205.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "C",
+            "bbox_source_px": [
+              699.12,
+              119.5,
+              722.88,
+              152.5
+            ],
+            "font_source_px": 34.0,
+            "font_css_px": 22.99
+          },
+          {
+            "text": "2 confirmed",
+            "bbox_source_px": [
+              627.31,
+              59.0,
+              794.69,
+              87.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "C \u2260 D  \u00b7  assert actual == expected  \u2192  FAIL",
+            "bbox_source_px": [
+              95.0,
+              22.0,
+              865.0,
+              50.0
+            ],
+            "font_source_px": 29.0,
+            "font_css_px": 19.61
+          }
+        ],
+        "text_collisions": 0,
+        "text_out_of_bounds": 0
+      },
+      "semantics": {
+        "input": {
+          "capacity": 2,
+          "confirmed": [
+            "A",
+            "B"
+          ],
+          "waiting": [
+            "C",
+            "D"
+          ]
+        },
+        "operation": "cancel(A)",
+        "expected": {
+          "capacity": 2,
+          "confirmed": [
+            "B",
+            "C"
+          ],
+          "waiting": [
+            "D"
+          ]
+        },
+        "faulty_actual": {
+          "capacity": 2,
+          "confirmed": [
+            "B",
+            "D"
+          ],
+          "waiting": [
+            "C"
+          ]
+        },
+        "bug": "lifo-promotion"
+      }
+    },
+    {
+      "stem": "fig-03-cycle",
+      "width": 960,
+      "height": 730,
+      "layout": {
+        "review_width_css_px": 649,
+        "minimum_css_font_px": 18.93,
+        "labels": [
+          {
+            "text": "One behavior, three checkpoints",
+            "bbox_source_px": [
+              32.0,
+              678.5,
+              554.25,
+              709.5
+            ],
+            "font_source_px": 32.0,
+            "font_css_px": 21.63
+          },
+          {
+            "text": "Implement",
+            "bbox_source_px": [
+              404.44,
+              626.0,
+              555.56,
+              654.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "[A]",
+            "bbox_source_px": [
+              153.81,
+              475.0,
+              226.19,
+              515.0
+            ],
+            "font_source_px": 40.0,
+            "font_css_px": 27.04
+          },
+          {
+            "text": "RED",
+            "bbox_source_px": [
+              158.5,
+              567.5,
+              221.5,
+              596.5
+            ],
+            "font_source_px": 30.0,
+            "font_css_px": 20.28
+          },
+          {
+            "text": "4 pass \u00b7 1 fail",
+            "bbox_source_px": [
+              96.88,
+              390.0,
+              283.12,
+              418.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "[B]",
+            "bbox_source_px": [
+              733.81,
+              475.0,
+              806.19,
+              515.0
+            ],
+            "font_source_px": 40.0,
+            "font_css_px": 27.04
+          },
+          {
+            "text": "GREEN",
+            "bbox_source_px": [
+              717.69,
+              567.5,
+              822.31,
+              596.5
+            ],
+            "font_source_px": 30.0,
+            "font_css_px": 20.28
+          },
+          {
+            "text": "5 pass \u00b7 0 fail",
+            "bbox_source_px": [
+              676.88,
+              390.0,
+              863.12,
+              418.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "Same test",
+            "bbox_source_px": [
+              403.88,
+              375.5,
+              556.12,
+              404.5
+            ],
+            "font_source_px": 30.0,
+            "font_css_px": 20.28
+          },
+          {
+            "text": "cancel(A)",
+            "bbox_source_px": [
+              399.0,
+              330.5,
+              561.0,
+              359.5
+            ],
+            "font_source_px": 30.0,
+            "font_css_px": 20.28
+          },
+          {
+            "text": "expect [B]",
+            "bbox_source_px": [
+              390.0,
+              285.5,
+              570.0,
+              314.5
+            ],
+            "font_source_px": 30.0,
+            "font_css_px": 20.28
+          },
+          {
+            "text": "Restructure",
+            "bbox_source_px": [
+              703.88,
+              316.0,
+              866.12,
+              344.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "REFACTOR",
+            "bbox_source_px": [
+              401.06,
+              205.5,
+              558.94,
+              234.5
+            ],
+            "font_source_px": 30.0,
+            "font_css_px": 20.28
+          },
+          {
+            "text": "[B]",
+            "bbox_source_px": [
+              443.81,
+              130.0,
+              516.19,
+              170.0
+            ],
+            "font_source_px": 40.0,
+            "font_css_px": 27.04
+          },
+          {
+            "text": "copy_state()",
+            "bbox_source_px": [
+              378.75,
+              60.43,
+              581.25,
+              89.57
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "5 pass \u00b7 0 fail \u00b7 same tests",
+            "bbox_source_px": [
+              297.0,
+              16.0,
+              663.0,
+              44.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "Next behavior",
+            "bbox_source_px": [
+              91.69,
+              276.0,
+              288.31,
+              304.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          }
+        ],
+        "text_collisions": 0,
+        "text_out_of_bounds": 0
+      },
+      "semantics": {
+        "fixture": {
+          "capacity": 1,
+          "confirmed": [
+            "A"
+          ],
+          "waiting": [
+            "B"
+          ]
+        },
+        "operation": "cancel(A)",
+        "red_actual_confirmed": [
+          "A"
+        ],
+        "expected_confirmed": [
+          "B"
+        ],
+        "green_change": "promote waiting[0]",
+        "refactor": "extract copy_state()",
+        "result_after_green_and_refactor": "same tests pass",
+        "test_counts": {
+          "red": {
+            "passed": 4,
+            "failed": 1
+          },
+          "green": {
+            "passed": 5,
+            "failed": 0
+          },
+          "refactor": {
+            "passed": 5,
+            "failed": 0
+          }
+        },
+        "source_snapshot_ids": [
+          "cancel-red",
+          "cancel-green",
+          "copy-refactor"
+        ],
+        "return_arrow": "choose a new test for the next behavior"
+      }
+    },
+    {
+      "stem": "fig-04-refactor",
+      "width": 960,
+      "height": 810,
+      "layout": {
+        "review_width_css_px": 649,
+        "minimum_css_font_px": 18.93,
+        "labels": [
+          {
+            "text": "One helper, two callers",
+            "bbox_source_px": [
+              32.0,
+              758.5,
+              402.38,
+              789.5
+            ],
+            "font_source_px": 32.0,
+            "font_css_px": 21.63
+          },
+          {
+            "text": "Before",
+            "bbox_source_px": [
+              32.0,
+              695.5,
+              130.25,
+              724.5
+            ],
+            "font_source_px": 30.0,
+            "font_css_px": 20.28
+          },
+          {
+            "text": "register(...)",
+            "bbox_source_px": [
+              47.0,
+              644.5,
+              281.0,
+              673.5
+            ],
+            "font_source_px": 30.0,
+            "font_css_px": 20.28
+          },
+          {
+            "text": "cancel(...)",
+            "bbox_source_px": [
+              522.0,
+              644.5,
+              720.0,
+              673.5
+            ],
+            "font_source_px": 30.0,
+            "font_css_px": 20.28
+          },
+          {
+            "text": "validate_state(state)",
+            "bbox_source_px": [
+              47.0,
+              577.43,
+              401.38,
+              606.57
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "Copy confirmed list",
+            "bbox_source_px": [
+              47.0,
+              525.0,
+              317.5,
+              553.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "Copy waiting list",
+            "bbox_source_px": [
+              47.0,
+              472.0,
+              278.38,
+              500.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "validate_state(state)",
+            "bbox_source_px": [
+              522.0,
+              577.43,
+              876.38,
+              606.57
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "Copy confirmed list",
+            "bbox_source_px": [
+              522.0,
+              525.0,
+              792.5,
+              553.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "Copy waiting list",
+            "bbox_source_px": [
+              522.0,
+              472.0,
+              753.38,
+              500.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "copy_state(state)",
+            "bbox_source_px": [
+              327.0,
+              317.91,
+              633.0,
+              348.09
+            ],
+            "font_source_px": 30.0,
+            "font_css_px": 20.28
+          },
+          {
+            "text": "validate_state(state)",
+            "bbox_source_px": [
+              302.81,
+              248.43,
+              657.19,
+              277.57
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "new dict + new lists",
+            "bbox_source_px": [
+              339.0,
+              199.0,
+              621.0,
+              227.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "After",
+            "bbox_source_px": [
+              32.0,
+              142.5,
+              104.0,
+              171.5
+            ],
+            "font_source_px": 30.0,
+            "font_css_px": 20.28
+          },
+          {
+            "text": "register(...)",
+            "bbox_source_px": [
+              55.0,
+              90.5,
+              289.0,
+              119.5
+            ],
+            "font_source_px": 30.0,
+            "font_css_px": 20.28
+          },
+          {
+            "text": "copy_state(state)",
+            "bbox_source_px": [
+              55.0,
+              42.43,
+              341.88,
+              71.57
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "cancel(...)",
+            "bbox_source_px": [
+              620.0,
+              90.5,
+              818.0,
+              119.5
+            ],
+            "font_source_px": 30.0,
+            "font_css_px": 20.28
+          },
+          {
+            "text": "copy_state(state)",
+            "bbox_source_px": [
+              620.0,
+              42.43,
+              906.88,
+              71.57
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          }
+        ],
+        "text_collisions": 0,
+        "text_out_of_bounds": 0
+      },
+      "semantics": {
+        "public_operations": [
+          "register(state, participant_id)",
+          "cancel(state, participant_id)"
+        ],
+        "shared_boundary": "copy_state(state)",
+        "shared_policy": "validate_state(state); copy confirmed and waiting lists",
+        "operation_rules": {
+          "register": "duplicate identity and capacity",
+          "cancel": "removal and FIFO promotion"
+        },
+        "equivalence_condition": "same state validation, copying, and operation rules",
+        "highlighted_regions": "exact validator invocation plus plain-language labels for two list-copy operations",
+        "gold_arrows": "extraction of duplicated preparation",
+        "teal_arrows": "calls to the extracted helper, not execution order",
+        "quality_score": null
+      }
+    },
+    {
+      "stem": "fig-05-boundaries",
+      "width": 960,
+      "height": 850,
+      "layout": {
+        "review_width_css_px": 649,
+        "minimum_css_font_px": 17.58,
+        "labels": [
+          {
+            "text": "1",
+            "bbox_source_px": [
+              41.75,
+              798.0,
+              58.25,
+              824.0
+            ],
+            "font_source_px": 26.0,
+            "font_css_px": 17.58
+          },
+          {
+            "text": "Pure logic",
+            "bbox_source_px": [
+              85.0,
+              796.5,
+              232.0,
+              825.5
+            ],
+            "font_source_px": 30.0,
+            "font_css_px": 20.28
+          },
+          {
+            "text": "state",
+            "bbox_source_px": [
+              101.69,
+              615.0,
+              172.31,
+              643.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "register / cancel",
+            "bbox_source_px": [
+              336.56,
+              688.0,
+              623.44,
+              716.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "new state",
+            "bbox_source_px": [
+              755.31,
+              615.0,
+              892.69,
+              643.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "2",
+            "bbox_source_px": [
+              41.75,
+              526.0,
+              58.25,
+              552.0
+            ],
+            "font_source_px": 26.0,
+            "font_css_px": 17.58
+          },
+          {
+            "text": "Real file test",
+            "bbox_source_px": [
+              85.0,
+              524.5,
+              272.12,
+              553.5
+            ],
+            "font_source_px": 30.0,
+            "font_css_px": 20.28
+          },
+          {
+            "text": "expected",
+            "bbox_source_px": [
+              72.25,
+              337.0,
+              201.75,
+              365.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "JSON",
+            "bbox_source_px": [
+              446.25,
+              404.0,
+              513.75,
+              432.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "actual",
+            "bbox_source_px": [
+              781.12,
+              337.0,
+              866.88,
+              365.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "save",
+            "bbox_source_px": [
+              272.25,
+              458.0,
+              339.75,
+              486.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "load",
+            "bbox_source_px": [
+              620.25,
+              458.0,
+              687.75,
+              486.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "actual == expected",
+            "bbox_source_px": [
+              328.12,
+              270.0,
+              631.88,
+              298.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "3",
+            "bbox_source_px": [
+              41.75,
+              182.0,
+              58.25,
+              208.0
+            ],
+            "font_source_px": 26.0,
+            "font_css_px": 17.58
+          },
+          {
+            "text": "Stub + spy",
+            "bbox_source_px": [
+              85.0,
+              180.5,
+              250.38,
+              209.5
+            ],
+            "font_source_px": 30.0,
+            "font_css_px": 20.28
+          },
+          {
+            "text": "load stub",
+            "bbox_source_px": [
+              67.06,
+              105.0,
+              218.94,
+              133.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "register",
+            "bbox_source_px": [
+              412.5,
+              105.0,
+              547.5,
+              133.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "save spy",
+            "bbox_source_px": [
+              757.5,
+              105.0,
+              892.5,
+              133.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "supplies state",
+            "bbox_source_px": [
+              45.62,
+              45.0,
+              240.38,
+              73.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          },
+          {
+            "text": "records state",
+            "bbox_source_px": [
+              733.38,
+              45.0,
+              916.62,
+              73.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 18.93
+          }
+        ],
+        "text_collisions": 0,
+        "text_out_of_bounds": 0
+      },
+      "semantics": {
+        "pure_call": "state -> register/cancel -> new state; no I/O",
+        "real_file_test": [
+          "save_workshop(expected)",
+          "temporary JSON file",
+          "load_workshop()",
+          "actual == expected"
+        ],
+        "test_double": {
+          "load_stub": "supply known state",
+          "wrapper": "register_with_storage",
+          "save_spy": "record new state",
+          "real_file_io": false
+        }
+      }
+    },
+    {
+      "stem": "fig-01-state-mobile",
+      "width": 480,
+      "height": 1000,
+      "layout": {
+        "review_width_css_px": 328,
+        "minimum_css_font_px": 19.13,
+        "labels": [
+          {
+            "text": "One cancellation",
+            "bbox_source_px": [
+              24.0,
+              949.5,
+              292.12,
+              980.5
+            ],
+            "font_source_px": 32.0,
+            "font_css_px": 21.87
+          },
+          {
+            "text": "capacity = 2 \u00b7 cancel(A)",
+            "bbox_source_px": [
+              24.0,
+              906.0,
+              429.0,
+              934.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "Input snapshot",
+            "bbox_source_px": [
+              24.0,
+              860.5,
+              248.25,
+              889.5
+            ],
+            "font_source_px": 30.0,
+            "font_css_px": 20.5
+          },
+          {
+            "text": "confirmed",
+            "bbox_source_px": [
+              24.0,
+              816.0,
+              175.88,
+              844.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "A",
+            "bbox_source_px": [
+              117.94,
+              747.0,
+              142.06,
+              787.0
+            ],
+            "font_source_px": 40.0,
+            "font_css_px": 27.33
+          },
+          {
+            "text": "0",
+            "bbox_source_px": [
+              121.56,
+              701.0,
+              138.44,
+              729.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "B",
+            "bbox_source_px": [
+              277.94,
+              747.0,
+              302.06,
+              787.0
+            ],
+            "font_source_px": 40.0,
+            "font_css_px": 27.33
+          },
+          {
+            "text": "1",
+            "bbox_source_px": [
+              281.56,
+              701.0,
+              298.44,
+              729.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "waiting \u00b7 FIFO",
+            "bbox_source_px": [
+              24.0,
+              646.0,
+              260.25,
+              674.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "C",
+            "bbox_source_px": [
+              117.94,
+              577.0,
+              142.06,
+              617.0
+            ],
+            "font_source_px": 40.0,
+            "font_css_px": 27.33
+          },
+          {
+            "text": "0",
+            "bbox_source_px": [
+              121.56,
+              531.0,
+              138.44,
+              559.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "D",
+            "bbox_source_px": [
+              277.94,
+              577.0,
+              302.06,
+              617.0
+            ],
+            "font_source_px": 40.0,
+            "font_css_px": 27.33
+          },
+          {
+            "text": "1",
+            "bbox_source_px": [
+              281.56,
+              531.0,
+              298.44,
+              559.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "FIFO",
+            "bbox_source_px": [
+              188.69,
+              492.0,
+              251.31,
+              520.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "Returned state",
+            "bbox_source_px": [
+              24.0,
+              410.5,
+              246.62,
+              439.5
+            ],
+            "font_source_px": 30.0,
+            "font_css_px": 20.5
+          },
+          {
+            "text": "confirmed",
+            "bbox_source_px": [
+              24.0,
+              366.0,
+              175.88,
+              394.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "B",
+            "bbox_source_px": [
+              117.94,
+              297.0,
+              142.06,
+              337.0
+            ],
+            "font_source_px": 40.0,
+            "font_css_px": 27.33
+          },
+          {
+            "text": "0",
+            "bbox_source_px": [
+              121.56,
+              251.0,
+              138.44,
+              279.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "C",
+            "bbox_source_px": [
+              277.94,
+              297.0,
+              302.06,
+              337.0
+            ],
+            "font_source_px": 40.0,
+            "font_css_px": 27.33
+          },
+          {
+            "text": "1",
+            "bbox_source_px": [
+              281.56,
+              251.0,
+              298.44,
+              279.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "waiting",
+            "bbox_source_px": [
+              24.0,
+              186.0,
+              142.12,
+              214.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "D",
+            "bbox_source_px": [
+              117.94,
+              117.0,
+              142.06,
+              157.0
+            ],
+            "font_source_px": 40.0,
+            "font_css_px": 27.33
+          },
+          {
+            "text": "0",
+            "bbox_source_px": [
+              121.56,
+              71.0,
+              138.44,
+              99.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "Input unchanged \u00b7 list indices",
+            "bbox_source_px": [
+              24.0,
+              16.0,
+              435.75,
+              44.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          }
+        ],
+        "text_collisions": 0,
+        "text_out_of_bounds": 0
+      },
+      "semantics": {
+        "initial": {
+          "capacity": 2,
+          "confirmed": [
+            "A",
+            "B"
+          ],
+          "waiting": [
+            "C",
+            "D"
+          ]
+        },
+        "operation": "cancel(A)",
+        "result": {
+          "capacity": 2,
+          "confirmed": [
+            "B",
+            "C"
+          ],
+          "waiting": [
+            "D"
+          ]
+        },
+        "indices": {
+          "B": [
+            1,
+            0
+          ],
+          "D": [
+            1,
+            0
+          ],
+          "C": [
+            "waiting[0]",
+            "confirmed[1]"
+          ]
+        },
+        "input_mutated": false
+      }
+    },
+    {
+      "stem": "fig-02-test-mobile",
+      "width": 480,
+      "height": 1060,
+      "layout": {
+        "review_width_css_px": 328,
+        "minimum_css_font_px": 19.13,
+        "labels": [
+          {
+            "text": "A count is not enough",
+            "bbox_source_px": [
+              24.0,
+              1010.5,
+              353.12,
+              1039.5
+            ],
+            "font_source_px": 30.0,
+            "font_css_px": 20.5
+          },
+          {
+            "text": "cancel(state, \"A\")",
+            "bbox_source_px": [
+              24.0,
+              960.0,
+              339.0,
+              988.0
+            ],
+            "font_source_px": 29.0,
+            "font_css_px": 19.82
+          },
+          {
+            "text": "Before \u00b7 capacity 2",
+            "bbox_source_px": [
+              24.0,
+              901.0,
+              286.5,
+              929.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "Confirmed",
+            "bbox_source_px": [
+              36.5,
+              841.0,
+              181.5,
+              869.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "A",
+            "bbox_source_px": [
+              63.38,
+              775.5,
+              86.62,
+              808.5
+            ],
+            "font_source_px": 34.0,
+            "font_css_px": 23.23
+          },
+          {
+            "text": "B",
+            "bbox_source_px": [
+              131.38,
+              775.5,
+              154.62,
+              808.5
+            ],
+            "font_source_px": 34.0,
+            "font_css_px": 23.23
+          },
+          {
+            "text": "Waiting",
+            "bbox_source_px": [
+              301.69,
+              841.0,
+              406.31,
+              869.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "C",
+            "bbox_source_px": [
+              308.12,
+              775.5,
+              331.88,
+              808.5
+            ],
+            "font_source_px": 34.0,
+            "font_css_px": 23.23
+          },
+          {
+            "text": "D",
+            "bbox_source_px": [
+              374.94,
+              775.5,
+              401.06,
+              808.5
+            ],
+            "font_source_px": 34.0,
+            "font_css_px": 23.23
+          },
+          {
+            "text": "FIFO rule",
+            "bbox_source_px": [
+              57.12,
+              687.0,
+              182.88,
+              715.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "faulty code",
+            "bbox_source_px": [
+              282.0,
+              687.0,
+              438.0,
+              715.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "Expected",
+            "bbox_source_px": [
+              52.38,
+              591.0,
+              187.62,
+              619.0
+            ],
+            "font_source_px": 29.0,
+            "font_css_px": 19.82
+          },
+          {
+            "text": "Confirmed",
+            "bbox_source_px": [
+              47.5,
+              523.0,
+              192.5,
+              551.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "B",
+            "bbox_source_px": [
+              74.38,
+              436.5,
+              97.62,
+              469.5
+            ],
+            "font_source_px": 34.0,
+            "font_css_px": 23.23
+          },
+          {
+            "text": "0",
+            "bbox_source_px": [
+              77.56,
+              493.0,
+              94.44,
+              521.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "C",
+            "bbox_source_px": [
+              142.12,
+              436.5,
+              165.88,
+              469.5
+            ],
+            "font_source_px": 34.0,
+            "font_css_px": 23.23
+          },
+          {
+            "text": "1",
+            "bbox_source_px": [
+              145.56,
+              493.0,
+              162.44,
+              521.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "Waiting",
+            "bbox_source_px": [
+              67.69,
+              375.0,
+              172.31,
+              403.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "D",
+            "bbox_source_px": [
+              106.94,
+              317.5,
+              133.06,
+              350.5
+            ],
+            "font_source_px": 34.0,
+            "font_css_px": 23.23
+          },
+          {
+            "text": "2 confirmed",
+            "bbox_source_px": [
+              36.31,
+              257.0,
+              203.69,
+              285.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "Faulty actual",
+            "bbox_source_px": [
+              267.31,
+              591.0,
+              452.69,
+              619.0
+            ],
+            "font_source_px": 29.0,
+            "font_css_px": 19.82
+          },
+          {
+            "text": "Confirmed",
+            "bbox_source_px": [
+              287.5,
+              523.0,
+              432.5,
+              551.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "B",
+            "bbox_source_px": [
+              314.38,
+              436.5,
+              337.62,
+              469.5
+            ],
+            "font_source_px": 34.0,
+            "font_css_px": 23.23
+          },
+          {
+            "text": "0",
+            "bbox_source_px": [
+              317.56,
+              493.0,
+              334.44,
+              521.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "D",
+            "bbox_source_px": [
+              380.94,
+              436.5,
+              407.06,
+              469.5
+            ],
+            "font_source_px": 34.0,
+            "font_css_px": 23.23
+          },
+          {
+            "text": "1",
+            "bbox_source_px": [
+              385.56,
+              493.0,
+              402.44,
+              521.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "Waiting",
+            "bbox_source_px": [
+              307.69,
+              375.0,
+              412.31,
+              403.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "C",
+            "bbox_source_px": [
+              348.12,
+              317.5,
+              371.88,
+              350.5
+            ],
+            "font_source_px": 34.0,
+            "font_css_px": 23.23
+          },
+          {
+            "text": "2 confirmed",
+            "bbox_source_px": [
+              276.31,
+              257.0,
+              443.69,
+              285.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "C  \u2260  D",
+            "bbox_source_px": [
+              159.69,
+              168.5,
+              320.31,
+              211.5
+            ],
+            "font_source_px": 45.0,
+            "font_css_px": 30.75
+          },
+          {
+            "text": "assert actual == expected",
+            "bbox_source_px": [
+              29.06,
+              98.0,
+              450.94,
+              126.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "FAIL \u00b7 identities differ",
+            "bbox_source_px": [
+              86.56,
+              41.0,
+              393.44,
+              69.0
+            ],
+            "font_source_px": 29.0,
+            "font_css_px": 19.82
+          }
+        ],
+        "text_collisions": 0,
+        "text_out_of_bounds": 0
+      },
+      "semantics": {
+        "input": {
+          "capacity": 2,
+          "confirmed": [
+            "A",
+            "B"
+          ],
+          "waiting": [
+            "C",
+            "D"
+          ]
+        },
+        "operation": "cancel(A)",
+        "expected": {
+          "capacity": 2,
+          "confirmed": [
+            "B",
+            "C"
+          ],
+          "waiting": [
+            "D"
+          ]
+        },
+        "faulty_actual": {
+          "capacity": 2,
+          "confirmed": [
+            "B",
+            "D"
+          ],
+          "waiting": [
+            "C"
+          ]
+        },
+        "bug": "lifo-promotion"
+      }
+    },
+    {
+      "stem": "fig-03-cycle-mobile",
+      "width": 480,
+      "height": 960,
+      "layout": {
+        "review_width_css_px": 328,
+        "minimum_css_font_px": 19.13,
+        "labels": [
+          {
+            "text": "One behavior, one cycle",
+            "bbox_source_px": [
+              24.0,
+              908.5,
+              411.88,
+              939.5
+            ],
+            "font_source_px": 32.0,
+            "font_css_px": 21.87
+          },
+          {
+            "text": "Implement",
+            "bbox_source_px": [
+              164.44,
+              858.0,
+              315.56,
+              886.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "RED",
+            "bbox_source_px": [
+              73.5,
+              820.5,
+              136.5,
+              849.5
+            ],
+            "font_source_px": 30.0,
+            "font_css_px": 20.5
+          },
+          {
+            "text": "[A]",
+            "bbox_source_px": [
+              68.81,
+              730.0,
+              141.19,
+              770.0
+            ],
+            "font_source_px": 40.0,
+            "font_css_px": 27.33
+          },
+          {
+            "text": "4 pass",
+            "bbox_source_px": [
+              59.69,
+              661.0,
+              150.31,
+              689.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "1 fail",
+            "bbox_source_px": [
+              70.5,
+              622.0,
+              139.5,
+              650.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "GREEN",
+            "bbox_source_px": [
+              322.69,
+              820.5,
+              427.31,
+              849.5
+            ],
+            "font_source_px": 30.0,
+            "font_css_px": 20.5
+          },
+          {
+            "text": "[B]",
+            "bbox_source_px": [
+              338.81,
+              730.0,
+              411.19,
+              770.0
+            ],
+            "font_source_px": 40.0,
+            "font_css_px": 27.33
+          },
+          {
+            "text": "5 pass",
+            "bbox_source_px": [
+              329.69,
+              661.0,
+              420.31,
+              689.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "0 fail",
+            "bbox_source_px": [
+              340.5,
+              622.0,
+              409.5,
+              650.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "Same test",
+            "bbox_source_px": [
+              163.88,
+              533.5,
+              316.12,
+              562.5
+            ],
+            "font_source_px": 30.0,
+            "font_css_px": 20.5
+          },
+          {
+            "text": "cancel(A)",
+            "bbox_source_px": [
+              164.06,
+              490.0,
+              315.94,
+              518.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "expect [B]",
+            "bbox_source_px": [
+              155.62,
+              446.0,
+              324.38,
+              474.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "Next behavior",
+            "bbox_source_px": [
+              66.69,
+              396.0,
+              263.31,
+              424.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "Restructure",
+            "bbox_source_px": [
+              178.88,
+              346.0,
+              341.12,
+              374.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "REFACTOR",
+            "bbox_source_px": [
+              161.06,
+              293.5,
+              318.94,
+              322.5
+            ],
+            "font_source_px": 30.0,
+            "font_css_px": 20.5
+          },
+          {
+            "text": "[B]",
+            "bbox_source_px": [
+              203.81,
+              210.0,
+              276.19,
+              250.0
+            ],
+            "font_source_px": 40.0,
+            "font_css_px": 27.33
+          },
+          {
+            "text": "copy_state()",
+            "bbox_source_px": [
+              138.75,
+              125.43,
+              341.25,
+              154.57
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "5 pass",
+            "bbox_source_px": [
+              194.69,
+              78.0,
+              285.31,
+              106.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "0 fail \u00b7 same tests",
+            "bbox_source_px": [
+              115.62,
+              37.0,
+              364.38,
+              65.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          }
+        ],
+        "text_collisions": 0,
+        "text_out_of_bounds": 0
+      },
+      "semantics": {
+        "fixture": {
+          "capacity": 1,
+          "confirmed": [
+            "A"
+          ],
+          "waiting": [
+            "B"
+          ]
+        },
+        "operation": "cancel(A)",
+        "red_actual_confirmed": [
+          "A"
+        ],
+        "expected_confirmed": [
+          "B"
+        ],
+        "green_change": "promote waiting[0]",
+        "refactor": "extract copy_state()",
+        "result_after_green_and_refactor": "same tests pass",
+        "test_counts": {
+          "red": {
+            "passed": 4,
+            "failed": 1
+          },
+          "green": {
+            "passed": 5,
+            "failed": 0
+          },
+          "refactor": {
+            "passed": 5,
+            "failed": 0
+          }
+        },
+        "source_snapshot_ids": [
+          "cancel-red",
+          "cancel-green",
+          "copy-refactor"
+        ],
+        "return_arrow": "choose a new test for the next behavior"
+      }
+    },
+    {
+      "stem": "fig-04-refactor-mobile",
+      "width": 480,
+      "height": 1300,
+      "layout": {
+        "review_width_css_px": 328,
+        "minimum_css_font_px": 19.13,
+        "labels": [
+          {
+            "text": "One helper, two callers",
+            "bbox_source_px": [
+              24.0,
+              1250.5,
+              383.0,
+              1279.5
+            ],
+            "font_source_px": 31.0,
+            "font_css_px": 21.18
+          },
+          {
+            "text": "Keep the public behavior",
+            "bbox_source_px": [
+              24.0,
+              1206.0,
+              372.5,
+              1234.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "Before",
+            "bbox_source_px": [
+              24.0,
+              1142.5,
+              122.25,
+              1171.5
+            ],
+            "font_source_px": 30.0,
+            "font_css_px": 20.5
+          },
+          {
+            "text": "register(...)",
+            "bbox_source_px": [
+              39.0,
+              1087.5,
+              273.0,
+              1116.5
+            ],
+            "font_source_px": 30.0,
+            "font_css_px": 20.5
+          },
+          {
+            "text": "validate_state(state)",
+            "bbox_source_px": [
+              39.0,
+              1023.43,
+              393.38,
+              1052.57
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "Copy confirmed list",
+            "bbox_source_px": [
+              39.0,
+              971.0,
+              309.5,
+              999.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "Copy waiting list",
+            "bbox_source_px": [
+              39.0,
+              918.0,
+              270.38,
+              946.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "cancel(...)",
+            "bbox_source_px": [
+              39.0,
+              823.5,
+              237.0,
+              852.5
+            ],
+            "font_source_px": 30.0,
+            "font_css_px": 20.5
+          },
+          {
+            "text": "validate_state(state)",
+            "bbox_source_px": [
+              39.0,
+              759.43,
+              393.38,
+              788.57
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "Copy confirmed list",
+            "bbox_source_px": [
+              39.0,
+              707.0,
+              309.5,
+              735.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "Copy waiting list",
+            "bbox_source_px": [
+              39.0,
+              654.0,
+              270.38,
+              682.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "copy_state(state)",
+            "bbox_source_px": [
+              87.0,
+              495.91,
+              393.0,
+              526.09
+            ],
+            "font_source_px": 30.0,
+            "font_css_px": 20.5
+          },
+          {
+            "text": "validate_state(state)",
+            "bbox_source_px": [
+              62.81,
+              426.43,
+              417.19,
+              455.57
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "new dict + new lists",
+            "bbox_source_px": [
+              99.0,
+              377.0,
+              381.0,
+              405.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "After \u00b7 calls one helper",
+            "bbox_source_px": [
+              24.0,
+              282.5,
+              362.62,
+              311.5
+            ],
+            "font_source_px": 30.0,
+            "font_css_px": 20.5
+          },
+          {
+            "text": "register(...)",
+            "bbox_source_px": [
+              24.0,
+              225.5,
+              258.0,
+              254.5
+            ],
+            "font_source_px": 30.0,
+            "font_css_px": 20.5
+          },
+          {
+            "text": "copy_state(state)",
+            "bbox_source_px": [
+              24.0,
+              177.43,
+              310.88,
+              206.57
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "cancel(...)",
+            "bbox_source_px": [
+              24.0,
+              101.5,
+              222.0,
+              130.5
+            ],
+            "font_source_px": 30.0,
+            "font_css_px": 20.5
+          },
+          {
+            "text": "copy_state(state)",
+            "bbox_source_px": [
+              24.0,
+              53.43,
+              310.88,
+              82.57
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          }
+        ],
+        "text_collisions": 0,
+        "text_out_of_bounds": 0
+      },
+      "semantics": {
+        "public_operations": [
+          "register(state, participant_id)",
+          "cancel(state, participant_id)"
+        ],
+        "shared_boundary": "copy_state(state)",
+        "shared_policy": "validate_state(state); copy confirmed and waiting lists",
+        "operation_rules": {
+          "register": "duplicate identity and capacity",
+          "cancel": "removal and FIFO promotion"
+        },
+        "equivalence_condition": "same state validation, copying, and operation rules",
+        "highlighted_regions": "exact validator invocation plus plain-language labels for two list-copy operations",
+        "gold_arrows": "extraction of duplicated preparation",
+        "teal_arrows": "calls to the extracted helper, not execution order",
+        "quality_score": null
+      }
+    },
+    {
+      "stem": "fig-05-boundaries-mobile",
+      "width": 480,
+      "height": 1250,
+      "layout": {
+        "review_width_css_px": 328,
+        "minimum_css_font_px": 17.77,
+        "labels": [
+          {
+            "text": "1",
+            "bbox_source_px": [
+              29.75,
+              1200.0,
+              46.25,
+              1226.0
+            ],
+            "font_source_px": 26.0,
+            "font_css_px": 17.77
+          },
+          {
+            "text": "Pure logic",
+            "bbox_source_px": [
+              73.0,
+              1198.5,
+              220.0,
+              1227.5
+            ],
+            "font_source_px": 30.0,
+            "font_css_px": 20.5
+          },
+          {
+            "text": "state",
+            "bbox_source_px": [
+              52.69,
+              1044.0,
+              123.31,
+              1072.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "register",
+            "bbox_source_px": [
+              255.5,
+              1111.0,
+              390.5,
+              1139.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "or cancel",
+            "bbox_source_px": [
+              247.06,
+              1044.0,
+              398.94,
+              1072.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "new state",
+            "bbox_source_px": [
+              73.31,
+              940.0,
+              210.69,
+              968.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "2",
+            "bbox_source_px": [
+              29.75,
+              825.0,
+              46.25,
+              851.0
+            ],
+            "font_source_px": 26.0,
+            "font_css_px": 17.77
+          },
+          {
+            "text": "Real file test",
+            "bbox_source_px": [
+              73.0,
+              823.5,
+              260.12,
+              852.5
+            ],
+            "font_source_px": 30.0,
+            "font_css_px": 20.5
+          },
+          {
+            "text": "expected",
+            "bbox_source_px": [
+              17.25,
+              661.0,
+              146.75,
+              689.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "save",
+            "bbox_source_px": [
+              174.25,
+              761.0,
+              241.75,
+              789.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "JSON",
+            "bbox_source_px": [
+              320.25,
+              718.0,
+              387.75,
+              746.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "load",
+            "bbox_source_px": [
+              250.25,
+              614.0,
+              317.75,
+              642.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "actual",
+            "bbox_source_px": [
+              156.12,
+              528.0,
+              241.88,
+              556.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "actual == expected",
+            "bbox_source_px": [
+              88.12,
+              445.0,
+              391.88,
+              473.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "3",
+            "bbox_source_px": [
+              29.75,
+              353.0,
+              46.25,
+              379.0
+            ],
+            "font_source_px": 26.0,
+            "font_css_px": 17.77
+          },
+          {
+            "text": "Stub + spy",
+            "bbox_source_px": [
+              73.0,
+              351.5,
+              238.38,
+              380.5
+            ],
+            "font_source_px": 30.0,
+            "font_css_px": 20.5
+          },
+          {
+            "text": "load stub",
+            "bbox_source_px": [
+              24.0,
+              285.0,
+              175.88,
+              313.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "register",
+            "bbox_source_px": [
+              172.5,
+              168.0,
+              307.5,
+              196.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          },
+          {
+            "text": "save spy \u00b7 records state",
+            "bbox_source_px": [
+              37.5,
+              48.0,
+              442.5,
+              76.0
+            ],
+            "font_source_px": 28.0,
+            "font_css_px": 19.13
+          }
+        ],
+        "text_collisions": 0,
+        "text_out_of_bounds": 0
+      },
+      "semantics": {
+        "pure_call": "state -> register/cancel -> new state; no I/O",
+        "real_file_test": [
+          "save_workshop(expected)",
+          "temporary JSON file",
+          "load_workshop()",
+          "actual == expected"
+        ],
+        "test_double": {
+          "load_stub": "supply known state",
+          "wrapper": "register_with_storage",
+          "save_spy": "record new state",
+          "real_file_io": false
+        }
+      }
+    },
+    {
+      "stem": "cover-flat",
+      "width": 1672,
+      "height": 941,
+      "layout": {
+        "review_width_css_px": 328,
+        "minimum_css_font_px": 16.48,
+        "labels": [
+          {
+            "text": "Clean Code & TDD",
+            "bbox_source_px": [
+              297.81,
+              750.0,
+              1374.19,
+              862.0
+            ],
+            "font_source_px": 116.0,
+            "font_css_px": 22.76
+          },
+          {
+            "text": "Capacity 1 \u00b7 A confirmed \u00b7 B waiting",
+            "bbox_source_px": [
+              83.25,
+              590.5,
+              1588.75,
+              671.5
+            ],
+            "font_source_px": 84.0,
+            "font_css_px": 16.48
+          },
+          {
+            "text": "Actual confirmed",
+            "bbox_source_px": [
+              479.44,
+              480.5,
+              1192.56,
+              561.5
+            ],
+            "font_source_px": 84.0,
+            "font_css_px": 16.48
+          },
+          {
+            "text": "Fail",
+            "bbox_source_px": [
+              260.75,
+              375.5,
+              399.25,
+              456.5
+            ],
+            "font_source_px": 84.0,
+            "font_css_px": 16.48
+          },
+          {
+            "text": "[A]",
+            "bbox_source_px": [
+              228.94,
+              226.5,
+              431.06,
+              335.5
+            ],
+            "font_source_px": 112.0,
+            "font_css_px": 21.97
+          },
+          {
+            "text": "Pass",
+            "bbox_source_px": [
+              743.12,
+              375.5,
+              928.88,
+              456.5
+            ],
+            "font_source_px": 84.0,
+            "font_css_px": 16.48
+          },
+          {
+            "text": "[B]",
+            "bbox_source_px": [
+              734.94,
+              226.5,
+              937.06,
+              335.5
+            ],
+            "font_source_px": 112.0,
+            "font_css_px": 21.97
+          },
+          {
+            "text": "Refactor",
+            "bbox_source_px": [
+              1165.88,
+              375.5,
+              1518.12,
+              456.5
+            ],
+            "font_source_px": 84.0,
+            "font_css_px": 16.48
+          },
+          {
+            "text": "[B]",
+            "bbox_source_px": [
+              1240.94,
+              226.5,
+              1443.06,
+              335.5
+            ],
+            "font_source_px": 112.0,
+            "font_css_px": 21.97
+          },
+          {
+            "text": "cancel(A) \u2192 expect [B]",
+            "bbox_source_px": [
+              279.12,
+              45.5,
+              1392.88,
+              126.5
+            ],
+            "font_source_px": 84.0,
+            "font_css_px": 16.48
+          }
+        ],
+        "text_collisions": 0,
+        "text_out_of_bounds": 0
+      },
+      "semantics": {
+        "kind": "conceptual-cover",
+        "title": "Clean Code & TDD",
+        "feedback_labels": [
+          "Fail",
+          "Pass",
+          "Refactor"
+        ],
+        "input": {
+          "capacity": 1,
+          "confirmed": [
+            "A"
+          ],
+          "waiting": [
+            "B"
+          ]
+        },
+        "operation": "cancel(A)",
+        "displayed_actual_confirmed": [
+          [
+            "A"
+          ],
+          [
+            "B"
+          ],
+          [
+            "B"
+          ]
+        ],
+        "expected_confirmed": [
+          "B"
+        ],
+        "rendering": "flat vector; one fixed test across implementation stages"
+      },
+      "kind": "code-native-flat",
+      "sha256": "3c727f99cfb9d17c01a8e43fb4600178b86acefb6eb6d11c344228678e8f268f",
+      "provenance": "cover-provenance.json"
+    }
+  ],
+  "domain_examples": {
+    "cancellation": {
+      "initial": {
+        "capacity": 2,
+        "confirmed": [
+          "A",
+          "B"
+        ],
+        "waiting": [
+          "C",
+          "D"
+        ]
+      },
+      "operation": "cancel(A)",
+      "result": {
+        "capacity": 2,
+        "confirmed": [
+          "B",
+          "C"
+        ],
+        "waiting": [
+          "D"
+        ]
+      }
+    },
+    "independent_expectation": {
+      "input": {
+        "capacity": 2,
+        "confirmed": [],
+        "waiting": []
+      },
+      "operation": "register(A)",
+      "expected": {
+        "capacity": 2,
+        "confirmed": [
+          "A"
+        ],
+        "waiting": []
+      },
+      "actual": {
+        "capacity": 2,
+        "confirmed": [
+          "A"
+        ],
+        "waiting": []
+      }
+    },
+    "assertion_counterexample": {
+      "input": {
+        "capacity": 2,
+        "confirmed": [
+          "A",
+          "B"
+        ],
+        "waiting": [
+          "C",
+          "D"
+        ]
+      },
+      "operation": "cancel(A)",
+      "expected": {
+        "capacity": 2,
+        "confirmed": [
+          "B",
+          "C"
+        ],
+        "waiting": [
+          "D"
+        ]
+      },
+      "faulty_actual": {
+        "capacity": 2,
+        "confirmed": [
+          "B",
+          "D"
+        ],
+        "waiting": [
+          "C"
+        ]
+      },
+      "bug": "lifo-promotion"
+    },
+    "mutation_test_matrix": {
+      "tests": [
+        "boundary",
+        "duplicate",
+        "fifo",
+        "nonmutation"
+      ],
+      "bugs": [
+        "overfull-boundary",
+        "duplicate-allowed",
+        "lifo-promotion",
+        "source-mutation"
+      ],
+      "detected": [
+        [
+          true,
+          false,
+          false,
+          false
+        ],
+        [
+          false,
+          true,
+          false,
+          false
+        ],
+        [
+          false,
+          false,
+          true,
+          false
+        ],
+        [
+          false,
+          false,
+          false,
+          true
+        ]
+      ],
+      "basis": "Four focused executable Python fixtures; JS parity checked separately."
+    }
+  },
+  "design": {
+    "svg_text": "outlined",
+    "desktop_review_css_px": 649,
+    "mobile_review_css_px": 328,
+    "body_minimum_source_font_px": 26,
+    "matrix": "native semantic HTML table in both articles",
+    "cover": "flat native SVG/PNG; actual text bounds audited at 328 CSS px",
+    "palette": {
+      "ink": "#29343D",
+      "action": "#536F7A",
+      "failure": "#916865",
+      "refactor": "#847660"
+    }
+  }
+}

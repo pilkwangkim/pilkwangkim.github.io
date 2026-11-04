@@ -395,7 +395,9 @@ visible_posts.each do |post|
   parent = category_by_topic[post['topic']]
   expected_category = parent ? ["/topics/#{parent['id']}/"] : []
   check.call(hrefs.call(html.css('.post-guide-category')) == expected_category, "#{post['url']}: post guide category differs from topic membership")
-  check.call(hrefs.call(html.css('.post-guide-topic')) == ["/topics/#{post['topic']}/"], "#{post['url']}: post guide must preserve its legacy topic link")
+  topic = topics_by_id.fetch(post['topic'])
+  expected_topic = topic['group'] == 'reference' ? [] : ["/topics/#{topic['id']}/"]
+  check.call(hrefs.call(html.css('.post-guide-topic')) == expected_topic, "#{post['url']}: post guide topic link differs from its generated route")
   next unless post['series']
 
   parts = visible_posts.select { |other| other['series'] == post['series'] && other['lang'] == post['lang'] }.sort_by { |other| other['series_order'] }

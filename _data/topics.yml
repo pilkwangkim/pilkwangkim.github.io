@@ -98,3 +98,8 @@
   title: Markdown & Chirpy
   description: A reference guide to Markdown syntax and the Chirpy theme.
   tag: cheat-sheet
+- id: software-engineering
+  group: reference
+  title: Software Engineering
+  description: Readable code, automated tests, and small, verifiable changes to software.
+  tag: software-engineering

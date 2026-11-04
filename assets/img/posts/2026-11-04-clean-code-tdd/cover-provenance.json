@@ -1,0 +1,10 @@
+{
+  "tool": "matplotlib",
+  "mode": "code-native-svg",
+  "asset": "cover-flat.png",
+  "svg": "cover-flat.svg",
+  "renderer": "tools/cleancode_cover_flat.py",
+  "width": 1672,
+  "height": 941,
+  "sha256": "3c727f99cfb9d17c01a8e43fb4600178b86acefb6eb6d11c344228678e8f268f"
+}
