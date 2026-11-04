@@ -353,6 +353,16 @@ article > header .responsive-cover,
   img { display: block; width: 100%; height: auto; object-fit: contain; }
 }
 
+/* Terminal text should not scale to oversized lettering on wide article columns. */
+@media (min-width: 561px) {
+  .ideal-agent-illustration {
+    > .img-link, > picture {
+      max-width: 540px;
+      margin-inline: auto;
+    }
+  }
+}
+
 /* Keep wide equations scrollable in every article, including older posts. */
 .content mjx-container[display='true'] {
   max-width: 100%;
