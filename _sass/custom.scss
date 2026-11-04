@@ -341,6 +341,18 @@ html:not([data-navigation-ready='true']) .topic-latest-posts { display: none; }
   }
 }
 
+/* Art-directed images keep the selected source's aspect ratio. */
+article > header .responsive-cover .preview-img {
+  aspect-ratio: auto;
+  height: auto;
+}
+
+article > header .responsive-cover,
+.ideal-agent-illustration {
+  > .img-link, picture { display: block; }
+  img { display: block; width: 100%; height: auto; object-fit: contain; }
+}
+
 /* Keep wide equations scrollable in every article, including older posts. */
 .content mjx-container[display='true'] {
   max-width: 100%;

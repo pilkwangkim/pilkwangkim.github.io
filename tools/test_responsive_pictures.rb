@@ -77,4 +77,13 @@ assert.call(Nokogiri::HTML5.fragment(multiple).css('a.rsna-results-figure > pict
 assert.call(multiple.include?(caption + untouched.first), 'Content between repaired fragments must remain exact')
 assert.call(Liquid::Template.parse('{{ html | responsive_pictures }}').render!('html' => original) == result, 'Liquid must expose the repair filter')
 
+# Opt-in art-directed post covers use the same repair, retaining preview styling.
+cover = '<div class="responsive-cover"><picture class="rsna-results-figure"><source media="(max-width: 560px)" srcset="/cover-mobile.webp" width="1122" height="1402"><a href="/cover.webp" class="preview-img popup img-link shimmer"><img src="/cover.webp" width="1536" height="1024" alt="CLI example"></a></picture></div>'
+cover_doc = Nokogiri::HTML5.fragment(filter.responsive_pictures(cover))
+cover_picture = cover_doc.at_css('.responsive-cover > a.preview-img > picture')
+assert.call(!cover_picture.nil?, 'Responsive cover must retain its preview wrapper outside the picture')
+assert.call(cover_picture.element_children.map(&:name) == %w[source img], 'Cover source and image must be direct picture children')
+assert.call(%w[srcset width height].map { |attribute| cover_picture.at_css('source')[attribute] } == %w[/cover-mobile.webp 1122 1402], 'Mobile cover source and intrinsic ratio must survive')
+assert.call(cover_picture.at_css('img')['src'] == '/cover.webp', 'Desktop cover must remain the fallback image')
+
 puts "PASS #{checks} responsive-picture checks: valid direct image ancestry, source selection markup, popup/lazy-load attributes, caption adjacency, idempotence and untouched surrounding content"
