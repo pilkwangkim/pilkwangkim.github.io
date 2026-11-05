@@ -1,0 +1,25 @@
+ecc-repetition:
+  bundle: ecc
+  stylesheet: /assets/css/article-labs-ecc.css
+  title: {en: "Repetition: redundancy versus wrong majority", ko: "Repetition code: bit가 몇 개까지 뒤집혀도 될까?"}
+  note: {en: "An odd-length repetition code n=1,3,5,7,9 carries one message bit. The curve is the exact binomial probability that independent BSC bit flips with probability p produce a wrong majority; the allowed p is 0 to 0.5. Manual toggles choose an explicit error pattern and are not random channel draws. No equal-energy-per-message comparison is assumed.", ko: "Message bit 하나를 n번 반복해 보냅니다. n은 1, 3, 5, 7, 9 중에서 고를 수 있습니다. 각 bit가 확률 p로 독립적으로 뒤집히는 BSC를 가정하며, 그래프는 majority vote가 틀릴 확률을 binomial distribution으로 정확히 계산한 결과입니다. p는 0부터 0.5까지 바꿀 수 있습니다. 버튼을 누르면 뒤집을 위치를 직접 고릅니다. BSC에서 오류를 무작위로 발생시키는 것은 아닙니다. 전송 방식끼리 message당 에너지를 같게 맞춰 비교한 결과는 아닙니다."}
+ecc-parity:
+  bundle: ecc
+  stylesheet: /assets/css/article-labs-ecc.css
+  title: {en: "Even parity: detection is not correction", ko: "Even parity: 오류 검출과 복구의 차이"}
+  note: {en: "Four message bits plus one even-parity bit form a (5,4) binary code. The receiver checks the XOR of all five received bits. Every odd number of flips is detected, while every even number is missed. The simulation knows the original and the chosen error positions; the receiver's parity check does not have that information.", ko: "Message bit 네 개에 even-parity bit 하나를 붙여 (5,4) binary code로 보냅니다. 수신자는 받은 다섯 bit를 모두 XOR합니다. 뒤집힌 bit 수가 홀수이면 오류를 검출하지만, 짝수이면 놓칩니다. 이 실험에서는 원본과 오류 위치를 알 수 있지만, 실제 수신자는 그 정보 없이 parity check를 계산합니다."}
+ecc-hamming:
+  bundle: ecc
+  stylesheet: /assets/css/article-labs-ecc.css
+  title: {en: "Hamming decoder: locate one error, then test its limits", ko: "Hamming decoder: 오류 위치와 복구 한계"}
+  note: {en: "Positions are p1,p2,d1,p4,d2,d3,d4, with syndrome components (s1,s2,s4) and index s1+2s2+4s4. All arithmetic is over F2. Standard (7,4) decoding corrects any one-bit error but can miscorrect two errors and miss three. Extended (8,4) adds an overall even-parity bit q and uses SECDED: under an at-most-two-error model it corrects singles and rejects doubles. Three or more errors can invalidate the classification. Only the simulation knows actual flips.", ko: "Bit 순서는 p1,p2,d1,p4,d2,d3,d4입니다. Syndrome을 (s1,s2,s4) 순서로 적고, s1+2s2+4s4로 오류 위치를 계산합니다. 모든 연산은 F2에서 합니다. 기본 (7,4) decoder는 어느 한 bit가 뒤집혀도 고칠 수 있습니다. 하지만 두 bit가 뒤집히면 잘못 고칠 수 있고, 세 bit 오류는 놓칠 수 있습니다. Extended (8,4)는 전체 parity를 짝수로 맞추는 bit q를 추가합니다. 오류가 최대 두 개라면 SECDED로 한 bit 오류는 고치고 두 bit 오류는 검출해 수정을 거부할 수 있습니다. 세 bit 이상이 뒤집히면 이 판단도 틀릴 수 있습니다. 실제로 뒤집힌 bit 수는 시뮬레이션에서만 확인할 수 있습니다."}
+ecc-distance:
+  bundle: ecc
+  stylesheet: /assets/css/article-labs-ecc.css
+  title: {en: "Hamming distance: when is the original word unique?", ko: "Hamming distance: 원래 codeword를 알아낼 수 있을까?"}
+  note: {en: "The three-bit repetition code contains only 000 and 111, at Hamming distance 3. All eight possible received words are shown as a cube graph whose edges change one bit. Colored neighborhoods contain exactly the words at distance at most t from either codeword, t=0,1,2. The planar drawing does not depict Euclidean distance. Overlap means the stated error bound permits two different originals.", ko: "3-bit repetition code의 codeword는 000과 111뿐이며, 둘 사이의 Hamming distance는 3입니다. 받을 수 있는 여덟 word를 cube graph로 그렸습니다. Edge 하나를 따라가면 bit 하나가 바뀝니다. 각 색은 해당 codeword에서 거리가 t 이하인 word들을 나타내며, t는 0, 1, 2 중에서 고를 수 있습니다. Hamming distance는 화면에서 잰 직선거리가 아닙니다. 두 영역이 겹치는 곳의 word는 두 codeword 모두에서 최대 t번의 flip으로 만들 수 있으므로, 어느 쪽을 보냈는지 구별할 수 없습니다."}
+ecc-quiz:
+  bundle: ecc
+  stylesheet: /assets/css/article-labs-ecc.css
+  title: {en: "Decoding challenge: recover a message with one wrong bit", ko: "Decoding 연습: 뒤집힌 bit를 찾아 message 복구하기"}
+  note: {en: "112 deterministic challenges cover all 16 four-bit messages and all seven single-error positions. Every received word is promised to differ from a Hamming (7,4) codeword in exactly one position. Select the correction position and check the answer. The hint reveals parity-check memberships but does not select a position. No user-supplied code is executed, and no answers are sent externally.", ko: "네 bit message 16개와 오류 위치 일곱 곳을 모두 조합한 112개 문제입니다. 모든 문제에서는 Hamming (7,4) codeword의 정확히 한 bit만 뒤집었습니다. 수정할 위치를 고른 뒤 답을 확인하세요. 힌트는 각 parity check에 쓰이는 bit를 보여 주며, 정답 위치를 직접 알려 주지는 않습니다. 사용자 코드를 실행하거나 답을 외부로 전송하지 않습니다."}

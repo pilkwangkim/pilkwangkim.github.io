@@ -100,6 +100,11 @@ jobs:
           python tools/test_galois_math.py --sympy required --require-assets
           python tools/check_galois_article.py
 
+      - name: Check error-correcting codes article and exercises
+        run: |
+          python3 tools/test_error_correcting_codes.py --articles
+          python3 tools/check_ecc_article.py
+
       - name: Build site
         run: bundle exec jekyll b -d "_site${{ steps.pages.outputs.base_path }}"
         env:

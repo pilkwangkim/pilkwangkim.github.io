@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="585" viewBox="0 0 960 585" role="img" aria-labelledby="title desc">
+<title id="title">Two errors can trigger a wrong correction</title>
+<desc id="desc">The transmitted Hamming word is 0110011. Channel errors at positions 3 and 5 produce 0100111, with syndrome index 6. A single-error decoder flips position 6 and returns a different valid word, 0100101, whose extracted message is 0101 rather than 1011. The original and returned words have Hamming distance three; the channel and the decoder together traverse the three-edge path.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9 Z" fill="context-stroke"/></marker></defs>
+<rect width="960" height="585" fill="#fcfbf8"/>
+<text x="38" y="45" font-family="DejaVu Sans, Arial, sans-serif" font-size="31" font-weight="500" fill="#203548" text-anchor="start">A valid word is not proof of recovery</text>
+<text x="38" y="88" font-family="DejaVu Sans, Arial, sans-serif" font-size="25" font-weight="400" fill="#617282" text-anchor="start">The decoder observes the received word, not the channel&#x27;s history.</text>
+<line x1="234" y1="214" x2="266" y2="214" stroke="#b84c46" stroke-width="2.5" marker-end="url(#arrow)"/>
+<line x1="464" y1="214" x2="496" y2="214" stroke="#b84c46" stroke-width="2.5" marker-end="url(#arrow)"/>
+<line x1="694" y1="214" x2="726" y2="214" stroke="#a46c28" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="39" y="182" width="192" height="64" rx="7" fill="#e0f1ef" stroke="#087f83" stroke-width="1.8"/>
+<text x="135" y="224" font-family="DejaVu Sans Mono, Menlo, monospace" font-size="30" font-weight="400" fill="#087f83" text-anchor="middle">0110011</text>
+<rect x="269" y="182" width="192" height="64" rx="7" fill="#ffffff" stroke="#b84c46" stroke-width="1.8"/>
+<text x="365" y="224" font-family="DejaVu Sans Mono, Menlo, monospace" font-size="30" font-weight="400" fill="#b84c46" text-anchor="middle">0100011</text>
+<rect x="499" y="182" width="192" height="64" rx="7" fill="#ffffff" stroke="#b84c46" stroke-width="1.8"/>
+<text x="595" y="224" font-family="DejaVu Sans Mono, Menlo, monospace" font-size="30" font-weight="400" fill="#b84c46" text-anchor="middle">0100111</text>
+<rect x="729" y="182" width="192" height="64" rx="7" fill="#f5ecd9" stroke="#a46c28" stroke-width="1.8"/>
+<text x="825" y="224" font-family="DejaVu Sans Mono, Menlo, monospace" font-size="30" font-weight="400" fill="#a46c28" text-anchor="middle">0100101</text>
+<text x="135" y="160" font-family="DejaVu Sans, Arial, sans-serif" font-size="24" font-weight="400" fill="#617282" text-anchor="middle">Transmitted</text>
+<text x="365" y="160" font-family="DejaVu Sans, Arial, sans-serif" font-size="24" font-weight="400" fill="#617282" text-anchor="middle">After flip 3</text>
+<text x="595" y="160" font-family="DejaVu Sans, Arial, sans-serif" font-size="24" font-weight="400" fill="#617282" text-anchor="middle">Received</text>
+<text x="825" y="160" font-family="DejaVu Sans, Arial, sans-serif" font-size="24" font-weight="400" fill="#617282" text-anchor="middle">Returned</text>
+<text x="250" y="294" font-family="DejaVu Sans, Arial, sans-serif" font-size="24" font-weight="400" fill="#b84c46" text-anchor="middle">flip 3</text>
+<text x="480" y="294" font-family="DejaVu Sans, Arial, sans-serif" font-size="24" font-weight="400" fill="#b84c46" text-anchor="middle">flip 5</text>
+<text x="710" y="294" font-family="DejaVu Sans, Arial, sans-serif" font-size="24" font-weight="400" fill="#a46c28" text-anchor="middle">flip 6</text>
+<line x1="39" y1="330" x2="691" y2="330" stroke="#b84c46" stroke-width="2"/>
+<text x="365" y="368" font-family="DejaVu Sans, Arial, sans-serif" font-size="25" font-weight="400" fill="#b84c46" text-anchor="middle">Channel: two bit flips</text>
+<line x1="729" y1="330" x2="920" y2="330" stroke="#a46c28" stroke-width="2"/>
+<text x="825" y="368" font-family="DejaVu Sans, Arial, sans-serif" font-size="25" font-weight="400" fill="#a46c28" text-anchor="middle">Decoder</text>
+<text x="38" y="438" font-family="DejaVu Sans Mono, Menlo, monospace" font-size="26" font-weight="400" fill="#203548" text-anchor="start">Received syndrome: (0, 1, 1)  →  position 6</text>
+<line x1="38" y1="471" x2="921" y2="471" stroke="#d8e0e3" stroke-width="2"/>
+<text x="38" y="519" font-family="DejaVu Sans Mono, Menlo, monospace" font-size="29" font-weight="400" fill="#a46c28" text-anchor="start">Hc′ = 0</text>
+<text x="921" y="519" font-family="DejaVu Sans Mono, Menlo, monospace" font-size="29" font-weight="400" fill="#a46c28" text-anchor="end">Data: 1011 → 0101</text>
+<text x="38" y="560" font-family="DejaVu Sans, Arial, sans-serif" font-size="25" font-weight="400" fill="#617282" text-anchor="start">Three flips separate the two valid codewords.</text>
+</svg>

@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="890" viewBox="0 0 480 890" role="img" aria-labelledby="title desc">
+<title id="title">Two errors can trigger a wrong correction</title>
+<desc id="desc">The transmitted Hamming word is 0110011. Channel errors at positions 3 and 5 produce 0100111, with syndrome index 6. A single-error decoder flips position 6 and returns a different valid word, 0100101, whose extracted message is 0101 rather than 1011. The original and returned words have Hamming distance three; the channel and the decoder together traverse the three-edge path.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9 Z" fill="context-stroke"/></marker></defs>
+<rect width="480" height="890" fill="#fcfbf8"/>
+<text x="26" y="45" font-family="DejaVu Sans, Arial, sans-serif" font-size="24" font-weight="500" fill="#203548" text-anchor="start">A valid word is not proof of recovery</text>
+<text x="26" y="87" font-family="DejaVu Sans, Arial, sans-serif" font-size="21" font-weight="400" fill="#617282" text-anchor="start">Two channel errors; one mistaken correction</text>
+<text x="32" y="131" font-family="DejaVu Sans, Arial, sans-serif" font-size="23" font-weight="400" fill="#087f83" text-anchor="start">Transmitted</text>
+<rect x="32" y="153" width="53" height="55" rx="6" fill="#ffffff" stroke="#d8e0e3" stroke-width="1.3"/>
+<text x="58.5" y="191" font-family="DejaVu Sans Mono, Menlo, monospace" font-size="32" font-weight="500" fill="#203548" text-anchor="middle">0</text>
+<rect x="92" y="153" width="53" height="55" rx="6" fill="#ffffff" stroke="#d8e0e3" stroke-width="1.3"/>
+<text x="118.5" y="191" font-family="DejaVu Sans Mono, Menlo, monospace" font-size="32" font-weight="500" fill="#203548" text-anchor="middle">1</text>
+<rect x="152" y="153" width="53" height="55" rx="6" fill="#ffffff" stroke="#d8e0e3" stroke-width="1.3"/>
+<text x="178.5" y="191" font-family="DejaVu Sans Mono, Menlo, monospace" font-size="32" font-weight="500" fill="#203548" text-anchor="middle">1</text>
+<rect x="212" y="153" width="53" height="55" rx="6" fill="#ffffff" stroke="#d8e0e3" stroke-width="1.3"/>
+<text x="238.5" y="191" font-family="DejaVu Sans Mono, Menlo, monospace" font-size="32" font-weight="500" fill="#203548" text-anchor="middle">0</text>
+<rect x="272" y="153" width="53" height="55" rx="6" fill="#ffffff" stroke="#d8e0e3" stroke-width="1.3"/>
+<text x="298.5" y="191" font-family="DejaVu Sans Mono, Menlo, monospace" font-size="32" font-weight="500" fill="#203548" text-anchor="middle">0</text>
+<rect x="332" y="153" width="53" height="55" rx="6" fill="#ffffff" stroke="#d8e0e3" stroke-width="1.3"/>
+<text x="358.5" y="191" font-family="DejaVu Sans Mono, Menlo, monospace" font-size="32" font-weight="500" fill="#203548" text-anchor="middle">1</text>
+<rect x="392" y="153" width="53" height="55" rx="6" fill="#ffffff" stroke="#d8e0e3" stroke-width="1.3"/>
+<text x="418.5" y="191" font-family="DejaVu Sans Mono, Menlo, monospace" font-size="32" font-weight="500" fill="#203548" text-anchor="middle">1</text>
+<line x1="241" y1="235" x2="241" y2="277" stroke="#b84c46" stroke-width="2.3" marker-end="url(#arrow)"/>
+<text x="32" y="313" font-family="DejaVu Sans, Arial, sans-serif" font-size="23" font-weight="400" fill="#b84c46" text-anchor="start">After channel flip 3</text>
+<rect x="32" y="335" width="53" height="55" rx="6" fill="#ffffff" stroke="#d8e0e3" stroke-width="1.3"/>
+<text x="58.5" y="373" font-family="DejaVu Sans Mono, Menlo, monospace" font-size="32" font-weight="500" fill="#203548" text-anchor="middle">0</text>
+<rect x="92" y="335" width="53" height="55" rx="6" fill="#ffffff" stroke="#d8e0e3" stroke-width="1.3"/>
+<text x="118.5" y="373" font-family="DejaVu Sans Mono, Menlo, monospace" font-size="32" font-weight="500" fill="#203548" text-anchor="middle">1</text>
+<rect x="152" y="335" width="53" height="55" rx="6" fill="#f8e8e5" stroke="#b84c46" stroke-width="2"/>
+<text x="178.5" y="373" font-family="DejaVu Sans Mono, Menlo, monospace" font-size="32" font-weight="500" fill="#b84c46" text-anchor="middle">0</text>
+<rect x="212" y="335" width="53" height="55" rx="6" fill="#ffffff" stroke="#d8e0e3" stroke-width="1.3"/>
+<text x="238.5" y="373" font-family="DejaVu Sans Mono, Menlo, monospace" font-size="32" font-weight="500" fill="#203548" text-anchor="middle">0</text>
+<rect x="272" y="335" width="53" height="55" rx="6" fill="#ffffff" stroke="#d8e0e3" stroke-width="1.3"/>
+<text x="298.5" y="373" font-family="DejaVu Sans Mono, Menlo, monospace" font-size="32" font-weight="500" fill="#203548" text-anchor="middle">0</text>
+<rect x="332" y="335" width="53" height="55" rx="6" fill="#ffffff" stroke="#d8e0e3" stroke-width="1.3"/>
+<text x="358.5" y="373" font-family="DejaVu Sans Mono, Menlo, monospace" font-size="32" font-weight="500" fill="#203548" text-anchor="middle">1</text>
+<rect x="392" y="335" width="53" height="55" rx="6" fill="#ffffff" stroke="#d8e0e3" stroke-width="1.3"/>
+<text x="418.5" y="373" font-family="DejaVu Sans Mono, Menlo, monospace" font-size="32" font-weight="500" fill="#203548" text-anchor="middle">1</text>
+<line x1="241" y1="417" x2="241" y2="459" stroke="#b84c46" stroke-width="2.3" marker-end="url(#arrow)"/>
+<text x="32" y="495" font-family="DejaVu Sans, Arial, sans-serif" font-size="23" font-weight="400" fill="#b84c46" text-anchor="start">After channel flip 5</text>
+<rect x="32" y="517" width="53" height="55" rx="6" fill="#ffffff" stroke="#d8e0e3" stroke-width="1.3"/>
+<text x="58.5" y="555" font-family="DejaVu Sans Mono, Menlo, monospace" font-size="32" font-weight="500" fill="#203548" text-anchor="middle">0</text>
+<rect x="92" y="517" width="53" height="55" rx="6" fill="#ffffff" stroke="#d8e0e3" stroke-width="1.3"/>
+<text x="118.5" y="555" font-family="DejaVu Sans Mono, Menlo, monospace" font-size="32" font-weight="500" fill="#203548" text-anchor="middle">1</text>
+<rect x="152" y="517" width="53" height="55" rx="6" fill="#f8e8e5" stroke="#b84c46" stroke-width="2"/>
+<text x="178.5" y="555" font-family="DejaVu Sans Mono, Menlo, monospace" font-size="32" font-weight="500" fill="#b84c46" text-anchor="middle">0</text>
+<rect x="212" y="517" width="53" height="55" rx="6" fill="#ffffff" stroke="#d8e0e3" stroke-width="1.3"/>
+<text x="238.5" y="555" font-family="DejaVu Sans Mono, Menlo, monospace" font-size="32" font-weight="500" fill="#203548" text-anchor="middle">0</text>
+<rect x="272" y="517" width="53" height="55" rx="6" fill="#f8e8e5" stroke="#b84c46" stroke-width="2"/>
+<text x="298.5" y="555" font-family="DejaVu Sans Mono, Menlo, monospace" font-size="32" font-weight="500" fill="#b84c46" text-anchor="middle">1</text>
+<rect x="332" y="517" width="53" height="55" rx="6" fill="#ffffff" stroke="#d8e0e3" stroke-width="1.3"/>
+<text x="358.5" y="555" font-family="DejaVu Sans Mono, Menlo, monospace" font-size="32" font-weight="500" fill="#203548" text-anchor="middle">1</text>
+<rect x="392" y="517" width="53" height="55" rx="6" fill="#ffffff" stroke="#d8e0e3" stroke-width="1.3"/>
+<text x="418.5" y="555" font-family="DejaVu Sans Mono, Menlo, monospace" font-size="32" font-weight="500" fill="#203548" text-anchor="middle">1</text>
+<text x="32" y="706" font-family="DejaVu Sans, Arial, sans-serif" font-size="23" font-weight="400" fill="#a46c28" text-anchor="start">Decoder flips 6</text>
+<rect x="32" y="728" width="53" height="55" rx="6" fill="#ffffff" stroke="#d8e0e3" stroke-width="1.3"/>
+<text x="58.5" y="766" font-family="DejaVu Sans Mono, Menlo, monospace" font-size="32" font-weight="500" fill="#203548" text-anchor="middle">0</text>
+<rect x="92" y="728" width="53" height="55" rx="6" fill="#ffffff" stroke="#d8e0e3" stroke-width="1.3"/>
+<text x="118.5" y="766" font-family="DejaVu Sans Mono, Menlo, monospace" font-size="32" font-weight="500" fill="#203548" text-anchor="middle">1</text>
+<rect x="152" y="728" width="53" height="55" rx="6" fill="#f5ecd9" stroke="#a46c28" stroke-width="2"/>
+<text x="178.5" y="766" font-family="DejaVu Sans Mono, Menlo, monospace" font-size="32" font-weight="500" fill="#a46c28" text-anchor="middle">0</text>
+<rect x="212" y="728" width="53" height="55" rx="6" fill="#ffffff" stroke="#d8e0e3" stroke-width="1.3"/>
+<text x="238.5" y="766" font-family="DejaVu Sans Mono, Menlo, monospace" font-size="32" font-weight="500" fill="#203548" text-anchor="middle">0</text>
+<rect x="272" y="728" width="53" height="55" rx="6" fill="#f5ecd9" stroke="#a46c28" stroke-width="2"/>
+<text x="298.5" y="766" font-family="DejaVu Sans Mono, Menlo, monospace" font-size="32" font-weight="500" fill="#a46c28" text-anchor="middle">1</text>
+<rect x="332" y="728" width="53" height="55" rx="6" fill="#f5ecd9" stroke="#a46c28" stroke-width="2"/>
+<text x="358.5" y="766" font-family="DejaVu Sans Mono, Menlo, monospace" font-size="32" font-weight="500" fill="#a46c28" text-anchor="middle">0</text>
+<rect x="392" y="728" width="53" height="55" rx="6" fill="#ffffff" stroke="#d8e0e3" stroke-width="1.3"/>
+<text x="418.5" y="766" font-family="DejaVu Sans Mono, Menlo, monospace" font-size="32" font-weight="500" fill="#203548" text-anchor="middle">1</text>
+<text x="32" y="622" font-family="DejaVu Sans Mono, Menlo, monospace" font-size="24" font-weight="400" fill="#b84c46" text-anchor="start">s = (0, 1, 1)  →  j = 6</text>
+<line x1="241" y1="645" x2="241" y2="685" stroke="#a46c28" stroke-width="2.3" marker-end="url(#arrow)"/>
+<text x="32" y="830" font-family="DejaVu Sans Mono, Menlo, monospace" font-size="24" font-weight="400" fill="#a46c28" text-anchor="start">Hc′ = 0, but data = 0101</text>
+<text x="32" y="872" font-family="DejaVu Sans, Arial, sans-serif" font-size="22" font-weight="400" fill="#617282" text-anchor="start">The original data was 1011.</text>
+</svg>
