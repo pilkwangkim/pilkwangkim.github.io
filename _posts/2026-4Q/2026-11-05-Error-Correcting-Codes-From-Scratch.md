@@ -1,7 +1,7 @@
 ---
 title: "Error-Correcting Codes: Recovering Data with Linear Algebra"
 description: "How can a receiver repair a bit without knowing the original message? Redundancy, distance, and parity checks lead to a complete Hamming decoder—and explain exactly when it fails."
-date: 2026-11-05 09:00:00 +0900
+date: 2026-10-05 09:00:00 +0900
 categories: [Information Theory]
 tags: [search-algorithms, error-correcting-codes, coding-theory, hamming-code, information-theory, linear-algebra, python]
 math: true

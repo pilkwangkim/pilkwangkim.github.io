@@ -1,7 +1,7 @@
 ---
 title: "Error-correcting codes: 선형대수로 이해하는 오류 복구"
 description: "원본을 모르는 수신자는 뒤집힌 bit를 어떻게 찾을까? Repetition과 parity, Hamming distance와 syndrome으로 이해하는 오류 복구의 원리와 한계."
-date: 2026-11-05 09:00:00 +0900
+date: 2026-10-05 09:00:00 +0900
 categories: [Information Theory]
 tags: [search-algorithms, error-correcting-codes, coding-theory, hamming-code, information-theory, linear-algebra, python]
 math: true
