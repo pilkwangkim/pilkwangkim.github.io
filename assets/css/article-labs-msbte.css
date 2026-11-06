@@ -18,7 +18,7 @@
 
 /* Article-owned figures and three-column comparisons; no shared overrides. */
 .msbte-figure { margin: 1.7rem 0; }
-.msbte-figure picture, .msbte-figure img { display: block; width: 100%; height: auto; }
+.msbte-figure > .img-link, .msbte-figure picture, .msbte-figure img { display: block; width: 100%; height: auto; }
 .msbte-figure figcaption { margin: .7rem 0 1.3rem; font-size: .88rem; line-height: 1.7; text-align: left; }
 html[lang=ko] article:has(.msbte-figure) :is(h1,h2,h3) { word-break: keep-all; overflow-wrap: break-word; }
 .content:has(.msbte-figure) mjx-container[display="true"] { min-width: 0 !important; width: 100%; max-width: 100%; }

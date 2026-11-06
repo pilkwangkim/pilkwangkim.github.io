@@ -129,8 +129,8 @@ print("At 1.25 ps:", np.round(relaxing_pair(1.25), 4))
 
 <figure class="msbte-figure">
 <picture class="rsna-results-figure">
-<source media="(max-width: 560px)" srcset="{% include media-url.html src='/assets/img/posts/2026-11-06-multi-subband-bte/fig-06-bte-streaming-mobile.svg' %}">
-<img src="/assets/img/posts/2026-11-06-multi-subband-bte/fig-06-bte-streaming.svg" alt="서로 독립적인 두 BTE 해. 하나는 occupation profile이 일정한 velocity로 이동하는 경우이고, 다른 하나는 공간상으로 균일한 두 occupation의 차이가 줄어들면서 합은 보존되는 경우다.">
+<source media="(max-width: 560px)" srcset="{% include media-url.html src='/assets/img/posts/2026-11-06-multi-subband-bte/fig-06-bte-streaming-mobile.svg' %}" width="600" height="1330">
+<img src="/assets/img/posts/2026-11-06-multi-subband-bte/fig-06-bte-streaming.svg" alt="서로 독립적인 두 BTE 해. 하나는 occupation profile이 일정한 velocity로 이동하는 경우이고, 다른 하나는 공간상으로 균일한 두 occupation의 차이가 줄어들면서 합은 보존되는 경우다." width="1200" height="725">
 </picture>
 <figcaption markdown="span">그림 1. Free flight에서는 occupation profile이 이동하고, 양방향 rate가 같은 scattering에서는 진행 방향에 따른 occupation 차이가 줄어든다. 왼쪽 문제에는 collision이 없고, 오른쪽 문제에는 spatial gradient가 없다. 각각의 exact solution으로 BTE 구현의 서로 다른 부분을 검증할 수 있다.</figcaption>
 </figure>
@@ -267,8 +267,8 @@ assert np.isclose(edge_eV(1, 1, 20, 16), edges[0] / 4)
 
 <figure class="msbte-figure">
 <picture class="rsna-results-figure">
-<source media="(max-width: 560px)" srcset="{% include media-url.html src='/assets/img/posts/2026-11-06-multi-subband-bte/fig-01-confinement-mobile.svg' %}">
-<img src="/assets/img/posts/2026-11-06-multi-subband-bte/fig-01-confinement.svg" alt="직사각형 wire의 normalized transverse probability density와 각 mode에 대응하는 longitudinal energy parabola.">
+<source media="(max-width: 560px)" srcset="{% include media-url.html src='/assets/img/posts/2026-11-06-multi-subband-bte/fig-01-confinement-mobile.svg' %}" width="600" height="1280">
+<img src="/assets/img/posts/2026-11-06-multi-subband-bte/fig-01-confinement.svg" alt="직사각형 wire의 normalized transverse probability density와 각 mode에 대응하는 longitudinal energy parabola." width="1200" height="760">
 </picture>
 <figcaption markdown="span">그림 2. 각 transverse eigenstate의 eigenenergy가 subband edge가 된다. 여기에 길이 방향의 kinetic energy를 더하면 총에너지가 된다. Transverse mode 번호와 longitudinal momentum의 부호는 서로 다른 정보를 나타낸다.</figcaption>
 </figure>
@@ -338,8 +338,8 @@ for name, matrix in (("rho", rho), ("M", M), ("D", D), ("R", R)):
 
 <figure class="msbte-figure">
 <picture class="rsna-results-figure">
-<source media="(max-width: 560px)" srcset="{% include media-url.html src='/assets/img/posts/2026-11-06-multi-subband-bte/fig-07-reduction-mobile.svg' %}">
-<img src="/assets/img/posts/2026-11-06-multi-subband-bte/fig-07-reduction.svg" alt="세 state의 density matrix 네 개로 완전한 basis rotation, coherence의 제거, 두 state만 남기는 projection을 비교한다.">
+<source media="(max-width: 560px)" srcset="{% include media-url.html src='/assets/img/posts/2026-11-06-multi-subband-bte/fig-07-reduction-mobile.svg' %}" width="600" height="1540">
+<img src="/assets/img/posts/2026-11-06-multi-subband-bte/fig-07-reduction.svg" alt="세 state의 density matrix 네 개로 완전한 basis rotation, coherence의 제거, 두 state만 남기는 projection을 비교한다." width="1200" height="690">
 </picture>
 <figcaption markdown="span">그림 3. Rotation은 state를 보존하지만, off-diagonal entry나 state를 제외하는 연산은 그렇지 않다. Matrix entry는 소수 셋째 자리까지 표시했고, invariant는 반올림 전 값으로 계산했다. Rotation이 첫 두 state만 섞으므로 세 번째 state의 weight는 0.1로 유지된다. 여기서는 전자 하나의 확률을 다뤘다. 소자의 distribution도 같은 방식으로 normalization해야 한다는 뜻은 아니다. 또 확률 10%를 제외했다고 전류 오차가 10%로 정해지는 것도 아니다.</figcaption>
 </figure>
@@ -419,8 +419,8 @@ $$
 
 <figure class="msbte-figure">
 <picture class="rsna-results-figure">
-<source media="(max-width: 560px)" srcset="{% include media-url.html src='/assets/img/posts/2026-11-06-multi-subband-bte/fig-05-force-mobile.svg' %}">
-<img src="/assets/img/posts/2026-11-06-multi-subband-bte/fig-05-force.svg" alt="Subband edge가 올라가면 총에너지를 유지한 채 오른쪽으로 움직이는 전자의 longitudinal kinetic energy와 momentum이 줄어든다.">
+<source media="(max-width: 560px)" srcset="{% include media-url.html src='/assets/img/posts/2026-11-06-multi-subband-bte/fig-05-force-mobile.svg' %}" width="600" height="1200">
+<img src="/assets/img/posts/2026-11-06-multi-subband-bte/fig-05-force.svg" alt="Subband edge가 올라가면 총에너지를 유지한 채 오른쪽으로 움직이는 전자의 longitudinal kinetic energy와 momentum이 줄어든다." width="1200" height="750">
 </picture>
 <figcaption markdown="span">총에너지는 170 meV로 일정하고, subband edge는 50 meV에서 120 meV로 올라간다. 그만큼 longitudinal kinetic energy가 120 meV에서 50 meV로 줄어들어 오른쪽으로 움직이는 전자가 느려진다. Kinetic energy가 0이 되는 turning point에는 도달하지 않는다. Momentum 그래프는 position–momentum space에서 wavepacket 중심이 이동하는 경로를 나타낸다. Wavefunction의 진동을 그린 그래프는 아니다.</figcaption>
 </figure>
@@ -565,8 +565,8 @@ assert np.isclose(fermi(0.150, 0.150, 300), 0.5)
 
 <figure class="msbte-figure">
 <picture class="rsna-results-figure">
-<source media="(max-width: 560px)" srcset="{% include media-url.html src='/assets/img/posts/2026-11-06-multi-subband-bte/fig-02-contacts-mobile.svg' %}">
-<img src="/assets/img/posts/2026-11-06-multi-subband-bte/fig-02-contacts.svg" alt="왼쪽 contact에서는 오른쪽으로, 오른쪽 contact에서는 왼쪽으로 들어오는 전자의 occupation만 지정한다. 나가는 방향의 distribution은 계산으로 구한다.">
+<source media="(max-width: 560px)" srcset="{% include media-url.html src='/assets/img/posts/2026-11-06-multi-subband-bte/fig-02-contacts-mobile.svg' %}" width="600" height="895">
+<img src="/assets/img/posts/2026-11-06-multi-subband-bte/fig-02-contacts.svg" alt="왼쪽 contact에서는 오른쪽으로, 오른쪽 contact에서는 왼쪽으로 들어오는 전자의 occupation만 지정한다. 나가는 방향의 distribution은 계산으로 구한다." width="1200" height="570">
 </picture>
 <figcaption markdown="span">그림 4. 실선 화살표는 미리 지정하는 inflow를, 점선 화살표는 계산으로 구하는 outgoing occupation을 나타낸다. 각 contact로 나가는 전자의 occupation은 wire 안의 scattering에 따라 달라지므로, 이 값까지 독립적으로 고정하면 안 된다.</figcaption>
 </figure>
@@ -716,8 +716,8 @@ $10\times8\,\mathrm{nm}^2$ wire에서 $E=130\,\mathrm{meV}$인 전자를 생각�
 
 <figure class="msbte-figure">
 <picture class="rsna-results-figure">
-<source media="(max-width: 560px)" srcset="{% include media-url.html src='/assets/img/posts/2026-11-06-multi-subband-bte/fig-03-elastic-mobile.svg' %}">
-<img src="/assets/img/posts/2026-11-06-multi-subband-bte/fig-03-elastic.svg" alt="같은 총에너지를 나타내는 수평선이 두 subband parabola와 서로 다른 momentum에서 만나며, elastic inter-subband transition이 가능한 state를 보여 준다.">
+<source media="(max-width: 560px)" srcset="{% include media-url.html src='/assets/img/posts/2026-11-06-multi-subband-bte/fig-03-elastic-mobile.svg' %}" width="600" height="1270">
+<img src="/assets/img/posts/2026-11-06-multi-subband-bte/fig-03-elastic.svg" alt="같은 총에너지를 나타내는 수평선이 두 subband parabola와 서로 다른 momentum에서 만나며, elastic inter-subband transition이 가능한 state를 보여 준다." width="1200" height="760">
 </picture>
 <figcaption markdown="span">그림 5. Elastic transition은 longitudinal kinetic energy가 같은 state가 아니라 총에너지가 같은 state를 연결한다. 이 에너지에서 진행 가능한 두 mode 중 mode 2는 길이 방향 운동에 쓸 수 있는 에너지가 적어 momentum의 크기가 작다. 청록색 화살표는 양의 momentum 두 개를 연결한다. 이 event에서는 오른쪽으로 움직이던 전자가 방향을 바꾸지 않은 채 느려진다. 화살표는 momentum space에서의 transition이지 real-space trajectory가 아니다. Energy stack은 각 subband edge와 longitudinal kinetic energy를 나눠 보여 준다. 둘을 더하면 어느 mode에서나 130 meV다. 점선으로 표시한 세 번째 subband는 edge가 이 에너지보다 높아 진행할 state가 없다.</figcaption>
 </figure>
@@ -874,8 +874,8 @@ $$
 
 <figure class="msbte-figure">
 <picture class="rsna-results-figure">
-<source media="(max-width: 560px)" srcset="{% include media-url.html src='/assets/img/posts/2026-11-06-multi-subband-bte/fig-04-profiles-mobile.svg' %}">
-<img src="/assets/img/posts/2026-11-06-multi-subband-bte/fig-04-profiles.svg" alt="Ballistic occupation은 방향별로 일정하다. Elastic backscattering이 있으면 두 profile이 같은 기울기로 변하고, 양방향 occupation의 차이는 ballistic일 때보다 작다.">
+<source media="(max-width: 560px)" srcset="{% include media-url.html src='/assets/img/posts/2026-11-06-multi-subband-bte/fig-04-profiles-mobile.svg' %}" width="600" height="1310">
+<img src="/assets/img/posts/2026-11-06-multi-subband-bte/fig-04-profiles.svg" alt="Ballistic occupation은 방향별로 일정하다. Elastic backscattering이 있으면 두 profile이 같은 기울기로 변하고, 양방향 occupation의 차이는 ballistic일 때보다 작다." width="1200" height="745">
 </picture>
 <figcaption markdown="span">그림 6. 두 경우 모두 들어오는 occupation은 0.9와 0.2다. Scattering이 있으면 각 방향의 occupation은 위치에 따라 변하지만 둘의 차이는 일정하다. Net current는 ballistic일 때보다 작지만 wire의 어느 위치에서나 같다. 전자가 이동할수록 전류가 계속 줄어드는 것은 아니다.</figcaption>
 </figure>

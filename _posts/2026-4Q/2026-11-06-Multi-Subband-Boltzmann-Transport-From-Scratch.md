@@ -129,8 +129,8 @@ print("At 1.25 ps:", np.round(relaxing_pair(1.25), 4))
 
 <figure class="msbte-figure">
 <picture class="rsna-results-figure">
-<source media="(max-width: 560px)" srcset="{% include media-url.html src='/assets/img/posts/2026-11-06-multi-subband-bte/fig-06-bte-streaming-mobile.svg' %}">
-<img src="/assets/img/posts/2026-11-06-multi-subband-bte/fig-06-bte-streaming.svg" alt="Two independent BTE limits: translation of a fixed-velocity occupation profile, and homogeneous directional relaxation with a conserved sum.">
+<source media="(max-width: 560px)" srcset="{% include media-url.html src='/assets/img/posts/2026-11-06-multi-subband-bte/fig-06-bte-streaming-mobile.svg' %}" width="600" height="1330">
+<img src="/assets/img/posts/2026-11-06-multi-subband-bte/fig-06-bte-streaming.svg" alt="Two independent BTE limits: translation of a fixed-velocity occupation profile, and homogeneous directional relaxation with a conserved sum." width="1200" height="725">
 </picture>
 <figcaption markdown="span">Figure 1. Free flight translates an occupation profile; reciprocal scattering relaxes a directional imbalance. The left problem has no collisions. The right problem has no spatial gradients. Their separate exact solutions test different parts of a BTE implementation.</figcaption>
 </figure>
@@ -267,8 +267,8 @@ Doubling **both** transverse dimensions divides every confinement energy by four
 
 <figure class="msbte-figure">
 <picture class="rsna-results-figure">
-<source media="(max-width: 560px)" srcset="{% include media-url.html src='/assets/img/posts/2026-11-06-multi-subband-bte/fig-01-confinement-mobile.svg' %}">
-<img src="/assets/img/posts/2026-11-06-multi-subband-bte/fig-01-confinement.svg" alt="Normalized transverse mode densities of a rectangular wire and their longitudinal energy parabolas.">
+<source media="(max-width: 560px)" srcset="{% include media-url.html src='/assets/img/posts/2026-11-06-multi-subband-bte/fig-01-confinement-mobile.svg' %}" width="600" height="1280">
+<img src="/assets/img/posts/2026-11-06-multi-subband-bte/fig-01-confinement.svg" alt="Normalized transverse mode densities of a rectangular wire and their longitudinal energy parabolas." width="1200" height="760">
 </picture>
 <figcaption markdown="span">Figure 2. Each transverse eigenstate has an eigenenergy that becomes a subband edge. Longitudinal kinetic energy raises the total energy above that edge. The transverse mode index and the sign of longitudinal momentum describe different things.</figcaption>
 </figure>
@@ -338,8 +338,8 @@ for name, matrix in (("rho", rho), ("M", M), ("D", D), ("R", R)):
 
 <figure class="msbte-figure">
 <picture class="rsna-results-figure">
-<source media="(max-width: 560px)" srcset="{% include media-url.html src='/assets/img/posts/2026-11-06-multi-subband-bte/fig-07-reduction-mobile.svg' %}">
-<img src="/assets/img/posts/2026-11-06-multi-subband-bte/fig-07-reduction.svg" alt="Four three-state density matrices distinguish a complete basis rotation, deletion of coherence, and projection onto two retained states.">
+<source media="(max-width: 560px)" srcset="{% include media-url.html src='/assets/img/posts/2026-11-06-multi-subband-bte/fig-07-reduction-mobile.svg' %}" width="600" height="1540">
+<img src="/assets/img/posts/2026-11-06-multi-subband-bte/fig-07-reduction.svg" alt="Four three-state density matrices distinguish a complete basis rotation, deletion of coherence, and projection onto two retained states." width="1200" height="690">
 </picture>
 <figcaption markdown="span">Figure 3. The rotation preserves the state; deleting off-diagonal entries and discarding a state do not. Matrix entries are rounded to three decimals; invariants use unrounded values. The rotation mixes only the first two states, so the third state's weight remains 0.1. This one-electron algebra example is not a normalization rule for a device distribution, nor does 10% discarded probability imply 10% current error.</figcaption>
 </figure>
@@ -419,8 +419,8 @@ $$
 
 <figure class="msbte-figure">
 <picture class="rsna-results-figure">
-<source media="(max-width: 560px)" srcset="{% include media-url.html src='/assets/img/posts/2026-11-06-multi-subband-bte/fig-05-force-mobile.svg' %}">
-<img src="/assets/img/posts/2026-11-06-multi-subband-bte/fig-05-force.svg" alt="A rising subband edge reduces the longitudinal kinetic energy and momentum of a right-moving electron while total energy stays fixed.">
+<source media="(max-width: 560px)" srcset="{% include media-url.html src='/assets/img/posts/2026-11-06-multi-subband-bte/fig-05-force-mobile.svg' %}" width="600" height="1200">
+<img src="/assets/img/posts/2026-11-06-multi-subband-bte/fig-05-force.svg" alt="A rising subband edge reduces the longitudinal kinetic energy and momentum of a right-moving electron while total energy stays fixed." width="1200" height="750">
 </picture>
 <figcaption markdown="span">The prescribed edge rises from 50 to 120 meV while total energy stays at 170 meV. Longitudinal kinetic energy falls from 120 to 50 meV, so a right mover slows down without reaching a turning point. The momentum plot shows the semiclassical centre's path in position–momentum space, not an oscillating wavefunction.</figcaption>
 </figure>
@@ -566,8 +566,8 @@ assert np.isclose(fermi(0.150, 0.150, 300), 0.5)
 
 <figure class="msbte-figure">
 <picture class="rsna-results-figure">
-<source media="(max-width: 560px)" srcset="{% include media-url.html src='/assets/img/posts/2026-11-06-multi-subband-bte/fig-02-contacts-mobile.svg' %}">
-<img src="/assets/img/posts/2026-11-06-multi-subband-bte/fig-02-contacts.svg" alt="Only right-moving injection at the left contact and left-moving injection at the right contact are prescribed; outgoing distributions are solved.">
+<source media="(max-width: 560px)" srcset="{% include media-url.html src='/assets/img/posts/2026-11-06-multi-subband-bte/fig-02-contacts-mobile.svg' %}" width="600" height="895">
+<img src="/assets/img/posts/2026-11-06-multi-subband-bte/fig-02-contacts.svg" alt="Only right-moving injection at the left contact and left-moving injection at the right contact are prescribed; outgoing distributions are solved." width="1200" height="570">
 </picture>
 <figcaption markdown="span">Figure 4. Solid arrows mark prescribed inflow; dashed arrows mark outgoing occupations to be solved. Scattering inside the wire changes what leaves each contact, so the outgoing occupations cannot also be fixed independently.</figcaption>
 </figure>
@@ -716,8 +716,8 @@ Take $E=130\,\mathrm{meV}$ in the $10\times8\,\mathrm{nm}^2$ wire. The first two
 
 <figure class="msbte-figure">
 <picture class="rsna-results-figure">
-<source media="(max-width: 560px)" srcset="{% include media-url.html src='/assets/img/posts/2026-11-06-multi-subband-bte/fig-03-elastic-mobile.svg' %}">
-<img src="/assets/img/posts/2026-11-06-multi-subband-bte/fig-03-elastic.svg" alt="A horizontal total-energy line intersects two subband parabolas at different momenta, showing an allowed elastic inter-subband transition.">
+<source media="(max-width: 560px)" srcset="{% include media-url.html src='/assets/img/posts/2026-11-06-multi-subband-bte/fig-03-elastic-mobile.svg' %}" width="600" height="1270">
+<img src="/assets/img/posts/2026-11-06-multi-subband-bte/fig-03-elastic.svg" alt="A horizontal total-energy line intersects two subband parabolas at different momenta, showing an allowed elastic inter-subband transition." width="1200" height="760">
 </picture>
 <figcaption markdown="span">Figure 5. Elastic transitions connect equal total energies, not equal longitudinal kinetic energies. Of the two open modes, mode 2 leaves less energy for longitudinal motion and has the smaller momentum magnitude. The teal arrow connects two positive momenta: this event slows a right mover without reversing its direction. It is a transition in momentum space, not a real-space trajectory. The energy stacks separate each subband edge from its longitudinal kinetic energy; both sum to 130 meV. The dashed third subband is closed at this energy.</figcaption>
 </figure>
@@ -873,8 +873,8 @@ For $f_L=0.9$, $f_R=0.2$, $\beta L=2$, the constant difference is $0.7/3$. Then 
 
 <figure class="msbte-figure">
 <picture class="rsna-results-figure">
-<source media="(max-width: 560px)" srcset="{% include media-url.html src='/assets/img/posts/2026-11-06-multi-subband-bte/fig-04-profiles-mobile.svg' %}">
-<img src="/assets/img/posts/2026-11-06-multi-subband-bte/fig-04-profiles.svg" alt="Ballistic directional occupations are flat; elastic backscattering creates equal-slope profiles with a smaller constant directional difference.">
+<source media="(max-width: 560px)" srcset="{% include media-url.html src='/assets/img/posts/2026-11-06-multi-subband-bte/fig-04-profiles-mobile.svg' %}" width="600" height="1310">
+<img src="/assets/img/posts/2026-11-06-multi-subband-bte/fig-04-profiles.svg" alt="Ballistic directional occupations are flat; elastic backscattering creates equal-slope profiles with a smaller constant directional difference." width="1200" height="745">
 </picture>
 <figcaption markdown="span">Figure 6. Both cases use the same incoming values, 0.9 and 0.2. In the scattering case, both directional occupations vary, but their difference remains constant. The net current is reduced everywhere by the same factor, not progressively lost along the wire.</figcaption>
 </figure>
