@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="750" viewBox="0 0 1200 750" role="img" aria-labelledby="title desc">
+<title id="title">A rising subband edge converts axial kinetic energy into potential energy</title>
+<desc id="desc">The prescribed subband edge epsilon(x)=50+70x/L meV rises from 50 to 120 meV while total energy is 170 meV. Panel a shows the energy gap K_n=E-epsilon_n. Panel b shows k_x(x)=sqrt(2 m* (E-epsilon_n(x)))/hbar for mass 0.19m0. A right mover slows from positive k about 0.774 to 0.499 per nanometre without turning. The arrow follows increasing x, not a changing quantum phase. The force is minus the derivative of the included subband energy.</desc>
+<defs><marker id="arrow" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 1 1 L 11 6 L 1 11 Z" fill="context-stroke"/></marker></defs>
+<rect width="1200" height="750" fill="#fbfcfb"/>
+<text x="30.00" y="46.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="32" font-weight="500" fill="#203649" text-anchor="start">A rising edge slows the electron</text>
+<text x="30.00" y="89.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="26" font-weight="400" fill="#657887" text-anchor="start">ε<tspan baseline-shift="sub" font-size="72%">n</tspan>(x) = (50 + 70x/L) meV · E = 170 meV</text>
+<text x="85.00" y="151.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="29" font-weight="500" fill="#203649" text-anchor="start">(a) Energy conversion</text>
+<text x="690.00" y="151.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="29" font-weight="500" fill="#203649" text-anchor="start">(b) Semiclassical trajectory</text>
+<line x1="85.00" y1="520.00" x2="550.00" y2="520.00" stroke="#e3e9ec" stroke-width="1.2"/>
+<text x="73.00" y="528.64" font-family="DejaVu Sans, Arial, sans-serif" font-size="27" font-weight="400" fill="#657887" text-anchor="end">0</text>
+<line x1="85.00" y1="377.50" x2="550.00" y2="377.50" stroke="#e3e9ec" stroke-width="1.2"/>
+<text x="73.00" y="386.14" font-family="DejaVu Sans, Arial, sans-serif" font-size="27" font-weight="400" fill="#657887" text-anchor="end">100</text>
+<line x1="85.00" y1="235.00" x2="550.00" y2="235.00" stroke="#e3e9ec" stroke-width="1.2"/>
+<text x="73.00" y="243.64" font-family="DejaVu Sans, Arial, sans-serif" font-size="27" font-weight="400" fill="#657887" text-anchor="end">200</text>
+<line x1="85.00" y1="520.00" x2="85.00" y2="527.00" stroke="#657887" stroke-width="1.6"/>
+<text x="85.00" y="560.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="27" font-weight="400" fill="#657887" text-anchor="middle">0</text>
+<line x1="317.50" y1="520.00" x2="317.50" y2="527.00" stroke="#657887" stroke-width="1.6"/>
+<text x="317.50" y="560.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="27" font-weight="400" fill="#657887" text-anchor="middle">0.5</text>
+<line x1="550.00" y1="520.00" x2="550.00" y2="527.00" stroke="#657887" stroke-width="1.6"/>
+<text x="550.00" y="560.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="27" font-weight="400" fill="#657887" text-anchor="middle">1</text>
+<line x1="85.00" y1="235.00" x2="85.00" y2="520.00" stroke="#657887" stroke-width="1.8"/>
+<line x1="85.00" y1="520.00" x2="550.00" y2="520.00" stroke="#657887" stroke-width="1.8"/>
+<text x="85.00" y="213.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="27" font-weight="400" fill="#203649" text-anchor="start">Energy (meV)</text>
+<text x="317.50" y="599.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="27" font-weight="400" fill="#203649" text-anchor="middle">x / L</text>
+<path d="M 85.00,448.75 L 550.00,349.00" fill="none" stroke="#2b6090" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="85.00" y1="277.75" x2="550.00" y2="277.75" stroke="#657887" stroke-width="1.9" stroke-dasharray="9 7"/>
+<line x1="261.70" y1="410.85" x2="261.70" y2="277.75" stroke="#087e81" stroke-width="2.5"/>
+<line x1="255.70" y1="410.85" x2="267.70" y2="410.85" stroke="#087e81" stroke-width="2.5"/>
+<line x1="255.70" y1="277.75" x2="267.70" y2="277.75" stroke="#087e81" stroke-width="2.5"/>
+<text x="273.70" y="353.30" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#087e81" text-anchor="start">K<tspan baseline-shift="sub" font-size="72%">n</tspan></text>
+<line x1="85.00" y1="643.00" x2="117.00" y2="643.00" stroke="#2b6090" stroke-width="3.8"/>
+<text x="129.00" y="651.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="26" font-weight="400" fill="#2b6090" text-anchor="start">ε<tspan baseline-shift="sub" font-size="72%">n</tspan>(x)</text>
+<line x1="335.00" y1="643.00" x2="367.00" y2="643.00" stroke="#657887" stroke-width="3.8" stroke-dasharray="9 7"/>
+<text x="379.00" y="651.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="26" font-weight="400" fill="#657887" text-anchor="start">E = 170</text>
+<line x1="690.00" y1="520.00" x2="1155.00" y2="520.00" stroke="#e3e9ec" stroke-width="1.2"/>
+<text x="678.00" y="528.64" font-family="DejaVu Sans, Arial, sans-serif" font-size="27" font-weight="400" fill="#657887" text-anchor="end">0</text>
+<line x1="690.00" y1="393.33" x2="1155.00" y2="393.33" stroke="#e3e9ec" stroke-width="1.2"/>
+<text x="678.00" y="401.97" font-family="DejaVu Sans, Arial, sans-serif" font-size="27" font-weight="400" fill="#657887" text-anchor="end">0.4</text>
+<line x1="690.00" y1="266.67" x2="1155.00" y2="266.67" stroke="#e3e9ec" stroke-width="1.2"/>
+<text x="678.00" y="275.31" font-family="DejaVu Sans, Arial, sans-serif" font-size="27" font-weight="400" fill="#657887" text-anchor="end">0.8</text>
+<line x1="690.00" y1="520.00" x2="690.00" y2="527.00" stroke="#657887" stroke-width="1.6"/>
+<text x="690.00" y="560.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="27" font-weight="400" fill="#657887" text-anchor="middle">0</text>
+<line x1="922.50" y1="520.00" x2="922.50" y2="527.00" stroke="#657887" stroke-width="1.6"/>
+<text x="922.50" y="560.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="27" font-weight="400" fill="#657887" text-anchor="middle">0.5</text>
+<line x1="1155.00" y1="520.00" x2="1155.00" y2="527.00" stroke="#657887" stroke-width="1.6"/>
+<text x="1155.00" y="560.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="27" font-weight="400" fill="#657887" text-anchor="middle">1</text>
+<line x1="690.00" y1="235.00" x2="690.00" y2="520.00" stroke="#657887" stroke-width="1.8"/>
+<line x1="690.00" y1="520.00" x2="1155.00" y2="520.00" stroke="#657887" stroke-width="1.8"/>
+<text x="690.00" y="213.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="27" font-weight="400" fill="#203649" text-anchor="start">Positive kₓ (nm⁻¹)</text>
+<text x="922.50" y="599.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="27" font-weight="400" fill="#203649" text-anchor="middle">x / L</text>
+<path d="M 690.00,275.03 L 694.65,275.75 L 699.30,276.47 L 703.95,277.19 L 708.60,277.91 L 713.25,278.63 L 717.90,279.36 L 722.55,280.09 L 727.20,280.82 L 731.85,281.55 L 736.50,282.28 L 741.15,283.02 L 745.80,283.76 L 750.45,284.50 L 755.10,285.25 L 759.75,286.00 L 764.40,286.74 L 769.05,287.50 L 773.70,288.25 L 778.35,289.01 L 783.00,289.77 L 787.65,290.53 L 792.30,291.29 L 796.95,292.06 L 801.60,292.83 L 806.25,293.60 L 810.90,294.37 L 815.55,295.15 L 820.20,295.93 L 824.85,296.71 L 829.50,297.50 L 834.15,298.29 L 838.80,299.08 L 843.45,299.87 L 848.10,300.67 L 852.75,301.47 L 857.40,302.27 L 862.05,303.07 L 866.70,303.88 L 871.35,304.69 L 876.00,305.51 L 880.65,306.33 L 885.30,307.15 L 889.95,307.97 L 894.60,308.80 L 899.25,309.63 L 903.90,310.46 L 908.55,311.30 L 913.20,312.14 L 917.85,312.98 L 922.50,313.83 L 927.15,314.68 L 931.80,315.53 L 936.45,316.39 L 941.10,317.25 L 945.75,318.12 L 950.40,318.99 L 955.05,319.86 L 959.70,320.74 L 964.35,321.62 L 969.00,322.50 L 973.65,323.39 L 978.30,324.28 L 982.95,325.18 L 987.60,326.08 L 992.25,326.98 L 996.90,327.89 L 1001.55,328.81 L 1006.20,329.72 L 1010.85,330.64 L 1015.50,331.57 L 1020.15,332.50 L 1024.80,333.44 L 1029.45,334.38 L 1034.10,335.32 L 1038.75,336.27 L 1043.40,337.23 L 1048.05,338.19 L 1052.70,339.15 L 1057.35,340.13 L 1062.00,341.10 L 1066.65,342.08 L 1071.30,343.07 L 1075.95,344.06 L 1080.60,345.06 L 1085.25,346.06 L 1089.90,347.07 L 1094.55,348.09 L 1099.20,349.11 L 1103.85,350.13 L 1108.50,351.17 L 1113.15,352.21 L 1117.80,353.25 L 1122.45,354.31 L 1127.10,355.37 L 1131.75,356.43 L 1136.40,357.51 L 1141.05,358.59 L 1145.70,359.68 L 1150.35,360.77 L 1155.00,361.87" fill="none" stroke="#087e81" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 876.00,305.51 L 881.35,306.45 L 886.70,307.39 L 892.04,308.34 L 897.39,309.29 L 902.74,310.25 L 908.09,311.21 L 913.43,312.18 L 918.78,313.15 L 924.13,314.13 L 929.48,315.11 L 934.82,316.09 L 940.17,317.08 L 945.52,318.08 L 950.87,319.07 L 956.21,320.08 L 961.56,321.09 L 966.91,322.10 L 972.25,323.12 L 977.60,324.15 L 982.95,325.18" fill="none" stroke="#087e81" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+<text x="690.00" y="651.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="25" font-weight="400" fill="#087e81" text-anchor="start">kₓ(x) = √[2m*(E − ε<tspan baseline-shift="sub" font-size="72%">n</tspan>(x))] / ℏ</text>
+<text x="600.00" y="716.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="31" font-weight="400" fill="#203649" text-anchor="middle">F<tspan baseline-shift="sub" font-size="72%">n</tspan> = −∂ε<tspan baseline-shift="sub" font-size="72%">n</tspan>/∂x</text>
+</svg>

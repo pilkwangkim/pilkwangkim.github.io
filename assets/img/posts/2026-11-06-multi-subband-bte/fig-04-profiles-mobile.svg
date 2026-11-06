@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="1310" viewBox="0 0 600 1310" role="img" aria-labelledby="title desc">
+<title id="title">Elastic backscattering and directional imbalance</title>
+<desc id="desc">Exact continuum single-subband solutions use incoming occupations fL=0.9 and fR=0.2. Panel a has beta L=0; panel b has beta L=2. Positive-direction occupation is blue solid and negative-direction occupation is gold dashed. Both spatial derivatives in panel b are negative and equal, leaving a constant difference 0.7/3 instead of the ballistic 0.7. Filled points identify only the prescribed incoming values at the left positive and right negative boundary.</desc>
+<defs><marker id="arrow" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 1 1 L 11 6 L 1 11 Z" fill="context-stroke"/></marker></defs>
+<rect width="600" height="1310" fill="#fbfcfb"/>
+<text x="30.00" y="46.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="31" font-weight="500" fill="#203649" text-anchor="start">Backscattering and net flow</text>
+<text x="30.00" y="89.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="26" font-weight="400" fill="#657887" text-anchor="start">Fixed inflow: fL = 0.9, fR = 0.2</text>
+<line x1="65.00" y1="133.00" x2="97.00" y2="133.00" stroke="#2b6090" stroke-width="3.8"/>
+<text x="109.00" y="141.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="25" font-weight="400" fill="#2b6090" text-anchor="start">f⁺  (v &gt; 0)</text>
+<line x1="320.00" y1="133.00" x2="352.00" y2="133.00" stroke="#a46e26" stroke-width="3.8" stroke-dasharray="9 7"/>
+<text x="364.00" y="141.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="25" font-weight="400" fill="#a46e26" text-anchor="start">f⁻  (v &lt; 0)</text>
+<text x="30.00" y="205.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="29" font-weight="500" fill="#203649" text-anchor="start">(a) Ballistic · βL = 0</text>
+<line x1="85.00" y1="527.00" x2="550.00" y2="527.00" stroke="#e3e9ec" stroke-width="1.2"/>
+<text x="73.00" y="535.96" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#657887" text-anchor="end">0</text>
+<line x1="85.00" y1="397.00" x2="550.00" y2="397.00" stroke="#e3e9ec" stroke-width="1.2"/>
+<text x="73.00" y="405.96" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#657887" text-anchor="end">0.5</text>
+<line x1="85.00" y1="267.00" x2="550.00" y2="267.00" stroke="#e3e9ec" stroke-width="1.2"/>
+<text x="73.00" y="275.96" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#657887" text-anchor="end">1</text>
+<line x1="85.00" y1="527.00" x2="85.00" y2="534.00" stroke="#657887" stroke-width="1.6"/>
+<text x="85.00" y="568.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#657887" text-anchor="middle">0</text>
+<line x1="317.50" y1="527.00" x2="317.50" y2="534.00" stroke="#657887" stroke-width="1.6"/>
+<text x="317.50" y="568.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#657887" text-anchor="middle">0.5</text>
+<line x1="550.00" y1="527.00" x2="550.00" y2="534.00" stroke="#657887" stroke-width="1.6"/>
+<text x="550.00" y="568.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#657887" text-anchor="middle">1</text>
+<line x1="85.00" y1="267.00" x2="85.00" y2="527.00" stroke="#657887" stroke-width="1.8"/>
+<line x1="85.00" y1="527.00" x2="550.00" y2="527.00" stroke="#657887" stroke-width="1.8"/>
+<text x="85.00" y="245.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#203649" text-anchor="start">Occupation f</text>
+<text x="317.50" y="608.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#203649" text-anchor="middle">x / L</text>
+<path d="M 85.00,293.00 L 550.00,293.00" fill="none" stroke="#2b6090" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 85.00,475.00 L 550.00,475.00" fill="none" stroke="#a46e26" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="9 7"/>
+<circle cx="85.00" cy="293.00" r="6" fill="#2b6090" stroke="#2b6090" stroke-width="2"/>
+<circle cx="550.00" cy="475.00" r="6" fill="#a46e26" stroke="#a46e26" stroke-width="2"/>
+<line x1="340.75" y1="475.00" x2="340.75" y2="293.00" stroke="#087e81" stroke-width="2.4"/>
+<line x1="333.75" y1="475.00" x2="347.75" y2="475.00" stroke="#087e81" stroke-width="2.4"/>
+<line x1="333.75" y1="293.00" x2="347.75" y2="293.00" stroke="#087e81" stroke-width="2.4"/>
+<text x="317.50" y="657.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="29" font-weight="400" fill="#087e81" text-anchor="middle">f⁺ − f⁻ = 0.700</text>
+<line x1="30.00" y1="709.00" x2="570.00" y2="709.00" stroke="#d9e2e6" stroke-width="1.4"/>
+<text x="30.00" y="756.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="29" font-weight="500" fill="#203649" text-anchor="start">(b) Elastic reversal · βL = 2</text>
+<line x1="85.00" y1="1078.00" x2="550.00" y2="1078.00" stroke="#e3e9ec" stroke-width="1.2"/>
+<text x="73.00" y="1086.96" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#657887" text-anchor="end">0</text>
+<line x1="85.00" y1="948.00" x2="550.00" y2="948.00" stroke="#e3e9ec" stroke-width="1.2"/>
+<text x="73.00" y="956.96" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#657887" text-anchor="end">0.5</text>
+<line x1="85.00" y1="818.00" x2="550.00" y2="818.00" stroke="#e3e9ec" stroke-width="1.2"/>
+<text x="73.00" y="826.96" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#657887" text-anchor="end">1</text>
+<line x1="85.00" y1="1078.00" x2="85.00" y2="1085.00" stroke="#657887" stroke-width="1.6"/>
+<text x="85.00" y="1119.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#657887" text-anchor="middle">0</text>
+<line x1="317.50" y1="1078.00" x2="317.50" y2="1085.00" stroke="#657887" stroke-width="1.6"/>
+<text x="317.50" y="1119.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#657887" text-anchor="middle">0.5</text>
+<line x1="550.00" y1="1078.00" x2="550.00" y2="1085.00" stroke="#657887" stroke-width="1.6"/>
+<text x="550.00" y="1119.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#657887" text-anchor="middle">1</text>
+<line x1="85.00" y1="818.00" x2="85.00" y2="1078.00" stroke="#657887" stroke-width="1.8"/>
+<line x1="85.00" y1="1078.00" x2="550.00" y2="1078.00" stroke="#657887" stroke-width="1.8"/>
+<text x="85.00" y="796.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#203649" text-anchor="start">Occupation f</text>
+<text x="317.50" y="1159.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#203649" text-anchor="middle">x / L</text>
+<path d="M 85.00,844.00 L 550.00,965.33" fill="none" stroke="#2b6090" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 85.00,904.67 L 550.00,1026.00" fill="none" stroke="#a46e26" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="9 7"/>
+<circle cx="85.00" cy="844.00" r="6" fill="#2b6090" stroke="#2b6090" stroke-width="2"/>
+<circle cx="550.00" cy="1026.00" r="6" fill="#a46e26" stroke="#a46e26" stroke-width="2"/>
+<line x1="340.75" y1="971.40" x2="340.75" y2="910.73" stroke="#087e81" stroke-width="2.4"/>
+<line x1="333.75" y1="971.40" x2="347.75" y2="971.40" stroke="#087e81" stroke-width="2.4"/>
+<line x1="333.75" y1="910.73" x2="347.75" y2="910.73" stroke="#087e81" stroke-width="2.4"/>
+<text x="317.50" y="1208.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="29" font-weight="400" fill="#087e81" text-anchor="middle">f⁺ − f⁻ = 0.233</text>
+<circle cx="80.00" cy="1264.00" r="5" fill="#657887" stroke="#657887" stroke-width="2"/>
+<text x="100.00" y="1273.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="26" font-weight="400" fill="#657887" text-anchor="start">Fixed incoming occupations</text>
+</svg>

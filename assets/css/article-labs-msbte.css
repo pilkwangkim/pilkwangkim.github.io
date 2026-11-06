@@ -1,0 +1,40 @@
+.article-lab.msbte-lab .msbte-explanation { margin: .9rem 0; line-height: 1.65; font-size: .93rem; }
+.article-lab.msbte-lab .msbte-choices { display: grid; gap: .6rem; margin: 1rem 0; }
+.article-lab.msbte-lab .msbte-choice { text-align: left; white-space: normal; height: auto; min-height: 2.75rem; padding: .7rem .85rem; line-height: 1.5; border: 1px solid var(--al-line); background: var(--card-bg,var(--main-bg,#fff)); color: inherit; border-radius: .35rem; cursor: pointer; }
+.article-lab.msbte-lab .msbte-choice.msbte-chosen { border-color: var(--al-blue); box-shadow: inset 3px 0 var(--al-blue); }
+.article-lab.msbte-lab .msbte-answer { padding: .9rem; border-left: 3px solid var(--al-gold); line-height: 1.65; }
+.article-lab.msbte-lab .msbte-answer.msbte-correct { border-left-color: var(--al-blue); }
+.article-lab.msbte-lab .al-metrics output { overflow-wrap: anywhere; }
+.article-lab.msbte-lab .msbte-contact-diagram { width: 100%; height: auto; }
+.article-lab.msbte-lab .msbte-contact-diagram text { fill: var(--text-color,#343a40); font: 24px system-ui,sans-serif; }
+.article-lab.msbte-lab .msbte-reservoir { fill: var(--main-bg,#fff); stroke: var(--al-muted); stroke-width: 2; }
+.article-lab.msbte-lab .msbte-device { fill: none; stroke: var(--al-blue); stroke-width: 2; }
+.article-lab.msbte-lab .msbte-arrow-in { fill: var(--al-blue); stroke: var(--al-blue); stroke-width: 3; }
+.article-lab.msbte-lab .msbte-arrow-out { fill: var(--al-gold); stroke: var(--al-gold); stroke-width: 3; }
+.article-lab.msbte-lab .msbte-energy-diagram { display: block; width: 100%; max-width: 440px; height: auto; margin: .2rem auto .5rem; }
+.article-lab.msbte-lab .msbte-energy-diagram text { fill: var(--text-color,#343a40); font: 20px system-ui,sans-serif; }
+.article-lab.msbte-lab .msbte-energy-diagram :is(.msbte-energy-tick,.msbte-energy-edge,.msbte-energy-total,.msbte-energy-key) { font-size: 18px; }
+@media (max-width: 540px) { .article-lab.msbte-lab .msbte-explanation { font-size: .9rem; } }
+
+/* Article-owned figures and three-column comparisons; no shared overrides. */
+.msbte-figure { margin: 1.7rem 0; }
+.msbte-figure picture, .msbte-figure img { display: block; width: 100%; height: auto; }
+.msbte-figure figcaption { margin: .7rem 0 1.3rem; font-size: .88rem; line-height: 1.7; text-align: left; }
+html[lang=ko] article:has(.msbte-figure) :is(h1,h2,h3) { word-break: keep-all; overflow-wrap: break-word; }
+.content:has(.msbte-figure) mjx-container[display="true"] { min-width: 0 !important; width: 100%; max-width: 100%; }
+.article-lab.msbte-lab :is(.al-axis-heading,.al-axis-caption,.al-chart-legend) { font-size: .8rem; }
+.article-lab.msbte-lab :is(.al-control-label,.al-metrics dt) { font-size: .78rem; }
+.article-lab.msbte-lab .al-status, .article-lab.msbte-lab .al-model, .article-lab.msbte-lab .al-model p { font-size: .78rem; }
+.content:has(.msbte-figure) .msbte-table { width: 100%; min-width: 0; table-layout: fixed; }
+.content:has(.msbte-figure) .msbte-table :is(th,td) { white-space: normal; overflow-wrap: break-word; padding: .5rem .45rem; vertical-align: top; }
+.content:has(.msbte-figure) .msbte-table :is(th,td):first-child { width: 25%; }
+.content:has(.msbte-figure) .msbte-table :is(th,td):nth-child(n+2) { width: 37.5%; }
+html[lang=ko] .content:has(.msbte-figure) .msbte-table :is(th,td) { word-break: keep-all; overflow-wrap: break-word; }
+@media (max-width: 540px) {
+  /* No mobile gutter is wide enough for this floating button: keep it from
+     covering axis ticks, matrix entries and table text in this article only. */
+  body:has(.msbte-figure) #back-to-top { display: none !important; }
+  .content:has(.msbte-figure) .msbte-table { font-size: .88rem; }
+  .content:has(.msbte-figure) .msbte-table :is(th,td):first-child { width: 30%; }
+  .content:has(.msbte-figure) .msbte-table :is(th,td):nth-child(n+2) { width: 35%; }
+}

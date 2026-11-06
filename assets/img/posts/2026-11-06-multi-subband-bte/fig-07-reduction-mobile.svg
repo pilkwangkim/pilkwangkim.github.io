@@ -1,0 +1,220 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="1540" viewBox="0 0 600 1540" role="img" aria-labelledby="title desc">
+<title id="title">Exact basis rotation, dephasing, and truncation are different operations</title>
+<desc id="desc">An algebraic one-electron example starts from c=(sqrt(0.6),sqrt(0.3),sqrt(0.1)) and rho=c c-transpose. A real orthogonal pi-over-six rotation mixes basis vectors one and two. The transformed matrix U-transpose rho U still has trace one and purity one. Dephasing in the new basis keeps diagonal entries approximately 0.89242346,0.00757654,0.1 but removes all off-diagonal entries; trace stays one and purity becomes 0.80647704. Retaining only basis vectors one and two gives P D P with trace 0.9. It is not renormalized; the omitted trace is 0.1. All matrix entries in this example are nonnegative and share one zero-to-one color scale. Numbers are rounded to three decimals. The outlined two-by-two block is retained; gray cells are omitted. These basis vectors are not claimed to be a physical subband calculation.</desc>
+<defs><marker id="arrow" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 1 1 L 11 6 L 1 11 Z" fill="context-stroke"/></marker></defs>
+<rect width="600" height="1540" fill="#fbfcfb"/>
+<text x="30.00" y="46.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="30" font-weight="600" fill="#203649" text-anchor="start">Basis change, dephasing, truncation</text>
+<text x="30.00" y="88.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="25" font-weight="400" fill="#657887" text-anchor="start">Basis vectors 1, 2, 3 · θ = π/6</text>
+<text x="30.00" y="140.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="600" fill="#203649" text-anchor="start">(a) Original state</text>
+<text x="106.00" y="179.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="22" font-weight="400" fill="#657887" text-anchor="middle">1</text>
+<text x="56.00" y="238.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="22" font-weight="400" fill="#657887" text-anchor="end">1</text>
+<text x="178.00" y="179.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="22" font-weight="400" fill="#657887" text-anchor="middle">2</text>
+<text x="56.00" y="310.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="22" font-weight="400" fill="#657887" text-anchor="end">2</text>
+<text x="250.00" y="179.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="22" font-weight="400" fill="#657887" text-anchor="middle">3</text>
+<text x="56.00" y="382.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="22" font-weight="400" fill="#657887" text-anchor="end">3</text>
+<rect x="70.00" y="194.00" width="72.00" height="72.00" rx="0" fill="#64a7a9" stroke="#ffffff" stroke-width="2"/>
+<text x="106.00" y="239.52" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#203649" text-anchor="middle">.600</text>
+<rect x="142.00" y="194.00" width="72.00" height="72.00" rx="0" fill="#90c0c1" stroke="#ffffff" stroke-width="2"/>
+<text x="178.00" y="239.52" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#203649" text-anchor="middle">.424</text>
+<rect x="214.00" y="194.00" width="72.00" height="72.00" rx="0" fill="#bdd9d9" stroke="#ffffff" stroke-width="2"/>
+<text x="250.00" y="239.52" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#203649" text-anchor="middle">.245</text>
+<rect x="70.00" y="266.00" width="72.00" height="72.00" rx="0" fill="#90c0c1" stroke="#ffffff" stroke-width="2"/>
+<text x="106.00" y="311.52" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#203649" text-anchor="middle">.424</text>
+<rect x="142.00" y="266.00" width="72.00" height="72.00" rx="0" fill="#afd1d2" stroke="#ffffff" stroke-width="2"/>
+<text x="178.00" y="311.52" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#203649" text-anchor="middle">.300</text>
+<rect x="214.00" y="266.00" width="72.00" height="72.00" rx="0" fill="#cfe3e3" stroke="#ffffff" stroke-width="2"/>
+<text x="250.00" y="311.52" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#203649" text-anchor="middle">.173</text>
+<rect x="70.00" y="338.00" width="72.00" height="72.00" rx="0" fill="#bdd9d9" stroke="#ffffff" stroke-width="2"/>
+<text x="106.00" y="383.52" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#203649" text-anchor="middle">.245</text>
+<rect x="142.00" y="338.00" width="72.00" height="72.00" rx="0" fill="#cfe3e3" stroke="#ffffff" stroke-width="2"/>
+<text x="178.00" y="383.52" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#203649" text-anchor="middle">.173</text>
+<rect x="214.00" y="338.00" width="72.00" height="72.00" rx="0" fill="#e1eeed" stroke="#ffffff" stroke-width="2"/>
+<text x="250.00" y="383.52" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#203649" text-anchor="middle">.100</text>
+<rect x="70.00" y="194.00" width="216.00" height="216.00" rx="0" fill="none" stroke="#d9e2e6" stroke-width="1.5"/>
+<text x="334.00" y="220.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="27" font-weight="400" fill="#203649" text-anchor="start">ρ = ccᵀ</text>
+<text x="334.00" y="275.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="26" font-weight="400" fill="#203649" text-anchor="start">Tr(ρ) = 1.0</text>
+<text x="334.00" y="317.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="24" font-weight="400" fill="#203649" text-anchor="start">Tr(ρ²) = 1</text>
+<text x="334.00" y="370.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="23" font-weight="400" fill="#657887" text-anchor="start">Pure state</text>
+<line x1="30.00" y1="433.00" x2="570.00" y2="433.00" stroke="#d9e2e6" stroke-width="1.5"/>
+<text x="30.00" y="470.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="600" fill="#203649" text-anchor="start">(b) Exact basis rotation</text>
+<text x="106.00" y="509.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="22" font-weight="400" fill="#657887" text-anchor="middle">1</text>
+<text x="56.00" y="568.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="22" font-weight="400" fill="#657887" text-anchor="end">1</text>
+<text x="178.00" y="509.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="22" font-weight="400" fill="#657887" text-anchor="middle">2</text>
+<text x="56.00" y="640.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="22" font-weight="400" fill="#657887" text-anchor="end">2</text>
+<text x="250.00" y="509.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="22" font-weight="400" fill="#657887" text-anchor="middle">3</text>
+<text x="56.00" y="712.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="22" font-weight="400" fill="#657887" text-anchor="end">3</text>
+<rect x="70.00" y="524.00" width="72.00" height="72.00" rx="0" fill="#1b7d81" stroke="#ffffff" stroke-width="2"/>
+<text x="106.00" y="569.52" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#ffffff" text-anchor="middle">.892</text>
+<rect x="142.00" y="524.00" width="72.00" height="72.00" rx="0" fill="#e5f0f0" stroke="#ffffff" stroke-width="2"/>
+<text x="178.00" y="569.52" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#203649" text-anchor="middle">.082</text>
+<rect x="214.00" y="524.00" width="72.00" height="72.00" rx="0" fill="#afd2d2" stroke="#ffffff" stroke-width="2"/>
+<text x="250.00" y="569.52" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#203649" text-anchor="middle">.299</text>
+<rect x="70.00" y="596.00" width="72.00" height="72.00" rx="0" fill="#e5f0f0" stroke="#ffffff" stroke-width="2"/>
+<text x="106.00" y="641.52" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#203649" text-anchor="middle">.082</text>
+<rect x="142.00" y="596.00" width="72.00" height="72.00" rx="0" fill="#f8fbfa" stroke="#ffffff" stroke-width="2"/>
+<text x="178.00" y="641.52" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#203649" text-anchor="middle">.008</text>
+<rect x="214.00" y="596.00" width="72.00" height="72.00" rx="0" fill="#f3f8f7" stroke="#ffffff" stroke-width="2"/>
+<text x="250.00" y="641.52" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#203649" text-anchor="middle">.028</text>
+<rect x="70.00" y="668.00" width="72.00" height="72.00" rx="0" fill="#afd2d2" stroke="#ffffff" stroke-width="2"/>
+<text x="106.00" y="713.52" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#203649" text-anchor="middle">.299</text>
+<rect x="142.00" y="668.00" width="72.00" height="72.00" rx="0" fill="#f3f8f7" stroke="#ffffff" stroke-width="2"/>
+<text x="178.00" y="713.52" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#203649" text-anchor="middle">.028</text>
+<rect x="214.00" y="668.00" width="72.00" height="72.00" rx="0" fill="#e1eeed" stroke="#ffffff" stroke-width="2"/>
+<text x="250.00" y="713.52" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#203649" text-anchor="middle">.100</text>
+<rect x="70.00" y="524.00" width="216.00" height="216.00" rx="0" fill="none" stroke="#d9e2e6" stroke-width="1.5"/>
+<text x="334.00" y="550.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="27" font-weight="400" fill="#203649" text-anchor="start">M = UᵀρU</text>
+<text x="334.00" y="605.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="26" font-weight="400" fill="#203649" text-anchor="start">Tr(M) = 1.0</text>
+<text x="334.00" y="647.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="24" font-weight="400" fill="#203649" text-anchor="start">Tr(M²) = 1</text>
+<text x="334.00" y="700.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="23" font-weight="400" fill="#657887" text-anchor="start">Same quantum state</text>
+<line x1="30.00" y1="763.00" x2="570.00" y2="763.00" stroke="#d9e2e6" stroke-width="1.5"/>
+<text x="30.00" y="800.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="600" fill="#203649" text-anchor="start">(c) Diagonal approximation</text>
+<text x="106.00" y="839.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="22" font-weight="400" fill="#657887" text-anchor="middle">1</text>
+<text x="56.00" y="898.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="22" font-weight="400" fill="#657887" text-anchor="end">1</text>
+<text x="178.00" y="839.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="22" font-weight="400" fill="#657887" text-anchor="middle">2</text>
+<text x="56.00" y="970.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="22" font-weight="400" fill="#657887" text-anchor="end">2</text>
+<text x="250.00" y="839.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="22" font-weight="400" fill="#657887" text-anchor="middle">3</text>
+<text x="56.00" y="1042.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="22" font-weight="400" fill="#657887" text-anchor="end">3</text>
+<rect x="70.00" y="854.00" width="72.00" height="72.00" rx="0" fill="#1b7d81" stroke="#ffffff" stroke-width="2"/>
+<text x="106.00" y="899.52" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#ffffff" text-anchor="middle">.892</text>
+<rect x="142.00" y="854.00" width="72.00" height="72.00" rx="0" fill="#fafcfb" stroke="#ffffff" stroke-width="2"/>
+<text x="178.00" y="899.52" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#203649" text-anchor="middle">0</text>
+<rect x="214.00" y="854.00" width="72.00" height="72.00" rx="0" fill="#fafcfb" stroke="#ffffff" stroke-width="2"/>
+<text x="250.00" y="899.52" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#203649" text-anchor="middle">0</text>
+<rect x="70.00" y="926.00" width="72.00" height="72.00" rx="0" fill="#fafcfb" stroke="#ffffff" stroke-width="2"/>
+<text x="106.00" y="971.52" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#203649" text-anchor="middle">0</text>
+<rect x="142.00" y="926.00" width="72.00" height="72.00" rx="0" fill="#f8fbfa" stroke="#ffffff" stroke-width="2"/>
+<text x="178.00" y="971.52" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#203649" text-anchor="middle">.008</text>
+<rect x="214.00" y="926.00" width="72.00" height="72.00" rx="0" fill="#fafcfb" stroke="#ffffff" stroke-width="2"/>
+<text x="250.00" y="971.52" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#203649" text-anchor="middle">0</text>
+<rect x="70.00" y="998.00" width="72.00" height="72.00" rx="0" fill="#fafcfb" stroke="#ffffff" stroke-width="2"/>
+<text x="106.00" y="1043.52" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#203649" text-anchor="middle">0</text>
+<rect x="142.00" y="998.00" width="72.00" height="72.00" rx="0" fill="#fafcfb" stroke="#ffffff" stroke-width="2"/>
+<text x="178.00" y="1043.52" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#203649" text-anchor="middle">0</text>
+<rect x="214.00" y="998.00" width="72.00" height="72.00" rx="0" fill="#e1eeed" stroke="#ffffff" stroke-width="2"/>
+<text x="250.00" y="1043.52" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#203649" text-anchor="middle">.100</text>
+<rect x="70.00" y="854.00" width="216.00" height="216.00" rx="0" fill="none" stroke="#d9e2e6" stroke-width="1.5"/>
+<text x="334.00" y="880.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="27" font-weight="400" fill="#203649" text-anchor="start">D = diag(M)</text>
+<text x="334.00" y="935.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="26" font-weight="400" fill="#203649" text-anchor="start">Tr(D) = 1.0</text>
+<text x="334.00" y="977.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="24" font-weight="400" fill="#203649" text-anchor="start">Tr(D²) ≈ 0.8065</text>
+<text x="334.00" y="1030.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="23" font-weight="400" fill="#657887" text-anchor="start">Off-diagonal entries</text>
+<text x="334.00" y="1065.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="23" font-weight="400" fill="#657887" text-anchor="start">set to zero</text>
+<line x1="30.00" y1="1093.00" x2="570.00" y2="1093.00" stroke="#d9e2e6" stroke-width="1.5"/>
+<text x="30.00" y="1130.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="600" fill="#203649" text-anchor="start">(d) Two-state retention</text>
+<text x="106.00" y="1169.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="22" font-weight="400" fill="#657887" text-anchor="middle">1</text>
+<text x="56.00" y="1228.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="22" font-weight="400" fill="#657887" text-anchor="end">1</text>
+<text x="178.00" y="1169.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="22" font-weight="400" fill="#657887" text-anchor="middle">2</text>
+<text x="56.00" y="1300.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="22" font-weight="400" fill="#657887" text-anchor="end">2</text>
+<text x="250.00" y="1169.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="22" font-weight="400" fill="#657887" text-anchor="middle">3</text>
+<text x="56.00" y="1372.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="22" font-weight="400" fill="#657887" text-anchor="end">3</text>
+<rect x="70.00" y="1184.00" width="72.00" height="72.00" rx="0" fill="#1b7d81" stroke="#ffffff" stroke-width="2"/>
+<text x="106.00" y="1229.52" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#ffffff" text-anchor="middle">.892</text>
+<rect x="142.00" y="1184.00" width="72.00" height="72.00" rx="0" fill="#fafcfb" stroke="#ffffff" stroke-width="2"/>
+<text x="178.00" y="1229.52" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#203649" text-anchor="middle">0</text>
+<rect x="214.00" y="1184.00" width="72.00" height="72.00" rx="0" fill="#eef0f0" stroke="#ffffff" stroke-width="2"/>
+<text x="250.00" y="1229.52" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#657887" text-anchor="middle">0</text>
+<rect x="70.00" y="1256.00" width="72.00" height="72.00" rx="0" fill="#fafcfb" stroke="#ffffff" stroke-width="2"/>
+<text x="106.00" y="1301.52" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#203649" text-anchor="middle">0</text>
+<rect x="142.00" y="1256.00" width="72.00" height="72.00" rx="0" fill="#f8fbfa" stroke="#ffffff" stroke-width="2"/>
+<text x="178.00" y="1301.52" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#203649" text-anchor="middle">.008</text>
+<rect x="214.00" y="1256.00" width="72.00" height="72.00" rx="0" fill="#eef0f0" stroke="#ffffff" stroke-width="2"/>
+<text x="250.00" y="1301.52" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#657887" text-anchor="middle">0</text>
+<rect x="70.00" y="1328.00" width="72.00" height="72.00" rx="0" fill="#eef0f0" stroke="#ffffff" stroke-width="2"/>
+<text x="106.00" y="1373.52" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#657887" text-anchor="middle">0</text>
+<rect x="142.00" y="1328.00" width="72.00" height="72.00" rx="0" fill="#eef0f0" stroke="#ffffff" stroke-width="2"/>
+<text x="178.00" y="1373.52" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#657887" text-anchor="middle">0</text>
+<rect x="214.00" y="1328.00" width="72.00" height="72.00" rx="0" fill="#eef0f0" stroke="#ffffff" stroke-width="2"/>
+<text x="250.00" y="1373.52" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#657887" text-anchor="middle">0</text>
+<rect x="70.00" y="1184.00" width="216.00" height="216.00" rx="0" fill="none" stroke="#d9e2e6" stroke-width="1.5"/>
+<rect x="70.00" y="1184.00" width="144.00" height="144.00" rx="0" fill="none" stroke="#a46e26" stroke-width="3.2"/>
+<text x="334.00" y="1210.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="27" font-weight="400" fill="#a46e26" text-anchor="start">R = PDP</text>
+<text x="334.00" y="1265.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="26" font-weight="400" fill="#203649" text-anchor="start">Tr(R) = 0.9</text>
+<text x="334.00" y="1307.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="24" font-weight="400" fill="#203649" text-anchor="start">Tr(R²) ≈ 0.7965</text>
+<text x="334.00" y="1360.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="23" font-weight="400" fill="#a46e26" text-anchor="start">Keep vectors 1, 2</text>
+<text x="334.00" y="1395.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="23" font-weight="400" fill="#a46e26" text-anchor="start">No renormalization</text>
+<text x="30.00" y="1456.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="24" font-weight="400" fill="#657887" text-anchor="start">Purity interpretation requires trace 1.</text>
+<text x="30.00" y="1496.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="23" font-weight="400" fill="#657887" text-anchor="start">Entry value</text>
+<rect x="248.00" y="1482.00" width="3.33" height="13.00" rx="0" fill="#fafcfb" stroke="none" stroke-width="0"/>
+<rect x="251.12" y="1482.00" width="3.33" height="13.00" rx="0" fill="#f7faf9" stroke="none" stroke-width="0"/>
+<rect x="254.25" y="1482.00" width="3.33" height="13.00" rx="0" fill="#f4f8f8" stroke="none" stroke-width="0"/>
+<rect x="257.38" y="1482.00" width="3.33" height="13.00" rx="0" fill="#f1f7f6" stroke="none" stroke-width="0"/>
+<rect x="260.50" y="1482.00" width="3.33" height="13.00" rx="0" fill="#edf5f4" stroke="none" stroke-width="0"/>
+<rect x="263.62" y="1482.00" width="3.33" height="13.00" rx="0" fill="#eaf3f2" stroke="none" stroke-width="0"/>
+<rect x="266.75" y="1482.00" width="3.33" height="13.00" rx="0" fill="#e7f1f1" stroke="none" stroke-width="0"/>
+<rect x="269.88" y="1482.00" width="3.33" height="13.00" rx="0" fill="#e4efef" stroke="none" stroke-width="0"/>
+<rect x="273.00" y="1482.00" width="3.33" height="13.00" rx="0" fill="#e1eeed" stroke="none" stroke-width="0"/>
+<rect x="276.12" y="1482.00" width="3.33" height="13.00" rx="0" fill="#deeceb" stroke="none" stroke-width="0"/>
+<rect x="279.25" y="1482.00" width="3.33" height="13.00" rx="0" fill="#daeaea" stroke="none" stroke-width="0"/>
+<rect x="282.38" y="1482.00" width="3.33" height="13.00" rx="0" fill="#d7e8e8" stroke="none" stroke-width="0"/>
+<rect x="285.50" y="1482.00" width="3.33" height="13.00" rx="0" fill="#d4e6e6" stroke="none" stroke-width="0"/>
+<rect x="288.62" y="1482.00" width="3.33" height="13.00" rx="0" fill="#d1e5e4" stroke="none" stroke-width="0"/>
+<rect x="291.75" y="1482.00" width="3.33" height="13.00" rx="0" fill="#cee3e3" stroke="none" stroke-width="0"/>
+<rect x="294.88" y="1482.00" width="3.33" height="13.00" rx="0" fill="#cbe1e1" stroke="none" stroke-width="0"/>
+<rect x="298.00" y="1482.00" width="3.33" height="13.00" rx="0" fill="#c7dfdf" stroke="none" stroke-width="0"/>
+<rect x="301.12" y="1482.00" width="3.33" height="13.00" rx="0" fill="#c4ddde" stroke="none" stroke-width="0"/>
+<rect x="304.25" y="1482.00" width="3.33" height="13.00" rx="0" fill="#c1dcdc" stroke="none" stroke-width="0"/>
+<rect x="307.38" y="1482.00" width="3.33" height="13.00" rx="0" fill="#bedada" stroke="none" stroke-width="0"/>
+<rect x="310.50" y="1482.00" width="3.33" height="13.00" rx="0" fill="#bbd8d8" stroke="none" stroke-width="0"/>
+<rect x="313.62" y="1482.00" width="3.33" height="13.00" rx="0" fill="#b8d6d7" stroke="none" stroke-width="0"/>
+<rect x="316.75" y="1482.00" width="3.33" height="13.00" rx="0" fill="#b4d4d5" stroke="none" stroke-width="0"/>
+<rect x="319.88" y="1482.00" width="3.33" height="13.00" rx="0" fill="#b1d3d3" stroke="none" stroke-width="0"/>
+<rect x="323.00" y="1482.00" width="3.33" height="13.00" rx="0" fill="#aed1d1" stroke="none" stroke-width="0"/>
+<rect x="326.12" y="1482.00" width="3.33" height="13.00" rx="0" fill="#abcfd0" stroke="none" stroke-width="0"/>
+<rect x="329.25" y="1482.00" width="3.33" height="13.00" rx="0" fill="#a8cdce" stroke="none" stroke-width="0"/>
+<rect x="332.38" y="1482.00" width="3.33" height="13.00" rx="0" fill="#a5cbcc" stroke="none" stroke-width="0"/>
+<rect x="335.50" y="1482.00" width="3.33" height="13.00" rx="0" fill="#a1caca" stroke="none" stroke-width="0"/>
+<rect x="338.62" y="1482.00" width="3.33" height="13.00" rx="0" fill="#9ec8c9" stroke="none" stroke-width="0"/>
+<rect x="341.75" y="1482.00" width="3.33" height="13.00" rx="0" fill="#9bc6c7" stroke="none" stroke-width="0"/>
+<rect x="344.88" y="1482.00" width="3.33" height="13.00" rx="0" fill="#98c4c5" stroke="none" stroke-width="0"/>
+<rect x="348.00" y="1482.00" width="3.33" height="13.00" rx="0" fill="#95c2c4" stroke="none" stroke-width="0"/>
+<rect x="351.12" y="1482.00" width="3.33" height="13.00" rx="0" fill="#92c1c2" stroke="none" stroke-width="0"/>
+<rect x="354.25" y="1482.00" width="3.33" height="13.00" rx="0" fill="#8ebfc0" stroke="none" stroke-width="0"/>
+<rect x="357.38" y="1482.00" width="3.33" height="13.00" rx="0" fill="#8bbdbe" stroke="none" stroke-width="0"/>
+<rect x="360.50" y="1482.00" width="3.33" height="13.00" rx="0" fill="#88bbbd" stroke="none" stroke-width="0"/>
+<rect x="363.62" y="1482.00" width="3.33" height="13.00" rx="0" fill="#85b9bb" stroke="none" stroke-width="0"/>
+<rect x="366.75" y="1482.00" width="3.33" height="13.00" rx="0" fill="#82b8b9" stroke="none" stroke-width="0"/>
+<rect x="369.88" y="1482.00" width="3.33" height="13.00" rx="0" fill="#7fb6b7" stroke="none" stroke-width="0"/>
+<rect x="373.00" y="1482.00" width="3.33" height="13.00" rx="0" fill="#7bb4b6" stroke="none" stroke-width="0"/>
+<rect x="376.12" y="1482.00" width="3.33" height="13.00" rx="0" fill="#78b2b4" stroke="none" stroke-width="0"/>
+<rect x="379.25" y="1482.00" width="3.33" height="13.00" rx="0" fill="#75b1b2" stroke="none" stroke-width="0"/>
+<rect x="382.38" y="1482.00" width="3.33" height="13.00" rx="0" fill="#72afb0" stroke="none" stroke-width="0"/>
+<rect x="385.50" y="1482.00" width="3.33" height="13.00" rx="0" fill="#6fadaf" stroke="none" stroke-width="0"/>
+<rect x="388.62" y="1482.00" width="3.33" height="13.00" rx="0" fill="#6cabad" stroke="none" stroke-width="0"/>
+<rect x="391.75" y="1482.00" width="3.33" height="13.00" rx="0" fill="#68a9ab" stroke="none" stroke-width="0"/>
+<rect x="394.88" y="1482.00" width="3.33" height="13.00" rx="0" fill="#65a8a9" stroke="none" stroke-width="0"/>
+<rect x="398.00" y="1482.00" width="3.33" height="13.00" rx="0" fill="#62a6a8" stroke="none" stroke-width="0"/>
+<rect x="401.12" y="1482.00" width="3.33" height="13.00" rx="0" fill="#5fa4a6" stroke="none" stroke-width="0"/>
+<rect x="404.25" y="1482.00" width="3.33" height="13.00" rx="0" fill="#5ca2a4" stroke="none" stroke-width="0"/>
+<rect x="407.38" y="1482.00" width="3.33" height="13.00" rx="0" fill="#59a0a3" stroke="none" stroke-width="0"/>
+<rect x="410.50" y="1482.00" width="3.33" height="13.00" rx="0" fill="#559fa1" stroke="none" stroke-width="0"/>
+<rect x="413.62" y="1482.00" width="3.33" height="13.00" rx="0" fill="#529d9f" stroke="none" stroke-width="0"/>
+<rect x="416.75" y="1482.00" width="3.33" height="13.00" rx="0" fill="#4f9b9d" stroke="none" stroke-width="0"/>
+<rect x="419.88" y="1482.00" width="3.33" height="13.00" rx="0" fill="#4c999c" stroke="none" stroke-width="0"/>
+<rect x="423.00" y="1482.00" width="3.33" height="13.00" rx="0" fill="#49979a" stroke="none" stroke-width="0"/>
+<rect x="426.12" y="1482.00" width="3.33" height="13.00" rx="0" fill="#469698" stroke="none" stroke-width="0"/>
+<rect x="429.25" y="1482.00" width="3.33" height="13.00" rx="0" fill="#429496" stroke="none" stroke-width="0"/>
+<rect x="432.38" y="1482.00" width="3.33" height="13.00" rx="0" fill="#3f9295" stroke="none" stroke-width="0"/>
+<rect x="435.50" y="1482.00" width="3.33" height="13.00" rx="0" fill="#3c9093" stroke="none" stroke-width="0"/>
+<rect x="438.62" y="1482.00" width="3.33" height="13.00" rx="0" fill="#398e91" stroke="none" stroke-width="0"/>
+<rect x="441.75" y="1482.00" width="3.33" height="13.00" rx="0" fill="#368d8f" stroke="none" stroke-width="0"/>
+<rect x="444.88" y="1482.00" width="3.33" height="13.00" rx="0" fill="#338b8e" stroke="none" stroke-width="0"/>
+<rect x="448.00" y="1482.00" width="3.33" height="13.00" rx="0" fill="#2f898c" stroke="none" stroke-width="0"/>
+<rect x="451.12" y="1482.00" width="3.33" height="13.00" rx="0" fill="#2c878a" stroke="none" stroke-width="0"/>
+<rect x="454.25" y="1482.00" width="3.33" height="13.00" rx="0" fill="#298589" stroke="none" stroke-width="0"/>
+<rect x="457.38" y="1482.00" width="3.33" height="13.00" rx="0" fill="#268487" stroke="none" stroke-width="0"/>
+<rect x="460.50" y="1482.00" width="3.33" height="13.00" rx="0" fill="#238285" stroke="none" stroke-width="0"/>
+<rect x="463.62" y="1482.00" width="3.33" height="13.00" rx="0" fill="#208083" stroke="none" stroke-width="0"/>
+<rect x="466.75" y="1482.00" width="3.33" height="13.00" rx="0" fill="#1c7e82" stroke="none" stroke-width="0"/>
+<rect x="469.88" y="1482.00" width="3.33" height="13.00" rx="0" fill="#197c80" stroke="none" stroke-width="0"/>
+<rect x="473.00" y="1482.00" width="3.33" height="13.00" rx="0" fill="#167b7e" stroke="none" stroke-width="0"/>
+<rect x="476.12" y="1482.00" width="3.33" height="13.00" rx="0" fill="#13797c" stroke="none" stroke-width="0"/>
+<rect x="479.25" y="1482.00" width="3.33" height="13.00" rx="0" fill="#10777b" stroke="none" stroke-width="0"/>
+<rect x="482.38" y="1482.00" width="3.33" height="13.00" rx="0" fill="#0d7579" stroke="none" stroke-width="0"/>
+<rect x="485.50" y="1482.00" width="3.33" height="13.00" rx="0" fill="#097377" stroke="none" stroke-width="0"/>
+<rect x="488.62" y="1482.00" width="3.33" height="13.00" rx="0" fill="#067275" stroke="none" stroke-width="0"/>
+<rect x="491.75" y="1482.00" width="3.33" height="13.00" rx="0" fill="#037074" stroke="none" stroke-width="0"/>
+<rect x="494.88" y="1482.00" width="3.33" height="13.00" rx="0" fill="#006e72" stroke="none" stroke-width="0"/>
+<rect x="248.00" y="1482.00" width="250.00" height="13.00" rx="0" fill="none" stroke="#d9e2e6" stroke-width="1"/>
+<text x="239.00" y="1496.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="21" font-weight="400" fill="#657887" text-anchor="end">0</text>
+<text x="507.00" y="1496.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="21" font-weight="400" fill="#657887" text-anchor="start">1</text>
+<text x="30.00" y="1530.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="23" font-weight="400" fill="#a46e26" text-anchor="start">Gray cells omitted; outlined block retained.</text>
+</svg>

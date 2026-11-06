@@ -105,6 +105,12 @@ jobs:
           python3 tools/test_error_correcting_codes.py --articles
           python3 tools/check_ecc_article.py
 
+      - name: Check multi-subband transport article and exercises
+        run: |
+          python -m pip install numpy==2.5.4
+          python tools/test_msbte_physics.py
+          python tools/check_msbte_article.py
+
       - name: Build site
         run: bundle exec jekyll b -d "_site${{ steps.pages.outputs.base_path }}"
         env:

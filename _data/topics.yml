@@ -76,7 +76,7 @@
 - id: quantum-transport
   group: physics
   title: Quantum Transport
-  description: Derive NEGF and Landauer current from first principles, moving from closed quantum systems to open transport.
+  description: Connect quantum confinement to density and current through NEGF, Landauer transport, and multi-subband Boltzmann models.
   tag: quantum-transport
 - id: search-algorithms
   group: physics

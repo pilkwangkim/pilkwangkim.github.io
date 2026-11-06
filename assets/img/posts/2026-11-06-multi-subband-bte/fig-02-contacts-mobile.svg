@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="895" viewBox="0 0 600 895" role="img" aria-labelledby="title desc">
+<title id="title">Half-range reservoir boundary conditions</title>
+<desc id="desc">Solid arrows cross each incoming boundary from a reservoir; dashed arrows carry outgoing occupations to the reservoir. Blue is positive velocity and gold is negative velocity. Only f-plus at x=0 and f-minus at x=L are fixed. The interior occupations and the two outgoing halves are transport unknowns. Mobile stacks the reservoir labels but keeps the physical x direction horizontal.</desc>
+<defs><marker id="arrow" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 1 1 L 11 6 L 1 11 Z" fill="context-stroke"/></marker></defs>
+<rect width="600" height="895" fill="#fbfcfb"/>
+<text x="30.00" y="47.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="30" font-weight="500" fill="#203649" text-anchor="start">Reservoir boundary conditions</text>
+<line x1="40.00" y1="93.00" x2="72.00" y2="93.00" stroke="#657887" stroke-width="3.8"/>
+<text x="84.00" y="101.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="26" font-weight="400" fill="#657887" text-anchor="start">Inflow fixed</text>
+<line x1="322.00" y1="93.00" x2="354.00" y2="93.00" stroke="#657887" stroke-width="3.8" stroke-dasharray="9 7"/>
+<text x="366.00" y="101.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="26" font-weight="400" fill="#657887" text-anchor="start">Outflow solved</text>
+<rect x="30.00" y="140.00" width="540.00" height="112.00" rx="8" fill="#f2f6f6" stroke="#d9e2e6" stroke-width="1.5"/>
+<text x="53.00" y="183.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="500" fill="#2b6090" text-anchor="start">Left reservoir</text>
+<text x="53.00" y="225.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="30" font-weight="400" fill="#2b6090" text-anchor="start">f<tspan baseline-shift="sub" font-size="72%">n</tspan>⁺(0,E) = fL(E)</text>
+<rect x="30.00" y="696.00" width="540.00" height="112.00" rx="8" fill="#f2f6f6" stroke="#d9e2e6" stroke-width="1.5"/>
+<text x="53.00" y="740.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="28" font-weight="500" fill="#a46e26" text-anchor="start">Right reservoir</text>
+<text x="53.00" y="783.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="30" font-weight="400" fill="#a46e26" text-anchor="start">f<tspan baseline-shift="sub" font-size="72%">n</tspan>⁻(L,E) = fR(E)</text>
+<text x="300.00" y="290.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="27" font-weight="400" fill="#203649" text-anchor="middle">Uniform wire · subband n</text>
+<rect x="90.00" y="315.00" width="420.00" height="238.00" rx="4" fill="#ffffff" stroke="#d9e2e6" stroke-width="1.5"/>
+<path d="M 35.00,252.00 L 35.00,375.00 L 110.00,375.00" fill="none" stroke="#2b6090" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+<path d="M 565.00,696.00 L 565.00,485.00 L 490.00,485.00" fill="none" stroke="#a46e26" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+<line x1="490.00" y1="375.00" x2="565.00" y2="375.00" stroke="#2b6090" stroke-width="3" marker-end="url(#arrow)" stroke-dasharray="9 7"/>
+<line x1="110.00" y1="485.00" x2="35.00" y2="485.00" stroke="#a46e26" stroke-width="3" marker-end="url(#arrow)" stroke-dasharray="9 7"/>
+<text x="300.00" y="387.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="31" font-weight="400" fill="#2b6090" text-anchor="middle">f<tspan baseline-shift="sub" font-size="72%">n</tspan>⁺(x,E)</text>
+<text x="300.00" y="347.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="25" font-weight="400" fill="#2b6090" text-anchor="middle">v<tspan baseline-shift="sub" font-size="72%">n</tspan> &gt; 0</text>
+<text x="300.00" y="497.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="31" font-weight="400" fill="#a46e26" text-anchor="middle">f<tspan baseline-shift="sub" font-size="72%">n</tspan>⁻(x,E)</text>
+<text x="300.00" y="536.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="25" font-weight="400" fill="#a46e26" text-anchor="middle">v<tspan baseline-shift="sub" font-size="72%">n</tspan> &lt; 0</text>
+<text x="90.00" y="597.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="27" font-weight="400" fill="#657887" text-anchor="middle">x = 0</text>
+<text x="510.00" y="597.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="27" font-weight="400" fill="#657887" text-anchor="middle">x = L</text>
+<text x="300.00" y="651.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="26" font-weight="400" fill="#657887" text-anchor="middle">Outgoing values are not fixed.</text>
+<text x="300.00" y="860.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="27" font-weight="400" fill="#203649" text-anchor="middle">Only incoming halves are prescribed.</text>
+</svg>
