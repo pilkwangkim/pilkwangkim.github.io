@@ -82,7 +82,7 @@ $$
 
 $1+1=0$이므로 덧셈과 뺄셈이 같다. 오류 위치만 알면 해당 bit를 한 번 더 뒤집어서 원래 값으로 돌릴 수 있다. 어려운 것은 이 연산이 아니라, **어느 위치의 값이 달라졌는지, 즉 $e$가 무엇인지 알아내는 일**이다. 여기서 오류 개수는 최종 수신값에서 원본과 다른 위치의 개수다. Interactive 예시에서 bit를 누른 횟수와는 다르다. 같은 bit를 두 번 뒤집으면 원래 값으로 돌아오므로 그 위치는 오류에 포함되지 않는다.
 
-**Block code**는 $k$ bit message를 $n$ bit codeword로 바꾼다. 서로 다른 message는 서로 다른 codeword로 바뀌어야 한다. 그렇지 않으면 오류가 전혀 없어도 원래 message를 구별할 수 없다. **Rate** $R=k/n$은 원래 message 길이를 전송하는 codeword 길이로 나눈 값이다. 추가한 길이 $n-k$가 **redundancy**다. 이 비율을 정의할 때 원래 message bit가 codeword의 특정 위치에 그대로 남아 있어야 하는 것은 아니다. 다만 아래 예제들은 원래 bit를 그대로 읽을 수 있는 형태를 사용한다. 여기서 가정하는 channel에서는 bit 값만 바뀐다. Bit가 삽입되거나 삭제되거나 순서가 뒤바뀌는 오류는 다른 방식으로 다뤄야 한다. [MIT 6.02][mit]
+**Block code**는 $k$ bit message를 $n$ bit codeword로 바꾼다. 서로 다른 message는 서로 다른 codeword로 바뀌어야 한다. 그렇지 않으면 오류가 전혀 없어도 원래 message를 구별할 수 없다. **Rate** $R=k/n$은 원래 message 길이를 전송하는 codeword 길이로 나눈 값이다. 추가한 길이 $n-k$가 **redundancy**다. 여기서 가정하는 channel에서는 bit 값만 바뀐다. Bit가 삽입되거나 삭제되거나 순서가 뒤바뀌는 오류는 다른 방식으로 다뤄야 한다. [MIT 6.02][mit]
 
 송신자의 **encoder**는 message를 codeword로 바꾼다. 수신자의 **decoder**는 오류가 섞였을 수 있는 수신값에서 원래 message를 찾는다. 양쪽은 어떤 code를 쓸지, bit를 어떤 순서로 배치할지 미리 알고 있다. 다만 수신자는 실제로 어떤 message를 보냈는지 모른다. 길이 $n$의 bit 문자열을 **word**라고 하며, 그중 code의 조건을 만족하는 것만 codeword다.
 
@@ -100,7 +100,9 @@ $$
 
 **실제로 오류가 없거나 한 bit만 뒤집혔다면**, 적어도 두 bit는 보낸 값을 유지한다. 따라서 더 많이 받은 값을 고르면 반드시 맞는다. 이것으로 처음 정한 한 bit 오류 복구 목표를 만족한다는 것을 증명했다. Decoder가 먼저 오류 개수를 알아내는 것은 아니다. 받은 값에 그대로 majority vote를 적용하며, 두 bit나 세 bit가 뒤집히면 반드시 반대 값을 고른다. 다만 rate는 $1/3$에 불과하다. 네 bit message를 각각 이 방식으로 보호하려면 열두 bit를 보내야 한다.
 
-어떤 오류를 반드시 고치는지와, 실제로 얼마나 자주 틀리는지는 서로 다른 질문이다. 실패 확률까지 구하려면 오류가 생기는 방식을 확률로 정해야 한다. **Binary symmetric channel**, 줄여서 **BSC**는 각 bit가 같은 확률 $p$로, 서로 독립적으로 뒤집히는 model이다. 세 bit를 보내면 오류가 0개, 1개, 2개, 3개인 경우가 모두 생길 수 있다. Code와 decoder는 바꾸지 않는다. 같은 majority vote가 오류 0개·1개에서는 맞고, 2개·3개에서는 틀린다는 결과를 이용한다. 따라서 이 decoder가 틀릴 확률은 두 bit 또는 세 bit가 뒤집힐 확률을 더하면 된다.
+어떤 오류를 반드시 고치는지와, 실제로 얼마나 자주 틀리는지는 서로 다른 질문이다. 실패 확률까지 구하려면 오류가 생기는 방식을 확률로 정해야 한다. **Binary symmetric channel**, 줄여서 **BSC**는 각 bit가 같은 확률 $p$로, 서로 독립적으로 뒤집히는 model이다. 세 bit를 보내면 오류가 0개, 1개, 2개, 3개인 경우가 모두 생길 수 있다. Code와 decoder는 바꾸지 않는다. 같은 majority vote가 오류 0개·1개에서는 맞고, 2개·3개에서는 틀린다는 결과를 이용한다.
+
+확률의 덧셈과 곱셈에는 modulo 2가 아니라 보통의 산술 연산을 쓴다. 특정 두 위치만 뒤집힐 확률은 각 bit의 오류가 독립이므로 $p\cdot p\cdot(1-p)$다. 그 두 위치를 고르는 방법은 $\binom32=3$가지다. **Binomial coefficient** $\binom nj$는 $n$개 위치 중 $j$개를 고르는 경우의 수를 뜻한다. 세 bit가 모두 뒤집힐 확률은 $p^3$다. 이 경우들은 동시에 일어나지 않으므로, 각각의 확률을 더하면 decoder가 틀릴 확률을 얻는다.
 
 $$
 \begin{aligned}
@@ -111,7 +113,7 @@ P_{\mathrm{fail},3}
 \tag{5}
 $$
 
-첫 항은 두 bit가 뒤집히는 경우다. 뒤집히지 않은 bit의 위치를 고르는 방법이 세 가지이므로 3을 곱한다. 두 번째 항은 세 bit가 모두 뒤집히는 경우다. $p=0.1$이면 decoder가 원래 bit를 잘못 판단할 확률은 $0.028$로, 보호 없이 보낼 때의 $0.1$보다 작다. 이 값은 **전송 블록에 오류가 하나라도 생길 확률**과는 다르다. 예를 들어 `000`이 `010`으로 바뀌었다면 전송 오류는 생겼지만, majority vote는 원래 message bit인 0을 정확히 반환한다. 식 (5)는 이렇게 고칠 수 있는 오류까지 모두 세는 것이 아니라, decoder가 틀린 값을 반환하는 경우의 확률이다. [IBM의 classical repetition code 설명][ibm]
+$p=0.1$이면 decoder가 원래 bit를 잘못 판단할 확률은 $0.028$로, 보호 없이 보낼 때의 $0.1$보다 작다. 이 값은 **전송 블록에 오류가 하나라도 생길 확률**과는 다르다. 예를 들어 `000`이 `010`으로 바뀌었다면 전송 오류는 생겼지만, majority vote는 원래 message bit인 0을 정확히 반환한다. 식 (5)는 이렇게 고칠 수 있는 오류까지 모두 세는 것이 아니라, decoder가 틀린 값을 반환하는 경우의 확률이다. [IBM의 classical repetition code 설명][ibm]
 
 <details markdown="1">
 <summary>Majority vote는 왜 p가 1/2보다 작을 때 오류 확률을 줄일까?</summary>
@@ -135,9 +137,11 @@ P_{\mathrm{fail},n}
 \tag{7}
 $$
 
-**Binomial coefficient** $\binom nj$는 $n$개 위치 중 뒤집힐 $j$개를 고르는 경우의 수다. 각 bit의 오류가 서로 독립이므로 한 error pattern의 확률을 $p^j(1-p)^{n-j}$로 계산할 수 있다. 반면 **burst error**는 짧은 연속 구간에 오류가 몰리는 경우다. 이런 오류에는 독립적인 flip을 가정한 식을 그대로 적용할 수 없다. 모든 복사본이 함께 뒤집히면 majority vote로도 고칠 수 없다.
+각 항에서는 뒤집힐 $j$개 위치를 고른 뒤, 그 위치들만 뒤집히고 나머지 $n-j$개는 그대로일 확률을 곱한다. 반면 **burst error**는 짧은 연속 구간에 오류가 몰리는 경우다. 이런 오류에는 독립적인 flip을 가정한 식을 그대로 적용할 수 없다. 모든 복사본이 함께 뒤집히면 majority vote로도 고칠 수 없다.
 
 </details>
+
+다음 코드는 반복 횟수를 양의 홀수 $n$으로 바꾼 경우도 계산한다. Majority vote가 틀리려면 적어도 `n//2 + 1`개가 뒤집혀야 한다. `//`는 정수 나눗셈이고, `comb(n, j)`는 뒤집힐 $j$개 위치를 고르는 경우의 수다. 함수는 과반수가 되는 최소 오류 수부터 $n$까지 각 경우의 확률을 더한다.
 
 Python 예제는 standard library만 사용한다. 앞서 정의한 encoder와 check 함수를 뒤에서도 사용하므로 위에서부터 차례로 실행하면 된다. 다운로드용 모듈은 진단 결과를 더 자세히 반환하도록 따로 구현했다. 따라서 본문의 함수와 API가 완전히 같지는 않다.
 
@@ -165,9 +169,9 @@ assert abs(repetition_failure(3, 0.1) - 0.028) < 1e-12
 
 Message가 `1011`이면 $1\oplus0\oplus1\oplus1=1$을 붙여 `10111`을 보낸다. 수신자는 받은 다섯 bit를 모두 XOR한다. 결과가 1이면 받은 값이 정상적인 codeword가 아니라는 뜻이다.
 
-네 bit message를 다섯 bit로 보내므로 rate는 $4/5$다. 각 bit를 따로 반복하지 않고, message 전체를 check bit 하나로 검사하는 셈이다. 추가로 보내는 bit는 줄었지만, 이 check로 알 수 있는 것도 줄었다. Even parity를 만족하는지는 알 수 있어도 어느 bit를 고쳐야 하는지는 알 수 없다.
+네 bit message를 다섯 bit로 보내므로 rate는 $4/5$다. 각 bit를 따로 반복하지 않고, message 전체를 check bit 하나로 검사하는 셈이다.
 
-전송하는 다섯 bit를 모두 XOR하면 0이다. Bit 하나가 뒤집힐 때마다 이 XOR 결과도 바뀐다. 따라서 뒤집힌 bit 수가 홀수이면 1, 짝수이면 0이다. Parity bit 하나로 **홀수 개 bit가 뒤집힌 오류는 모두 찾지만, 두 개·네 개처럼 짝수 개가 뒤집힌 오류는 모두 놓친다.** 오류 위치도 알 수 없다. [University of Michigan EECS 373][michigan]
+전송하는 다섯 bit를 모두 XOR하면 0이다. Bit 하나가 뒤집힐 때마다 이 XOR 결과도 바뀐다. 따라서 뒤집힌 bit 수가 홀수이면 1, 짝수이면 0이다. Parity bit 하나로 **홀수 개 bit가 뒤집힌 오류는 모두 찾지만, 두 개·네 개처럼 짝수 개가 뒤집힌 오류는 모두 놓친다.** [University of Michigan EECS 373][michigan]
 
 예를 들어 message `1011`을 encoding한 `10111`에서 2번과 4번 bit가 뒤집히면 `11101`이 된다. 한편 message `1110`을 encoding한 값도 `11101`이다. 이 값을 오류 없이 받은 경우와 앞의 두 bit 오류가 생긴 경우를 비교하면, 수신값이 똑같다. 둘 다 even parity를 만족하므로, 오류가 최대 두 개까지 날 수 있다면 이 parity check로는 두 경우를 구별할 수 없다.
 
@@ -303,7 +307,11 @@ $$
 
 이 식은 **necessary condition**이다. 반드시 만족해야 하지만, 식을 만족한다는 이유만으로 그 크기의 code를 항상 만들 수 있는 것은 아니다.
 
-**Erasure**는 flip과 다르다. `01?0`처럼 수신자가 **어느 위치의 값을 모르는지**는 아는 경우다. 값을 모르는 위치가 최대 $v<d_{\min}$개라면 서로 다른 두 codeword가 나머지 위치에서 모두 같을 수 없다. 같다면 둘은 최대 $v$개 위치에서만 다르다는 뜻이므로 minimum distance의 정의에 어긋난다. 따라서 erasure는 최대 $d_{\min}-1$개까지 원래 값을 복구할 수 있다. 잘못된 위치를 모르는 flip을 고치려면 codeword 사이의 거리가 그보다 더 커야 한다. 두 오류가 섞여 있어도 $2t+v<d_{\min}$이면 flip은 최대 $t$개, erasure는 최대 $v$개까지 함께 복구할 수 있다.
+**Erasure**는 flip과 다르다. `01?0`처럼 수신자가 **어느 위치의 값을 모르는지**는 아는 경우다. 먼저 `?`로 표시한 위치만 지워졌고, 나머지 bit는 모두 정확한 경우를 생각하자. Codeword가 `000`과 `111`인 repetition code에서 `0??`를 받았다면 원본은 `000`이다. 지워진 위치를 알고 있으므로 두 bit가 없어도 남은 0 하나로 구별할 수 있다.
+
+일반적으로 값을 모르는 위치가 최대 $v<d_{\min}$개라면, 서로 다른 두 codeword가 나머지 위치에서 모두 같을 수 없다. 같다면 둘은 최대 $v$개 위치에서만 다르다는 뜻이므로 minimum distance의 정의에 어긋난다. 따라서 erasure는 최대 $d_{\min}-1$개까지 복구할 수 있다.
+
+이제 값이 남아 있는 위치에서도 최대 $t$개의 bit가 뒤집힐 수 있다고 하자. 서로 다른 두 codeword가 같은 수신값을 설명할 수 있다면, 두 codeword는 값이 남아 있는 위치에서 최대 $2t$개, 지워진 위치에서 최대 $v$개가 다를 수 있다. 둘 사이의 전체 거리는 최대 $2t+v$다. 따라서 $2t+v<d_{\min}$이면 두 후보가 생길 수 없으므로 원본을 복구할 수 있다. Flip 하나를 고칠 때는 거리 2만큼, 위치를 아는 erasure 하나를 고칠 때는 거리 1만큼의 여유가 필요한 이유다.
 
 </details>
 
@@ -328,7 +336,7 @@ $$
 | $s_4$ | 4, 5, 6, 7 | 0 |
 {: .ecc-checks-table }
 
-5를 binary로 쓰면 `101`이므로 5번 bit는 check 1과 4에 들어가고 check 2에는 들어가지 않는다. 3번 bit는 check 1과 2에 들어간다. 이렇게 하면 어느 위치든 적어도 하나의 check에 들어가며, 위치마다 check의 조합도 달라진다. 앞서 요구한 조건을 만족하는 것이다.
+5의 binary 표현 `101`은 $1\cdot4+0\cdot2+1\cdot1=5$라는 뜻이다. 따라서 5번 bit는 check 1과 4에 들어가고 check 2에는 들어가지 않는다. 3번 bit는 check 1과 2에 들어간다. 이렇게 하면 어느 위치든 적어도 하나의 check에 들어가며, 위치마다 check의 조합도 달라진다. 앞서 요구한 조건을 만족하는 것이다.
 
 1, 2, 4를 binary로 쓰면 각각 `001`, `010`, `100`이다. 따라서 이 세 위치는 각각 check 하나에만 들어간다. 여기에 parity bit를 놓으면 다른 두 check의 결과를 바꾸지 않으면서, 해당 check의 XOR 결과가 0이 되도록 값을 정할 수 있다.
 
@@ -343,9 +351,13 @@ p_4&=d_2+d_3+d_4.
 \tag{17}
 $$
 
-덧셈은 모두 modulo 2다. 3, 5, 6, 7번 위치에 넣을 네 message bit는 자유롭게 고를 수 있다. 이 네 값이 정해지면 나머지 세 parity bit는 식 (17)에 따라 정해진다. 세 parity bit를 따로 골라서 새로운 message 정보를 더 넣는 것은 아니다.
+Parity 식의 덧셈은 modulo 2다. 3, 5, 6, 7번 위치에 넣을 네 message bit는 자유롭게 고를 수 있다. 이 네 값이 정해지면 나머지 세 parity bit는 식 (17)에 따라 정해진다. 세 parity bit를 따로 골라서 새로운 message 정보를 더 넣는 것은 아니다.
 
-Message가 $m=(1,0,1,1)^T$이면 $p_1=0$, $p_2=1$, $p_4=0$이므로 codeword는 `0110011`이다. 이처럼 정해진 위치에서 원래 message bit를 그대로 읽을 수 있는 code를 **systematic code**라고 한다. Message bit를 한곳에 모을 필요는 없다. Check bit와 사이사이에 섞여 있어도 원래 값이 그대로 들어 있으면 된다. 위치 번호로 check를 정하는 이 방법이 표준적인 Hamming construction이다. [MIT 6.02, §6.4][mit]
+Message가 $m=(1,0,1,1)^T$이면 $p_1=0$, $p_2=1$, $p_4=0$이므로 codeword는 `0110011`이다.
+
+이처럼 정해진 위치에서 원래 message bit를 그대로 읽을 수 있는 code를 **systematic code**라고 한다. Message bit를 한곳에 모을 필요는 없다. Check bit와 사이사이에 섞여 있어도 원래 값이 그대로 들어 있으면 된다. 여기서는 이 배치가 편리하지만, block code나 rate를 정의할 때부터 원래 bit가 그대로 보여야 하는 것은 아니다. 위치 번호로 check를 정하는 이 방법이 표준적인 Hamming construction이다. [MIT 6.02, §6.4][mit]
+
+코드에서 `as_bits`는 입력의 길이와 값을 검사하고, 문자열이나 sequence를 정수 bit로 이루어진 tuple로 바꾼다. Encoding 계산은 `encode_hamming`의 세 XOR 식이며, 마지막에는 식 (16)의 순서로 bit를 배치한다.
 
 ```python
 def as_bits(values, length):
@@ -410,9 +422,9 @@ $$
 \tag{20}
 $$
 
-$\lvert C\rvert$는 $C$에 들어 있는 codeword의 개수다. 자유롭게 정할 수 있는 binary 좌표가 네 개이고, 각 좌표의 값은 0 또는 1이다. 따라서 가능한 vector는 열여섯 개다. Dimension이 4라고 해도, 실수에서처럼 vector가 무한히 많은 것은 아니다.
+$\lvert C\rvert$는 $C$에 들어 있는 codeword의 개수다. 자유롭게 고르는 네 좌표는 3, 5, 6, 7번 위치의 message bit이고, 나머지 세 bit는 check 조건으로 정해진다. 각 message bit에 0 또는 1을 넣을 수 있으므로 codeword는 열여섯 개다. 앞서 message를 직접 세어 얻은 결과와 같다. Dimension이 4라고 해도, 실수에서처럼 vector가 무한히 많은 것은 아니다.
 
-Encoder도 linear map으로 쓸 수 있다. 네 message bit를 column vector $m=(d_1,d_2,d_3,d_4)^T$로 나타내자. Message를 **column vector**로 놓았으므로, 이를 일곱 bit codeword로 바꾸는 **generator matrix**의 크기는 $7\times4$다.
+Encoder의 각 출력 bit는 정해진 message bit들을 XOR한 값이므로, encoder도 linear map으로 쓸 수 있다. 네 message bit를 column vector $m=(d_1,d_2,d_3,d_4)^T$로 나타내자. **Generator matrix**는 각 출력 bit를 구할 때 어떤 입력 bit를 쓰는지 행별로 기록한 것이다. 예를 들어 행 $(1,1,0,1)$은 $p_1=d_1+d_2+d_4$를 계산하고, 행 $(1,0,0,0)$은 $d_1$을 그대로 복사한다. Message를 **column vector**로 놓았으므로 입력 네 bit를 출력 일곱 bit로 바꾸는 matrix의 크기는 $7\times4$다.
 
 $$
 \begin{gathered}
@@ -437,7 +449,7 @@ Message가 `1011`이면 $m$의 첫 번째·세 번째·네 번째 성분이 1이
 <details markdown="1">
 <summary>G와 H가 정확히 같은 열여섯 codeword를 나타내는 이유</summary>
 
-각 check 식에 따라 $HG=0$이므로 $G$로 만든 모든 vector는 $\ker H$에 들어간다. $G$의 3, 5, 6, 7번 행을 모으면 identity matrix다. 따라서 서로 다른 message는 서로 다른 codeword로 바뀌며, $G$의 rank는 4다. $G$의 image는 $H$의 4차원 kernel에 포함된 4차원 subspace이므로 두 공간은 같다.
+각 check 식에 따라 $HG=0$이므로 $G$로 만든 모든 vector는 $\ker H$에 들어간다. $G$의 3, 5, 6, 7번 행을 모으면 identity matrix다. 따라서 서로 다른 message는 서로 다른 codeword로 바뀌며, $G$의 rank는 4다. $G$의 **image**는 message를 바꾸어 가며 만들 수 있는 모든 출력 $Gm$을 모은 집합이며, $G$의 column space라고도 한다. 이 집합은 $H$의 4차원 kernel에 포함된 4차원 subspace이므로 두 공간은 같다.
 
 Message를 row vector로 놓는 교재도 있다. 그 경우에는 앞의 $G$를 transpose한 $4\times7$ generator matrix를 쓰고, $c=mG$로 표현한다. 둘 다 같은 encoding이다. 다만 하나의 계산 안에서는 row vector와 column vector를 사용하는 규칙을 섞으면 안 된다.
 
@@ -488,14 +500,14 @@ s_4&=0+1+1+1=1.
 \tag{24}
 $$
 
-Syndrome의 성분을 $(s_1,s_2,s_4)$ 순서의 tuple로 적으면, 다음 식으로 오류 위치를 구할 수 있다.
+Syndrome의 성분을 $(s_1,s_2,s_4)$ 순서의 tuple로 적자. 성분들은 bit이지만, 이를 위치 번호로 바꿀 때는 **modulo 2가 아니라 보통의 정수 연산**을 쓴다. Binary 자릿값에 맞춰 더하면
 
 $$
 j=s_1+2s_2+4s_4.
 \tag{25}
 $$
 
-결과는 $j=5$다. Tuple의 순서는 보통 binary 수를 적는 순서와 다르다는 점에 주의하자. $j$를 binary로 쓸 때는 높은 자리부터 $s_4s_2s_1$ 순서로 적는다. 예를 들어 syndrome $(1,1,0)$은 3번 위치를 뜻하지만, 3을 binary로 쓰면 `011`이다.
+결과는 $j=1+2\cdot0+4\cdot1=5$다. 이 값을 다시 modulo 2로 줄이지 않는다. Tuple의 순서는 보통 binary 수를 적는 순서와 다르다는 점에 주의하자. $j$를 binary로 쓸 때는 높은 자리부터 $s_4s_2s_1$ 순서로 적는다. 예를 들어 syndrome $(1,1,0)$은 3번 위치를 뜻하지만, 3을 binary로 쓰면 `011`이다.
 
 5번 bit를 다시 뒤집으면 `0110011`이 된다. Message bit가 있는 3, 5, 6, 7번 위치를 읽으면 원래 message `1011`을 얻는다.
 
@@ -553,7 +565,7 @@ $$
 모든 codeword 쌍을 비교하는 대신 $H$의 열을 살펴보자.
 
 1. Weight가 1인 vector는 codeword일 수 없다. Syndrome이 $H$의 열 하나와 같은데, 모든 열이 zero vector가 아니기 때문이다.
-2. Weight가 2인 vector도 codeword일 수 없다. Syndrome은 $H$의 서로 다른 두 열의 합이다. $\mathbb F_2$에서는 서로 다른 두 vector의 합이 0일 수 없다.
+2. Weight가 2인 vector도 codeword일 수 없다. Syndrome은 $H$의 서로 다른 두 열의 합이다. 이 합이 0이라면 양쪽에 한 열을 더했을 때 두 열이 같다는 결론이 나오므로 모순이다.
 3. Weight가 3인 codeword는 실제로 있다. $H$의 1, 2, 3번 열을 더하면 0이므로 `1110000`은 $Hc=0$을 만족한다.
 
 따라서 $d_{\min}=3$이다. **$[7,4,3]$**은 길이가 7이고 dimension이 4이며 minimum distance가 3이라는 표기다. 이 code로는 모든 single-bit 오류를 고칠 수 있다. 또한 받은 word $r$을 고치지 않고 $Hr$만 검사하면, 두 bit가 뒤집힌 경우에도 결과가 0이 아니므로 오류가 있다는 사실을 알 수 있다. 하지만 **$Hr\ne0$이라는 결과만으로 한 bit 오류와 두 bit 오류를 구별할 수는 없다.** 이 결과를 보고 어느 bit를 바꿀지 정하는 일은 오류를 발견하는 것과 별개의 단계다.
@@ -565,7 +577,7 @@ Perfect는 모든 오류를 고친다는 뜻이 아니다. 오류가 두 개 이
 ## 10. 두 bit 오류에서는 왜 다른 message가 나올까?
 {: id="10-두-비트-오류를-고치려다가-다른-메시지를-내놓을-수-있다" }
 
-지금까지는 오류가 없거나 한 bit만 뒤집혔을 때 올바르게 동작한다는 것을 증명했다. 같은 decoder에 두 bit 오류가 생긴 값을 넣으면 어떻게 될까? `0110011`을 보내고 3번과 5번 bit를 뒤집어 보자. 받은 값은 `0100111`이고, syndrome은 다음과 같다.
+지금까지는 오류가 없거나 한 bit만 뒤집혔을 때 올바르게 동작한다는 것을 증명했다. 같은 decoder에 두 bit 오류가 생긴 값을 넣으면 어떻게 될까? `0110011`을 보내고 3번과 5번 bit를 뒤집어 보자. 받은 값은 `0100111`이다. Error vector가 $e_3+e_5$이므로, linearity에 따라 syndrome은 $H$의 해당 두 열을 더한 값이다.
 
 $$
 s=h_3+h_5=h_6.
@@ -622,9 +634,9 @@ $$
 
 예를 들어 `0110011`은 weight가 4이므로 $q=0$을 붙여 `01100110`을 보낸다. 반면 message `1000`의 codeword `1110000`은 weight가 3이므로 $q=1$을 붙여 `11100001`을 보낸다. 이처럼 $q$는 codeword마다 달라지지만, **완성한 여덟 bit의 XOR은 언제나 0**이다. 수신자는 원래 message를 몰라도 오류가 없다면 전체 XOR이 0이어야 한다는 것을 안다.
 
-새 minimum distance는 4다. 원래 codeword 두 개 사이의 거리를 $d\ge3$이라고 하자. $d$가 짝수이면 덧붙인 parity bit가 같으므로 거리는 그대로 $d\ge4$다. $d$가 홀수이면 덧붙인 parity bit도 달라져 거리가 $d+1\ge4$가 된다. 원래 거리가 3인 codeword 쌍도 있으므로, 확장한 뒤 거리가 정확히 4인 쌍도 있다. 이렇게 만든 code가 **extended Hamming $[8,4,4]$ code**다. Hamming의 원 논문에서도 single-error correction과 double-error detection을 결합하는 방법을 다룬다. [Hamming, 1950][hamming]
+새 minimum distance는 4다. 원래 codeword 두 개 사이의 거리를 $d\ge3$이라고 하자. 둘을 XOR하면 서로 다른 $d$개 위치에만 1이 남으므로, 덧붙이는 두 parity bit의 XOR은 $d\bmod2$다. 즉, $d$가 짝수이면 parity bit가 같고 홀수이면 다르다. 짝수일 때는 같은 bit를 덧붙여도 거리가 그대로 $d\ge4$다. 홀수일 때는 서로 다른 bit를 덧붙이므로 거리가 $d+1\ge4$가 된다. 원래 거리가 3인 codeword 쌍도 있으므로, 확장한 뒤 거리가 정확히 4인 쌍도 있다. 이렇게 만든 code가 **extended Hamming $[8,4,4]$ code**다. Hamming의 원 논문에서도 single-error correction과 double-error detection을 결합하는 방법을 다룬다. [Hamming, 1950][hamming]
 
-수신자는 앞의 일곱 bit로 syndrome $s$를 계산하고, **받은 여덟 bit 전체**를 XOR해 $z$도 구한다. 다음 규칙은 **오류가 0개·1개·2개인 모든 경우**에 새 목표대로 동작한다. 표에서 해석한 오류 개수는 이 범위 안에서 보장된다. Check 결과만으로 세 bit 이상의 오류가 불가능하다고 알아낸 것은 아니다.
+수신자는 앞의 일곱 bit로 syndrome $s$를 계산하고, **받은 여덟 bit 전체**를 XOR해 $z$도 구한다. 전송할 때 전체 XOR은 0이고, bit 하나가 뒤집힐 때마다 결과가 바뀐다. 따라서 $z$는 오류 개수가 홀수인지 짝수인지를, $s$는 1–7번에서 어떤 check가 실패했는지를 알려 준다. 둘을 함께 쓰면 **오류가 0개·1개·2개인 모든 경우**에 다음과 같이 처리할 수 있다. 표에서 해석한 오류 개수는 이 범위 안에서 보장된다. Check 결과만으로 세 bit 이상의 오류가 불가능하다고 알아낸 것은 아니다.
 
 | $s$ | $z$ | 의미와 처리 |
 | :---: | :---: | :--- |
@@ -655,7 +667,7 @@ $$
 
 이 처리 방식을 **SECDED**, 즉 single-error correction, double-error detection이라고 한다. 한 bit 오류는 고치고, 두 bit 오류는 발견했다고 알리는 방식이다. 두 bit까지 고치는 방식은 아니다. Minimum distance가 4인 code를 **codeword인지 검사하는 용도로만 쓰면** 한 개부터 세 개까지의 모든 bit 오류를 찾을 수 있다. 하지만 오류 수정까지 하는 SECDED decoder는 모든 three-bit 오류를 single-bit 오류와 구별할 수 없다. 한 bit가 뒤집혀도, 세 bit가 뒤집혀도 전체 parity가 바뀌어 $z=1$이 되기 때문이다. **Codeword인지 검사해서 찾을 수 있는 오류의 범위와, 오류 수정까지 하는 decoder의 보장 범위는 구분해야 한다.**
 
-예를 들어 3, 5, 6번 bit를 뒤집으면 앞의 일곱 bit로 구한 syndrome은 0이지만, 전체 parity를 검사한 결과는 $z=1$이다. 8번 bit 하나만 뒤집힌 경우와 check 결과가 같다. 따라서 SECDED decoder는 전체 parity bit를 수정한다. 하지만 앞의 일곱 bit에서 읽은 message는 여전히 원본과 다르다.
+예를 들어 `01100110`을 보낸 뒤 3, 5, 6번 bit가 뒤집히면 수신값은 `01001010`이다. 앞의 일곱 bit로 구한 syndrome은 0이고, 전체 parity를 검사하면 $z=1$이다. 그런데 유효한 codeword `01001011`에서 8번 bit 하나만 뒤집혀도 똑같이 `01001010`을 받는다. 받은 bit만으로는 두 경우를 구별할 수 없다. Decoder는 한 bit 오류를 고치는 규칙에 따라 8번 bit를 수정하므로, 세 bit 오류가 생긴 첫 번째 전송에서는 잘못된 message를 내놓는다.
 
 [Hamming 실습](#lab-ecc-hamming)에서 **Extended (8,4)**를 선택해 보자. 5번만 뒤집은 경우, 8번만 뒤집은 경우, 3번과 5번을 함께 뒤집은 경우를 비교하자. 다음에는 세 bit를 뒤집어 보자. 오류가 세 개 이상이면 위 표대로 판단했을 때 틀릴 수 있음을 확인하자.
 
@@ -695,6 +707,8 @@ assert decode_extended(flip_positions(extended, 3, 5))[0] is None
 {: id="12-작은-문제라면-허용한-모든-경우를-검사할-수-있다" }
 
 네 bit로 만들 수 있는 message는 열여섯 개뿐이다. 각 message에 대해 오류가 없는 경우와, 일곱 위치 각각에서 bit 하나가 뒤집힌 경우를 모두 테스트하자. 총 $16(1+7)=128$가지다. 일부를 무작위로 골라 확인하는 대신, 정해 둔 입력과 오류 조건에 해당하는 모든 경우를 확인할 수 있다.
+
+코드에서 `product((0, 1), repeat=4)`는 네 bit message tuple 열여섯 개를 전부 만들고, `combinations(codebook, 2)`는 서로 다른 codeword 쌍을 중복 없이 만든다. 빈 tuple `()`은 뒤집을 위치가 없는 경우이고, `(j,)`는 $j$번 한 곳만 뒤집는 경우다. `assert`는 조건이 틀리면 테스트를 중단한다.
 
 ```python
 from itertools import product, combinations
@@ -750,7 +764,7 @@ Syndrome은 $(0,1,0)$이므로 $j=2$다. 2번 bit를 뒤집으면 `0110011`이 �
 
 ### C. 정상적인 codeword가 나왔으면 복구도 성공한 걸까?
 
-그림 4에서는 decoder가 `0100111`의 bit 하나를 뒤집어 `0100101`을 만들었다. 결과는 모든 check를 통과한다. 원래 message를 복구했다고 판단하려면 어떤 조건이 더 필요할까?
+그림 4에서는 decoder가 `0100111`의 bit 하나를 뒤집어 `0100101`을 만들었다. 결과는 모든 check를 통과한다. 이것만으로 원래 message를 복구했다고 판단해도 될까? 한 bit 오류 복구를 보장하는 조건을 적고, 그림의 전송이 그 조건을 만족하는지 설명해 보자.
 
 <details markdown="1">
 <summary>풀이</summary>
@@ -842,24 +856,30 @@ assert check_decoder(decode_single_reference) == 128
 
 Code를 설계할 때는 어떤 오류를 고쳐야 하는지, bit를 얼마나 더 보낼 수 있는지, 원본을 판단할 정보가 부족하면 decoder가 어떻게 처리할지 정해야 한다. 앞의 작은 code에서도 이 세 가지 선택을 확인할 수 있다.
 
-**더 긴 Hamming code.** 서로 다르고 zero vector가 아닌 모든 $a$ bit column을 모아 parity-check matrix를 만들 수 있다. 열의 개수는 $n=2^a-1$, rank는 $a$이며, $a\ge2$에서 code의 parameter는 $[2^a-1,\,2^a-1-a,\,3]$이다. Single-bit 오류를 고치는 원리는 그대로다. 블록이 길어지면 rate는 1에 가까워지지만, 반드시 복구할 수 있는 오류는 여전히 블록당 하나다. Rate가 높아진다고 더 많은 오류를 고칠 수 있는 것은 아니다.
+**더 긴 Hamming code.** Parity check가 $a$개라고 하자. 서로 다르고 zero vector가 아닌 모든 $a$ bit column을 모으면 열이 $n=2^a-1$개인 parity-check matrix가 된다. Identity matrix를 이루는 열들도 포함하므로 rank는 $a$이고, message의 dimension은 $k=n-a$다. 9절과 같은 열의 성질을 이용하면 $a\ge2$에서 minimum distance가 3이므로, parameter는 $[2^a-1,\,2^a-1-a,\,3]$이다. 예를 들어 check가 네 개면 $[15,11,3]$ code가 되어 message 열한 bit를 열다섯 bit로 보낸다. 블록이 길어지면 rate는 1에 가까워지지만, 반드시 복구할 수 있는 오류는 여전히 블록당 하나다. Rate가 높아진다고 더 많은 오류를 고칠 수 있는 것은 아니다.
 
-**Burst와 interleaving.** Burst가 생기면 한 codeword 안의 여러 bit가 뒤집힐 수 있다. Interleaver는 전송 전에 여러 codeword의 bit를 섞어 배치한다. 받은 뒤에는 섞었던 순서를 되돌린다. 이렇게 하면 전송 중 한곳에 몰린 오류가 여러 블록으로 나뉠 수 있다. Interleaver 자체가 오류를 고치는 것은 아니며, 얼마나 효과가 있는지는 burst의 형태와 함께 사용하는 code에 달려 있다. [MIT 6.02][mit]
+**Burst와 interleaving.** **Burst**는 전송 중 짧은 연속 구간에 오류가 몰리는 경우다. **Interleaver**는 여러 codeword의 bit를 섞어 보내고, 수신자는 받은 뒤 원래 묶음으로 되돌린다. 예를 들어 일곱 bit codeword 세 개 $A,B,C$의 bit를 $A_1,B_1,C_1,A_2,B_2,C_2,\ldots,A_7,B_7,C_7$ 순서로 보내자. 다른 오류 없이 연속된 세 위치 안에서만 bit가 뒤집히면, 각 codeword에는 최대 한 bit씩만 오류가 남는다. 원래 묶음으로 되돌리면 각 블록의 single-error decoder로 고칠 수 있다. Interleaver 자체가 오류를 고치는 것은 아니며, 얼마나 효과가 있는지는 burst의 형태와 함께 사용하는 code에 달려 있다. [MIT 6.02][mit]
 
-**Reed–Solomon code.** Bit 하나를 symbol로 사용하는 대신, 더 큰 finite field의 원소를 symbol로 쓴다. Finite field는 원소 수가 유한한 field다. 예를 들어 symbol 하나가 여덟 bit를 묶은 한 byte를 나타낼 수 있다. QR code 개발사 DENSO WAVE에 따르면 QR code도 Reed–Solomon redundancy를 사용한다. 다만 문서의 복구 수준은 codeword 기준이다. 인쇄된 QR code에서 같은 비율의 면적을 아무 곳이나 훼손해도 복구된다는 뜻은 아니다. [DENSO WAVE][qr]
+**Reed–Solomon code.** Bit 하나를 symbol로 사용하는 대신, 더 큰 finite field의 원소를 **symbol**로 쓴다. Finite field는 원소 수가 유한한 field다. 예를 들어 symbol 하나가 여덟 bit를 묶은 한 byte를 나타낼 수 있다. 같은 byte 안에서 여러 bit가 바뀌어도 symbol 오류는 하나로 세고, 두 byte의 값이 바뀌면 symbol 오류 두 개로 센다. QR code 개발사 DENSO WAVE에 따르면 QR code도 Reed–Solomon redundancy를 사용한다. 다만 문서의 복구 수준은 codeword 기준이다. 인쇄된 QR code에서 같은 비율의 면적을 아무 곳이나 훼손해도 복구된다는 뜻은 아니다. [DENSO WAVE][qr]
 
 <details markdown="1">
 <summary>Polynomial로 symbol을 보호하는 원리</summary>
 
-Polynomial의 **degree**는 계수가 0이 아닌 항 중 가장 큰 지수다. 예를 들어 $a_0+a_1x+a_2x^2$에서 $a_2\ne0$이면 degree는 2다. Field에서 degree가 $k$보다 작은 polynomial은 서로 다른 $k$개 지점의 값으로 정해진다. 계수 $k$개를 message로 보고, 서로 다른 field 원소 $n$개를 대입한 값을 전송하자. 여기서 $1\le k\le n$이며, 서로 다른 대입값을 골라야 하므로 $n$은 선택한 field의 원소 수보다 클 수 없다. 서로 다른 두 polynomial을 빼면 0이 아니고 degree가 최대 $k-1$인 polynomial이 된다. 따라서 그 값이 0이 되는 서로 다른 **root**는 최대 $k-1$개다. 두 polynomial에 같은 값을 대입했을 때 결과가 같을 수 있는 위치도 최대 $k-1$개이므로, 전송하는 vector는 적어도 $n-k+1$개 위치에서 다르다.
+Polynomial의 **degree**는 계수가 0이 아닌 항 중 가장 큰 지수다. 예를 들어 $a_0+a_1x+a_2x^2$에서 $a_2\ne0$이면 degree는 2다. **Root**는 polynomial의 값이 0이 되는 입력이다. Degree가 $k$보다 작은 polynomial의 계수 $k$개를 message로 보고, 서로 다른 field 원소 $n$개를 대입한 값을 전송하자. 여기서 $1\le k\le n$이며, 서로 다른 대입값을 골라야 하므로 field의 원소 수는 적어도 $n$개여야 한다.
 
-이 code의 minimum distance는 정확히 $n-k+1$이다. 선택한 대입값 중 $k-1$개를 root로 갖는 polynomial과, 값이 항상 0인 polynomial을 비교하면 그 거리를 얻는다. 따라서 위치를 모르는 symbol 오류는 최대 $\lfloor(n-k)/2\rfloor$개, erasure는 최대 $n-k$개까지 복구할 수 있다. Bit 대신 더 큰 symbol을 쓰면 오류 하나로 세는 단위가 달라진다. Minimum distance로 복구 한계를 구하는 원리는 같다.
+작은 예로 symbol $0,1,2,3,4$를 사용하고, 덧셈과 곱셈을 modulo 2가 아니라 modulo 5로 계산하자. 0이 아닌 원소 $1,2,3,4$의 inverse가 각각 $1,3,2,4$이므로 이 연산도 field를 이룬다. Message $(1,2)$를 polynomial $p(x)=1+2x$의 계수로 삼고, $x=0,1,2,3$을 대입하면 codeword는 $(1,3,0,2)$다. 마지막 두 값은 $5\bmod5=0$, $7\bmod5=2$로 계산한다. Message symbol 두 개를 symbol 네 개로 바꾸어 보낸 셈이다. 가능한 계수 쌍 25개는 서로 다른 codeword 25개를 만든다. 예를 들어 값이 항상 1인 polynomial은 $(1,1,1,1)$을 만든다.
 
-0이 아닌 polynomial에서는 서로 다른 root의 개수가 degree보다 많을 수 없다. Root $a$가 있으면 그 polynomial을 $(x-a)$와 다른 polynomial의 곱으로 쓸 수 있기 때문이다. $(x-a)$를 하나씩 분리할 때마다 남은 polynomial의 degree가 1씩 줄어든다. 이 원리로 실제 byte 기반 encoder를 만들려면 finite-field 연산이 필요하다. 일반적인 정수 연산을 modulo 256으로 계산한다고 field가 되는 것은 **아니다.** 예를 들어 정수 $x$에 대해 $2x$는 항상 짝수이므로 modulo 256으로 계산해도 1이 될 수 없다. 따라서 0이 아닌 원소 2의 inverse가 없고, field에서처럼 2로 나눌 수 없다. 여러 지점에서 구한 polynomial 값을 전송하는 방법은 Reed와 Solomon의 원 논문에 제시되어 있다. [Reed and Solomon, 1960][rs]
+여기서 distance는 서로 다른 bit 수가 아니라 **서로 다른 symbol 위치 수**다. 4절에서 위치를 세어 원본의 유일성을 증명한 방법은 그대로 쓸 수 있다. 서로 다른 두 polynomial을 빼면 0이 아니고 degree가 최대 $k-1$인 polynomial이 된다. Field에서는 그 값이 0인 서로 다른 root가 최대 $k-1$개이므로, 두 polynomial의 계산 결과가 같을 수 있는 위치도 최대 $k-1$개다. 따라서 전송하는 두 vector는 적어도 $n-k+1$개 위치에서 다르다. 서로 다른 $k$개 지점의 값을 알면 polynomial을 하나로 정할 수 있는 이유도 같다. 두 후보가 그 지점에서 모두 같다면 둘의 차이에 root가 너무 많아지기 때문이다.
+
+Minimum distance는 정확히 $n-k+1$이다. 선택한 대입값 중 $k-1$개에 대해 $(x-a)$를 곱하면, 그 지점들을 root로 갖는 degree $k-1$의 polynomial을 만들 수 있다. $k=1$이면 상수 1을 쓰면 된다. 이를 값이 항상 0인 polynomial과 비교하면 그 거리를 얻는다. 따라서 위치를 모르는 symbol 오류는 최대 $\lfloor(n-k)/2\rfloor$개, erasure는 최대 $n-k$개까지 복구할 수 있다. 예제에서는 $n=4$, $k=2$이므로 minimum distance는 3이고 symbol 오류 하나를 고칠 수 있다. 위의 두 codeword도 정확히 세 위치에서 달라서 이 거리를 실제로 얻는다.
+
+0이 아닌 polynomial의 root가 degree보다 많을 수 없는 이유도 확인해 보자. Polynomial을 $(x-a)$로 나누면 나머지는 상수이고, root인 $a$를 대입하면 그 나머지가 0임을 알 수 있다. 따라서 원래 polynomial은 $(x-a)$와 다른 polynomial의 곱으로 쓸 수 있으며, 남은 polynomial의 degree는 하나 작다. 다른 root $b\ne a$에서는 $b-a$가 0이 아니므로 field에서 나눌 수 있다. 따라서 $b$는 남은 polynomial의 root이기도 하다. 이 과정을 반복하면 서로 다른 root 하나마다 degree가 하나씩 줄어든다.
+
+실제 byte 기반 encoder에는 finite-field 연산이 필요하다. 일반적인 정수 연산을 modulo 256으로 계산한다고 field가 되는 것은 **아니다.** 예를 들어 정수 $x$에 대해 $2x$는 항상 짝수이므로 modulo 256으로 계산해도 1이 될 수 없다. 따라서 0이 아닌 원소 2의 inverse가 없고, field에서처럼 2로 나눌 수 없다. Modulo 5 예제는 같은 계산 원리를 작은 수로 확인하기 위해 더 작은 field를 쓴 것이다. 여러 지점에서 구한 polynomial 값을 전송하는 방법은 Reed와 Solomon의 원 논문에 제시되어 있다. [Reed and Solomon, 1960][rs]
 
 </details>
 
-**Integrity와 authenticity는 다르다.** Error-correcting code는 정해 둔 error pattern에서 데이터를 보호한다. 하지만 공개된 code 조건만으로는 공격자가 다른 정상적인 codeword로 값을 바꾸는 일을 막을 수 없다. 데이터가 권한 있는 송신자에게서 왔는지, 허가 없이 변경되지는 않았는지 확인하는 **cryptographic authentication**은 별도의 문제다. Parity check를 통과했다는 사실만으로는 이를 확인할 수 없다.
+**오류를 찾는 것과 송신자를 확인하는 것은 다르다.** Error-correcting code는 정해 둔 error pattern에서 데이터를 보호한다. 하지만 공개된 code 조건만으로는 공격자가 다른 정상적인 codeword로 값을 바꾸는 일을 막을 수 없다. 데이터가 권한 있는 송신자에게서 왔는지, 허가 없이 변경되지는 않았는지 확인하는 **cryptographic authentication**은 별도의 문제다. Parity check를 통과했다는 사실만으로는 이를 확인할 수 없다.
 
 ## 16. Redundancy가 오류 복구를 가능하게 하는 이유
 {: id="16-중복된-정보로-오류를-구분한다" }

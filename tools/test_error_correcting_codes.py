@@ -296,6 +296,86 @@ def audit_story_candidates(audit):
                     "story_candidates")
 
 
+def audit_readthrough_examples(audit):
+    """Check the worked bridges added for first-time readers."""
+    received = ecc.flip(ecc.encode_secded("1011"), 3, 5, 6)
+    audit.check(ecc.bitstring(received) == "01001010"
+                and received == ecc.flip(ecc.encode_secded("0101"), 8),
+                "Triple-error and single-parity-error histories must coincide",
+                "readthrough_examples")
+    audit.check(ecc.decode_secded(received).message == ecc.bits("0101")
+                and ecc.decode_secded(received).status == "corrected_overall_parity",
+                "Triple-error ambiguity must cause the stated wrong decoding",
+                "readthrough_examples")
+
+    # A known erasure plus one unknown error is correctable when d_min is four.
+    words = [ecc.encode_secded(m) for m in itertools.product((0, 1), repeat=4)]
+    for sent in words:
+        for erased in range(8):
+            known = [j for j in range(8) if j != erased]
+            for changed in [None] + known:
+                raw = list(sent)
+                if changed is not None:
+                    raw[changed] ^= 1
+                candidates = [w for w in words if sum(w[j] != raw[j] for j in known) <= 1]
+                audit.check(candidates == [sent],
+                            "One erasure plus one flip must retain a unique original",
+                            "mixed_erasure_cases")
+
+    # Round-robin interleaving: any three consecutive positions hit each block
+    # once. Test all 19 starts, including bursts crossing a round boundary.
+    messages = [ecc.bits(m) for m in ("1011", "0110", "1000")]
+    words = [ecc.encode_hamming(m) for m in messages]
+    stream = tuple(words[b][j] for j in range(7) for b in range(3))
+    for start in range(len(stream) - 2):
+        raw = list(stream)
+        for j in range(start, start + 3):
+            raw[j] ^= 1
+        restored = [tuple(raw[b::3]) for b in range(3)]
+        audit.check(all(ecc.hamming_distance(w, r) == 1
+                        and ecc.decode_hamming(r).message == m
+                        for w, r, m in zip(words, restored, messages)),
+                    "Interleaved three-position burst was not recovered",
+                    "interleaving_cases")
+
+    h4 = tuple(tuple((j >> row) & 1 for j in range(1, 16)) for row in range(4))
+    columns = list(zip(*h4))
+    audit.check(rank_mod2(h4) == 4 and len(columns) == 15 and 15 - rank_mod2(h4) == 11,
+                "Four checks must give length 15 and dimension 11", "readthrough_examples")
+    audit.check(all(any(c) for c in columns)
+                and all(any(a ^ b for a, b in zip(u, v))
+                        for u, v in itertools.combinations(columns, 2))
+                and all((a ^ b ^ c) == 0 for a, b, c in zip(*columns[:3])),
+                "The generalized example must have no weight-one/two word and a weight-three word",
+                "readthrough_examples")
+
+    # The polynomial example uses five symbols, not the binary reference API.
+    code = {(a, b): tuple((a + b * x) % 5 for x in range(4))
+            for a, b in itertools.product(range(5), repeat=2)}
+    distance = lambda u, v: sum(a != b for a, b in zip(u, v))
+    audit.check(all((x * inv) % 5 == 1 for x, inv in zip(range(1, 5), (1, 3, 2, 4))),
+                "Modulo-five inverse list mismatch", "polynomial_example")
+    audit.check(code[(1, 2)] == (1, 3, 0, 2) and code[(1, 0)] == (1, 1, 1, 1),
+                "Polynomial evaluation example mismatch", "polynomial_example")
+    audit.check(len(set(code.values())) == 25,
+                "All coefficient pairs must encode distinctly", "polynomial_example")
+    audit.check(min(distance(u, v) for u, v in itertools.combinations(code.values(), 2)) == 3
+                and distance(code[(1, 2)], code[(1, 0)]) == 3,
+                "Polynomial example minimum distance must be three", "polynomial_example")
+    covered = Counter()
+    for sent in code.values():
+        covered[sent] += 1
+        for j in range(4):
+            for value in range(5):
+                if value != sent[j]:
+                    raw = list(sent)
+                    raw[j] = value
+                    covered[tuple(raw)] += 1
+    audit.check(len(covered) == 425 and set(covered.values()) == {1},
+                "Every zero/one-symbol outcome must have a unique polynomial original",
+                "polynomial_example")
+
+
 def audit_articles(audit):
     """Execute actual prose snippets after the parent has finished both posts."""
     records = []
@@ -417,6 +497,7 @@ def main():
     audit_examples(audit)
     audit_clarity_examples(audit)
     audit_story_candidates(audit)
+    audit_readthrough_examples(audit)
     if args.articles:
         summary["articles"] = audit_articles(audit)
     summary["checks"] = dict(sorted(audit.checks.items()))

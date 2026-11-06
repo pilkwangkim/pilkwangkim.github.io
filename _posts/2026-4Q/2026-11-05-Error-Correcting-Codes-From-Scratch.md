@@ -81,7 +81,7 @@ $$
 
 Addition and subtraction are the same because $1+1=0$. Repairing a known error means flipping the same bit again. The hard part is discovering $e$, not undoing it. The error count is the number of differing positions in the final word, not the number of button clicks: flipping the same bit twice restores its original value.
 
-A **block code** maps each $k$-bit message to an $n$-bit codeword. Different messages must have different codewords; otherwise even error-free reception would not identify the message. Its **rate** is $R=k/n$, the original message length divided by the transmitted length. The extra length $n-k$ is **redundancy**. This ratio does not require the original bits to occupy particular visible positions; the examples below do leave them visible. The channel here changes bit values; it does not insert, delete, or reorder positions. Those are different error models. [MIT 6.02][mit]
+A **block code** maps each $k$-bit message to an $n$-bit codeword. Different messages must have different codewords; otherwise even error-free reception would not identify the message. Its **rate** is $R=k/n$, the original message length divided by the transmitted length. The extra length $n-k$ is **redundancy**. The channel here changes bit values; it does not insert, delete, or reorder positions. Those are different error models. [MIT 6.02][mit]
 
 The sender's **encoder** maps a message to a codeword. The receiver's **decoder** tries to recover the message from the possibly corrupted word. Both sides agree on the code and the position order; the receiver does not know which message the sender chose.
 
@@ -96,11 +96,13 @@ $$
 \tag{4}
 $$
 
-Decode by majority vote. If `000` becomes `010`, the two zeros recover the intended bit. The same works for a flip at any of the three positions. If `000` becomes `110`, majority vote gives 1 and is wrong.
+Decode by **majority vote**: choose the bit value that occurs more often. If `000` becomes `010`, the two zeros recover the intended bit. The same works for a flip at any of the three positions. If `000` becomes `110`, majority vote gives 1 and is wrong.
 
 If **zero or one bit actually flips in this block**, at least two copies retain the sent value, so majority vote is correct. This proves that the construction meets the chosen one-error recovery goal. The decoder does not first establish that only one error occurred; it simply applies majority vote, which returns the wrong bit whenever two or three copies flip. The rate is only $1/3$; protecting four information bits separately takes twelve transmitted bits.
 
-The guarantee answers “which patterns are always corrected?” A different question is “how often will the decoder be wrong?” That requires a probability model. A **binary symmetric channel**, or **BSC**, flips each transmitted bit independently with the same probability $p$. It can produce zero, one, two, or three errors in this block. The decoder is unchanged: majority vote is right for zero or one flip and wrong for two or three. Its failure probability is therefore
+The guarantee answers “which patterns are always corrected?” A different question is “how often will the decoder be wrong?” That requires a probability model. A **binary symmetric channel**, or **BSC**, flips each transmitted bit independently with the same probability $p$. It can produce zero, one, two, or three errors in this block. The decoder is unchanged: majority vote is right for zero or one flip and wrong for two or three.
+
+Probability calculations use ordinary arithmetic, not modulo 2. For a particular pair of flipped positions, independence gives probability $p\cdot p\cdot(1-p)$. There are $\binom32=3$ choices of that pair. The notation $\binom nj$, a **binomial coefficient**, counts the ways to choose $j$ positions out of $n$. All three positions flip with probability $p^3$. These are mutually exclusive failure cases, so their probabilities add:
 
 $$
 \begin{aligned}
@@ -111,7 +113,7 @@ P_{\mathrm{fail},3}
 \tag{5}
 $$
 
-There are three choices for the unflipped bit in the first term. The second term has only one pattern. At $p=0.1$, the decoded information-bit error probability is $0.028$, rather than the uncoded $0.1$. This is not the probability that the transmitted block contains an error. For example, `000` becoming `010` is a channel error, but majority vote still returns the correct message bit 0. The failure probability counts wrong decoder outputs, not every changed transmission. [IBM's classical repetition-code lesson][ibm]
+At $p=0.1$, the decoded information-bit error probability is $0.028$, rather than the uncoded $0.1$. This is not the probability that the transmitted block contains an error. For example, `000` becoming `010` is a channel error, but majority vote still returns the correct message bit 0. The failure probability counts wrong decoder outputs, not every changed transmission. [IBM's classical repetition-code lesson][ibm]
 
 <details markdown="1">
 <summary>Why does repetition help only on one side of 1/2?</summary>
@@ -135,9 +137,11 @@ P_{\mathrm{fail},n}
 \tag{7}
 $$
 
-The binomial coefficient counts which $j$ positions flip. Independence supplies the product of probabilities. **Burst errors**, in which errors are concentrated in a short contiguous stretch of positions, need not follow this independent-flip formula: a disturbance that flips every copy together defeats majority vote.
+Each term chooses the $j$ flipped positions and multiplies the probabilities of $j$ flips and $n-j$ unchanged bits. **Burst errors**, in which errors are concentrated in a short contiguous stretch of positions, need not follow this independent-flip formula: a disturbance that flips every copy together defeats majority vote.
 
 </details>
+
+The code generalizes majority vote to any positive odd repetition length $n$. A wrong majority requires at least `n//2 + 1` flips, where `//` is integer division. For every possible count $j$ from that threshold through $n$, `comb(n, j)` counts the choices of flipped positions; the function multiplies by their probability and sums the results.
 
 The Python examples use only the standard library. Run them in order: later examples reuse the encoder and checks defined earlier. The downloadable module is an independent implementation with richer diagnostic results, rather than an identical function-by-function API.
 
@@ -165,9 +169,9 @@ Repeating each of four message bits takes twelve transmitted bits. Can fewer ext
 
 For message `1011`, append $1\oplus0\oplus1\oplus1=1$. The codeword is `10111`. The receiver XORs all five bits. A result of 1 means that the received word is not valid.
 
-Four information bits now use five transmitted bits, giving rate $4/5$. The redundancy is shared across the message, rather than repeating each information bit separately. The saving comes with a different guarantee: one parity check can report a violation, but cannot say which bit to repair.
+Four information bits now use five transmitted bits, giving rate $4/5$. The redundancy is shared across the message, rather than repeating each information bit separately.
 
-Why does this work? The XOR of all five transmitted bits is 0. Each changed position toggles this XOR. An odd number of changed positions gives 1; an even number gives 0. A single parity bit therefore detects every odd-weight error and misses every nonzero even-weight error. It does not identify a location. [University of Michigan EECS 373][michigan]
+Why does this work? The XOR of all five transmitted bits is 0. Each changed position toggles this XOR. An odd number of changed positions gives 1; an even number gives 0. A single parity bit therefore detects every error pattern with an odd number of flipped bits and misses every nonzero pattern with an even number. [University of Michigan EECS 373][michigan]
 
 For a concrete failure, flip positions 2 and 4 of `10111`. The result is `11101`, which still has even parity. The sender could also have encoded message `1110` as `11101` and experienced no error. These two histories produce the same received word. If up to two errors are allowed, the receiver cannot distinguish them using this parity check.
 
@@ -190,7 +194,7 @@ $$
 
 For instance, `1001` and `1011` differ only at position 3, so their distance is 1. The distance between `000` and `111` is 3. Distance here is the minimum number of single-bit changes needed to turn one string into the other, not the physical length of a line in a drawing.
 
-For a codebook $C$ with at least two codewords, define its **minimum distance**:
+Let $C$ be the set of valid codewords, called the **codebook**. For a codebook with at least two codewords, define its **minimum distance**:
 
 $$
 d_{\min}=\min_{u\ne v,\ u,v\in C}d_H(u,v).
@@ -300,9 +304,13 @@ M\sum_{j=0}^{t}\binom nj\le2^n.
 \tag{15}
 $$
 
-This is a necessary bound, not a universal recipe for constructing a code that attains it.
+This is a **necessary condition**: violating it rules out such a code, but satisfying it does not by itself guarantee that a code with those parameters exists.
 
-An **erasure** is different from a flip: the receiver knows which position is unavailable, for example `01?0`. If at most $v<d_{\min}$ positions are erased, two codewords cannot agree on all the remaining positions; otherwise they would differ in at most $v$ positions. Thus up to $d_{\min}-1$ erasures can be uniquely recovered. Unknown error locations consume more separation than known missing locations. More generally, $2t+v<d_{\min}$ guarantees correction of up to $t$ unknown flips together with $v$ known erasures.
+An **erasure** is different from a flip: the receiver knows which position is unavailable, for example `01?0`. First suppose only those marked positions are missing and every remaining bit is correct. With repetition codewords `000` and `111`, receiving `0??` identifies `000`: even two erasures leave enough information when their locations are known.
+
+In general, if at most $v<d_{\min}$ positions are erased, two codewords cannot agree on all the remaining positions; otherwise they would differ in at most $v$ positions. Thus up to $d_{\min}-1$ erasures can be uniquely recovered.
+
+Now also allow up to $t$ flips among the known positions. If two codewords could explain the same observation, they could differ in at most $2t$ known positions, plus at most $v$ erased positions. Their total distance would be at most $2t+v$. The condition $2t+v<d_{\min}$ rules out that ambiguity and guarantees recovery. This is why an unknown-location flip costs two units of separation, while a known erasure costs one.
 
 </details>
 
@@ -326,7 +334,7 @@ Let the first check include positions whose binary label has its 1-bit set; let 
 | $s_4$ | 4, 5, 6, 7 | 0 |
 {: .ecc-checks-table }
 
-Position 5 has binary label `101`, so it belongs to checks 1 and 4, but not 2. Position 3 belongs to checks 1 and 2. Every position has a distinct nonempty combination of memberships. That is exactly the distinction we needed.
+Position 5 has binary label `101`, meaning $1\cdot4+0\cdot2+1\cdot1=5$. It therefore belongs to checks 1 and 4, but not 2. Position 3 belongs to checks 1 and 2. Every position has a distinct nonempty combination of memberships. That is exactly the distinction we needed.
 
 Positions 1, 2, and 4 have labels `001`, `010`, and `100`. Each therefore appears in exactly one of the three checks. Putting the parity bits there lets us choose each one to satisfy its own check without changing the other two checks.
 
@@ -341,7 +349,11 @@ p_4&=d_2+d_3+d_4.
 \tag{17}
 $$
 
-All sums are modulo 2. Choose the four message bits freely and put them in positions 3, 5, 6, and 7; the equations then determine the other three bits. They are not three additional independent message bits. For message $m=(1,0,1,1)^T$, they give $p_1=0$, $p_2=1$, $p_4=0$, and therefore `0110011`. A code that leaves the information bits directly visible in known positions is called **systematic**. Check bits may be interleaved with information bits; systematic does not require a particular ordering. This position-number construction is the standard Hamming construction. [MIT 6.02, §6.4][mit]
+The parity equations use modulo-2 arithmetic. Choose the four message bits freely and put them in positions 3, 5, 6, and 7; the equations then determine the other three bits. They are not three additional independent message bits. For message $m=(1,0,1,1)^T$, they give $p_1=0$, $p_2=1$, $p_4=0$, and therefore `0110011`.
+
+A code that leaves the information bits directly visible in known positions is called **systematic**. Check bits may be interleaved with information bits; systematic does not require a particular ordering. Keeping the original bits visible is convenient here, but is not required by the definition of a block code or its rate. This position-number construction is the standard Hamming construction. [MIT 6.02, §6.4][mit]
+
+In the code, `as_bits` checks the input length and values and converts a string or sequence into a tuple of integer bits. The encoding itself is the three XOR expressions in `encode_hamming`, followed by placing the bits in the order of (16).
 
 ```python
 def as_bits(values, length):
@@ -405,9 +417,9 @@ $$
 \tag{20}
 $$
 
-The vertical bars mean number of elements. Four independent binary coordinates give two choices each, hence sixteen vectors—not infinitely many as in a four-dimensional real vector space.
+The vertical bars mean number of elements. The four freely chosen coordinates are the message bits in positions 3, 5, 6, and 7; the checks fix the remaining three. Two choices for each free bit give sixteen vectors—not infinitely many as in a four-dimensional real vector space. This matches the earlier direct count of possible messages.
 
-The encoder is also a linear map. Write the four information bits as the message column $m=(d_1,d_2,d_3,d_4)^T$. In our **column-vector convention**, its **generator matrix** is $7\times4$:
+The encoder is also a linear map, because every output bit is an XOR of selected message bits. Write the four information bits as the message column $m=(d_1,d_2,d_3,d_4)^T$. A **generator matrix** records those selections, one output bit per row. For example, row $(1,1,0,1)$ calculates $p_1=d_1+d_2+d_4$, while row $(1,0,0,0)$ copies $d_1$. In this **column-vector convention**, four input bits and seven output bits require a $7\times4$ matrix:
 
 $$
 \begin{gathered}
@@ -432,7 +444,7 @@ For message `1011`, the first, third, and fourth entries of $m$ are 1, so $Gm$ X
 <details markdown="1">
 <summary>Why do G and H describe exactly the same sixteen codewords?</summary>
 
-The check equations give $HG=0$, so every generated vector lies in $\ker H$. Rows 3, 5, 6, and 7 of $G$ form the identity: different messages therefore produce different codewords, and $G$ has rank 4. Its image is a four-dimensional subspace inside the four-dimensional kernel of $H$. They must be equal.
+The check equations give $HG=0$, so every generated vector lies in $\ker H$. Rows 3, 5, 6, and 7 of $G$ form the identity: different messages therefore produce different codewords, and $G$ has rank 4. The **image** of $G$ is the set of all possible outputs $Gm$, also called its column space. It is a four-dimensional subspace inside the four-dimensional kernel of $H$. They must be equal.
 
 Some books use row messages, writing $c=mG$ with a $4\times7$ generator matrix. That is the transposed convention. Neither is more correct; changing conventions halfway through a calculation is the mistake to avoid.
 
@@ -483,14 +495,14 @@ s_4&=0+1+1+1=1.
 \tag{24}
 $$
 
-We list the tuple in the order $(s_1,s_2,s_4)$ and recover the position by
+We list the tuple in the order $(s_1,s_2,s_4)$. Its entries are bits, but to turn their binary place values into a position number we now use **ordinary integer arithmetic**, not modulo 2:
 
 $$
 j=s_1+2s_2+4s_4.
 \tag{25}
 $$
 
-It gives $j=5$. Be careful with binary display order: the ordinary binary numeral for $j$ is $s_4s_2s_1$, not the tuple order. For example, syndrome $(1,1,0)$ means position 3, whose ordinary binary label is `011`.
+It gives $j=1+2\cdot0+4\cdot1=5$; do not reduce this result modulo 2. Be careful with binary display order: the ordinary binary numeral for $j$ is $s_4s_2s_1$, not the tuple order. For example, syndrome $(1,1,0)$ means position 3, whose ordinary binary label is `011`.
 
 Flipping position 5 again gives `0110011`. Read information positions 3, 5, 6, and 7 to recover `1011`.
 
@@ -547,7 +559,7 @@ $$
 Now use the columns of $H$ rather than checking every pair of codewords.
 
 1. A weight-one vector cannot be a codeword: its syndrome is one nonzero column.
-2. A weight-two vector cannot be a codeword: its syndrome is the sum of two different columns, which is nonzero over $\mathbb F_2$.
+2. A weight-two vector cannot be a codeword: its syndrome is the sum of two different columns. If that sum were zero, adding either column to both sides would say that the two columns are equal, a contradiction.
 3. A weight-three codeword does exist. Columns 1, 2, and 3 sum to zero, so `1110000` satisfies $Hc=0$.
 
 Thus $d_{\min}=3$, exactly. The notation **$[7,4,3]$** records length 7, dimension 4, and minimum distance 3. It corrects every one-flip error. Also, if the receiver checks $Hr$ **before changing the received word $r$**, every two-flip error produces a nonzero result and is detected. But **$Hr\ne0$ does not distinguish one flip from two**. Deciding which bit to change is a separate step from detecting that the received word is corrupted.
@@ -558,7 +570,7 @@ Perfect describes this radius-one partition, not recovery from every error patte
 
 ## 10. Two errors can make the decoder confidently wrong
 
-The decoder has been proved correct for zero or one error. What happens if we give that same decoder a word with two channel errors instead? Transmit `0110011` and flip positions 3 and 5. The receiver gets `0100111`. Its syndrome is
+The decoder has been proved correct for zero or one error. What happens if we give that same decoder a word with two channel errors instead? Transmit `0110011` and flip positions 3 and 5. The receiver gets `0100111`. The error vector is now $e_3+e_5$, so linearity adds the two affected columns of $H$:
 
 $$
 s=h_3+h_5=h_6.
@@ -614,9 +626,9 @@ $$
 
 For example, `0110011` has weight 4, so appending $q=0$ gives `01100110`. For the message `1000`, the codeword is `1110000`, which has weight 3; appending $q=1$ gives `11100001`. Although $q$ depends on the codeword, **the XOR of all eight transmitted bits is always zero**. The receiver therefore knows the expected total parity without knowing the original message.
 
-Its minimum distance is 4. To see why, compare two original codewords at distance $d\ge3$. If $d$ is even, their appended parity bits agree, leaving distance $d\ge4$. If $d$ is odd, the appended bits differ, raising the distance to $d+1\ge4$. Original codewords at distance 3 exist, so extended ones at distance 4 exist. This gives the **extended Hamming $[8,4,4]$ code**. Hamming's original paper also develops single-error correction combined with double-error detection. [Hamming, 1950][hamming]
+Its minimum distance is 4. Compare two original codewords at distance $d\ge3$. Their XOR has exactly $d$ ones, so the XOR of their appended parity bits is $d\bmod2$: the bits agree when $d$ is even and differ when it is odd. If $d$ is even, appending equal bits leaves distance $d\ge4$. If $d$ is odd, appending different bits raises it to $d+1\ge4$. Original codewords at distance 3 exist, so extended ones at distance 4 exist. This gives the **extended Hamming $[8,4,4]$ code**. Hamming's original paper also develops single-error correction combined with double-error detection. [Hamming, 1950][hamming]
 
-At the receiver, compute $s$ from the first seven positions and compute $z$, the XOR of **all eight received bits**. The following rule meets the new goal for **every zero-, one-, and two-error case**. The error counts in its interpretations are guaranteed within that range; the checks do not independently establish that three or more flips were impossible.
+At the receiver, compute $s$ from the first seven positions and compute $z$, the XOR of **all eight received bits**. Every transmitted word starts with total XOR zero, and each flip toggles it. Thus $z$ tells whether the error count is odd or even, while $s$ describes the failed checks in positions 1–7. Together they give the following rule for **every zero-, one-, and two-error case**. The error counts in its interpretations are guaranteed within that range; the checks do not independently establish that three or more flips were impossible.
 
 | $s$ | $z$ | Meaning and action |
 | :---: | :---: | :--- |
@@ -647,7 +659,7 @@ All four codewords are outputs of the extended encoder, and all four histories c
 
 This decoding policy is **SECDED**: single-error correction, double-error detection. It corrects one error and flags two, rather than trying to correct both. A distance-four code can detect every nonzero error of weight up to three **if used only as a membership detector**. A SECDED decoder that corrects singles cannot also distinguish every triple error from a single: both give overall check $z=1$. Detection capability and a combined correction policy are different claims.
 
-For example, flips at positions 3, 5, and 6 leave the seven-bit syndrome zero but make the overall check $z=1$. These are the same check results as a single flip at position 8. The SECDED rule therefore flips the overall parity bit even though the first seven bits encode the wrong message.
+For example, send `01100110` and flip positions 3, 5, and 6, giving received word `01001010`. Its seven-bit syndrome is zero and its overall check is $z=1$. The same received word could also come from the valid codeword `01001011` with only position 8 flipped. The decoder cannot distinguish these histories from the received bits. Following its single-error rule, it flips position 8 and returns the wrong message for the three-error transmission.
 
 Return to the [Hamming workbench](#lab-ecc-hamming) and select **Extended (8,4)**. Compare a flip at position 5, one at position 8, and the pair at positions 3 and 5. Then try three flips to see why these decisions are not guaranteed beyond two errors.
 
@@ -686,6 +698,8 @@ assert decode_extended(flip_positions(extended, 3, 5))[0] is None
 ## 12. Verify the complete small problem, not just one example
 
 There are only sixteen possible four-bit messages. For each, test no error and all seven one-bit errors. That is $16(1+7)=128$ transmission cases. Unlike random testing, this exhausts the specified input and error model.
+
+In the code, `product((0, 1), repeat=4)` generates all sixteen message tuples, and `combinations(codebook, 2)` generates each unordered pair of distinct codewords. The empty tuple `()` means no flipped positions; `(j,)` means one flip at position $j$. Each `assert` stops the test if its condition is false.
 
 ```python
 from itertools import product, combinations
@@ -741,7 +755,7 @@ The syndrome is $(0,1,0)$, so $j=2$. Flipping position 2 gives `0110011`; inform
 
 ### C. Can a valid result certify the correction?
 
-In Figure 4, `0100111` becomes `0100101` after a decoder flip. Every check now passes. What additional fact would justify claiming that the transmitted message has been recovered?
+In Figure 4, `0100111` becomes `0100101` after a decoder flip. Every check now passes. Is passing the checks enough to establish recovery? State the condition of the single-error recovery guarantee and explain whether the illustrated transmission satisfies it.
 
 <details markdown="1">
 <summary>Answer</summary>
@@ -833,24 +847,30 @@ The reference uses a different function name so running it does not overwrite yo
 
 The small code exposes three general design choices: which error patterns matter, how much redundancy is affordable, and what the decoder should do when evidence is insufficient.
 
-**Longer Hamming codes.** Use all distinct nonzero $a$-bit columns as a parity-check matrix. There are $n=2^a-1$ columns, its rank is $a$, and the code has parameters $[2^a-1,\,2^a-1-a,\,3]$ for $a\ge2$. The single-error argument is unchanged. The rate approaches 1 as blocks grow, but the guarantee remains only one flipped bit per block. High rate does not mean a growing correction budget.
+**Longer Hamming codes.** Let $a$ be the number of parity checks. Use all distinct nonzero $a$-bit columns as a parity-check matrix: there are $n=2^a-1$ such columns. They include the identity columns, so the rank is $a$ and the message dimension is $k=n-a$. The same column argument as in Section 9 gives minimum distance 3 for $a\ge2$, hence parameters $[2^a-1,\,2^a-1-a,\,3]$. For example, four checks give the $[15,11,3]$ code: eleven message bits become fifteen transmitted bits. The rate approaches 1 as blocks grow, but the guarantee remains only one flipped bit per block. High rate does not mean a growing correction budget.
 
-**Bursts and interleaving.** A burst can place several flips in one codeword. An interleaver rearranges bits from different codewords before transmission, potentially spreading a burst across several blocks after the inverse permutation. It adds no correction by itself; its benefit depends on the burst pattern and the underlying code. [MIT 6.02][mit]
+**Bursts and interleaving.** A **burst** concentrates errors within a short consecutive stretch of transmitted positions. An **interleaver** mixes bits from different codewords before transmission; the receiver restores their original grouping. For three seven-bit codewords $A,B,C$, send bits in the order $A_1,B_1,C_1,A_2,B_2,C_2,\ldots,A_7,B_7,C_7$. If the only errors lie in three consecutive transmitted positions, each codeword has at most one changed bit. A single-error-correcting code can repair each block after regrouping. Interleaving adds no correction by itself; its benefit depends on the burst pattern and the underlying code. [MIT 6.02][mit]
 
-**Reed–Solomon codes.** These operate on symbols from a larger finite field—a field with finitely many elements—rather than treating each bit as one symbol. A symbol may represent a byte, a group of eight bits. QR codes use Reed–Solomon redundancy, according to their developer DENSO WAVE. Their advertised restoration levels concern codewords, not a guarantee that any equally sized geometric region of the printed image can be destroyed. [DENSO WAVE][qr]
+**Reed–Solomon codes.** These operate on **symbols** from a larger finite field—a field with finitely many elements—rather than treating each bit as one symbol. A symbol may represent a byte, a group of eight bits. If several bits within one byte change, that is one symbol error; corrupting two bytes gives two symbol errors. QR codes use Reed–Solomon redundancy, according to their developer DENSO WAVE. Their advertised restoration levels concern codewords, not a guarantee that any equally sized geometric region of the printed image can be destroyed. [DENSO WAVE][qr]
 
 <details markdown="1">
 <summary>Why a polynomial can protect symbols</summary>
 
-A polynomial's **degree** is its largest exponent with a nonzero coefficient; for example, $a_0+a_1x+a_2x^2$ has degree 2 when $a_2\ne0$. A degree-less-than-$k$ polynomial is determined by its values at $k$ distinct points over a field. Encode its $k$ coefficients by evaluating it at $n$ distinct field elements, with $1\le k\le n$. These inputs must be distinct, so $n$ cannot exceed the number of elements in the chosen field. Two different such polynomials differ by a nonzero polynomial of degree at most $k-1$, which has at most $k-1$ distinct roots. Their evaluation vectors therefore differ in at least $n-k+1$ places.
+A polynomial's **degree** is its largest exponent with a nonzero coefficient; for example, $a_0+a_1x+a_2x^2$ has degree 2 when $a_2\ne0$. A **root** is an input where the polynomial's value is zero. Treat the $k$ coefficients of a polynomial of degree less than $k$ as a message, and transmit its values at $n$ distinct field elements. Here $1\le k\le n$, and the chosen field needs at least $n$ elements to supply those distinct inputs.
 
-This evaluation construction has minimum distance exactly $n-k+1$: a polynomial with roots at $k-1$ selected evaluation points attains that distance. Consequently it can correct up to $\lfloor(n-k)/2\rfloor$ unknown symbol errors, or up to $n-k$ erasures. A larger alphabet changes what counts as one error; it does not evade the distance argument.
+For a small example, use symbols $0,1,2,3,4$ with addition and multiplication modulo 5, rather than modulo 2. These form a field: the nonzero elements $1,2,3,4$ have inverses $1,3,2,4$, respectively. Message $(1,2)$ supplies the coefficients of $p(x)=1+2x$. Evaluate at $x=0,1,2,3$ to obtain codeword $(1,3,0,2)$; the last two entries are $5\bmod5=0$ and $7\bmod5=2$. Two message symbols have become four transmitted symbols. All 25 coefficient pairs give 25 codewords. The constant polynomial 1, for example, gives $(1,1,1,1)$.
 
-The polynomial root bound follows by repeatedly factoring out $(x-a)$ for a root $a$: each distinct root consumes one degree. Finite-field arithmetic is needed to turn these observations into a practical byte-based encoder; ordinary integer arithmetic modulo 256 is **not** a field. For example, $2x$ is even for every integer $x$, so it can never equal 1 modulo 256. The nonzero element 2 therefore has no inverse, and division by 2 is unavailable. This evaluation viewpoint comes from Reed and Solomon's original construction. [Reed and Solomon, 1960][rs]
+Distance now counts positions with different **symbols**, not different bits. The position-counting and uniqueness arguments in Section 4 still apply. Two different degree-less-than-$k$ polynomials differ by a nonzero polynomial of degree at most $k-1$. Over a field it has at most $k-1$ distinct roots, so the two evaluation vectors can agree in at most $k-1$ places. Their distance is at least $n-k+1$. This also explains why $k$ distinct values determine such a polynomial uniquely: two candidates agreeing there would give too many roots of their difference.
+
+The minimum distance is exactly $n-k+1$: multiply the expressions $(x-a)$ for $k-1$ chosen evaluation points $a$ to obtain a nonzero polynomial of degree $k-1$ (use the constant 1 when $k=1$). Comparing it with the zero polynomial attains that distance. The code can therefore correct up to $\lfloor(n-k)/2\rfloor$ unknown symbol errors, or up to $n-k$ erasures. In the example, $n=4$ and $k=2$, so the minimum distance is 3 and one symbol error is correctable. The two displayed codewords differ in exactly three positions, attaining that distance.
+
+Why can a nonzero polynomial have no more roots than its degree? Division by $(x-a)$ leaves a constant remainder; evaluating at a root $a$ makes that remainder zero. The polynomial is therefore $(x-a)$ times another polynomial, whose degree is one less. Any other root $b\ne a$ remains a root of that remaining polynomial, because $b-a$ is nonzero and can be divided out in a field. Repeating this argument accounts for each distinct root.
+
+Finite-field arithmetic is needed for a practical byte-based encoder; ordinary integer arithmetic modulo 256 is **not** a field. For example, $2x$ is even for every integer $x$, so it can never equal 1 modulo 256. The nonzero element 2 therefore has no inverse, and division by 2 is unavailable. The modulo-5 example uses a smaller field to make the same evaluation idea easy to calculate. This viewpoint comes from Reed and Solomon's original construction. [Reed and Solomon, 1960][rs]
 
 </details>
 
-**Integrity is not authenticity.** Error-correcting codes protect against specified corruption patterns. Their public constraints do not prevent an adversary from replacing a codeword with another valid codeword. Cryptographic authentication addresses a different question: whether data came from an authorized sender without unauthorized modification. Passing parity checks does not establish that.
+**Detecting corruption does not authenticate a sender.** Error-correcting codes protect against specified corruption patterns. Their public constraints do not prevent an adversary from replacing a codeword with another valid codeword. Cryptographic authentication addresses a different question: whether data came from an authorized sender without unauthorized modification. Passing parity checks does not establish that.
 
 ## 16. The essential idea
 
