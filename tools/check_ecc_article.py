@@ -45,6 +45,9 @@ def main():
         assert "NotImplementedError" in text
         # Explicit lbrace/rbrace survive Markdown's backslash processing.
         assert "\\{" not in text and "\\}" not in text
+        # Kramdown can interpret a paragraph starting with $|C|$ as a pipe
+        # table. Use explicit TeX delimiters for inline cardinalities.
+        assert not re.search(r"^\$\|[^\n$]*\|\$", text, re.M), "Use \\lvert ... \\rvert for a leading inline cardinality"
     for image in data["images"] + data["sources"]:
         path = ROOT / image.lstrip("/")
         assert path.is_file(), path

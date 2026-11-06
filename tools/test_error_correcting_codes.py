@@ -205,6 +205,97 @@ def audit_examples(audit):
                 "BSC example p=.1 must give .028", "probability")
 
 
+def audit_clarity_examples(audit):
+    """Check the concrete transmission histories used to explain ambiguity."""
+    received = ecc.bits("1011")
+    audit.check(ecc.flip("1001", 3) == received,
+                "Unencoded histories must produce the same received word", "clarity_examples")
+    candidates = {ecc.bitstring(word) for word in itertools.product((0, 1), repeat=4)
+                  if ecc.hamming_distance(word, received) <= 1}
+    audit.check(candidates == {"0011", "1001", "1010", "1011", "1111"},
+                "Unencoded one-error candidates mismatch", "clarity_examples")
+    audit.check(ecc.hamming_distance("000", "001") == 1
+                and ecc.hamming_distance("111", "001") == 2,
+                "Repetition ambiguity must depend on the allowed error bound", "clarity_examples")
+    audit.check(ecc.hamming_distance("000", "001") == 1
+                and ecc.hamming_distance("011", "001") == 1,
+                "Unused words alone must not imply correctability", "clarity_examples")
+
+    raw = ecc.flip(ecc.encode_hamming("1011"), 3, 5)
+    candidate = ecc.decode_hamming(raw).word
+    audit.check(ecc.bitstring(raw) == "0100111" and ecc.syndrome(raw) == (0, 1, 1),
+                "Raw double-error word and syndrome mismatch", "clarity_examples")
+    audit.check(ecc.bitstring(candidate) == "0100101"
+                and ecc.syndrome(candidate) == (0, 0, 0)
+                and ecc.flip(candidate, 6) == raw,
+                "A passing candidate must also explain the raw word with one error",
+                "clarity_examples")
+
+    first = ecc.encode_secded("1011")
+    second = ecc.encode_secded("0111")
+    shared = ecc.flip(first, 3, 5)
+    audit.check(ecc.bitstring(first) == "01100110"
+                and ecc.bitstring(second) == "00011110",
+                "Extended ambiguity codewords mismatch", "clarity_examples")
+    audit.check(shared == ecc.flip(second, 2, 4)
+                and ecc.bitstring(shared) == "01001110",
+                "Two double-error histories must produce the same full received word",
+                "clarity_examples")
+    audit.check(ecc.syndrome(shared[:7]) == (0, 1, 1) and sum(shared) % 2 == 0
+                and ecc.decode_secded(shared).status == "detected_double_error",
+                "Extended ambiguity must be detected but not corrected", "clarity_examples")
+    audit.check(ecc.bitstring(ecc.encode_hamming("1000")) == "1110000"
+                and ecc.bitstring(ecc.encode_secded("1000")) == "11100001",
+                "Overall parity bit must sometimes be one", "clarity_examples")
+    audit.check(not any((2 * value) % 256 == 1 for value in range(256)),
+                "Modulo 256 arithmetic must not give two a multiplicative inverse",
+                "clarity_examples")
+
+
+def audit_story_candidates(audit):
+    """Verify exhaustive candidate lists, not just selected collision pairs."""
+    received = ecc.bits("1001")
+    histories = {"1001": (), "0001": (1,), "1101": (2,),
+                 "1011": (3,), "1000": (4,)}
+    words = list(itertools.product((0, 1), repeat=4))
+    possible = {ecc.bitstring(w) for w in words
+                if ecc.hamming_distance(w, received) <= 1}
+    exactly_one = {ecc.bitstring(w) for w in words
+                   if ecc.hamming_distance(w, received) == 1}
+    audit.check(possible == set(histories),
+                "The opening table must list all five zero/one-error originals",
+                "story_candidates")
+    audit.check(exactly_one == set(histories) - {"1001"},
+                "Exactly one error excludes the unchanged original",
+                "story_candidates")
+    for original, positions in histories.items():
+        audit.check(ecc.flip(original, *positions) == received,
+                    "Opening table has an incorrect transmission history", "story_candidates")
+    for original in words:
+        differing = tuple(i for i, (a, b) in enumerate(zip(original, received), 1) if a != b)
+        audit.check(ecc.flip(original, *differing) == received,
+                    "Every raw original must be possible with unrestricted bit changes",
+                    "story_candidates")
+
+    received = ecc.bits("01001110")
+    histories = {"0101": ("01001011", (6, 8)),
+                 "0110": ("11001100", (1, 7)),
+                 "0111": ("00011110", (2, 4)),
+                 "1011": ("01100110", (3, 5))}
+    possible = {ecc.bitstring(m) for m in words
+                if ecc.hamming_distance(ecc.encode_secded(m), received) <= 2}
+    audit.check(possible == set(histories),
+                "The extended table must list all four originals within distance two",
+                "story_candidates")
+    for message, (word, positions) in histories.items():
+        audit.check(ecc.bitstring(ecc.encode_secded(message)) == word
+                    and ecc.flip(word, *positions) == received,
+                    "Extended table has an incorrect transmission history", "story_candidates")
+        audit.check(ecc.hamming_distance(word, received) == 2,
+                    "Every extended-table history must have exactly two errors",
+                    "story_candidates")
+
+
 def audit_articles(audit):
     """Execute actual prose snippets after the parent has finished both posts."""
     records = []
@@ -324,6 +415,8 @@ def main():
     audit = Audit()
     summary = audit_codes(audit)
     audit_examples(audit)
+    audit_clarity_examples(audit)
+    audit_story_candidates(audit)
     if args.articles:
         summary["articles"] = audit_articles(audit)
     summary["checks"] = dict(sorted(audit.checks.items()))

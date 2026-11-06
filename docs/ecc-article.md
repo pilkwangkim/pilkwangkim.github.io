@@ -9,13 +9,25 @@ binary block codes to readers with basic undergraduate linear algebra.
 - Hamming positions: `p1,p2,d1,p4,d2,d3,d4`.
 - Syndrome tuple: `(s1,s2,s4)`; position index: `s1 + 2*s2 + 4*s4`.
 - Message `1011` encodes to `0110011`; position-5 flip gives `0110111`.
+- The correction target covers every pattern of weight at most t. This is a
+  design guarantee, not a claim that the channel cannot produce more errors
+  or that the decoder has measured their count. Error weight counts final
+  differing positions, not the number of manual toggle clicks.
 - Ordinary Hamming correction guarantees recovery under at most one flip.
   A distance-three membership detector can detect two errors, but the ordinary
   single-error corrector miscorrects all exactly-two-flip patterns.
-- Extended parity is appended at position eight. SECDED's four-way
-  classification assumes at most two flips. Triple errors can miscorrect.
-- The repetition curve is exact for independent BSC flips. Manual bit toggles
-  select a pattern and are not stochastic draws from that model.
+- Extended parity is appended at position eight. SECDED corrects every single
+  flip and rejects every double flip. Its four-way classification is valid
+  when the actual error weight is at most two; triple errors can miscorrect.
+- Three-copy majority vote corrects zero or one flip and returns the wrong
+  message bit for two or three flips. For independent BSC flips its error
+  probability is 3p^2 - 2p^3, not the probability of any channel error in the
+  transmitted block. Manual toggles select a pattern; the probability curve
+  sums all patterns under the BSC model.
+- The opening received word `1001` has five raw-message candidates within
+  distance one. Extended received word `01001110` has four codeword candidates
+  within distance two. The Python story checks enumerate both candidate sets
+  and verify every listed transmission history.
 
 ## Owned assets
 

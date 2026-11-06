@@ -6,6 +6,14 @@
 html[lang="ko"] article:has(.ecc-figure) > header :is(h1,.post-desc),
 html[lang="ko"] .content:has(.ecc-figure) :is(h2,h3) { word-break:keep-all; overflow-wrap:break-word; }
 .content:has(.ecc-figure) mjx-container[display="true"] { min-width:0!important; width:100%; max-width:100%; }
+.content:has(.ecc-figure) :is(.ecc-comparison-table,.ecc-checks-table,.ecc-history-table) { width:100%; table-layout:fixed; }
+.content:has(.ecc-figure) :is(.ecc-comparison-table,.ecc-checks-table,.ecc-history-table) :is(th,td) { padding:.5rem .45rem; white-space:normal; overflow-wrap:break-word; }
+html[lang="ko"] .content:has(.ecc-figure) :is(.ecc-comparison-table,.ecc-checks-table,.ecc-history-table) :is(th,td) { word-break:keep-all; }
+.content:has(.ecc-figure) .ecc-comparison-table :is(th,td):is(:first-child,:last-child) { width:5.2rem; }
+.content:has(.ecc-figure) .ecc-checks-table :is(th,td):first-child { width:4.5rem; }
+.content:has(.ecc-figure) .ecc-checks-table :is(th,td):last-child { width:5.5rem; }
+.content:has(.ecc-figure) .ecc-history-table :is(th,td):first-child { width:40%; }
+.content:has(.ecc-figure) .ecc-history-table :is(th,td):not(:first-child) { width:30%; }
 .content:has(.ecc-figure) .ecc-decision-table { width:100%; table-layout:fixed; }
 .content:has(.ecc-figure) .ecc-decision-table :is(th,td) { padding:.5rem .45rem; white-space:normal; overflow-wrap:break-word; }
 html[lang="ko"] .content:has(.ecc-figure) .ecc-decision-table :is(th,td) { word-break:keep-all; }
@@ -13,6 +21,7 @@ html[lang="ko"] .content:has(.ecc-figure) .ecc-decision-table :is(th,td) { word-
 .content:has(.ecc-figure) .ecc-decision-table :is(th,td):nth-child(2) { width:3rem; }
 .content:has(.ecc-figure) .ecc-decision-table :is(th,td):nth-child(3) { width:auto; }
 @media (max-width:560px) {
+  .content:has(.ecc-figure) :is(.ecc-comparison-table,.ecc-checks-table,.ecc-history-table) { font-size:.9rem; }
   .content:has(.ecc-figure) mjx-container[display="true"] { font-size:100%!important; }
   .content:has(.ecc-figure) .ecc-decision-table { font-size:.87rem; }
   .content:has(.ecc-figure) .ecc-decision-table th { font-size:.84rem; }
