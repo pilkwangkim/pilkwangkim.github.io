@@ -111,6 +111,9 @@ jobs:
           python tools/test_msbte_physics.py
           python tools/check_msbte_article.py
 
+      - name: Check Drude model and exercises
+        run: python tools/test_drude_physics.py
+
       - name: Build site
         run: bundle exec jekyll b -d "_site${{ steps.pages.outputs.base_path }}"
         env:

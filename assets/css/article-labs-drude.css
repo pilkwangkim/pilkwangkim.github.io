@@ -1,0 +1,35 @@
+.article-lab.drude-lab .drude-explanation { margin: .9rem 0; line-height: 1.65; font-size: .93rem; }
+.article-lab.drude-lab .drude-choices { display: grid; gap: .6rem; margin: 1rem 0; }
+.article-lab.drude-lab .drude-choice { text-align: left; white-space: normal; height: auto; min-height: 2.75rem; padding: .7rem .85rem; line-height: 1.5; border: 1px solid var(--al-line); background: var(--card-bg,var(--main-bg,#fff)); color: inherit; border-radius: .35rem; cursor: pointer; }
+.article-lab.drude-lab .drude-choice.drude-chosen { border-color: var(--al-blue); box-shadow: inset 3px 0 var(--al-blue); }
+.article-lab.drude-lab .drude-answer { padding: .9rem; border-left: 3px solid var(--al-gold); line-height: 1.65; }
+.article-lab.drude-lab .drude-answer.drude-correct { border-left-color: var(--al-blue); }
+.article-lab.drude-lab .al-metrics output { overflow-wrap: anywhere; }
+.article-lab.drude-lab :is(.al-axis-heading,.al-axis-caption,.al-chart-legend) { font-size: .8rem; }
+.article-lab.drude-lab :is(.al-control-label,.al-metrics dt,.al-status,.al-model,.al-model p) { font-size: .78rem; }
+.drude-figure { margin: 1.7rem 0; }
+.drude-figure > a.rsna-results-figure { display: block; width: 100%; }
+.drude-figure :is(picture,img) { display: block; width: 100%; height: auto; }
+.drude-figure figcaption { margin: .7rem 0 1.3rem; font-size: .88rem; line-height: 1.7; text-align: left; }
+html[lang=ko] article:has(.drude-figure) :is(h1,h2,h3) { word-break: keep-all; overflow-wrap: break-word; }
+.content:has(.drude-figure) mjx-container[display="true"] { min-width: 0 !important; width: 100%; max-width: 100%; }
+.content:has(.drude-figure) .drude-table { width: 100%; min-width: 0; table-layout: fixed; }
+.content:has(.drude-figure) .drude-table :is(th,td) { white-space: normal; overflow-wrap: break-word; padding: .5rem .45rem; vertical-align: top; }
+.content:has(.drude-figure) .drude-table :is(th,td):first-child { width: 25%; }
+.content:has(.drude-figure) .drude-table :is(th,td):nth-child(n+2) { width: 37.5%; }
+html[lang=ko] .content:has(.drude-figure) .drude-table :is(th,td) { word-break: keep-all; overflow-wrap: break-word; }
+@media (max-width: 540px) {
+  .article-lab.drude-lab .drude-explanation { font-size: .9rem; }
+  body:has(.drude-figure) #back-to-top { display: none !important; }
+  /* Reserve a separate line for equation numbers, not two label-width margins.
+     Keep the mathematical glyphs at full size and wide formulas scrollable. */
+  .content:has(.drude-figure) mjx-math > mjx-mtable[width="full"][side="right"] { min-width: 0 !important; }
+  .content:has(.drude-figure) mjx-math > mjx-mtable[width="full"][side="right"] > mjx-table { margin: 0 !important; }
+  .content:has(.drude-figure) mjx-math > mjx-mtable[width="full"][side="right"] > mjx-labels { display: block; position: static; width: 100% !important; min-width: 0; height: auto; margin-top: .35em; }
+  .content:has(.drude-figure) mjx-labels > mjx-itable { position: static; width: 100%; }
+  .content:has(.drude-figure) mjx-labels mjx-mtr { height: auto !important; }
+  .content:has(.drude-figure) mjx-labels mjx-tstrut { height: 0 !important; vertical-align: 0 !important; }
+  .content:has(.drude-figure) .drude-table { font-size: .88rem; }
+  .content:has(.drude-figure) .drude-table :is(th,td):first-child { width: 30%; }
+  .content:has(.drude-figure) .drude-table :is(th,td):nth-child(n+2) { width: 35%; }
+}
