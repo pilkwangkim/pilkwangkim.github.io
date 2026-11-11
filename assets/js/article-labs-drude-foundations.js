@@ -1,5 +1,4 @@
-/* Synthetic, bounded Drude foundations: charge budgets, Bloch coefficients,
- * and occupation redistribution. No field solver or user-code execution. */
+/* Bounded Drude foundations: Bloch coefficients and occupation redistribution. */
 (function () {
   'use strict';
   const E = 1.602176634e-19;
@@ -7,15 +6,8 @@
   const grid = (v, lo, hi, step) => inRange(v, lo, hi) && Math.abs((v - lo) / step - Math.round((v - lo) / step)) < 1e-7;
   const complete = (s, keys) => Boolean(s) && typeof s === 'object' && !Array.isArray(s) && Object.keys(s).length === keys.length && keys.every(k => Object.prototype.hasOwnProperty.call(s, k));
   const clean = v => Math.abs(v) < 1e-14 ? 0 : v;
-  function validContinuityState(s) { return complete(s, ['left', 'right', 'time']) && grid(s.left, -3, 3, .25) && grid(s.right, -3, 3, .25) && grid(s.time, 0, 2, .05); }
   function validBlochState(s) { return complete(s, ['mode', 'hopping']) && Number.isInteger(s.mode) && inRange(s.mode, 0, 3) && grid(s.hopping, .1, 3, .1); }
   function validOccupationState(s) { return complete(s, ['delta', 'speed']) && grid(s.delta, -.5, .5, .01) && grid(s.speed, .1, 2, .1); }
-  function continuityModel(s = { left: 2, right: 1, time: 1 }) {
-    if (!validContinuityState(s)) throw new Error('Invalid continuity settings.');
-    const rateMicroamp = s.left - s.right, chargeFC = rateMicroamp * s.time;
-    return { rateMicroamp, chargeFC, chargeC: chargeFC * 1e-15, electronCountChange: -chargeFC * 1e-15 / E,
-      electronRateLeft: -s.left * 1e-6 / E, electronRateRight: -s.right * 1e-6 / E };
-  }
   function blochModel(s = { mode: 1, hopping: 1 }) {
     if (!validBlochState(s)) throw new Error('Invalid Bloch settings.');
     const ka = s.mode * Math.PI / 2, energyEV = 2 * s.hopping * (1 - Math.cos(ka));
@@ -39,7 +31,7 @@
     return { fPlus, fMinus, density, densityOverG: density / g, velocity, meanVelocity: velocitySum / (fPlus + fMinus),
       currentDensity, currentNormalized: currentDensity / (E * g * 1e5), currentScale: E * g * 1e5 };
   }
-  const api = { E, continuityModel, blochModel, occupationModel, validContinuityState, validBlochState, validOccupationState };
+  const api = { E, blochModel, occupationModel, validBlochState, validOccupationState };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   if (typeof window === 'undefined' || !window.ArticleLabs) return;
   const labs = window.ArticleLabs;
@@ -50,44 +42,6 @@
   function share(ctx, id, read, valid, restore, render) {
     ctx.stateLink(id, { read, write: s => { if (!valid(s)) return false; restore(s); render(); return true; } });
   }
-  function currentDiagram(ctx, s, p) {
-    const blue = 'var(--al-blue,#2962a3)', gold = 'var(--al-gold,#ad791f)', muted = 'var(--text-muted-color,#657381)';
-    const svg = ctx.svg('svg', { viewBox: '0 0 640 175', class: 'al-chart', role: 'img', 'aria-label': ctx.text('Signed conventional currents at the control-volume boundaries; electron flow is opposite.', 'Control volume 양쪽 경계의 conventional current와 반대 방향의 electron flow') });
-    const label = (x, y, text, small = false) => svg.append(ctx.svg('text', { x, y, 'text-anchor': 'middle', ...(small ? { class: 'al-legend-label' } : {}) }, text));
-    function arrow(x0, x1, y, sign, color) {
-      svg.append(ctx.svg('line', { x1: x0, x2: x1, y1: y, y2: y, stroke: color, 'stroke-width': 3 }));
-      if (sign !== 0) {
-        const tip = sign > 0 ? x1 : x0, tail = tip + (sign > 0 ? -13 : 13);
-        svg.append(ctx.svg('polygon', { points: `${tip},${y} ${tail},${y - 7} ${tail},${y + 7}`, fill: color }));
-      }
-    }
-    svg.append(ctx.svg('rect', { x: 235, y: 58, width: 170, height: 100, rx: 6, fill: 'none', stroke: muted, 'stroke-width': 2 }));
-    label(125, 35, `Ileft = ${ctx.format(s.left, 2)} μA`); label(515, 35, `Iright = ${ctx.format(s.right, 2)} μA`);
-    label(320, 89, 'Control volume', true); label(320, 127, `ΔQ = ${ctx.format(p.chargeFC, 2)} fC`, true);
-    arrow(30, 215, 85, s.left, blue); arrow(425, 610, 85, s.right, blue);
-    arrow(30, 215, 140, -s.left, gold); arrow(425, 610, 140, -s.right, gold);
-    return svg;
-  }
-  labs.register('drude-continuity', ctx => {
-    setup(ctx);
-    const left = control(ctx, 'Left current Ileft (μA, +x positive)', '왼쪽 전류 Ileft (μA, +x가 양수)', -3, 3, .25, 2);
-    const right = control(ctx, 'Right current Iright (μA, +x positive)', '오른쪽 전류 Iright (μA, +x가 양수)', -3, 3, .25, 1);
-    const time = control(ctx, 'Elapsed time (ns)', '지난 시간 (ns)', 0, 2, .05, 1);
-    const rate = ctx.metric('dQ/dt (μA)', 'dQ/dt (μA)'), charge = ctx.metric('Accumulated ΔQ (fC)', '늘어난 전하 ΔQ (fC)'), electrons = ctx.metric('Electron count change ΔNe', '전자 수 변화 ΔNe');
-    const read = () => ({ left: Number(left.value), right: Number(right.value), time: Number(time.value) });
-    const restore = s => { left.value = s.left; right.value = s.right; time.value = s.time; };
-    function render() {
-      const s = read(), p = continuityModel(s);
-      rate.textContent = ctx.format(p.rateMicroamp, 2); charge.textContent = ctx.format(p.chargeFC, 2); electrons.textContent = ctx.format(p.electronCountChange, 1);
-      ctx.view.replaceChildren(currentDiagram(ctx, s, p), note(ctx, 'Blue: conventional current. Gold: net electron flow. Positive direction: right (+x).', 'Blue는 conventional current, gold는 net electron flow입니다. 오른쪽이 +x 방향입니다.'),
-      note(ctx, 'Both currents are signed positive to the right. Thus Ileft enters and Iright leaves when positive: dQ/dt=Ileft−Iright. With fixed positive background, ΔNe=−ΔQ/e; positive accumulated charge means fewer electrons. Arrows show directions only, not current magnitudes. At zero current, the line has no arrowhead.', '두 전류 모두 오른쪽(+x)을 양수로 표시합니다. 양수인 Ileft는 들어오는 전류이고, 양수인 Iright는 나가는 전류이므로 dQ/dt=Ileft−Iright입니다. 양전하 배경을 고정하면 ΔNe=−ΔQ/e입니다. 따라서 ΔQ>0이면 전자가 줄어든 것입니다. 화살표는 방향만 나타내며, 길이로 전류의 크기를 비교하지 않습니다. 전류가 0이면 화살촉 없이 선만 표시합니다.'));
-      ctx.status.textContent = ctx.text(`At ${ctx.format(s.time, 2)} ns: ΔQ=${ctx.format(p.chargeFC, 2)} fC, ΔNe=${ctx.format(p.electronCountChange, 1)}. These are mean charge budgets, not a prediction of individual electron counts.`, `${ctx.format(s.time, 2)} ns 뒤 ΔQ=${ctx.format(p.chargeFC, 2)} fC, ΔNe=${ctx.format(p.electronCountChange, 1)}입니다. 평균 전하량을 계산한 값이며, 개별 전자의 수를 예측하는 모델은 아닙니다.`);
-    }
-    ctx.button('Equal currents: no accumulation', '전류가 같으면 전하가 쌓이지 않습니다', () => { restore({ left: 2, right: 2, time: 1 }); render(); });
-    ctx.button('Electron loss: ΔQ > 0', '전자가 줄어드는 경우: ΔQ > 0', () => { restore({ left: 2, right: 1, time: 1 }); render(); });
-    ctx.button('Electron gain: ΔQ < 0', '전자가 늘어나는 경우: ΔQ < 0', () => { restore({ left: 1, right: 2, time: 1 }); render(); });
-    ctx.onChange(render); share(ctx, 'drude-continuity', read, validContinuityState, restore, render);
-  });
   labs.register('drude-bloch', ctx => {
     setup(ctx);
     const mode = ctx.control('Allowed ka on the four-site ring', 'Four-site ring에서 가능한 ka', { type: 'select', value: '1', options: [

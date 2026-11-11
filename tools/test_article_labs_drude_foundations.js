@@ -11,25 +11,6 @@ function check(v, message) { assert.ok(v, message); physics++; }
 function close(a, b, tolerance = 1e-10) { check(Number.isFinite(a) && Math.abs(a - b) <= tolerance, `${a} != ${b} (tol ${tolerance})`); }
 function rejected(fn) { assert.throws(fn); physics++; }
 
-// Charge is the signed difference of boundary charge fluxes, with no source.
-for (const left of [-3, -1.25, 0, 1, 2, 3]) for (const right of [-3, -.5, 0, 1, 2, 3]) for (let i = 0; i <= 40; i++) {
-  const state = Object.freeze({ left, right, time: i * .05 }), p = m.continuityModel(state);
-  const enteringCharge = left * 1e-6 * state.time * 1e-9, leavingCharge = right * 1e-6 * state.time * 1e-9;
-  close(p.chargeC, enteringCharge - leavingCharge, 1e-28);
-  close(p.chargeFC * 1e-15, p.chargeC, 1e-28);
-  close(p.electronCountChange * electronCharge, p.chargeC, 1e-28);
-  close(p.electronRateLeft * electronCharge, left * 1e-6, 1e-20);
-  close(p.electronRateRight * electronCharge, right * 1e-6, 1e-20);
-  if (i < 40) {
-    const next = m.continuityModel({ left, right, time: (i + 1) * .05 });
-    close((next.chargeC - p.chargeC) / (.05e-9), (left - right) * 1e-6, 1e-18);
-  }
-  if (left === right) close(p.chargeC, 0);
-}
-const charged = m.continuityModel();
-close(charged.chargeC, 1e-15, 1e-28); close(charged.electronCountChange, -6241.509074460763, 1e-9);
-check(charged.electronCountChange < 0 && charged.rateMicroamp > 0);
-
 // An independent explicit complex matrix multiplication checks all four modes.
 const matrix = [[2, -1, 0, -1], [-1, 2, -1, 0], [0, -1, 2, -1], [-1, 0, -1, 2]];
 const exact = [
@@ -74,7 +55,6 @@ for (const speed of [.1, 1, 2]) {
   close(m.occupationModel({ delta: .5, speed }).fPlus, 0); close(m.occupationModel({ delta: -.5, speed }).fMinus, 0);
 }
 const specs = [
-  ['drude-continuity', m.validContinuityState, m.continuityModel, { left: 2, right: 1, time: 1 }, [{ left: 3.25 }, { right: -3.25 }, { left: .1 }, { time: .025 }, { time: 2.05 }]],
   ['drude-bloch', m.validBlochState, m.blochModel, { mode: 1, hopping: 1 }, [{ mode: -1 }, { mode: 4 }, { mode: .5 }, { mode: Math.PI / 2 }, { hopping: .15 }, { hopping: 0 }, { hopping: 3.1 }]],
   ['drude-occupation', m.validOccupationState, m.occupationModel, { delta: .1, speed: 1 }, [{ delta: -.51 }, { delta: .51 }, { delta: .005 }, { speed: 0 }, { speed: .15 }, { speed: 2.1 }]]
 ];
@@ -108,7 +88,7 @@ vm.runInNewContext(source, { window: { ArticleLabs: { register: (id, fn) => { as
 assert.deepEqual([...factories.keys()], specs.map(s => s[0])); lifecycle++;
 const registry = fs.readFileSync(require.resolve('../_data/article_labs_drude_foundations.yml'), 'utf8');
 assert.deepEqual(registry.match(/^drude-[a-z]+(?=:)/gm), [...factories.keys()]); lifecycle++;
-assert.equal((registry.match(/bundle: drude-foundations/g) || []).length, 3); lifecycle++;
+assert.equal((registry.match(/bundle: drude-foundations/g) || []).length, specs.length); lifecycle++;
 assert.ok(!registry.includes('stylesheet:') && fs.readFileSync(require.resolve('../_data/article_labs_drude.yml'), 'utf8').includes('stylesheet: /assets/css/article-labs-drude.css')); lifecycle++;
 assert.ok(!registry.includes('중성') && !source.includes('중성')); lifecycle++;
 function mount(id, ko) {
@@ -154,10 +134,6 @@ for (const [id, , , base, patches] of specs) for (const ko of [false, true]) {
     lab.reset(); assert.equal(lab.snapshot(), initial); lifecycle++;
   }
   for (const button of lab.buttons) { assert.ok(button.text.length > 0); button.click(); roundTrip(lab, id, ko); lab.reset(); assert.equal(lab.snapshot(), initial); lifecycle += 2; }
-  if (id === 'drude-continuity') for (const left of [-3, 0, 3]) for (const right of [-3, 0, 3]) for (const time of [0, 2]) {
-    assert.equal(lab.state.write({ left, right, time }), true);
-    close(Number(lab.metrics[1].textContent), (left - right) * time); close(Number(lab.metrics[0].textContent), left - right); roundTrip(lab, id, ko);
-  }
   if (id === 'drude-bloch') for (let mode = 0; mode < 4; mode++) for (const hopping of [.1, 3]) {
     assert.equal(lab.state.write({ mode, hopping }), true);
     const coefficientBars = lab.ctx.view.children[0].attrs.spec.bars, probabilityBars = lab.ctx.view.children[1].attrs.spec.bars;

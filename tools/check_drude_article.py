@@ -26,7 +26,7 @@ FIGURE_STEMS = (
     "fig-sec18-energy-average", "fig-07-charge", "fig-sec20-exercise-input",
 )
 LAB_IDS = ["drude-" + name for name in (
-    "continuity", "step", "ac", "bloch", "packet", "band", "occupation", "transition",
+    "step", "ac", "bloch", "packet", "band", "occupation", "transition",
     "gaussian", "angle", "impurity", "scattering", "phonon", "average", "charge", "quiz",
 )]
 

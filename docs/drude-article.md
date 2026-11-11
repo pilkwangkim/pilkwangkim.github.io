@@ -26,9 +26,13 @@ Longer derivations and answers are folded, without hiding essential assumptions.
 
 ## Physical contract
 
-- Positive e; electron charge -e. n counts the mobile conduction population;
-  stationary bound charges are represented in the fixed net positive background.
-  That background gives rho=e(ND-n).
+- Positive e; electron charge -e. n counts mobile conduction electrons and
+  excludes core electrons. ND is the fixed net positive charge density divided
+  by e, giving rho=e(ND-n). Ionized donors are positive; the negative ionized
+  acceptors and mobile positive holes of p-type transport are outside this model.
+- Linear drag gives the terminal-speed analogue of the mean-velocity equation.
+  Scattering relaxes the mean drift, not each electron's speed; steady drift
+  at fixed field is distinct from high-field velocity saturation.
   E=-grad(phi), -div(epsilon grad(phi))=rho, J=-en u. No particle sources.
 - Real positive constant background permittivity; conduction electrons are not
   counted twice inside it. Neutral bulk permits a boundary-imposed constant E.
@@ -76,10 +80,10 @@ Longer derivations and answers are folded, without hiding essential assumptions.
 
 - `assets/code/drude-model.py`: NumPy SI reference and numerical diagnostics.
 - `assets/js/article-labs-drude*.js`, scoped CSS and `_data/article_labs_drude*.yml`:
-  sixteen bilingual bounded labs. The original six (`step`, `ac`, `band`,
+  fifteen bilingual bounded labs. The original six (`step`, `ac`, `band`,
   `scattering`, `charge`, `quiz`) retain their physical models; axis ticks are
   spaced for mobile readability. Separate foundations,
-  quantum and microscopic bundles add continuity, Bloch phase, occupations,
+  quantum and microscopic bundles add Bloch phase, occupations,
   packet evolution, finite-time transitions, Fourier matrix elements, deflection,
   short-range impurities, phonon factors and energy averaging. Models have pure
   Node exports, validated state links and Reset. No arbitrary code execution.
@@ -148,19 +152,19 @@ No commit, push or deployment is implied by article authoring or verification.
 
 Focused checks: 7,547 Python assertions; 13,897 JS physics assertions and 2,354
 bilingual UI/state/reset assertions, with 783,380 finite in-domain plot points.
-The three additional bundles contribute 30,782 / 177,171 / 7,175 model/data
-assertions and 1,361 / 2,280 / 1,427 bilingual UI/state/reset assertions,
+The three additional bundles contribute 21,601 / 177,171 / 7,175 model/data
+assertions and 813 / 2,280 / 1,427 bilingual UI/state/reset assertions,
 respectively. Their independent plot checks cover 17,796 / 1,064,456 / 476,384
 finite in-domain points. These are executable-model checks, not browser geometry.
 The article checker independently replays 32 notebook code cells, compares their
 stored output, checks 34 Markdown cells and 40 byte-exact embedded PNGs, and
-preserves the exercise starter. All 65 numbered equations and 730 inline-math
+preserves the exercise starter. All 65 numbered equations and 731 inline-math
 occurrences match between languages. Multi-relation displays are stacked rather
 than shrunk to fit a phone; intrinsically long expressions can scroll locally.
 At widths up to 540px, numbered Drude displays put the number on a separate
 line below the formula. This removes the label-width margins that otherwise
 clip short equations on narrow screens, without reducing the glyph size.
-The rendered check compares all 91 displays and 730 inline formulas with their
+The rendered check compares all 91 displays and 731 inline formulas with their
 source and tests the 65 labels for overlap, clipping and inaccessible left
 overflow; page width, table columns and responsive figure sources are checked
 separately in both languages.
@@ -188,9 +192,8 @@ height, single-event count from angular current loss, Bose population from
 kinematically allowed transitions, and particle averaging from transport
 averaging. Each states its inputs, held assumptions and units, provides bounded
 presets and Reset, and validates shared settings before any mutation.
-The continuity activity uses a dynamic direction schematic and numerical budget,
-not a straight-line accumulated-charge graph. Static sections 1 and 4 also use
-schematics rather than plotting direct proportionalities as filler.
+Section 1 uses only the static direction schematic and worked charge budget.
+Section 4 compares mobility and density with a schematic at fixed field.
 
 ## Undergraduate-QM first-read refinement
 

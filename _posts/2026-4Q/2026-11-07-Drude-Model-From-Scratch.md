@@ -31,11 +31,13 @@ A voltage establishes an electric field, which exerts a force on the electrons. 
 ## 1. Charge and current densities, electric field and charge conservation
 {: id="drude-01" }
 
-Take a uniform wire with length $L$ and cross-sectional area $A$. Let $x$ increase from the left contact to the right. The positive elementary charge is $e$; an electron has charge $-e$. Write $n(\mathbf r,t)$ for the number of mobile conduction electrons per unit volume, not the count of all electrons bound in the atoms. The stationary charges are represented by a net positive background with number density $N_D$ and charge $+e$ per background particle. The background makes a neutral conductor possible without removing its mobile electrons.
+Take a uniform wire with length $L$ and cross-sectional area $A$. Set the origin of $x$ at the left contact, with positive direction to the right. An electron has charge $-e$, where $e$ is the elementary charge magnitude. Write $n(\mathbf r,t)$ for the number of mobile conduction electrons per unit volume; this excludes core electrons bound near the nuclei.
+
+Count the negative charge of the conduction electrons separately from the charge that remains. In a metal, the nuclei and the electrons not included in the conduction population together supply a net positive lattice charge. An ionized donor that has given up one electron in an n-type semiconductor also contributes $+e$. The model writes the remaining fixed positive charge density as $+eN_D$: $N_D$ is that charge density divided by the elementary charge, not a literal count of all stationary particles. Charge neutrality means that this positive charge balances the conduction electrons' negative charge. In a p-type semiconductor, by contrast, an acceptor gains an electron and becomes negatively charged, while a mobile hole carries positive charge. That is not the electron-only transport model used here. [MIT 6.012, Introduction to Semiconductors](https://ocw.mit.edu/courses/6-012-microelectronic-devices-and-circuits-fall-2009/a37c73e7fcff4bcb5c5f1177e12d0891_MIT6_012F09_lec01.pdf)
 
 Let $\mathbf u$ be the **mean drift velocity**: the vector velocity averaged over the electrons in a small region at the same time, in the wire's rest frame. Large velocities in opposite directions can cancel in that average. For example, equal numbers moving left and right at equal speeds give zero mean velocity, even though none of the electrons is at rest.
 
-Current measures the net charge crossing a section per unit time. For density and drift uniform across the section, the signed net number crossing an area $A$ in a short time $\Delta t$ is $nAu_x\Delta t$. Multiplying by the electron charge gives $\Delta Q=-enAu_x\Delta t$, and dividing by $\Delta t$ gives the current. Conventional current is defined in the direction of positive-charge motion, opposite to electron drift. The charge density $\rho$ and the conduction-current density $\mathbf J$ are therefore
+Current measures the net charge crossing a section per unit time. For density and drift uniform across the section, the signed net number crossing an area $A$ in a short time $\Delta t$ is $nAu_x\Delta t$. Multiplying by the electron charge gives $\Delta Q=-enAu_x\Delta t$, and dividing by $\Delta t$ gives the current. Conventional current is defined in the direction of positive-charge motion, opposite to electron drift. The net charge density $\rho$ is the sum of the fixed background and mobile electron charges. With conduction-current density $\mathbf J$,
 
 $$
 \begin{aligned}
@@ -60,7 +62,7 @@ $$
 
 The second expression is **Poisson's equation**. Here $\varepsilon_0$ is the vacuum permittivity. The dimensionless $\varepsilon_b$ represents the background electric response; the mobile conduction electrons remain in $\rho$ and are not counted again inside that background. Take it to be real, positive and constant over the frequencies considered. In a crystal this describes a field averaged over many atomic spacings, not the microscopic potential near each nucleus.
 
-In one dimension, the gradient is the derivative $\partial_x\varphi$, and the divergence of a vector field is $\partial_xE_x$. A positive divergence means that more field leaves a small region than enters it. The units are $\mathrm{V/m}$ for $\mathbf E$ and $\mathrm{F/m}$ for $\varepsilon$, so both sides of Eq. (2) have units of charge per volume.
+In one dimension, the potential gradient is $\partial_x\varphi$ and the electric-field divergence is $\partial_xE_x$. A positive divergence means that the net outward electric flux from a small region is positive. The units are $\mathrm{V/m}$ for $\mathbf E$ and $\mathrm{F/m}$ for $\varepsilon$, so both sides of Eq. (2) have units of charge per volume.
 
 Poisson's equation relates charge to the spatial variation of the field. It does not yet say how fast electrons move. It also needs boundary conditions: a charge density alone does not determine the potential uniquely. [Haus and Melcher, Chs. 4 and 7][electrostatics]
 
@@ -102,8 +104,6 @@ The positive charge increase means that the electron number decreases by $\Delta
 </picture>
 <figcaption markdown="span">Figure 1. The two arrow rows distinguish conventional current from net electron flow. Both boundary currents use $+x$ as the positive direction. Keeping $I_{\rm left}=2\,\mu\mathrm A$ and $I_{\rm right}=1\,\mu\mathrm A$ for $1\,\mathrm{ns}$ gives $\Delta Q=+10^{-15}\,\mathrm C$. The electron-count change is $\Delta N_e=-\Delta Q/e\simeq-6.24\times10^3$: more electrons leave through the left boundary than enter through the right.</figcaption>
 </figure>
-
-{% include interactive/article-lab.html id="drude-continuity" %}
 
 | Relation | What it determines | What it does not determine alone |
 |---|---|---|
@@ -198,7 +198,11 @@ m^{\ast}\frac{d\mathbf u}{dt}
 \tag{6}
 $$
 
-The electric force supplies the first term. The loss of directional memory supplies the second: if the mean velocity points left, that term points right and reduces its magnitude. It is a statement about the average, not a friction force that stops every individual electron. [TU Delft, Drude equation of motion][drude-notes]
+The electric force supplies the first term. Scattering reduces the directional bias in the electron velocities, giving the second term. If the mean velocity points left, that term points right. [TU Delft, Drude equation of motion][drude-notes]
+
+An object dropped from a height speeds up at first, but increasing drag reduces its acceleration. As the upward drag balances the downward force, the object approaches its terminal speed. For a small bead falling slowly through a viscous liquid, drag is approximately proportional to speed. A constant downward force after accounting for buoyancy, opposed by linear drag, gives an equation of the same form as the Drude equation. [OpenStax, drag and terminal speed](https://openstax.org/books/university-physics-volume-1/pages/6-4-drag-force-and-terminal-speed)
+
+At a fixed field, the mean electron drift approaches a constant in the same way. The analogy is about the equation for the mean: the falling bead experiences a drag force, but the Drude relaxation term describes scattering reducing the electrons' collective directional bias, not friction on each electron. This approach to steady drift **over time at a fixed field** is different from high-field velocity saturation, where increasing the field no longer increases the drift speed appreciably.
 
 With the field removed, Eq. (6) becomes $d\mathbf u/dt=-\mathbf u/\tau$, whose solution is $\mathbf u(t)=\mathbf u(0)e^{-t/\tau}$. Thus $\tau$ measures how quickly the mean velocity decays: after one $\tau$, it is $e^{-1}$ of its initial value. This is the **momentum relaxation time**, also written $\tau_{\rm tr}$.
 
@@ -209,7 +213,7 @@ For now the mean response is uniform in space, the positive mass is independent 
 <figure class="drude-figure">
 <picture class="rsna-results-figure">
 <source media="(max-width: 560px)" srcset="{% include media-url.html src='/assets/img/posts/2026-11-07-drude-model/fig-sec03-mean-drift-mobile.svg' %}" width="600" height="1090">
-<img src="/assets/img/posts/2026-11-07-drude-model/fig-sec03-mean-drift.svg" alt="Collisionless linear current growth and Drude saturation compared with the same finite reference scales." width="1200" height="740">
+<img src="/assets/img/posts/2026-11-07-drude-model/fig-sec03-mean-drift.svg" alt="At a fixed field, current grows linearly without scattering but approaches a steady value with Drude relaxation." width="1200" height="740">
 </picture>
 <figcaption markdown="span">Figure 3. Both curves use the same field and zero initial mean drift, with $m^{\ast}=m_0$. The axes use $s=t/\tau_{\rm ref}$ and $J_{\rm ref}=ne^2E_0\tau_{\rm ref}/m^{\ast}$, with a finite $\tau_{\rm ref}>0$. The dashed curve has no scattering; the solid curve uses $\tau=\tau_{\rm ref}$. For the collisionless curve, the reference time is only a plotting unit, not a scattering time.</figcaption>
 </figure>
@@ -1380,7 +1384,7 @@ $$
 \tag{47}
 $$
 
-$Z$ is a signed coupling parameter; reversing it changes the Born amplitude's sign but not its squared magnitude. The positive $q_s$ is an inverse screening length. The electron–defect potential can be attractive or repulsive; only the magnitude is needed for the rates below. This is a prescribed **Yukawa** model, not a self-consistent calculation of the defect and its surroundings. [Tong, Sec. 6.3.2][tong-scattering]
+$Z$ sets the sign of the electron's potential energy. In this convention it is negative for a positively charged defect, which attracts the electron. Reversing its sign changes the Born amplitude's sign but not its squared magnitude. The positive $q_s$ is an inverse screening length. The **Yukawa** potential and its screening length are prescribed rather than calculated from the surrounding charge distribution. [Tong, Sec. 6.3.2][tong-scattering]
 
 Elastic scattering preserves $k=\lvert\mathbf k\rvert=\lvert\mathbf k^{\prime}\rvert$. Geometry gives
 
@@ -1392,7 +1396,7 @@ $$
 \tag{48}
 $$
 
-The dimensionless ratio compares the largest elastic momentum transfer with the screening wavevector. When the screening wavevector is large compared with the whole available transfer range, the Fourier denominator is nearly constant; otherwise its angular dependence matters. When $q_s\ll k$, the matrix element is strongly concentrated near $\theta=0$. Many events can broaden a momentum state while barely relaxing the current. To evaluate the two rates, set $z=1-\cos\theta$ and $C_U=Ze^2/\varepsilon$. Azimuthal integration gives
+The dimensionless ratio is the square of the largest elastic wavevector transfer divided by the screening wavevector. When the screening wavevector is large compared with the whole available transfer range, the Fourier denominator is nearly constant; otherwise its angular dependence matters. When $q_s\ll k$, the matrix element is strongly concentrated near $\theta=0$. Many events can broaden a momentum state while barely relaxing the current. To evaluate the two rates, set $z=1-\cos\theta$ and $C_U=Ze^2/\varepsilon$. Azimuthal integration gives
 
 $$
 \begin{pmatrix}\Gamma_q\\\Gamma_{\rm tr}\end{pmatrix}
