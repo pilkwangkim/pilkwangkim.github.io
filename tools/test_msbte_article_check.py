@@ -2,11 +2,17 @@
 """Regression checks for portable, fail-closed MS-BTE notebook replay."""
 from __future__ import annotations
 
+import base64
+import contextlib
 import copy
+import io
 import json
 from pathlib import Path
 import unittest
+from unittest import mock
 
+import build_msbte_notebooks
+import check_msbte_article
 from check_msbte_article import notebook_outputs_match
 
 
@@ -15,6 +21,32 @@ def stream(text, name="stdout"):
 
 
 class NotebookOutputChecks(unittest.TestCase):
+    def test_builder_renders_figures_by_default(self):
+        rendered_png = b"rendered PNG regression sentinel"
+        with mock.patch("build_msbte_notebooks.subprocess.check_output", return_value=rendered_png) as renderer:
+            cells = build_msbte_notebooks.notebook_cells("en")
+        attachments = {name: formats for cell in cells for name, formats in cell.get("attachments", {}).items()}
+        self.assertEqual(len(attachments), 7)
+        self.assertEqual(renderer.call_count, 7)
+        for call in renderer.call_args_list:
+            self.assertEqual(call.args[0][:3], ["rsvg-convert", "--format", "png"])
+            self.assertTrue(call.args[0][3].endswith(".svg"))
+        for formats in attachments.values():
+            self.assertEqual(base64.b64decode(formats["image/png"], validate=True), rendered_png)
+
+    def test_actual_checker_replays_both_notebooks_without_external_renderer(self):
+        output = io.StringIO()
+        with mock.patch("build_msbte_notebooks.subprocess.check_output",
+                        side_effect=FileNotFoundError("rsvg-convert unavailable in regression")) as renderer:
+            with contextlib.redirect_stdout(output):
+                check_msbte_article.main()
+        renderer.assert_not_called()
+        result = json.loads(output.getvalue())
+        self.assertEqual(result["status"], "PASS")
+        self.assertEqual(result["executed_notebooks"], 2)
+        self.assertEqual(result["replayed_notebook_cells"], 24)
+        self.assertEqual(result["byte_exact_embedded_figures"], 14)
+
     def test_recorded_blas_roundoff(self):
         stored = stream("occupation range: 0.22023121387283215 0.8797687861271675\n"
                         "face-flux variation: 7.327471962526033e-15\n")

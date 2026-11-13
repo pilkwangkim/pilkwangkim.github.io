@@ -81,7 +81,7 @@ def check_executed_notebook(notebook, language, images):
     # Reconstruct Markdown with the documented builder conversion, without
     # invoking its executor or accepting a previously generated text snapshot.
     from build_msbte_notebooks import notebook_cells
-    expected = notebook_cells(language)
+    expected = notebook_cells(language, render_figures=False)
     actual = notebook["cells"]
     assert [(c["cell_type"], c["source"], c["id"]) for c in actual] == [
         (c["cell_type"], c["source"], c["id"]) for c in expected

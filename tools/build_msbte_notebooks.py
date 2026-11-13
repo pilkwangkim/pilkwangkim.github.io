@@ -22,7 +22,8 @@ ROUTE = "Multi-Subband-Boltzmann-Transport-From-Scratch"
 SITE = "https://pilkwangkim.github.io"
 
 
-def notebook_cells(language):
+def notebook_cells(language, *, render_figures=True):
+    """Build cells, optionally reusing checked-in PNGs for read-only checks."""
     suffix = "-KR" if language == "ko" else ""
     raw = (ROOT / f"_posts/2026-4Q/{STEM}{suffix}.md").read_text(encoding="utf-8")
     _, front, body = raw.split("---", 2)
@@ -42,7 +43,8 @@ def notebook_cells(language):
         alt = re.search(r'<img[^>]* alt="([^"]+)"', fragment)[1]
         caption = re.search(r'<figcaption[^>]*>(.*?)</figcaption>', fragment, re.S)[1]
         path = ROOT / src.lstrip("/")
-        png = subprocess.check_output(["rsvg-convert", "--format", "png", str(path)])
+        png = (subprocess.check_output(["rsvg-convert", "--format", "png", str(path)])
+               if render_figures else path.with_suffix(".png").read_bytes())
         name = path.stem + ".png"
         attachments[name] = {"image/png": base64.b64encode(png).decode("ascii")}
         return f"\n![{alt}](attachment:{name})\n\n*{caption}*\n"
