@@ -5,6 +5,14 @@
 .article-lab.drude-lab .drude-answer { padding: .9rem; border-left: 3px solid var(--al-gold); line-height: 1.65; }
 .article-lab.drude-lab .drude-answer.drude-correct { border-left-color: var(--al-blue); }
 .article-lab.drude-lab .al-metrics output { overflow-wrap: anywhere; }
+/* A changing sign or digit count must not steal width from a slider label. */
+.article-lab.drude-lab .al-control-label:has(.al-control-value) { display: grid; grid-template-columns: minmax(0, 1fr) 6ch; align-items: start; }
+.article-lab.drude-lab .al-control-value { text-align: right; white-space: nowrap; }
+#lab-drude-angle .al-status { min-height: 2.9em; }
+/* Scientific readouts retain their slots as mantissas/exponents change. */
+#lab-drude-gaussian .al-metrics dt { min-height: 2.8em; }
+#lab-drude-gaussian .al-metrics dd { min-height: 2.4em; }
+#lab-drude-gaussian .al-metrics output { display: block; font-family: ui-monospace, monospace; font-variant-numeric: tabular-nums; white-space: nowrap; font-size: .76rem; }
 .article-lab.drude-lab :is(.al-axis-heading,.al-axis-caption,.al-chart-legend) { font-size: .8rem; }
 .article-lab.drude-lab :is(.al-control-label,.al-metrics dt,.al-status,.al-model,.al-model p) { font-size: .78rem; }
 .drude-figure { margin: 1.7rem 0; }
@@ -18,6 +26,19 @@ html[lang=ko] article:has(.drude-figure) :is(h1,h2,h3) { word-break: keep-all; o
 .content:has(.drude-figure) .drude-table :is(th,td):first-child { width: 25%; }
 .content:has(.drude-figure) .drude-table :is(th,td):nth-child(n+2) { width: 37.5%; }
 html[lang=ko] .content:has(.drude-figure) .drude-table :is(th,td) { word-break: keep-all; overflow-wrap: break-word; }
+/* Keep later plots in place when an optional comparison curve is hidden. */
+@container articlelab (max-width: 519px) {
+  #lab-drude-band .al-chart-wrap:first-child .al-chart-legend,
+  #lab-drude-average .al-chart-wrap:nth-child(2) .al-chart-legend {
+    min-height: calc(2 * 1.45em + .2rem);
+  }
+  #lab-drude-angle .al-status,
+  #lab-drude-step .al-status { min-height: 4.35em; }
+}
+@container articlelab (max-width: 299px) {
+  #lab-drude-angle .al-status { min-height: 5.8em; }
+  #lab-drude-impurity .al-status { min-height: 8.7em; }
+}
 @media (max-width: 540px) {
   .article-lab.drude-lab .drude-explanation { font-size: .9rem; }
   body:has(.drude-figure) #back-to-top { display: none !important; }

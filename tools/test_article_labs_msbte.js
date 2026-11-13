@@ -180,13 +180,26 @@ function mount(id, ko) {
     el: (tag, attrs, children) => new Element(tag, attrs, children),
     svg: (tag, attrs, children) => new Element(tag, attrs, children),
     metric: () => { const v = new Element('output'); metrics.push(v); return v; },
-    control: (_en, _ko, opts) => { const v = new Element('input'); v.value = String(opts.value); v.checked = opts.type === 'checkbox' && opts.value; fields.push(v); defaults.push({ value: v.value, checked: v.checked }); return v; },
+    control: (_en, _ko, opts) => { const v = new Element('input'); v.config = opts; v.value = String(opts.value); v.checked = opts.type === 'checkbox' && opts.value; fields.push(v); defaults.push({ value: v.value, checked: v.checked }); return v; },
     button: (en, korean, fn) => { buttons.push(fn); return new Element('button'); },
-    plot: spec => { spec.series.forEach(s => s.points.forEach(([x, y]) => { assert.ok(Number.isFinite(x) && Number.isFinite(y)); assert.ok(x >= spec.x[0] - 1e-8 && x <= spec.x[1] + 1e-8, 'A plot must not hide out-of-range coordinates.'); assert.ok(y >= spec.y[0] - 1e-8 && y <= spec.y[1] + 1e-8, 'A plot must not hide out-of-range values.'); })); (spec.markers || []).forEach(p => { assert.ok(p.x >= spec.x[0] && p.x <= spec.x[1] && p.y >= spec.y[0] && p.y <= spec.y[1]); }); return new Element('div', { spec }, spec.title); },
+    plot: spec => {
+      const domains = {
+        'msbte-basics': [[[-100, 140], [0, 1]], [[0, 4], [0, 1]]],
+        'msbte-confinement': [[[-.5, .5], [0, 320]], [[0, 20], [0, .36]], [[0, 8], [0, .36]]],
+        'msbte-injection': [[[-.8, .8], [0, 1]], [[20, 260], [0, 1]], [[.5, 8.5], [-22, 22]]],
+        'msbte-scattering': [[[0, 100], [0, 1]], [[0, 100], [-2.1, 2.1]], [[-.8, .8], [0, 280]]]
+      };
+      if (domains[id]) assert.ok(domains[id].some(([x, y]) => JSON.stringify(x) === JSON.stringify(spec.x) && JSON.stringify(y) === JSON.stringify(spec.y)), 'A physical control rescaled its axes');
+      assert.ok(spec.x[0] < spec.x[1] && spec.y[0] < spec.y[1]);
+      spec.series.forEach(s => s.points.forEach(([x, y]) => { assert.ok(Number.isFinite(x) && Number.isFinite(y)); assert.ok(x >= spec.x[0] - 1e-8 && x <= spec.x[1] + 1e-8, 'A plot must not hide out-of-range coordinates.'); assert.ok(y >= spec.y[0] - 1e-8 && y <= spec.y[1] + 1e-8, 'A plot must not hide out-of-range values.'); }));
+      (spec.markers || []).forEach(p => { assert.ok(Number.isFinite(p.x) && Number.isFinite(p.y)); assert.ok(p.x >= spec.x[0] - 1e-8 && p.x <= spec.x[1] + 1e-8 && p.y >= spec.y[0] - 1e-8 && p.y <= spec.y[1] + 1e-8); });
+      (spec.bands || []).forEach(b => assert.ok(b.x0 >= spec.x[0] && b.x1 <= spec.x[1]));
+      return new Element('div', { spec }, spec.title);
+    },
     onChange: fn => { render = fn; fn(); }, onReset: fn => { customReset = fn; }, stateLink: (key, provider) => { assert.equal(key, id); state = provider; }
   };
   ctx.root.append(ctx.view, ctx.ui, ctx.status); factories.get(id)(ctx);
-  return { ctx, fields, buttons, metrics, state, render, reset: () => { fields.forEach((v, i) => Object.assign(v, defaults[i])); if (customReset) customReset(); render(); }, snapshot: () => JSON.stringify({ state: state.read(), text: ctx.view.textContent, status: ctx.status.textContent, metrics: metrics.map(v => v.textContent), customMetrics: ctx.metrics.textContent }) };
+  return { ctx, fields, buttons, metrics, state, render, reset: () => { fields.forEach((v, i) => Object.assign(v, defaults[i])); if (customReset) customReset(); render(); }, snapshot: () => JSON.stringify({ state: state.read(), text: ctx.view.textContent, graphics: ctx.view.children.filter(node => node.attrs?.spec).map(node => node.attrs.spec), status: ctx.status.textContent, metrics: metrics.map(v => v.textContent), customMetrics: ctx.metrics.textContent }) };
 }
 let lifecycle = 0;
 for (const id of factories.keys()) for (const ko of [false, true]) {
@@ -217,9 +230,13 @@ for (const id of factories.keys()) for (const ko of [false, true]) {
   }
   if (id === 'msbte-confinement') for (const width of [6, 10, 20]) for (const level of [0, 1, 2]) {
     assert.equal(lab.state.write({ width, level }), true);
+    assert.equal(lab.metrics[0].textContent.split('\n').length, 3);
     const curve = lab.ctx.view.children[1].attrs.spec.series[0].points;
     const area = curve.slice(1).reduce((sum, p, i) => sum + (p[0] - curve[i][0]) * (p[1] + curve[i][1]) / 2, 0);
-    assert.ok(Math.abs(area - 1) < 1e-12, 'The plotted marginal probability density must normalize to one.'); lifecycle++;
+    assert.ok(Math.abs(area - 1) < 1e-12, 'The plotted marginal probability density must normalize to one.');
+    const z = lab.ctx.view.children[2].attrs.spec.series[0].points;
+    const zArea = z.slice(1).reduce((sum, p, i) => sum + (p[0] - z[i][0]) * (p[1] + z[i][1]) / 2, 0);
+    assert.ok(Math.abs(zArea - 1) < 1e-12); lifecycle++;
   }
   if (id === 'msbte-injection') for (const muL of [50, 180]) for (const muR of [50, 180]) for (const temperature of [50, 500]) for (const count of [2, 4, 8]) { assert.equal(lab.state.write({ muL, muR, temperature, count }), true); lifecycle++; }
   if (id === 'msbte-injection') {
@@ -244,6 +261,8 @@ for (const id of factories.keys()) for (const ko of [false, true]) {
       lab.state.write({ ...symmetric, energy, filter: true });
       assert.equal(lab.ctx.view.children[0].attrs.spec.series.length, 2 * modes);
       assert.equal(lab.fields[6].disabled, modes === 1);
+      assert.equal(lab.fields[2].disabled, modes === 1);
+      assert.equal(lab.fields[5].disabled, modes === 1);
       assert.equal(lab.metrics[3].textContent, modes === 1 ? '25.00' : '—'); lifecycle++;
     }
     lab.state.write({ ...symmetric, filter: true, fL: .9, fL2: .1, fR: .5 });
@@ -283,4 +302,81 @@ for (const id of factories.keys()) for (const ko of [false, true]) {
   }
   assert.ok(!lab.ctx.view.textContent.includes('undefined')); lifecycle++;
 }
-console.log(`MS-BTE lab models: ${checks} checks (${previousModelChecks} core + ${basicsModelChecks} BTE basics + ${auditModelChecks} transmission audit + ${finalAuditChecks} final numerical audit); UI/state lifecycle: ${lifecycle} checks passed.`);
+// Chart-only signatures exclude text/readouts: controls must affect plotted
+// geometry or selected physical content, not just a numeric label.
+function graphic(lab) {
+  return JSON.stringify(lab.ctx.view.children.filter(node => node.attrs?.spec).map(node => {
+    const s = node.attrs.spec;
+    return { x: s.x, y: s.y, series: s.series.map(t => ({ points: t.points, color: t.color, dash: t.dash })), markers: (s.markers || []).map(p => ({ x: p.x, y: p.y, color: p.color })), bars: s.bars, bands: s.bands };
+  }));
+}
+let sliderStates = 0, graphicControls = 0;
+for (const id of ['msbte-basics', 'msbte-confinement', 'msbte-injection', 'msbte-scattering']) for (const ko of [false, true]) {
+  const lab = mount(id, ko), defaultState = JSON.parse(JSON.stringify(lab.state.read()));
+  function sweep(field) {
+    if (field.disabled) return;
+    const before = graphic(lab), cfg = field.config;
+    const values = cfg.type === 'select' ? cfg.options.map(o => o.value) : cfg.type === 'checkbox' ? [false, true] : Array.from({ length: Math.round((cfg.max - cfg.min) / cfg.step) + 1 }, (_, j) => Number((cfg.min + j * cfg.step).toPrecision(12)));
+    let changed = false;
+    for (const value of values) {
+      if (cfg.type === 'checkbox') field.checked = value; else field.value = String(value);
+      lab.render(); changed ||= graphic(lab) !== before;
+      const snapshot = lab.snapshot(), state = JSON.parse(JSON.stringify(lab.state.read()));
+      assert.equal(lab.state.write(state), true); assert.equal(lab.snapshot(), snapshot);
+      // Invalid/missing/extra keys never partially mutate controls or plots.
+      assert.equal(lab.state.write({ ...state, unexpected: 1 }), false); assert.equal(lab.snapshot(), snapshot);
+      sliderStates++;
+    }
+    assert.ok(changed, `${id}: an active control changed only text/readouts`); graphicControls++;
+  }
+  for (const field of lab.fields) { lab.state.write(defaultState); sweep(field); }
+  if (id === 'msbte-basics') { lab.state.write({ mode: 'relaxation', time: 1, rate: .4 }); sweep(lab.fields[2]); }
+  if (id === 'msbte-scattering') { lab.state.write({ ...defaultState, filter: true }); sweep(lab.fields[6]); }
+}
+for (const ko of [false, true]) {
+  const conf = mount('msbte-confinement', ko);
+  conf.state.write({ width: 6, level: 0 });
+  const narrow = conf.ctx.view.children[1].attrs.spec;
+  close(Math.max(...narrow.series[0].points.map(p => p[1])), 1 / 3, 1e-14);
+  conf.state.write({ width: 20, level: 0 });
+  close(Math.max(...conf.ctx.view.children[1].attrs.spec.series[0].points.map(p => p[1])), .1, 1e-14);
+  conf.state.write({ width: 6, level: 0 });
+  const y0 = JSON.stringify(conf.ctx.view.children[1].attrs.spec.series[0].points), z0 = JSON.stringify(conf.ctx.view.children[2].attrs.spec.series[0].points);
+  conf.state.write({ width: 6, level: 1 });
+  assert.equal(JSON.stringify(conf.ctx.view.children[1].attrs.spec.series[0].points), y0);
+  assert.notEqual(JSON.stringify(conf.ctx.view.children[2].attrs.spec.series[0].points), z0);
+  // A square wire has degenerate energies but different y/z densities.
+  conf.state.write({ width: 8, level: 1 }); const degen = graphic(conf), edge = conf.ctx.view.children[0].attrs.spec.markers[0].y;
+  conf.state.write({ width: 8, level: 2 }); close(conf.ctx.view.children[0].attrs.spec.markers[0].y, edge); assert.notEqual(graphic(conf), degen);
+  const inj = mount('msbte-injection', ko);
+  for (let temperature = 50; temperature <= 500; temperature += 25) for (const count of [2, 4, 8]) for (const [muL, muR] of [[50, 180], [180, 50]]) {
+    // Current is monotone in each chemical potential, so the extreme contact
+    // values bound every intermediate slider combination at each allowed T.
+    assert.equal(inj.state.write({ muL, muR, temperature, count }), true); sliderStates++;
+  }
+  for (const count of [2, 4, 8]) {
+    inj.state.write({ muL: 180, muR: 50, temperature: 500, count });
+    const c = inj.ctx.view.children[2].attrs.spec;
+    assert.deepEqual(Array.from(c.x), [.5, 8.5]); assert.deepEqual(Array.from(c.y), [-22, 22]);
+    assert.equal(c.markers[0].x, count); close(c.markers[0].y, -m.ballisticCurrent(m.subbands(10, 8, .19, count).map(b => b.edge), 180, 50, 500));
+    assert.equal(c.series[1].points.length, count); assert.equal(c.bands[0].x1, count + .5);
+  }
+  const shell = mount('msbte-scattering', ko), base = JSON.parse(JSON.stringify(shell.state.read()));
+  shell.state.write({ ...base, energy: 120 });
+  const occupation120 = JSON.stringify(shell.ctx.view.children[0].attrs.spec.series), dispersion120 = JSON.stringify(shell.ctx.view.children[2].attrs.spec.markers);
+  shell.state.write({ ...base, energy: 130 });
+  assert.equal(JSON.stringify(shell.ctx.view.children[0].attrs.spec.series), occupation120, 'Velocity cancels only in the stated inverse-length model');
+  assert.notEqual(JSON.stringify(shell.ctx.view.children[2].attrs.spec.markers), dispersion120);
+  for (const energy of [60, 110, 115, 140]) for (const beta of [0, .04]) for (const gamma of [0, .04]) for (const cells of [12, 36]) for (const [fL, fR, fL2, filter] of [[1, 0, .1, false], [0, 1, .9, true], [.9, .5, .1, true], [.5, .5, .5, false]]) {
+    assert.equal(shell.state.write({ energy, beta, gamma, cells, fL, fR, fL2, filter }), true);
+    const n = energy <= 110 ? 1 : 2;
+    assert.equal(shell.fields[2].disabled, n === 1); assert.equal(shell.fields[5].disabled, n === 1);
+    assert.equal(shell.ctx.view.children[0].attrs.spec.markers.length, cells);
+    shell.ctx.view.children[0].attrs.spec.markers.forEach((p, j) => assert.ok(Math.abs(p.x - (j + .5) * 100 / cells) < 1e-12));
+    assert.equal(shell.metrics[2].textContent.split('\n').length, 2);
+    assert.equal(shell.metrics[1].textContent.length, 8);
+    shell.ctx.view.children[2].attrs.spec.markers.forEach(p => { const band = m.subbands(10, 8, .19, 2).find(b => Math.abs(b.edge + m.A0 / .19 * p.x * p.x - energy) < 1e-8); assert.ok(band); });
+    lifecycle++;
+  }
+}
+console.log(`MS-BTE lab models: ${checks} checks (${previousModelChecks} core + ${basicsModelChecks} BTE basics + ${auditModelChecks} transmission audit + ${finalAuditChecks} final numerical audit + ${checks - previousModelChecks - basicsModelChecks - auditModelChecks - finalAuditChecks} fixed-scale numerical checks); UI/state lifecycle: ${lifecycle} checks; ${sliderStates} control-grid/bounding states; ${graphicControls} active control-to-graphic checks passed. Fixed axes and finite in-domain plot data checked on every render; browser geometry is separate.`);

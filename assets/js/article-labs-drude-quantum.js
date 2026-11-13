@@ -3,6 +3,13 @@
 (function () {
   'use strict';
   const HBAR_EV_FS = 0.6582119569509067;
+  // These physical reference values never depend on a slider. The analytic
+  // packet helpers below retain dimensionless arguments; plotting converts
+  // their results once, without recentering or rescaling an individual state.
+  const PACKET_WIDTH_NM = 10, PACKET_MASS_KG = 9.1093837139e-31;
+  const HBAR_J_S = 6.62607015e-34 / (2 * Math.PI), ELEMENTARY_CHARGE = 1.602176634e-19;
+  const PACKET_TIME_PS = 2 * PACKET_MASS_KG * (PACKET_WIDTH_NM * 1e-9) ** 2 / HBAR_J_S * 1e12;
+  const PACKET_FORCE_EV_NM = 2 * PACKET_MASS_KG * PACKET_WIDTH_NM * 1e-9 / (PACKET_TIME_PS * 1e-12) ** 2 / ELEMENTARY_CHARGE * 1e-9;
   const inRange = (x, lo, hi) => Number.isFinite(x) && x >= lo && x <= hi;
   const onGrid = (x, lo, hi, step) => inRange(x, lo, hi) && Math.abs((x - lo) / step - Math.round((x - lo) / step)) < 1e-7;
   const exactKeys = (s, keys) => s !== null && typeof s === 'object' && !Array.isArray(s) && Object.keys(s).length === keys.length && keys.every(key => Object.prototype.hasOwnProperty.call(s, key));
@@ -54,7 +61,7 @@
     const strength = gaussianStrength(width, mode), amplitude = strength * Math.exp(-.5 * (q * width) ** 2);
     return { strength, amplitude, rateFactor: amplitude * amplitude, peakPotential: strength / (Math.sqrt(2 * Math.PI) * width) };
   }
-  const api = { HBAR_EV_FS, packetState, packetDensity, sinc, transitionProbability, transitionSummary, gaussianStrength, gaussianPotential, gaussianFourier };
+  const api = { HBAR_EV_FS, PACKET_WIDTH_NM, PACKET_MASS_KG, PACKET_TIME_PS, PACKET_FORCE_EV_NM, packetState, packetDensity, sinc, transitionProbability, transitionSummary, gaussianStrength, gaussianPotential, gaussianFourier };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   if (typeof window === 'undefined' || !window.ArticleLabs) return;
   const labs = window.ArticleLabs;
@@ -63,6 +70,9 @@
   const range = (ctx, en, ko, min, max, step, value) => ctx.control(en, ko, { type: 'range', min, max, step, value });
   const explanation = (ctx, en, ko) => ctx.el('p', { class: 'drude-explanation' }, ctx.text(en, ko));
   const value = x => x === 0 ? '0' : Math.abs(x) < .001 ? x.toExponential(3) : String(Number(x.toFixed(4)));
+  // A fixed mantissa and two-digit exponent keep tiny Fourier values readable
+  // without switching formats (and changing the metric card's line count).
+  const scientific = x => x.toExponential(3).replace(/e([+-])(\d+)$/, (_, sign, digits) => `e${sign}${digits.padStart(2, '0')}`);
   function share(ctx, id, read, valid, write, render) {
     ctx.stateLink(id, { read, write: s => {
       // No control, chart or metric changes until the entire payload is valid.
@@ -73,35 +83,36 @@
 
   labs.register('drude-packet', ctx => {
     ctx.root.classList.add('drude-lab', 'al-workshop');
-    const force = range(ctx, 'External force α', '외력 α', -1, 1, .1, 1);
-    const time = range(ctx, 'Time s = t/t0', '시간 s = t/t0', 0, 3, .1, 1);
-    const center = ctx.metric('Center ⟨x⟩/Δx0', '중심 ⟨x⟩/Δx0');
-    const width = ctx.metric('Width Δx(t)/Δx0', '폭 Δx(t)/Δx0');
-    const velocity = ctx.metric('Center velocity ⟨v⟩t0/Δx0', '중심의 속도 ⟨v⟩t0/Δx0');
+    const force = range(ctx, 'External force F/F0 (fixed F0 = 0.0381 meV/nm)', '외력 F/F0 (고정 기준 F0 = 0.0381 meV/nm)', -1, 1, .1, 1);
+    const time = range(ctx, 'Time t/t0 (fixed t0 = 1.728 ps)', '시간 t/t0 (고정 기준 t0 = 1.728 ps)', 0, 3, .1, 1);
+    const center = ctx.metric('Center ⟨x⟩ (nm)', '중심 ⟨x⟩ (nm)');
+    const width = ctx.metric('Width Δx(t) (nm)', '폭 Δx(t) (nm)');
+    const velocity = ctx.metric('Center velocity ⟨v⟩ (m/s)', '중심의 속도 ⟨v⟩ (m/s)');
     const normalization = ctx.metric('Probability over all x', '모든 위치에서 적분한 확률');
     const read = () => ({ alpha: Number(force.value), s: Number(time.value) });
     const valid = s => exactKeys(s, ['alpha', 's']) && onGrid(s.alpha, -1, 1, .1) && onGrid(s.s, 0, 3, .1);
     const write = s => { force.value = s.alpha; time.value = s.s; };
     function render() {
       const s = read(), p = packetState(s.alpha, s.s);
-      center.textContent = value(p.center); width.textContent = value(p.width); velocity.textContent = value(p.velocity); normalization.textContent = '1';
-      const lo = Math.floor(Math.min(-5, p.center - 5 * p.width)), hi = Math.ceil(Math.max(5, p.center + 5 * p.width));
+      center.textContent = (p.center * PACKET_WIDTH_NM).toFixed(2); width.textContent = (p.width * PACKET_WIDTH_NM).toFixed(2); velocity.textContent = scientific(p.velocity * PACKET_WIDTH_NM / PACKET_TIME_PS * 1000); normalization.textContent = '1';
       ctx.view.replaceChildren(
-        ctx.plot({ x: [lo, hi], y: [0, .42], xLabel: 'x/Δx0', yLabel: 'Δx0 |ψenv|²', title: ctx.text('The envelope moves and spreads', 'Envelope의 이동과 퍼짐'),
-          series: [line(samples(lo, hi, 301, x => packetDensity(x, 0, 0)), 'muted', ctx.text('Initial probability density', '초기 확률밀도'), true), line(samples(lo, hi, 301, x => packetDensity(x, s.alpha, s.s)), 'blue', ctx.text('Probability density at selected time', '선택한 시간의 확률밀도'))],
-          markers: [{ x: p.center, y: p.peak, color: 'blue', label: ctx.text('Center', '중심') }], yTicks: [0, .2, .4] }),
-        ctx.plot({ x: [0, 3], y: [-10, 10], xLabel: 's = t/t0', yLabel: ctx.text('Length / Δx0', '길이 / Δx0'), title: ctx.text('Force moves the center; dispersion sets the width', '외력은 중심을 움직이고, dispersion은 폭을 넓힙니다'),
-          series: [line(samples(0, 3, 121, t => packetState(s.alpha, t).center), 'blue', '⟨x⟩/Δx0 = αs²'), line(samples(0, 3, 121, t => packetState(s.alpha, t).width), 'gold', 'Δx(t)/Δx0 = √(1+s²)')],
-          markers: [{ x: s.s, y: p.center, color: 'blue', label: 's' }, { x: s.s, y: p.width, color: 'gold', label: '' }], xTicks: [0, 1, 2, 3], yTicks: [-10, -5, 0, 5, 10] }),
+        ctx.plot({ x: [-250, 250], y: [0, .042], xLabel: 'x (nm)', yLabel: '|ψenv|² (nm⁻¹)', title: ctx.text('The envelope moves and spreads on fixed axes', '고정된 좌표축에서 보는 envelope의 이동과 퍼짐'),
+          series: [line(samples(-250, 250, 601, x => packetDensity(x / PACKET_WIDTH_NM, 0, 0) / PACKET_WIDTH_NM), 'muted', ctx.text('Initial probability density', '초기 확률밀도'), true), line(samples(-250, 250, 601, x => packetDensity(x / PACKET_WIDTH_NM, s.alpha, s.s) / PACKET_WIDTH_NM), 'blue', ctx.text('Probability density at selected time', '선택한 시간의 확률밀도'))],
+          markers: [{ x: p.center * PACKET_WIDTH_NM, y: p.peak / PACKET_WIDTH_NM, color: 'blue', label: ctx.text('Center', '중심') }], xTicks: [-200, -100, 0, 100, 200], yTicks: [0, .02, .04] }),
+        ctx.plot({ x: [0, 6], y: [-100, 100], xLabel: 't (ps)', yLabel: ctx.text('Length (nm)', '길이 (nm)'), title: ctx.text('Force moves the center; dispersion sets the width', '외력은 중심을 움직이고, dispersion은 폭을 넓힙니다'),
+          series: [line(samples(0, 3, 121, time => packetState(s.alpha, time).center * PACKET_WIDTH_NM).map(([time, x]) => [time * PACKET_TIME_PS, x]), 'blue', '⟨x⟩'), line(samples(0, 3, 121, time => packetState(s.alpha, time).width * PACKET_WIDTH_NM).map(([time, width]) => [time * PACKET_TIME_PS, width]), 'gold', 'Δx(t)')],
+          markers: [{ x: s.s * PACKET_TIME_PS, y: p.center * PACKET_WIDTH_NM, color: 'blue', label: 't' }, { x: s.s * PACKET_TIME_PS, y: p.width * PACKET_WIDTH_NM, color: 'gold', label: '' }], xTicks: [0, 2, 4, 6], yTicks: [-100, -50, 0, 50, 100] }),
         explanation(ctx, 'Set α=0: the center stays put, but the packet still spreads. Reversing α reverses the center motion without changing the width. These are probability distributions and expectation values, not paths of individual electrons.', 'α=0으로 두면 중심은 그대로 있어도 packet은 퍼집니다. α의 부호를 바꾸면 중심의 이동 방향만 바뀌고 폭은 같습니다. 곡선은 확률분포이고 중심은 expectation value입니다. 전자 하나의 경로를 그린 것이 아닙니다.')
       );
-      ctx.status.textContent = ctx.text('Exact within the stated quadratic-envelope Hamiltonian; no scattering.', '아래의 quadratic-envelope Hamiltonian에 대한 정확한 해입니다. Scattering은 포함하지 않습니다.');
+      const forceReadout = (s.alpha < 0 ? '−' : '+') + Math.abs(s.alpha * PACKET_FORCE_EV_NM * 1000).toFixed(4);
+      const timeReadout = (s.s * PACKET_TIME_PS).toFixed(4);
+      ctx.status.textContent = ctx.text(`F=${forceReadout} meV/nm; t=${timeReadout} ps. Δx0=10 nm and m*=m0 stay fixed, as do both plot axes. No scattering.`, `F=${forceReadout} meV/nm, t=${timeReadout} ps입니다. Δx0=10 nm와 m*=m0, 두 그래프의 축 범위는 모두 고정되어 있습니다. Scattering은 포함하지 않습니다.`);
     }
     const preset = (en, ko, s) => ctx.button(en, ko, () => { write(s); render(); });
     preset('Spread without force', '외력 없이 퍼짐', { alpha: 0, s: 2 });
     preset('Drive to the right', '오른쪽으로 이동', { alpha: 1, s: 2 });
     preset('Drive to the left', '왼쪽으로 이동', { alpha: -1, s: 2 });
-    ctx.note('Henv=−ℏ²∂x²/(2m*)−Fx, m*>0 constant, with a real initial Gaussian ψenv∝exp[−x²/(4Δx0²)], ⟨x⟩=⟨v⟩=0. Δx0 is the initial position standard deviation, not a conductivity. t0=2m*Δx0²/ℏ and α=F t0²/(2m*Δx0). Then ⟨x⟩/Δx0=αs² and Δx(t)/Δx0=√(1+s²). The packet is an ideal parabolic-band envelope, not a resolved lattice wavefunction. No scattering, interband transitions or Berry-curvature terms. The finite plot window is not used to renormalize the density.', 'Henv=−ℏ²∂x²/(2m*)−Fx를 사용하며 m*>0은 상수입니다. 초기 상태는 실수 Gaussian ψenv∝exp[−x²/(4Δx0²)]이고 ⟨x⟩=⟨v⟩=0입니다. Δx0는 초기 위치 분포의 standard deviation입니다. t0=2m*Δx0²/ℏ, α=F t0²/(2m*Δx0)로 두면 ⟨x⟩/Δx0=αs², Δx(t)/Δx0=√(1+s²)입니다. 이상적인 parabolic band의 envelope를 계산하며 lattice 내부의 wavefunction은 표시하지 않습니다. Scattering, interband transition, Berry curvature는 포함하지 않습니다. 그래프에 보이는 범위만으로 확률밀도를 다시 normalize하지 않습니다.');
+    ctx.note('Henv=−ℏ²∂x²/(2m*)−Fx, with fixed m*=m0 and initial position standard deviation Δx0=10 nm. The real initial Gaussian ψenv∝exp[−x²/(4Δx0²)] has ⟨x⟩=⟨v⟩=0. Fixed t0=2m0Δx0²/ℏ≈1.728 ps and F0=2m0Δx0/t0²≈0.0381 meV/nm define s=t/t0 and α=F/F0. Then ⟨x⟩=Δx0 αs² and Δx(t)=Δx0√(1+s²). The plots show nm, ps and nm⁻¹ on fixed axes, with no state-dependent recentering or normalization. The packet is an ideal parabolic-band envelope, not a resolved lattice wavefunction. No scattering, interband transitions or Berry-curvature terms. The finite plot window is not used to renormalize the density.', 'Henv=−ℏ²∂x²/(2m*)−Fx를 사용하고 m*=m0, 초기 위치 분포의 standard deviation Δx0=10 nm로 고정합니다. 초기 상태는 실수 Gaussian ψenv∝exp[−x²/(4Δx0²)]이고 ⟨x⟩=⟨v⟩=0입니다. 기준값 t0=2m0Δx0²/ℏ≈1.728 ps와 F0=2m0Δx0/t0²≈0.0381 meV/nm도 고정합니다. s=t/t0, α=F/F0로 두면 ⟨x⟩=Δx0 αs², Δx(t)=Δx0√(1+s²)입니다. 그래프는 nm, ps, nm⁻¹ 단위를 쓰며 축 범위가 바뀌거나 packet을 따라 원점이 움직이지 않습니다. 이상적인 parabolic band의 envelope를 계산하며 lattice 내부의 wavefunction은 표시하지 않습니다. Scattering, interband transition, Berry curvature는 포함하지 않습니다. 그래프에 보이는 범위만으로 확률밀도를 다시 normalize하지 않습니다.');
     ctx.onChange(render);
     share(ctx, 'drude-packet', read, valid, write, render);
   });
@@ -122,7 +133,10 @@
     function render() {
       const s = read(), p = transitionSummary(s.couplingMeV, s.timeFs, s.probeMeV / 1000);
       peak.textContent = value(p.peakProbability); probability.textContent = value(p.probeProbability); area.textContent = value(p.energyAreaEV * 1000);
-      scale.textContent = p.energyScaleEV === null ? ctx.text('Not defined at t=0', 't=0에서는 정의하지 않음') : value(p.energyScaleEV * 1000);
+      scale.textContent = p.energyScaleEV === null ? '— (t=0)' : value(p.energyScaleEV * 1000);
+      scale.ariaLabel = scale.title = p.energyScaleEV === null
+        ? ctx.text('The energy scale ℏ/t is undefined at t=0.', 't=0에서는 energy scale ℏ/t가 정의되지 않습니다.')
+        : ctx.text(`Energy scale ℏ/t: ${scale.textContent} meV.`, `Energy scale ℏ/t: ${scale.textContent} meV입니다.`);
       const curves = [line(samples(-150, 150, 401, e => transitionProbability(e / 1000, s.couplingMeV, s.timeFs) * 1000), 'blue', ctx.text('Selected time', '선택한 시간'))];
       if (s.reference) curves.push(line(samples(-150, 150, 401, e => transitionProbability(e / 1000, s.couplingMeV, 25) * 1000), 'gold', 't = 25 fs', true));
       ctx.view.replaceChildren(
@@ -146,36 +160,39 @@
 
   labs.register('drude-gaussian', ctx => {
     ctx.root.classList.add('drude-lab', 'al-workshop');
-    const width = range(ctx, 'Width λ = ℓ/ℓ0', '폭 λ = ℓ/ℓ0', .5, 3, .1, 1);
-    const transfer = range(ctx, 'Wavevector transfer Q = qℓ0', 'Wavevector transfer Q = qℓ0', 0, 4, .05, 1);
+    const width = range(ctx, 'Width ℓ (nm)', '폭 ℓ (nm)', .5, 3, .1, 2);
+    const transfer = range(ctx, 'Wavevector transfer q (nm⁻¹)', 'Wavevector transfer q (nm⁻¹)', 0, 4, .05, 1);
     const mode = ctx.control('What stays fixed?', '무엇을 일정하게 둘까요?', { type: 'select', value: 'integral', options: [
       { value: 'integral', en: 'Integrated strength g', ko: '적분한 세기 g' }, { value: 'peak', en: 'Peak potential U(0)', ko: 'Potential의 peak U(0)' }
     ] });
-    const strength = ctx.metric('Integrated strength g/gref', '적분한 세기 g/gref');
-    const potential = ctx.metric('Peak U(0)ℓ0/gref', 'Peak U(0)ℓ0/gref');
-    const amplitude = ctx.metric('Fourier amplitude Ũ(q)/gref', 'Fourier amplitude Ũ(q)/gref');
-    const rate = ctx.metric('Relative rate factor |Ũ(q)/gref|²', '상대적인 rate factor |Ũ(q)/gref|²');
+    const strength = ctx.metric('Integrated strength g (eV nm)', '적분한 세기 g (eV nm)');
+    const potential = ctx.metric('Peak U(0) (eV)', 'Peak U(0) (eV)');
+    const amplitude = ctx.metric('Fourier amplitude Ũ(q) (eV nm)', 'Fourier amplitude Ũ(q) (eV nm)');
+    const rate = ctx.metric('Squared amplitude |Ũ(q)|² (eV² nm²)', 'Amplitude의 제곱 |Ũ(q)|² (eV² nm²)');
     const read = () => ({ width: Number(width.value), q: Number(transfer.value), mode: mode.value });
     const valid = s => exactKeys(s, ['width', 'q', 'mode']) && onGrid(s.width, .5, 3, .1) && onGrid(s.q, 0, 4, .05) && ['integral', 'peak'].includes(s.mode);
     const write = s => { width.value = s.width; transfer.value = s.q; mode.value = s.mode; };
     function render() {
-      const s = read(), p = gaussianFourier(s.q, s.width, s.mode), top = Math.max(1, p.strength, p.strength ** 2);
-      strength.textContent = value(p.strength); potential.textContent = value(p.peakPotential); amplitude.textContent = value(p.amplitude); rate.textContent = value(p.rateFactor);
+      const s = read(), p = gaussianFourier(s.q, s.width, s.mode);
+      strength.textContent = scientific(p.strength); potential.textContent = scientific(p.peakPotential); amplitude.textContent = scientific(p.amplitude); rate.textContent = scientific(p.rateFactor);
       ctx.view.replaceChildren(
-        ctx.plot({ x: [-10, 10], y: [0, .85], xLabel: 'ξ = x/ℓ0', yLabel: 'U(x)ℓ0/gref', title: ctx.text('Real-space potential: choose what stays fixed', '일정하게 유지할 값을 정하고 potential을 비교하세요'),
-          series: [line(samples(-10, 10, 301, x => gaussianPotential(x, 1, s.mode)), 'muted', 'ℓ = ℓ0', true), line(samples(-10, 10, 301, x => gaussianPotential(x, s.width, s.mode)), 'blue', ctx.text('Selected width', '선택한 폭'))], xTicks: [-5, 0, 5, 10], yTicks: [0, .4, .8] }),
-        ctx.plot({ x: [0, 4], y: [0, top * 1.05], xLabel: 'Q = qℓ0', yLabel: ctx.text('Normalized amplitude / squared amplitude', 'Normalized amplitude / amplitude의 제곱'), title: ctx.text('The golden rule uses the square, not the amplitude', 'Golden rule에는 amplitude의 제곱이 들어갑니다'),
-          series: [line(samples(0, 4, 201, q => gaussianFourier(q, s.width, s.mode).amplitude), 'blue', 'Ũ/gref'), line(samples(0, 4, 201, q => gaussianFourier(q, s.width, s.mode).rateFactor), 'gold', '|Ũ/gref|²')],
-          markers: [{ x: s.q, y: p.amplitude, color: 'blue', label: 'Q' }, { x: s.q, y: p.rateFactor, color: 'gold', label: '' }], xTicks: [0, 1, 2, 3, 4], yTicks: [0, top / 2, top] }),
-        explanation(ctx, s.mode === 'integral' ? 'At fixed g, increasing the width lowers U(0), preserves Ũ(0)=g, and suppresses nonzero wavevector transfers. Compare amplitude and squared amplitude at Q=1 for λ=1 and 2.' : 'At fixed U(0), a wider potential has larger integrated strength: g/gref=λ. Its zero-transfer amplitude therefore grows. This is a different comparison from widening a scatterer at fixed g.', s.mode === 'integral' ? 'g를 고정하고 폭을 늘리면 U(0)는 낮아지지만 Ũ(0)=g는 그대로입니다. 0이 아닌 wavevector transfer는 더 강하게 억제됩니다. Q=1에서 λ=1과 2의 amplitude와 그 제곱을 비교해 보세요.' : 'U(0)를 고정한 채 폭을 늘리면 적분한 세기도 커져 g/gref=λ가 됩니다. 따라서 transfer가 0일 때의 amplitude도 커집니다. g를 고정하고 폭을 늘리는 경우와는 다른 비교입니다.')
+        ctx.plot({ x: [-10, 10], y: [0, .85], xLabel: 'x (nm)', yLabel: 'U(x) (eV)', title: ctx.text('Real-space potential on fixed axes', '고정된 축에서 비교하는 potential'),
+          series: [line(samples(-10, 10, 301, x => gaussianPotential(x, 1, s.mode)), 'muted', 'ℓ = 1 nm', true), line(samples(-10, 10, 301, x => gaussianPotential(x, s.width, s.mode)), 'blue', ctx.text('Selected width', '선택한 폭'))], xTicks: [-5, 0, 5, 10], yTicks: [0, .4, .8] }),
+        ctx.plot({ x: [0, 4], y: [0, 3.2], xLabel: 'q (nm⁻¹)', yLabel: 'Ũ(q) (eV nm)', title: ctx.text('Fourier amplitude', 'Fourier amplitude'),
+          series: [line(samples(0, 4, 201, q => gaussianFourier(q, 1, s.mode).amplitude), 'muted', 'ℓ = 1 nm', true), line(samples(0, 4, 201, q => gaussianFourier(q, s.width, s.mode).amplitude), 'blue', ctx.text('Selected width', '선택한 폭')), line([[s.q, 0], [s.q, 3.2]], 'gold', ctx.text('Selected q', '선택한 q'), true)],
+          markers: [{ x: s.q, y: p.amplitude, color: 'blue', label: 'q' }], xTicks: [0, 1, 2, 3, 4], yTicks: [0, 1, 2, 3] }),
+        ctx.plot({ x: [0, 4], y: [0, 10], xLabel: 'q (nm⁻¹)', yLabel: '|Ũ(q)|² (eV² nm²)', title: ctx.text('The golden rule uses the squared amplitude', 'Golden rule에는 amplitude의 제곱이 들어갑니다'),
+          series: [line(samples(0, 4, 201, q => gaussianFourier(q, 1, s.mode).rateFactor), 'muted', 'ℓ = 1 nm', true), line(samples(0, 4, 201, q => gaussianFourier(q, s.width, s.mode).rateFactor), 'gold', ctx.text('Selected width', '선택한 폭')), line([[s.q, 0], [s.q, 10]], 'blue', ctx.text('Selected q', '선택한 q'), true)],
+          markers: [{ x: s.q, y: p.rateFactor, color: 'gold', label: 'q' }], xTicks: [0, 1, 2, 3, 4], yTicks: [0, 3, 6, 9] }),
+        explanation(ctx, 'At fixed g=1 eV nm, increasing the width lowers U(0) but preserves Ũ(0)=g. At fixed U(0)=1/√(2π) eV, a wider potential instead has g=(ℓ/1 nm) eV nm, so its zero-transfer amplitude grows. The selected constraint changes the curves; all three axis ranges stay fixed.', 'g=1 eV nm로 고정하고 폭을 늘리면 U(0)는 낮아지지만 Ũ(0)=g는 그대로입니다. 반대로 U(0)=1/√(2π) eV로 고정하면 적분한 세기는 g=(ℓ/1 nm) eV nm로 커지고 transfer가 0일 때의 amplitude도 커집니다. 선택한 조건에 따라 곡선은 달라지지만 세 그래프의 축 범위는 그대로입니다.')
       );
-      ctx.status.textContent = ctx.text('Rate factor only: normalization length and all final-state/kinematic prefactors are held fixed. q is a wavevector transfer; ℏq is momentum transfer.', 'Rate factor만 비교합니다. Normalization length와 final-state·kinematic prefactor는 모두 고정합니다. q는 wavevector transfer이며 momentum transfer는 ℏq입니다.');
+      ctx.status.textContent = ctx.text('Fixed reference values: ℓ0=1 nm, gref=1 eV nm. All axis ranges are fixed. |Ũ|² is not a rate without the normalization length and final-state/kinematic prefactors. Momentum transfer is ℏq.', '기준값 ℓ0=1 nm, gref=1 eV nm와 모든 축 범위를 고정했습니다. |Ũ|²에 normalization length와 final-state·kinematic prefactor까지 반영해야 rate를 구할 수 있습니다. Momentum transfer는 ℏq입니다.');
     }
     const preset = (en, ko, s) => ctx.button(en, ko, () => { write(s); render(); });
     preset('Wide, same g', '폭 2배, 같은 g', { width: 2, q: 1, mode: 'integral' });
     preset('Wide, same U(0)', '폭 2배, 같은 U(0)', { width: 2, q: 1, mode: 'peak' });
     preset('Zero transfer, same g', 'Transfer 0, 같은 g', { width: 2, q: 0, mode: 'integral' });
-    ctx.note('One-dimensional Uℓ(x)=g exp[−x²/(2ℓ²)]/(√(2π)ℓ), Ũ(q)=∫U(x)e^(−iqx)dx=g exp[−q²ℓ²/2], q=k′−k. ℓ0 is a reference width and gref>0 is the integrated strength at ℓ=ℓ0. ξ=x/ℓ0, λ=ℓ/ℓ0, Q=qℓ0. At fixed g, g=gref. At fixed peak U(0)=gref/(√(2π)ℓ0), g=λgref. For plane waves normalized in length ℒ, M=Ũ/ℒ. With ℒ and the other golden-rule factors fixed, |Ũ/gref|² is a relative rate factor, not a complete rate, transport lifetime, or mobility. The Fourier transform is even, so only Q≥0 is plotted.', '1D potential Uℓ(x)=g exp[−x²/(2ℓ²)]/(√(2π)ℓ), Ũ(q)=∫U(x)e^(−iqx)dx=g exp[−q²ℓ²/2], q=k′−k를 사용합니다. ℓ0는 기준 폭이고 gref>0은 ℓ=ℓ0일 때의 적분한 세기입니다. ξ=x/ℓ0, λ=ℓ/ℓ0, Q=qℓ0입니다. g를 고정하면 g=gref입니다. Peak U(0)=gref/(√(2π)ℓ0)를 고정하면 g=λgref입니다. 길이 ℒ로 normalize한 plane wave의 matrix element는 M=Ũ/ℒ입니다. ℒ와 나머지 golden-rule factor를 고정했을 때 |Ũ/gref|²는 상대적인 rate factor입니다. 완전한 rate, transport lifetime, mobility를 계산한 값은 아닙니다. Fourier transform은 q의 부호에 대칭이므로 Q≥0만 표시합니다.');
+    ctx.note('One-dimensional Uℓ(x)=g exp[−x²/(2ℓ²)]/(√(2π)ℓ), Ũ(q)=∫U(x)e^(−iqx)dx=g exp[−q²ℓ²/2], q=k′−k. The fixed physical reference values are ℓ0=1 nm and gref=1 eV nm. At fixed g, g=gref. At fixed peak U(0)=gref/(√(2π)ℓ0), g=(ℓ/ℓ0)gref. Potential, Fourier amplitude and squared amplitude are plotted separately in eV, eV nm and eV² nm², with fixed axis limits for every control setting. For plane waves normalized in length ℒ, M=Ũ/ℒ. With ℒ and the other golden-rule factors fixed, |Ũ|² is proportional to a rate but is not itself a complete rate, transport lifetime or mobility. The Fourier transform is even, so only q≥0 is plotted.', '1D potential Uℓ(x)=g exp[−x²/(2ℓ²)]/(√(2π)ℓ), Ũ(q)=∫U(x)e^(−iqx)dx=g exp[−q²ℓ²/2], q=k′−k를 사용합니다. 기준값은 ℓ0=1 nm, gref=1 eV nm로 고정합니다. g를 고정하면 g=gref이며, peak U(0)=gref/(√(2π)ℓ0)를 고정하면 g=(ℓ/ℓ0)gref입니다. Potential, Fourier amplitude, amplitude의 제곱은 각각 eV, eV nm, eV² nm² 단위로 따로 그리며 모든 설정에서 축 범위를 유지합니다. 길이 ℒ로 normalize한 plane wave의 matrix element는 M=Ũ/ℒ입니다. ℒ와 나머지 golden-rule factor를 고정하면 |Ũ|²는 rate에 비례하지만, 그 자체가 완전한 rate나 transport lifetime, mobility는 아닙니다. Fourier transform은 q의 부호에 대칭이므로 q≥0만 표시합니다.');
     ctx.onChange(render);
     share(ctx, 'drude-gaussian', read, valid, write, render);
   });

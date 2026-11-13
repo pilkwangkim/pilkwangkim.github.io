@@ -79,8 +79,12 @@ equations/code and uses natural prose with English technical terms.
   The checker is also tested against mutations of f, v, and K.
   Twelve code cells include exact elementary BTE limits, storage arithmetic,
   a density-matrix reduction example, and scattering-to-ampere integration.
-- `tools/check_msbte_article.py`: EN/KR equation/code/asset/reference parity,
-  source hygiene, Python3.9 syntax and notebook integrity.
+- `tools/check_msbte_article.py`: EN/KR display-equation/code/asset/reference
+  parity, source hygiene and Python3.9 syntax. It reconstructs notebook text
+  through the documented builder conversions, independently replays stored
+  code/output, and compares every embedded PNG with its checked-in counterpart.
+  Inline formulas can be split differently by the two languages; their counts
+  are reported separately and their actual typesetting is checked in-browser.
 
 ## Validation commands
 
@@ -108,6 +112,73 @@ folds, confirm MathJax has no error nodes, inspect responsive sources and table
 column widths, and operate every lab. Unit tests do not establish visual QA.
 Keep build destinations and QA receipts outside tracked source. No commit,
 push, or deployment follows automatically from authoring or validation.
+
+## Fixed-scale and first-read review, 2026-11-12
+
+- Kept the physical model, 42 numbered equations, 12 Python examples, stable
+  URLs, publication date, and all cover/body figures. Clarified background
+  permittivity versus explicit mobile charge, and the limits of trace/purity
+  checks. The Korean pass connects state counting, confinement, basis changes,
+  population closure, truncation, and finite-volume faces with natural prose.
+- Confinement axes are fixed: k ±0.5 nm^-1, energy 0–320 meV, y 0–20 nm,
+  z 0–8 nm, and both marginal densities 0–0.36 nm^-1. Showing both marginals
+  and marking the selected edge distinguishes modes with the same y pattern
+  or degenerate energy. The energy-sorted mode index can change its pair.
+- Injection retains its fixed occupation/Fermi axes and adds cumulative signed
+  electron-flow current through eight modes on a fixed ±22 microampere axis.
+  Shading, a cutoff line and selected point expose the chosen retained count.
+- Scattering face flux is fixed at ±2.1; an energy-shell panel fixes k at
+  ±0.8 nm^-1 and energy at 0–280 meV. Energy changes move actual k roots,
+  without inventing an occupation-profile energy dependence absent from the
+  constant inverse-length model. Cell-centre samples show the spatial grid.
+  Gamma and mode-selective injection are inactive with one propagating mode;
+  their stored settings return when the second mode becomes available.
+- Numeric slots reserve the same number of lines; precision and exponent
+  widths are stable. Exact-key shared-state checks reject malformed settings
+  before touching any control. Bundle tests exercise each slider grid, joint
+  corners, fixed plot bounds and active control-to-graphic changes; legitimate
+  equilibrium, identity and degenerate cases are not artificially separated.
+- Verification passed: 45 Python physics tests; 7,394 JS model/numerical,
+  602 UI/state, 906 control-grid/corner states and 34 active control-to-graphic
+  checks. Both notebooks execute 12 code cells. The article checker replays
+  their code and stored stdout and compares all 14 embedded PNG attachments
+  byte-for-byte against the source figures. Metadata, routes, the production
+  build, generated lab output and HTML-Proofer (442 files, 4,369 internal
+  links) passed. The known duplicate site.webmanifest warning remains.
+- Inspected the actual EN/KR pages at 1280, 390 and 320 CSS pixels. Opened all
+  27 folds in each language: 49 display equations, zero MathJax errors, no
+  page/chart overflow, and two tables with proportionate columns. Operated
+  all five labs across the paired pages, checked fixed ticks and changed
+  graphics, stable numeric slots, disabled controls, cell-centre samples,
+  and all four correct quiz answers per language; English wrong-answer and
+  Reset feedback also passed. Viewport overrides were reset. The fresh-origin
+  preview remains local; nothing was staged, committed, pushed or deployed.
+
+## Korean sentence-structure review, 2026-11-12
+
+- Reread all 19 sections, folds, captions, alt text, exercises and Korean lab
+  strings. Replaced literal predicates such as scattering "connecting
+  functions" and an occupation difference "carrying current" with statements
+  about state changes, coupled occupation equations and the resulting current.
+  Section 9 now reads "Collision은 전자를 다른 state로 옮긴다"; its existing
+  anchor remains unchanged. Clarified same-direction mode-profile overlap,
+  unblocked rates, marginal densities and the storage-versus-speedup comparison.
+- Changed Korean copy only, including its description and notebook Markdown.
+  The English post/notebook, all 49 display equations and 484 Korean inline
+  expressions, 12 Python examples, reference solver, CSS, figures, dates,
+  classification, links and existing IDs match the start-of-turn snapshots.
+  Non-Korean JS/registry text, computations and state-link semantics are intact.
+- Both notebooks execute 12 cells and pass output/attachment replay checks.
+  The lab suite passes 7,394 numerical and 602 UI/state checks, 906 control-grid
+  states and 34 active-control graphic checks. Metadata/routing, production
+  build, generated labs and HTML-Proofer (442 files, 4,369 internal links) pass.
+- Inspected Korean at 1280, 390 and 320 CSS pixels, with all 27 folds opened
+  during the review: 49 display equations, zero MathJax errors, proportionate
+  table columns and no page/chart overflow. Checked revised lab prose and all
+  four correct quiz answers. Shortened the two Korean example-menu options to
+  Free flight/Relaxation after seeing the longer label clip at 320px; verified
+  the final menu on a fresh localhost origin. Reset viewport overrides and
+  left a local preview. No staging, commit, push or deployment.
 
 ## Undergraduate-QM reading review, 2026-11-06
 

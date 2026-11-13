@@ -211,59 +211,74 @@ def mobility(d, compact=False):
     f.save("fig-sec04-mobility"+("-mobile" if compact else ""))
 
 
-def _phasor(f, d, cx, cy, phase, index, key):
-    """Arrow in a labeled complex plane for 2*c_j, not a spatial velocity."""
-    radius = 53
-    f.nodes.append(f'<circle cx="{cx}" cy="{cy}" r="{radius}" fill="none" stroke="{d.GRID}" stroke-width="1.5"/>')
-    f.line(cx-74, cy, cx+74, cy, d.GRID, 1.5)
-    f.line(cx, cy+68, cx, cy-68, d.GRID, 1.5)
-    f.text(cx+81, cy+7, "Re", 24, d.MUTED)
-    f.text(cx-10, cy-78, "Im", 24, d.MUTED)
-    f.line(cx, cy, cx+(radius-2)*cos(phase), cy-(radius-2)*sin(phase), d.TEAL, 3.3, arrow=True)
-    d.math_label(f, f"{key}-site-{index}", rf"j={index}", cx, cy+88, 29, 110)
-
-
 def bloch_states(d, compact=False):
-    """Four-site eigenstates distinguish translation phase from probability."""
-    f = d.Figure(600 if compact else 1200, 1410 if compact else 880,
-                 "Bloch phases differ while the site probabilities remain equal",
-                 "Two normalized eigenvectors of a periodic four-site nearest-neighbor "
-                 "tight-binding chain have coefficients c_j=exp(i k j a)/2. The site labels "
-                 "are j=0,1,2,3. Each small coordinate frame is a complex plane, with the "
-                 "real axis right and imaginary axis up. Its arrow is the complex number "
-                 "2 c_j, not a position, momentum or particle trajectory. For ka=0 all "
-                 "arrows point right and the energy is zero. For ka=pi/2 the arrows point "
-                 "right, up, left and down and the energy is 2t_h. Every site has probability "
-                 "one quarter in both states. The diagonal energy is epsilon0=2t_h.")
-    d.header(f, "Bloch phase changes without changing the site probabilities",
-             ("Bloch phases and", "equal site probabilities"), compact)
-    d.math_label(f, "bloch-coefficients", r"N=4,\qquad c_j=\frac{e^{ikja}}{2},\qquad\epsilon_0=2t_h",
-                 f.width/2, 137 if compact else 101, 31, f.width-70)
-    if compact:
-        centers = (((165, 390), (420, 390), (165, 610), (420, 610)),
-                   ((165, 944), (420, 944), (165, 1164), (420, 1164)))
-        d.math_label(f, "bloch-row-a", r"\text{(a)}\quad ka=0,\quad\epsilon=0", 300, 240, 30, 535)
-        d.math_label(f, "bloch-row-b", r"\text{(b)}\quad ka=\pi/2,\quad\epsilon=2t_h", 300, 795, 30, 535)
-        footer = 1300
-    else:
-        row_heads = (229, 536)
-        centers = (tuple((x, 361) for x in (165, 450, 735, 1020)),
-                   tuple((x, 668) for x in (165, 450, 735, 1020)))
-        f.text(45, row_heads[0], "(a) Same phase on every site", 28, weight=500)
-        f.text(45, row_heads[1], "(b) Phase advances by π/2 per site", 28, weight=500)
-        d.math_label(f, "bloch-row-a", r"ka=0,\quad\epsilon=0", 935, 203, 30, 400)
-        d.math_label(f, "bloch-row-b", r"ka=\pi/2,\quad\epsilon=2t_h", 935, 510, 30, 400)
-        footer = 810
-    for row, ka in enumerate((0, pi/2)):
-        for j, (cx, cy) in enumerate(centers[row]):
-            _phasor(f, d, cx, cy, j*ka, j, f"bloch-row-{row}")
-    f.line(30 if compact else 35, footer, f.width-(30 if compact else 35), footer)
-    if compact:
-        d.math_label(f, "bloch-probabilities", r"|c_j|^2=1/4\quad\text{for every site}", 300, footer+20, 30, 535)
-        f.text(30, footer+84, "Arrows: complex coefficients 2c_j", 26, d.MUTED)
-    else:
-        d.math_label(f, "bloch-probabilities", r"|c_j|^2=1/4\quad\text{for every site in both states}", 425, footer+21, 30, 750)
-        f.text(1165, footer+46, "Arrows: complex numbers 2c_j", 25, d.MUTED, "end")
+    """Resolve Bloch multiplication in real space, keeping the cell factor fixed.
+
+    This is an analytic Bloch-form construction, not an eigenproblem for an
+    unspecified continuum Hamiltonian. Its common positive real factor has
+    period a; multiplying by exp(ikx) changes phase, never its modulus. The
+    dashed bounds are +/-u_demo, not a localized wave-packet envelope.
+    """
+    f = d.Figure(600 if compact else 1200, 1710 if compact else 1330,
+                 "A lattice-periodic cell pattern multiplied by a spatial Bloch phase",
+                 "The atomic sites lie at integer x/a. A prescribed real periodic factor "
+                 "u_demo(x)=0.25+0.75 cos^8(pi x/a) repeats its peak at every site. "
+                 "Three constructed Bloch-form functions psi_k=exp(ikx)u_demo compare "
+                 "ka=0, pi/4 and pi. The blue real part is u_demo cos(kx); the gold "
+                 "imaginary part is u_demo sin(kx). Gray dashed curves mark plus and "
+                 "minus u_demo. Vertical guides mark atomic sites, not trajectories. "
+                 "Only the phase changes with k, so the squared modulus remains "
+                 "u_demo squared. No energy or common-potential eigenstate is assigned. "
+                 "The mobile view shows five sites; the desktop view shows seven.")
+    d.header(f, "Bloch form: a periodic cell pattern multiplied by a phase",
+             ("Bloch form:", "cell pattern × phase"), compact)
+    d.math_label(f, "bloch-product", r"\psi_k(x)=e^{ikx}u_{\rm demo}(x)",
+                 f.width/2, 128 if compact else 98, 34, f.width-70)
+    d.math_label(f, "bloch-pattern", r"u_{\rm demo}(x)=0.25+0.75\cos^8(\pi x/a)",
+                 f.width/2, 188 if compact else 151, 30, f.width-70)
+    legend_y = 265 if compact else 217
+    for index, (formula, color, dashed) in enumerate((
+            (r"\operatorname{Re}\psi_k", d.BLUE, False),
+            (r"\operatorname{Im}\psi_k", d.GOLD, False),
+            (r"\pm u_{\rm demo}", d.MUTED, True))):
+        x = (38+190*index) if compact else (250+265*index)
+        f.line(x, legend_y-10, x+32, legend_y-10, color, 3.8, dash=dashed)
+        d.math_label(f, f"bloch-legend-{index}", formula, x+101, legend_y-26, 28, 132)
+
+    extent = 2.5 if compact else 3.5
+    sites = tuple(range(-2, 3)) if compact else tuple(range(-3, 4))
+    xs = d.points(-extent, extent, 1601)
+    u = lambda x: .25+.75*cos(pi*x)**8
+    panel_tops = (317, 647, 977, 1307) if compact else (275, 525, 775, 1025)
+    labels = ("(a) Cell pattern: same peak at every site",
+              "(b) ka = 0: same phase",
+              "(c) ka = π/4: a gradual phase change",
+              "(d) ka = π: alternating signs at sites")
+    for index, (top, label) in enumerate(zip(panel_tops, labels)):
+        # All four rows use the same x positions and amplitude scale.
+        f.text(30 if compact else 45, top, label, 27 if compact else 29, weight=500)
+        box = (78 if compact else 105, top+45, 480 if compact else 1040,
+               191 if compact else 137)
+        X, Y = d.axes(f, box, (-extent, extent), (-1.12, 1.12), sites,
+                      (-1, 0, 1) if index else (0, 1), "", "", 25 if compact else 27)
+        for site in sites:
+            f.line(X(site), box[1], X(site), box[1]+box[3], d.GRID, 1.2, dash=True)
+        if index == 0:
+            f.path([(X(x), Y(u(x))) for x in xs], d.TEAL, 4.2)
+            for site in sites:
+                # Markers explicitly identify the atomic-site coordinates.
+                f.circle(X(site), Y(0), 4.4, d.MUTED)
+        else:
+            ka = (0, pi/4, pi)[index-1]
+            for sign in (-1, 1):
+                f.path([(X(x), Y(sign*u(x))) for x in xs], d.MUTED, 1.9, dash=True)
+            f.path([(X(x), Y(u(x)*cos(ka*x))) for x in xs], d.BLUE, 3.8)
+            f.path([(X(x), Y(u(x)*sin(ka*x))) for x in xs], d.GOLD, 3.3)
+    d.math_label(f, "bloch-position-axis", r"x/a", f.width/2,
+                 1613 if compact else 1247, 31, 160)
+    f.text(f.width/2, 1671 if compact else 1300,
+           "Atomic sites: integer x/a · Same cell factor for all k",
+           23 if compact else 27, d.MUTED, "middle")
     f.save("fig-sec07-bloch-states"+("-mobile" if compact else ""))
 
 
@@ -276,7 +291,7 @@ FIGURES = {
 
 
 def verify():
-    """Check signs, reference normalizations and four-site eigenvectors."""
+    """Check signed budgets, normalizations, Bloch products and eigenvectors."""
     elementary_charge = 1.602176634e-19
     for t_ns in (0, .2, .5, 1):
         delta_q = (2e-6-1e-6)*t_ns*1e-9
@@ -313,6 +328,20 @@ def verify():
         assert abs(current/j_ref-expected_j) < 1e-14
         assert drift < 0 < current and field > 0
     assert abs(mu_ref*1e4-879.410010772163) < .01
+    # The new real-space display is a direct Bloch-form construction. Its
+    # periodic factor is deliberately independent of k to isolate phase.
+    u_demo = lambda x: .25+.75*cos(pi*x)**8
+    for ka in (0, pi/4, pi, -pi/4):
+        for x in (index/40 for index in range(-140, 141)):
+            u = u_demo(x)
+            psi = cexp(1j*ka*x)*u
+            translated = cexp(1j*ka*(x+1))*u_demo(x+1)
+            assert .25-1e-15 <= u <= 1+1e-15
+            assert abs(u_demo(x+1)-u) < 5e-15
+            assert abs(translated-cexp(1j*ka)*psi) < 6e-15
+            assert abs(abs(psi)**2-u*u) < 1e-15
+            assert abs(psi.real-u*cos(ka*x)) < 1e-15
+            assert abs(psi.imag-u*sin(ka*x)) < 1e-15
     for ka in (-pi, -pi/2, 0, pi/2):
         vector = [cexp(1j*ka*j)/2 for j in range(4)]
         energy = 2*(1-cos(ka))
@@ -321,4 +350,4 @@ def verify():
         for j in range(4):
             hc = 2*vector[j]-vector[(j-1)%4]-vector[(j+1)%4]
             assert abs(hc-energy*vector[j]) < 2e-14
-    return {"sections": sorted(FIGURES), "models": "signed control-volume budget, shared-reference drift, independent charge-neutral channel comparisons, four-site Bloch eigenvectors"}
+    return {"sections": sorted(FIGURES), "models": "signed control-volume budget, shared-reference drift, independent charge-neutral channel comparisons, real-space Bloch products, four-site Bloch eigenvectors"}

@@ -172,7 +172,7 @@ print(f"Direct tensor-grid storage: {8 * full_values / 1e12:.1f} TB")
 print(f"Ten-mode occupation storage: {8 * subband_values / 1e6:.1f} MB")
 ```
 
-This count compares **representations**, not equal-accuracy simulations or measured speedups. We have not yet justified replacing transverse classical variables by quantum modes, neglecting coherence, or retaining only ten modes. Those are precisely the next questions. A complete all-mode quantum expansion does not by itself throw away information or guarantee a smaller problem.
+This count compares **representations**, not equal-accuracy simulations or measured speedups. The smaller occupation array is useful when a longitudinal semiclassical description and a population approximation are physically appropriate, and a limited set of transverse modes gives converged density and current. A complete all-mode quantum expansion retains information but does not by itself guarantee a smaller problem.
 
 ## 4. A transverse energy level becomes a subband
 {: id="1-a-transverse-energy-level-becomes-a-subband" }
@@ -275,7 +275,7 @@ Doubling **both** transverse dimensions divides every confinement energy by four
 
 {% include interactive/article-lab.html id="msbte-confinement" %}
 
-Try narrowing the wire. Check whether all edges shift by the same amount, and identify which mode is most sensitive to the dimension you changed.
+Try narrowing the wire. The energy, position and density axes stay fixed, so the rise in subband edges and the narrowing and taller peaks of the transverse density are visible directly. A **marginal probability density** along one coordinate sums the probability over the other: the y plot integrates over z, and the z plot integrates over y. Each has unit area. Two modes can have the same y pattern but different z patterns, so both are shown. Modes are ranked by energy at the chosen width; a fixed rank can change its transverse index pair as the width changes.
 
 ## 5. From quantum modes to MS-BTE: three different operations
 
@@ -305,7 +305,7 @@ M=U^\dagger\rho U,\qquad
 \tag{12}
 $$
 
-The **trace** is the sum of diagonal entries. Here it checks total probability. The number $\operatorname{Tr}\rho^2$ is called **purity**: it is one for a normalized state specified by a single amplitude vector. Its equality before and after this unitary transformation is an invariant check on a change that preserves the full state.
+The **trace** is the sum of diagonal entries. Here it checks total probability. The number $\operatorname{Tr}\rho^2$ is called **purity**: it is one for a normalized state specified by a single amplitude vector. A unitary basis change preserves both quantities. Comparing them provides two useful checks, although matching them alone does not verify the entire transformation.
 
 By contrast, replacing $M$ by its diagonal part $D$ discards off-diagonal information. It keeps the current populations in that basis but generally changes the state and can change future dynamics. Calling this “a change of basis” would hide a physical approximation.
 
@@ -574,7 +574,7 @@ assert np.isclose(fermi(0.150, 0.150, 300), 0.5)
 
 {% include interactive/article-lab.html id="msbte-injection" %}
 
-Set the two chemical potentials equal. The density does not vanish, but the two directional currents cancel. Then separate them while keeping the subband edges fixed. The current readout uses the analytic energy integral derived in Eq. (41).
+Set the two chemical potentials equal. The density does not vanish, but the two directional currents cancel. Then separate them while keeping the subband edges fixed. The occupation plot shows the first two modes; the cumulative-current plot shows the sum after including one, two, and so on up to eight modes on a fixed μA axis. The shaded region, vertical line and selected point indicate the chosen mode cutoff. Changing that cutoff shows which contributions the reported current retains. All current values use the analytic energy integral derived in Eq. (41).
 
 <span id="5-the-boltzmann-equation-follows-occupation-along-a-trajectory"></span>
 
@@ -755,7 +755,7 @@ At $130\,\mathrm{meV}$ in the example wire, the two speeds are about $3.83\times
 
 An elastic, uniform wire can be solved independently at each total energy. A **branch** here means one subband together with one direction of motion. At $130\,\mathrm{meV}$, the four open branches are ordered as $a=(1,+),(1,-),(2,+),(2,-)$. Let $f_a(x)$ be their occupations.
 
-To avoid introducing unverified material parameters, define a **phenomenological** model: its coefficients are chosen to obey stated physical constraints rather than derived from a particular microscopic mechanism. Use symmetric nonnegative coefficients $\kappa_{ab}=\kappa_{ba}$, with units of inverse length and $\kappa_{aa}=0$. Set
+Use a **phenomenological** collision model: its coefficients obey specified physical constraints rather than being derived from a particular material's microscopic scattering mechanism. Take symmetric nonnegative coefficients $\kappa_{ab}=\kappa_{ba}$, with units of inverse length and $\kappa_{aa}=0$. Set
 
 $$
 \begin{aligned}
@@ -1003,7 +1003,9 @@ assert errors[2] < errors[1] < errors[0]
 
 {% include interactive/article-lab.html id="msbte-scattering" %}
 
-Keep the total energy below the second edge, then raise it above the edge: the second pair of branches should appear only when propagating states exist. Compare zero coupling, only intra-subband reversal, and added inter-subband coupling. The sum of all subband currents must remain constant even when the individual subband currents exchange particles. A common change in every directional occupation does not itself imply a current change.
+Keep the total energy below the second edge, then raise it above the edge: the second pair of branches appears only when propagating states exist. The energy-shell panel shows the selected total energy and its intersections with the subband parabolas. Within an interval with the same available branches, changing energy leaves the occupation profiles unchanged in this particular constant-coefficient model: the speed cancels in Eq. (32). The intersections move because the longitudinal kinetic energies and speeds do change. This separates a real energy dependence from one the collision model does not contain.
+
+Compare zero coupling, only intra-subband reversal, and added inter-subband coupling. The flux axis remains fixed; individual mode fluxes may exchange particles while their sum stays constant. The points on the occupation curve are cell-centre samples, not individual electrons. Increasing the cell count changes their spacing and reduces spatial discretization error. Controls that require a second propagating mode are disabled below its threshold, with their settings retained for when it becomes available again. A common shift in all directional occupations need not change the net flux.
 
 With identical coefficients and ordinary equilibrium reservoirs, symmetry makes the two modes' occupation profiles coincide in this particular model. To see redistribution directly, enable the **prescribed nonthermal mode-selective injector**. Its second-mode inflow is set independently; the default lowers it from 0.9 to 0.3, but the control also permits it to exceed the first-mode inflow. This is neither an equilibrium reservoir nor a calculation of a physical passive filter. Turning on inter-subband coupling then allows individual mode fluxes to change along the wire while their sum remains fixed.
 
@@ -1152,7 +1154,7 @@ $$
 \tag{42}
 $$
 
-$\varepsilon$ is the material permittivity, which describes its electric response, $\rho=e(N_D^+-n_{3D})$ is charge density, and $\varphi$ is electric potential. Poisson's equation relates the spatial variation of that potential to the charge that produces it. The positive sign of the electron term on the right is a consequence of the minus sign in Poisson's equation, not a positive electron charge.
+$\varepsilon$ is the background permittivity, $\rho=e(N_D^+-n_{3D})$ is charge density, and $\varphi$ is electric potential. The background response includes bound-charge polarization; the mobile electrons are counted explicitly in $n_{3D}$ and must not be included again in the background permittivity. Poisson's equation relates the spatial variation of the potential to the charge that produces it. The positive sign of the electron term on the right comes from the minus sign in Poisson's equation, not a positive electron charge.
 
 For a trial $\varphi$, the transverse Hamiltonian includes the conduction-band confinement profile and $-e\varphi$. Solving it at each longitudinal slice produces $\epsilon_n(x)$ and $\phi_n(x;y,z)$. The MS-BTE then supplies $N_n(x)$, and Eq. (19) reconstructs the charge density used by Poisson's equation. Repeat until the potential, density, and terminal current meet tolerances. Mixing successive potential updates is one way to stabilize a simple iteration.
 

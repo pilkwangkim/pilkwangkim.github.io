@@ -38,6 +38,12 @@ for (const t of [.1, 1, 3]) for (const a of [.1, .5, 1]) for (let j = -100; j <=
     close((plus - 2 * p.energyEV + minus) / h ** 2 * m.E * (a * 1e-9) ** 2 * m.M0 / m.HBAR ** 2, p.inverseMassM0, 5e-5);
   }
 }
+for (const t of [.1, 1, 3]) for (const a of [.1, .5, 1]) for (const kNM of [-32, -15, -.25, 0, .25, 15, 32]) {
+  const p = m.bandAtK(kNM, t, a), ka = kNM * a;
+  close(p.energyEV, 2 * t * (1 - Math.cos(ka)), 1e-12);
+  close(p.velocity, 2 * t * m.E * a * 1e-9 / m.HBAR * Math.sin(ka), 1e-7);
+  close(p.inverseMassM0, 2 * t * m.E * (a * 1e-9) ** 2 * m.M0 / m.HBAR ** 2 * Math.cos(ka), 1e-12);
+}
 for (const x of [0, 1e-12, 1e-8, .0001, .01, .1, 1, 10, 400]) {
   const normalized = sample(0, Math.PI, 20001, t => m.scatteringShape(x, t).pdf), weighted = sample(0, Math.PI, 20001, t => m.scatteringShape(x, t).transportWeighted), p = m.scatteringShape(x);
   close(trapezoid(normalized), 1, 1e-6); close(trapezoid(weighted), p.meanLoss, 1e-7); close(1 / p.meanLoss, p.ratio); check(p.ratio >= 1 - 1e-12);
@@ -59,6 +65,14 @@ for (const w of [0, .1, .49, .5 - 1e-12, .5, .5 + 1e-12, .51, 1, 3]) {
   }
 }
 for (const s of [0, 1, 12, 100]) { close(m.chargeMode(s, .5).a, Math.exp(-s / 2) * (1 + s / 2)); close(m.chargeMode(s, .5).derivative, -s / 4 * Math.exp(-s / 2)); }
+for (const omega of [.1, .5, 1, 3]) {
+  const u=m.chargeUnits(omega);
+  close(u.density*m.E**2/(u.permittivity*u.mass),(omega/u.tau)**2,1e12);
+  close(u.initialAmplitude/u.density,.05);
+  close(u.q*u.length,2*Math.PI);
+  close(u.fieldScale*u.permittivity*u.q/(m.E*u.initialAmplitude),1);
+  close(u.currentScale*u.q*u.tau/(m.E*u.initialAmplitude),1);
+}
 for (let i = 0; i < 5; i++) { const q = m.quizProblem(i); check(q.choices.length === 3 && q.answer >= 0 && q.answer < 3 && q.en && q.ko && q.explanation.length === 2); }
 for (const fn of [() => m.stepResponse({ density: NaN }), () => m.stepResponse({ massRatio: 0 }), () => m.stepResponse({ s: -1 }), () => m.stepResponse({ tauFs: '100' }), () => m.acResponse(-1), () => m.acResponse(Infinity), () => m.tightBinding(Math.PI + .1), () => m.tightBinding(0, 0), () => m.screeningIntegral(-1), () => m.scatteringShape(1, -1), () => m.scatteringShape(NaN), () => m.chargeMode(-1, 1), () => m.chargeMode(1, NaN), () => m.chargeProfile(2, 1, 1), () => m.quizProblem(5), () => m.quizProblem('0')]) throws(fn);
 
@@ -113,25 +127,43 @@ for (const id of factories.keys()) for (const ko of [false, true]) {
     for (const value of values) { if (config.type === 'checkbox') field.checked = value; else field.value = value; lab.render(); assert.ok(lab.ctx.view.children.length); lifecycle++; }
     lab.reset(); assert.equal(lab.snapshot(), initial); lifecycle++;
   }
-  if (id === 'drude-step') for (const n of [.1, 10]) for (const mass of [.1, 2]) for (const tau of [10, 500]) for (const field of [-2000, 0, 2000]) for (const time of [0, 6]) {
-    assert.equal(lab.state.write({ n, mass, tau, field, time }), true); check(Number(lab.metrics[0].textContent) > 0 && Number(lab.metrics[1].textContent) > 0); roundTrip(lab, id, ko);
-    const spec = lab.ctx.view.children[0].attrs.spec, exponent = /10\^(-?\d+)/.exec(spec.yLabel), scale = exponent ? 10 ** Number(exponent[1]) : 1;
+  if (id === 'drude-step') for (const n of [.1, 10]) for (const mass of [.1, 2]) for (const tau of [10, 500]) for (const field of [-2000, 0, 2000]) for (const time of [0, 6]) for (const view of [3, 30, 300]) {
+    assert.equal(lab.state.write({ n, mass, tau, field, time, view }), true); check(Number(lab.metrics[0].textContent) > 0 && Number(lab.metrics[1].textContent) > 0); roundTrip(lab, id, ko);
+    const spec = lab.ctx.view.children[0].attrs.spec, scale = 1e6;
     const expected = m.stepResponse({ density: n * 1e23, massRatio: mass, tauFs: tau, field, s: time });
-    assert.ok(spec.yTicks.every(tick => Number.isInteger(tick) && String(tick).length <= 4));
-    assert.ok(Math.abs(spec.series[1].points[0][1] * scale - expected.steadyCurrentDensity) < Math.max(1e-9, Math.abs(expected.steadyCurrentDensity) * 1e-14));
-    assert.ok(Math.abs(spec.markers[0].y * scale - expected.currentDensity) < Math.max(1e-9, Math.abs(expected.currentDensity) * 1e-14));
-    assert.ok(spec.series[0].points.every(([s, value]) => Math.abs(value * scale - m.stepResponse({ density: n * 1e23, massRatio: mass, tauFs: tau, field, s }).currentDensity) < Math.max(1e-9, Math.abs(expected.steadyCurrentDensity) * 1e-14)));
-    assert.equal(spec.xLabel, 's = t / τtr'); lifecycle += 5;
+    assert.deepEqual(JSON.parse(JSON.stringify(spec.x)), [0, 3]); assert.deepEqual(JSON.parse(JSON.stringify(spec.y)), [-view, view]);
+    const outside = Math.abs(expected.steadyCurrentDensity) > view * scale;
+    assert.equal(spec.series.length, outside ? 2 : 3);
+    assert.deepEqual(JSON.parse(JSON.stringify(spec.series.at(-1).points)),[[time*tau/1000,-view],[time*tau/1000,view]]);
+    if (!outside) close(spec.series[1].points[0][1] * scale, expected.steadyCurrentDensity, 1e-7);
+    const markerOutside = Math.abs(expected.currentDensity) > view * scale;
+    close(spec.markers[0].y * scale, markerOutside ? Math.sign(expected.currentDensity) * view * scale : expected.currentDensity, 1e-7);
+    if (markerOutside) assert.ok(spec.markers[0].label.length > 0);
+    close(spec.markers[0].x, time * tau / 1000);
+    assert.ok(spec.series[0].points.every(([ps, value]) => Math.abs(value * scale - m.stepResponse({ density: n * 1e23, massRatio: mass, tauFs: tau, field, s: ps * 1000 / tau }).currentDensity) < Math.max(1e-9, Math.abs(expected.steadyCurrentDensity) * 1e-14)));
+    if (outside) { assert.ok(lab.ctx.status.textContent.includes(ko ? '범위 밖' : 'outside')); if (spec.series[0].points.at(-1)[0] < 3) close(Math.abs(spec.series[0].points.at(-1)[1]), view, 1e-10); }
+    assert.equal(spec.xLabel, 't (ps)'); lifecycle += 8;
   }
   if (id === 'drude-ac') {
-    for (const omega of [0, .05, 1, 5]) for (const phase of [0, .05, 2, 4]) {
-      assert.equal(lab.state.write({ omega, phase }), true); assert.equal(lab.fields[1].disabled, omega === 0); roundTrip(lab, id, ko);
-      if (omega === 0) lab.ctx.view.children[1].attrs.spec.series.forEach(line => line.points.forEach(point => assert.equal(point[1], 1)));
+    let acAxes;
+    for (const omega of [0, .05, 1, 5]) for (const timePs of [0, .02, 1, 2]) {
+      assert.equal(lab.state.write({ omega, timePs }), true); assert.equal(lab.fields[1].disabled, false); roundTrip(lab, id, ko);
+      const charts=lab.ctx.view.children.slice(0,2).map(e=>e.attrs.spec), axes=JSON.stringify(charts.map(c=>[c.x,c.y,c.xLabel,c.yLabel]));
+      if (acAxes) assert.equal(axes,acAxes); else acAxes=axes;
+      const sigma=m.stepResponse().conductivity;
+      charts[1].series[0].points.forEach(([ps,y])=>close(y,Math.cos(omega*ps/.1),1e-12));
+      charts[1].series[1].points.forEach(([ps,y])=>close(y,sigma*1000/1e6*m.acResponse(omega,omega*ps/.1).current,1e-12));
     }
-    lab.state.write({ omega: 0, phase: 3.5 }); lab.state.write({ omega: 1, phase: 3.5 }); assert.equal(lab.fields[1].disabled, false); assert.equal(lab.state.read().phase, 3.5); lifecycle += 2;
+    lab.state.write({ omega: 0, timePs: 1.5 }); lab.state.write({ omega: 1, timePs: 1.5 }); assert.equal(lab.state.read().timePs, 1.5); lifecycle += 2;
   }
   if (id === 'drude-band') for (const k of [-1, -.5, 0, .5, 1]) for (const hopping of [.1, 3]) for (const lattice of [.1, 1]) for (const parabola of [false, true]) {
-    assert.equal(lab.state.write({ k, hopping, lattice, parabola }), true); assert.equal(lab.ctx.view.children[0].attrs.spec.series.length, parabola ? 2 : 1); roundTrip(lab, id, ko);
+    assert.equal(lab.state.write({ k, hopping, lattice, parabola }), true); assert.equal(lab.ctx.view.children[0].attrs.spec.series.length, parabola ? 4 : 3); roundTrip(lab, id, ko);
+    const charts = lab.ctx.view.children.slice(0,3).map(e=>e.attrs.spec);
+    for (const chart of charts) { assert.deepEqual(JSON.parse(JSON.stringify(chart.x)),[-32,32]); assert.equal(chart.xLabel,'k (nm⁻¹)'); close(chart.markers[0].x,k*Math.PI/lattice); }
+    assert.deepEqual(JSON.parse(JSON.stringify(charts.map(c=>c.y))), [[0,12.5],[-10,10],[-85,85]]);
+    charts[0].series[0].points.forEach(([x,y])=>close(y,m.bandAtK(x,hopping,lattice).energyEV,1e-12));
+    charts[1].series[0].points.forEach(([x,y])=>close(y,m.bandAtK(x,hopping,lattice).velocity/1e6,1e-12));
+    charts[2].series[0].points.forEach(([x,y])=>close(y,m.bandAtK(x,hopping,lattice).inverseMassM0,1e-12));
     if (Math.abs(k) === 1) { assert.equal(lab.metrics[1].textContent, '0'); lifecycle++; }
     if (Math.abs(k) === .5) { assert.equal(lab.metrics[2].textContent, '0'); lifecycle++; }
   }
@@ -140,7 +172,15 @@ for (const id of factories.keys()) for (const ko of [false, true]) {
     if (mode === 'isotropic') assert.equal(lab.metrics[0].textContent, '1'); if (mode === 'reverse') assert.equal(lab.metrics[0].textContent, '0.5');
     roundTrip(lab, id, ko); lifecycle++;
   }
-  if (id === 'drude-charge') for (const omega of [.1, .45, .5, .55, 1, 3]) for (const time of [0, .1, 2, 12]) { assert.equal(lab.state.write({ omega, time }), true); assert.equal(Number(lab.metrics[4].textContent), 0); roundTrip(lab, id, ko); }
+  if (id === 'drude-charge') for (const omega of [.1, .45, .5, .55, 1, 3]) for (const time of [0, .1, 2, 12]) {
+    assert.equal(lab.state.write({ omega, time }), true); assert.equal(Number(lab.metrics[4].textContent), 0); roundTrip(lab, id, ko);
+    const charts=lab.ctx.view.children.slice(0,4).map(e=>e.attrs.spec), u=m.chargeUnits(omega), p=m.chargeMode(time,omega);
+    assert.deepEqual(JSON.parse(JSON.stringify(charts.map(c=>[c.x,c.y]))),[[[0,1.2],[-3.5,3.5]],[[0,100],[-3.5,3.5]],[[0,100],[-1,1]],[[0,100],[-3,3]]]);
+    close(charts[0].markers[0].x,time/10); close(charts[0].markers[0].y,u.initialAmplitude/1e22*p.a);
+    charts[1].series[0].points.forEach(([x,y])=>close(y,u.initialAmplitude/1e22*p.a*Math.cos(2*Math.PI*x/100)));
+    charts[2].series[0].points.forEach(([x,y])=>close(y,u.fieldScale/1e6*m.chargeProfile(x/100,time,omega).field));
+    charts[3].series[0].points.forEach(([x,y])=>close(y,u.currentScale/1e9*m.chargeProfile(x/100,time,omega).current));
+  }
   if (id === 'drude-quiz') {
     for (let question = 0; question < 5; question++) for (let selected = -1; selected < 3; selected++) {
       assert.equal(lab.state.write({ question, selected }), true); assert.equal(lab.ctx.view.allButtons().length, 3); roundTrip(lab, id, ko);
@@ -151,7 +191,7 @@ for (const id of factories.keys()) for (const ko of [false, true]) {
   // Invalid off-grid/out-of-range shares are transactional, even when the
   // setting currently belongs to an inactive control.
   const current = JSON.parse(JSON.stringify(lab.state.read())), snapshot = lab.snapshot();
-  const invalids = { 'drude-step': [{ n: .15 }, { mass: 0 }, { tau: 11 }, { field: 2100 }, { time: 6.1 }], 'drude-ac': [{ omega: .025 }, { phase: 4.05 }], 'drude-band': [{ k: 1.01 }, { hopping: .15 }, { lattice: .11 }, { parabola: 1 }], 'drude-scattering': [{ mode: 'other' }, { shape: 0 }, { shape: .015 }, { shape: 400.01 }], 'drude-charge': [{ omega: .525 }, { time: 12.1 }], 'drude-quiz': [{ question: 5 }, { selected: 3 }, { selected: .5 }] };
+  const invalids = { 'drude-step': [{ n: .15 }, { mass: 0 }, { tau: 11 }, { field: 2100 }, { time: 6.1 }, {view:4}], 'drude-ac': [{ omega: .025 }, { timePs: 2.02 }, {timePs:.01}], 'drude-band': [{ k: 1.01 }, { hopping: .15 }, { lattice: .11 }, { parabola: 1 }], 'drude-scattering': [{ mode: 'other' }, { shape: 0 }, { shape: .015 }, { shape: 400.01 }], 'drude-charge': [{ omega: .525 }, { time: 12.1 }], 'drude-quiz': [{ question: 5 }, { selected: 3 }, { selected: .5 }] };
   for (const partial of invalids[id]) { assert.equal(lab.state.write({ ...current, ...partial }), false); assert.equal(lab.snapshot(), snapshot); lifecycle += 2; }
   lab.reset(); assert.equal(lab.snapshot(), initial); lifecycle++;
 }

@@ -15,6 +15,15 @@ function integrate(fn, lo, hi, n = 12000) {
 }
 
 // Packet density: normalization, moments and force-independent spreading.
+// Physical plotting references are constants, independently converted from SI.
+const initialWidthNm = 10, massKg = 9.1093837139e-31;
+const packetTimePs = 2 * massKg * (initialWidthNm * 1e-9) ** 2 / (6.62607015e-34 / (2 * Math.PI)) * 1e12;
+const packetForceEVNm = 2 * massKg * initialWidthNm * 1e-9 / (packetTimePs * 1e-12) ** 2 / 1.602176634e-19 * 1e-9;
+close(m.PACKET_WIDTH_NM, initialWidthNm); close(m.PACKET_MASS_KG, massKg, 1e-40);
+close(m.PACKET_TIME_PS, packetTimePs, 1e-12); close(m.PACKET_FORCE_EV_NM, packetForceEVNm, 1e-15);
+check(9 + 5 * Math.sqrt(10) < 25, 'Fixed ±250 nm window must cover five standard deviations at every control setting.');
+check(1 / (Math.sqrt(2 * Math.PI) * initialWidthNm) < .042, 'Initial peak must fit fixed density axis.');
+check(3 * packetTimePs < 6, 'Every selectable time must fit fixed ps axis.');
 for (const alpha of [-1, -.3, 0, 1]) for (const s of [0, .7, 3]) {
   const p = m.packetState(alpha, s), density = x => m.packetDensity(x, alpha, s);
   const norm = integrate(density, -60, 60), mean = integrate(x => x * density(x), -60, 60), second = integrate(x => x * x * density(x), -60, 60);
@@ -153,12 +162,27 @@ function roundTrip(lab, id, ko) {
   assert.equal(restored.state.write(state), true); assert.equal(restored.snapshot(), lab.snapshot()); restored.render(); assert.equal(restored.snapshot(), lab.snapshot()); lifecycle += 3;
 }
 function verifyPlottedModel(lab, id) {
-  const state = lab.state.read(), [first, second] = lab.ctx.view.children.map(node => node.attrs.spec);
+  const state = lab.state.read(), [first, second, third] = lab.ctx.view.children.map(node => node.attrs.spec);
   assert.ok(first && second); lifecycle++;
+  // Exact axis contracts, checked after every slider value, preset, restore
+  // and corner case. No parameter is allowed to rescale or recenter a plot.
+  const expectedAxes = {
+    'drude-packet': [[[-250, 250], [0, .042]], [[0, 6], [-100, 100]]],
+    'drude-transition': [[[-150, 150], [0, 6]], [[0, 50], [0, .5]]],
+    'drude-gaussian': [[[-10, 10], [0, .85]], [[0, 4], [0, 3.2]], [[0, 4], [0, 10]]]
+  };
+  const actualAxes = lab.ctx.view.children.filter(node => node.attrs.spec).map(node => [node.attrs.spec.x, node.attrs.spec.y]);
+  assert.deepEqual(JSON.parse(JSON.stringify(actualAxes)), expectedAxes[id], `${id}: a control changed the absolute plot axes`); lifecycle++;
   if (id === 'drude-packet') {
-    close(first.markers[0].x, state.alpha * state.s ** 2);
-    for (const [x, y] of first.series[1].points) close(y, Math.exp(-((x - state.alpha * state.s ** 2) ** 2) / (2 * (1 + state.s ** 2))) / Math.sqrt(2 * Math.PI * (1 + state.s ** 2)), 1e-14);
-    close(second.markers[0].y, state.alpha * state.s ** 2); close(second.markers[1].y, Math.sqrt(1 + state.s ** 2));
+    close(first.markers[0].x, initialWidthNm * state.alpha * state.s ** 2);
+    for (const [x, y] of first.series[1].points) close(y, Math.exp(-((x / initialWidthNm - state.alpha * state.s ** 2) ** 2) / (2 * (1 + state.s ** 2))) / (initialWidthNm * Math.sqrt(2 * Math.PI * (1 + state.s ** 2))), 1e-14);
+    close(second.markers[0].x, state.s * packetTimePs);
+    close(second.markers[0].y, initialWidthNm * state.alpha * state.s ** 2); close(second.markers[1].y, initialWidthNm * Math.sqrt(1 + state.s ** 2));
+    check(/nm/.test(first.xLabel) && /nm⁻¹/.test(first.yLabel) && /ps/.test(second.xLabel) && /nm/.test(second.yLabel));
+    for (const [t, x] of second.series[0].points) close(x, initialWidthNm * state.alpha * (t / packetTimePs) ** 2, 1e-12);
+    for (const [t, width] of second.series[1].points) close(width, initialWidthNm * Math.sqrt(1 + (t / packetTimePs) ** 2), 1e-12);
+    assert.equal(lab.metrics[0].textContent, (initialWidthNm * state.alpha * state.s ** 2).toFixed(2));
+    assert.equal(lab.metrics[1].textContent, (initialWidthNm * Math.sqrt(1 + state.s ** 2)).toFixed(2));
     assert.equal(lab.metrics[3].textContent, '1'); lifecycle++;
   } else if (id === 'drude-transition') {
     assert.equal(first.series.length, state.reference ? 2 : 1); lifecycle++;
@@ -168,12 +192,34 @@ function verifyPlottedModel(lab, id) {
     }
     for (const [t, y] of second.series[0].points) close(y, 1000 * 2 * Math.PI * (state.couplingMeV * .001) ** 2 * t / hbar, 1e-13);
     close(first.markers[0].x, state.probeMeV); check(/meV/.test(second.yLabel));
-    if (state.timeFs === 0) assert.ok(lab.metrics[3].textContent.includes('t=0'));
+    const scaleMetric = lab.metrics[3];
+    assert.equal(scaleMetric.ariaLabel, scaleMetric.title);
+    if (state.timeFs === 0) {
+      assert.equal(scaleMetric.textContent, '— (t=0)');
+      assert.ok(/undefined|정의되지/.test(scaleMetric.ariaLabel));
+      assert.ok(scaleMetric.ariaLabel.includes('t=0'));
+      assert.ok(!scaleMetric.textContent.includes('∞'));
+    } else {
+      assert.ok(scaleMetric.ariaLabel.includes(scaleMetric.textContent));
+      assert.ok(scaleMetric.ariaLabel.includes('meV'));
+      assert.ok(!scaleMetric.ariaLabel.includes('t=0'));
+    }
   } else {
+    assert.ok(third, 'Fourier amplitude and its square require separate physical-unit plots'); lifecycle++;
     const strength = state.mode === 'integral' ? 1 : state.width;
     for (const [x, y] of first.series[1].points) close(y, strength / (Math.sqrt(2 * Math.PI) * state.width) * Math.exp(-x * x / (2 * state.width * state.width)), 1e-14);
-    for (const [q, y] of second.series[0].points) close(y, strength * Math.exp(-q * q * state.width * state.width / 2), 1e-14);
-    for (let i = 0; i < second.series[0].points.length; i++) close(second.series[1].points[i][1], second.series[0].points[i][1] ** 2, 1e-14);
+    for (const [q, y] of second.series[1].points) close(y, strength * Math.exp(-q * q * state.width * state.width / 2), 1e-14);
+    for (let i = 0; i < second.series[1].points.length; i++) close(third.series[1].points[i][1], second.series[1].points[i][1] ** 2, 1e-14);
+    check(/nm/.test(first.xLabel) && /eV/.test(first.yLabel) && /nm⁻¹/.test(second.xLabel) && /eV nm/.test(second.yLabel) && /eV² nm²/.test(third.yLabel));
+    // q selects a visible point AND a full-height vertical probe on both
+    // reciprocal-space plots, including when the amplitude is vanishingly small.
+    for (const chart of [second, third]) {
+      close(chart.markers[0].x, state.q);
+      assert.deepEqual(JSON.parse(JSON.stringify(chart.series[2].points)), [[state.q, chart.y[0]], [state.q, chart.y[1]]]); lifecycle++;
+    }
+    close(second.markers[0].y, strength * Math.exp(-(state.q ** 2) * state.width ** 2 / 2), 1e-14);
+    close(third.markers[0].y, strength ** 2 * Math.exp(-(state.q ** 2) * state.width ** 2), 1e-14);
+    for (const metric of lab.metrics) { assert.match(metric.textContent, /^\d\.\d{3}e[+-]\d{2}$/); assert.equal(metric.textContent.length, 9); lifecycle += 2; }
     if (state.width === 3 && state.q === 4) assert.notEqual(lab.metrics[3].textContent, '0');
   }
 }
@@ -184,6 +230,7 @@ const corners = {
 };
 for (const id of ids) for (const ko of [false, true]) {
   const lab = mount(id, ko), initial = lab.snapshot(), saved = JSON.parse(JSON.stringify(lab.state.read()));
+  if (id === 'drude-gaussian') { assert.equal(saved.width, 2, 'Start away from the width=1 nm coincidence so changing the mode changes the curves.'); lifecycle++; }
   assert.equal(lab.buttons.length, 3); assert.ok(lab.ctx.modelNote.length > 100); assert.ok(lab.labels.every(label => typeof label === 'string' && label.length)); lifecycle += 3;
   for (const bad of [null, false, [], {}, { wrong: 1 }, { ...saved, extra: 1 }]) { assert.equal(lab.state.write(bad), false); assert.equal(lab.snapshot(), initial); lifecycle += 2; }
   for (const key of Object.keys(saved)) {
@@ -192,7 +239,7 @@ for (const id of ids) for (const ko of [false, true]) {
   }
   roundTrip(lab, id, ko);
   for (const field of lab.fields) {
-    const config = field.config, values = config.type === 'select' ? config.options.map(o => o.value) : config.type === 'checkbox' ? [false, true] : [config.min, config.min + config.step, config.max];
+    const config = field.config, values = config.type === 'select' ? config.options.map(o => o.value) : config.type === 'checkbox' ? [false, true] : Array.from({ length: Math.round((config.max - config.min) / config.step) + 1 }, (_, i) => Number((config.min + i * config.step).toFixed(10)));
     for (const value of values) { if (config.type === 'checkbox') field.checked = value; else field.value = value; lab.render(); verifyPlottedModel(lab, id); lifecycle++; }
     lab.reset(); assert.equal(lab.snapshot(), initial); lifecycle++;
   }

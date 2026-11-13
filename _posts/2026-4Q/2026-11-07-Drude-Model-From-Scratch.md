@@ -1,5 +1,5 @@
 ---
-title: "The Drude Model: From Electric Fields to Mobility and Scattering"
+title: "The Drude Model: How Does Electric Current Flow?"
 description: "How charge conservation, electric fields and electron motion produce a current—and how band curvature and microscopic scattering determine effective mass, mobility and relaxation time."
 date: 2026-11-07 18:00:00 +0900
 categories: [Physics, Quantum Transport]
@@ -24,9 +24,9 @@ image:
 
 [Read in Korean]({{ site.baseurl }}/posts/Drude-Model-From-Scratch-KR/) · [Python reference]({{ site.baseurl }}/assets/code/drude-model.py) · [Executable notebook]({{ site.baseurl }}/assets/notebooks/drude-model-en.ipynb)
 
-Apply a fixed voltage across an ordinary wire, and its current usually settles to an approximately constant value, provided its temperature stays nearly fixed. That is a familiar observation. But what sets the value of the current, and why does it stop increasing?
+Apply a voltage across a wire: the resulting electric field exerts a force on its electrons. How do we calculate the current they carry? Its magnitude depends on how many mobile electrons are present and how fast they move on average.
 
-A voltage establishes an electric field, which exerts a force on the electrons. A force changes velocity, whereas a constant current requires a constant average velocity when the carrier density is fixed. To connect these statements, we need to work out the electron motion—not assume Ohm's law at the outset.
+The field produces a directional average motion, or drift, while scattering from impurities and lattice vibrations changes that motion. The Drude model expresses their combined effect as an equation for the average velocity. The proportionality between voltage and current, and the mobility, follow from its solution.
 
 ## 1. Charge and current densities, electric field and charge conservation
 {: id="drude-01" }
@@ -369,7 +369,7 @@ print("Turn-on fraction at 1 tau:", -np.expm1(-1.0))
 
 {% include interactive/article-lab.html id="drude-step" %}
 
-Change $\tau$ and then $m^{\ast}$ separately to compare mobility and final current. The horizontal axis is $s=t/\tau$, so a plotted slope is $dJ/ds$, not $dJ/dt$. Changing $\tau$ also changes the physical time at the same horizontal position. Eq. (9) gives the initial physical-time slope as $dJ/dt=(1/\tau)dJ/ds=ne^2E_0/m^{\ast}$, independent of $\tau$. Reverse the field to check both current and electron-drift signs. The displayed channel geometry is fixed.
+Change $\tau$ and $m^{\ast}$ separately to compare mobility and final current. The plot now uses fixed physical time in ps and current density in A/m²; changing $\tau$ changes the rise time as well as the steady current. Eq. (9) gives the initial slope $dJ/dt=ne^2E_0/m^{\ast}$, independent of $\tau$. Material sliders never rescale either axis. A separate view selector explicitly chooses one of three fixed current ranges; curves outside it are cut at the boundary and flagged. Reverse the field to check both current and electron-drift signs. The channel geometry remains fixed.
 
 <details markdown="1">
 <summary>Where does the electrical work go?</summary>
@@ -466,7 +466,7 @@ print("Normalized AC response:", response)
 
 {% include interactive/article-lab.html id="drude-ac" %}
 
-Move from $\omega\tau\ll1$ to $\omega\tau\gg1$. The current follows slowly varying fields almost in phase; at high frequency its amplitude falls and its lag approaches a quarter-cycle. A zero-frequency setting shows a static field, not an oscillation with an infinitely long plotted period.
+The plots use fixed material values: $\tau=100\,\mathrm{fs}$, $n=10^{23}\,\mathrm{m}^{-3}$, $m^{\ast}=0.2m_0$ and $E_0=1000\,\mathrm{V/m}$. Frequency is shown in THz and time in ps, rather than plotting every cycle at the same normalized width. Raise the frequency to see more cycles in the same time window. The current amplitude falls and its phase lag approaches a quarter-cycle. The time control moves the selected point; at zero frequency the field and current are static.
 
 <details markdown="1">
 <summary>The periodic AC response and its switch-on transient</summary>
@@ -534,6 +534,33 @@ $$
 
 This is **Bloch's form**. The periodic factor $u_k$ contains the lattice-scale structure; it is a wavefunction factor, not the mean drift velocity $\mathbf u$. Wavevectors differing by $2\pi/a$ label equivalent translation phases, so one may restrict $k$ to a **Brillouin zone**, for example $[-\pi/a,\pi/a)$. The band index preserves the different states that can share the same translation phase. [Tong, Band Structure][bands]
 
+A spatial example separates the two factors. Choose a real periodic profile with a peak at each site $x=ja$:
+
+$$
+\begin{aligned}
+&u_{\rm demo}(x)=0.25+0.75\cos^8(\pi x/a),\\
+&\psi_k^{\rm demo}(x)=e^{ikx}u_{\rm demo}(x),\\
+&\operatorname{Re}\psi_k^{\rm demo}=u_{\rm demo}(x)\cos(kx),\\
+&\operatorname{Im}\psi_k^{\rm demo}=u_{\rm demo}(x)\sin(kx).
+\end{aligned}
+$$
+
+The cell-scale profile $u_{\rm demo}$ repeats every $a$, while the phase advances by $ka$ between adjacent sites. At $ka=0$ the product is real and repeats with the lattice. At $ka=\pi/4$ its real and imaginary parts vary gradually across successive sites; at $ka=\pi$ adjacent site peaks have opposite signs. A zero of the real part alone need not be a zero of the complex wavefunction.
+
+Here $u_{\rm demo}$ is prescribed and held fixed to isolate phase multiplication. These functions satisfy the Bloch translation condition, but are not asserted to be eigenstates of one specified atomic potential. Actual band eigenstates generally have a $k$-dependent $u_k$. Since $\lvert e^{ikx}\rvert=1$, the relative density is $\lvert\psi_k^{\rm demo}\rvert^2=u_{\rm demo}^2$ in this construction. The phase factor is not a localized wave-packet envelope.
+
+<figure class="drude-figure">
+<picture class="rsna-results-figure">
+<source media="(max-width: 560px)" srcset="{% include media-url.html src='/assets/img/posts/2026-11-07-drude-model/fig-sec07-bloch-states-mobile.svg' %}" width="600" height="1710">
+<img src="/assets/img/posts/2026-11-07-drude-model/fig-sec07-bloch-states.svg" alt="A periodic profile peaked at atomic sites, multiplied by three different Bloch phase factors to show real and imaginary parts in space." width="1200" height="1330">
+</picture>
+<figcaption markdown="span">Figure 7. (a) A periodic profile with peaks at integer sites $x/a=j$. (b–d) Blue and gold show the real and imaginary parts at $ka=0,\pi/4,\pi$. Dashed curves are $\pm u_{\rm demo}$; every row uses the same relative-amplitude scale. These are spatial snapshots, not electron trajectories.</figcaption>
+</figure>
+
+{% include interactive/article-lab.html id="drude-bloch" %}
+
+The activity fixes $a=0.5\,\mathrm{nm}$ and the spatial axis. Changing $k$ changes the phase and the product, rather than stretching the axes. The second control sets $u(x)=1-\eta+\eta\cos^8(\pi x/a)$: $\eta=0$ gives a plane wave and $\eta=0.75$ gives Figure 7. The finite-matrix calculation below separately demonstrates exact eigenstates and their energies for the tight-binding Hamiltonian.
+
 A concrete **tight-binding** model starts with one localized orbital $\lvert j\rangle$ on each site. These basis orbitals are taken to be orthonormal: each is normalized, and distinct orbitals are mutually orthogonal. The squared magnitude of a site coefficient is then the probability weight on that basis state. The index $j$ labels the sites, and $\epsilon_0$ is the energy assigned to an isolated orbital in this model, not the vacuum permittivity used in Section 1. Let neighboring orbitals exchange probability amplitude through an energy $t_h>0$, called the **hopping parameter**. The diagonal terms assign the orbital energy; the off-diagonal terms mix neighboring orbitals:
 
 $$
@@ -563,16 +590,6 @@ $$
 The chosen offset puts the band minimum at zero. It does not affect forces or velocities. Neighboring coefficients have the same phase at $ka=0$, giving energy zero, and opposite signs at $ka=\pi$, giving energy $4t_h$. The energy difference comes from how the neighboring amplitudes combine in the Hamiltonian, not from a different number of collisions.
 
 Hopping is coherent amplitude mixing in the perfect-crystal Hamiltonian: the Schrödinger equation tracks both probability amplitudes and their relative phases. It is not a transition probability per unit time. The relative phases can change in time while remaining part of the calculation. A larger $t_h$ makes this band wider; it does not by itself mean a shorter relaxation time.
-
-<figure class="drude-figure">
-<picture class="rsna-results-figure">
-<source media="(max-width: 560px)" srcset="{% include media-url.html src='/assets/img/posts/2026-11-07-drude-model/fig-sec07-bloch-states-mobile.svg' %}" width="600" height="1410">
-<img src="/assets/img/posts/2026-11-07-drude-model/fig-sec07-bloch-states.svg" alt="Complex-plane arrows for two four-site Bloch eigenstates with different phases and equal site probabilities." width="1200" height="880">
-</picture>
-<figcaption markdown="span">Figure 7. Each arrow represents the complex number $2c_j$ on a Re–Im plane, with $c_j=e^{ikja}/2$. For $ka=0$, neighboring coefficients have the same phase; for $ka=\pi/2$, each advances by a quarter turn. Both states have $\lvert c_j\rvert^2=1/4$ at every site. Equal site probabilities therefore do not imply equal relative phases or equal energies.</figcaption>
-</figure>
-
-{% include interactive/article-lab.html id="drude-bloch" %}
 
 <details markdown="1">
 <summary>Four sites: a band calculation as a finite matrix problem</summary>
@@ -715,6 +732,8 @@ Here $E_c$ is the energy at the band minimum. The last line describes packet-cen
 
 {% include interactive/article-lab.html id="drude-packet" %}
 
+The activity fixes the initial width at $\Delta x_0=10\,\mathrm{nm}$ and the mass at $m^{\ast}=m_0$. Position and width are shown in nm, time in ps, and probability density in inverse nm. All axis limits stay fixed as force or time changes; the initial density remains as a dashed reference.
+
 The electron's bare mass has not changed. In the microscopic scalar-potential description, Ehrenfest's theorem relates the acceleration of the position expectation value to the **sum of the expectation values of lattice and external forces**, divided by the bare mass. The band calculation has already incorporated the periodic lattice into its states and dispersion. Its effective mass relates packet motion in this single-band approximation to the **external** force; it does not follow from discarding the lattice force in the microscopic equation. [Fitzpatrick, Ehrenfest's theorem][ehrenfest]
 
 ## 9. Nonparabolic bands and anisotropic effective mass
@@ -770,7 +789,7 @@ assert inv_mass[-1] < 0
 
 {% include interactive/article-lab.html id="drude-band" %}
 
-Find a point with zero velocity and nonzero curvature, then one with maximum velocity and zero curvature. Increasing the hopping changes both the speed scale and curvature; it does not alter the dimensionless sine/cosine shapes.
+All three plots keep the same physical $k$ axis in inverse nm. Their vertical axes separately show energy in eV, velocity in m/s and inverse curvature mass. Raising $t_h$ makes the energy, velocity and curvature variations taller. Increasing $a$ shortens the horizontal period $2\pi/a$, so the curves compress along the fixed axis and the first-zone boundaries $\pm\pi/a$ move inward. Repeated periods are the extended-zone display of the same tight-binding band, not extra bands. Compare a zero-velocity point with a zero-curvature point; they need not coincide.
 
 <details markdown="1">
 <summary>Does negative curvature mean negative conductivity?</summary>
@@ -1131,6 +1150,8 @@ for ell in (ell0, 2 * ell0):
 </figure>
 
 {% include interactive/article-lab.html id="drude-gaussian" %}
+
+The activity fixes $\ell_0=1\,\mathrm{nm}$ and $g_{\rm ref}=1\,\mathrm{eV\,nm}$. Potential, Fourier amplitude and squared amplitude use separate fixed axes in eV, eV nm and eV² nm². Moving the transfer control moves a vertical probe and the selected points, rather than changing the Fourier curve itself. The initial width is 2 nm, so the fixed-integral and fixed-peak choices already give different curves; they coincide when the width equals 1 nm.
 
 A material contains many impurities. Absorb their spatially uniform average potential into the band energy. For the remaining scattering contribution, averaging over uncorrelated impurity positions removes the position-dependent interference, so the mean rate is proportional to the impurity density $n_i$. The arbitrary normalization volume cancels against the final-state count. The density, rather than the chosen box size, must enter a material's lifetime.
 
@@ -1682,6 +1703,8 @@ The short-range impurity model in Section 15 also has $r=-1/2$, because its rate
 
 {% include interactive/article-lab.html id="drude-average" %}
 
+The activity shows both weights against the same kinetic-energy axis in meV. Raising temperature therefore broadens and lowers the curves instead of rescaling the energy axis. Average times are plotted against temperature in ps on a fixed log10 scale: one vertical unit means a factor of ten. A divergent particle average is not plotted as a finite time. The displayed energy window is finite; the analytic averages still integrate over all positive energies.
+
 ```python
 def mb_transport_time(tau_ref, energy_ref_J, temperature_K, exponent):
     if tau_ref <= 0 or energy_ref_J <= 0 or temperature_K <= 0 or exponent <= -2.5:
@@ -1844,7 +1867,7 @@ print("Charge snapshot a,a' at Omega=1.2,s=1:", density_mode(1.0, 1.2))
 
 {% include interactive/article-lab.html id="drude-charge" %}
 
-Cross $\Omega=0.5$ and compare monotone relaxation with overshoot. At the initial instant, inspect the finite field and zero current. The lab starts from a 5% density modulation and displays the normalized field and current. Converting these to SI fields and currents requires the mean density, permittivity, wavevector and relaxation time of a chosen system.
+Cross $\Omega=0.5$ and compare monotone relaxation with overshoot. The activity fixes $\tau=100\,\mathrm{fs}$, $m^{\ast}=0.2m_0$, $\varepsilon_b=11.7$ and $L_{\rm cell}=100\,\mathrm{nm}$. Changing $\Omega$ changes $n_0$ through $\omega_p^2=n_0e^2/(\varepsilon m^{\ast})$; the initial modulation remains 5% of that density. Density, electric field and current appear on separate fixed physical axes. At the initial instant the field can be finite while the current is zero.
 
 Only when momentum adjusts much faster than the density changes can the field and current be treated as obeying their local DC relation throughout the slow evolution. A long wavelength alone does not remove the inertial transient.
 

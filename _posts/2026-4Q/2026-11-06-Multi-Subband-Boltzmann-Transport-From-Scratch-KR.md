@@ -1,6 +1,6 @@
 ---
 title: "BTE에서 MS-BTE로: Confinement, Subband, 전류 계산"
-description: "좁은 wire에서는 confinement 때문에 subband가 생긴다. MS-BTE는 각 subband의 전자 분포와 scattering을 계산해 전류를 구한다. 어떤 물리 정보를 생략할 수 있는지와 얼마나 많은 mode를 계산해야 하는지는 따로 판단해야 한다."
+description: "좁은 wire에서는 confinement로 subband가 생긴다. MS-BTE로 각 subband의 전자 분포와 scattering을 계산하고, 그 결과에서 density와 전류를 구한다."
 date: 2026-11-06 09:00:00 +0900
 categories: [Physics, Quantum Transport]
 tags: [quantum-transport, boltzmann-equation, nanowire, numerical-methods, python, semiconductor, subband]
@@ -24,17 +24,17 @@ image:
 
 [Read in English]({{ site.baseurl }}/posts/Multi-Subband-Boltzmann-Transport-From-Scratch/) · [Python reference]({{ site.baseurl }}/assets/code/multi-subband-bte.py) · [Executable notebook]({{ site.baseurl }}/assets/notebooks/multi-subband-bte-ko.ipynb)
 
-전자가 가질 수 있는 에너지만으로는 전류를 구할 수 없다. 어떤 state가 채워져 있는지, 그 안의 전자가 어떻게 움직이는지, collision으로 전자가 어느 state로 옮겨가는지도 알아야 한다. **Boltzmann transport equation(BTE)**은 이러한 이동과 재분배를 함께 계산하는 식이다.
+전자가 가질 수 있는 에너지만 알아서는 전류를 구할 수 없다. 각 state에 전자가 얼마나 있는지, 그 전자들이 어느 방향으로 얼마나 빠르게 움직이는지, collision을 겪으면 어떤 state로 바뀌는지도 알아야 한다. 전자의 이동과 collision으로 각 state의 occupation이 어떻게 달라지는지 나타내는 식이 **Boltzmann transport equation(BTE)**이다.
 
-좁은 wire에서는 단면 방향의 운동이 양자화된다. 각 transverse quantum state는 mode 번호로 구분한다. 길이 방향의 운동은 많은 경우 위치와 wavevector로 기술할 수 있다. 이 state들에 Boltzmann kinetics를 적용한 식이 **multi-subband Boltzmann transport equation(MS-BTE)**이다. BTE를 대체하는 별개의 이론이 아니라, confinement가 있는 계에 맞게 쓴 Boltzmann 방정식이다. [Noei et al., Sec. 2][noei]
+좁은 wire에서는 단면을 가로지르는 transverse 방향으로 전자의 운동이 제한된다. 그 결과 이 방향의 에너지는 discrete level로 나뉘며, 각 transverse state를 mode 번호로 구분한다. 반면 wire를 따라가는 longitudinal 방향의 운동은 많은 경우 위치와 wavevector로 나타낼 수 있다. 이렇게 구한 state에 Boltzmann kinetics를 적용한 식이 **multi-subband Boltzmann transport equation(MS-BTE)**이다. BTE와 별개의 이론이 아니라, confinement를 반영한 quantum state에 대해 쓴 Boltzmann 방정식이다. [Noei et al., Sec. 2][noei]
 
-어떤 정보를 생략해도 되는지와 어떤 계산 방법이 빠른지는 별개의 문제다. **Basis change, 물리적 근사, numerical truncation을 구분해야 하는 이유도 여기에 있다.** MS-BTE의 계산량과 적용 범위는 각 단계에서 무엇을 유지하고 생략했는지에 따라 달라진다.
+같은 state를 다른 basis로 표현하는 것, 영향이 작다고 판단한 물리적 효과를 무시하는 것, 계산에 포함할 mode 수를 제한하는 것은 서로 다르다. **Basis change, 물리적 근사, numerical truncation**을 구분해야 MS-BTE에서 무엇을 계산하고 무엇을 생략하는지, 어떤 조건에서 계산량을 줄일 수 있는지 알 수 있다.
 
 ## 1. 이동과 collision을 함께 계산하는 BTE
 
-먼저 하나의 축을 따라 움직이는 전자를 생각하고, 그 좌표를 $x$로 두자. 시간 $t$에 위치 $x$, wavevector $k$ 부근의 local state가 **spin 하나당** 얼마나 채워져 있는지를 $f(x,k,t)$로 나타낸다. 단위는 없으며, fermion에서는 $0\le f\le1$이다. Occupation이 0.3이면 그 state에 전자가 있을 확률이 0.3이라는 뜻이다. 소자 안의 전체 전자 중 30%가 그곳에 있다는 뜻은 아니다. 가능한 state들의 occupation을 더하면 입자 수를 얻는다. 이 합을 1로 normalization하지는 않는다.
+먼저 전자의 운동을 한 공간 좌표로 나타내고, 그 좌표를 $x$로 두자. 시간 $t$에 위치 $x$, wavevector $k$ 부근의 local state가 얼마나 채워져 있는지 **spin 하나에 대해** $f(x,k,t)$로 나타낸다. 이 값에는 단위가 없으며, fermion에서는 $0\le f\le1$이다. Occupation이 0.3이면 같은 조건으로 준비하고 측정하는 실험을 반복했을 때 그 state에 전자가 있을 확률이 30%라는 뜻이다. 소자 안의 전체 전자 중 30%가 그곳에 있다는 뜻은 아니다. 가능한 모든 state의 occupation을 더하면 평균 전자 수가 된다. 이 합을 1로 normalization하지는 않는다.
 
-위치와 momentum을 함께 좌표로 쓰는 공간이 **phase space**다. 여기서 momentum 변수는 $\hbar k$다. 이 좌표는 local wavepacket이나 서로 가까운 state들을 구분하는 데 사용한다. 위치와 momentum의 정확한 eigenvalue를 동시에 정한다는 뜻은 아니다. **Semiclassical description**에서는 에너지와 scattering 확률을 양자역학으로 구하되, collision 사이의 이동은 packet 중심의 근사적인 운동식으로 계산한다. Packet 안에서 potential이 거의 일정하도록 wavepacket의 크기를 충분히 작게 잡아야 한다. 이때도 위치와 momentum의 분포 폭은 uncertainty relation을 만족해야 한다. [Xiao, Chang, and Niu, Secs. IV–V][wavepacket]
+위치와 momentum을 함께 좌표로 쓰는 공간을 **phase space**라고 한다. 여기서 momentum 변수는 $\hbar k$다. 각 좌표는 특정 위치와 momentum 부근에 모인 wavepacket이나 state 집합을 나타낸다. 두 물리량의 정확한 eigenvalue를 동시에 정한다는 뜻은 아니다. **Semiclassical description**에서는 에너지와 scattering 확률은 양자역학으로 구하고, collision 사이의 이동은 wavepacket 중심의 근사적인 운동식으로 계산한다. Packet 안에서 potential이 거의 변하지 않을 만큼 packet의 공간적 크기가 작아야 한다. 동시에 위치와 momentum의 분포 폭은 uncertainty relation을 만족해야 한다. [Xiao, Chang, and Niu, Secs. IV–V][wavepacket]
 
 Packet의 velocity가 $v$이고 force $F$가 작용하면 $\dot x=v$, $\hbar\dot k=F$다. 가장 간단한 1차원 BTE는 다음과 같다.
 
@@ -46,9 +46,9 @@ $$
 \tag{1}
 $$
 
-각 항의 단위는 시간의 역수다. Collision 항은 force가 아니라 occupation이 변하는 속도를 나타낸다. 어떤 state의 occupation이 줄어도 전자가 사라진 것은 아니다. 예를 들어 state-counting weight가 같은 두 state가 에너지를 보존하며 전자를 주고받는 **elastic exchange**를 생각하자. 양방향의 unblocked rate coefficient가 같은 $r$이면 **reciprocal exchange**라고 한다. 첫 번째 state의 occupation 변화율은 $r(f_2-f_1)$이다. Gain과 loss를 각각 계산할 때는 Pauli blocking도 반영한다. 두 항을 뺄 때 이 인자가 어떻게 상쇄되는지, state-counting weight가 다르면 무엇이 달라지는지는 collision model에서 확인할 수 있다.
+각 항의 단위는 시간의 역수다. Collision 항은 force가 아니라, collision 때문에 occupation이 변하는 속도다. 한 state의 occupation이 줄었다고 해서 전자가 사라졌다는 뜻은 아니다. 다른 state로 옮겨 갔을 수도 있다. 예를 들어 state 수를 세는 가중치인 state-counting weight가 같은 두 state 사이에서 전자가 에너지를 보존하며 오가는 **elastic exchange**를 생각하자. 도착 state가 이미 채워져 이동이 제한되는 효과를 아직 반영하지 않은 계수를 unblocked rate coefficient라고 한다. 이 계수가 양방향에서 같은 $r$이면 **reciprocal exchange**다. 첫 번째 state의 occupation 변화율은 $r(f_2-f_1)$이 된다. Gain과 loss를 각각 계산할 때는 이미 채워진 state로 전자가 들어가지 못하는 Pauli blocking도 반영해야 한다. 이 두 항을 뺄 때 Pauli factor가 상쇄되는 과정과, state-counting weight가 다를 때의 계산은 뒤의 collision model에서 확인할 수 있다.
 
-식의 왼쪽은 **trajectory를 따라 계산한 미분**이다. 이를 $x,k$를 고정한 편미분들로 풀어 썼다. Collision이 없으면 occupation profile은 trajectory를 따라 그대로 이동한다. 하지만 한 위치에서 보면 profile의 다른 부분이 지나가는 동안 occupation이 바뀔 수 있다. **Stationary** solution에서는 $\partial_t f=0$이지만, velocity나 전류까지 0일 필요는 없다.
+식의 왼쪽은 packet의 **trajectory를 따라 occupation이 변하는 속도**를 편미분으로 풀어 쓴 것이다. 위치와 wavevector $x,k$를 독립변수로 두고, 각 편미분에서는 미분하는 변수를 제외한 나머지를 고정한다. Collision이 없으면 trajectory를 따라 움직이며 본 occupation은 일정하다. 반면 한 위치에서 관찰하면 profile의 다른 부분이 차례로 지나가므로 occupation이 바뀔 수 있다. **Stationary** solution에서는 $\partial_t f=0$이다. 각 위치에서 분포가 시간에 따라 변하지 않는다는 뜻이지, 전자의 velocity나 전류까지 0이라는 뜻은 아니다.
 
 <details markdown="1">
 <summary>이동을 나타내는 미분 항이 두 개 생기는 이유</summary>
@@ -60,11 +60,11 @@ f(x+\dot x\,dt,k+\dot k\,dt,t+dt)=f(x,k,t)+\mathcal O(dt^2).
 \tag{2}
 $$
 
-왼쪽을 1차 Taylor expansion한 뒤 $f(x,k,t)$를 빼고 $dt$로 나눈다. 여기서 $dt\to0$으로 보내면 $\partial_t f+\dot x\,\partial_x f+\dot k\,\partial_k f=0$을 얻는다. 여기에 collision에 따른 변화율을 더하면 식 (1)이다. Chain rule을 적용한 결과이지, 전자를 새로 만드는 항을 추가한 것이 아니다.
+왼쪽을 1차 Taylor expansion한 뒤 $f(x,k,t)$를 빼고 $dt$로 나눈다. 여기서 $dt\to0$으로 보내면 $\partial_t f+\dot x\,\partial_x f+\dot k\,\partial_k f=0$을 얻는다. Collision이 있을 때 오른쪽에 그로 인한 occupation 변화율을 넣으면 식 (1)이 된다. 왼쪽의 미분 항들은 chain rule에서 나온 것이며, 전자를 새로 생성하는 항이 아니다.
 
 </details>
 
-BTE는 정확한 quantum dynamics를 표기만 바꿔 쓴 식이 아니다. 어떤 state를 선택하고 semiclassical propagation과 collision을 어떻게 근사했는지에 따라 적용 범위가 정해진다. 수치 오차를 아무리 줄여도 모델에서 생략한 양자 정보가 되살아나지는 않는다. 반대로 “Boltzmann”이라는 이름이 bulk plane-wave state만 사용해야 한다는 뜻도 아니다. Quantum confinement가 반영된 state에서 에너지와 transition rate를 구할 수도 있다. [Milovanović, Sec. 4.2][kinetics]
+BTE는 정확한 quantum dynamics의 변수만 바꾼 식이 아니다. 선택한 state, semiclassical 운동식, collision 근사에 따라 적용 범위가 달라진다. 수치 오차를 줄여도 모델에서 생략한 quantum 정보가 복원되지는 않는다. 또한 BTE에서 bulk plane-wave state만 써야 하는 것도 아니다. Quantum confinement를 포함한 state에서 에너지와 transition rate를 구한 뒤 kinetic equation을 구성할 수 있다. [Milovanović, Sec. 4.2][kinetics]
 
 ## 2. 손으로 확인할 수 있는 두 가지 BTE 해
 
@@ -85,7 +85,7 @@ $$
 
 ### Directional relaxation: spatial gradient 없이 변하는 occupation
 
-이번에는 다른 문제를 보자. 에너지와 speed가 같고 진행 방향은 반대인 두 state의 occupation이 공간상으로 균일하다고 하자. Force는 없고 spatial derivative도 0이다. Elastic reversal이 양방향에서 같은 unblocked rate coefficient $r$로 일어나면
+이번에는 에너지와 speed가 같고 진행 방향만 반대인 두 state를 생각하자. 각 state의 occupation은 위치에 따라 달라지지 않는다고 가정한다. Force는 없고 spatial derivative도 0이다. 전자가 elastic collision으로 방향을 바꾸며, 그 unblocked rate coefficient가 양방향에서 같은 $r$이면
 
 $$
 \begin{aligned}
@@ -104,7 +104,7 @@ f_\pm(t)=0.5\pm0.3e^{-2rt}.
 \tag{5}
 $$
 
-$r=0.4\,\mathrm{ps}^{-1}$이면 occupation 차이는 $1/(2r)=1.25\,\mathrm{ps}$ 동안 $e^{-1}$배로 줄어든다. 합이 1인 것은 선택한 초기값 때문이지, 모든 distribution을 그렇게 normalization해야 해서가 아니다. 두 state의 weight가 같으므로 이 합이 보존되는지 확인하면 particle conservation을 검증할 수 있다. 두 예제는 각각 BTE의 다른 항만 남겨 푼 것이다. **위치에 따라 변하는 scattering 문제 하나를 두 패널에 나눠 그린 것이 아니다.**
+$r=0.4\,\mathrm{ps}^{-1}$이면 occupation 차이는 $1/(2r)=1.25\,\mathrm{ps}$가 지날 때마다 $e^{-1}$배로 줄어든다. 합이 1인 것은 선택한 초기값 때문이지, 모든 distribution을 그렇게 normalization해야 해서가 아니다. 두 state의 weight가 같으므로 이 합이 보존되면 전자 수도 보존된다. 앞의 free flight와 이 relaxation은 서로 다른 초기 조건과 방정식을 갖는 두 문제다. **위치에 따라 변하는 scattering 문제 하나를 두 패널에 나눠 그린 것이 아니다.**
 
 ```python
 import numpy as np
@@ -130,9 +130,9 @@ print("At 1.25 ps:", np.round(relaxing_pair(1.25), 4))
 <figure class="msbte-figure">
 <picture class="rsna-results-figure">
 <source media="(max-width: 560px)" srcset="{% include media-url.html src='/assets/img/posts/2026-11-06-multi-subband-bte/fig-06-bte-streaming-mobile.svg' %}" width="600" height="1330">
-<img src="/assets/img/posts/2026-11-06-multi-subband-bte/fig-06-bte-streaming.svg" alt="서로 독립적인 두 BTE 해. 하나는 occupation profile이 일정한 velocity로 이동하는 경우이고, 다른 하나는 공간상으로 균일한 두 occupation의 차이가 줄어들면서 합은 보존되는 경우다." width="1200" height="725">
+<img src="/assets/img/posts/2026-11-06-multi-subband-bte/fig-06-bte-streaming.svg" alt="서로 다른 두 BTE 문제의 해. 왼쪽은 occupation profile이 일정한 velocity로 이동하는 경우다. 오른쪽은 위치에 따라 균일한 두 occupation의 차이가 줄어들고 합은 보존되는 경우다." width="1200" height="725">
 </picture>
-<figcaption markdown="span">그림 1. Free flight에서는 occupation profile이 이동하고, 양방향 rate가 같은 scattering에서는 진행 방향에 따른 occupation 차이가 줄어든다. 왼쪽 문제에는 collision이 없고, 오른쪽 문제에는 spatial gradient가 없다. 각각의 exact solution으로 BTE 구현의 서로 다른 부분을 검증할 수 있다.</figcaption>
+<figcaption markdown="span">그림 1. 왼쪽에서는 collision 없이 occupation profile이 이동한다. 오른쪽에서는 전자가 양방향으로 같은 rate coefficient에 따라 방향을 바꾸면서 두 occupation의 차이가 줄어든다. 왼쪽 문제에는 collision이 없고, 오른쪽 문제에는 spatial gradient가 없다. 두 exact solution으로 각각 streaming 항과 collision 항의 구현을 검증할 수 있다.</figcaption>
 </figure>
 
 {% include interactive/article-lab.html id="msbte-basics" %}
@@ -141,7 +141,7 @@ Free-flight mode에서는 시간을 바꾸며 peak를 따라가 보자. Relaxati
 
 ## 3. BTE를 직접 계산할 때 연산량이 커지는 이유
 
-3차원 bulk model의 distribution은 $f_b(\mathbf r,\mathbf k,t)$다. 위치 좌표 세 개, wavevector 좌표 세 개, 시간, 그리고 band 번호 $b$를 사용한다. **Band**는 재료에서 허용되는 energy–momentum 관계의 각 가지를 뜻한다. 이 식의 **one-particle distribution**은 phase-space 변수 여섯 개와 시간에 의존한다. 전자 $N$개의 위치를 하나씩 나열한 $3N$개의 좌표를 사용하는 것은 아니다. Band 하나에 대한 방정식은 다음 형태다.
+3차원 bulk model의 distribution은 $f_b(\mathbf r,\mathbf k,t)$다. 위치 좌표 세 개, wavevector 좌표 세 개, 시간, band 번호 $b$가 필요하다. **Band**는 wavevector에 따라 달라지는 에너지 곡선이나 곡면 하나를 뜻한다. 같은 wavevector에서도 서로 다른 band의 state는 에너지가 다를 수 있다. 이 **one-particle distribution**은 phase-space 변수 여섯 개와 시간에 의존한다. 전자 $N$개의 위치를 하나씩 나열한 $3N$개 좌표를 사용하는 것은 아니다. Band 하나에 대한 방정식은 다음과 같다.
 
 $$
 \partial_t f_b+
@@ -151,7 +151,7 @@ $$
 \tag{6}
 $$
 
-중괄호는 scattering 때문에 서로 다른 band와 momentum의 distribution을 함께 풀어야 할 수 있음을 나타낸다. **BTE라는 kinetic framework가 특정 bulk basis나 numerical algorithm만 사용하도록 제한하는 것은 아니다.** Deterministic solver는 distribution 값이나 전개 계수를 직접 계산한다. Monte Carlo solver는 trajectory와 scattering event를 sampling해 distribution을 추정한다. 둘 다 Boltzmann model을 푸는 방법이다. [Rupp, Grasser, and Jüngel][bulk]
+중괄호는 collision이 일어나면 다른 band나 momentum의 occupation도 이 collision 항에 영향을 준다는 뜻이다. **BTE를 푸는 데 정해진 basis나 계산 방법이 하나만 있는 것은 아니다.** Deterministic solver에서는 distribution 값이나 basis에 대한 전개 계수를 직접 구한다. Monte Carlo solver에서는 trajectory와 scattering event를 sampling해 distribution을 추정한다. 둘 다 Boltzmann model을 푸는 방법이다. [Rupp, Grasser, and Jüngel][bulk]
 
 Solver를 구성하기 전에도 저장 공간이 얼마나 필요한지 가늠할 수 있다. Cartesian grid를 직접 사용하면
 
@@ -161,7 +161,7 @@ N_{\rm full}=N_xN_yN_zN_{k_x}N_{k_y}N_{k_z}
 \tag{7}
 $$
 
-각 축에 점을 100개씩 두면 값이 $10^{12}$개다. 저장 용량을 십진 단위로 나타내면 float64 array 하나에만 $8\,\mathrm{TB}$가 필요하다. Boundary data, collision coefficient, linear system, electrostatics에는 메모리와 연산이 추가로 든다. 모든 BTE solver가 이 grid를 통째로 저장하는 것은 아니다. Sampling, symmetry, adaptive resolution, angular expansion을 활용하면 거대한 grid를 직접 구성하지 않아도 된다. Collision operator가 local하면 서로 다른 모든 공간 grid point를 연결할 필요도 없다. [Rupp et al.][bulk]
+각 축에 점을 100개씩 두면 값이 $10^{12}$개다. 저장 용량을 십진 단위로 나타내면 float64 array 하나에만 $8\,\mathrm{TB}$가 필요하다. Boundary data와 collision coefficient를 저장하고, linear system과 electrostatics를 계산하는 데는 메모리와 연산이 더 필요하다. 모든 BTE solver가 이 grid를 통째로 저장하는 것은 아니다. Sampling, symmetry, adaptive resolution, angular expansion을 활용하면 거대한 grid를 직접 구성하지 않아도 된다. Collision operator가 local하면 서로 다른 모든 공간 grid point를 연결할 필요도 없다. [Rupp et al.][bulk]
 
 좁은 wire에서는 몇 개의 transverse quantum mode만으로도 transport에 중요한 state를 충분히 표현할 수 있는 경우가 있다. 이때는 transverse phase space를 촘촘한 grid로 나누는 대신 mode 번호로 구분해 저장량을 크게 줄일 수 있다. Population model에 필요한 occupation 값은 약 $N_xN_kN_s$개다. $N_x=N_k=100$, $N_s=10$이면 값이 $10^5$개이므로 $0.8\,\mathrm{MB}$다.
 
@@ -172,18 +172,18 @@ print(f"Direct tensor-grid storage: {8 * full_values / 1e12:.1f} TB")
 print(f"Ten-mode occupation storage: {8 * subband_values / 1e6:.1f} MB")
 ```
 
-이 수치는 **두 표현 방식에 필요한 저장량**을 비교한 것이다. 같은 정확도로 계산한 simulation을 비교한 것도, 실제 speedup을 측정한 것도 아니다. Transverse classical variable 대신 quantum mode를 사용해도 되는지, coherence를 무시해도 되는지, mode를 열 개만 계산해도 되는지는 각각 따로 확인해야 한다. 모든 mode를 포함한 완전한 quantum expansion은 정보를 그대로 보존한다. 다만 basis를 바꿨다는 이유만으로 계산량도 줄어든다고 단정할 수는 없다.
+위 계산은 **두 표현 방식에서 occupation array에 필요한 메모리**만 비교한 것이다. 정확도를 맞춘 두 simulation의 speedup을 측정한 결과는 아니다. 작은 occupation array로 충분하려면 longitudinal semiclassical 근사와 population 근사가 잘 맞아야 하고, 계산에 포함한 mode만으로 density와 전류가 충분히 수렴해야 한다. 모든 mode를 포함해 quantum state를 전개하면 원래 정보는 보존되지만, basis만 바꾼다고 계산량이 자동으로 줄어들지는 않는다.
 
 ## 4. Transverse energy level에서 subband가 생기는 과정
 {: id="1-transverse-energy-level에서-subband가-생기는-과정" }
 
-Transverse momentum을 연속 변수로 두고 wall에서의 반사를 classical하게 계산하는 bulk semiclassical BTE에서는 grid를 아무리 세분화해도 quantum confinement가 생기지 않는다. Classical reflection은 velocity 성분의 부호를 바꿀 뿐, Schrödinger equation의 standing-wave boundary condition을 적용하지는 않는다. Confinement를 반영하려면 **state와 그 에너지**에 quantum confinement 효과가 들어 있어야 한다.
+Transverse momentum을 연속 변수로 두고 wall에서의 반사를 classical하게 계산한다면, bulk BTE의 grid를 아무리 세분화해도 quantum confinement는 얻을 수 없다. Classical reflection은 velocity 성분의 부호를 바꾸지만, wavefunction에 경계조건을 적용해 standing wave를 구하는 과정은 아니다. Confinement를 반영하려면 **가능한 state와 그 에너지**부터 quantum 문제를 풀어 구해야 한다.
 
-큰 electron reservoir 두 개에 연결된 직사각형 단면의 wire를 생각하자. Transport 방향은 $x$, 단면의 좌표는 $y,z$, 두 contact 사이의 거리는 $L$이다. 수치 예제에서는 단면과 미리 정한 potential energy가 모두 $x$에 따라 변하지 않는다. 전자가 이 potential을 바꾸지는 않지만, occupation은 contact의 주입과 scattering에 따라 달라질 수 있다.
+큰 electron reservoir 두 개에 연결된 직사각형 단면의 wire를 생각하자. Transport 방향은 $x$, 단면의 좌표는 $y,z$, 두 contact 사이의 거리는 $L$이다. 수치 예제에서는 단면과 potential energy를 미리 정하고, 둘 다 $x$에 따라 변하지 않는다고 가정한다. 전자 분포가 바뀌어도 potential은 다시 계산하지 않는다. 각 state의 occupation은 contact에서 들어오는 전자와 wire 내부의 scattering에 따라 달라질 수 있다.
 
 세 방향 모두 **effective mass** $m^*=0.19m_0$를 사용하자. $m_0$는 진공에서의 전자 질량이다. 두 spin state는 **에너지와 occupation이 같고**, spin splitting, spin에 따른 주입 차이, spin flip은 없다고 가정한다. 따라서 spin factor 2를 곱할 수 있다. Silicon의 band 구조 전체가 아니라, conduction band의 최저점 하나 근처를 parabolic하게 근사한 모델이다.
 
-**Effective-mass model**에서는 원자 단위로 빠르게 변하는 potential을 직접 계산하는 대신, 그 효과를 매끄러운 energy–momentum 관계와 $m^{\ast}$에 반영한다. 아래 wavefunction은 crystal 내부에서 원자 간격에 따라 빠르게 변하는 부분이 아니라, 그보다 완만하게 변하는 **envelope**를 나타낸다. 세 방향에 같은 $m^{\ast}$를 사용하는 가정이 isotropic approximation이다. $y=0,W$와 $z=0,H$에 hard wall이 있는 균일한 wire 안에서 effective Hamiltonian은
+**Effective-mass model**에서는 원자 단위의 potential을 직접 계산하는 대신, 그 효과를 energy–momentum 관계와 $m^{\ast}$에 반영한다. 아래 wavefunction이 나타내는 것은 원자 간격 규모의 빠른 진동이 아니라, 그 진동을 감싸는 완만한 **envelope**다. 세 방향에 같은 $m^{\ast}$를 사용하는 것이 isotropic approximation이다. $y=0,W$와 $z=0,H$에 hard wall이 있는 균일한 wire 안에서는 다음 effective Hamiltonian을 사용한다.
 
 $$
 \widehat H=-\frac{\hbar^2}{2m^*}
@@ -191,7 +191,7 @@ $$
 \tag{8}
 $$
 
-이다. $U_0$는 모든 state에 공통으로 더해지는 potential energy다. Hard wall에서는 경계의 wavefunction이 0이다. Wire 바깥의 물질을 무한히 높은 barrier로 근사한 셈이다. State를 transverse standing wave와 longitudinal plane wave의 곱으로 쓰면
+$U_0$는 모든 state에 공통으로 더해지는 potential energy다. Hard wall에서는 경계의 wavefunction이 0이다. Wire 바깥의 물질을 무한히 높은 barrier로 근사한 셈이다. State를 transverse standing wave와 longitudinal plane wave의 곱으로 쓰면
 
 $$
 \begin{aligned}
@@ -216,7 +216,7 @@ E_n(k)&=\epsilon_n+\frac{\hbar^2 k^2}{2m^*}.
 \tag{10}
 $$
 
-**Subband edge** $\epsilon_n$은 해당 subband에서 가능한 가장 낮은 에너지로, $k=0$일 때의 값이다. Transverse energy level이 하나 정해져도 총에너지까지 하나로 정해지는 것은 아니다. $k$에 따른 총에너지를 그리면 포물선 하나가 나온다. 총에너지가 $E>\epsilon_n$으로 주어지면 길이 방향의 state는 두 개다. 하나는 $k>0$, 다른 하나는 $k<0$이다.
+**Subband edge** $\epsilon_n$은 해당 subband에서 가능한 가장 낮은 에너지이며, $k=0$일 때의 값이다. Transverse energy level이 하나 정해져도 길이 방향의 운동에는 여러 에너지가 가능하다. 둘을 더한 총에너지를 $k$에 대해 그리면 포물선 하나가 된다. 이것이 transverse level 하나에서 subband가 생기는 이유다. 총에너지가 $E>\epsilon_n$으로 주어지면 길이 방향의 state는 두 개이며, 하나는 $k>0$, 다른 하나는 $k<0$이다.
 
 이 균일한 effective Hamiltonian에서는 separation of variables가 정확히 성립한다. Transverse kinetic-energy operator가 $\phi_n$에 작용할 때의 eigenvalue는 $\epsilon_n-U_0$이고, longitudinal operator가 $e^{ikx}$에 작용할 때는 $\hbar^2k^2/(2m^*)$다. 두 값에 $U_0$를 더하면 식 (10)을 얻는다. 여기까지는 가능한 state를 구했을 뿐, 각 state에 전자가 얼마나 들어 있는지는 아직 정하지 않았다.
 
@@ -268,18 +268,18 @@ assert np.isclose(edge_eV(1, 1, 20, 16), edges[0] / 4)
 <figure class="msbte-figure">
 <picture class="rsna-results-figure">
 <source media="(max-width: 560px)" srcset="{% include media-url.html src='/assets/img/posts/2026-11-06-multi-subband-bte/fig-01-confinement-mobile.svg' %}" width="600" height="1280">
-<img src="/assets/img/posts/2026-11-06-multi-subband-bte/fig-01-confinement.svg" alt="직사각형 wire의 normalized transverse probability density와 각 mode에 대응하는 longitudinal energy parabola." width="1200" height="760">
+<img src="/assets/img/posts/2026-11-06-multi-subband-bte/fig-01-confinement.svg" alt="직사각형 단면에서 구한 각 transverse mode의 normalized probability density와, mode별 longitudinal energy–wavevector 관계." width="1200" height="760">
 </picture>
 <figcaption markdown="span">그림 2. 각 transverse eigenstate의 eigenenergy가 subband edge가 된다. 여기에 길이 방향의 kinetic energy를 더하면 총에너지가 된다. Transverse mode 번호와 longitudinal momentum의 부호는 서로 다른 정보를 나타낸다.</figcaption>
 </figure>
 
 {% include interactive/article-lab.html id="msbte-confinement" %}
 
-Wire의 폭을 줄이면서 모든 edge가 같은 만큼 올라가는지 살펴보자. 폭을 바꿨을 때 에너지가 가장 크게 달라지는 mode는 무엇일까?
+Wire의 폭을 줄여 보자. 모든 그래프의 축 범위를 고정했으므로 subband edge가 올라가고, y 방향 분포가 좁아지면서 peak가 높아지는 모습을 비교할 수 있다. 여러 좌표 중 하나에 대한 분포만 구하려면 나머지 좌표에 대해 probability density를 적분하면 된다. 이렇게 얻은 값이 **marginal probability density**다. y 방향 그래프는 z에 대해 적분한 값이고, z 방향 그래프는 y에 대해 적분한 값이다. 각각의 곡선 아래 면적은 1이다. y 방향 모양이 같은 두 mode도 z 방향 모양은 다를 수 있다. Mode 번호는 에너지가 낮은 순서로 붙였으므로, 폭을 바꾸면 같은 번호에 해당하는 transverse index 쌍이 달라질 수 있다.
 
 ## 5. Quantum mode에서 MS-BTE로: 서로 다른 세 단계
 
-Confinement가 있는 계에서는 quantum Hamiltonian으로 state를 구한 뒤, transport를 계산할 때 그 state의 어떤 정보까지 사용할지 정해야 한다. Bulk classical distribution의 변수 이름만 바꿔서는 이런 모델을 얻을 수 없다.
+Confinement가 있는 wire에서는 먼저 quantum Hamiltonian으로 가능한 state를 구한다. 그다음 transport에 어떤 정보가 필요한지 판단한다. State의 상대 phase까지 계산할지, occupation만 계산할지, mode는 몇 개나 남길지에 따라 서로 다른 모델이 된다. Bulk classical distribution의 변수 이름만 바꿔서는 이 과정을 대신할 수 없다.
 
 ### 완전한 basis change는 quantum state를 그대로 보존한다
 
@@ -290,13 +290,13 @@ $$
 \tag{11}
 $$
 
-로 전개된다. $\chi_n$은 phase까지 포함한 길이 방향의 quantum amplitude다. 모든 mode와 그 사이의 coupling 항을 유지하면, 선택한 Hamiltonian의 정보를 그대로 담을 수 있다. 이 전개만으로 Boltzmann equation이 되는 것은 아니다. 균일하고 separation of variables가 가능한 wire에서는 transverse basis가 $x$에 의존하지 않으므로 식 (10)처럼 Hamiltonian을 분리할 수 있다. Basis가 $x$에 따라 바뀌면 식 (11)을 미분할 때 $\phi_n$도 함께 미분해야 한다. 이 과정에서 생기는 mode-coupling 항을 근거 없이 생략해서는 안 된다.
+로 전개된다. $\chi_n$은 phase까지 포함한 길이 방향의 quantum amplitude다. 모든 mode와 그 사이의 coupling 항을 유지하면 원래 quantum 문제의 정보를 잃지 않는다. 표현만 달라졌으므로 아직 Boltzmann equation을 얻은 것은 아니다. 균일하고 separation of variables가 가능한 wire에서는 transverse basis가 $x$에 의존하지 않아 식 (10)처럼 Hamiltonian을 분리할 수 있다. Basis가 $x$에 따라 바뀐다면 식 (11)을 미분할 때 $\phi_n$도 함께 미분해야 한다. 그 결과 생기는 mode-coupling 항을 없애려면 별도의 근거가 필요하다.
 
-Symmetry가 있으면 transverse eigenproblem을 더 쉽게 풀 수 있지만, 단면이 비대칭이거나 불규칙해도 transverse eigenstate는 존재한다. 소수의 mode로 충분한지는 symmetry만으로 판단할 수 없다. 강한 confinement와 제한된 에너지 범위도 중요한 조건이다. Partial semiclassical limit을 취하면 transverse motion은 quantum state로 다루면서 longitudinal motion은 kinetic equation으로 계산할 수 있다. Collisionless case에서 이를 엄밀하게 유도한 예가 [Ben Abdallah and Méhats][limit]다. 다만 이 유도만으로 소자 모델에서 사용하는 모든 scattering approximation까지 얻는 것은 아니다.
+Symmetry가 있으면 transverse eigenproblem을 더 쉽게 풀 수 있다. 그렇다고 symmetry가 있어야만 transverse mode를 쓸 수 있는 것은 아니다. 단면이 비대칭이거나 불규칙해도 transverse eigenstate는 구할 수 있다. 적은 수의 mode로 충분한지는 confinement의 세기와 계산할 에너지 범위에 달려 있다. Transverse motion은 quantum state로 유지하고 longitudinal motion에만 semiclassical limit을 적용하면 kinetic equation으로 이어진다. Collisionless case에서 이를 엄밀하게 유도한 예가 [Ben Abdallah and Méhats][limit]다. 다만 이 유도가 소자 모델의 모든 scattering approximation까지 정해 주지는 않는다.
 
 ### Population만 남기고 coherence를 버리는 것은 물리적 근사다
 
-State 세 개로 이루어진 **전자 하나의** 예제를 보자. Normalization된 amplitude vector를 $c$로 쓰면 **density matrix**는 $\rho=cc^\dagger$다. Diagonal entry는 선택한 basis에서의 occupation probability이고, off-diagonal entry에는 서로 다른 state 사이의 relative-phase 정보가 들어 있다. Dagger는 complex-conjugate transpose를 뜻한다. $U^\dagger U=I$를 만족하는 unitary matrix $U$로 basis를 바꾸면
+세 개의 basis state로 표현한 **전자 하나의** 예제를 보자. Normalization된 amplitude vector를 $c$로 쓰면 **density matrix**는 $\rho=cc^\dagger$다. Diagonal entry는 이 basis로 측정했을 때 각 state가 나올 확률이고, off-diagonal entry에는 서로 다른 state 사이의 relative-phase 정보가 들어 있다. Dagger는 complex-conjugate transpose를 뜻한다. $U^\dagger U=I$를 만족하는 unitary matrix $U$로 basis를 바꾸면
 
 $$
 M=U^\dagger\rho U,\qquad
@@ -305,15 +305,17 @@ M=U^\dagger\rho U,\qquad
 \tag{12}
 $$
 
-이다. **Trace**는 diagonal entry의 합이며, 여기서는 전체 확률을 나타낸다. $\operatorname{Tr}\rho^2$는 **purity**라고 한다. Normalization된 amplitude vector 하나로 나타낸 state에서는 1이다. 이 unitary transformation은 state 전체를 보존하므로 purity도 바뀌지 않는다. 변환 전후에 이 값을 비교해 계산이 맞는지 확인할 수 있다.
+**Trace**는 diagonal entry의 합이며, 여기서는 전체 확률이다. $\operatorname{Tr}\rho^2$를 **purity**라고 한다. Normalization된 amplitude vector 하나로 나타낼 수 있는 state에서는 이 값이 1이다. 올바른 unitary basis change라면 trace와 purity가 모두 보존되어야 한다. 두 값을 비교해 기본 조건을 확인할 수 있지만, 이것만으로 변환 전체가 맞다고 보장되지는 않는다.
 
 반면 $M$을 diagonal 부분만 남긴 $D$로 바꾸면 off-diagonal 정보가 사라진다. 그 순간의 population은 그대로지만 state는 일반적으로 달라진다. 이후의 dynamics도 달라질 수 있다. 이는 단순한 “basis change”가 아니라 물리적 근사다.
 
-Population kinetic model을 쓰려면, 계산하려는 **observable**에서 coherence의 영향을 무시해도 된다는 근거가 있어야 한다. Coherent coupling이 약하면 새로운 coherence가 생기는 것을 억제할 수 있지만, initial state에 있거나 contact가 주입한 coherence까지 없어지는 것은 아니다. Initial state와 contact에서 들어오는 전자를 population만으로 나타내도 되는지도 확인해야 한다. 경우에 따라 dephasing이나 averaging을 적용할 물리적 근거가 필요하다. Transition-rate model은 보통 scattering의 memory도 무시할 수 있다고 가정한다. **Markov approximation**을 적용하면 변화율은 과거의 전체 이력이 아니라 현재의 distribution에만 의존한다. Confinement가 있다고 해서 이런 조건들이 저절로 만족되지는 않는다. [Milovanović, Sec. 4.2.1][kinetics]; [Fischetti et al., Sec. II][closure]
+Population kinetic model을 쓰려면 density나 전류처럼 계산하려는 물리량, 즉 **observable**에 coherence가 미치는 영향이 충분히 작아야 한다. Coherent coupling이 약해서 새로운 coherence가 거의 생기지 않더라도, initial state에 있거나 contact에서 주입된 coherence까지 저절로 사라지는 것은 아니다. 따라서 초기 조건과 contact에서의 주입도 population만으로 표현해도 되는지 확인해야 한다. Phase 관계가 사라지는 dephasing이 충분히 빠른지, 미세한 phase 변화를 평균내는 averaging을 적용해도 되는지 등의 조건을 따져야 한다.
+
+Transition-rate model은 보통 scattering의 memory도 무시한다. **Markov approximation**에서는 현재의 distribution만 알면 변화율을 구할 수 있다고 가정하며, 과거의 전체 이력은 따로 추적하지 않는다. Confinement만으로 이 조건까지 보장되지는 않는다. [Milovanović, Sec. 4.2.1][kinetics]; [Fischetti et al., Sec. II][closure]
 
 ### 유한한 mode만 남기는 것은 별도의 truncation이다
 
-첫 두 state만 남기고 세 번째는 제외한다고 하자. 이 toy model의 projection matrix는 $P=\operatorname{diag}(1,1,0)$이다. Population만 남긴 matrix에 적용하면 $R=PDP$를 얻는다. 그 trace는 남겨 둔 확률이며, 반드시 1인 것은 아니다. **다시 normalization하면 버린 weight가 드러나지 않는다.** Transport 계산에서는 mode 수를 늘리면서 density, 전류, 관련 transition이 수렴하는지 확인해야 한다.
+첫 두 state만 남기고 세 번째는 제외한다고 하자. 이 toy model의 projection matrix는 $P=\operatorname{diag}(1,1,0)$이다. Population만 남긴 matrix에 적용하면 $R=PDP$를 얻는다. 이 matrix의 trace는 남겨 둔 두 state의 확률을 더한 값이다. **여기서 다시 normalization해 합을 1로 맞추면, 얼마만큼의 확률을 제외했는지 알 수 없게 된다.** Transport 계산에서는 mode 수를 늘려 보면서 density, 전류, 관련 transition이 얼마나 달라지는지 확인해야 한다.
 
 ```python
 # A three-state algebra example; the rotation is not a physical subband model.
@@ -339,14 +341,14 @@ for name, matrix in (("rho", rho), ("M", M), ("D", D), ("R", R)):
 <figure class="msbte-figure">
 <picture class="rsna-results-figure">
 <source media="(max-width: 560px)" srcset="{% include media-url.html src='/assets/img/posts/2026-11-06-multi-subband-bte/fig-07-reduction-mobile.svg' %}" width="600" height="1540">
-<img src="/assets/img/posts/2026-11-06-multi-subband-bte/fig-07-reduction.svg" alt="세 state의 density matrix 네 개로 완전한 basis rotation, coherence의 제거, 두 state만 남기는 projection을 비교한다." width="1200" height="690">
+<img src="/assets/img/posts/2026-11-06-multi-subband-bte/fig-07-reduction.svg" alt="전자 하나를 세 basis state로 표현한 density matrix와, basis rotation·coherence 제거·projection을 각각 적용한 결과." width="1200" height="690">
 </picture>
-<figcaption markdown="span">그림 3. Rotation은 state를 보존하지만, off-diagonal entry나 state를 제외하는 연산은 그렇지 않다. Matrix entry는 소수 셋째 자리까지 표시했고, invariant는 반올림 전 값으로 계산했다. Rotation이 첫 두 state만 섞으므로 세 번째 state의 weight는 0.1로 유지된다. 여기서는 전자 하나의 확률을 다뤘다. 소자의 distribution도 같은 방식으로 normalization해야 한다는 뜻은 아니다. 또 확률 10%를 제외했다고 전류 오차가 10%로 정해지는 것도 아니다.</figcaption>
+<figcaption markdown="span">그림 3. Unitary rotation으로 basis를 바꿔도 같은 quantum state를 나타낸다. 반면 off-diagonal entry를 지우거나 일부 state를 제외하면 원래 state와 달라진다. Matrix entry는 소수 셋째 자리까지 표시했고, trace와 purity는 반올림 전 값으로 계산했다. 여기서는 첫 두 state만 섞이므로 세 번째 state의 weight는 0.1로 유지된다. 이 예제는 전자 하나의 확률을 다룬다. 소자의 distribution까지 같은 방식으로 normalization해야 하는 것은 아니며, 확률의 10%를 제외했다고 전류 오차도 10%가 되는 것은 아니다.</figcaption>
 </figure>
 
 ### 이렇게 얻은 transport equation도 BTE에 속한다
 
-Mode별 kinetic model에서 $f_n(x,k,t)$는 subband $n$의 spin 하나당 local occupation을 나타낸다. **Population closure**에서는 생략한 amplitude나 correlation을 따로 계산하지 않고 occupation만으로 변화율을 구할 수 있다고 가정한다. 여기에 **longitudinal semiclassical approximation**도 필요하다. $x$ 방향의 quantum amplitude 대신 local phase-space distribution으로 운동을 기술하는 근사다. Transverse off-diagonal matrix entry를 버리는 것만으로는 이 근사까지 적용한 것이 아니다. Subband energy가 $E_n(x,k)$일 때 scalar MS-BTE는 다음 형태다.
+Mode별 kinetic model에서 $f_n(x,k,t)$는 subband $n$의 spin 하나당 local occupation이다. **Population closure**는 amplitude나 correlation의 별도 방정식 없이도 occupation의 변화율을 계산할 수 있게 하는 가정이다. 여기에 $x$ 방향의 quantum amplitude를 local phase-space distribution으로 바꾸는 **longitudinal semiclassical approximation**도 필요하다. Transverse mode 사이의 off-diagonal entry를 지우는 것과는 다른 단계다. Subband energy가 $E_n(x,k)$일 때 scalar MS-BTE는 다음과 같다.
 
 $$
 \partial_t f_n
@@ -356,12 +358,12 @@ $$
 \tag{13}
 $$
 
-왼쪽은 각 subband 안에서 occupation이 어떻게 이동하는지 나타낸다. 오른쪽은 scattering으로 subband들을 결합한다. 따라서 계산 차원을 줄였다고 transport channel들이 서로 독립적이 되는 것은 아니다. Parabolic model에서는 $\partial_xE_n=\partial_x\epsilon_n$이다. [Noei et al., Eq. (3)][noei]
+왼쪽 항들은 각 subband에서 전자가 이동하고 force를 받으면서 occupation이 어떻게 변하는지 나타낸다. 오른쪽 collision 항에는 다른 subband로 옮겨 가거나 다른 subband에서 들어오는 전자의 영향도 포함된다. 따라서 계산 차원을 줄여도 각 subband의 occupation을 서로 독립적으로 구할 수 있는 것은 아니다. Parabolic model에서는 $\partial_xE_n=\partial_x\epsilon_n$이다. [Noei et al., Eq. (3)][noei]
 
-이 reduction에서 basis 선택에 해당하는 것은 quantum transverse state를 mode 번호로 구분하는 단계다. Longitudinal semiclassical kinetics와 population/rate description을 적용하는 단계에서는 scalar $f_n$만으로 표현할 수 없는 정보를 생략한다. 유한한 $N_s$만 계산하면 일부 mode도 제외된다. 정보를 생략해도 되는지는 물리적으로 판단해야 하고, mode 수가 충분한지는 numerical convergence test로 확인해야 한다. 반대로 mode 사이의 coherence를 유지한 채 quantum transport를 계산할 수도 있다.
+Transverse quantum state에 mode 번호를 붙여 전개하는 것은 basis 선택이다. Longitudinal semiclassical kinetics와 population/rate description은 scalar $f_n$만으로 표현할 수 없는 quantum 정보를 생략하는 근사다. 유한한 $N_s$만 계산하는 것은 일부 mode를 제외하는 truncation이다. 근사의 타당성은 물리적으로 판단하고, mode 수가 충분한지는 numerical convergence test로 확인한다. Mode basis를 쓰더라도 coherence를 남겨 quantum transport를 계산할 수는 있다.
 
 <details markdown="1">
-<summary>길이 방향의 quantum amplitude는 어디서 생략되었을까?</summary>
+<summary>길이 방향의 quantum 정보는 어느 단계에서 생략할까?</summary>
 
 $x$에 의존하지 않는 transverse basis에서 quantum one-particle density matrix의 원소를 $\rho_{nm}(x,x',t)$로 쓰자. 소자에서 이 matrix의 trace는 spin 하나당 전자 수를 나타내므로, 앞의 전자 하나짜리 toy model처럼 1일 필요는 없다. 서로 다른 두 위치 $x,x'$를 사용하면 mode $n,m$ 사이의 coherence뿐 아니라 위치 사이의 coherence도 남길 수 있다. 상대 좌표 $\xi=x-x'$에 대해 Fourier transform을 취하면 다음과 같다.
 
@@ -388,7 +390,7 @@ Transverse confinement에서는 경계조건을 만족하는 state만 허용되�
 ## 6. Velocity와 force를 하나의 에너지 함수에서 구하기
 {: id="2-velocity와-force를-하나의-에너지-함수에서-구하기" }
 
-Plane wave는 공간 전체에 퍼져 있으므로 특정 위치에 있는 전자나 정해진 경로를 따라 움직이는 전자로 해석할 수 없다. 서로 가까운 $k$ 값의 state를 합치면 좁은 공간에 모인 **wavepacket**을 만들 수 있다. Semiclassical description에서는 subband dispersion으로 packet의 에너지를 구하고, 그 중심의 움직임을 계산한다. 중심 wavevector $k$로 packet을 대표할 수 있으려면 momentum의 분포 폭이 충분히 좁아야 한다. 동시에 packet 안에서 potential이 거의 일정하도록 공간적 크기도 충분히 작아야 한다. 이 두 조건이 함께 성립하는지 확인해야 하며, plane wave 자체를 위치와 momentum이 정확히 정해진 점입자로 취급해서는 안 된다. [Xiao, Chang, and Niu, Secs. IV–V][wavepacket]
+Plane wave 하나는 공간 전체에 퍼져 있으므로 전자가 어느 위치에 모여 있는지 정할 수 없다. 서로 가까운 $k$ 값의 state를 합치면 한곳에 모인 **wavepacket**을 만들 수 있다. Semiclassical description에서는 이 packet의 중심을 추적한다. 중심 wavevector $k$에서의 dispersion으로 packet의 운동을 근사하려면 momentum의 분포 폭이 충분히 좁아야 한다. 동시에 packet 안에서 potential이 거의 변하지 않을 만큼 공간적 크기도 작아야 한다. 이 두 조건을 함께 만족할 수 있어야 semiclassical 근사를 쓸 수 있다. Plane wave 자체를 위치와 momentum이 정확히 정해진 점입자로 취급하는 것은 아니다. [Xiao, Chang, and Niu, Secs. IV–V][wavepacket]
 
 균일하지 않은 wire에서는 단면이나 potential의 변화 때문에 edge가 $\epsilon_n(x)$처럼 위치에 따라 달라질 수 있다. 균일한 예제는 edge가 일정한 특수한 경우다. Scalar parabolic model에서 packet 중심의 운동식은 다음과 같다.
 
@@ -441,7 +443,7 @@ Mode별 occupation만 따로 추적하려면 이러한 coherent coupling을 무�
 ## 7. Occupation으로 density와 전류 구하기
 {: id="3-occupation과-wavefunction은-다르다" }
 
-Subband energy는 가능한 state를 정하고, $f_n(x,k,t)$는 그 state가 얼마나 채워져 있는지 나타낸다. Density나 전류를 구할 때는 occupation뿐 아니라 state가 몇 개 있는지도 세어야 한다. 서로 다른 여러 state의 평균 occupation이 각각 0.8이어도 된다. 이 값들의 합을 1로 normalization하는 것이 아니라, 각 state의 기여를 더해 전자 수를 구한다.
+Subband energy로 가능한 state를 구했다면, $f_n(x,k,t)$로 각 state의 occupation을 정한다. Density와 전류를 계산하려면 occupation 하나가 몇 개의 state를 대표하는지도 알아야 한다. 서로 다른 state가 여러 개 있고 각각의 평균 occupation이 0.8이어도 된다. 합을 1로 맞추는 대신, 각 state의 기여를 더해 평균 전자 수를 구한다.
 
 $0\le f_n\le1$은 spin을 하나로 고정한 state에 대한 **Pauli exclusion**이다. 그렇다고 $f_n$이 $\lvert\Psi\rvert^2$ 같은 position probability density가 되는 것은 아니다. Local 좌표는 coarse-graining한 packet 중심을 나타낸다. Packet의 분포 폭은 여전히 $\Delta x\,\Delta k\ge1/2$를 만족해야 한다. 이 uncertainty bound만으로 coherence를 무시할 수는 없다. 다음 예제에서도 population과 coherence의 차이가 드러난다.
 
@@ -489,9 +491,9 @@ $$
 
 전류 예제에서는 electron flow를 나타내는 $I_e$를 사용하고, injection 실습에서는 $I_{\rm charge}=-I_e$도 함께 표시한다. $I_e>0$은 전자가 전체적으로 왼쪽에서 오른쪽으로 흐른다는 뜻이며, conventional charge current가 양수라는 뜻은 아니다.
 
-수를 직접 세어 보자. 길이 $1\,\mu\mathrm m$인 normalization box의 어떤 $k$ 구간에 spin 하나당 state가 20개 있고, 각각의 occupation이 0.25라고 하자. 평균 전자 수는 0.25가 아니라 $2\times20\times0.25=10$이고, line density는 $10\,\mu\mathrm m^{-1}$이다. 오른쪽으로 움직이는 전자들의 line density에 speed를 곱하면 초당 단면을 통과하는 전자 수가 된다. 시간 $dt$ 동안에는 단면 왼쪽의 길이 $v\,dt$ 구간에 있던 전자들이 그 단면을 통과하기 때문이다. 그래서 식 (17)의 flux에는 velocity가 곱해진다.
+구체적으로 수를 세어 보자. 길이 $1\,\mu\mathrm m$인 normalization box의 어떤 $k$ 구간에 spin 하나당 state가 20개 있고, 각각의 occupation이 0.25라고 하자. 평균 전자 수는 0.25가 아니라 $2\times20\times0.25=10$이고, line density는 $10\,\mu\mathrm m^{-1}$이다. 오른쪽으로 움직이는 전자들의 line density에 speed를 곱하면 초당 단면을 통과하는 전자 수가 된다. 짧은 시간 $dt$ 동안 단면을 통과하는 전자들은 처음에 그 왼쪽의 길이 $v\,dt$ 구간 안에 있던 전자들이기 때문이다. 이것이 식 (17)의 flux에 velocity를 곱하는 이유다.
 
-$f_n(k)=f_n(-k)$이면 density가 커도 전류는 0일 수 있다. 반대 방향의 velocity가 상쇄되기 때문이다. 전류는 전자가 얼마나 많은지만이 아니라, **어느 방향으로 얼마나 더 움직이는지**에 달려 있다.
+$f_n(k)=f_n(-k)$이면 density가 커도 전류는 0일 수 있다. 반대 방향으로 움직이는 전자들이 만드는 전류가 서로 상쇄되기 때문이다. 전류는 전자가 얼마나 많은지만이 아니라, **어느 방향으로 얼마나 더 움직이는지**에 달려 있다.
 
 <details markdown="1">
 <summary>Line density로부터 3차원 charge density는 어떻게 구할까?</summary>
@@ -521,7 +523,7 @@ $$
 
 $k_B$는 온도를 에너지 척도 $k_BT$로 바꾸는 Boltzmann constant다. $T>0$일 때 $E=\mu$에서 occupation은 $1/2$다. $\mu$보다 훨씬 낮은 에너지에서는 1에, 훨씬 높은 에너지에서는 0에 가까워진다. $T\to0$이면 계단 모양이 된다. $300\,\mathrm K$에서 $k_BT\simeq25.85\,\mathrm{meV}$다. Fermi–Dirac statistics와 chemical potential의 자세한 설명은 [MIT statistical-mechanics 강의 노트][fermi]에서 볼 수 있다.
 
-Single-particle Hamiltonian만으로는 전자가 thermal equilibrium에 있는지 알 수 없다. Thermal equilibrium은 별도로 가정한 조건이다. Spin을 하나로 고정한 state가 비어 있을 때와 전자 하나로 채워져 있을 때의 equilibrium statistical weight를 각각 $w_0=1$, $w_1=\exp[-(E-\mu)/(k_BT)]$로 두자. 이를 normalization하면 $f=w_1/(w_0+w_1)$이 되어 식 (20)을 얻는다. 예를 들어 $E-\mu=k_BT\ln3$이면 $w_1=1/3$이고 occupation은 $1/4$다. 에너지 차이의 부호를 바꾸면 $w_1=3$이고 occupation은 $3/4$가 된다.
+Single-particle Hamiltonian만으로는 전자가 thermal equilibrium에 있는지 알 수 없다. Reservoir가 thermal equilibrium을 유지한다고 별도로 가정해야 한다. Spin을 하나로 고정한 state가 비어 있을 때와 전자 하나로 채워져 있을 때의 equilibrium statistical weight를 각각 $w_0=1$, $w_1=\exp[-(E-\mu)/(k_BT)]$로 두자. 이를 normalization하면 $f=w_1/(w_0+w_1)$이 되어 식 (20)을 얻는다. 예를 들어 $E-\mu=k_BT\ln3$이면 $w_1=1/3$이고 occupation은 $1/4$다. 에너지 차이의 부호를 바꾸면 $w_1=3$이고 occupation은 $3/4$가 된다.
 
 Occupation의 에너지 의존성은 차이 $E-\mu$로 정해진다. 따라서 양쪽 contact의 chemical potential을 포함해 모든 에너지에 같은 상수를 더해도 occupation은 바뀌지 않는다. 두 reservoir가 각각 equilibrium에 있더라도 wire 전체가 equilibrium인 것은 아니다. 양쪽 contact의 조건이 다르면 진행 방향에 따른 occupation 차이가 생기고, 계속 유지될 수 있다.
 
@@ -566,14 +568,14 @@ assert np.isclose(fermi(0.150, 0.150, 300), 0.5)
 <figure class="msbte-figure">
 <picture class="rsna-results-figure">
 <source media="(max-width: 560px)" srcset="{% include media-url.html src='/assets/img/posts/2026-11-06-multi-subband-bte/fig-02-contacts-mobile.svg' %}" width="600" height="895">
-<img src="/assets/img/posts/2026-11-06-multi-subband-bte/fig-02-contacts.svg" alt="왼쪽 contact에서는 오른쪽으로, 오른쪽 contact에서는 왼쪽으로 들어오는 전자의 occupation만 지정한다. 나가는 방향의 distribution은 계산으로 구한다." width="1200" height="570">
+<img src="/assets/img/posts/2026-11-06-multi-subband-bte/fig-02-contacts.svg" alt="각 contact에서 wire 안으로 들어오는 전자의 occupation만 지정한다. Wire에서 contact로 나가는 전자의 occupation은 계산으로 구한다." width="1200" height="570">
 </picture>
 <figcaption markdown="span">그림 4. 실선 화살표는 미리 지정하는 inflow를, 점선 화살표는 계산으로 구하는 outgoing occupation을 나타낸다. 각 contact로 나가는 전자의 occupation은 wire 안의 scattering에 따라 달라지므로, 이 값까지 독립적으로 고정하면 안 된다.</figcaption>
 </figure>
 
 {% include interactive/article-lab.html id="msbte-injection" %}
 
-두 chemical potential을 같게 맞춰 보자. 전자 density가 0이 되는 것은 아니지만, 양방향 전류는 상쇄된다. 다음에는 subband edge를 고정한 채 두 chemical potential의 차이를 늘려 보자. 전류 표시값은 뒤의 식 (41)에서 유도할 해석적인 에너지 적분으로 계산한다.
+두 chemical potential을 같게 맞춰 보자. 전자 density가 0이 되는 것은 아니지만, 양방향 전류는 상쇄된다. 그다음 subband edge는 그대로 둔 채 두 값을 다르게 해 보자. Occupation 그래프에는 첫 두 mode를 표시했다. 누적 전류 그래프에서는 첫 번째 mode부터 순서대로 더해, 여덟 번째 mode까지 포함했을 때의 전류를 비교할 수 있다. μA 축의 범위는 고정되어 있다. 음영과 세로선, 점은 현재 전류 계산에 포함한 mode 수를 나타낸다. 이 수를 바꾸면 어떤 mode까지 합산했는지 그래프에서도 확인할 수 있다. 전류는 모두 식 (41)의 analytic energy integral로 계산한다.
 
 <span id="5-trajectory를-따라-occupation의-변화를-계산하는-boltzmann-equation"></span>
 
@@ -593,12 +595,12 @@ $$
 
 </details>
 
-## 9. Scattering은 state 사이에서 전자를 옮긴다
+## 9. Collision은 전자를 다른 state로 옮긴다
 {: id="6-scattering은-state-사이에서-전자를-옮긴다" }
 
-Collision은 전자를 다른 state로 옮긴다. Wire 안의 전자 수가 줄어야 하는 것은 아니다. **Intra-subband** collision에서는 $n$이 그대로이고, **inter-subband** collision에서는 $n$이 바뀐다. 어느 경우든 진행 방향이 바뀔 수 있다.
+Collision은 전자를 다른 state로 옮긴다. 이 과정에서 wire 안의 전체 전자 수가 줄어드는 것은 아니다. **Intra-subband** collision에서는 $n$이 그대로이고, **inter-subband** collision에서는 $n$이 바뀐다. 어느 경우든 진행 방향이 바뀔 수 있다.
 
-전자 수를 정확히 세기 위해, 먼저 spin 하나에 대해 box normalization을 적용한 discrete state $a=(n,k_j)$를 사용하자. 한 위치에서 일어나는 collision을 계산하므로 position과 time 표기는 생략한다. $W_{a\to b}$는 특정 final state $b$로 옮겨가는 **unblocked transition-rate coefficient**다. 충분히 짧은 $dt$ 동안 Pauli blocking을 적용하기 전의 transition probability는 약 $W_{a\to b}dt$다. Rate의 단위는 $\mathrm{s}^{-1}$다. 확률이 아니므로 값이 1을 넘어도 된다. 그러면
+전자 수를 정확히 세기 위해, 먼저 spin 하나에 대해 box normalization을 적용한 discrete state $a=(n,k_j)$를 사용하자. 한 위치에서 일어나는 collision을 계산하므로 position과 time 표기는 생략한다. $W_{a\to b}$는 특정 final state $b$로 옮겨갈 때의 **unblocked transition-rate coefficient**다. 충분히 짧은 $dt$ 동안 Pauli blocking을 적용하기 전의 transition probability는 약 $W_{a\to b}dt$다. Rate의 단위는 $\mathrm{s}^{-1}$다. 확률 자체가 아니라 시간당 발생 빈도를 나타내므로, 그 수치는 1보다 클 수도 있다. 그러면
 
 $$
 C_a[f]=\sum_b\left[
@@ -681,7 +683,7 @@ $$
 \tag{29}
 $$
 
-을 얻는다. 여기서는 질량이 일정하고 $\lvert k\rvert$가 충분히 커지면 distribution이 0으로 가므로, force 항의 적분은 0이다. 식 (29)는 **continuity equation**이다. 어떤 구간에 들어오는 전자가 나가는 전자보다 많을 때만 그 안의 전자 수가 늘어난다는 뜻이다. Stationary state에서는 $\partial_x\Phi=0$이다. 전자를 생성하거나 없애는 항이 없는 wire에서 전류가 위치에 따라 계속 줄어든다면, 일반적인 scattering의 결과로 볼 수 없다. 수치 계산이나 모델이 입자 수를 보존하는지 확인해야 한다.
+을 얻는다. 여기서는 질량이 일정하고 $\lvert k\rvert$가 충분히 커지면 distribution이 0으로 가므로, force 항의 적분은 0이다. 식 (29)는 **continuity equation**이다. 구간 안의 전자 수는 들어온 수에서 나간 수를 뺀 만큼 변한다는 뜻이다. Stationary state에서는 $\partial_x\Phi=0$이다. 전자를 생성하거나 없애는 항이 없는 wire에서 전류가 위치에 따라 계속 줄어든다면, 이를 단순히 scattering 때문이라고 설명할 수는 없다. 수치 계산이나 모델이 입자 수를 보존하는지 확인해야 한다.
 
 각 항을 따로 적분해 확인할 수도 있다. $\int\partial_kf_n\,dk=f_n(+\infty)-f_n(-\infty)=0$이고, collision의 합은 식 (28)에 따라 0이다. 질량이 일정한 dispersion에서는 $v_n(k)$가 $x$에 의존하지 않으므로, spatial streaming 항을 적분하면 $\partial_x\Phi$가 된다. Stationary state에서 일정해야 하는 것은 **net flux**다. 각 방향의 flux 크기는 위치에 따라 달라질 수 있지만, 둘의 차이는 일정해야 한다. Backscattering은 전자를 없애는 대신 진행 방향을 바꾼다.
 
@@ -696,7 +698,7 @@ Target의 local density가 현재 density와 다르면, $C$를 적분한 값은 
 
 </details>
 
-## 11. Elastic scattering이 보존하는 것은 총에너지다
+## 11. Elastic scattering에서는 총에너지가 보존된다
 {: id="8-elastic-inter-subband-scattering에서는-longitudinal-kinetic-energy가-달라진다" }
 
 주어진 총에너지 $E$가 subband edge보다 높아 전자가 그 subband에서 길이 방향으로 진행할 수 있다면
@@ -710,7 +712,7 @@ v_n(E)&=\sqrt{\frac{2(E-\epsilon_n)}{m^*}}>0.
 \tag{30}
 $$
 
-이다. 여기서 $v_n(E)$는 방향을 제외한 **speed**다. 방향 $s=\pm1$인 state의 velocity는 $s v_n(E)$다. $E<\epsilon_n$이면 해당 subband에는 그 에너지에서 길이 방향으로 진행할 수 있는 state가 없다.
+이다. 여기서 $v_n(E)$는 velocity의 크기인 **speed**다. 방향 $s=\pm1$인 state의 velocity는 $s v_n(E)$다. $E<\epsilon_n$이면 해당 subband에는 그 에너지에서 길이 방향으로 진행할 수 있는 state가 없다.
 
 $10\times8\,\mathrm{nm}^2$ wire에서 $E=130\,\mathrm{meV}$인 전자를 생각하자. 이 에너지에서 전자가 진행할 수 있는 state는 낮은 두 subband에 있다. Mode 1에서 mode 2로 elastic transition을 하면 longitudinal kinetic energy는 약 $79.3\,\mathrm{meV}$에서 $19.9\,\mathrm{meV}$로 줄어든다. 그만큼 transverse energy가 늘었으므로 총에너지는 $130\,\mathrm{meV}$ 그대로다. 세 번째 mode는 edge가 이 에너지보다 높아 전자가 진행할 state가 없다. 질량이 같고 edge가 다른 두 mode 사이에서 $k$를 유지한 채 mode 번호만 바꾸면 energy conservation을 어기게 된다.
 
@@ -719,7 +721,7 @@ $10\times8\,\mathrm{nm}^2$ wire에서 $E=130\,\mathrm{meV}$인 전자를 생각�
 <source media="(max-width: 560px)" srcset="{% include media-url.html src='/assets/img/posts/2026-11-06-multi-subband-bte/fig-03-elastic-mobile.svg' %}" width="600" height="1270">
 <img src="/assets/img/posts/2026-11-06-multi-subband-bte/fig-03-elastic.svg" alt="같은 총에너지를 나타내는 수평선이 두 subband parabola와 서로 다른 momentum에서 만나며, elastic inter-subband transition이 가능한 state를 보여 준다." width="1200" height="760">
 </picture>
-<figcaption markdown="span">그림 5. Elastic transition은 longitudinal kinetic energy가 같은 state가 아니라 총에너지가 같은 state를 연결한다. 이 에너지에서 진행 가능한 두 mode 중 mode 2는 길이 방향 운동에 쓸 수 있는 에너지가 적어 momentum의 크기가 작다. 청록색 화살표는 양의 momentum 두 개를 연결한다. 이 event에서는 오른쪽으로 움직이던 전자가 방향을 바꾸지 않은 채 느려진다. 화살표는 momentum space에서의 transition이지 real-space trajectory가 아니다. Energy stack은 각 subband edge와 longitudinal kinetic energy를 나눠 보여 준다. 둘을 더하면 어느 mode에서나 130 meV다. 점선으로 표시한 세 번째 subband는 edge가 이 에너지보다 높아 진행할 state가 없다.</figcaption>
+<figcaption markdown="span">그림 5. Elastic collision을 겪은 전자는 총에너지가 같은 state로 옮겨 간다. Longitudinal kinetic energy까지 같아야 하는 것은 아니다. Mode 2는 mode 1보다 subband edge가 높으므로, 같은 총에너지에서 longitudinal kinetic energy와 momentum의 크기가 더 작다. 청록색 화살표는 momentum이 양수인 두 state 사이의 transition을 나타낸다. 이 경우 전자는 오른쪽으로 계속 움직이면서 느려진다. 화살표는 real space에서 전자가 이동한 경로가 아니다. Energy stack에는 subband edge와 longitudinal kinetic energy를 따로 표시했다. 둘을 더하면 어느 mode에서나 130 meV다. 점선으로 표시한 세 번째 subband는 edge가 이 에너지보다 높아 진행할 state가 없다.</figcaption>
 </figure>
 
 ### 1차원 density of states
@@ -756,7 +758,7 @@ Density에 곱해지는 weight는 edge 근처에서 $1/\sqrt{E-\epsilon_n}$로 �
 
 균일한 wire에서 scattering이 elastic하면 총에너지마다 문제를 따로 풀 수 있다. 여기서 **branch**는 subband와 진행 방향을 함께 지정한 것이다. $130\,\mathrm{meV}$에서 전자가 진행할 수 있는 네 branch를 $a=(1,+),(1,-),(2,+),(2,-)$ 순서로 놓자. $f_a(x)$는 각 branch의 occupation이다.
 
-특정 재료의 scattering parameter를 가정하는 대신, **phenomenological model**을 사용하자. Microscopic mechanism에서 rate를 유도하지 않고, 모델이 만족해야 할 조건에 맞춰 계수를 정하는 방식이다. 계수 $\kappa_{ab}=\kappa_{ba}$는 음이 아니고 inverse length 단위를 가지며, $\kappa_{aa}=0$으로 둔다.
+**Phenomenological model**에서는 특정 재료의 microscopic mechanism에서 rate를 유도하는 대신, 필요한 물리적 조건을 만족하도록 계수를 정한다. 여기서는 electron number를 보존하고 같은 에너지의 equilibrium occupation을 유지하는 collision model을 만들자. 계수 $\kappa_{ab}=\kappa_{ba}$는 음이 아니고 inverse length 단위를 가지며, $\kappa_{aa}=0$으로 둔다.
 
 $$
 \begin{aligned}
@@ -776,9 +778,9 @@ $$
 \tag{33}
 $$
 
-으로 각 pair의 항이 상쇄된다. 모든 branch의 occupation이 $f_a=f_0(E)$로 같을 때도 collision에 의한 변화는 없다. 따라서 이 모델은 에너지별 전자 수를 보존하고, 모든 branch에 같은 Fermi occupation을 넣으면 그 값을 유지한다. Population은 재분배하지만 총에너지를 바꾸는 energy relaxation은 없다.
+으로 각 pair의 항이 상쇄된다. 모든 branch의 occupation이 $f_a=f_0(E)$로 같을 때도 collision에 의한 변화는 없다. 따라서 이 모델에서는 에너지별 전자 수가 보존되며, 모든 branch에 같은 Fermi occupation을 넣으면 그 값이 유지된다. 전자는 다른 branch로 옮겨 갈 수 있지만, 총에너지가 변하는 energy relaxation은 일어나지 않는다.
 
-같은 subband의 $+\leftrightarrow-$ pair에는 $\beta_n$을 사용하자. 서로 다른 subband 두 개 사이에는 네 가지 방향 조합을 모두 $\gamma/2$로 연결한다. 출발 branch 하나에서 다른 subband의 두 방향으로 갈 수 있으므로, 그 inverse-length 계수를 합하면 $\gamma$가 된다. 여기서 계수를 2로 나눈 것은 coupling을 두 final direction에 나누어 주기 위해서다. Phonon selection rule에서 나온 계수는 아니다. 앞에서 정한 네 branch의 순서로 쓰면
+같은 subband에서 방향이 바뀌는 $+\leftrightarrow-$ transition에는 계수 $\beta_n$을 사용하자. 다른 subband로 옮겨 가는 transition에는 네 가지 방향 조합마다 $\gamma/2$를 사용한다. 출발 branch 하나에서 다른 subband의 두 방향으로 갈 수 있으므로, 이 두 inverse-length 계수를 더하면 $\gamma$가 된다. 2로 나눈 것은 두 final direction에 계수를 똑같이 나눠 주기 위해서다. Phonon selection rule에서 유도한 값은 아니다. 앞에서 정한 네 branch의 순서로 쓰면
 
 $$
 \kappa=\begin{pmatrix}
@@ -848,7 +850,7 @@ $$
 \tag{35}
 $$
 
-두 식 모두 오른쪽으로 증가하는 같은 좌표 $x$에 대해 미분한다. 왼쪽으로 움직인다는 정보는 velocity의 음의 부호에 이미 들어 있으므로, 그래프의 축까지 뒤집을 필요는 없다. 따라서 진행 방향이 반대여도 두 profile의 기울기는 같을 수 있다.
+좌표 $x$는 왼쪽 contact를 원점으로 잡고 오른쪽으로 갈수록 증가하도록 정의한다. 두 식 모두 이 좌표로 미분한다. 왼쪽으로 움직인다는 정보는 velocity의 음의 부호에 이미 들어 있으므로, 그래프의 축을 따로 뒤집지 않는다. 진행 방향이 반대여도 두 profile의 기울기는 같을 수 있다.
 
 두 식을 빼면 $\Delta=f_+-f_-$가 일정함을 알 수 있다. 첫 번째 식은 왼쪽에서, 두 번째 식은 오른쪽에서 적분하면
 
@@ -861,16 +863,16 @@ f_-(x)&=f_R+\beta(L-x)\Delta.
 \tag{36}
 $$
 
-이다. 분모는 boundary condition에서 정해진다. 이를 적용하면 $f_L-f_R=\Delta+\beta L\Delta$가 된다. Contact의 occupation 차이에는 두 진행 방향의 occupation 차이뿐 아니라, scattering 때문에 위치에 따라 occupation이 달라지는 효과도 반영되어 있다.
+이다. 분모는 boundary condition에서 정해진다. 이를 적용하면 $f_L-f_R=\Delta+\beta L\Delta$가 된다. 양쪽 contact에서 지정한 값의 차이와, wire 내부의 같은 위치에서 비교한 두 진행 방향의 occupation 차이는 서로 다를 수 있다. Scattering이 있으면 각 방향의 occupation이 위치에 따라서도 달라지기 때문이다.
 
-$\beta=0$이면 모든 위치에서 $f_+=f_L$, $f_-=f_R$다. $\beta L\gg1$이면 두 occupation은 가까워지지만, 남아 있는 작은 차이가 여전히 전류를 운반한다. Scattering이 있을 때의 directional difference를 ballistic 값으로 나눈 transmission factor는
+$\beta=0$이면 모든 위치에서 $f_+=f_L$, $f_-=f_R$다. $\beta L\gg1$이면 두 occupation의 차이는 작아진다. 그래도 양쪽 inflow가 다르면 두 값이 완전히 같아지지는 않으므로 전류는 여전히 흐른다. Scattering이 있을 때의 directional difference를 ballistic 값으로 나눈 transmission factor는
 
 $$
 \mathcal T(E)=\frac{1}{1+\beta(E)L}.
 \tag{37}
 $$
 
-이다. $f_L=0.9$, $f_R=0.2$, $\beta L=2$이면 일정한 occupation 차이는 $0.7/3$이다. 이때 $f_-(0)\simeq0.667$, $f_+(L)\simeq0.433$이다. 양쪽 contact에서 나가는 occupation은 그쪽 reservoir의 occupation과 다르다. Scattering은 outgoing distribution을 바꾸지만 net flux는 보존한다.
+이다. $f_L=0.9$, $f_R=0.2$, $\beta L=2$이면 일정한 occupation 차이는 $0.7/3$이다. 이때 $f_-(0)\simeq0.667$, $f_+(L)\simeq0.433$이다. 양쪽 contact에서 나가는 전자의 occupation은 그쪽 reservoir의 occupation과 다르다. Scattering으로 wire를 빠져나오는 전자의 distribution이 바뀌어도, wire 안의 net flux는 위치에 따라 변하지 않는다.
 
 <figure class="msbte-figure">
 <picture class="rsna-results-figure">
@@ -894,7 +896,7 @@ $$
 ## 14. Finite-volume method로 particle-conserving solver 만들기
 {: id="11-finite-volume-method로-particle-conserving-solver-만들기" }
 
-주어진 에너지에서 전자가 진행할 수 있는 subband가 두 개라면, scattering으로 결합된 미지 함수는 네 개다. 간단한 **finite-volume method**에서는 wire를 길이가 $\Delta x=L/N_x$인 cell $N_x$개로 나눈다. 각 cell에 branch별 occupation을 저장한다.
+주어진 에너지에서 두 subband에 모두 진행할 state가 있다면, 양방향을 포함해 구해야 할 occupation 함수가 네 개다. Collision으로 전자가 다른 branch로 옮겨 갈 수 있으므로 네 함수를 함께 풀어야 한다. **Finite-volume method**에서는 wire를 길이가 $\Delta x=L/N_x$인 cell $N_x$개로 나누고, 각 cell에 branch별 occupation을 저장한다. 두 cell 사이의 경계면을 face라고 한다.
 
 오른쪽으로 가는 전자의 upstream 값은 왼쪽 cell에서 가져온다. 왼쪽으로 가는 전자라면 오른쪽 cell에서 가져온다. 이러한 **upwind** 방식은 정보가 전달되는 방향에 맞춰 값을 선택한다. Cell $i$의 branch $a$에 대해
 
@@ -906,7 +908,7 @@ $$
 
 이다. $s_a=-1$에서는 velocity가 음수인 동시에, upstream에 맞춰 spatial difference의 방향도 바뀌므로 두 부호가 상쇄된다. 그래서 식의 왼쪽은 두 진행 방향에서 같은 형태가 된다. 양 끝의 inflow face에서는 $f_{\rm up}$에 reservoir occupation을 넣는다. Outgoing boundary value는 지정하지 않는다.
 
-아래 구현은 모든 미지수를 하나의 dense linear system으로 묶는다. 다운로드할 수 있는 reference implementation은 block elimination을 사용한다. Branch 수를 고정하면 공간 방향의 linear system을 푸는 계산량은 cell 수에 비례한다.
+아래 구현은 모든 미지수를 하나의 dense linear system으로 묶는다. Matrix의 0인 원소까지 저장하는 대신 식의 구조를 이용하면 더 효율적으로 풀 수 있다. 다운로드할 수 있는 reference implementation은 cell별 matrix 묶음을 순서대로 제거하는 block elimination을 사용한다. Branch 수가 일정하면 공간 방향의 linear system을 푸는 계산량은 cell 수에 비례한다.
 
 식 (38)에서 미지수를 포함한 항을 모두 왼쪽으로 옮기면 diagonal coefficient는 $1/\Delta x+\sum_b\kappa_{ab}$가 된다. 같은 cell에서 다른 branch와 연결되는 collision off-diagonal coefficient는 $-\kappa_{ab}$이고, upstream coefficient는 $-1/\Delta x$다. 이미 값이 정해진 reservoir inflow는 오른쪽으로 옮긴다. 코드의 `laplacian`은 `diag(K.sum(axis=1)) - K`이며, collision의 loss에서 gain을 뺀 matrix다.
 
@@ -951,7 +953,7 @@ assert np.ptp(q_faces) < 1e-11
 ### Flux가 보존되어도 grid 오차는 남는다
 {: id="conservation이-정확해도-continuum-solution과는-오차가-남는다" }
 
-First-order upwind에는 discretization error가 있다. 공간상의 변화를 퍼뜨리는 효과 때문에 이를 **numerical diffusion**이라고도 부른다. Subband가 하나일 때 위 scheme의 discrete contact transmission을 정확히 구하면
+First-order upwind에는 discretization error가 있다. Profile이 실제 해보다 퍼지게 만드는 오차를 **numerical diffusion**이라고 부른다. Subband가 하나일 때 위 scheme의 discrete contact transmission을 정확히 구하면
 
 $$
 \mathcal T_{N_x}=
@@ -1005,13 +1007,15 @@ assert errors[2] < errors[1] < errors[0]
 
 {% include interactive/article-lab.html id="msbte-scattering" %}
 
-총에너지를 두 번째 edge보다 낮게 두었다가 그 위로 올려 보자. 에너지가 edge를 넘으면 두 번째 subband에도 양방향으로 진행할 수 있는 state가 생긴다. Coupling이 없는 경우, intra-subband reversal만 있는 경우, inter-subband coupling도 있는 경우를 비교해 보자. Subband 사이에서 전자가 옮겨가더라도 전체 전류는 어느 위치에서나 같아야 한다. 또 양방향 occupation에 같은 값을 더하면 둘의 차이는 그대로이므로 전류가 바뀌지 않는다.
+총에너지를 두 번째 edge보다 낮게 두었다가 그 위로 올려 보자. 에너지가 edge를 넘으면 두 번째 subband에서도 양방향으로 진행할 수 있다. Energy-shell 그래프에서 수평선과 subband 포물선이 만나는 점은 그 에너지에서 가능한 state를 나타낸다. 진행 가능한 branch가 그대로인 구간에서는 에너지를 바꿔도 occupation profile이 달라지지 않는다. 이 예제에서는 계수를 에너지와 무관하게 정했고, 식 (32)의 양변에서 speed가 약분되기 때문이다. 그렇더라도 longitudinal kinetic energy와 speed는 달라지므로 포물선 위의 교점은 움직인다. Energy를 바꿨을 때 occupation은 같아도 전자의 운동까지 같아지는 것은 아니다.
 
-이 모델에서 두 mode의 계수가 같고 양쪽 contact가 equilibrium reservoir라면, 대칭성 때문에 두 mode의 occupation profile이 겹친다. Mode 사이에서 전자가 재분배되는 모습을 보려면 **nonthermal mode-selective injector**를 켜 보자. 두 번째 mode의 inflow를 독립적으로 지정하는 옵션이다. 기본 설정에서는 0.9 대신 0.3을 넣지만, 첫 번째 mode의 occupation보다 크게 정할 수도 있다. 이는 equilibrium reservoir의 주입 조건과 다르며, 실제 passive filter의 성능을 계산하는 옵션도 아니다. 여기서 inter-subband coupling을 켜면 mode별 flux는 위치에 따라 달라져도 합은 일정하게 유지된다.
+Coupling이 없는 경우, intra-subband reversal만 있는 경우, inter-subband coupling도 있는 경우를 비교해 보자. Flux 축의 범위는 고정되어 있다. 전자가 다른 subband로 옮겨 가더라도 전체 flux는 어느 위치에서나 같아야 한다. Occupation 곡선의 점은 전자 하나하나가 아니라 cell 중심에 저장한 계산값이다. Cell 수를 늘려 점 사이가 촘촘해질 때 결과가 어떻게 달라지는지 비교하면 spatial convergence를 확인할 수 있다. 두 번째 subband에서 진행할 수 있을 때만 의미가 있는 조작 항목은 그 threshold 아래에서 비활성화한다. 설정값은 저장해 두므로 에너지를 다시 올리면 그대로 사용할 수 있다. 양방향 occupation에 같은 값을 더하면 둘의 차이는 그대로이므로 net flux도 바뀌지 않는다.
+
+이 모델에서 두 mode의 계수가 같고 양쪽 contact가 각각 equilibrium reservoir라면, 같은 에너지에서 각 contact가 두 mode에 주는 incoming occupation도 같다. 따라서 같은 진행 방향끼리 비교하면 두 mode의 occupation profile이 겹친다. 전자들이 subband 사이를 오가면서 mode별 occupation이 어떻게 달라지는지 보려면 **nonthermal mode-selective injector**를 켜 보자. 두 번째 mode의 inflow를 독립적으로 지정하는 옵션이다. 기본 설정에서는 0.9 대신 0.3을 넣지만, 첫 번째 mode의 occupation보다 크게 정할 수도 있다. 이 주입 조건은 equilibrium reservoir와 다르며, 실제 passive filter의 성능을 계산하는 옵션도 아니다. 여기서 inter-subband coupling을 켜면 mode별 flux는 위치에 따라 달라져도 합은 일정하게 유지된다.
 
 Analytic benchmark와 비교할 수 있는 조건에서는 lab에 **transmission grid error**도 표시된다. 두 mode에 같은 inflow를 주고 계수도 같게 두면, 각 mode의 effective reversal coefficient는 $\alpha=\beta+\gamma/2$다. Inter-mode coupling의 절반은 반대 방향으로 연결되고, 같은 방향으로 연결되는 항은 occupation이 같아서 상쇄되기 때문이다. 식 (39)의 $\beta$를 $\alpha$로 바꾸면 finite-grid transmission과 continuum 값을 비교할 수 있다. $\beta=\gamma=0.04\,\mathrm{nm}^{-1}$, $L=100\,\mathrm{nm}$에서 12개 cell을 쓰면 grid의 transmission은 0.20으로, continuum 값 $1/7$보다 40% 크다. Face flux가 보존되어도 이런 오차는 남는다. Cell 수를 늘려 오차가 줄어드는지 확인해야 한다. Mode별 inflow가 다른 경우에는 이 benchmark를 적용할 수 없으므로, lab에서도 오차 대신 별도 안내를 표시한다.
 
-## 15. 에너지를 적분해 전류 구하기: ballistic benchmark
+## 15. Ballistic 전류를 에너지 적분으로 구하기
 {: id="12-에너지를-적분해-전류-구하기-ballistic-benchmark" }
 
 균일한 ballistic wire에 대해 식 (22)를 식 (31)에 대입하면
@@ -1134,7 +1138,7 @@ Density를 구할 때는 $1/v$ weight도 처리해야 한다. Edge $\epsilon_n$ 
 | 모든 cell face | Stationary state에서 전체 electron flux가 일정 | 인위적인 particle source·sink |
 | Occupation 범위 | 지정한 모든 inflow occupation의 최솟값과 최댓값 사이 유지 | 부호·matrix 구성 오류 |
 | Ballistic energy integral | 식 (41)과 일치 | Spin, eV/J 변환, energy quadrature 오류 |
-| Cell 수, energy grid, mode 수 | 더 세밀하게 계산해도 관측값의 차이가 허용오차 이내 | 일부 변수의 convergence만 확인한 경우 |
+| Cell 수, energy grid, mode 수 | 더 세밀하게 계산해도 observable의 차이가 허용오차 이내 | 공간·에너지·mode 중 하나만 수렴을 확인한 경우 |
 {: .msbte-table }
 
 [Reference Python file]({{ site.baseurl }}/assets/code/multi-subband-bte.py)은 최종 전류 값뿐 아니라 검증에 필요한 array도 반환한다. Discrete one-subband 식과 continuum limit을 각각 확인할 수 있다. **Residual**은 계산한 값을 discretized equation에 대입했을 때 좌변과 우변 사이에 남는 차이다. Residual, flux continuity, analytic solution과의 비교는 각각 확인하는 대상이 다르다. Linear-system residual이 작다고 물리 모델까지 맞는 것은 아니다.
@@ -1146,7 +1150,7 @@ Notebook에서는 본문의 코드를 Python 3.9+와 NumPy로 순서대로 실�
 
 지금까지는 wire의 geometry와 subband edge를 미리 지정했다. Transistor에서는 전자의 charge가 electrostatic potential을 바꾸고, 바뀐 potential이 다시 subband와 occupation에 영향을 준다. 전자 분포로부터 potential을 구한 뒤, 그 potential로 다시 계산한 전자 분포가 처음 분포와 일치해야 한다. 이것이 **self-consistency**다.
 
-공간에 고정된 양의 background charge를 생각하자. 전자를 잃어 양전하를 띤 donor atom이 한 예다. 그 number density를 $N_D^+$, 입자 하나의 전하를 $+e$로 두고 나머지 전하는 전자뿐이라고 하면 Poisson equation은
+격자에 고정된 양전하를 생각하자. 전자를 하나 내놓고 양전하로 남은 ionized donor가 한 예다. Ionized donor의 number density를 $N_D^+$로 쓰고, donor 하나의 전하를 $+e$로 두자. 이동하는 전하는 전자뿐이라고 가정하면 Poisson equation은
 
 $$
 \nabla\cdot(\varepsilon\nabla\varphi)
@@ -1154,7 +1158,7 @@ $$
 \tag{42}
 $$
 
-이다. $\varepsilon$은 물질의 전기적 반응을 나타내는 permittivity, $\rho=e(N_D^+-n_{3D})$는 charge density, $\varphi$는 electric potential이다. Poisson equation은 전하 분포와 그 전하가 만드는 potential의 공간적 변화를 연결한다. 오른쪽에서 전자 항의 부호가 양수인 것은 Poisson equation에 $-\rho$가 들어가기 때문이지, 전자의 전하가 양수여서가 아니다.
+$\varepsilon$은 이동하는 전자를 제외한 배경 물질의 polarization을 나타내는 permittivity다. $\rho=e(N_D^+-n_{3D})$는 charge density, $\varphi$는 electric potential이다. 이동하는 전자의 전하는 이미 density 항에 직접 넣었으므로, 그 응답을 배경 permittivity에 또 포함하지 않는다. Poisson equation은 전하 분포와 potential의 공간 변화를 연결한다. 오른쪽의 전자 항이 양수인 것은 식에 $-\rho$가 들어가기 때문이지, 전자의 전하가 양수여서가 아니다.
 
 Potential $\varphi$를 임시로 정하면 transverse Hamiltonian에 conduction-band confinement profile과 $-e\varphi$가 들어간다. 이 Hamiltonian을 길이 방향의 각 단면에서 풀어 $\epsilon_n(x)$와 $\phi_n(x;y,z)$를 얻는다. 이어서 MS-BTE로 $N_n(x)$를 계산하고, 식 (19)로 복원한 charge density를 Poisson equation에 넣어 potential을 다시 구한다. Potential, density, terminal current가 각각 허용오차 안으로 수렴할 때까지 반복한다. 이때 새 potential과 이전 potential을 섞는 mixing으로 반복 계산을 안정시킬 수 있다.
 
@@ -1178,11 +1182,11 @@ Schrödinger equation, Poisson equation, subband transport equation을 이렇게
 
 ### Mode reduction은 언제 실제로 계산량을 줄일까?
 
-Occupation을 $N_xN_kN_s$개만 저장해 계산량을 줄이려면, 비교적 작은 $N_s$로도 관심 있는 observable을 충분히 정확하게 구할 수 있어야 한다. 온도, injection energy, bias 때문에 계산해야 할 mode가 많아지면 이점은 줄어들 수 있다. Geometry가 급격히 변하거나 occupation이 작은 mode를 통한 coupling까지 계산하려면 mode가 더 필요할 수도 있다. Subband edge가 높다는 이유만으로 그 mode를 제외해서는 안 된다.
+Occupation을 $N_xN_kN_s$개 저장하는 방식이 유리하려면, 작은 $N_s$로도 관심 있는 observable을 충분히 정확하게 구할 수 있어야 한다. 온도, injection energy, bias가 높아져 필요한 mode 수가 늘면 이점이 줄어든다. 급격한 geometry 변화나 occupation이 작은 mode를 거치는 coupling을 표현하기 위해서도 mode를 더 남겨야 할 수 있다. Edge가 높다는 이유 하나만으로 mode를 제외해서는 안 된다.
 
-Occupation array의 크기만으로 전체 계산량을 알 수는 없다. 길이 방향의 각 단면에서 transverse eigenproblem을 풀고, scattering overlap과 electrostatics를 계산하고, transport equation도 풀어야 한다. 순서를 구분하는 mode pair는 최대 $N_s^2$개지만, 이는 **pair의 개수**이지 일반적인 time complexity 공식이 아니다. 실제 collision 계산량은 elasticity, 허용되는 momentum transfer, 재료의 selection rule, sparsity, quadrature, numerical algorithm에 따라 달라진다. Scalar population은 mode index 하나로 나타내지만, full mode-coherence matrix를 유지하려면 두 mode index가 필요하다.
+Occupation array의 크기만으로 전체 계산량을 알 수는 없다. 길이 방향의 각 단면에서 transverse eigenproblem을 풀고, scattering overlap과 electrostatics를 계산하고, transport equation도 풀어야 한다. 출발 mode와 도착 mode를 구분해서 세면 가능한 조합은 최대 $N_s^2$개다. 하지만 이는 **pair의 개수**일 뿐, 일반적인 time complexity를 뜻하지는 않는다. 실제 collision 계산량은 elasticity, 허용되는 momentum transfer, 재료의 selection rule, sparsity, quadrature, numerical algorithm에 따라 달라진다. Scalar population은 mode index 하나로 나타내지만, full mode-coherence matrix를 유지하려면 두 mode index가 필요하다.
 
-Mode 수를 늘릴 때는 마지막으로 포함한 mode의 occupation만 보지 말고 density, 전류, transition 경로를 확인해야 한다. Quantum 계산에서는 occupation이 작은 mode뿐 아니라 주어진 에너지에서 진행할 state가 없는 mode도 virtual coupling을 통해 propagation에 영향을 줄 수 있다. Kinetic model에서는 mode를 추가하면서 가능한 scattering 경로가 늘어날 수 있다. Convergence test는 실제로 푼 방정식의 수렴을 확인한다. 처음부터 coherence를 제외해도 된다고 가정한 판단까지 검증하지는 못한다. Real-space NEGF와 유한한 mode를 사용하는 NEGF를 비교할 때도 전류의 수렴으로 mode truncation을 평가한다. [Martinez et al.][modespace]
+Mode 수를 늘릴 때는 마지막으로 포함한 mode의 occupation만 보지 말고 density, 전류, transition 경로를 확인해야 한다. Quantum 계산에서는 occupation이 작은 mode뿐 아니라 주어진 에너지에서 진행할 state가 없는 mode도 virtual coupling을 통해 propagation에 영향을 줄 수 있다. Kinetic model에서는 mode를 추가하면서 가능한 scattering 경로가 늘어날 수 있다. Mode나 grid 수를 늘려 결과가 수렴해도, coherence를 무시한 물리적 근사까지 타당하다고 확인되는 것은 아니다. Real-space NEGF와 유한한 mode를 사용하는 NEGF를 비교할 때도 전류의 수렴으로 mode truncation을 평가한다. [Martinez et al.][modespace]
 
 ### 다른 표현 방식과 계산 방법
 
@@ -1205,9 +1209,9 @@ Confinement와 함께 longitudinal interference나 tunneling이 중요하다면 
 
 **Elastic**은 전자의 총에너지가 보존된다는 뜻이지 phase가 사라진다는 뜻이 아니다. Static disorder에서도 coherent scattering이 일어날 수 있다. Amplitude 대신 transition rate를 사용하면서 interference를 생략한 것은 모델의 근사다. $\beta$를 크게 한다는 이유만으로 이 근사가 정당해지지는 않는다. Phase coherence가 유지되는 긴 disordered wire에서는 interference에 의한 **localization**으로 transport가 크게 억제될 수 있다. 이 rate model에는 그 효과가 없다. [Beenakker][localization]
 
-Confinement를 반영한 quantum state를 사용하면서 많은 collision을 kinetic하게 계산해야 하는 문제라면 MS-BTE가 유용할 수 있다. 다만 구하려는 observable에 longitudinal phase coherence가 핵심적이지 않아야 한다. Confinement가 있는 계를 계산하는 유일한 방법은 아니며, full quantum transport의 모든 정보를 유지한 채 계산량만 줄여 주는 방법도 아니다. 어떤 물리적 근사를 사용했는지 확인하고 수치 결과가 수렴하는지 검증해야 한다.
+Confinement를 quantum state로 반영하면서 많은 collision을 rate로 계산하려는 문제에 MS-BTE를 쓸 수 있다. 이때 구하려는 observable에 longitudinal phase coherence가 얼마나 중요한지 확인해야 한다. MS-BTE는 full quantum transport의 모든 정보를 유지하면서 계산량만 줄이는 방법도, confinement가 있는 계를 계산하는 유일한 방법도 아니다. 근사가 유효하고 mode·grid 수렴이 확인되는 범위에서 계산량을 줄일 수 있다.
 
-## 19. 연습문제: reduction, state, conservation
+## 19. 연습문제: 근사와 전류, collision 계산 확인하기
 {: id="16-연습문제-state-conservation-간단한-coding-test" }
 
 {% include interactive/article-lab.html id="msbte-quiz" %}
@@ -1216,7 +1220,7 @@ Confinement를 반영한 quantum state를 사용하면서 많은 collision을 ki
 <summary>준비 문제: 이동, 근사, truncation 구분하기</summary>
 
 1. Free-flight 예제에서는 고정된 $x$의 occupation이 바뀐다. 이것만으로 collision이 일어났다고 할 수 있을까? 이동하는 peak를 따라가면 어떤 양이 변하지 않을까?
-2. 그림 3의 $\rho\to U^\dagger\rho U$, $M\to D$, $D\to PDP$를 비교해 보자. 표현만 바꾸는 연산, coherence를 버리는 연산, state를 제외하는 연산은 각각 무엇일까? $PDP$를 다시 normalization하면 왜 유용한 정보가 가려질까?
+2. 그림 3의 $\rho\to U^\dagger\rho U$, $M\to D$, $D\to PDP$를 비교해 보자. 표현만 바꾸는 연산, coherence를 버리는 연산, state를 제외하는 연산은 각각 무엇일까? $PDP$를 다시 normalization하면 왜 제외한 state의 weight를 알기 어려워질까?
 3. 모든 transverse mode를 남기되 scalar population만 계산하는 프로그램은 full quantum transport를 복원한 것일까? 반대로 mode basis를 사용하면 NEGF 대신 반드시 BTE를 풀어야 할까?
 
 **정답.** **1.** 아니다. Streaming만으로도 profile이 이동한다. Peak의 occupation은 0.9로 유지된다. **2.** 완전한 unitary rotation은 state를 보존한다. Diagonal만 남기면 해당 basis의 coherence를 버리고, projection은 state 하나를 제외한다. Trace가 0.9라는 데서 버린 확률을 알 수 있다. **3.** 둘 다 아니다. Mode를 늘려도 버린 coherence가 되살아나지는 않으며, mode-space quantum equation에서는 coherent coupling을 유지할 수 있다.
@@ -1238,12 +1242,12 @@ $100\,\mathrm{meV}$에서는 subband 2의 longitudinal kinetic energy가 음수�
 ### 2. Speed가 다를 때 density 비교하기
 {: id="2-속력이-다를-때-density-비교하기" }
 
-같은 총에너지에서 $v_1=2v_2$이고 네 branch의 occupation이 모두 0.4라고 하자. 폭이 같은 작은 에너지 구간에서 두 subband의 density 기여를 비교해 보자. Net current는 얼마일까?
+같은 총에너지에서 $v_1=2v_2$이고 네 branch의 occupation이 모두 0.4라고 하자. 폭이 같은 작은 에너지 구간을 잡고, 각 subband에 있는 단위 길이당 평균 전자 수를 비교해 보자. Net current는 얼마일까?
 
 <details markdown="1">
 <summary>정답</summary>
 
-각 subband의 density 기여는 $(f_++f_-)/v_n$에 비례하므로, subband 2의 density 기여가 subband 1의 두 배다. 각 mode에서 두 진행 방향의 occupation이 같으므로 전류는 0이다. Occupation이 같다고 density도 같은 것은 아니고, 전자가 많다고 전류가 큰 것도 아니다.
+각 subband의 단위 길이당 평균 전자 수는 $(f_++f_-)/v_n$에 비례하므로, 이 구간에서 subband 2의 전자 수가 subband 1의 두 배다. 각 mode에서 두 진행 방향의 occupation이 같으므로 전류는 0이다. Occupation이 같다고 density도 같은 것은 아니고, 전자가 많다고 전류가 큰 것도 아니다.
 
 </details>
 
@@ -1299,7 +1303,7 @@ def check_collision(candidate):
 ```
 
 <details markdown="1">
-<summary>Reference solution과 time step이 중요한 이유</summary>
+<summary>Reference solution: time step을 작게 잡아야 하는 이유</summary>
 
 ```python
 def elastic_collision_reference(f, v, K):
@@ -1316,7 +1320,7 @@ Continuous collision equation에서는 $0\le f\le1$이 유지된다. $f_a=0$일 
 
 </details>
 
-BTE로 이동과 collision을 함께 계산하고, confinement에서 transverse quantum mode를 구한다. 여기에 longitudinal kinetic approximation과 population closure를 적용하면 MS-BTE를 얻는다. 수렴이 확인된 유한한 mode 집합을 사용하면 실제로 계산할 수 있다. Contact의 inflow와 state 수를 반영해 occupation을 더하면 density와 전류를 구할 수 있다. 각 단계의 가정과 검증 조건은 서로 다르다.
+BTE는 전자의 이동과 collision에 따른 occupation 변화를 나타낸다. Confinement가 있는 wire에서는 transverse quantum mode를 구하고, longitudinal kinetic approximation과 population closure를 적용해 MS-BTE를 얻는다. 계산에 포함할 mode 수는 density와 전류가 수렴하는지 확인하며 정한다. Contact에서 들어오는 occupation을 지정한 뒤 wire 내부의 분포를 풀고, state 수와 velocity를 반영해 더하면 density와 전류를 구할 수 있다. Mode를 충분히 많이 계산하는 것과 물리적 근사가 타당한지 확인하는 것은 별개의 문제다.
 
 ## References
 
@@ -1329,7 +1333,7 @@ BTE로 이동과 collision을 함께 계산하고, confinement에서 transverse 
 - N. Ben Abdallah, M. J. Cáceres, J. A. Carrillo, and F. Vecil, [“A deterministic solver for a hybrid quantum-classical transport model in nanoMOSFETs”][abdallah], *Journal of Computational Physics* **228**, 6553–6571 (2009). DOI: 10.1016/j.jcp.2009.06.001. Transverse Schrödinger–Poisson과 longitudinal subband transport를 결합한 모델 및 deterministic numerical method.
 - M. Noei, T. Linn, and C. Jungemann, [“A numerical approach to quasi-ballistic transport and plasma oscillations in junctionless nanowire transistors”][noei], *Journal of Computational Electronics* **19**, 975–986 (2020). DOI: 10.1007/s10825-020-01488-4. Wire MS-BTE, contact treatment, phase-space discretization을 다루는 open-access 논문. 논문에서 선택한 statistics·scattering approximation이 위의 모든 모델과 같지는 않다.
 - E. Caruso et al., [“Modeling Nanoscale III–V Channel MOSFETs with the Self-Consistent Multi-Valley/Multi-Subband Monte Carlo Approach”][caruso], *Electronics* **10**, 2472 (2021). DOI: 10.3390/electronics10202472. 실제 재료 모델로의 확장, material scattering, 별도로 추가하는 longitudinal quantum correction.
-- G. Baccarani, E. Gnani, A. Gnudi, and S. Reggiani, [“Quasi-Ballistic Transport in Nanowire Field-Effect Transistors”][elastic], *SISPAD 2008*, pp. 5–8. Elastic 1D BTE의 analytic solution. 진행 방향의 재분배와 energy relaxation의 차이.
+- G. Baccarani, E. Gnani, A. Gnudi, and S. Reggiani, [“Quasi-Ballistic Transport in Nanowire Field-Effect Transistors”][elastic], *SISPAD 2008*, pp. 5–8. Elastic 1D BTE의 analytic solution. 전자의 진행 방향이 바뀌는 것과 energy relaxation의 차이.
 - MIT, [8.321 Quantum Theory I, Lecture 26][golden] (2017). Time-dependent perturbation theory에서 transition rate를 얻는 과정.
 - MIT, [8.333 Statistical Mechanics I, Fermi–Dirac statistics notes][fermi] (2025). Equilibrium occupation과 chemical potential.
 - NIST, [CODATA conductance quantum][nist]. $2e^2/h$의 값.

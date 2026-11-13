@@ -55,7 +55,7 @@ for (const speed of [.1, 1, 2]) {
   close(m.occupationModel({ delta: .5, speed }).fPlus, 0); close(m.occupationModel({ delta: -.5, speed }).fMinus, 0);
 }
 const specs = [
-  ['drude-bloch', m.validBlochState, m.blochModel, { mode: 1, hopping: 1 }, [{ mode: -1 }, { mode: 4 }, { mode: .5 }, { mode: Math.PI / 2 }, { hopping: .15 }, { hopping: 0 }, { hopping: 3.1 }]],
+  ['drude-bloch', m.validBlochProfile, s => m.blochProfile(0, s), { phase: .25, modulation: .75 }, [{ phase: -1.1 }, { phase: 1.1 }, { phase: .025 }, { modulation: -.05 }, { modulation: 1.05 }, { modulation: .025 }]],
   ['drude-occupation', m.validOccupationState, m.occupationModel, { delta: .1, speed: 1 }, [{ delta: -.51 }, { delta: .51 }, { delta: .005 }, { speed: 0 }, { speed: .15 }, { speed: 2.1 }]]
 ];
 for (const [, valid, model, state, patches] of specs) {
@@ -100,6 +100,10 @@ function mount(id, ko) {
     control: (en, korean, config) => { const field = new Element(config.type === 'select' ? 'select' : 'input', { label: ko ? korean : en }); field.config = config; field.value = config.value; fields.push(field); defaults.push(field.value); return field; },
     button: (en, korean, fn) => { buttons.push({ text: ko ? korean : en, click: fn }); return new Element('button'); },
     plot: spec => {
+      const fixedDomains = id === 'drude-bloch'
+        ? [[[ -1.75, 1.75 ], [0, 1.1]], [[-1.75, 1.75], [-1.1, 1.1]]]
+        : [[[-.22, .22], [0, 1]], [[-.5, .5], [-3.3, 3.3]]];
+      assert.ok(fixedDomains.some(([x, y]) => JSON.stringify(x) === JSON.stringify(spec.x) && JSON.stringify(y) === JSON.stringify(spec.y)), 'A material control changed the fixed axes');
       assert.ok(spec.x[0] < spec.x[1] && spec.y[0] < spec.y[1]);
       const inspect = (x, y) => { assert.ok(Number.isFinite(x) && Number.isFinite(y)); assert.ok(x >= spec.x[0] - 1e-10 && x <= spec.x[1] + 1e-10); assert.ok(y >= spec.y[0] - 1e-10 && y <= spec.y[1] + 1e-10); plotted++; };
       (spec.series || []).forEach(s => s.points.forEach(([x, y]) => inspect(x, y)));
@@ -129,20 +133,30 @@ for (const [id, , , base, patches] of specs) for (const ko of [false, true]) {
   for (const state of invalid) { assert.equal(lab.state.write(state), false); assert.equal(lab.snapshot(), initial, 'invalid state partially mutated UI'); lifecycle += 2; }
   roundTrip(lab, id, ko);
   for (const field of lab.fields) {
+    const initialGraphic = JSON.stringify(lab.ctx.view.children.filter(e => e.attrs?.spec).map(e => e.attrs.spec));
+    let graphicChanged = false;
     const config = field.config, values = config.type === 'select' ? config.options.map(o => o.value) : [config.min, config.min + config.step, config.max];
-    for (const value of values) { field.value = value; lab.render(); assert.ok(lab.ctx.view.children.length); roundTrip(lab, id, ko); lifecycle++; }
+    for (const value of values) { field.value = value; lab.render(); assert.ok(lab.ctx.view.children.length); graphicChanged ||= JSON.stringify(lab.ctx.view.children.filter(e => e.attrs?.spec).map(e => e.attrs.spec)) !== initialGraphic; roundTrip(lab, id, ko); lifecycle++; }
+    assert.ok(graphicChanged, 'A control changed only numerical readouts');
     lab.reset(); assert.equal(lab.snapshot(), initial); lifecycle++;
   }
   for (const button of lab.buttons) { assert.ok(button.text.length > 0); button.click(); roundTrip(lab, id, ko); lab.reset(); assert.equal(lab.snapshot(), initial); lifecycle += 2; }
-  if (id === 'drude-bloch') for (let mode = 0; mode < 4; mode++) for (const hopping of [.1, 3]) {
-    assert.equal(lab.state.write({ mode, hopping }), true);
-    const coefficientBars = lab.ctx.view.children[0].attrs.spec.bars, probabilityBars = lab.ctx.view.children[1].attrs.spec.bars;
-    for (let j = 0; j < 4; j++) { close(coefficientBars[j * 2].y, exact[mode][j][0]); close(coefficientBars[j * 2 + 1].y, exact[mode][j][1]); close(probabilityBars[j].y, .25); }
+  if (id === 'drude-bloch') for (const phase of [-1, -.25, 0, .25, 1]) for (const modulation of [0, .75, 1]) {
+    assert.equal(lab.state.write({ phase, modulation }), true);
+    const charts = lab.ctx.view.children.slice(0, 3).map(e => e.attrs.spec);
+    assert.equal(JSON.stringify(charts.map(c => [c.x, c.y])), JSON.stringify([[[-1.75, 1.75], [0, 1.1]], [[-1.75, 1.75], [-1.1, 1.1]], [[-1.75, 1.75], [-1.1, 1.1]]]));
+    const [real, imag] = charts[2].series;
+    real.points.forEach(([x, re], i) => {
+      const im = imag.points[i][1], u = 1 - modulation + modulation * Math.cos(2 * Math.PI * x) ** 8;
+      close(re, u * Math.cos(2 * phase * Math.PI * x)); close(im, u * Math.sin(2 * phase * Math.PI * x)); close(re * re + im * im, u * u);
+      const z = m.blochProfile(x, { phase, modulation }), shifted = m.blochProfile(x + .5, { phase, modulation });
+      close(shifted.u, z.u); close(shifted.re, z.re * Math.cos(phase * Math.PI) - z.im * Math.sin(phase * Math.PI)); close(shifted.im, z.re * Math.sin(phase * Math.PI) + z.im * Math.cos(phase * Math.PI));
+    });
     roundTrip(lab, id, ko);
   }
   if (id === 'drude-occupation') for (const delta of [-.5, -.1, 0, .1, .5]) for (const speed of [.1, 2]) {
     assert.equal(lab.state.write({ delta, speed }), true); const bars = lab.ctx.view.children[0].attrs.spec.bars, chart = lab.ctx.view.children[1].attrs.spec;
-    close(bars[0].y, .5 + delta); close(bars[1].y, .5 - delta); close(chart.markers[0].y, 2 * delta * speed); close(Number(lab.metrics[0].textContent), 1); roundTrip(lab, id, ko);
+    close(bars[0].y, .5 + delta); close(bars[1].y, .5 - delta); close(bars[0].x, -.1 * speed); close(bars[1].x, .1 * speed); close(chart.markers[0].y, 2 * delta * speed * 1.602176634); close(Number(lab.metrics[0].textContent), 1); roundTrip(lab, id, ko);
   }
   // Rejection is also transactional after changing multiple fields away from
   // defaults: an invalid last property cannot partially restore earlier ones.

@@ -1,6 +1,6 @@
 ---
-title: "Drude model: 전기장에서 전류까지, effective mass와 scattering"
-description: "도선에 전압을 걸면 전류는 왜 일정해질까? Drude model에서 전기장과 scattering이 균형을 이루는 과정과, band curvature가 mobility에 미치는 영향."
+title: "Drude model: 전류는 어떻게 흐를까?"
+description: "전압을 건 도선에서 전자가 움직이고 전류가 흐르는 과정을 Drude model로 계산한다. Band curvature와 scattering에서 effective mass, relaxation time, mobility까지."
 date: 2026-11-07 18:00:00 +0900
 categories: [Physics, Quantum Transport]
 tags: [quantum-transport, band-structure, drude-model, effective-mass, mobility, python, scattering]
@@ -24,9 +24,9 @@ image:
 
 [Read in English]({{ site.baseurl }}/posts/Drude-Model-From-Scratch/) · [Python 코드]({{ site.baseurl }}/assets/code/drude-model.py) · [실행 가능한 notebook]({{ site.baseurl }}/assets/notebooks/drude-model-ko.ipynb)
 
-도선 양끝에 일정한 전압을 걸면 전류가 흐른다. 도선의 온도가 크게 변하지 않는다면 잠시 뒤 전류도 거의 일정해진다. 전압을 걸어 두는 동안 전자는 계속 힘을 받는데, 전류는 왜 계속 커지지 않을까?
+도선 양끝에 전압을 걸면 전기장이 생기고, 전자는 힘을 받는다. 이렇게 움직이는 전자들이 만드는 전류는 어떻게 계산할까? 전류의 크기는 전자가 얼마나 많이 있는지와, 전자들이 평균적으로 얼마나 빠르게 이동하는지에 달려 있다.
 
-전자 밀도가 일정하다면 전류의 크기는 전자들이 한쪽으로 얼마나 빠르게 이동하는지, 즉 평균 drift 속력으로 정해진다. 전기장은 drift를 키우고, scattering은 전자의 진행 방향을 흩어 drift를 줄인다. 두 효과가 균형을 이루는 속도를 구하면 Ohm 법칙을 미리 가정하지 않고도 전류를 계산할 수 있다.
+전기장은 전자들의 평균 이동, 즉 drift를 만들고, impurity나 격자 진동에 의한 scattering은 그 운동을 바꾼다. Drude model은 이 두 효과를 전자의 평균 속도에 대한 운동방정식으로 나타낸다. 전류가 전압에 비례하는 관계와 mobility는 이 식의 해에서 얻어진다.
 
 ## 1. 전하·전류 밀도, 전기장과 전하 보존
 {: id="drude-01" }
@@ -371,7 +371,7 @@ print("Turn-on fraction at 1 tau:", -np.expm1(-1.0))
 
 {% include interactive/article-lab.html id="drude-step" %}
 
-$\tau$와 $m^{\ast}$를 각각 바꾸어 mobility와 최종 전류를 비교해 보자. 가로축은 $s=t/\tau$이므로 그래프의 기울기는 $dJ/dt$가 아니라 $dJ/ds$다. $\tau$를 바꾸면 같은 가로축 위치가 가리키는 실제 시간도 달라진다. 식 (9)에서 실제 시간에 대한 초기 기울기를 구하면 $dJ/dt=(1/\tau)dJ/ds=ne^2E_0/m^{\ast}$이며 $\tau$와 무관하다. 전기장 방향을 뒤집으면 전류와 electron drift의 부호가 어떻게 바뀌는지도 확인할 수 있다. Channel의 길이와 단면적은 고정되어 있다.
+$\tau$와 $m^{\ast}$를 각각 바꾸어 mobility와 최종 전류를 비교해 보자. 시간축은 ps, 세로축은 A/m² 단위로 고정했다. $\tau$를 바꾸면 전류가 커지는 데 걸리는 시간과 최종 전류가 함께 달라진다. 식 (9)의 초기 기울기는 $dJ/dt=ne^2E_0/m^{\ast}$이므로 $\tau$와 무관하다. 물질의 매개변수를 바꿔도 축은 자동으로 늘어나지 않는다. 전류 축 범위는 별도 메뉴에서 세 가지 중 하나를 직접 고르며, 범위를 벗어난 곡선은 경계에서 끊고 표시한다. 전기장 방향을 뒤집으면 전류와 electron drift의 부호도 바뀐다. Channel의 길이와 단면적은 그대로다.
 
 <details markdown="1">
 <summary>전기장이 한 일은 어디로 갈까?</summary>
@@ -468,7 +468,7 @@ print("Normalized AC response:", response)
 
 {% include interactive/article-lab.html id="drude-ac" %}
 
-$\omega\tau\ll1$에서 $\omega\tau\gg1$까지 바꾸어 보자. 천천히 변하는 전기장에서는 전류가 거의 같은 위상으로 따라간다. 주파수를 높이면 전류의 진폭은 줄고 phase lag는 1/4주기에 가까워진다. 주파수를 0으로 설정하면 시간에 따라 일정한 전기장을 표시하며, 진동 파형은 그리지 않는다.
+이 예제의 물질값은 $\tau=100\,\mathrm{fs}$, $n=10^{23}\,\mathrm{m}^{-3}$, $m^{\ast}=0.2m_0$, $E_0=1000\,\mathrm{V/m}$로 고정했다. 주파수는 THz, 시간은 ps로 표시한다. 주파수를 높이면 같은 시간 구간에 더 많은 진동이 들어간다. 동시에 전류의 진폭은 줄고 phase lag는 1/4주기에 가까워진다. 관찰 시각을 바꾸면 파형 위의 선택점이 움직인다. 주파수가 0이면 전기장과 전류는 시간에 따라 변하지 않는다.
 
 <details markdown="1">
 <summary>AC steady state와 전기장을 켠 직후의 transient는 어떻게 다를까?</summary>
@@ -536,6 +536,33 @@ $$
 
 이것이 **Bloch form**이다. 평면파 인자를 떼고 남은 $u_k$는 단위격자마다 같은 모양을 되풀이하는 주기함수다. 앞에서 쓴 평균 drift velocity $\mathbf u$와는 다른 기호다. Wavevector가 $2\pi/a$만큼 달라도 한 격자 간격을 옮겼을 때 곱해지는 위상 인자는 같다. 따라서 $k$는 $[-\pi/a,\pi/a)$처럼 폭이 한 주기인 범위에서만 고르면 된다. 이 범위를 **Brillouin zone**이라 한다. 위상 인자가 같아도 단위격자 안의 파동함수와 에너지는 다를 수 있다. 그런 상태는 서로 다른 band로 구분한다. [Tong, Band Structure][bands]
 
+격자마다 되풀이되는 모양에 phase factor를 곱해 보면 두 인자의 역할을 구별할 수 있다. 격자점 $x=ja$마다 peak가 있는 실수 주기함수를 하나 정하자.
+
+$$
+\begin{aligned}
+&u_{\rm demo}(x)=0.25+0.75\cos^8(\pi x/a),\\
+&\psi_k^{\rm demo}(x)=e^{ikx}u_{\rm demo}(x),\\
+&\operatorname{Re}\psi_k^{\rm demo}=u_{\rm demo}(x)\cos(kx),\\
+&\operatorname{Im}\psi_k^{\rm demo}=u_{\rm demo}(x)\sin(kx).
+\end{aligned}
+$$
+
+$u_{\rm demo}$는 격자 간격 $a$마다 같은 모양을 되풀이하고, phase는 다음 격자점으로 갈 때마다 $ka$씩 달라진다. $ka=0$이면 전체 함수는 실수이며 격자마다 똑같이 반복된다. $ka=\pi/4$이면 실수부와 허수부가 여러 격자점에 걸쳐 서서히 달라지고, $ka=\pi$이면 이웃한 격자점에서 부호가 반대다. 실수부가 0인 곳에서도 허수부가 남아 있으면 전체 파동함수는 0이 아니다.
+
+여기서는 phase를 곱하는 효과만 보기 위해 $u_{\rm demo}$를 직접 정하고 고정했다. 이 함수들은 Bloch translation 조건을 만족하지만, 특정 atomic potential의 eigenstate를 계산한 결과는 아니다. 실제 band의 $u_k$는 일반적으로 $k$에 따라 달라진다. 이 예제에서는 $\lvert e^{ikx}\rvert=1$이므로 상대적인 density는 $\lvert\psi_k^{\rm demo}\rvert^2=u_{\rm demo}^2$로 같다. Phase factor는 전자가 특정 위치에 모인 wave packet의 envelope와는 다르다.
+
+<figure class="drude-figure">
+<picture class="rsna-results-figure">
+<source media="(max-width: 560px)" srcset="{% include media-url.html src='/assets/img/posts/2026-11-07-drude-model/fig-sec07-bloch-states-mobile.svg' %}" width="600" height="1710">
+<img src="/assets/img/posts/2026-11-07-drude-model/fig-sec07-bloch-states.svg" alt="격자점마다 peak가 반복되는 주기함수에 서로 다른 Bloch phase factor를 곱했을 때의 실수부와 허수부." width="1200" height="1330">
+</picture>
+<figcaption markdown="span">그림 7. (a) 정수 격자점 $x/a=j$마다 같은 모양의 peak가 반복된다. (b–d)는 $ka=0,\pi/4,\pi$에서 전체 함수의 실수부와 허수부를 파란색과 금색으로 그린 것이다. 회색 점선은 $\pm u_{\rm demo}$이며 모든 행의 세로축은 같은 상대 진폭이다. 한 시각의 공간 분포를 그렸으며 전자가 움직인 경로는 아니다.</figcaption>
+</figure>
+
+{% include interactive/article-lab.html id="drude-bloch" %}
+
+Interactive 예제에서는 $a=0.5\,\mathrm{nm}$와 공간축을 고정했다. $k$를 바꾸면 축이 늘어나는 대신 phase와 전체 함수가 달라진다. 두 번째 조작 항목은 주기함수를 $u(x)=1-\eta+\eta\cos^8(\pi x/a)$로 바꾼다. $\eta=0$이면 평면파가 되고, $\eta=0.75$이면 그림 7의 모양이 된다. 아래 행렬 계산에서는 tight-binding Hamiltonian의 정확한 eigenstate와 에너지를 따로 확인할 수 있다.
+
 **Tight-binding** 모델에서는 격자점마다 그 주변에 모여 있는 orbital $\lvert j\rangle$ 하나를 기저로 잡는다. 이 orbital들이 정규화되어 있고 서로 직교하면, 각 기저 계수의 절댓값을 제곱해 해당 orbital을 관측할 확률을 구할 수 있다. $j$는 격자점 번호이고, $\epsilon_0$는 격자점 하나에 할당한 orbital 에너지다. 1절의 진공 유전율과는 다른 기호다. 이웃한 orbital의 진폭을 이어 주는 결합의 크기는 에너지 단위의 **hopping parameter** $t_h>0$로 나타낸다. Hamiltonian의 대각항은 각 orbital의 에너지이고, 비대각항은 이웃한 orbital 사이의 결합이다.
 
 $$
@@ -565,16 +592,6 @@ $$
 이렇게 에너지 기준을 잡으면 band의 최솟값이 0이다. 에너지를 한꺼번에 같은 양만큼 옮겨도 힘이나 속도는 변하지 않는다. $ka=0$에서는 이웃한 계수의 위상이 같고 에너지는 0이다. $ka=\pi$에서는 이웃한 계수의 부호가 반대여서 에너지가 $4t_h$다. 이 차이는 두 상태에서 이웃 orbital의 진폭이 서로 다른 위상으로 결합하기 때문에 생긴다.
 
 Hopping 항은 Schrödinger 방정식에서 orbital들의 진폭을 상대 위상까지 포함해 결합한다. Scattering rate처럼 일정 시간 동안 전자가 다른 상태로 옮겨 갈 확률을 주는 항이 아니다. $t_h$가 커지면 band의 폭은 넓어지지만, 그 사실만으로 relaxation time이 짧아진다고 할 수는 없다.
-
-<figure class="drude-figure">
-<picture class="rsna-results-figure">
-<source media="(max-width: 560px)" srcset="{% include media-url.html src='/assets/img/posts/2026-11-07-drude-model/fig-sec07-bloch-states-mobile.svg' %}" width="600" height="1410">
-<img src="/assets/img/posts/2026-11-07-drude-model/fig-sec07-bloch-states.svg" alt="격자점 네 개로 이루어진 고리의 두 Bloch 상태. 계수의 위상은 다르지만 격자점마다 관측 확률은 같다." width="1200" height="880">
-</picture>
-<figcaption markdown="span">그림 7. 격자점별 파동함수의 계수는 $c_j=e^{ikja}/2$다. 화살표는 복소평면에 그린 $2c_j$다. $ka=0$이면 이웃한 화살표가 같은 방향을 가리킨다. $ka=\pi/2$이면 다음 격자점으로 갈 때마다 화살표가 90°씩 돌아간다. 두 상태 모두 격자점마다 관측 확률은 $\lvert c_j\rvert^2=1/4$다. 위치별 확률이 같아도 상대 위상과 에너지는 다를 수 있다.</figcaption>
-</figure>
-
-{% include interactive/article-lab.html id="drude-bloch" %}
 
 <details markdown="1">
 <summary>네 site로 이루어진 ring의 Hamiltonian을 직접 풀어 보자</summary>
@@ -717,6 +734,8 @@ $$
 
 {% include interactive/article-lab.html id="drude-packet" %}
 
+이 예제에서는 초기 폭 $\Delta x_0=10\,\mathrm{nm}$와 질량 $m^{\ast}=m_0$를 고정했다. 위치와 폭은 nm, 시간은 ps, 확률밀도는 nm의 역수로 표시한다. 외력이나 시간을 바꿔도 축 범위는 그대로이며, 초기 확률밀도는 점선으로 함께 표시한다.
+
 전자의 bare mass 자체가 바뀌는 것은 아니다. 원자 수준의 scalar potential로 계산하면, Ehrenfest 정리에 따라 **격자가 주는 힘과 외력을 합한 뒤 그 기댓값**을 bare mass로 나누어 packet 중심의 가속도를 구한다. 반면 band 계산에서는 격자의 효과가 고유상태와 에너지 곡선에 이미 들어 있다. 그러므로 single-band 근사에서 effective mass를 쓰면, 격자의 힘을 따로 계산하지 않고도 **외력**이 packet 중심의 속도를 얼마나 바꾸는지 구할 수 있다. [Fitzpatrick, Ehrenfest theorem][ehrenfest]
 
 ## 9. Nonparabolic band와 anisotropic effective mass
@@ -772,7 +791,7 @@ assert inv_mass[-1] < 0
 
 {% include interactive/article-lab.html id="drude-band" %}
 
-Wavevector를 바꿔 속도가 0인 지점과 곡률이 0인 지점을 비교해 보자. 두 지점은 서로 다르다. Hopping을 키우면 속도와 곡률의 크기는 커지지만, 두 값을 무차원화한 sine·cosine 곡선의 모양은 그대로다.
+세 그래프 모두 같은 물리적 $k$ 축을 쓰며 단위는 nm의 역수다. 세로축은 각각 energy, velocity, inverse curvature mass로 나누고 범위를 고정했다. $t_h$를 키우면 energy와 velocity, curvature의 변화 폭이 위아래로 커진다. $a$를 키우면 가로 주기 $2\pi/a$가 짧아져 곡선이 옆으로 압축되고, first-zone 경계 $\pm\pi/a$도 안쪽으로 이동한다. 반복되는 곡선은 같은 tight-binding band를 extended zone으로 그린 것이지, 서로 다른 band가 아니다. 속도가 0인 지점과 곡률이 0인 지점을 찾아보자. 두 지점이 반드시 같지는 않다.
 
 <details markdown="1">
 <summary>Curvature가 음수면 conductivity도 음수일까?</summary>
@@ -1133,6 +1152,8 @@ for ell in (ell0, 2 * ell0):
 </figure>
 
 {% include interactive/article-lab.html id="drude-gaussian" %}
+
+기준값은 $\ell_0=1\,\mathrm{nm}$, $g_{\rm ref}=1\,\mathrm{eV\,nm}$로 고정했다. Potential, Fourier amplitude, amplitude의 제곱은 단위가 다르므로 eV, eV nm, eV² nm²의 별도 축에 그린다. Wavevector transfer를 바꾸면 Fourier 곡선 자체가 아니라 곡선 위의 선택점과 세로 보조선이 움직인다. 처음 폭은 2 nm이므로 적분값을 고정할 때와 peak를 고정할 때의 차이가 바로 보인다. 폭이 1 nm이면 두 조건은 같은 potential을 준다.
 
 불순물이 여러 개라면, 공간적으로 균일한 평균 퍼텐셜은 밴드 에너지에 포함하고 그 평균에서 벗어나는 부분만 산란에 넣는다. 불순물의 위치가 서로 독립적이면, 위치에 따라 달라지는 간섭항은 평균을 낼 때 사라진다. 남는 평균 산란율은 불순물 밀도 $n_i$에 비례한다. 정규화 상자의 부피는 행렬 원소와 최종 상태 수에 모두 들어가지만, 둘을 곱하면 계산에서 소거된다.
 
@@ -1684,6 +1705,8 @@ $\tau$가 일정하면 식 (58)은 그 $\tau$를 돌려준다. 고온 acoustic �
 
 {% include interactive/article-lab.html id="drude-average" %}
 
+두 weight는 같은 kinetic energy 축에 meV 단위로 표시한다. 온도를 높이면 가로축이 늘어나는 대신 분포가 실제로 넓어지고 낮아진다. 평균 시간은 온도에 따라 어떻게 달라지는지 ps 단위로 그렸다. 시간의 범위가 넓어서 세로축에는 고정된 log10 scale을 쓴다. 세로축에서 1만큼 올라가면 시간이 열 배가 된다는 뜻이다. Particle average가 발산하는 경우에는 유한한 곡선처럼 그리지 않는다. Energy 그래프의 표시 범위와 달리 평균은 양의 에너지 전체에 대한 analytic integral로 구한다.
+
 ```python
 def mb_transport_time(tau_ref, energy_ref_J, temperature_K, exponent):
     if tau_ref <= 0 or energy_ref_J <= 0 or temperature_K <= 0 or exponent <= -2.5:
@@ -1846,7 +1869,7 @@ print("Charge snapshot a,a' at Omega=1.2,s=1:", density_mode(1.0, 1.2))
 
 {% include interactive/article-lab.html id="drude-charge" %}
 
-$\Omega=0.5$를 기준으로 값을 양쪽으로 바꿔 보자. 한쪽에서는 밀도 차이가 진동 없이 줄고, 다른 쪽에서는 균일한 상태를 지나쳐 밀도 차이의 부호가 바뀐다. 초기 밀도 변화의 진폭은 기준 밀도의 5%다. 이 분포가 만드는 전기장은 있지만 처음 전류는 0이다. 전기장과 전류는 각각 기준값으로 나눠 표시했다. SI 단위로 환산하려면 대상 물질의 평균 밀도, permittivity, wavevector, relaxation time이 필요하다.
+$\Omega=0.5$를 기준으로 값을 양쪽으로 바꿔 보자. 한쪽에서는 밀도 차이가 진동 없이 줄고, 다른 쪽에서는 균일한 상태를 지나쳐 부호가 바뀐다. 이 예제는 $\tau=100\,\mathrm{fs}$, $m^{\ast}=0.2m_0$, $\varepsilon_b=11.7$, $L_{\rm cell}=100\,\mathrm{nm}$를 고정한다. $\Omega$를 바꾸면 $\omega_p^2=n_0e^2/(\varepsilon m^{\ast})$에 따라 기준 밀도 $n_0$가 바뀌고, 초기 밀도 차이는 그 밀도의 5%로 정한다. 밀도, 전기장, 전류는 각각 물리 단위의 고정 축에 따로 그렸다. 처음에는 밀도 차이로 전기장이 생겨도 전류는 0일 수 있다.
 
 평균 drift의 relaxation이 밀도 변화보다 훨씬 빠르면, 밀도가 천천히 바뀌는 동안 전류가 국소 전기장의 DC 응답을 거의 따라간다고 볼 수 있다. 파장이 길다는 이유만으로 관성에 따른 초기 변화가 사라지는 것은 아니다.
 

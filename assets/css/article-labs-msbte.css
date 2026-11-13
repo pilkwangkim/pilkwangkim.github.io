@@ -5,6 +5,13 @@
 .article-lab.msbte-lab .msbte-answer { padding: .9rem; border-left: 3px solid var(--al-gold); line-height: 1.65; }
 .article-lab.msbte-lab .msbte-answer.msbte-correct { border-left-color: var(--al-blue); }
 .article-lab.msbte-lab .al-metrics output { overflow-wrap: anywhere; }
+/* Readouts keep a stable slot when signs, mantissas or thresholds change. */
+.article-lab.msbte-lab .al-metrics output { display: block; font-variant-numeric: tabular-nums; }
+.article-lab.msbte-lab .al-metrics dt { min-height: 2.8em; }
+.article-lab.msbte-lab .al-metrics dd { min-height: 2.8em; }
+#lab-msbte-confinement .al-metrics output, #lab-msbte-scattering .al-metrics output { white-space: pre-line; }
+#lab-msbte-confinement .al-metrics dd { min-height: 4.8em; }
+#lab-msbte-scattering .al-metrics dd { min-height: 3.6em; }
 .article-lab.msbte-lab .msbte-contact-diagram { width: 100%; height: auto; }
 .article-lab.msbte-lab .msbte-contact-diagram text { fill: var(--text-color,#343a40); font: 24px system-ui,sans-serif; }
 .article-lab.msbte-lab .msbte-reservoir { fill: var(--main-bg,#fff); stroke: var(--al-muted); stroke-width: 2; }

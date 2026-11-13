@@ -123,7 +123,9 @@ const registry = fs.readFileSync(require.resolve('../_data/article_labs_drude_mi
 assert.deepEqual(registry.match(/^drude-[a-z]+(?=:)/gm), [...factories.keys()]); lifecycle++;
 assert.equal((registry.match(/bundle: drude-microscopic/g) || []).length, 4); lifecycle++;
 function mount(id, ko = false) {
-  const fields = [], defaults = [], metrics = [], buttons = []; let state, render;
+  const fields = [], defaults = [], metrics = [], buttons = [], fixedAxes = [];
+  let state, render, plotIndex = 0;
+  const plotCount = id === 'drude-angle' ? 1 : 2;
   const ctx = { root: new Element(), ui: new Element(), view: new Element(), metrics: new Element(), status: new Element(), ko,
     text: (en, korean) => ko ? korean : en, format: (v, digits = 4) => String(Number(v.toFixed(digits))),
     el: (tag, attrs, children) => new Element(tag, attrs, children), svg: (tag, attrs, text) => new Element(tag, attrs, text),
@@ -132,6 +134,13 @@ function mount(id, ko = false) {
     button: (en, korean, fn) => { const button = new Element('button', {}, ko ? korean : en); button.addEventListener('click', fn); buttons.push(button); return button; },
     plot: spec => {
       assert.ok(spec.x[0] < spec.x[1] && spec.y[0] < spec.y[1]);
+      // Axis domains, tick spacing and units cannot track changing controls.
+      // This assertion runs for every render, shared-state restore and reset.
+      const slot = plotIndex++ % plotCount;
+      const axes = JSON.stringify([spec.x, spec.y, spec.xTicks, spec.yTicks, spec.xLabel, spec.yLabel]);
+      if (fixedAxes[slot] === undefined) fixedAxes[slot] = axes;
+      else assert.equal(axes, fixedAxes[slot], `${id}: plot ${slot} axes changed with an input`);
+      lifecycle++;
       function point(x, y) { assert.ok(Number.isFinite(x) && Number.isFinite(y)); assert.ok(x >= spec.x[0] - 1e-9 && x <= spec.x[1] + 1e-9); assert.ok(y >= spec.y[0] - 1e-9 && y <= spec.y[1] + 1e-9, `${id}: y=${y} outside ${spec.y}`); plotted++; }
       (spec.series || []).forEach(s => s.points.forEach(([x, y]) => point(x, y))); (spec.bars || []).forEach(b => { point(b.x, b.y); check(b.x - b.width/2 >= spec.x[0] && b.x + b.width/2 <= spec.x[1]); }); (spec.markers || []).forEach(p => point(p.x, p.y));
       return new Element('div', { spec }, spec.title);
@@ -150,8 +159,19 @@ const corners = {
 for (const energy of [10, 50, 150]) for (const density of [.2, 1, 2]) for (const amplitude of [.5, 1, 1.5]) corners['drude-impurity'].push({ energy, density, amplitude });
 for (const q of [.05, 1, 2]) for (const temperature of [5, 300, 600]) for (const energy of [.1, 10, 50, 100]) corners['drude-phonon'].push({ q, temperature, energy });
 for (const temperature of [50, 300, 600]) for (const exponent of [-2, -1.5, -1, -.5, 0, .5, 1, 1.5, 2]) corners['drude-average'].push({ temperature, exponent });
+function plots(lab) { return lab.ctx.view.children.filter(node => node.attrs?.spec).map(node => node.attrs.spec); }
+function graphicSignature(lab) {
+  return JSON.stringify(plots(lab).map(p => ({ series: p.series?.map(s => s.points), markers: p.markers, bars: p.bars })));
+}
+const fixedDomains = {
+  'drude-angle': [[[0, 180], [0, 10.5]]],
+  'drude-impurity': [[[10, 150], [0, 12.5]], [[10, 150], [0, 32]]],
+  'drude-phonon': [[[5, 600], [-7, 3]], [[.05, 2], [-7, 108]]],
+  'drude-average': [[[0, 400], [0, .12]], [[50, 600], [-2, 3]]]
+};
 for (const id of factories.keys()) for (const ko of [false, true]) {
   const lab = mount(id, ko), initial = lab.snapshot(), saved = JSON.parse(JSON.stringify(lab.state.read()));
+  assert.equal(JSON.stringify(plots(lab).map(p => [p.x, p.y])), JSON.stringify(fixedDomains[id])); lifecycle++;
   for (const bad of [null, false, [], {}, { wrong: 1 }, { ...saved, extra: 1 }]) { assert.equal(lab.state.write(bad), false); assert.equal(lab.snapshot(), initial); lifecycle += 2; }
   for (const key of Object.keys(saved)) {
     const missing = { ...saved }; delete missing[key];
@@ -162,16 +182,123 @@ for (const id of factories.keys()) for (const ko of [false, true]) {
   for (const field of lab.fields) {
     const c = field.config;
     const values = c.type === 'select' ? c.options.map(o => o.value) : [c.min, c.min + c.step, c.max];
-    for (const value of values) { field.value = value; lab.render(); assert.ok(lab.ctx.view.children.length); lifecycle++; }
+    const defaultGraphic = graphicSignature(lab);
+    for (const value of values) {
+      field.value = value; lab.render(); assert.ok(lab.ctx.view.children.length);
+      if (String(value) !== String(c.value)) assert.notEqual(graphicSignature(lab), defaultGraphic, `${id}: a control changed only the numbers`);
+      lifecycle++;
+    }
     lab.reset(); assert.equal(lab.snapshot(), initial); lifecycle++;
   }
   for (const button of lab.buttons) { button.click(); roundtrip(lab, id, ko); lab.reset(); assert.equal(lab.snapshot(), initial); lifecycle++; }
-  for (const state of corners[id]) { assert.equal(lab.state.write(state), true); roundtrip(lab, id, ko); lifecycle++; }
-  if (id === 'drude-angle') { lab.state.write({ angle: 0, clock: 1 }); assert.ok(lab.metrics[3].textContent.includes('∞')); lab.state.write({ angle: 180, clock: 1 }); assert.equal(lab.metrics[3].textContent, '0.5'); lifecycle += 2; }
-  if (id === 'drude-average') { lab.state.write({ temperature: 300, exponent: -2 }); assert.equal(lab.ctx.view.children[1].attrs.spec.bars.length, 1); lab.state.write({ temperature: 300, exponent: -.5 }); assert.equal(lab.metrics[3].textContent, '1.5'); lifecycle += 2; }
+  for (const state of corners[id]) {
+    assert.equal(lab.state.write(state), true); roundtrip(lab, id, ko); lifecycle++;
+    if (id === 'drude-phonon') {
+      const p = m.phononMode(state.q, state.temperature, state.energy);
+      for (const [index, permitted] of [[5, p.absorptionAllowed], [6, p.emissionAllowed]]) {
+        const metric = lab.metrics[index];
+        assert.equal(metric.textContent, ko ? (permitted ? '가능' : '불가') : (permitted ? 'Allowed' : 'Forbidden'));
+        assert.equal(metric.ariaLabel, metric.title);
+        assert.ok(metric.ariaLabel.includes(ko ? 'Energy·momentum 보존' : 'Kinematically'));
+        assert.ok(metric.ariaLabel.includes(ko ? '선택한 q' : 'selected q'));
+      }
+      const energyPlot = lab.ctx.view.children[1].attrs.spec;
+      assert.ok(energyPlot.markers.every(marker => /Kinematically|Energy·momentum 보존/.test(marker.label)), 'Full kinematic labels must remain on plot markers');
+    }
+  }
+  if (id === 'drude-angle') {
+    lab.state.write({ angle: 0, clock: 1 }); assert.equal(lab.metrics[3].textContent, '∞');
+    assert.equal(lab.metrics[3].ariaLabel, lab.metrics[3].title);
+    assert.ok(lab.metrics[3].ariaLabel.includes('θ=0'));
+    assert.ok(/Infinite|무한대/.test(lab.metrics[3].ariaLabel));
+    lab.state.write({ angle: 180, clock: 1 }); assert.equal(lab.metrics[3].textContent, '0.5');
+    assert.ok(lab.metrics[3].ariaLabel.includes('0.5 ps'));
+    assert.ok(!lab.metrics[3].ariaLabel.includes('θ=0')); lifecycle += 2;
+  }
+  if (id === 'drude-average') {
+    lab.state.write({ temperature: 300, exponent: -2 }); assert.equal(lab.ctx.view.children[1].attrs.spec.series.length, 1);
+    assert.equal(lab.metrics[1].textContent, ko ? '발산' : 'Diverges'); assert.equal(lab.metrics[3].textContent, '∞');
+    assert.equal(lab.metrics[1].ariaLabel, lab.metrics[1].title); assert.equal(lab.metrics[3].ariaLabel, lab.metrics[3].title);
+    assert.ok(lab.metrics[1].ariaLabel.includes('K=0')); assert.ok(/positive infinity|양의 무한대/.test(lab.metrics[3].ariaLabel));
+    lab.state.write({ temperature: 300, exponent: -.5 }); assert.equal(lab.metrics[3].textContent, '1.5');
+    assert.ok(lab.metrics[1].ariaLabel.includes('ps')); assert.ok(lab.metrics[3].ariaLabel.includes('1.5'));
+    assert.ok(!lab.metrics[1].ariaLabel.includes('K=0')); lifecycle += 2;
+  }
   const invalid = { 'drude-angle': [{ angle: .5 }, { angle: 181 }, { clock: .15 }, { clock: 0 }], 'drude-impurity': [{ energy: 51 }, { density: .25 }, { amplitude: .55 }, { energy: 155 }], 'drude-phonon': [{ q: .075 }, { temperature: 301 }, { energy: .15 }, { q: 2.05 }], 'drude-average': [{ temperature: 55 }, { exponent: -2.5 }, { exponent: -.25 }] };
   const current = JSON.parse(JSON.stringify(lab.state.read())), snapshot = lab.snapshot();
   for (const patch of invalid[id]) { assert.equal(lab.state.write({ ...current, ...patch }), false); assert.equal(lab.snapshot(), snapshot); lifecycle += 2; }
   lab.reset(); assert.equal(lab.snapshot(), initial); lifecycle++;
+}
+
+// Probe every selectable value of every field (others at their defaults),
+// in addition to full corner products above. Fixed-domain assertions run in
+// the adapter and every physical point is required to remain inside them.
+for (const id of factories.keys()) {
+  const lab = mount(id);
+  for (const field of lab.fields) {
+    const c = field.config;
+    const values = c.type === 'select' ? c.options.map(o => o.value) : Array.from({ length: Math.round((c.max - c.min) / c.step) + 1 }, (_, i) => Number((c.min + i * c.step).toFixed(9)));
+    for (const value of values) { field.value = value; lab.render(); }
+    lab.reset();
+  }
+}
+
+// Absolute plotted values, not just moved markers or changed text.
+{
+  const lab = mount('drude-angle');
+  for (const clock of [.1, 1, 5]) {
+    lab.state.write({ angle: 90, clock }); const [chart] = plots(lab);
+    close(chart.series[0].points[90][1], clock);
+    close(chart.series[0].points[180][1], 2 * clock);
+    close(chart.markers[0].y, clock);
+    close(chart.series[1].points[0][1], clock);
+  }
+}
+{
+  const lab = mount('drude-impurity');
+  for (const density of [.2, 1, 2]) for (const amplitude of [.5, 1, 1.5]) {
+    lab.state.write({ energy: 50, density, amplitude }); const [rate, time] = plots(lab);
+    const expected = impurity.rate * density * amplitude ** 2 * 1e-12;
+    relative(rate.series[0].points[40][1], expected);
+    relative(time.series[0].points[40][1], 1 / expected);
+    relative(rate.markers[0].y, expected); relative(time.markers[0].y, 1 / expected);
+    relative(rate.series[1].points[40][1], impurity.rate * 1e-12);
+  }
+}
+{
+  const lab = mount('drude-phonon');
+  for (const q of [.05, 1, 2]) for (const temperature of [5, 300, 600]) for (const energy of [.1, 10, 50, 100]) {
+    lab.state.write({ q, temperature, energy }); const [population, final] = plots(lab), p = m.phononMode(q, temperature, energy);
+    close(population.markers[0].y, Math.log10(p.population));
+    close(population.markers[1].y, Math.log10(p.emissionFactor));
+    close(final.markers[0].x, q); close(final.markers[0].y, energy + p.phononEnergy / m.E * 1e3);
+    close(final.markers[1].y, energy - p.phononEnergy / m.E * 1e3);
+    assert.equal(final.markers[0].color, p.absorptionAllowed ? 'blue' : 'red');
+    assert.equal(final.markers[1].color, p.emissionAllowed ? 'gold' : 'red'); lifecycle += 2;
+    const endEnergy = m.HBAR * m.VS * 2e9 / m.E * 1e3;
+    close(final.series[0].points.at(-1)[1], energy + endEnergy);
+    close(final.series[1].points.at(-1)[1], energy - endEnergy);
+    close(final.series[2].points[0][1], energy);
+  }
+}
+{
+  const lab = mount('drude-average');
+  for (const temperature of [50, 300, 600]) for (const exponent of [-2, -1.5, -1, -.5, 0, .5, 1, 1.5, 2]) {
+    lab.state.write({ temperature, exponent }); const [weights, times] = plots(lab);
+    const thermalMeV = m.KB * temperature / m.E * 1e3;
+    for (let index = 0; index < 2; index++) {
+      const shape = index ? 1.5 : .5, norm = index ? 3 * Math.sqrt(Math.PI) / 4 : Math.sqrt(Math.PI) / 2;
+      const energy = weights.series[index].points[200][0], y = energy / thermalMeV;
+      relative(weights.series[index].points[200][1], y ** shape * Math.exp(-y) / (norm * thermalMeV));
+      close(weights.markers[index].x, (index ? 2.5 : 1.5) * thermalMeV);
+    }
+    const p = m.thermalAverage(temperature, exponent);
+    close(times.markers[0].y, Math.log10(p.tauEffective * 1e12));
+    if (p.tauParticle === null) assert.equal(times.series.length, 1);
+    else close(times.markers[1].y, Math.log10(p.tauParticle * 1e12));
+    // Curve endpoint is the full analytic average at 600 K, not the
+    // selected-temperature marker and not an integral cut off at 400 meV.
+    close(times.series[0].points.at(-1)[1], Math.log10(m.thermalAverage(600, exponent).tauEffective * 1e12));
+  }
 }
 console.log(`Drude microscopic: ${physics} physics assertions; ${lifecycle} bilingual UI/state/reset assertions; ${plotted} finite, in-domain plotted points. This adapter does not test browser geometry.`);

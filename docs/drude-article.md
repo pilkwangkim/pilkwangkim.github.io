@@ -150,21 +150,21 @@ image or a corrected equation.
 Keep screenshots, build directories and receipts outside tracked source.
 No commit, push or deployment is implied by article authoring or verification.
 
-Focused checks: 7,547 Python assertions; 13,897 JS physics assertions and 2,354
-bilingual UI/state/reset assertions, with 783,380 finite in-domain plot points.
-The three additional bundles contribute 21,601 / 177,171 / 7,175 model/data
-assertions and 813 / 2,280 / 1,427 bilingual UI/state/reset assertions,
-respectively. Their independent plot checks cover 17,796 / 1,064,456 / 476,384
+Focused checks: 7,547 Python assertions; 249,546 JS physics assertions and 4,794
+bilingual UI/state/reset assertions, with 1,783,544 finite in-domain plot points.
+The three additional bundles contribute 122,427 / 545,184 / 7,175 model/data
+assertions and 839 / 7,844 / 6,425 bilingual UI/state/reset assertions,
+respectively. Their independent plot checks cover 651,828 / 1,973,836 / 3,592,523
 finite in-domain points. These are executable-model checks, not browser geometry.
 The article checker independently replays 32 notebook code cells, compares their
 stored output, checks 34 Markdown cells and 40 byte-exact embedded PNGs, and
-preserves the exercise starter. All 65 numbered equations and 731 inline-math
+preserves the exercise starter. All 65 numbered equations and 761 inline-math
 occurrences match between languages. Multi-relation displays are stacked rather
 than shrunk to fit a phone; intrinsically long expressions can scroll locally.
 At widths up to 540px, numbered Drude displays put the number on a separate
 line below the formula. This removes the label-width margins that otherwise
 clip short equations on narrow screens, without reducing the glyph size.
-The rendered check compares all 91 displays and 731 inline formulas with their
+The rendered check compares all 92 displays and 761 inline formulas with their
 source and tests the 65 labels for overlap, clipping and inaccessible left
 overflow; page width, table columns and responsive figure sources are checked
 separately in both languages.
@@ -173,7 +173,7 @@ separately in both languages.
 
 All twenty numbered sections retain one essential static figure outside folds.
 Thirteen new pairs visualize signed boundary-flow budgets, collisionless versus
-relaxed drift, separate mobility/density comparisons, complex Bloch coefficients, Gaussian packet moments, occupation
+relaxed drift, separate mobility/density comparisons, real-space Bloch factors, Gaussian packet moments, occupation
 imbalance, finite-time transition peaks, 3D phase fronts/cross sections, angular
 projection loss, short-range DOS scaling, lattice strain and Bose factors,
 energy weights, and the coding-test input. Figure numbers now match sections;
@@ -182,10 +182,13 @@ the seven pre-existing figure URLs and all four cover files remain byte-exact.
 The packet uses a real, zero-chirp initial Gaussian and names its position width
 Delta x0 to avoid sigma0 conductivity ambiguity. Golden-rule peak integrals state
 their normalization and units; individual small probabilities do not establish a
-small summed continuum probability. Wavefronts are phase surfaces, Bloch arrows
-are complex coefficients, and wavevectors are not microscopic particle paths.
+small summed continuum probability. Wavefronts are phase surfaces, the Bloch
+figure multiplies a prescribed periodic profile by a phase factor, and wavevectors
+are not microscopic particle paths.
 The exact-forward coding fixture is a null-deflection test channel, not a quantum
-transition to the identical state. Original equation/code bytes remain intact.
+transition to the identical state. Existing numbered equations and Python code
+remain intact; an unnumbered Bloch-factor construction is added before the
+tight-binding eigenproblem.
 
 New activities separate fixed integrated Gaussian strength from fixed peak
 height, single-event count from angular current loss, Bose population from
@@ -194,6 +197,54 @@ averaging. Each states its inputs, held assumptions and units, provides bounded
 presets and Reset, and validates shared settings before any mutation.
 Section 1 uses only the static direction schematic and worked charge budget.
 Section 4 compares mobility and density with a schematic at fixed field.
+
+## Fixed-scale interactive views
+
+### Direct browser QA — 2026-11-12
+
+All 15 activities were operated in both languages at CSS viewport widths of
+1280, 390 and 320px: 90 lab/language/width cases and 702 control/preset trials,
+excluding Reset clicks and repeated diagnostic runs. Every range control was
+tested at both endpoints, every select at all options, every checkbox toggled,
+and every preset followed by Reset. Each enabled control changed a curve,
+marker, bar or diagram in at least one tested nondegenerate state. Fixed-axis
+checks distinguish intentional view/model/question changes from rescaling.
+
+The final per-case records show no unexpected tick changes, chart movement,
+block-height movement, horizontal page overflow or Reset mismatch. The five
+quiz questions were also tested with all three answers in each of the six
+language/width combinations: 90 answer selections, with one correct answer per
+question and working feedback/selected states. These are browser-viewport tests,
+not tests on physical handsets or a deployed site.
+
+Browser-discovered fixes reserve optional legend space, separate slider labels
+from a fixed-width numeric column, shorten semantic metric values while retaining
+their full accessible descriptions, keep numeric status formatting consistent,
+and reserve the necessary status lines at narrow widths. Undefined energy scale
+at zero time remains undefined, not infinite. Gaussian's constraint explanation
+now describes both cases without changing paragraph height. Every affected case
+was re-operated after its fix; all prior numbered equations, article Python
+snippets, publication metadata and notebook content remain unchanged by this QA.
+
+Physical sliders never rescale chart axes. Band energy, velocity and inverse
+mass use separate fixed physical axes against k in nm^-1, with moving first-zone
+boundaries. Bloch form is shown as a repeated periodic profile times a complex
+phase, without assigning an eigenenergy to that prescribed profile. Occupation
+bars move on a physical velocity axis. Packet position and time use fixed nm/ps
+references. Gaussian potential, Fourier amplitude and its square have separate
+unit-bearing plots; full-height q probes remain visible at tiny amplitudes.
+Its numeric readouts use fixed-width scientific notation and reserved metric
+slots. Gaussian width defaults to 2 nm so the two strength constraints differ.
+
+Step current has a fixed ps time window and explicitly user-selected fixed
+current views, with analytic boundary clipping and a visible time probe. AC uses
+fixed material references and THz/ps axes. Angular relaxation, impurity rates,
+phonon final energies, temperature-dependent energy weights and physical charge
+profiles all expose slider changes in curves or selected points. Log10 axes are
+fixed and explicitly labeled where values span orders of magnitude; divergent
+averages are omitted rather than clipped to finite values. Fixed-axis invariance
+and control-to-graphic changes are exercised in the bundle tests. Static plots
+can still use stated dimensionless comparisons at fixed reference parameters.
 
 ## Undergraduate-QM first-read refinement
 
