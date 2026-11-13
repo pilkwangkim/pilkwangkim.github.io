@@ -111,6 +111,9 @@ jobs:
           python tools/test_msbte_physics.py
           python tools/check_msbte_article.py
 
+      - name: Check NEGF derivation examples
+        run: python tools/check_negf_bridges.py
+
       - name: Check Drude model and exercises
         run: python tools/test_drude_physics.py
 

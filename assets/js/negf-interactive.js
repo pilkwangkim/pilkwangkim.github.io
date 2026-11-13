@@ -107,7 +107,7 @@
         button.type = 'button';
         button.className = 'negf-peak-button';
         button.textContent = `${peak.energyEV.toFixed(4)}`;
-        button.setAttribute('aria-label', `${ko ? '공명' : 'Resonance'} ${index + 1}: ${energyText(peak.energyEV)}`);
+        button.setAttribute('aria-label', `${ko ? 'Resonance' : 'Resonance'} ${index + 1}: ${energyText(peak.energyEV)}`);
         button.title = energyText(peak.energyEV);
         button.addEventListener('click', () => selectEnergy(peak.energyEV));
         peakButtons.append(button);
@@ -115,7 +115,7 @@
       peakButtons.hidden = spectrum.peaks.length === 0;
       find('first-resonance').textContent = spectrum.peaks.length ? energyText(spectrum.peaks[0].energyEV) : (ko ? '없음' : 'None');
       const firstWidth = spectrum.peaks[0]?.widthEV;
-      find('first-width').textContent = firstWidth ? `${ko ? '반치전폭' : 'FWHM'} ${(firstWidth * 1e6).toPrecision(3)} µeV` : '';
+      find('first-width').textContent = firstWidth ? `${ko ? 'FWHM' : 'FWHM'} ${(firstWidth * 1e6).toPrecision(3)} µeV` : '';
     }
 
     function updateProbe() {
@@ -166,11 +166,11 @@
         }
         updateProbe();
         status.textContent = height === 0
-          ? (ko ? '장벽이 없으면 이 에너지 구간에서 투과율은 1입니다.' : 'With no barriers, transmission is 1 throughout this energy range.')
-          : (ko ? `0.001–0.600 eV 구간의 공명 ${spectrum.peaks.length}개` : `${spectrum.peaks.length} resonances · 0.001–0.600 eV`);
+          ? (ko ? 'Barrier가 없으면 이 에너지 구간 전체에서 transmission은 1입니다.' : 'With no barriers, transmission is 1 throughout this energy range.')
+          : (ko ? `0.001–0.600 eV 구간에서 찾은 resonance: ${spectrum.peaks.length}개` : `${spectrum.peaks.length} resonances · 0.001–0.600 eV`);
         root.dataset.ready = 'true';
       } catch (error) {
-        status.textContent = ko ? '계산하지 못했습니다. 초기값으로 다시 시도해 주세요.' : 'Calculation failed. Reset to try again.';
+        status.textContent = ko ? '계산을 완료하지 못했습니다. 초기값으로 되돌린 뒤 다시 시도해 주세요.' : 'Calculation failed. Reset to try again.';
         root.dataset.ready = 'error';
         console.error('NEGF lab:', error);
       } finally {

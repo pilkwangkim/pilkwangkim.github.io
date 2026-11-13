@@ -39,7 +39,7 @@ The model-contract check exercises both languages, actual article presets, selec
 
 ## NEGF resonant tunneling
 
-The English and Korean NEGF articles include a resonant-tunneling calculator immediately after Figure 8. Preview locally with `./tools/edit.sh`; open the article and go to **Resonant tunneling lab / 공명 터널링 실험실** in section 8.
+The English and Korean NEGF articles include a resonant-tunneling calculator immediately after Figure 8. Preview locally with `./tools/edit.sh`; open the article and go to **Resonant tunneling lab / Resonant tunneling: barrier와 well 조절하기** in section 8.
 
 - Barrier height: 0–0.65 eV. Well width: 6–30 nm, in 1 nm steps.
 - Probe energy: 0.001–0.600 eV. Click the transmission plot or an energy button below it to inspect a resonance. The buttons preserve the exact peak energy even when its width is narrower than the slider increment.
@@ -55,10 +55,11 @@ Numerical checks:
 
 ```sh
 node tools/test_negf_core.js
+python3 tools/check_negf_bridges.py
 python3 tools/check_negf_reference.py --node node --output /tmp/negf-reference.json
 ```
 
-The second command needs NumPy and independently solves the dense 100 × 100 complex device system. The Node suite includes all 1,650 allowed barrier-height/well-width combinations and adaptive sampling of narrow resonances.
+The Python commands need NumPy. `check_negf_bridges.py` tests the tutorial's Lorentzian state counting, outgoing surface root, flux normalization, single-channel reflection/transmission identity, occupied-state mixture, density-matrix continuity and probability lifetime. Its explicitly constructed small models are separate from the 100-site Example A reference. `check_negf_reference.py` independently solves the dense 100 × 100 complex device system. The Node suite includes all 1,650 allowed barrier-height/well-width combinations and adaptive sampling of narrow resonances.
 
 The article's Example A occupation figures use a separate resonance-resolved integration grid. The original 3,000-point linear mesh did not resolve the narrow first occupied resonance. Reproduce the grid, cutoff and regulator checks with:
 
@@ -83,6 +84,10 @@ python3 tools/negf_ndr_figures.py
 Every figure has desktop and mobile SVG/PNG versions. The article embeds the SVGs through `.negf-figure-desktop` / `.negf-figure-mobile` wrappers, switching to stacked panels at 640 px. SVG glyphs are outlined to preserve math fonts across browsers. Primary labels target roughly 16–18 px at the article's 691 px desktop and 358 px mobile content widths; ticks and legends remain readable without opening the image zoom. Panel (e) in Figure 12 is the original full-sweep inset, enlarged without changing its data.
 
 Figures 9–10 use the same quadrature settings as the occupation check. Plotting samples are independent of quadrature weights, so changing the image resolution does not change the reported integrals. The interactive calculator uses larger axis text and stacked plots at intermediate widths; its numerical solver is unchanged.
+
+The 2026-11-13 language review revised the full Korean article, captions and calculator text, with corresponding English clarifications where needed. Existing equations, code blocks, numerical parameters, figure assets and publication metadata were preserved; the Korean title and eight section headings were revised, with old heading targets retained as aliases. The review clarified lead elimination, occupation versus in-scattering, probability-decay lifetime, the electron-flow sign and the zero-temperature energy window. It also corrected the description of the Hermitian matrix imaginary part. The Node suite, independent dense-reference and occupation checks passed. Both languages were checked in the production preview at 1280 px and 320 px; Korean was also checked at 390 px. All 13 active workflow/body SVGs loaded in each desktop/mobile variant, with no MathJax errors, page overflow or chart labels outside their SVGs. Slider changes, Reset and an exact-resonance button were exercised in the browser. The source notebook was not modified or re-executed, and no commit, push or deployment was performed.
+
+The subsequent undergraduate-QM reader review added local definitions and derivations for site normalization, LDOS state counting, retarded boundary conditions, independent reservoir injection, the occupied density matrix and single-channel flux conservation. Conductance now follows the Fermi-function definition and Landauer derivation. The unnumbered continuity equation uses a dimensional particle rate distinct from the dimensionless spectral flux; numbered equations 1–31, existing code blocks, figure paths and publication metadata remain intact. Pole analysis, the one-orbital calculation, alternative correlation notation and numerical-grid construction use collapsible blocks. The new `check_negf_bridges.py`, existing Node/reference/occupation checks, and a direct Example B recalculation passed. Final production previews of both languages at 1280 and 320 px loaded all 13 active SVGs, rendered every displayed equation with no MathJax errors or unintended prose tables, and had no page overflow or chart labels outside their SVGs. New multi-expression equations use stacked rows for narrow screens; absolute values use `\lvert`/`\rvert` to avoid Markdown table parsing. Browser tests confirmed that barrier-height and well-width changes alter both plotted geometry and the transmission curve, and that an exact-resonance button selects unit transmission. A fresh loopback origin was used after the final build to avoid stale service-worker HTML. No commit, push or deployment was performed.
 
 ## A* graph-search tutorial
 

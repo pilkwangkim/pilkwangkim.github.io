@@ -20,7 +20,7 @@ image:
 
 - Executable notebook: [From Closed to Open: Quantum Transport with NEGF, From Scratch](https://www.kaggle.com/code/pilkwang/from-closed-to-open-quantum-transport-with-negf)
 - Source notebook: [negf_from_scratch.ipynb](https://github.com/pilkwangkim/Physics/blob/master/negf_from_scratch.ipynb)
-- Korean version: [닫힌 양자계에서 열린 양자 수송으로: NEGF를 처음부터 유도하기]({{ site.baseurl }}/posts/From-Closed-to-Open-Quantum-Transport-with-NEGF-KR/)
+- Korean version: [Hamiltonian에서 전류까지: NEGF의 원리와 계산]({{ site.baseurl }}/posts/From-Closed-to-Open-Quantum-Transport-with-NEGF-KR/)
 
 A finite Hamiltonian gives us discrete energies and beautiful eigenstates. It does **not**, by itself, give us a steady current. A current-carrying device is open: particles may enter from one macroscopic reservoir, cross a finite region, and disappear into another reservoir without reflecting from an artificial wall at the edge of our matrix.
 
@@ -28,7 +28,7 @@ The central problem is simple to state and surprisingly rich to solve:
 
 > How can an infinite, open transport problem be represented by a finite matrix without replacing the leads by an uncontrolled absorbing boundary?
 
-The nonequilibrium Green's-function (NEGF) answer is that the lead coordinates can be eliminated **exactly**. Their entire effect on the retained device appears as an energy-dependent self-energy.
+The nonequilibrium Green's-function (NEGF) answer is that the lead coordinates can be eliminated **exactly**. Their effect on the device's retarded response appears as an energy-dependent self-energy; the population injected from the reservoirs is specified separately.
 
 Once that step is understood, transmission, local density of states, nonequilibrium occupation, current conservation, resonant tunneling, and negative differential resistance all follow from one consistent chain of matrices.
 
@@ -39,6 +39,10 @@ The model has the following assumptions:
 - coherent, elastic, single-particle transport,
 - clean semi-infinite leads,
 - and an imposed bias profile rather than a self-consistent Poisson solution.
+
+Here **single-particle** means that electrons move independently in a specified potential, not that the device contains only one electron. **Elastic** means that an electron keeps its energy while crossing the static device; reflection from a barrier is still allowed. **Coherent** means that the relative phases of its wave amplitudes are retained, so reflected paths can interfere. The two spin states obey identical equations and are counted separately by a factor of two.
+
+The potential is prescribed rather than calculated from the resulting electron density. A self-consistent calculation would repeatedly compute that density, solve Poisson's equation for the electrostatic potential, and update the Hamiltonian until the two agree. Lead elimination itself does not require assuming a particular voltage-drop shape.
 
 ---
 
@@ -56,10 +60,12 @@ The model has the following assumptions:
 There are three distinctions that must remain sharp from the beginning.
 
 1. A **lead** is a coherent semi-infinite Hamiltonian. It supplies modes and an outgoing boundary condition.
-2. A **reservoir** is a thermodynamic population specified by a chemical potential and temperature.
+2. A **reservoir** is a large electron population maintained in thermal equilibrium. Its chemical potential sets the energy around which states change from mostly occupied to mostly empty; temperature smooths that change. Particles leaving the device equilibrate far away, while the incoming population remains fixed.
 3. A physical **contact** combines both roles, but the mathematics treats them in different objects: the retarded self-energy describes propagation and escape, while the Fermi function describes occupation.
 
-Likewise, the tiny positive number $\eta$ in $E+i\eta$ selects the retarded boundary value. It is not the physical lifetime of a resonance. The physical escape width will come from the anti-Hermitian part of the contact self-energy.
+At a fixed energy, a **channel** is an independent propagating lead mode with a specified direction. This one-orbital chain has one incoming channel per lead per spin inside its band. A **scattering state** is the stationary wave with a chosen incident mode plus its reflected and transmitted components; it is not a localized bound state.
+
+The tiny positive number $\eta$ in $E+i\eta$ selects the retarded, outgoing boundary condition, defined in section 3. It is not the physical lifetime of a resonance. Physical escape will instead appear in the complex contact self-energy.
 
 ### 0.1 A notation compass
 
@@ -87,6 +93,8 @@ Start from the one-dimensional effective-mass equation
 $$
 -\frac{\hbar^2}{2m^*}\frac{d^2\psi}{dx^2}+U(x)\psi(x)=E\psi(x).
 $$
+
+Here $U$ is potential **energy**, and $m^*$ is a constant parameter describing the approximately parabolic electron band near its minimum. It replaces the free-electron mass in this effective description; $m_0$ below denotes the free-electron mass.
 
 Place grid points at $x_j=ja$ and approximate the second derivative by the centered difference
 
@@ -117,6 +125,18 @@ H_{jj}=2t_0+U_j,
 H_{j,j+1}=H_{j+1,j}=-t_0.
 $$
 
+The site states are orthonormal: $\langle i\vert j\rangle=\delta_{ij}$, with $\delta_{ij}=1$ for $i=j$ and zero otherwise. In this basis $U_j=U(x_j)$ and $\psi_j=\langle j\vert\psi\rangle$. To compare with a continuum wavefunction normalized by an integral, use
+
+$$
+\begin{gathered}
+\psi_j\simeq\sqrt{a}\,\psi(x_j),
+\\
+\sum_j\lvert\psi_j\rvert^2\simeq\int dx\,\lvert\psi(x)\rvert^2.
+\end{gathered}
+$$
+
+The constant $\sqrt a$ cancels from eq. (1), but matters when interpreting density: a site occupation counts electrons in one grid cell, not electrons per unit length.
+
 The distinction between $U_j$ and $H_{jj}$ is important. $U_j$ is the physical potential-energy profile. The Hamiltonian diagonal contains the additional uniform kinetic offset $2t_0$.
 
 For the notebook parameters $m^*=0.067m_0$ and $a=1\ \mathrm{nm}$,
@@ -127,7 +147,7 @@ t_0=0.5687\ \mathrm{eV},
 4t_0=2.2746\ \mathrm{eV}.
 $$
 
-The first reusable piece of code is therefore almost embarrassingly small:
+The code uses NumPy, imported as `np`. Each row stores the equation at one site:
 
 ```python
 def device_hamiltonian(N, t0, U):
@@ -143,7 +163,7 @@ def device_hamiltonian(N, t0, U):
 
 The complex dtype does not make this closed Hamiltonian non-Hermitian. It merely allows us to add complex contact self-energies later without changing array types.
 
-The grid spacing is part of the physical approximation, not just a plotting preference. Since $t_0\propto a^{-2}$, changing $a$ changes the lattice bandwidth and every dimensionless ratio such as $U/t_0$.
+The grid spacing is part of the finite-difference approximation, not just a plotting preference. Since $t_0\propto a^{-2}$, changing $a$ changes the lattice bandwidth and every dimensionless ratio such as $U/t_0$. Here it is a numerical grid spacing for the continuum model, not the material's atomic lattice constant.
 
 A convergence study should therefore keep the *physical* device length and barrier dimensions fixed while increasing the number of sites, rebuild $U_j$ on the finer grid, and confirm that the observables of interest stop moving. Simply halving $a$ while leaving the site counts unchanged describes a physically shorter device.
 
@@ -175,7 +195,7 @@ $$
 E(k)\simeq t_0(ka)^2=\frac{\hbar^2k^2}{2m^*}.
 $$
 
-The finite-difference lattice recovers the continuum parabola only for $\lvert ka\rvert\ll1$. The flattening near the Brillouin-zone edge is a discretization effect, not a prediction that a real parabolic band suddenly becomes nonparabolic. Convergence means reducing $a$ until the energies of interest lie safely in the parabolic part.
+The dispersion repeats when $k$ changes by $2\pi/a$; a nonredundant interval such as $-\pi/a\le k<\pi/a$ is called a **Brillouin zone**. The finite-difference lattice recovers the continuum parabola only for $\lvert ka\rvert\ll1$. The flattening near the zone edge is a discretization effect, not a prediction that a real parabolic band suddenly becomes nonparabolic. Convergence means reducing $a$ until the energies of interest lie safely in the parabolic part.
 
 <div class="negf-figure-desktop">
   <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-01-lattice-dispersion.svg" alt="Finite-difference lattice dispersion and the discrete spectrum of a finite hard-wall chain" width="2160" height="1320">
@@ -190,7 +210,7 @@ The finite-difference lattice recovers the continuum parabola only for $\lvert k
 
 ## 2. What a closed chain teaches us—and what it cannot teach us
 
-Take $N$ physical sites and impose hard-wall conditions at two ghost points,
+Keep $U_j=0$, take physical sites $j=1,\ldots,N$, and impose hard-wall conditions at two ghost points,
 
 $$
 \psi_0=\psi_{N+1}=0.
@@ -205,7 +225,7 @@ k_na=\frac{n\pi}{N+1},
 \sin\!\left(\frac{n\pi j}{N+1}\right),
 $$
 
-with energies
+with $n=1,\ldots,N$ and energies
 
 $$
 E_n=2t_0\left[1-\cos\!\left(\frac{n\pi}{N+1}\right)\right].
@@ -275,6 +295,20 @@ $$
 \rho_j(E)=\frac{A_{jj}(E)}{2\pi}.
 $$
 
+LDOS means **available state weight per unit energy at site $j$**. It is not yet an electron population. Equation (4) makes the definition explicit:
+
+$$
+\begin{gathered}
+A_{jj}(E)=
+\sum_n\lvert\psi_n(j)\rvert^2
+\frac{2\eta}{(E-E_n)^2+\eta^2},
+\\
+\psi_n(j)=\langle j\vert n\rangle.
+\end{gathered}
+$$
+
+The Lorentzian factor $2\eta/[(E-E_n)^2+\eta^2]$ has area $2\pi$. The energy integral of the $n$th contribution to $\rho_j$ is therefore $\lvert\psi_n(j)\rvert^2$, the weight of that eigenstate on site $j$. For well-separated peaks, this is the area of an individual LDOS peak. Integrating the full $\rho_j$ over all energies gives one state per site per spin, and summing over all $N$ sites gives $N$ states. This state-counting normalization explains the factor $1/(2\pi)$. Multiplying available weight by an occupation probability is a separate step.
+
 The spectral representation explains why a Green's function contains more information than a list of eigenvalues. It retains one projector for every eigenstate:
 
 $$
@@ -283,21 +317,42 @@ $$
 
 This projector preserves **where** the mode responds, while the denominator in eq. (4) determines **at which energy** that response becomes large. A Green's function can therefore be evaluated at any probe energy, not only at an eigenvalue.
 
-The same analytic structure survives in an open system, but a closed-system pole on the real axis generally moves into the complex-energy plane. Its real part gives the resonance position; its negative imaginary part gives escape-induced decay.
+Connecting a closed level to propagating lead states generally produces a resonance with a physical width. The full device-plus-leads Hamiltonian remains Hermitian; the complex energies used to describe decay belong to the projected response, not to complex eigenvalues of that full Hamiltonian.
+
+<details markdown="1">
+<summary>Poles, measured peaks and complex resonance energies</summary>
+
+A pole is an energy where the response diverges when considered as a function of complex energy. Continuing the projected Green's function through the lead continuum can produce resonance poles below the real axis. Their real parts set resonance positions and their negative imaginary parts describe decay.
 
 There is also a useful distinction between a pole and a peak. A pole belongs to the analytic continuation of $G^R$ into the complex plane. A peak is a feature seen on a real, finite-resolution energy scan.
 
 Well-separated, weakly energy-dependent resonances make the two notions nearly interchangeable; overlapping resonances, thresholds, or rapidly varying self-energies do not.
 
+</details>
+
 For an isolated finite system, the exact $\eta\to0^+$ spectrum is a set of delta peaks. A finite plotting $\eta$ merely draws those peaks with visible width. It must not be confused with a physical lifetime.
 
-Why insist on the plus sign in $E+i\eta$? In the time domain it gives a response only after the source is applied. In a lead it selects waves that leave the device, not waves mysteriously arriving from infinity. This analytic boundary condition is the meaning of the superscript $R$ in “retarded.”
+Why insist on the plus sign in $E+i\eta$? It defines a **retarded** response: an applied source can affect later times, not earlier ones. In a lead the response to that source is outgoing. This does not forbid an incident electron in a transport experiment: the incident wave is specified separately, and $G^R$ computes the response to its injection.
+
+<details markdown="1">
+<summary>Why a positive imaginary energy gives a retarded response</summary>
+
+With time dependence $e^{-iEt/\hbar}$, the resolvent can be written
+
+$$
+G^R(E)=-\frac{i}{\hbar}\int_0^\infty dt\,
+e^{i(E+i\eta)t/\hbar}e^{-iHt/\hbar}.
+$$
+
+Only positive propagation times occur, and $e^{-\eta t/\hbar}$ makes the integral converge. Evaluating it in an eigenstate of $H$ gives $1/(E-E_n+i\eta)$, exactly the denominator in eq. (4). The notation $i0^+$ means taking $\eta$ to zero **from positive values** after selecting this boundary condition.
+
+</details>
 
 ---
 
 ## 4. Opening the system by eliminating a lead exactly
 
-Before carrying the full matrix notation, consider the same algebra with two abstract blocks:
+Consider the device and lead amplitudes as two blocks of unknowns. The coefficient matrices for the separate parts are $a_D,a_L$, their coupling is $\tau$, and a source $s_D$ acts on the device:
 
 $$
 a_D\psi_D-\tau\psi_L=s_D,
@@ -358,6 +413,8 @@ $$
 \tag{6}
 $$
 
+Thus the introductory coefficients are $a_D=(E+i\eta)I_D-H_D$ and $a_L=(E+i\eta)I_L-H_L$; $I_D,I_L$ are identity matrices on their respective subspaces. Positive $\eta$ makes the isolated Hermitian lead resolvent well defined even when $E$ lies in its spectrum.
+
 The second row can be solved without approximation:
 
 $$
@@ -381,7 +438,7 @@ $$
 \tag{9}
 $$
 
-Read the product from right to left. An amplitude at the device boundary goes from $D$ to $L$ through $\tau^\dagger$, propagates through the isolated lead with $g_L^R$, and returns from $L$ to $D$ through $\tau$. The self-energy is the complete leave-propagate-return amplitude.
+Read the product from right to left. The device amplitude produces a source $\tau^\dagger\psi_D$ in the lead equation. Applying $g_L^R$ gives the lead amplitude, and applying $\tau$ gives its contribution back to the device equation. This is the meaning of the leave-propagate-return description; it is an operator relation, not a claim that every escaping electron physically returns.
 
 <div class="negf-figure-desktop">
   <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-03-exact-lead-elimination.svg" alt="Schematic of exact lead elimination, energy-dependent feedback at the contacted device site, and surface self-similarity" width="2160" height="2920">
@@ -439,10 +496,14 @@ G^R(E)=
 \tag{10}
 $$
 
+The same $G^R$ also responds to injection from a lead. With a lead source $s_L$, the eliminated second row becomes $\psi_L=g_L^R(\tau^\dagger\psi_D+s_L)$ and the effective device source is $s_D+\tau g_L^Rs_L$. The response operator in eq. (10) stays the same. Specifying an incident lead wave likewise supplies boundary injection; it does not require changing $G^R$ to an incoming Green's function. This source-and-response construction is derived from the single-particle Schrödinger equation in [Camsari, Chowdhury and Datta, sections 2–3](https://arxiv.org/html/2008.01275v2).
+
 The notebook tests the Schur-complement identity by comparing eq. (10) against the device block of a direct device-plus-finite-lead inverse. The maximum difference is $3.48\times10^{-15}\ \mathrm{eV}^{-1}$.
 
 <details markdown="1">
 <summary>Code: the finite-lead Schur-complement check</summary>
+
+Here $z=E+i\eta$, and $N_D,N_L$ are the numbers of retained device and test-lead orbitals. This finite-lead check tests block elimination, not the absence of reflection from a semi-infinite lead.
 
 ```python
 g_L = np.linalg.inv(z * np.eye(N_L) - H_L)
@@ -509,6 +570,8 @@ g_s^R=
 \cfrac{t_0^2}{E^+-\varepsilon-
 \cfrac{t_0^2}{\ddots}}}.
 $$
+
+Here $E^+=E+i0^+$. “Semi-infinite” means that the chain has one endpoint but continues indefinitely in the other direction; removing its endpoint therefore leaves the same boundary problem, not a finite chain of a different length.
 
 Multiplication produces a quadratic,
 
@@ -595,7 +658,9 @@ $$
 \tag{15}
 $$
 
-Here $\Sigma_\alpha^A=\Sigma_\alpha^{R\dagger}$. For a matrix, the relevant “imaginary part” is the anti-Hermitian part
+The notation $\succeq0$ means positive semidefinite: $u^\dagger\Gamma_\alpha u\ge0$ for every device vector $u$. An ideal passive lead can remove amplitude from the device; it cannot amplify it. $\Gamma_\alpha$ has units of energy, not inverse time. Only after selecting a mode and dividing its linewidth by $\hbar$ do we obtain an escape rate.
+
+Here $\Sigma_\alpha^A=\Sigma_\alpha^{R\dagger}$. For a matrix, the relevant “imaginary part” is defined below. The resulting matrix is Hermitian.
 
 $$
 \operatorname{Im}_{H}X=\frac{X-X^\dagger}{2i},
@@ -630,7 +695,7 @@ $$
 
 and diverges there. There is no contradiction. The bulk DOS counts how densely the allowed wave numbers crowd in energy, whereas the surface DOS also contains the weight of those modes on the endpoint orbital. Open-chain eigenmodes have small endpoint amplitude near a band edge, and that boundary weight cancels the bulk van Hove divergence.
 
-For the matched scalar contact, the group velocity
+For the matched scalar contact, a wavepacket concentrated near wave number $k$ has a center moving at the **group velocity**
 
 $$
 v(k)=\frac{1}{\hbar}\frac{dE}{dk}
@@ -691,6 +756,15 @@ $$
 
 The $2\eta I$ term is a regulator, not a third contact. A true bound state with $\Gamma_L=\Gamma_R=0$ also requires an occupation rule beyond the two ideal reservoirs.
 
+The decomposition follows directly from the inverse-matrix identity
+
+$$
+G^R-G^A
+=G^R\big[(G^A)^{-1}-(G^R)^{-1}\big]G^A.
+$$
+
+Substitution of eq. (10) gives the total broadening in the middle. Splitting that sum into its left and right terms gives eq. (17). Thus $A_L$ and $A_R$ are not extra postulates about the device; they resolve its spectral weight by the injecting contact.
+
 ### 6.1 Why the Caroli trace is a probability
 
 The coherent transmission is
@@ -703,11 +777,13 @@ T(E)=\operatorname{Tr}
 \tag{18}
 $$
 
-To expose the absolute-square structure, define
+The trace is the sum of a matrix's diagonal entries. To expose the absolute-square structure, define
 
 $$
 X=\Gamma_L^{1/2}G^R\Gamma_R^{1/2}.
 $$
+
+The positive matrix square root keeps the eigenvectors of $\Gamma_\alpha$ and replaces each nonnegative eigenvalue by its square root.
 
 Cyclicity of the trace gives
 
@@ -715,7 +791,7 @@ $$
 T=\operatorname{Tr}(XX^\dagger)\ge0.
 $$
 
-Thus $T$ is a sum of squared, contact-weighted propagation amplitudes between channels. For a passive coherent device attached to ideal leads, the corresponding transmission eigenvalues lie between zero and one.
+Thus $T$ is a sum of squared, contact-weighted propagation amplitudes between channels. This proves nonnegativity, not yet the upper bound of a probability. That bound additionally uses flux conservation and flux-normalized incident modes. With several incident channels, the total $T$ is a sum of their probabilities and can exceed one; the one-channel $T$ used here cannot.
 
 The matrix order in eq. (18) means: couple to one contact, propagate, couple to the other, and multiply by the conjugate process. The trace sums the contacted channels.
 
@@ -735,6 +811,40 @@ T(E)=\gamma_L\gamma_R\lvert G^R_{1N}\rvert^2.
 $$
 
 The two endpoint broadenings normalize injection and collection to lead flux; $G^R_{1N}$ is the amplitude to propagate between the endpoints. That is why the result is dimensionless even though $G^R$ has units $\mathrm{eV}^{-1}$ and each $\gamma$ has units eV.
+
+<details markdown="1">
+<summary>Checking the probability bound in the one-channel model</summary>
+
+For real hopping, a Hermitian device, propagating leads and $\eta\to0^+$, boundary matching gives the flux-normalized reflection and transmission amplitudes, up to channel phase choices,
+
+$$
+\begin{gathered}
+r_L=1-i\gamma_LG^R_{11},
+\\
+t_{RL}=-i\sqrt{\gamma_R\gamma_L}\,G^R_{N1}.
+\end{gathered}
+$$
+
+This is the single-channel form of the [Green-function/scattering-matrix relation of Fisher and Lee](https://doi.org/10.1103/PhysRevB.23.6851). Real hopping also gives reciprocity, $G^R_{N1}=G^R_{1N}$. Taking the $11$ element of eq. (17) yields
+
+$$
+A_{11}=\gamma_L\lvert G^R_{11}\rvert^2+\gamma_R\lvert G^R_{1N}\rvert^2.
+$$
+
+Therefore
+
+$$
+\begin{aligned}
+\lvert r_L\rvert^2
+&=1-\gamma_L A_{11}+\gamma_L^2\lvert G^R_{11}\rvert^2\\
+&=1-\gamma_L\gamma_R\lvert G^R_{1N}\rvert^2\\
+&=1-T.
+\end{aligned}
+$$
+
+Reflection and transmission exhaust the outgoing flux, so $0\le T\le1$. A finite absorber, an active medium, or omitted outgoing channels would change that argument.
+
+</details>
 
 The central implementation is short:
 
@@ -795,36 +905,11 @@ The exact state inside a finite barrier is a boundary-matched combination of gro
 
 *Figure 6.* A device identical to its leads has no interface and therefore $T(E)=1$ inside the open band, apart from the singular band-edge limit. The barrier produces reflection, energy-dependent transmission, and a spatially structured **left-injected partial LDOS** $[A_L]_{jj}/(2\pi)$. This is available spectral weight before multiplication by $f_L$; it is not the total occupied density.
 
-The matched-wire result is an especially strong unit test. It gives
-
-$$
-\mathcal G_0=\frac{2e^2}{h}=77.4809\ \mu\mathrm{S},
-\qquad
-R_0=12.9064\ \mathrm{k}\Omega,
-$$
-
-and the notebook obtains $0.999999997\le T\le1.000000000$ across the sampled interior of the band. A sign error in the self-energy or a misplaced endpoint index usually destroys this check immediately.
-
-The conductance quantum follows from the finite-bias current rather than being inserted as a normalization. For a small electrochemical-potential difference $\Delta\mu=e\,\Delta V$,
-
-$$
-f_L(E)-f_R(E)
-\simeq-\frac{\partial f}{\partial E}\,\Delta\mu.
-$$
-
-At zero temperature, $-\partial f/\partial E$ becomes $\delta(E-E_F)$. Linearizing the Landauer current that will be derived in eq. (27) then gives
-
-$$
-\mathcal G
-=\left.\frac{dI}{dV}\right\rvert_{V=0}
-=\frac{2e^2}{h}T(E_F).
-$$
-
-The factor $2e^2/h$ is therefore the one-channel, spin-degenerate conductance scale. A clean matched wire reaches it because its scattering probability is unity, not because the plotted transmission was divided by a convenient constant.
+The matched-wire result is an especially strong unit test. The notebook obtains $0.999999997\le T\le1.000000000$ across the sampled interior of the band. A sign error in the self-energy or a misplaced endpoint index usually destroys this check immediately. The exact band edge requires a separate limiting argument because the group velocity vanishes there.
 
 ### 6.3 What tunneling looks like in real space
 
-For the rank-one left contact define the device-projected, contact-normalized spectral amplitude
+For the left contact coupled to one endpoint orbital, define the device-projected, contact-normalized spectral amplitude
 
 $$
 \lvert\psi_L(E)\rangle
@@ -853,7 +938,9 @@ $$
 \tag{21}
 $$
 
-For coherent steady propagation, this flux is independent of $j$ and equals the transmission in the present reciprocal single-channel model.
+For coherent steady propagation with $\eta\to0^+$, this flux is independent of $j$. At the right contact its value is $\gamma_R\lvert\psi_{L,N}\rvert^2=\gamma_L\gamma_R\lvert G^R_{N1}\rvert^2=T$ in this reciprocal model. This also connects the real-space wave to eq. (19).
+
+Because $\psi_L$ here has units $\mathrm{eV}^{-1/2}$, $\mathcal J^{(L)}(E)$ is **dimensionless**. The particle-number flux per unit energy per spin is $\mathcal J^{(L)}(E)/h$. Multiplying by $f_L(E)$ and integrating over energy gives the occupied left-injected particle flow; it does not turn the LDOS itself into a current.
 
 <div class="negf-figure-desktop">
   <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-07-sub-barrier-scattering-state.svg" alt="Partial local density of states and conserved spectral flux for tunneling through a finite barrier" width="2160" height="1500">
@@ -874,7 +961,7 @@ At equilibrium, an equal right-injected contribution cancels the left-injected f
 
 $G^R$, $A_L$, $A_R$, and $T$ describe the open spectrum and propagation. If the Hamiltonian and contact structure are fixed, they do not change merely because the reservoirs are filled differently.
 
-The population of reservoir $\alpha$ is
+For electrons, the Pauli principle allows at most one electron in each one-particle state of a specified spin. The probability that an incoming state of energy $E$ is occupied in reservoir $\alpha$ is the **Fermi function**
 
 $$
 f_\alpha(E)=
@@ -882,7 +969,19 @@ f_\alpha(E)=
 \tag{22}
 $$
 
-At equilibrium $f_L=f_R=f$, so one Fermi function fills the contact-generated spectrum. Out of equilibrium, no single Fermi function describes the device interior. The in-scattering self-energy is
+Here $\mu_\alpha$ is the reservoir's chemical potential, more precisely its electrochemical potential when electric potentials are included; $k_B$ is Boltzmann's constant. At zero temperature, states below $\mu_\alpha$ are occupied and states above it are empty. At positive temperature, $f_\alpha(\mu_\alpha)=1/2$, with the transition spread over an energy scale $k_BT_\alpha$. The chemical potential is not the energy of every electron.
+
+At equilibrium $f_L=f_R=f$, so one Fermi function fills the contact-generated spectrum. Out of equilibrium, the device generally cannot be described by a single Fermi function.
+
+The two reservoirs do not maintain a fixed phase relation with each other. Their occupied **outer products**, rather than their amplitudes, must be added. For the one-channel states of eq. (20) and its right-injected counterpart,
+
+$$
+G^n
+=f_L\lvert\psi_L\rangle\langle\psi_L\rvert
++f_R\lvert\psi_R\rangle\langle\psi_R\rvert.
+$$
+
+Each wave still interferes coherently with its own reflected components. Only cross terms between independent incoming sources vanish on averaging. Substituting the Green-function expressions for the two waves gives the in-scattering self-energy
 
 $$
 \Sigma^{\mathrm{in}}(E)
@@ -901,22 +1000,77 @@ G^n(E)
 \tag{24}
 $$
 
-There is a useful source-covariance interpretation of this equation. If the linear response is $\lvert\psi\rangle=G^R\lvert s\rangle$ and incoherent injection has source correlation $\langle ss^\dagger\rangle=\Sigma^{\mathrm{in}}$, then
+“In-scattering” here means injection from a contact; no phonon collision inside the device has been added. The same $\Gamma_\alpha$ describes both escape through that contact and the spectral strength of its incident modes, with $f_\alpha$ selecting how much of that supply is occupied.
+
+The matrix $G^n(E)/(2\pi)$ is the **occupied one-particle density matrix per unit energy, per spin**. Its integral is
+
+$$
+C_{ij}=\int\frac{dE}{2\pi}\,G^n_{ij}(E).
+$$
+
+For a pure state, the corresponding matrix is $\psi_i\psi_j^*$. For many independently occupied states, their outer products are summed with their occupations. Thus $C_{jj}$ is the expected occupation of site $j$ for one spin, while off-diagonal entries retain phase information between sites. Unlike a density matrix normalized for exactly one particle, $\operatorname{Tr}C$ is the expected number of electrons of that spin. This is the scattering-state construction of density used in [Waintal et al., section 7.1](https://arxiv.org/html/2407.16257v2).
+
+<details markdown="1">
+<summary>A one-orbital example: the same resonance can have different occupations</summary>
+
+Let a device contain one orbital of energy $\epsilon_d$. Approximate its two contact self-energies as constants over the resonance,
+
+$$
+\begin{gathered}
+\sigma_\alpha^R=\lambda_\alpha-i\gamma_\alpha/2,
+\\
+\tilde\epsilon_d=\epsilon_d+\lambda_L+\lambda_R,
+\\
+\gamma=\gamma_L+\gamma_R>0.
+\end{gathered}
+$$
+
+All matrices are now scalars:
+
+$$
+\begin{gathered}
+G^R=\frac{1}{E-\tilde\epsilon_d+i\gamma/2},
+\\
+A=\frac{\gamma}{(E-\tilde\epsilon_d)^2+(\gamma/2)^2},
+\end{gathered}
+$$
+
+$$
+\begin{gathered}
+G^n=A\,f_{\mathrm{eff}},
+\\
+f_{\mathrm{eff}}=
+\frac{\gamma_Lf_L+\gamma_Rf_R}{\gamma_L+\gamma_R}.
+\end{gathered}
+$$
+
+With equal coupling and $f_L\simeq1,\ f_R\simeq0$ across a narrow peak, $G^n\simeq A/2$. The resonance is half occupied per spin, approximately one electron including both spins. At equilibrium, $f_L=f_R$; if their common chemical potential lies well above this peak, the orbital is nearly fully occupied per spin and the net current is zero. The resonance in $A$ did not have to move in either case.
+
+The constant-self-energy form is a local approximation to a broad contact band, not an exact description across a finite band's edges.
+
+</details>
+
+<details markdown="1">
+<summary>Source correlations and the lesser Green's-function notation</summary>
+
+Using the spectral normalization of eq. (20), let $\lvert\psi\rangle=G^R\lvert s\rangle$ and $\langle ss^\dagger\rangle=\Sigma^{\mathrm{in}}$. Taking the averaged outer product gives
 
 $$
 \langle\psi\psi^\dagger\rangle
 =G^R\Sigma^{\mathrm{in}}G^A.
 $$
 
-This is the intuitive core of the Keldysh relation: propagate the covariance of the injected amplitudes through the retarded and advanced response operators.
+The brackets average independently populated incident sources; they do not turn coherent propagation inside the device into a classical trajectory model. This is the contact-only, steady-state form of the Keldysh relation in [Camsari, Chowdhury and Datta, section 3](https://arxiv.org/html/2008.01275v2).
 
-This post uses the convention
+The conventional **lesser Green's function** $G^<$ is a two-time electron correlation function, whose stationary energy representation records the occupied spectrum. The convention here is
 
 $$
 G^n=-iG^<.
 $$
 
-Keeping that convention explicit prevents a common sign error when formulas from different texts are mixed.
+This relation translates notation; it does not introduce another occupation assumption.
+
+</details>
 
 The conceptual separation is now complete:
 
@@ -946,7 +1100,9 @@ n_j=2\int\frac{dE}{2\pi}[G^n(E)]_{jj}.
 \tag{25}
 $$
 
-The current across a nearest-neighbor bond is
+In other words, $n_j=2C_{jj}$ is the expected number of electrons in one site cell. In this one-dimensional discretization $n_j/a$ is a line density; a three-dimensional volume density would require a transverse geometry.
+
+We report positive current in the direction of electron flow toward increasing site number. The current across a nearest-neighbor bond is
 
 $$
 I_{j\to j+1}
@@ -956,21 +1112,29 @@ I_{j\to j+1}
 \tag{26}
 $$
 
-Why does an off-diagonal element appear? The occupation of site $j$ is $\hat n_j=c_j^\dagger c_j$. Applying the Heisenberg equation to the hopping Hamiltonian gives a lattice continuity equation,
+Why does an off-diagonal element appear? For a normalized wavefunction, differentiate $\lvert\psi_j\rvert^2$ using $i\hbar\dot\psi_j=\sum_kH_{jk}\psi_k$. The real on-site term cancels; only the two neighboring hopping terms change the probability at site $j$. Averaging this result over occupied states gives the particle-number flow per spin
 
 $$
-\frac{d\langle\hat n_j\rangle}{dt}
-+\mathcal J_{j\to j+1}
--\mathcal J_{j-1\to j}=0.
+\begin{gathered}
+J^{\mathrm{part}}_{j\to j+1}
+=-\frac{2}{\hbar}\operatorname{Im}
+\left[H_{j,j+1}C_{j+1,j}\right],\\
+\frac{dC_{jj}}{dt}
++J^{\mathrm{part}}_{j\to j+1}
+-J^{\mathrm{part}}_{j-1\to j}=0.
+\end{gathered}
 $$
 
-Only hopping terms that connect $j$ to a neighbor fail to commute with $\hat n_j$. Their expectation values are coherences such as $\langle c_j^\dagger c_{j+1}\rangle$, not diagonal populations.
+$J^{\mathrm{part}}$ has units of particles per second, unlike the dimensionless spectral weight $\mathcal J(E)$ in eq. (21). Substituting $C=\int G^n\,dE/(2\pi)$, using $h=2\pi\hbar$, and multiplying by $2e$ for spin and the chosen electron-flow current convention gives eq. (26).
 
-In the present convention that coherence is represented by $G^n_{j+1,j}$, and its imaginary part distinguishes a traveling phase relation from a standing one.
+For real hopping $-t_0$, a real standing wave gives zero imaginary part and zero flow. A right-moving wave $\psi_j\propto e^{ikja}$ with $0<ka<\pi$ instead gives a positive flow proportional to $\sin ka$. The phase relation between neighboring sites—not the size of the diagonal population alone—determines the current. Multiplying $n_j$ by $-e$ gives the charge in its cell.
 
-This is why the diagonal of $G^n$ gives particle occupation while the first off-diagonal gives bond flow. The electronic charge associated with an occupation is obtained only after multiplying by $-e$.
+<details markdown="1">
+<summary>The same occupation matrix in operator notation</summary>
 
-Here $\mathcal J$ denotes particle-number flux in the lattice continuity equation; the electrical-current convention and its charge prefactor enter eq. (26).
+The operator $c_j^\dagger$ creates an electron at site $j$, and $c_j$ removes one, for a specified spin. The occupation operator is $\hat n_j=c_j^\dagger c_j$, and $C_{ij}=\langle c_j^\dagger c_i\rangle$. The Heisenberg equation for $\hat n_j$ gives the same continuity equation: only hopping terms involving site $j$ contribute to its commutator. This is another derivation, not an additional model assumption.
+
+</details>
 
 In the exact $\eta\to0^+$ stationary coherent problem there is no accumulation in any interior site. The accumulation term in the continuity equation therefore vanishes, and every internal bond carries the same integrated current.
 
@@ -1007,6 +1171,40 @@ J_{\mathrm{per\,eV}}=1.602176634\times10^{-19}\ \mathrm{J/eV}.
 $$
 
 The symbol $e>0$ denotes the magnitude of the elementary charge. The notebook calls $I>0$ the left-to-right **electron-flow** direction when $f_L>f_R$. Conventional signed charge current points oppositely because an electron carries charge $-e$.
+
+The factor $1/h$ can also be understood by counting incoming lead modes. In a long one-dimensional normalization length $L$, right-moving wave numbers are spaced by $2\pi/L$. Each occupied mode crosses a section at rate $v/L$. Its density of states times that rate is
+
+$$
+\frac{L}{2\pi}\frac{dk}{dE}\frac{v}{L}
+=\frac{1}{2\pi\hbar}=\frac1h,
+$$
+
+because $v=(1/\hbar)dE/dk$. The large DOS of a slow mode is canceled by its small crossing rate. Transmission multiplies this incident flux, the opposite reservoir contributes the subtraction, and the two spins give the prefactor $2e/h$.
+
+**Conductance** is the small-change ratio of current to applied voltage, $\mathcal G=dI/dV$, rather than the probability $T$. At equal reservoir temperatures and a small electrochemical-potential difference $\Delta\mu=e\,\Delta V$,
+
+$$
+f_L(E)-f_R(E)
+\simeq-\frac{\partial f}{\partial E}\,\Delta\mu.
+$$
+
+At zero temperature, $f$ is a step at the common equilibrium Fermi energy $E_F=\mu$, so $-\partial f/\partial E$ becomes $\delta(E-E_F)$. The delta function has unit area and selects the integrand at $E_F$. Linearizing eq. (27) therefore gives
+
+$$
+\mathcal G
+=\left.\frac{dI}{dV}\right\rvert_{V=0}
+=\frac{2e^2}{h}T(E_F).
+$$
+
+With $E_F$ inside the band, the matched wire's $T(E_F)=1$ gives
+
+$$
+\mathcal G_0=\frac{2e^2}{h}=77.4809\ \mu\mathrm{S},
+\qquad
+R_0=\mathcal G_0^{-1}=12.9064\ \mathrm{k}\Omega.
+$$
+
+This is a two-terminal resistance, including the contacts; it does not imply dissipative collisions inside the perfectly transmitting device. The conductance quantum follows from the occupation imbalance and mode flux, not from dividing the calculated transmission by an arbitrary normalization.
 
 ---
 
@@ -1056,6 +1254,16 @@ T(E)\approx
 \tag{28}
 $$
 
+This follows by keeping one mode in the Green's function,
+
+$$
+G^R(E)\simeq
+\frac{\lvert\phi_r\rangle\langle\phi_r\rvert}
+{E-E_r+i\Gamma_r/2},
+$$
+
+and inserting it into the Caroli trace. The contact projections in the numerator become $\Gamma_{L,r}$ and $\Gamma_{R,r}$. The approximation neglects neighboring resonances and any important nonresonant transmission background.
+
 At the resonance energy,
 
 $$
@@ -1072,7 +1280,19 @@ $$
 t_{\mathrm{life},r}\simeq\frac{\hbar}{\Gamma_r}.
 $$
 
-$\Gamma_r$ is an energy linewidth; the decay rate is $\Gamma_r/\hbar$. Using a distinct symbol $t_{\mathrm{life},r}$ avoids confusing the lifetime with the interface coupling matrix $\tau$.
+$\Gamma_r$ is an energy linewidth; the decay rate is $\Gamma_r/\hbar$. Using a distinct symbol $t_{\mathrm{life},r}$ avoids confusing the lifetime with the interface coupling matrix $\tau$. The full width at half maximum (FWHM) is the energy separation between the two points at half the peak height.
+
+The factor of two is fixed by time evolution:
+
+$$
+\begin{gathered}
+e^{-i(E_r-i\Gamma_r/2)t/\hbar}
+\\
+=e^{-iE_rt/\hbar}e^{-\Gamma_rt/(2\hbar)}.
+\end{gathered}
+$$
+
+The **probability**, the squared magnitude, decays as $e^{-\Gamma_rt/\hbar}$. In the same Lorentzian approximation, the half-height points are $E_r\pm\Gamma_r/2$, so the FWHM is $\Gamma_r$. A symmetric resonance can remain unit height as coupling weakens, but its width and integrated area shrink. A tall transmission peak need not carry a large integrated current.
 
 Refining the resonances over the calculator's $0.001$–$0.600\ \mathrm{eV}$ range gives
 
@@ -1133,6 +1353,9 @@ $$
 
 Resolving those areas is a numerical part of the physics. A uniform energy mesh can miss a narrow resonance or poorly sample the integrable one-dimensional threshold structure.
 
+<details markdown="1">
+<summary>Resolving a narrow resonance: energy meshes, weights and cutoffs</summary>
+
 The original notebook combines a geometric mesh near the emitter band bottom with a linear mesh over the occupied range. Refining a peak's position, however, does not ensure that its area is integrated accurately. The first resonance has a FWHM of about $61.3\ \mu\mathrm{eV}$, while the original 3,000-point linear mesh has a spacing of about $83.5\ \mu\mathrm{eV}$. That mesh does not converge the well occupation.
 
 The recalculation below supplements the global mesh with linewidth-based local meshes. Each covers $20\,\mathrm{FWHM}$ on either side of a peak, with spacing $\mathrm{FWHM}/(100r)$. The upper limit is extended to $E_{\max}=\mu_L+18k_BT$ to include the Fermi tail. Grid resolution $r$, the upper cutoff, and the numerical $\eta$ are varied separately when checking convergence.
@@ -1186,6 +1409,8 @@ I = current_prefactor_A_per_eV * np.sum(w * T_E * (f_L_E - f_R_E))
 
 Here `current_prefactor_A_per_eV` already contains the spin factor and the eV-to-joule conversion; multiplying by another two would be an error. The same energy samples and the same weights are used for density, bond current, and terminal current, so discrepancies among them remain meaningful diagnostics rather than quadrature artifacts.
 
+</details>
+
 Using this grid with $\eta=10^{-9}\ \mathrm{eV}$ gives
 
 $$
@@ -1211,6 +1436,8 @@ It does not, by itself, change G^R if H_D and the lead self-energies stay fixed.
 
 A real voltage can also reshape the one-particle potential and shift a contact band. Example B represents that effect with an imposed electron potential-energy profile $U=-e\phi$ corresponding to an assumed linear electrostatic drop; it is not a self-consistent Poisson solution.
 
+For positive bias in this example, the left contact supplies the dominant incident population and is called the **emitter**; the right contact is the **collector**. These are contact roles, not additional regions inside the device.
+
 This is a separate, narrower-well device with 90 sites, $0.45\ \mathrm{eV}$ barriers, and an 8-site well.
 
 The resolved zero-bias resonances are
@@ -1229,7 +1456,7 @@ $$
 
 Thus the lowest resonance begins $15\ \mathrm{meV}$ above the emitter Fermi level and can be swept into, then out of, effective alignment.
 
-The electron potential-energy shift is prescribed as
+For this bias array use Python's zero-based site labels $j=0,\ldots,N-1$, rather than the $1,\ldots,N$ labels used in the endpoint formulas. The left endpoint has no added potential energy and the right endpoint shifts by $-eV$. The profile is
 
 $$
 U_j^{\mathrm{bias}}(V)
@@ -1335,7 +1562,7 @@ $$
 
 The current is the energy area under this integrand, not the value of the integrand at one favorable point.
 
-At zero temperature, the energy integral is supported only on the intersection
+Let $E_{c,\alpha}=\varepsilon_\alpha-2t_0$ denote the bottom of lead $\alpha$'s propagating band. Unlike the on-site matrix element $\varepsilon_\alpha$, this is the lowest energy at which that lead has propagating modes. At zero temperature, with $\mu_L\ge\mu_R$ and $\eta\to0^+$, the energy integral is supported only on the intersection
 
 $$
 [\mu_R,\mu_L]
@@ -1343,7 +1570,7 @@ $$
 \cap[E_{c,R},E_{c,R}+4t_0].
 $$
 
-The first interval is the reservoir occupation window; the other two are the propagating bands of the contacts. A tall resonance outside any one of them contributes no dc current. At finite temperature the sharp window edges are rounded, but the overlap logic is unchanged.
+The first interval is the reservoir occupation window; the other two are the propagating bands of the contacts. At zero temperature, the current integrand vanishes at energies outside this intersection. Even if a peak's centre lies outside, any tail remaining inside can still contribute. At finite temperature the sharp occupation-window edges are rounded, but propagating states in both leads are still required.
 
 This intersection distinguishes three different ways a resonance can stop carrying current: it can leave the occupation window, leave the emitter band, or leave the collector band.
 
@@ -1372,7 +1599,7 @@ which is negative differential resistance (NDR). It does not mean that $I/V$ mus
 
 *Figure 12.* Panels (a)–(d) refer to the same lowest-resonance cycle. The first current peak is at $0.085\ \mathrm{V}$ and the following valley at $0.149\ \mathrm{V}$; this is the highlighted first NDR interval. Panel (e) shows the full sweep, including later, higher-resonance structure near the broader $0.4\ \mathrm{V}$ region. That later structure is not used to define the first-cycle PVCR.
 
-The quantitative values are
+On the energy and voltage grids specified below, the values are
 
 $$
 I_{\mathrm{peak}}=57.3122\ \mathrm{nA},
@@ -1413,7 +1640,7 @@ for iV, V in enumerate(V_current):
     )
 ```
 
-Separating a plotting grid from an integration grid is important. A smooth-looking color map is not evidence that the area under a very narrow resonance has converged. The notebook additionally differentiates the converged current array and uses peak prominence to reject tiny numerical ripples before assigning the first peak and following valley.
+Separating a plotting grid from an integration grid is important. A smooth-looking color map is not evidence that the area under a very narrow resonance has converged. The notebook differentiates the current array evaluated on the finer integration grid and uses peak prominence to reject tiny numerical ripples before assigning the first peak and following valley.
 
 Panel (d) uses the same absolute $dI/dE$ scale for peak and valley. The green valley curve is almost invisible because its integrated area is genuinely much smaller; it has not been independently normalized to look comparable.
 
@@ -1447,7 +1674,7 @@ These checks diagnose different mistakes. A matched-wire failure points to conta
 
 ## 11. Where this toy model ends
 
-The derivation is exact within its model, but the model is deliberately restricted.
+Block elimination and the uniform-lead surface solution are exact for the specified single-particle lattice Hamiltonian. The continuum discretization, isolated-resonance projection and imposed bias profile are separate approximations, with separate convergence or validity conditions.
 
 - It is a one-particle, mean-field-like description with no explicit electron-electron or electron-phonon self-energy.
 - Transport is phase coherent and elastic.
@@ -1481,3 +1708,9 @@ The baseline NEGF implementation and both transport examples are executable in t
 The best reading order is to keep this article open for the derivation and run the notebook section by section for the numerical evidence.
 
 In particular, change one ingredient at a time: the grid spacing, barrier shape, interface hopping, reservoir chemical potentials, or bias profile. The checks above make it much easier to tell a new physical effect from a broken convention.
+
+### References
+
+- K. Y. Camsari, S. Chowdhury and S. Datta, [*The Non-Equilibrium Green Function (NEGF) Method*](https://arxiv.org/html/2008.01275v2), sections 2–4: contact self-energies, source correlations and current from single-particle equations.
+- D. S. Fisher and P. A. Lee, [*Relation between conductivity and transmission matrix*](https://doi.org/10.1103/PhysRevB.23.6851), *Physical Review B* **23**, 6851 (1981): the relation between Green's functions and flux-normalized scattering amplitudes.
+- X. Waintal et al., [*Computational quantum transport: a scattering approach perspective*](https://arxiv.org/html/2407.16257v2), sections 5, 7 and 8: lead elimination, occupied scattering states and the NEGF/scattering correspondence.
