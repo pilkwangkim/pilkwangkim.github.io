@@ -1,0 +1,107 @@
+/* Scoped styles for the quantum-transport literature explorer. */
+.quantum-access-literature { --qal-ink:var(--text-color); --qal-muted:var(--text-muted-color); --qal-bg:var(--main-bg); --qal-card:var(--card-bg); --qal-accent:var(--link-color); --qal-line:color-mix(in srgb,var(--qal-muted) 32%,transparent); margin:1.6rem 0; min-width:0; color:var(--qal-ink); scroll-margin-top:5rem; }
+.quantum-access-literature [hidden] { display:none !important; }
+.quantum-access-literature :is(button,select,input) { font:inherit; color:inherit; }
+.quantum-access-literature button { cursor:pointer; }
+.quantum-access-literature :is(button,select,a):focus-visible { outline:2px solid var(--qal-accent); outline-offset:3px; }
+.quantum-access-literature .qal-tabs { display:flex; flex-wrap:wrap; gap:.4rem; margin-bottom:1rem; }
+.quantum-access-literature .qal-tabs button { min-height:44px; padding:.5rem .8rem; border:1px solid var(--qal-line); border-radius:.3rem; background:var(--qal-bg); }
+.quantum-access-literature .qal-tabs button[aria-selected=true] { background:var(--qal-ink); color:var(--qal-bg); border-color:var(--qal-ink); }
+.quantum-access-literature .qal-controls { display:flex; flex-wrap:wrap; gap:.6rem 1rem; align-items:end; margin-bottom:.8rem; }
+.quantum-access-literature .qal-discovery { display:grid; grid-template-columns:minmax(0,1.7fr) minmax(0,1fr); gap:1rem; margin-bottom:1rem; }
+.quantum-access-literature .qal-field input { width:100%; min-width:0; min-height:44px; padding:.5rem .6rem; border:1px solid var(--qal-line); border-radius:.3rem; background:var(--qal-bg); }
+.quantum-access-literature .qal-selection-status { display:flex; flex-wrap:wrap; gap:.3rem 1rem; justify-content:space-between; font-size:.85rem; align-items:center; }
+.quantum-access-literature .qal-graph-controls { display:flex; flex-wrap:wrap; align-items:end; gap:.6rem 1rem; margin-top:.8rem; }
+.quantum-access-literature .qal-graph-controls .qal-field { flex-basis:16rem; }
+.quantum-access-literature .qal-navigation { display:flex; flex-wrap:wrap; gap:.3rem; }
+.quantum-access-literature .qal-navigation button { min-width:44px; min-height:44px; padding:.35rem .6rem; border:1px solid var(--qal-line); border-radius:.25rem; background:var(--qal-bg); font-size:.85rem; }
+.quantum-access-literature .qal-navigation button[aria-pressed=true] { background:var(--qal-ink); color:var(--qal-bg); }
+.quantum-access-literature .qal-field { display:grid; gap:.35rem; min-width:0; margin:0; flex:1 1 20rem; font-size:.9rem; }
+.quantum-access-literature .qal-field select { min-width:0; width:100%; min-height:44px; padding:.5rem 1.6rem .5rem .55rem; border:1px solid var(--qal-line); border-radius:.3rem; background:var(--qal-bg); text-overflow:ellipsis; }
+.quantum-access-literature .qal-context { display:flex; align-items:center; gap:.45rem; min-height:44px; margin:0; font-size:.9rem; cursor:pointer; }
+.quantum-access-literature .qal-context input { width:1rem; height:1rem; accent-color:var(--qal-accent); }
+.content .quantum-access-literature :is(.qal-description,.qal-note) { margin:.45rem 0; font-size:.88rem; line-height:1.65; }
+.quantum-access-literature .qal-note { color:var(--qal-muted); }
+.quantum-access-literature .qal-legend { display:flex; gap:.5rem 1rem; flex-wrap:wrap; font-size:.82rem; color:var(--qal-muted); }
+.quantum-access-literature .qal-legend > span { display:inline-flex; align-items:center; gap:.4rem; }
+.quantum-access-literature .qal-key { width:.6rem; height:.6rem; display:inline-block; background:var(--qal-accent); border-radius:50%; }
+.quantum-access-literature .qal-key-context { background:var(--qal-muted); border-radius:0; transform:rotate(45deg); }
+.quantum-access-literature :is([data-qal-citation-graph],[data-qal-coupling-graph]) { display:block; width:100%; height:auto; overflow:visible; margin:.5rem 0; }
+.quantum-access-literature [data-qal-citation-graph] { overflow:hidden; touch-action:pan-y; background:color-mix(in srgb,var(--qal-card) 35%,var(--qal-bg)); border:1px solid var(--qal-line); border-radius:.3rem; }
+.quantum-access-literature [data-qal-citation-graph][data-pan-mode=true] { touch-action:none; cursor:grab; }
+.quantum-access-literature [data-qal-citation-graph][data-dragging=true] { cursor:grabbing; }
+.quantum-access-literature .qal-edge { fill:none; stroke:var(--qal-line); stroke-width:1.2; }
+.quantum-access-literature .qal-edge.related { stroke:var(--qal-accent); stroke-width:1.8; }
+.quantum-access-literature .qal-arrow-muted { fill:var(--qal-muted); }
+.quantum-access-literature .qal-arrow-related { fill:var(--qal-accent); }
+.quantum-access-literature .qal-node { cursor:pointer; }
+.quantum-access-literature .qal-node-shape { fill:color-mix(in srgb,var(--qal-accent) 25%,var(--qal-bg)); stroke:none; }
+.quantum-access-literature .qal-node-shape.context { fill:color-mix(in srgb,var(--qal-muted) 30%,var(--qal-bg)); }
+.quantum-access-literature .qal-node.selected .qal-node-shape { fill:var(--qal-accent); stroke:var(--qal-ink); stroke-width:1.5; }
+.quantum-access-literature .qal-node:focus-visible .qal-node-shape { stroke:var(--qal-accent); stroke-width:3; }
+.quantum-access-literature .qal-node-label { fill:var(--qal-ink); font:500 13.5px system-ui,sans-serif; paint-order:stroke; stroke:var(--qal-bg); stroke-width:5px; stroke-linejoin:round; }
+.quantum-access-literature .qal-node-year { fill:var(--qal-muted); font:12px system-ui,sans-serif; paint-order:stroke; stroke:var(--qal-bg); stroke-width:4px; stroke-linejoin:round; }
+.quantum-access-literature .qal-hit { fill:transparent; stroke:none; }
+.quantum-access-literature .qal-pair-edge { fill:none; stroke:var(--qal-line); cursor:pointer; }
+.quantum-access-literature .qal-pair-edge.selected { stroke:var(--qal-accent); }
+.quantum-access-literature .qal-pair-hit { fill:none; stroke:transparent; stroke-width:16; cursor:pointer; }
+.quantum-access-literature .qal-pair-count { fill:var(--qal-ink); font:500 12px system-ui,sans-serif; paint-order:stroke; stroke:var(--qal-bg); stroke-width:5px; text-anchor:middle; pointer-events:none; }
+.quantum-access-literature :is(.qal-inspector,.qal-pair-inspector) { padding:1rem; margin-top:1rem; background:var(--qal-card); border:1px solid var(--qal-line); border-radius:.35rem; overflow-wrap:anywhere; }
+.quantum-access-literature .qal-inspector h3 { margin:.4rem 0 .7rem; font-size:1.05rem; line-height:1.55; color:var(--heading-color); }
+.quantum-access-literature .qal-rich { display:grid; gap:1rem; margin:1.2rem 0; }
+.quantum-access-literature .qal-rich section { min-width:0; }
+.quantum-access-literature .qal-rich h4 { margin:0 0 .4rem; font-size:.98rem; color:var(--heading-color); }
+.content .quantum-access-literature .qal-rich p { margin:.3rem 0; font-size:.93rem; line-height:1.8; }
+.quantum-access-literature .qal-rich ul { margin:.3rem 0; padding-left:1.3rem; font-size:.93rem; }
+.quantum-access-literature .qal-rich .qal-constriction { padding-left:.9rem; border-left:3px solid var(--qal-accent); }
+.quantum-access-literature #qal-paper-details { scroll-margin-top:5rem; }
+.quantum-access-literature .qal-local-counts { display:flex; flex-wrap:wrap; gap:.4rem 1rem; padding:.6rem 0; color:var(--qal-muted); font-size:.85rem; }
+.quantum-access-literature .qal-foundation-bridge { display:grid; grid-template-columns:minmax(0,1fr) 1.2rem minmax(0,1.5fr) 1.2rem minmax(0,1fr); gap:.7rem; align-items:center; margin:1rem 0; }
+.quantum-access-literature .qal-foundation-paper { display:grid; gap:.5rem; align-content:start; padding:.8rem; background:var(--qal-card); border:1px solid var(--qal-line); border-radius:.3rem; min-width:0; overflow-wrap:anywhere; }
+.content .quantum-access-literature .qal-foundation-paper p,.content .quantum-access-literature .qal-foundation-shared p { margin:0; font-size:.88rem; line-height:1.65; }
+.quantum-access-literature .qal-foundation-shared { min-width:0; overflow-wrap:anywhere; }
+.quantum-access-literature .qal-foundation-shared h3 { font-size:.95rem; margin:0 0 .7rem; }
+.quantum-access-literature .qal-foundation-shared ol { padding-left:1.3rem; margin:0; }
+.quantum-access-literature .qal-foundation-shared li { margin-bottom:.8rem; }
+.quantum-access-literature .qal-foundation-arrow { font-size:1.2rem; color:var(--qal-muted); text-align:center; }
+.quantum-access-literature .qal-stage.is-selected { border-left:3px solid var(--qal-accent); padding-left:.8rem; }
+.quantum-access-literature .qal-stage-selected { display:block; font-size:.85rem; margin-bottom:.5rem; color:var(--qal-accent); }
+.quantum-access-literature .qal-inspector dl { margin:.8rem 0; display:grid; gap:.65rem; }
+.quantum-access-literature .qal-inspector dl > div { display:grid; grid-template-columns:4.5rem minmax(0,1fr); gap:.5rem; }
+.quantum-access-literature .qal-inspector dt { color:var(--qal-muted); font-weight:400; font-size:.88rem; }
+.quantum-access-literature .qal-inspector dd { margin:0; font-size:.9rem; }
+.quantum-access-literature .qal-meta { font-size:.82rem; color:var(--qal-muted); }
+.quantum-access-literature .qal-links { display:flex; flex-wrap:wrap; gap:.4rem 1rem; font-size:.88rem; }
+.quantum-access-literature .qal-connections { display:grid; gap:.7rem; margin:.9rem 0; font-size:.88rem; }
+.quantum-access-literature .qal-connections h4 { margin:0 0 .25rem; font-size:.9rem; font-weight:600; }
+.quantum-access-literature .qal-connections ul,.quantum-access-literature .qal-pair-inspector ul { margin:0; padding-left:1.2rem; }
+.quantum-access-literature .qal-connections li { padding:.15rem 0; }
+.quantum-access-literature .qal-related-paper { color:var(--qal-accent); background:none; border:0; border-bottom:1px dotted currentColor; padding:0; font-size:inherit; }
+.quantum-access-literature .qal-pair-inspector strong { display:block; margin-bottom:.35rem; }
+.quantum-access-literature .qal-pair-inspector li { font-size:.85rem; padding:.2rem 0; }
+.quantum-access-literature .qal-stages { list-style:none; padding:0; margin:.7rem 0; }
+.quantum-access-literature .qal-stage { display:grid; grid-template-columns:7rem minmax(0,1fr); gap:1rem; padding:1rem 0; border-bottom:1px solid var(--qal-line); }
+.quantum-access-literature .qal-stage-period { color:var(--qal-muted); font-variant-numeric:tabular-nums; font-size:.88rem; }
+.quantum-access-literature .qal-stage h3 { margin:0 0 .4rem; font-size:1rem; }
+.content .quantum-access-literature .qal-stage p { margin:0 0 .6rem; font-size:.9rem; }
+.quantum-access-literature .qal-paper-chips { display:flex; flex-wrap:wrap; gap:.4rem; }
+.quantum-access-literature .qal-paper-chip { min-height:44px; padding:.4rem .6rem; border:1px solid var(--qal-line); background:var(--qal-bg); border-radius:.25rem; font-size:.82rem; }
+.quantum-access-literature .qal-paper-chip[aria-pressed=true] { border-color:var(--qal-accent); background:color-mix(in srgb,var(--qal-accent) 12%,var(--qal-bg)); }
+.quantum-access-literature .qal-footer { display:grid; gap:.4rem; margin-top:1rem; padding-top:.8rem; border-top:1px solid var(--qal-line); }
+@media(max-width:575px) { .quantum-access-literature .qal-field select { font-size:16px; } .quantum-access-literature .qal-stage { grid-template-columns:1fr; gap:.3rem; } .quantum-access-literature .qal-tabs { gap:.35rem; } .quantum-access-literature .qal-tabs button { font-size:.85rem; padding:.45rem .6rem; } .quantum-access-literature :is(.qal-inspector,.qal-pair-inspector) { padding:.8rem; } .quantum-access-literature .qal-inspector dl > div { grid-template-columns:3.5rem minmax(0,1fr); } .quantum-access-literature .qal-related-paper { min-height:44px; text-align:left; } }
+@media print { .quantum-access-literature .qal-controls,.quantum-access-literature .qal-tabs,.quantum-access-literature .qal-footer { display:none; } }
+@media(pointer:coarse) { .quantum-access-literature .qal-related-paper { min-height:44px; text-align:left; } }
+@media(max-width:575px) { .quantum-access-literature .qal-discovery { grid-template-columns:1fr; gap:.6rem; } .quantum-access-literature .qal-field input { font-size:16px; } }
+@media(max-width:767px) { .quantum-access-literature .qal-foundation-bridge { grid-template-columns:1fr; gap:.65rem; } .quantum-access-literature .qal-foundation-arrow { transform:rotate(90deg); } }
+
+/* Paper preview on hover/focus; the graph and page layout stay unchanged. */
+.quantum-access-literature .qal-tooltip { pointer-events:none; position:fixed; z-index:1050; box-sizing:border-box; width:340px; max-width:calc(100vw - 24px); max-height:calc(100vh - 24px); overflow:auto; padding:.8rem 1rem; color:var(--qal-ink); background:var(--qal-bg); border:1px solid var(--qal-line); border-radius:.4rem; box-shadow:0 5px 22px #0003; overflow-wrap:anywhere; line-height:1.6; font-size:.85rem; text-align:left; }
+.quantum-access-literature .qal-tooltip-title { margin:.25rem 0 .6rem; font-size:.92rem; line-height:1.5; color:var(--heading-color); font-weight:600; }
+.quantum-access-literature .qal-tooltip-meta { color:var(--qal-muted); font-size:.78rem; }
+.content .quantum-access-literature .qal-tooltip p { margin:.45rem 0; font-size:.85rem; line-height:1.65; }
+.quantum-access-literature .qal-tooltip-scope { color:var(--qal-muted); font-size:.78rem; }
+@media print { .quantum-access-literature .qal-tooltip { display:none !important; } }
+
+/* Individual papers can be repositioned without selecting them. */
+.quantum-access-literature .qal-node,.quantum-access-literature .qal-node * { cursor:grab; touch-action:none; user-select:none; -webkit-user-select:none; }
+.quantum-access-literature [data-qal-citation-graph][data-dragging=true] .qal-node,.quantum-access-literature [data-qal-citation-graph][data-dragging=true] .qal-node * { cursor:grabbing; }

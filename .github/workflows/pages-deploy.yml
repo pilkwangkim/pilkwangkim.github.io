@@ -118,10 +118,18 @@ jobs:
       - name: Check Drude model and exercises
         run: python tools/test_drude_physics.py
 
+      - name: Check quantum access literature data and articles
+        run: |
+          node --check assets/js/quantum-access-literature.js
+          python tools/check_quantum_access_literature.py
+
       - name: Build site
         run: bundle exec jekyll b -d "_site${{ steps.pages.outputs.base_path }}"
         env:
           JEKYLL_ENV: "production"
+
+      - name: Check rendered quantum access literature map
+        run: python tools/check_quantum_access_literature.py --site-dir "_site${{ steps.pages.outputs.base_path }}"
 
       - name: Test site
         run: |

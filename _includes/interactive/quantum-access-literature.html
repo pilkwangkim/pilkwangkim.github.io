@@ -1,0 +1,42 @@
+{% assign qal_ko = false %}{% if page.lang == 'ko' %}{% assign qal_ko = true %}{% endif %}
+<section class="quantum-access-literature tex2jax_ignore" id="quantum-access-literature" data-qal-root data-local-editor-skip data-lang="{{ page.lang | default: 'en' }}" aria-label="{% if qal_ko %}Quantum transport 논문 탐색{% else %}Quantum transport literature explorer{% endif %}">
+  <div class="qal-tabs" role="tablist" aria-label="{% if qal_ko %}탐색 방식{% else %}Analysis view{% endif %}">
+    <button type="button" role="tab" id="qal-tab-citations" data-qal-view="citations" aria-controls="qal-panel-citations" aria-selected="true" tabindex="0">{% if qal_ko %}직접 인용{% else %}Direct citations{% endif %}</button>
+    <button type="button" role="tab" id="qal-tab-coupling" data-qal-view="coupling" aria-controls="qal-panel-coupling" aria-selected="false" tabindex="-1">{% if qal_ko %}공통 선행연구{% else %}Shared foundations{% endif %}</button>
+    <button type="button" role="tab" id="qal-tab-timeline" data-qal-view="timeline" aria-controls="qal-panel-timeline" aria-selected="false" tabindex="-1">{% if qal_ko %}연구 흐름{% else %}Research development{% endif %}</button>
+  </div>
+  <div class="qal-discovery">
+    <label class="qal-field" for="qal-search"><span>{% if qal_ko %}제목·저자·DOI 검색{% else %}Search title, authors, or DOI{% endif %}</span><input id="qal-search" type="search" data-qal-search autocomplete="off" placeholder="{% if qal_ko %}예: constriction, Luisier, 10.1063{% else %}e.g. constriction, Luisier, 10.1063{% endif %}"></label>
+    <label class="qal-field" for="qal-branch"><span>{% if qal_ko %}연구 주제{% else %}Research branch{% endif %}</span><select id="qal-branch" data-qal-branch><option value="all">{% if qal_ko %}전체{% else %}All branches{% endif %}</option><option value="foundations">{% if qal_ko %}Quantum transport 기초{% else %}Foundations{% endif %}</option><option value="mode-coupling">{% if qal_ko %}Mode coupling{% else %}Mode coupling{% endif %}</option><option value="scattering">{% if qal_ko %}Scattering과 transport 모델{% else %}Scattering and transport{% endif %}</option><option value="device-design">{% if qal_ko %}소자·injection 설계{% else %}Device and injection design{% endif %}</option></select></label>
+  </div>
+  <div class="qal-controls">
+    <label class="qal-field" for="qal-paper"><span>{% if qal_ko %}논문 선택{% else %}Select a paper{% endif %}</span>
+      <select id="qal-paper" data-qal-paper>{% for paper in site.data.quantum_access_literature.nodes %}<option value="{{ paper.id }}">{% if paper.seed %}P{{ paper.seed_index }} · {% endif %}{{ paper.label }} — {{ paper.title | escape }}</option>{% endfor %}</select>
+    </label>
+    <label class="qal-context" data-qal-context-label><input type="checkbox" data-qal-context checked><span data-qal-context-count>{% if qal_ko %}관련 논문 포함{% else %}Include context papers{% endif %}</span></label>
+  </div>
+  <div class="qal-selection-status"><span class="qal-note" data-qal-search-status></span><a href="#qal-paper-details">{% if qal_ko %}선택 논문 자세히 보기{% else %}Selected paper details{% endif %}</a></div>
+  <div id="qal-panel-citations" data-qal-panel="citations" role="tabpanel" aria-labelledby="qal-tab-citations">
+    <p class="qal-description">{% if qal_ko %}화살표 A → B는 A가 B를 인용한다는 뜻입니다. 논문을 선택하면 그 논문과 직접 연결된 인용 관계가 강조됩니다.{% else %}Arrows point from the citing paper to the cited paper. Select a paper to highlight its connections.{% endif %}</p>
+    <div class="qal-legend"><span><i class="qal-key qal-key-seed"></i>{% if qal_ko %}기준 논문 6편{% else %}6 seed papers{% endif %}</span><span data-qal-context-key><i class="qal-key qal-key-context"></i>{% if qal_ko %}관련 논문{% else %}Context papers{% endif %}</span></div>
+    <div class="qal-graph-controls"><label class="qal-field" for="qal-scope"><span>{% if qal_ko %}인용망 범위{% else %}Citation network scope{% endif %}</span><select id="qal-scope" data-qal-scope><option value="neighbors">{% if qal_ko %}선택 논문과 직접 연결된 논문{% else %}Selected paper and direct neighbors{% endif %}</option><option value="overview" selected>{% if qal_ko %}전체 인용망{% else %}Full network overview{% endif %}</option></select></label><div class="qal-navigation" role="group" aria-label="{% if qal_ko %}인용망 이동과 확대{% else %}Citation network navigation{% endif %}"><button type="button" data-qal-zoom-in aria-label="{% if qal_ko %}확대{% else %}Zoom in{% endif %}">+</button><button type="button" data-qal-zoom-out aria-label="{% if qal_ko %}축소{% else %}Zoom out{% endif %}">−</button><button type="button" data-qal-zoom-reset>{% if qal_ko %}보기 초기화{% else %}Reset{% endif %}</button><button type="button" data-qal-zoom-fit>{% if qal_ko %}화면에 맞추기{% else %}Fit{% endif %}</button><button type="button" data-qal-pan aria-pressed="false">{% if qal_ko %}전체 이동{% else %}Pan mode{% endif %}</button></div></div>
+    <p class="qal-note">{% if qal_ko %}원·마름모를 끌어 논문 위치를 바꾸고, 클릭해서 논문을 선택할 수 있습니다. ‘전체 이동’은 그래프 전체를 옮기며, ‘보기 초기화’는 원래 배치를 복원합니다. 그래프에 초점을 맞추면 방향키로 전체를 이동할 수 있습니다. 검색은 논문 목록에 적용되며, 연구 주제는 논문 내용에 따른 분류입니다.{% else %}Drag a circle or diamond to move that paper; click to select it. Pan mode moves the whole graph. Reset restores the automatic layout. Focus the graph and use arrow keys to pan. Search narrows the paper list; branches are editorial labels.{% endif %}</p>
+    <svg data-qal-citation-graph data-qal-graph-viewport tabindex="0" role="group" aria-label="{% if qal_ko %}직접 인용 그래프. 논문 표시를 끌어서 옮기고, 클릭하거나 키보드로 선택할 수 있습니다. 방향키로 그래프 전체를 이동합니다.{% else %}Direct citation network. Drag paper nodes to move them, or click or use the keyboard to select them. Arrow keys pan the graph.{% endif %}"></svg>
+    <p class="qal-note" data-qal-citation-caption></p>
+  </div>
+  <div id="qal-panel-coupling" data-qal-panel="coupling" role="tabpanel" aria-labelledby="qal-tab-coupling" hidden>
+    <p class="qal-description">{% if qal_ko %}기준 논문 두 편을 고르면 두 논문이 함께 인용한 선행연구가 나옵니다. A → R ← B는 A와 B가 모두 R을 인용한다는 뜻입니다. 제목을 누르면 해당 논문의 설명이나 원문을 볼 수 있습니다.{% else %}Choose two seed papers to see the earlier work cited by both. A → R ← B means that A and B each cite R. Select a reference title to read its details or open the original article.{% endif %}</p>
+    <label class="qal-field" for="qal-pair"><span>{% if qal_ko %}비교할 논문 조합{% else %}Select a paper pair{% endif %}</span><select id="qal-pair" data-qal-pair></select></label>
+    <div data-qal-coupling-graph role="group" aria-label="{% if qal_ko %}두 논문이 함께 인용한 선행연구{% else %}Earlier work cited by both papers{% endif %}"></div>
+    <div class="qal-pair-inspector" data-qal-pair-inspector aria-live="polite"></div>
+    <p class="qal-note">{% if qal_ko %}출판사가 등록한 참고문헌에서 DOI가 일치하는 항목을 비교합니다. DOI가 없는 참고문헌은 제외됩니다. 따라서 0편은 수집한 기록에서 공통 DOI를 찾지 못했다는 뜻입니다.{% else %}Only reference DOIs deposited by publishers are compared. References without DOIs are omitted; zero means no match among the available DOIs.{% endif %}</p>
+  </div>
+  <div id="qal-panel-timeline" data-qal-panel="timeline" role="tabpanel" aria-labelledby="qal-tab-timeline" hidden>
+    <p class="qal-description">{% if qal_ko %}논문들을 시기별로 묶어 연구 질문과 계산 방법이 어떻게 달라졌는지 정리했습니다. 물리적 해석과 수치 계산 방법이 함께 발전했으므로 일부 시기는 겹칩니다. 이 지도에 포함된 논문을 정리한 것이며, 분야 전체의 출판량이나 성장률을 보여주는 통계는 아닙니다.{% else %}These stages follow changes in research questions and comparison conditions in the selected literature. Some periods overlap because physical and numerical approaches developed in parallel. They do not measure field-wide publication volume or growth.{% endif %}</p>
+    <ol class="qal-stages" data-qal-stages></ol>
+  </div>
+  <section class="qal-inspector" id="qal-paper-details" data-qal-inspector aria-live="polite" aria-atomic="true"></section>
+  <div class="qal-footer"><span class="qal-note" data-qal-status role="status"></span><div class="qal-links"><a data-qal-share href="#quantum-access-literature">{% if qal_ko %}현재 선택 링크{% else %}Link to this selection{% endif %}</a><a href="{{ '/assets/data/quantum-access-literature.json' | relative_url }}" download>{% if qal_ko %}논문·인용 데이터 (JSON){% else %}Evidence data JSON{% endif %}</a></div></div>
+  <noscript><p>{% if qal_ko %}그래프를 조작하려면 JavaScript가 필요합니다. 본문의 논문 목록과 설명, 논문·인용 데이터 (JSON)는 JavaScript 없이도 볼 수 있습니다.{% else %}Interactive exploration requires JavaScript. The paper list, discussion, and evidence JSON provide the literature and analysis scope.{% endif %}</p></noscript>
+  <script type="application/json" data-qal-data>{{ site.data.quantum_access_literature | jsonify | replace: '</', '<\/' }}</script>
+</section>

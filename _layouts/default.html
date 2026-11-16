@@ -24,6 +24,10 @@ layout: compress
     {% capture interactive_head %}<link rel="stylesheet" href="{{ '/assets/css/negf-interactive.css' | relative_url }}?v={{ site.data.negf_asset_version }}"></head>{% endcapture %}
     {% assign rendered_head = rendered_head | replace: '</head>', interactive_head %}
   {% endif %}
+  {% if page.interactive == 'quantum-access-literature' %}
+    {% capture literature_head %}<link rel="stylesheet" href="{{ '/assets/css/quantum-access-literature.css' | relative_url }}?v={{ site.data.quantum_access_literature_version }}"></head>{% endcapture %}
+    {% assign rendered_head = rendered_head | replace: '</head>', literature_head %}
+  {% endif %}
   {% if page.interactive_labs.size > 0 %}
     {% capture labs_head %}<link rel="stylesheet" href="{{ '/assets/css/article-labs.css' | relative_url }}?v={{ site.data.article_labs_version }}">{% for bundle in page.interactive_labs %}{% assign lab_stylesheet = site.data.article_lab_stylesheets[bundle] %}{% if lab_stylesheet %}<link rel="stylesheet" href="{{ lab_stylesheet | relative_url }}?v={{ site.data.article_lab_bundle_versions[bundle] }}">{% endif %}{% endfor %}</head>{% endcapture %}
     {% assign rendered_head = rendered_head | replace: '</head>', labs_head %}
@@ -100,6 +104,9 @@ layout: compress
     {% if page.interactive == 'negf-barrier' %}
       <script defer src="{{ '/assets/js/negf-core.js' | relative_url }}?v={{ site.data.negf_asset_version }}"></script>
       <script defer src="{{ '/assets/js/negf-interactive.js' | relative_url }}?v={{ site.data.negf_asset_version }}"></script>
+    {% endif %}
+    {% if page.interactive == 'quantum-access-literature' %}
+      <script defer src="{{ '/assets/js/quantum-access-literature.js' | relative_url }}?v={{ site.data.quantum_access_literature_version }}"></script>
     {% endif %}
     {% if page.interactive_labs.size > 0 %}
       <script defer src="{{ '/assets/js/article-labs.js' | relative_url }}?v={{ site.data.article_labs_version }}"></script>

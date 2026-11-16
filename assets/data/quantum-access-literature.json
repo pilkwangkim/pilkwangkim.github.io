@@ -1,0 +1,5 @@
+---
+layout: null
+permalink: /assets/data/quantum-access-literature.json
+---
+{{ site.data.quantum_access_literature | jsonify }}
