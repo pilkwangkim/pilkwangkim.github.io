@@ -18,4 +18,9 @@ Jekyll::Hooks.register :site, :post_read do |site|
     path + "\0" + File.binread(absolute) + "\0"
   end.join
   site.data['quantum_access_literature_version'] = Digest::SHA256.hexdigest(bytes)[0, 12]
+  # Liquid's year-only sort can reorder equal-year entries across Ruby versions.
+  # Keep the source snapshot intact and give the bibliography a total order.
+  site.data['quantum_access_literature_by_year'] = site.data.fetch('quantum_access_literature').fetch('nodes').sort_by do |paper|
+    [paper.fetch('year'), paper.fetch('label'), paper.fetch('id')]
+  end
 end

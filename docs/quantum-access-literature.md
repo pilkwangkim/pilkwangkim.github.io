@@ -62,6 +62,8 @@ The final in-app preview was opened on a fresh localhost origin and confirmed th
 
 The publication update enables both articles with their original 13 November 2026 dates. The explorer is excluded from local-editor source mapping, automatic equation conversion and heading collection, while the surrounding article remains editable. The Pages workflow runs the source checker before the build and the rendered-output checker afterwards.
 
+The static bibliography uses a derived list ordered by year, author label and stable paper ID. This gives local and hosted builds the same order within each year without changing the original evidence dataset. Author labels already include the year, so each entry displays it once.
+
 ## Hover preview
 
 The original graph layout and controls are retained. Hovering a graph node, or focusing it with the keyboard, shows a small floating preview with its full title, author/year, concise summary and comparison/evidence scope. The preview does not change the selected paper, URL or graph positions. Clicking a node still selects it and updates the detailed analysis below the graph. Escape dismisses the preview. The preview is bounded by the viewport, stays away from the pointer, and lets all pointer events pass through to the graph. It does not reserve page space.

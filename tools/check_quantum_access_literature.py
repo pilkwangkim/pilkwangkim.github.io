@@ -319,6 +319,10 @@ def check_site(data, directory):
         options = {a.get("value") for tag, a in page.elements if tag == "option"}
         require({n["id"] for n in data["nodes"]} <= options, f"Paper selector omits an expanded-collection paper: {route}")
         require(BRANCHES <= options and {"neighbors", "overview"} <= options, f"Research-branch or network-scope options are missing: {route}")
+        bibliography = [a for tag, a in page.elements if tag == "a" and "data-qal-bibliography-paper" in a]
+        ordered_papers = sorted(data["nodes"], key=lambda n: (n["year"], n["label"], n["id"]))
+        require([a["data-qal-bibliography-paper"] for a in bibliography] == [n["id"] for n in ordered_papers], f"Bibliography must include every paper in stable year/label/ID order: {route}")
+        require([doi(a.get("href", "")) for a in bibliography] == [doi(n["doi"]) for n in ordered_papers], f"Bibliography DOI links differ from their ordered paper identities: {route}")
         refs = [a.get("href", a.get("src", "")) for _, a in page.elements]
         for asset in ("/assets/css/quantum-access-literature.css", "/assets/js/quantum-access-literature.js", "/assets/data/quantum-access-literature.json"):
             urls = [r for r in refs if urlsplit(r).path == asset]
@@ -328,7 +332,7 @@ def check_site(data, directory):
         counterpart = f"/posts/{SLUG}{'-KR' if language == 'en' else ''}/"
         require(any(urlsplit(r).path == counterpart for r in refs), f"Translation link missing: {route}")
         pages[language] = route
-    return {"routes": pages, "embedded_dataset_parity": True, "download_dataset_parity": True, "views": sorted(VIEWS), "selectable_papers": len(data["nodes"]), "research_branches": sorted(BRANCHES)}
+    return {"routes": pages, "embedded_dataset_parity": True, "download_dataset_parity": True, "stable_bibliography_order": True, "views": sorted(VIEWS), "selectable_papers": len(data["nodes"]), "research_branches": sorted(BRANCHES)}
 
 
 def main():

@@ -121,9 +121,10 @@ Hung et al.의 2026년 p-type nanosheet 연구는 부족한 extension doping, st
 <details markdown="1">
 <summary>발행연도순으로 정리한 전체 {{ site.data.quantum_access_literature.nodes.size }}편</summary>
 
-{% assign literature_papers = site.data.quantum_access_literature.nodes | sort: "year" %}
-{% for paper in literature_papers %}
-- **{{ paper.year }} · {{ paper.label }}** — {{ paper.title }}. [DOI: {{ paper.doi }}]({{ paper.url }}).
+<ul data-qal-bibliography>
+{% for paper in site.data.quantum_access_literature_by_year %}
+<li><strong>{{ paper.label | escape }}</strong> — {{ paper.title | escape }}. <a data-qal-bibliography-paper="{{ paper.id | escape }}" href="{{ paper.url | escape }}">DOI: {{ paper.doi | escape }}</a>.</li>
 {% endfor %}
+</ul>
 
 </details>

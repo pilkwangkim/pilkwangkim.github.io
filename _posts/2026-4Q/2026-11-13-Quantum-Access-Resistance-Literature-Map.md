@@ -121,9 +121,10 @@ An absent arrow does not establish the absence of a citation: indexed and deposi
 <details markdown="1">
 <summary>All {{ site.data.quantum_access_literature.nodes.size }} papers, ordered by publication year</summary>
 
-{% assign literature_papers = site.data.quantum_access_literature.nodes | sort: "year" %}
-{% for paper in literature_papers %}
-- **{{ paper.year }} · {{ paper.label }}** — {{ paper.title }}. [DOI: {{ paper.doi }}]({{ paper.url }}).
+<ul data-qal-bibliography>
+{% for paper in site.data.quantum_access_literature_by_year %}
+<li><strong>{{ paper.label | escape }}</strong> — {{ paper.title | escape }}. <a data-qal-bibliography-paper="{{ paper.id | escape }}" href="{{ paper.url | escape }}">DOI: {{ paper.doi | escape }}</a>.</li>
 {% endfor %}
+</ul>
 
 </details>
