@@ -11,7 +11,7 @@ interactive: quantum-access-literature
 math: true
 comments: false
 pin: false
-published: true
+published: false
 ---
 
 [Read in Korean]({{ site.baseurl }}/posts/Quantum-Access-Resistance-Literature-Map-KR/)

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 from datetime import date, datetime
+from html import unescape
 from html.parser import HTMLParser
 import itertools
 import json
@@ -245,7 +246,12 @@ def check_collection(data, by_id, evidence_dir=None):
 def front_matter(text):
     match = re.match(r"\A---\s*\n(.*?)\n---\s*\n", text, re.S)
     require(match is not None, "Article front matter is missing")
-    return {m[1]: m[2].strip().strip("\"'") for m in re.finditer(r"^([a-z_]+):\s*(.*?)\s*$", match[1], re.M)}
+    metadata = {m[1]: m[2].strip().strip("\"'") for m in re.finditer(r"^([a-z_]+):\s*(.*?)\s*$", match[1], re.M)}
+    if "published" in metadata:
+        published = re.search(r"^published:[ \t]*(true|false)[ \t]*(?:#[^\n]*)?$", match[1], re.M | re.I)
+        require(published is not None, "Article published must be an unquoted YAML boolean")
+        metadata["published"] = published[1].lower()
+    return metadata
 
 
 def check_articles():
@@ -260,7 +266,7 @@ def check_articles():
         metadata = front_matter(text)
         require(metadata.get("lang") == language, f"Incorrect article language: {matches[0].name}")
         require(metadata.get("translation_key") == TRANSLATION_KEY, "Article translation key differs")
-        require(metadata.get("published") == "true", "The literature-map articles must be published")
+        require(metadata.get("published") in {"true", "false"}, "The literature-map articles must declare a boolean published state")
         require(metadata.get("interactive") == "quantum-access-literature", "Missing article-specific interactive asset flag")
         require(metadata.get("topic") == "quantum-transport", "Literature map topic differs")
         require(metadata.get("title") and metadata.get("description"), "Article title/description is missing")
@@ -295,14 +301,29 @@ class Page(HTMLParser):
             self.current_script = None
 
 
-def check_site(data, directory):
+def check_site(data, directory, *, published=True, include_unpublished=False):
     exported_path = directory / "assets/data/quantum-access-literature.json"
     require(read_json(exported_path) == data, "Built downloadable JSON differs from the native Jekyll dataset")
+    if not published and not include_unpublished:
+        routes = [f"/posts/{SLUG}{suffix}/" for suffix in ("", "-KR")]
+        for route in routes:
+            require(not (directory / route.lstrip("/") / "index.html").exists(), f"Unpublished article route is still generated: {route}")
+        indexes = ("index.html", "sitemap.xml", "feed.xml", "assets/js/data/search.json", "topics/quantum-transport/index.html")
+        for relative in indexes:
+            require((directory / relative).is_file(), f"Missing discovery index required for unpublication verification: {relative}")
+        checked = 0
+        for path in directory.rglob("*"):
+            if not path.is_file() or path.suffix not in {".html", ".xml", ".json"}:
+                continue
+            text = unquote(unescape(path.read_text(encoding="utf-8")).replace("\\/", "/"))
+            require(not any(route in text for route in routes), f"Unpublished article still appears in generated discovery content: {path.relative_to(directory)}")
+            checked += 1
+        return {"publication_mode": "unpublished", "routes_absent": routes, "discovery_indexes": list(indexes), "discovery_documents_checked": checked, "download_dataset_parity": True}
     pages = {}
     for language, suffix in (("en", ""), ("ko", "-KR")):
         route = f"/posts/{SLUG}{suffix}/"
         path = directory / route.lstrip("/") / "index.html"
-        require(path.exists(), f"Missing published literature-map route: {route}")
+        require(path.exists(), f"Missing literature-map route ({'published' if published else '--unpublished preview'}): {route}")
         page = Page(path.read_text(encoding="utf-8"))
         require(any(tag == "html" and a.get("lang") == language for tag, a in page.elements), f"Rendered article language differs: {route}")
         roots = [a for _, a in page.elements if "data-qal-root" in a]
@@ -332,15 +353,18 @@ def check_site(data, directory):
         counterpart = f"/posts/{SLUG}{'-KR' if language == 'en' else ''}/"
         require(any(urlsplit(r).path == counterpart for r in refs), f"Translation link missing: {route}")
         pages[language] = route
-    return {"routes": pages, "embedded_dataset_parity": True, "download_dataset_parity": True, "stable_bibliography_order": True, "views": sorted(VIEWS), "selectable_papers": len(data["nodes"]), "research_branches": sorted(BRANCHES)}
+    return {"publication_mode": "published" if published else "unpublished_preview", "routes": pages, "embedded_dataset_parity": True, "download_dataset_parity": True, "stable_bibliography_order": True, "views": sorted(VIEWS), "selectable_papers": len(data["nodes"]), "research_branches": sorted(BRANCHES)}
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--site-dir", type=Path, help="Also inspect a production Jekyll build")
+    parser.add_argument("--include-unpublished", action="store_true", help="With --site-dir, inspect articles included by Jekyll --unpublished instead of requiring unpublished routes to be absent")
     parser.add_argument("--evidence-dir", type=Path, help="Compare each paper's id.json raw Crossref/OpenAlex retrieval receipt; other query receipts are ignored")
     parser.add_argument("--snapshot", type=Path, help="Preserve the original study.json papers and citations as a subset; permit enriched descriptions and added papers")
     args = parser.parse_args()
+    if args.include_unpublished and not args.site_dir:
+        parser.error("--include-unpublished requires --site-dir")
     report = {"status": "FAIL", "checks_passed": []}
     try:
         data = read_json(DATA)
@@ -357,15 +381,17 @@ def main():
         report["collection"] = check_collection(data, by_id, args.evidence_dir)
         report["checks_passed"].append("collection_scope_and_forward_query_counts")
         articles = check_articles()
-        report["checks_passed"].append("paired_published_article_metadata_and_editor_boundary")
+        report["checks_passed"].append("paired_article_publication_metadata_and_editor_boundary")
+        published = articles["en"]["metadata"]["published"] == "true"
+        report["published"] = published
         report["dataset"] = {"snapshot_date": data["snapshot_date"], "papers": len(by_id), "seeds": len(data["seed_ids"]), "context": len(data["context_ids"]), "directed_citations": len(data["edges"])}
         report["dataset"]["citation_evidence"] = {kind: sum(e["evidence_type"] == kind for e in data["edges"]) for kind in sorted({e["evidence_type"] for e in data["edges"]})}
         report["dataset"]["openalex_confirmed_citations"] = sum(e["openalex_confirmed"] for e in data["edges"])
         report["dataset"]["bilingual_detailed_papers"] = sum(all(n.get("rich", {}).get(lang) for lang in ("en", "ko")) for n in by_id.values())
         report["articles"] = {lang: item["path"] for lang, item in articles.items()}
         if args.site_dir:
-            report["site"] = check_site(data, args.site_dir.resolve())
-            report["checks_passed"].append("paired_rendered_routes_controls_assets_and_data_parity")
+            report["site"] = check_site(data, args.site_dir.resolve(), published=published, include_unpublished=args.include_unpublished)
+            report["checks_passed"].append("paired_rendered_routes_controls_assets_and_data_parity" if published or args.include_unpublished else "unpublished_routes_and_discovery_absence")
         report["status"] = "PASS"
         report["limits"] = ["A zero known-DOI intersection does not establish an absence of shared references.", "Static checks do not establish browser interaction, responsive rendering, or hosted parity."]
     except (ValueError, KeyError, TypeError, OSError) as error:

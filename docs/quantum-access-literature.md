@@ -10,7 +10,7 @@ The forward search used seven dated OpenAlex queries, each capped at 25 returned
 - `_includes/interactive/quantum-access-literature.html`: native Jekyll include used by both articles.
 - `assets/js/quantum-access-literature.js` and `assets/css/quantum-access-literature.css`: interaction and responsive presentation.
 - `assets/data/quantum-access-literature.json`: downloadable dataset generated from the native data source during the build.
-- Paired posts with the slug `Quantum-Access-Resistance-Literature-Map` and `Quantum-Access-Resistance-Literature-Map-KR`, translation key `quantum-access-resistance-literature-map`, and `published: true`.
+- Paired posts with the slug `Quantum-Access-Resistance-Literature-Map` and `Quantum-Access-Resistance-Literature-Map-KR`, translation key `quantum-access-resistance-literature-map`, and `published: false`. Both articles are retained locally and excluded from production output.
 - `tools/check_quantum_access_literature.py`: focused source and optional rendered-output checks.
 
 ## Data choices
@@ -39,7 +39,7 @@ python3 tools/check_quantum_access_literature.py \
   --snapshot /absolute/path/to/quantum-access-study/study.json
 ```
 
-The source check validates the six exact seed DOI/title identities, all 36 bilingual analyses and source links, citation provenance, shared-reference coverage, all seed-pair intersections and cosine scores, and matching published article metadata. The optional raw-evidence check also checks exact publisher reference keys, issue-year/fallback choices, and OpenAlex confirmation flags against the saved API responses.
+The source check validates the six exact seed DOI/title identities, all 36 bilingual analyses and source links, citation provenance, shared-reference coverage, all seed-pair intersections and cosine scores, and matching article metadata and publication state. The optional raw-evidence check also checks exact publisher reference keys, issue-year/fallback choices, and OpenAlex confirmation flags against the saved API responses.
 
 Build the production site before checking rendered output:
 
@@ -48,7 +48,9 @@ PATH=/opt/homebrew/opt/ruby/bin:$PATH JEKYLL_ENV=production bundle exec jekyll b
 python3 tools/check_quantum_access_literature.py --site-dir _site
 ```
 
-The rendered check verifies both article routes, embedded/exported JSON parity, three view controls, all 36 paper options, search/branch/network-scope controls, translation links, and versioned local asset references. Metadata checks, HTML-Proofer, and actual desktop/mobile interaction checks are run separately using the repository's existing workflow. The checker does not claim browser or hosted validation.
+For unpublished articles, the production check verifies that both routes are absent from the generated site and its public indexes. For published articles, it verifies both routes, embedded/exported JSON parity, three view controls, all 36 paper options, search/branch/network-scope controls, translation links, and versioned local asset references. Metadata checks, HTML-Proofer, and actual desktop/mobile interaction checks are run separately using the repository's existing workflow. The checker does not claim browser or hosted validation.
+
+To inspect an unpublished preview, build with Jekyll's `--unpublished` option and pass `--include-unpublished` alongside the checker's `--site-dir` option.
 
 ## Verification record
 
@@ -60,7 +62,7 @@ Browser checks covered EN and KO at 1280, 390, and 320 pixels. Direct-neighbor a
 
 The final in-app preview was opened on a fresh localhost origin and confirmed the 36-paper collection and the actual four references shared by Venugopal2004 and Laux2004. Local receipts and screenshots are under `_draft/_checks/quantum-access-literature-20261113/`. That review covered the explorer, dataset, paired drafts, validator/documentation, the asset fingerprint hook, and its conditional layout loading; it did not include deployment.
 
-The publication update enables both articles with their original 13 November 2026 dates. The explorer is excluded from local-editor source mapping, automatic equation conversion and heading collection, while the surrounding article remains editable. The Pages workflow runs the source checker before the build and the rendered-output checker afterwards.
+The publication update enabled both articles with their original 13 November 2026 dates. On 17 November 2026, both were returned to `published: false` at the author's request. Their content, dates and data remain in the repository. The explorer is excluded from local-editor source mapping, automatic equation conversion and heading collection, while the surrounding article remains editable. The Pages workflow runs the source checker before the build and the rendered-output checker afterwards.
 
 The static bibliography uses a derived list ordered by year, author label and stable paper ID. This gives local and hosted builds the same order within each year without changing the original evidence dataset. Author labels already include the year, so each entry displays it once.
 
