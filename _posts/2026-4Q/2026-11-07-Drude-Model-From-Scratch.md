@@ -707,7 +707,7 @@ $$
 
 A tensor here is a matrix mapping the external force to the packet-center acceleration. In one dimension it reduces to a number. Curvature gives **the change of center velocity per unit time, per unit external force**: inverse mass, not mass itself.
 
-A steeper band slope gives a larger group velocity. A larger positive curvature means that this velocity changes more rapidly as the force changes $k$, hence a larger packet-center acceleration and a smaller positive effective mass. A fast-moving packet need not have a large instantaneous change of velocity.
+The sign of the band slope gives the direction of the group velocity; its magnitude sets the speed. For the same applied force in one dimension, a larger positive curvature means the velocity changes faster as $k$ changes. That means a larger packet-center acceleration and a smaller positive effective mass. A fast-moving packet can have zero instantaneous acceleration at a point where the band has zero curvature.
 
 Near a smooth band minimum $k_0$, the linear Taylor term vanishes. A positive quadratic term gives
 
@@ -1264,7 +1264,7 @@ $$
 
 The factor $1-\cos\theta$ is the fractional loss of the velocity component along its original direction. A tiny deflection produces little loss; an isotropic outgoing direction gives mean loss one; exact reversal gives loss two. For the cosine occupation pattern, the collision operator changes the amplitude but preserves the angular shape. That makes it an angular relaxation eigenmode, whose decay time is the transport time in the scalar conductivity. The same factor is not a universal replacement for a full anisotropic or inelastic collision calculation. [Kim, Woo and Min, Eq. (1) and Sec. II][transport-time]
 
-For example, if every scattering event deflects by $10^\circ$ with random azimuth, the transport rate is only $1-\cos10^\circ\simeq0.01519$ times the event rate. About 65.8 event waiting times make one transport relaxation time. The average current-carrying direction survives many small deflections.
+For example, if every event deflects by $10^\circ$ with random azimuth, the transport rate is only $1-\cos10^\circ\simeq0.01519$ times the event rate. The mean current therefore takes about 65.8 mean event intervals to fall to $1/e$ of its initial value. This is an average over electrons, not a fixed number of collisions for each electron.
 
 <figure class="drude-figure">
 <picture class="rsna-results-figure">
@@ -1373,24 +1373,26 @@ print("tau (ps), shell mobility (m^2/Vs):", tau_impurity * 1e12,
 print("mean free path (nm):", v_shell * tau_impurity * 1e9)
 ```
 
-<figure class="drude-figure">
-<picture class="rsna-results-figure">
-<source media="(max-width: 560px)" srcset="{% include media-url.html src='/assets/img/posts/2026-11-07-drude-model/fig-sec15-short-range-mobile.svg' %}" width="600" height="1340">
-<img src="/assets/img/posts/2026-11-07-drude-model/fig-sec15-short-range.svg" alt="Energy-dependent normalized scattering rate and relaxation time for fixed short-range Born inputs." width="1200" height="805">
-</picture>
-<figcaption markdown="span">Figure 15. Mass, impurity density and Born amplitude are fixed. The matrix element is independent of direction, but the spectral density of final states grows with energy. The normalized rate $\Gamma=1/\tau$ therefore increases while its reciprocal time decreases. Both markers identify the same reference energy; the curves use positive energies only.</figcaption>
-</figure>
-
-{% include interactive/article-lab.html id="drude-impurity" %}
-
-Electrons can move rapidly in nearly cancelling directions while their mean drift is small. Using that small drift speed would therefore underestimate the distance scale associated with their microscopic motion. The **transport mean free path** is the speed at the chosen energy, not the mean drift speed, multiplied by the directional-memory time:
+Electrons can move rapidly in nearly cancelling directions while their mean drift is small. The **transport mean free path** uses the speed at the chosen energy, not the mean drift speed. It estimates how far an electron travels along its trajectory in one transport relaxation time:
 
 $$
 \ell_{\rm tr}=v\tau_{\rm tr}.
 \tag{46}
 $$
 
-Here $\ell_{\rm tr}\simeq198.94\,\mathrm{nm}$ and $k\ell_{\rm tr}\simeq101.92$. For a local diffusive resistor, the sample scale should be large compared with the relevant mean free path, and the field should not strongly distort the distribution over that path. The inverse wavevector sets a microscopic length scale; a much longer transport path lets a momentum-labelled carrier propagate through many wave phases before its direction relaxes. A large $k\ell$ is a weak-disorder consistency check, not proof that the individual potential satisfies Born conditions. The prescribed $a_B$ example does not specify the range and strength needed for that additional microscopic check.
+Here $\ell_{\rm tr}\simeq198.94\,\mathrm{nm}$ and $k\ell_{\rm tr}\simeq101.92$. The rate in Eq. (45) increases in proportion to speed, so in this model the electron travels the same distance between scattering events on average even though those events happen more often per second. Figure 15 compares these two statements over the same energy range.
+
+<figure class="drude-figure">
+<picture class="rsna-results-figure">
+<source media="(max-width: 560px)" srcset="{% include media-url.html src='/assets/img/posts/2026-11-07-drude-model/fig-sec15-short-range-mobile.svg' %}" width="600" height="1340">
+<img src="/assets/img/posts/2026-11-07-drude-model/fig-sec15-short-range.svg" alt="At fixed short-range Born inputs the scattering rate rises with kinetic energy while the transport mean free path stays constant." width="1200" height="805">
+</picture>
+<figcaption markdown="span">Figure 15. (a) For fixed mass, impurity density and Born amplitude, more final states at higher kinetic energy give a larger scattering rate. (b) The speed increases by the same factor, so the distance traveled in one relaxation time stays constant. The markers identify the same reference energy in both panels.</figcaption>
+</figure>
+
+{% include interactive/article-lab.html id="drude-impurity" %}
+
+For a local diffusive resistor, the sample should be large compared with the relevant mean free path, and the field should not strongly distort the distribution over that path. A large $k\ell$ means the electron typically travels much farther than the microscopic phase scale $1/k$ before its direction relaxes; this is consistent with weak disorder. It does not by itself justify the Born approximation for an individual defect, which requires information about the potential's range and strength.
 
 ## 16. Screened Coulomb scattering: quantum and transport rates
 {: id="drude-16" }
@@ -1569,6 +1571,16 @@ $$
 
 Absorption removes one phonon and increases electron energy. Emission adds one phonon and decreases electron energy; the extra one permits spontaneous emission. These are unblocked transition-rate coefficients. Electron occupation and Pauli factors enter the gain–loss collision equation. Crystal momentum transfers can require reciprocal-lattice vectors in more general processes; this small-wavevector intraband example keeps only the displayed normal processes.
 
+The momentum change in Eq. (54) also restricts which phonon wavevectors can participate. For a parabolic band, expand $\lvert\mathbf k\pm\mathbf q\rvert^2=k^2+q^2\pm2kq\cos\alpha$, where $\alpha$ is the angle between the initial electron wavevector and the phonon wavevector. Equating the energy gained or lost to $\hbar v_sq$, with electron speed $v=\hbar k/m^{\ast}$, gives
+
+$$
+\cos\alpha_{\rm abs}=\frac{v_s}{v}-\frac{q}{2k},
+\qquad
+\cos\alpha_{\rm em}=\frac{v_s}{v}+\frac{q}{2k}.
+$$
+
+For a given $k$ and $q$, the required cosine must be between −1 and 1. Having enough energy to create a phonon is therefore not sufficient: there must also be a final electron wavevector that satisfies conservation. [MIT 6.730, electron–phonon scattering][mit-solid]
+
 Unlike static elastic scattering, the two electron energies are different. A generic inelastic collision problem cannot therefore be reduced to independent energy shells or to an unqualified $1-\cos\theta$ replacement.
 
 ### The equipartition and quasielastic limits
@@ -1602,6 +1614,8 @@ Because the resulting angular kernel is constant, its transport and single-parti
 </picture>
 <figcaption markdown="span">Figure 17. (a) Differentiating the classical displacement gives strain, so displacement maxima and band-edge-shift maxima occur at different positions. This is a mode shape, not the average displacement of a state with a definite phonon number. (b) Absorption and emission use different Bose occupation factors. The dashed high-occupation approximation works when $\hbar\omega_q/(k_BT)$ is small; it does not, by itself, justify treating the electron transition as quasielastic.</figcaption>
 </figure>
+
+Compare the two plots using **Energy left, but emission forbidden**. The phonon occupation is large and the electron would still have positive kinetic energy after emission, yet the emission marker lies on a dashed segment. At that wavevector there is no direction the electron could scatter into while conserving both energy and momentum. Raising the electron energy extends the solid emission segment; raising only the temperature does not move that boundary.
 
 {% include interactive/article-lab.html id="drude-phonon" %}
 
@@ -1701,9 +1715,9 @@ The short-range impurity model in Section 15 also has $r=-1/2$, because its rate
 <figcaption markdown="span">Figure 18. (a) The normalized particle-count and current-response weights both integrate to one over all positive energies. Transport gives more weight to larger energies. (b) Applying those weights to the same energy-dependent relaxation time gives different averages; only the transport-weighted value belongs in the mobility formula.</figcaption>
 </figure>
 
-{% include interactive/article-lab.html id="drude-average" %}
+The upper plot shows the two weights before multiplying by the relaxation time. Raising the temperature broadens and lowers both curves on a fixed kinetic-energy axis. The lower plot shows what changes when you include the relaxation time: at a cutoff on the horizontal axis, the height is the fraction of the full average contributed by electrons below that energy. Hold the temperature fixed and change the exponent from positive to negative. The lower curve rises earlier because more of the average now comes from low-energy electrons. If the particle average diverges, there is no finite total to divide by, so that curve disappears. The denominator always uses the full energy integral, not just the plotted window.
 
-The activity shows both weights against the same kinetic-energy axis in meV. Raising temperature therefore broadens and lowers the curves instead of rescaling the energy axis. Average times are plotted against temperature in ps on a fixed log10 scale: one vertical unit means a factor of ten. A divergent particle average is not plotted as a finite time. The displayed energy window is finite; the analytic averages still integrate over all positive energies.
+{% include interactive/article-lab.html id="drude-average" %}
 
 ```python
 def mb_transport_time(tau_ref, energy_ref_J, temperature_K, exponent):
@@ -1867,7 +1881,7 @@ print("Charge snapshot a,a' at Omega=1.2,s=1:", density_mode(1.0, 1.2))
 
 {% include interactive/article-lab.html id="drude-charge" %}
 
-Cross $\Omega=0.5$ and compare monotone relaxation with overshoot. The activity fixes $\tau=100\,\mathrm{fs}$, $m^{\ast}=0.2m_0$, $\varepsilon_b=11.7$ and $L_{\rm cell}=100\,\mathrm{nm}$. Changing $\Omega$ changes $n_0$ through $\omega_p^2=n_0e^2/(\varepsilon m^{\ast})$; the initial modulation remains 5% of that density. Density, electric field and current appear on separate fixed physical axes. At the initial instant the field can be finite while the current is zero.
+Cross $\Omega=0.5$ and compare monotone relaxation with overshoot. The activity fixes $\tau=100\,\mathrm{fs}$, $m^{\ast}=0.2m_0$, $\varepsilon_b=11.7$ and $L_{\rm cell}=100\,\mathrm{nm}$. Changing $\Omega$ changes $n_0$ through $\omega_p^2=n_0e^2/(\varepsilon m^{\ast})$; the initial modulation remains 5% of that density. Density, electric field and current appear on separate fixed physical axes. At the initial instant the field can be finite while the current is zero. The slider explores the pressureless model, not a sweep over a specific material. At fixed wavelength, lowering the density also lowers the Coulomb restoring frequency; the condition for neglecting pressure must still be checked separately.
 
 Only when momentum adjusts much faster than the density changes can the field and current be treated as obeying their local DC relation throughout the slow evolution. A long wavelength alone does not remove the inertial transient.
 

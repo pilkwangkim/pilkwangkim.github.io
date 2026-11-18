@@ -95,14 +95,14 @@ def angular_relaxation(d, compact=False):
 def short_range(d, compact=False):
     """Use the same constant Born amplitude at every plotted positive energy."""
     f = d.Figure(600 if compact else 1200, 1340 if compact else 805,
-                 "Short-range impurity rates change with the final-state density",
+                 "Short-range scattering is more frequent at higher energy but the path length is constant",
                  "In an isotropic 3D parabolic band with fixed mass, impurity density "
                  "and constant Born amplitude, the final-state DOS and scattering rate "
-                 "are proportional to sqrt(K), while the relaxation time is proportional "
-                 "to one over sqrt(K). Curves start at K/Kref=0.1, not at zero. "
-                 "Kref=50 meV and tauref=0.67086 ps refer to the article's example.")
-    d.header(f, "A constant matrix element does not give a constant rate",
-             ("Constant matrix element,", "energy-dependent rate"), compact)
+                 "are proportional to sqrt(K). The transport mean free path is constant "
+                 "because the speed increases by the same factor as the rate. "
+                 "The marked reference energy is 50 meV.")
+    d.header(f, "More scattering per second, not per meter",
+             ("More scattering per second,", "not per meter"), compact)
     if compact:
         f.text(30, 143, "3D parabolic band", 25, d.MUTED)
         f.text(30, 181, "Fixed mass and impurity model", 25, d.MUTED)
@@ -117,19 +117,22 @@ def short_range(d, compact=False):
     f.text(*heads[0], "(a) Final states set the rate", 29, weight=500)
     d.math_label(f, "rate-law", r"\Gamma/\Gamma_{\rm ref}=D_1/D_{1,\rm ref}=\sqrt{K/K_{\rm ref}}",
                  boxes[0][0]+boxes[0][2]/2, heads[0][1]+28, 30, 530 if compact else 500)
-    X, Y = _axes(d, f, boxes[0], (.1, 4), (0, 2.15), (.1, 1, 2, 4), (0, 1, 2),
-                 r"K/K_{\rm ref}", "")
-    f.path([(X(x), Y(sqrt(x))) for x in d.points(.1, 4)], d.BLUE)
-    f.line(X(1), Y(0), X(1), Y(1), d.MUTED, 1.6, dash=True)
-    f.circle(X(1), Y(1), 5.5, d.BLUE)
-    f.text(*heads[1], "(b) The reciprocal time", 29, weight=500)
-    d.math_label(f, "time-law", r"\tau/\tau_{\rm ref}=\sqrt{K_{\rm ref}/K}",
+    X, Y = _axes(d, f, boxes[0], (5, 200), (0, 2.15), (5, 50, 100, 150, 200), (0, 1, 2),
+                 r"K\ ({\rm meV})", "")
+    f.path([(X(x), Y(sqrt(x/50))) for x in d.points(5, 200)], d.BLUE)
+    f.line(X(50), Y(0), X(50), Y(1), d.MUTED, 1.6, dash=True)
+    f.circle(X(50), Y(1), 5.5, d.BLUE)
+    f.text(*heads[1], "(b) Speed offsets the higher rate", 29, weight=500)
+    d.math_label(f, "path-law", r"\ell_{\rm tr}=\frac{v}{\Gamma_{\rm tr}}=\frac{1}{4\pi n_i a_{\rm B}^2}",
                  boxes[1][0]+boxes[1][2]/2, heads[1][1]+28, 30, 445)
-    X, Y = _axes(d, f, boxes[1], (.1, 4), (0, 3.4), (.1, 1, 2, 4), (0, 1, 2, 3),
-                 r"K/K_{\rm ref}", "")
-    f.path([(X(x), Y(1/sqrt(x))) for x in d.points(.1, 4)], d.GOLD)
-    f.line(X(1), Y(0), X(1), Y(1), d.MUTED, 1.6, dash=True)
-    f.circle(X(1), Y(1), 5.5, d.GOLD)
+    X, Y = _axes(d, f, boxes[1], (5, 200), (0, 300), (5, 50, 100, 150, 200), (0, 100, 200, 300),
+                 r"K\ ({\rm meV})", "")
+    path_nm = 1e9 / (4*pi*1e25*(.2e-9)**2)
+    f.path([(X(5), Y(path_nm)), (X(200), Y(path_nm))], d.GOLD)
+    f.line(X(50), Y(0), X(50), Y(path_nm), d.MUTED, 1.6, dash=True)
+    f.circle(X(50), Y(path_nm), 5.5, d.GOLD)
+    d.math_label(f, "path-unit", r"\ell_{\rm tr}\ ({\rm nm})",
+                 boxes[1][0]+77, boxes[1][1]+16, 27, 150)
     top = 1282 if compact else 743
     d.math_label(f, "reference", r"K_{\rm ref}=50\,{\rm meV},\quad\tau_{\rm ref}=0.67086\,{\rm ps}",
                  f.width/2, top, 30, f.width-70)

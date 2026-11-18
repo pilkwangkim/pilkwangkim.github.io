@@ -9,6 +9,10 @@
 .article-lab.drude-lab .al-control-label:has(.al-control-value) { display: grid; grid-template-columns: minmax(0, 1fr) 6ch; align-items: start; }
 .article-lab.drude-lab .al-control-value { text-align: right; white-space: nowrap; }
 #lab-drude-angle .al-status { min-height: 2.9em; }
+@container articlelab (max-width: 419.98px) {
+  /* Keep the third slider above the presets, not in the same tall grid row. */
+  :is(#lab-drude-impurity, #lab-drude-phonon) .al-controls > .al-control + .al-control + .al-control { grid-column: 1 / -1; }
+}
 /* Scientific readouts retain their slots as mantissas/exponents change. */
 #lab-drude-gaussian .al-metrics dt { min-height: 2.8em; }
 #lab-drude-gaussian .al-metrics dd { min-height: 2.4em; }

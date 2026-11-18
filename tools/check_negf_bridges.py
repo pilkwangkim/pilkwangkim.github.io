@@ -215,11 +215,29 @@ def occupation_continuity_and_lifetime() -> dict[str, float]:
     }
 
 
+def evanescent_flux() -> dict[str, float]:
+    """Under a finite barrier the two evanescent terms can carry constant flux."""
+    hopping, ka_imag = 0.8, 0.63
+    j = np.arange(7)
+    b_minus = 0.71 - 0.2j
+    b_plus = 0.009 + 0.012j
+    decay = b_minus * np.exp(-ka_imag * j)
+    wave = decay + b_plus * np.exp(ka_imag * j)
+    flux = 2 * hopping * np.imag(wave[1:] * wave[:-1].conj())
+    expected = 4 * hopping * np.sinh(ka_imag) * np.imag(b_plus * b_minus.conjugate())
+    error = max_abs(flux - expected)
+    single_component = max_abs(2 * hopping * np.imag(decay[1:] * decay[:-1].conj()))
+    require(expected > 0 and error < 1e-12, "Evanescent cross-term flux mismatch")
+    require(single_component < 1e-14, "An isolated decaying exponential carries flux")
+    return {"cross_term_flux": float(expected), "max_bond_error": error, "decay_only_flux": single_component}
+
+
 def main() -> None:
     results = {
         "status": "passed",
         "spectral_normalization": spectral_normalization(),
         "surface_and_flux": surface_and_flux(),
+        "evanescent_flux": evanescent_flux(),
         "occupation_continuity_and_lifetime": occupation_continuity_and_lifetime(),
     }
     print(json.dumps(results, indent=2))

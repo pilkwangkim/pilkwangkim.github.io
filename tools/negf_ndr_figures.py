@@ -79,12 +79,18 @@ def calculate():
     current_energy = np.arange(0, energy_max + 0.5*energy_step, energy_step)
     current_voltage = np.unique(np.round(np.r_[map_voltage, np.arange(0.04, 0.2001, 0.001)], 12))
 
-    def current_spectrum(v):
+    def bias_terms(v):
         fl = 1 / (1 + np.exp((current_energy-ef)/KT))
         fr = 1 / (1 + np.exp((current_energy-ef+v)/KT))
-        return 1e9 * constants.CURRENT_PREFACTOR * transmission(current_energy, v) * (fl-fr)
+        weight = 1e9 * constants.CURRENT_PREFACTOR * transmission(current_energy, v)
+        spectrum = weight * (fl-fr)
+        # The right chemical potential drops by 1 eV/V. Differentiate
+        # only that Fermi function while holding this bias's T(E,V) fixed.
+        occ_slope = np.trapezoid(weight * fr * (1-fr) / KT, current_energy)
+        return spectrum, occ_slope
 
-    current = np.array([np.trapezoid(current_spectrum(v), current_energy) for v in current_voltage])
+    spectra, occupation_slope = map(np.asarray, zip(*(bias_terms(v) for v in current_voltage)))
+    current = np.trapezoid(spectra, current_energy, axis=1)
     conductance = np.gradient(current, current_voltage, edge_order=2)
     # The first resolved local maximum is the largest current in the focus
     # range; verify the original notebook's prominence condition as well.
@@ -95,7 +101,7 @@ def calculate():
     assert current[peak_index] > 0.08 * current.max()
     vpeak, vvalley = current_voltage[[peak_index, valley_index]]
     ipeak, ivalley = current[[peak_index, valley_index]]
-    peak_spectrum, valley_spectrum = current_spectrum(vpeak), current_spectrum(vvalley)
+    peak_spectrum, valley_spectrum = spectra[[peak_index, valley_index]]
     peak_area = np.trapezoid(peak_spectrum, current_energy)
     valley_area = np.trapezoid(valley_spectrum, current_energy)
     first_ndr = (current_voltage >= vpeak) & (current_voltage <= vvalley) & (conductance < 0)
@@ -105,9 +111,12 @@ def calculate():
     assert vpeak == 0.085 and vvalley == 0.149
     assert abs(ipeak-57.3122) < 5e-5
     assert abs(ipeak/ivalley-87.92) < 0.005
+    assert np.all(occupation_slope >= 0)
+    assert np.any(first_ndr) and np.all(conductance[first_ndr] - occupation_slope[first_ndr] < 0)
     data = dict(ef=ef, resonances=resonances, map_voltage=map_voltage, map_energy=map_energy,
                 tmap=tmap, energy=current_energy, voltage=current_voltage, current=current,
-                conductance=conductance, vpeak=vpeak, vvalley=vvalley, ipeak=ipeak, ivalley=ivalley,
+                conductance=conductance, occupation_slope=occupation_slope,
+                vpeak=vpeak, vvalley=vvalley, ipeak=ipeak, ivalley=ivalley,
                 pvcr=ipeak/ivalley, peak_spectrum=peak_spectrum, valley_spectrum=valley_spectrum,
                 peak_area=peak_area, valley_area=valley_area, first_ndr=first_ndr, higher_ndr=higher_ndr)
     dense_energy, dense_voltage = 0.09, 0.0
@@ -177,16 +186,18 @@ def plot_summary(data,destination,mobile=False):
     a.legend(loc="upper left",bbox_to_anchor=(0,-.27),frameon=False,
              borderaxespad=0,handlelength=1.1)
 
-    b.plot(v,conductance,color="#6a3d9a",lw=2.4)
+    b.plot(v,conductance,color="#6a3d9a",lw=2.4,label="Full slope")
+    b.plot(v,data["occupation_slope"],color="#047980",lw=2.2,ls="--",zorder=4,label="Occupation term only")
     b.axhline(0,color="0.5",lw=1)
-    b.fill_between(v,conductance,0,where=data["first_ndr"],color="crimson",alpha=.25,label="First NDR interval")
-    focus=conductance[v<=V_FOCUS]
+    b.fill_between(v,conductance,0,where=data["first_ndr"],color="crimson",alpha=.25)
+    focus=np.r_[conductance[v<=V_FOCUS],data["occupation_slope"][v<=V_FOCUS]]
     margin=.09*np.ptp(focus)
     b.set(xlim=(0,V_FOCUS),ylim=(focus.min()-margin,focus.max()+margin),
           xlabel="Bias V (V)",ylabel="$dI/dV$ (nA/V)")
     b.ticklabel_format(axis="y",style="sci",scilimits=(0,0),useMathText=True)
     b.set_title("(b) Differential conductance",loc="left")
-    b.legend(loc="upper right",handlelength=1.1)
+    b.legend(loc="upper left",bbox_to_anchor=(0,-.27),frameon=False,
+             borderaxespad=0,handlelength=1.4)
 
     im=c.pcolormesh(data["map_energy"],data["map_voltage"],data["tmap"].T,shading="auto",
                     cmap="viridis",vmin=0,vmax=1,rasterized=True)
@@ -195,16 +206,16 @@ def plot_summary(data,destination,mobile=False):
     c.axvline(0,color="#ff4a4a",ls="--",lw=1.8,label="Emitter band edge")
     for value,color,label in [(vp,"#c0392b","Peak"),(vv,"#2e7d32","Valley")]:
         c.axhline(value,color=color,lw=1.8)
-        c.text(.438,value+.003,label,color="white",ha="right",va="bottom",fontsize=16,
+        c.text(.115,value+.003,label,color="white",ha="right",va="bottom",fontsize=16,
                bbox=dict(fc=color,ec="none",alpha=.9,pad=2))
-    c.set(xlim=(-.05,.45),ylim=(0,V_FOCUS),xlabel="Energy E (eV)",ylabel="Bias V (V)")
-    c.set_title("(c) Transmission and alignment",loc="left")
-    cb=fig.colorbar(im,ax=c,orientation="horizontal" if mobile else "vertical",pad=.10 if mobile else .035,shrink=.94)
+    c.set(xlim=(-.02,.12),ylim=(0,V_FOCUS),xlabel="Energy E (eV)",ylabel="Bias V (V)")
+    c.set_title("(c) Near the emitter band edge",loc="left")
+    cb=fig.colorbar(im,ax=c,orientation="horizontal",pad=.15,shrink=.93,aspect=26)
     cb.set_label("T(E,V)",fontsize=16)
     cb.ax.tick_params(labelsize=16)
     cb.locator=MaxNLocator(4)
     cb.update_ticks()
-    c.legend(loc="upper left",bbox_to_anchor=(0,-.28 if mobile else -.20),
+    c.legend(loc="upper left",bbox_to_anchor=(0,-.41),
               facecolor="#3b3240",edgecolor="none",labelcolor="white",framealpha=1,
               borderaxespad=0,handlelength=1.3)
 
@@ -219,7 +230,8 @@ def plot_summary(data,destination,mobile=False):
     d.set(xlim=(-.003,energy[-1]),ylim=(0,1.13*data["peak_spectrum"].max()),
           xlabel="Energy E (eV)",ylabel="Spectral current\n$dI/dE$ (nA/eV)")
     d.set_title("(d) Spectral current areas",loc="left")
-    d.legend(loc="upper right",handlelength=1.2)
+    d.legend(loc="upper left",bbox_to_anchor=(0,-.27),frameon=False,
+             borderaxespad=0,handlelength=1.2)
     d.ticklabel_format(axis="y",style="sci",scilimits=(0,0),useMathText=True)
 
     e.plot(v,current,color="#1f4e79",lw=2.5)
@@ -238,7 +250,7 @@ def plot_summary(data,destination,mobile=False):
     for ax in (a,b,d,e):
         ax.grid(alpha=.24)
     for ax in (a,b,c,d,e):
-        ax.xaxis.set_major_locator(MaxNLocator(4 if mobile else 5))
+        ax.xaxis.set_major_locator(MaxNLocator(4))
         ax.yaxis.set_major_locator(MaxNLocator(5))
     save_figure(fig,destination)
 

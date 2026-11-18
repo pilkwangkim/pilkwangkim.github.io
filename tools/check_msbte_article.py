@@ -160,6 +160,10 @@ def main():
         svg = ET.parse(path).getroot()
         assert svg.find("{http://www.w3.org/2000/svg}title") is not None
         assert svg.find("{http://www.w3.org/2000/svg}desc") is not None
+        if path.name.startswith("fig-02-contacts"):
+            labels = " ".join(svg.itertext())
+            assert "vₓ > 0" in labels and "vₓ < 0" in labels
+            assert "vₙ < 0" not in labels, "Use signed velocity vx, not the positive speed vn(E)"
     replayed = 0
     for language in ("en", "ko"):
         notebook = json.loads((ROOT / f"assets/notebooks/multi-subband-bte-{language}.ipynb").read_text())

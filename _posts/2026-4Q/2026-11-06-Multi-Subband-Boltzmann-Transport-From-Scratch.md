@@ -275,7 +275,7 @@ Doubling **both** transverse dimensions divides every confinement energy by four
 
 {% include interactive/article-lab.html id="msbte-confinement" %}
 
-Try narrowing the wire. The energy, position and density axes stay fixed, so the rise in subband edges and the narrowing and taller peaks of the transverse density are visible directly. A **marginal probability density** along one coordinate sums the probability over the other: the y plot integrates over z, and the z plot integrates over y. Each has unit area. Two modes can have the same y pattern but different z patterns, so both are shown. Modes are ranked by energy at the chosen width; a fixed rank can change its transverse index pair as the width changes.
+Keep Mode 1 selected and narrow the wire from 10 to 6 nm. The energy, position and density axes stay fixed, so the rise in its edge and the narrower, taller transverse density are visible directly. A **marginal probability density** along one coordinate sums the probability over the other: the y plot integrates over z, and the z plot integrates over y. Each has unit area. The unchanged height means the z density stays the same for a fixed transverse index. Then set the width to 8 nm and switch between Modes 2 and 3: their energies coincide, but their y and z patterns differ. Modes are ranked by energy at the chosen width; a fixed rank can change its transverse index pair as the width changes.
 
 ## 5. From quantum modes to MS-BTE: three different operations
 
@@ -574,7 +574,9 @@ assert np.isclose(fermi(0.150, 0.150, 300), 0.5)
 
 {% include interactive/article-lab.html id="msbte-injection" %}
 
-Set the two chemical potentials equal. The density does not vanish, but the two directional currents cancel. Then separate them while keeping the subband edges fixed. The occupation plot shows the first two modes; the cumulative-current plot shows the sum after including one, two, and so on up to eight modes on a fixed μA axis. The shaded region, vertical line and selected point indicate the chosen mode cutoff. Changing that cutoff shows which contributions the reported current retains. All current values use the analytic energy integral derived in Eq. (41).
+Choose **Populate higher modes**, then change the retained count from 2 to 4 to 8. The middle plot shows the calculated electron-flow current per energy, $dI_e/dE$, rather than another view of the same occupations. Each subband contributes only above its edge; removing that contribution changes the spectral steps and their signed area. The dashed curve keeps all eight comparison modes at the same contact settings. The last plot shows the corresponding cumulative currents on a fixed μA axis. All reported currents use the analytic integral in Eq. (41), not a finite integral over the displayed window. Eight modes are a comparison cutoff; convergence to the full wire still requires testing more modes.
+
+Choose **Equal reservoirs**: the current spectrum vanishes, but the occupations in the first plot remain nonzero. Restore the higher-mode preset and choose **Reverse the contacts**: both the spectrum and integrated current change sign. Reset returns to the original low-energy contacts, where the high-mode contribution really is small. The chemical-potential sliders extend to 300 meV so that mode truncation can also be tested where omitting modes makes a visible physical difference.
 
 <span id="5-the-boltzmann-equation-follows-occupation-along-a-trajectory"></span>
 
@@ -688,9 +690,9 @@ The cancellations can be checked separately: $\int\partial_kf_n\,dk=f_n(+\infty)
 <details markdown="1">
 <summary>Why a naive relaxation-time term can fail this test</summary>
 
-A common **relaxation-time approximation**, or **RTA**, is $C_n=-(f_n-f_n^{\rm target})/\tau$. It drives the distribution toward a chosen target on a timescale $\tau$.
+A simple **relaxation-time approximation**, or **RTA**, uses one constant relaxation time for all states: $C_n=-(f_n-f_n^{\rm target})/\tau$. It drives the distribution toward a chosen target on a timescale $\tau$.
 
-If that target has the wrong local density, integrating $C$ produces $(N^{\rm target}-N)/\tau$: the model creates or destroys particles. A density-matched target can avoid this particular error; other conservation laws and the scattering mechanism still need examination. A fixed equilibrium target is appropriate for some open-system relaxation models, but not automatically for particle-conserving collisions inside a closed channel segment.
+If that target has the wrong local density, integrating $C$ produces $(N^{\rm target}-N)/\tau$: the model creates or destroys particles. A density-matched target avoids this particular error for the common constant time used here. If the time depends on the state, conservation instead constrains the integral weighted by its inverse; matching unweighted density alone is insufficient. Other conservation laws and the scattering mechanism still need examination. A fixed equilibrium target is appropriate for some open-system relaxation models, but not automatically for particle-conserving collisions inside a closed channel segment.
 
 Purely elastic scattering redistributes direction and subband at fixed total energy. It cannot generally thermalize an arbitrary energy distribution to one Fermi function. The distinction between an even-in-momentum distribution and a local thermal distribution is important in analytical elastic BTE solutions. [Baccarani et al.][elastic]
 
@@ -862,14 +864,14 @@ $$
 
 The denominator is not guessed. The boundary values imply $f_L-f_R=\Delta+\beta L\Delta$: the contact occupation difference must supply both the directional imbalance and its scattering-induced spatial change.
 
-At $\beta=0$, $f_+=f_L$ and $f_-=f_R$ everywhere. For $\beta L\gg1$, the two occupations become close, but the small difference still carries current. Relative to the ballistic directional difference, the transmission factor in this model is
+At $\beta=0$, $f_+=f_L$ and $f_-=f_R$ everywhere. For $\beta L\gg1$ and unequal inflows, the two occupations become close but retain a small current-producing difference. The coefficient multiplying the ballistic difference $f_L-f_R$ is the transmission factor
 
 $$
 \mathcal T(E)=\frac{1}{1+\beta(E)L}.
 \tag{37}
 $$
 
-For $f_L=0.9$, $f_R=0.2$, $\beta L=2$, the constant difference is $0.7/3$. Then $f_-(0)\simeq0.667$ and $f_+(L)\simeq0.433$. Neither outgoing value equals its nearby reservoir occupation. Scattering changes the outgoing distributions while conserving net flux.
+When $f_L=f_R$, Eq. (36) gives $f_+=f_-=f_L$ and zero current for any $\beta$. The coefficient in Eq. (37) is still defined; no ratio of two zero currents is needed. For $f_L=0.9$, $f_R=0.2$, $\beta L=2$, the constant difference is $0.7/3$. Then $f_-(0)\simeq0.667$ and $f_+(L)\simeq0.433$. Neither outgoing value equals its nearby reservoir occupation. Scattering changes the outgoing distributions while conserving net flux.
 
 <figure class="msbte-figure">
 <picture class="rsna-results-figure">
@@ -1009,6 +1011,11 @@ Compare zero coupling, only intra-subband reversal, and added inter-subband coup
 
 With identical coefficients and ordinary equilibrium reservoirs, symmetry makes the two modes' occupation profiles coincide in this particular model. To see redistribution directly, enable the **prescribed nonthermal mode-selective injector**. Its second-mode inflow is set independently; the default lowers it from 0.9 to 0.3, but the control also permits it to exceed the first-mode inflow. This is neither an equilibrium reservoir nor a calculation of a physical passive filter. Turning on inter-subband coupling then allows individual mode fluxes to change along the wire while their sum remains fixed.
 
+Two preset experiments make the comparisons explicit:
+
+- **Mode redistribution** injects occupations 0.9 and 0.1 from the left and 0.5 into both modes from the right. The modes carry opposing fluxes whose sum is zero. Vary the inter-subband coefficient and compare each mode with its gray, zero-inter-subband-coupling reference at the same injection and intraband coefficient. A zero total current does not mean nothing is being redistributed.
+- **Compare grid convergence** starts with 12 cells and stronger scattering. Increase to 24 and 36 cells. The gray continuum occupation and total-flux references stay fixed while the finite-volume solution approaches them. Conservation at every face and convergence to the continuum are different tests.
+
 The lab also reports a **transmission grid error** when an analytic benchmark applies. For two equally injected modes with identical coefficients, each mode has an effective reversal coefficient $\alpha=\beta+\gamma/2$: half of the inter-mode coupling connects to the opposite direction, while coupling to the identical same-direction occupation cancels. Replace $\beta$ by $\alpha$ in Eq. (39) to compare the finite-grid and continuum transmission. At $\beta=\gamma=0.04\,\mathrm{nm}^{-1}$, $L=100\,\mathrm{nm}$, and 12 cells, the grid gives 0.20 rather than $1/7$, a 40% overestimate despite conserving face flux. Increase the cell count to reduce it. This benchmark does not apply to unequal mode-selective inflows; the lab marks that case separately rather than reporting a misleading error.
 
 ## 15. Integrating energy gives a current—and a ballistic benchmark
@@ -1128,7 +1135,7 @@ The model and its discretization have different obligations. These tests separat
 | Test | Required result | What it catches |
 | :--- | :--- | :--- |
 | Confinement scaling | Scaling both widths by 2 scales confinement energies by 1/4 | Geometry and unit errors |
-| Equal contacts | Constant Fermi occupation; zero net current | Wrong inflow or collision balance |
+| Equal contacts | Common Fermi occupation at each total energy; zero net current | Wrong inflow or collision balance |
 | Elastic exchange | Sum of DOS-weighted collision changes is zero | Confusing occupation with particle count |
 | Single subband | Approach Eq. (36) and Eq. (37) with grid refinement | Conserving but inaccurate transport |
 | Every cell face | Same summed electron flux at stationarity | Artificial particle sources or sinks |

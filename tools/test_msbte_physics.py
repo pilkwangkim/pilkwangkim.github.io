@@ -240,6 +240,18 @@ class CollisionChecks(unittest.TestCase):
 
 
 class TeachingExampleChecks(unittest.TestCase):
+    def test_density_matching_rta_requires_common_relaxation_time(self):
+        weights, f = np.array([2., 1.]), np.array([.8, .2])
+        target = np.full(2, weights @ f / weights.sum())
+        self.assertAlmostEqual(float(weights @ (target - f)), 0, places=14)
+        self.assertAlmostEqual(float(weights @ ((target - f) / .4)), 0, places=14)
+        times = np.array([.4, .8])
+        self.assertAlmostEqual(float(weights @ ((target - f) / times)), -.5, places=14)
+        # A state-dependent rate requires cancellation under the state measure
+        # weighted by 1/tau, not just an unweighted density match.
+        conserving_target = (weights / times) @ f / (weights / times).sum()
+        self.assertAlmostEqual(float(weights @ ((conserving_target - f) / times)), 0, places=14)
+
     def test_coherent_and_mixed_states_share_populations_but_not_density(self):
         # Nonzero allowed periodic momentum makes the +/- waves orthogonal.
         length, count = 1.0, 4096

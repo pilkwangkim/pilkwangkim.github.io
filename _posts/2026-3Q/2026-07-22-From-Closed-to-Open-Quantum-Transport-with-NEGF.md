@@ -22,15 +22,11 @@ image:
 - Source notebook: [negf_from_scratch.ipynb](https://github.com/pilkwangkim/Physics/blob/master/negf_from_scratch.ipynb)
 - Korean version: [Hamiltonian에서 전류까지: NEGF의 원리와 계산]({{ site.baseurl }}/posts/From-Closed-to-Open-Quantum-Transport-with-NEGF-KR/)
 
-A finite Hamiltonian gives us discrete energies and beautiful eigenstates. It does **not**, by itself, give us a steady current. A current-carrying device is open: particles may enter from one macroscopic reservoir, cross a finite region, and disappear into another reservoir without reflecting from an artificial wall at the edge of our matrix.
-
-The central problem is simple to state and surprisingly rich to solve:
+A finite, isolated Hamiltonian determines the device eigenstates, but it does not specify which states the contacts supply or what happens to an outgoing wave. In two-terminal transport the reservoirs continually supply incident electrons, and transmitted electrons can leave without returning from an artificial wall.
 
 > How can an infinite, open transport problem be represented by a finite matrix without replacing the leads by an uncontrolled absorbing boundary?
 
 The nonequilibrium Green's-function (NEGF) answer is that the lead coordinates can be eliminated **exactly**. Their effect on the device's retarded response appears as an energy-dependent self-energy; the population injected from the reservoirs is specified separately.
-
-Once that step is understood, transmission, local density of states, nonequilibrium occupation, current conservation, resonant tunneling, and negative differential resistance all follow from one consistent chain of matrices.
 
 The model has the following assumptions:
 
@@ -57,9 +53,9 @@ The potential is prescribed rather than calculated from the resulting electron d
 
 *Calculation workflow.* The device and leads determine the available states and propagation; reservoir chemical potentials and temperatures determine occupation. Combining $A_\alpha$ with $f_\alpha$ gives $G^n$, density and bond current. Integrating $T(E)[f_L-f_R]$ gives the Landauer current. Here $\alpha=L,R$, and the displayed identities apply to the coherent contact continuum as $\eta\to0^+$.
 
-There are three distinctions that must remain sharp from the beginning.
+Lead, reservoir and contact play different roles.
 
-1. A **lead** is a coherent semi-infinite Hamiltonian. It supplies modes and an outgoing boundary condition.
+1. A **lead** is a semi-infinite region where the wave propagates coherently. Its Hamiltonian determines the allowed modes and the outgoing boundary condition.
 2. A **reservoir** is a large electron population maintained in thermal equilibrium. Its chemical potential sets the energy around which states change from mostly occupied to mostly empty; temperature smooths that change. Particles leaving the device equilibrate far away, while the incoming population remains fixed.
 3. A physical **contact** combines both roles, but the mathematics treats them in different objects: the retarded self-energy describes propagation and escape, while the Fermi function describes occupation.
 
@@ -449,13 +445,7 @@ Read the product from right to left. The device amplitude produces a source $\ta
 
 *Figure 3.* Panel (a) shows the explicit device-plus-lead coordinates. Panel (b) retains only the device but preserves the exact feedback $\Sigma_L^R$. Panel (c) previews why a uniform semi-infinite lead has a recursive surface response.
 
-Several common misunderstandings disappear if we say precisely what is exact.
-
-- The equality is between the **device block of the full resolvent** and the inverse in eq. (8).
-- It is not a claim that the full Hermitian Hamiltonian equals a smaller non-Hermitian Hamiltonian.
-- The elimination is exact for the chosen single-particle Hamiltonian and partition.
-- The resulting operator is energy dependent because the eliminated lead has its own dynamics.
-- It can be non-Hermitian on the real axis because an outgoing wave can escape from the retained subspace.
+The inverse of the bracket in eq. (8) is exactly the **device block of the full resolvent** for the chosen single-particle Hamiltonian and partition. The smaller operator is not the full Hamiltonian: it depends on energy through the lead response, and it can be non-Hermitian on the real axis because outgoing waves can carry probability out of the device.
 
 Another way to read the same result is through repeated excursions. Let
 
@@ -695,14 +685,14 @@ $$
 
 and diverges there. There is no contradiction. The bulk DOS counts how densely the allowed wave numbers crowd in energy, whereas the surface DOS also contains the weight of those modes on the endpoint orbital. Open-chain eigenmodes have small endpoint amplitude near a band edge, and that boundary weight cancels the bulk van Hove divergence.
 
-For the matched scalar contact, a wavepacket concentrated near wave number $k$ has a center moving at the **group velocity**
+A wave packet concentrated near wave number $k$ has **group velocity**
 
 $$
 v(k)=\frac{1}{\hbar}\frac{dE}{dk}
 =\frac{2t_0a}{\hbar}\sin ka
 $$
 
-immediately gives $\gamma=2t_0\sin ka=\hbar\lvert v\rvert/a$. The same $\sin ka$ that closes the surface coupling at a band edge also drives the group velocity to zero.
+For the matched contact and $0<ka<\pi$, this gives $\gamma=2t_0\sin ka=\hbar\lvert v\rvert/a$. Both the broadening and the group velocity vanish at the band edges.
 
 <div class="negf-figure-desktop">
   <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-04-surface-green-function.svg" alt="Closed and open spectral response, real and imaginary parts of the contact self-energy, and the retarded surface root in the complex plane" width="2160" height="3900">
@@ -711,7 +701,7 @@ immediately gives $\gamma=2t_0\sin ka=\hbar\lvert v\rvert/a$. The same $\sin ka$
   <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-04-surface-green-function-mobile.svg" alt="Closed and open spectral response, real and imaginary parts of the contact self-energy, and the retarded surface root in the complex plane" width="1000" height="4040">
 </div>
 
-*Figure 4.* Opening the chain turns discrete hard-wall levels into a continuum over the lead band. The real self-energy shifts levels, the broadening closes outside the propagating band, and the complex-$q$ plot makes the retarded root choice geometric.
+*Figure 4.* (a) The same uniform chain has discrete hard-wall levels when isolated and a continuum when matched to the leads. The isolated peaks have a plotting width, not an escape lifetime. (b) The shaded band is where the endpoints can radiate into propagating modes: the broadening is nonzero there, while the real shift can persist outside. (c) The solid branch is outgoing in the band and has $\lvert q\rvert<1$ outside. The dashed reciprocal root would be incoming or growing.
 
 Notice what does **not** happen outside the band. The broadening vanishes because there is no propagating escape channel, but the real self-energy generally remains nonzero because the lead still supports an evanescent boundary response.
 
@@ -917,7 +907,9 @@ $$
 \tag{20}
 $$
 
-It is not a unit-normalized bound-state wavefunction. Its units are $\mathrm{eV}^{-1/2}$, and it factorizes the partial spectral function:
+This normalization is set by the incoming flux, not by requiring unit probability inside the device. Take an energy inside the propagating band of the matched left contact and let $\eta\to0^+$. In the lead coordinate $n$ increasing away from the device, the incoming wave is $a_{\rm in} e^{-ikna}$. Its incident spectral flux has magnitude $\gamma_L\lvert a_{\rm in}\rvert^2$, so unit incident spectral flux requires $\lvert a_{\rm in}\rvert=1/\sqrt{\gamma_L}$. Matching the endpoint converts that incident amplitude into a source of magnitude $\gamma_L\lvert a_{\rm in}\rvert=\sqrt{\gamma_L}$ (the phase does not affect any of the observables below).
+
+The resulting amplitude has units $\mathrm{eV}^{-1/2}$ and factorizes the partial spectral function:
 
 $$
 A_L=\lvert\psi_L\rangle\langle\psi_L\rvert.
@@ -951,7 +943,14 @@ Because $\psi_L$ here has units $\mathrm{eV}^{-1/2}$, $\mathcal J^{(L)}(E)$ is *
 
 *Figure 7.* At $E_{\mathrm{probe}}=0.400\ \mathrm{eV}$, the partial LDOS is strongly suppressed through the barrier, yet a nonzero transmitted component survives. The spatial weight changes dramatically while the directed flux stays constant at $T=2.8572\times10^{-3}$.
 
-This figure is the cleanest answer to the phrase “the particle tunnels through the barrier.” A stationary scattering state is matched across the entire structure. Its amplitude is evanescent in the classically forbidden segment, but its phase relation carries one conserved, small flux.
+A single real exponential times a constant phase carries no flux. Inside the finite barrier, the matching conditions at both ends require a combination of the two evanescent solutions. For $\psi_{L,j}=B_-e^{-\kappa ja}+B_+e^{\kappa ja}$, eq. (21) on bonds entirely inside the barrier gives
+
+$$
+\mathcal J^{(L)}
+=4t_0\sinh(\kappa a)\operatorname{Im}(B_+ B_-^*).
+$$
+
+The terms proportional to the squared magnitude of either component alone are real. The nonzero flux comes from their relative phase, and the exponentials cancel in the cross term. This explains the contrast between the two panels of Figure 7: the local weight drops strongly, but the flux does not decay along the barrier.
 
 At equilibrium, an equal right-injected contribution cancels the left-injected flux. An electrical current appears only after the reservoirs occupy the two directions differently.
 
@@ -1222,6 +1221,8 @@ The first resonant-tunneling example separates propagation from population as cl
 *Figure 8.* The plotted line is $U_j$, not the Hamiltonian diagonal $2t_0+U_j$. Openness enters later through endpoint self-energies; it is not drawn as an imaginary potential in the device interior.
 
 {% include interactive/negf-barrier.html %}
+
+Compare the full spectrum with the magnified first peak. Raising both barriers can leave the peak nearly at unity while narrowing its energy width. Widening the well changes where the peak occurs; the magnified panel subtracts each curve's own peak energy to compare widths, so read the shift from the full spectrum. The controls change the Hamiltonian for this geometry check, not the reservoir filling used below.
 
 ### 8.1 From a closed-well level to an open resonance
 
@@ -1553,7 +1554,17 @@ T(E,V)\big[f_L(E)-f_R(E)\big].
 \tag{31}
 $$
 
-Increasing $V$ widens the occupation imbalance, which by itself tends to increase current. But it also moves and distorts the resonant transmission ridges. Apart from the constant prefactor, the energy-resolved current integrand is
+Increasing $V$ lowers $\mu_R$ at fixed $f_L$ and temperature. If $T$ were fixed, the current could only increase or saturate: at each energy $f_R$ decreases and $T\ge0$. With a bias-dependent Hamiltonian the slope has two terms,
+
+$$
+\begin{aligned}
+\frac{dI}{dV} &= S_{\rm occ}+S_T,\\
+S_{\rm occ}&=\frac{2e}{h}\int dE\,T\,\partial_V(f_L-f_R),\\
+S_T&=\frac{2e}{h}\int dE\,(\partial_V T)(f_L-f_R).
+\end{aligned}
+$$
+
+The dashed curve in Figure 12(b) is $S_{\rm occ}$ evaluated with the transmission at each bias, not the slope of a second device. It never goes negative. The full slope turns negative only when the transmission term more than offsets this gain. The integrand itself is, apart from the constant prefactor,
 
 $$
 \text{current integrand}
@@ -1591,13 +1602,13 @@ $$
 which is negative differential resistance (NDR). It does not mean that $I/V$ must be negative.
 
 <div class="negf-figure-desktop">
-  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-12-example-b-ndr-summary.svg" alt="Current-voltage curve, differential conductance, transmission resonance map, and peak-versus-valley spectral current for the NDR example" width="1946" height="3049">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-12-example-b-ndr-summary.svg" alt="Current-voltage curve, differential conductance, transmission resonance map, and peak-versus-valley spectral current for the NDR example" width="1944" height="3050">
 </div>
 <div class="negf-figure-mobile">
-  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-12-example-b-ndr-summary-mobile.svg" alt="Current-voltage curve, differential conductance, transmission resonance map, and peak-versus-valley spectral current for the NDR example" width="939" height="5065">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-12-example-b-ndr-summary-mobile.svg" alt="Current-voltage curve, differential conductance, transmission resonance map, and peak-versus-valley spectral current for the NDR example" width="928" height="5031">
 </div>
 
-*Figure 12.* Panels (a)–(d) refer to the same lowest-resonance cycle. The first current peak is at $0.085\ \mathrm{V}$ and the following valley at $0.149\ \mathrm{V}$; this is the highlighted first NDR interval. Panel (e) shows the full sweep, including later, higher-resonance structure near the broader $0.4\ \mathrm{V}$ region. That later structure is not used to define the first-cycle PVCR.
+*Figure 12.* (a) The first current peak at $0.085\ \mathrm{V}$ and valley at $0.149\ \mathrm{V}$ set the first-cycle peak-to-valley current ratio (PVCR). (b) The full slope turns negative even though the occupation term is nonnegative. (c) The first transmission ridge moves toward the fixed emitter band edge. (d) The peak and valley curves are on the same scale; their shaded areas give the corresponding currents. (e) The later NDR near $0.4\ \mathrm{V}$ belongs to a different resonance.
 
 On the energy and voltage grids specified below, the values are
 
@@ -1686,15 +1697,7 @@ Block elimination and the uniform-lead surface solution are exact for the specif
 
 The framework itself extends far beyond these assumptions. Multi-orbital devices replace scalar endpoint quantities by matrices. Additional scattering mechanisms enter through further retarded and in-scattering self-energies. Self-consistent electrostatics updates $H_D$ from the density computed with $G^n$.
 
-The conceptual spine, however, remains the same:
-
-```text
-retarded self-energies define the open spectrum and escape;
-in-scattering self-energies define how that spectrum is occupied;
-Green's functions propagate both pieces through the finite device.
-```
-
-That is the real payoff of the exercise. NEGF is not a bag of unrelated formulas. It is a disciplined way to keep boundary conditions, spectral availability, reservoir population, and conserved flow separate until the final observable is formed.
+The right description depends on what determines the current. When phase interference across barriers matters, independent subband populations are not enough. When transverse confinement matters but longitudinal phases can be discarded, [MS-BTE]({{ site.baseurl }}/posts/Multi-Subband-Boltzmann-Transport-From-Scratch/) evolves subband occupations and accounts for transitions between them. For a spatially uniform, near-equilibrium response dominated by momentum relaxation, the [Drude model]({{ site.baseurl }}/posts/Drude-Model-From-Scratch/) replaces the full distribution with its drift velocity. Neither approximation alone reproduces the narrow coherent peaks of Example A.
 
 ---
 

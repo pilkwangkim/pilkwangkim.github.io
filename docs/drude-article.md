@@ -353,3 +353,31 @@ Giustino's review together with its 2019 correction; NIST constants. EPW links
 resolve through its official documentation to `gitlab.com/epw/q-e`.
 The toy-model numerical derivations were also checked independently rather than
 treating agreement with a copied formula as sufficient validation.
+
+## Microscopic figures and controls
+
+The paired articles now derive the angle condition for absorption and emission
+in the exact parabolic, normal-process model. The acoustic lab overlays analytic
+allowed wavevector segments on the dashed candidate energies. Its new preset
+has positive candidate final energy and high occupation but forbids emission by
+momentum conservation. The regression test checks the window against pointwise
+kinematics. Temperature changes the occupation plot without shifting the
+kinematic boundary.
+
+Figure 15 and the short-range lab replace a redundant reciprocal-rate plot with
+the transport mean free path: the speed and scattering rate rise together at
+fixed density and amplitude, so changing energy does not change their ratio.
+The lab's energy marker moves on the constant path while the rate marker moves
+along a rising curve. Density and amplitude shift both plots; dashed references
+stay fixed. The thermal lab replaces its time-versus-temperature plot with the
+cumulative fraction of each average against a fixed energy cutoff. The
+normalization uses the full analytic integral, not the display window; the
+particle curve is absent when that integral diverges. The series evaluator
+follows [NIST DLMF §8.7](https://dlmf.nist.gov/8.7#E1) and is tested against
+closed forms and the gamma recurrence.
+
+The charge-mode activity now distinguishes the pressureless model's damping
+threshold from the independent physical condition for discarding pressure. All
+numbered equations, executable Python snippets, figure names, section IDs and
+article metadata remain unchanged; the paired notebooks embed the updated
+figure and text.

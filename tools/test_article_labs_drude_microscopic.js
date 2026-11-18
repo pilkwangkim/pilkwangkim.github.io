@@ -165,9 +165,9 @@ function graphicSignature(lab) {
 }
 const fixedDomains = {
   'drude-angle': [[[0, 180], [0, 10.5]]],
-  'drude-impurity': [[[10, 150], [0, 12.5]], [[10, 150], [0, 32]]],
+  'drude-impurity': [[[10, 150], [0, 12.5]], [[10, 150], [1.5, 4]]],
   'drude-phonon': [[[5, 600], [-7, 3]], [[.05, 2], [-7, 108]]],
-  'drude-average': [[[0, 400], [0, .12]], [[50, 600], [-2, 3]]]
+  'drude-average': [[[0, 400], [0, .12]], [[0, 400], [0, 1]]]
 };
 for (const id of factories.keys()) for (const ko of [false, true]) {
   const lab = mount(id, ko), initial = lab.snapshot(), saved = JSON.parse(JSON.stringify(lab.state.read()));
@@ -257,11 +257,12 @@ for (const id of factories.keys()) {
 {
   const lab = mount('drude-impurity');
   for (const density of [.2, 1, 2]) for (const amplitude of [.5, 1, 1.5]) {
-    lab.state.write({ energy: 50, density, amplitude }); const [rate, time] = plots(lab);
+    lab.state.write({ energy: 50, density, amplitude }); const [rate, path] = plots(lab);
     const expected = impurity.rate * density * amplitude ** 2 * 1e-12;
     relative(rate.series[0].points[40][1], expected);
-    relative(time.series[0].points[40][1], 1 / expected);
-    relative(rate.markers[0].y, expected); relative(time.markers[0].y, 1 / expected);
+    const expectedPath = Math.log10(1e9 / (1e25 * density * 4 * Math.PI * (.2e-9 * amplitude) ** 2));
+    for (const [, y] of path.series[1].points) close(y, expectedPath);
+    relative(rate.markers[0].y, expected); close(path.markers[0].y, expectedPath);
     relative(rate.series[1].points[40][1], impurity.rate * 1e-12);
   }
 }
@@ -278,13 +279,30 @@ for (const id of factories.keys()) {
     const endEnergy = m.HBAR * m.VS * 2e9 / m.E * 1e3;
     close(final.series[0].points.at(-1)[1], energy + endEnergy);
     close(final.series[1].points.at(-1)[1], energy - endEnergy);
-    close(final.series[2].points[0][1], energy);
+    for (const [color, window] of Object.entries(m.phononWindows(energy))) {
+      const series = final.series.find(s => s.color === (color === 'absorption' ? 'blue' : 'gold'));
+      const start = Math.max(.05, window?.[0] ?? Infinity), end = Math.min(2, window?.[1] ?? -Infinity);
+      assert.equal(Boolean(series), end > start); lifecycle++;
+      if (series) {
+        close(series.points[0][0], start);
+        close(series.points[1][0], end);
+      }
+    }
+  }
+  const threshold = m.phononMode(.2, 300, 2);
+  check(threshold.population > 30 && threshold.absorptionAllowed && threshold.emissionEnergyAllowed && !threshold.emissionAllowed);
+  for (const energy of [.1, .4, 2, 10, 20, 50, 100]) for (let i = 1; i <= 40; i++) {
+    const q = i / 20, mode = m.phononMode(q, 300, energy), window = m.phononWindows(energy);
+    for (const [key, allowed] of [['absorption', mode.absorptionAllowed], ['emission', mode.emissionAllowed]]) {
+      assert.equal(Boolean(window[key] && q >= window[key][0] && q <= window[key][1]), allowed);
+      physics++;
+    }
   }
 }
 {
   const lab = mount('drude-average');
   for (const temperature of [50, 300, 600]) for (const exponent of [-2, -1.5, -1, -.5, 0, .5, 1, 1.5, 2]) {
-    lab.state.write({ temperature, exponent }); const [weights, times] = plots(lab);
+    lab.state.write({ temperature, exponent }); const [weights, fractions] = plots(lab);
     const thermalMeV = m.KB * temperature / m.E * 1e3;
     for (let index = 0; index < 2; index++) {
       const shape = index ? 1.5 : .5, norm = index ? 3 * Math.sqrt(Math.PI) / 4 : Math.sqrt(Math.PI) / 2;
@@ -293,12 +311,25 @@ for (const id of factories.keys()) {
       close(weights.markers[index].x, (index ? 2.5 : 1.5) * thermalMeV);
     }
     const p = m.thermalAverage(temperature, exponent);
-    close(times.markers[0].y, Math.log10(p.tauEffective * 1e12));
-    if (p.tauParticle === null) assert.equal(times.series.length, 1);
-    else close(times.markers[1].y, Math.log10(p.tauParticle * 1e12));
-    // Curve endpoint is the full analytic average at 600 K, not the
-    // selected-temperature marker and not an integral cut off at 400 meV.
-    close(times.series[0].points.at(-1)[1], Math.log10(m.thermalAverage(600, exponent).tauEffective * 1e12));
+    assert.equal(fractions.series.length, p.tauParticle === null ? 1 : 2);
+    fractions.series.forEach((series, index) => {
+      const shape = exponent + (index === 0 ? 2.5 : 1.5);
+      close(series.points[0][1], 0);
+      close(fractions.markers[index].x, thermalMeV);
+      close(fractions.markers[index].y, m.averageFraction(1, shape));
+      close(series.points.at(-1)[1], m.averageFraction(400 / thermalMeV, shape));
+      assert.ok(series.points.every((point, i) => !i || point[1] + 1e-13 >= series.points[i - 1][1]));
+    });
+  }
+  // Independent exact gamma integrals for integer shape, not the lab's
+  // positive-series implementation. Endpoint normalization uses y=∞.
+  for (const y of [.01, .5, 1, 5, 20, 60, 70]) {
+    close(m.averageFraction(y, 1), -Math.expm1(-y));
+    close(m.averageFraction(y, 2), 1 - (1 + y) * Math.exp(-y));
+    close(m.averageFraction(y, 3), 1 - (1 + y + y ** 2 / 2) * Math.exp(-y));
+  }
+  for (const y of [.01, .5, 1, 5, 20]) for (const shape of [.5, 1.5, 2.5, 3.5]) {
+    close(m.averageFraction(y, shape + 1), m.averageFraction(y, shape) - y ** shape * Math.exp(-y) / m.gamma(shape + 1));
   }
 }
 console.log(`Drude microscopic: ${physics} physics assertions; ${lifecycle} bilingual UI/state/reset assertions; ${plotted} finite, in-domain plotted points. This adapter does not test browser geometry.`);

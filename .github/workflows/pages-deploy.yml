@@ -86,7 +86,9 @@ jobs:
           python3 tools/check_sorting_article.py
 
       - name: Check quantum transport interaction
-        run: node tools/test_negf_core.js
+        run: |
+          node tools/test_negf_core.js
+          node tools/test_negf_interactive.js
 
       - name: Setup Python for Galois checks
         uses: actions/setup-python@v5

@@ -49,12 +49,15 @@ Controls, readouts and Reset sit beside the plots when the article has enough ro
 
 The calculator uses the article's zero-bias coherent finite-difference NEGF model, with effective mass 0.067 m₀ and 1 nm grid spacing. It calculates potential energy U(x) and single-channel transmission T(E). The first resonance's FWHM is displayed in µeV. It does not calculate occupation or current.
 
+The faint dashed traces preserve the default geometry and spectrum. The third plot centers each first resonance at its own peak energy and compares its width on the same physical detuning axis (±500 µeV), with no line-shape fit or peak-height rescaling. The energy probe changes the marked incident line and the selected transmission height, not the spectrum of the fixed Hamiltonian. The higher-barrier and wider-well presets isolate width and energy shifts.
+
 The component is `_includes/interactive/negf-barrier.html`; its styles and scripts are `assets/css/negf-interactive.css`, `assets/js/negf-core.js` and `assets/js/negf-interactive.js`. Only posts with `interactive: negf-barrier` load these assets. Their shared fingerprint changes when any component asset changes. Interactive descendants are excluded from the local visual editor; moving a slider does not modify the post source.
 
 Numerical checks:
 
 ```sh
 node tools/test_negf_core.js
+node tools/test_negf_interactive.js
 python3 tools/check_negf_bridges.py
 python3 tools/check_negf_reference.py --node node --output /tmp/negf-reference.json
 ```

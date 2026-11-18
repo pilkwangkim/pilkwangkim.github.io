@@ -37,6 +37,7 @@
   --negf-gold: #a98649;
   --negf-gold-soft: #a9864926;
   --negf-grid: #bdc8ce55;
+  --negf-reference: #899399;
   --negf-line: var(--main-border-color, #dfe4e7);
   color: var(--text-color, #343a40);
   background: var(--card-bg, var(--main-bg, #fff));
@@ -60,6 +61,7 @@ html[data-bs-theme='dark'] .negf-lab {
   --negf-gold: #c8aa75;
   --negf-gold-soft: #c8aa7522;
   --negf-grid: #8996a43b;
+  --negf-reference: #a4aeb8;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -69,13 +71,19 @@ html[data-bs-theme='dark'] .negf-lab {
     --negf-gold: #c8aa75;
     --negf-gold-soft: #c8aa7522;
     --negf-grid: #8996a43b;
+    --negf-reference: #a4aeb8;
   }
 }
 
 .negf-lab *, .negf-lab *::before, .negf-lab *::after { box-sizing: border-box; }
 .negf-lab #negf-lab-title { font-size: 1.1rem; line-height: 1.4; margin: 0 0 0.7rem; padding: 0; }
-.negf-lab-body { display: grid; grid-template-areas: 'controls' 'reset' 'plots' 'readouts'; gap: 0.65rem; min-width: 0; }
+.negf-lab .negf-experiment-guide { font-size: 0.78rem; line-height: 1.6; margin: 0 0 0.85rem; }
+.negf-lab-body { display: grid; grid-template-areas: 'controls' 'scenarios' 'reset' 'plots' 'readouts'; gap: 0.65rem; min-width: 0; }
 .negf-sidebar { display: contents; }
+.negf-scenarios { grid-area: scenarios; display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.negf-scenario { color: var(--negf-blue); background: transparent; border: 1px solid var(--negf-line); border-radius: 0.3rem; font: inherit; font-size: 0.7rem; line-height: 1.4; min-height: 2rem; padding: 0.3rem 0.45rem; cursor: pointer; }
+.negf-scenario:hover { border-color: var(--negf-blue); background: var(--negf-blue-soft); }
+.negf-scenario:focus-visible { outline: 2px solid var(--negf-blue); outline-offset: 2px; }
 .negf-controls { grid-area: controls; display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.5rem; }
 .negf-energy-control { grid-column: auto; }
 .negf-control { min-width: 0; }
@@ -97,8 +105,13 @@ html[data-bs-theme='dark'] .negf-lab {
 .negf-lab .negf-potential-line { stroke: var(--negf-gold); stroke-width: 2.3; fill: none; stroke-linejoin: round; }
 .negf-lab .negf-potential-fill { fill: var(--negf-gold-soft); stroke: none; }
 .negf-lab .negf-transmission-line { stroke: var(--negf-blue); stroke-width: 2.1; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.negf-lab .negf-reference-line { stroke: var(--negf-reference); stroke-width: 1.8; stroke-dasharray: 7 5; fill: none; stroke-linejoin: round; }
 .negf-lab .negf-probe-line { stroke: var(--negf-blue); stroke-width: 1.3; stroke-dasharray: 6 5; opacity: 0.8; }
 .negf-lab .negf-probe-dot { fill: var(--negf-blue); stroke: var(--card-bg, var(--main-bg, #fff)); stroke-width: 2; }
+.negf-lab .negf-probe-column { fill: var(--negf-blue); opacity: 0.18; stroke: none; }
+.negf-lab .negf-half-line { stroke: var(--negf-reference); stroke-width: 1.4; stroke-dasharray: 3 5; }
+.negf-lab .negf-center-line { stroke: var(--negf-grid); stroke-width: 1; }
+.negf-lab .negf-half-crossing { fill: var(--negf-blue); stroke: var(--card-bg, var(--main-bg, #fff)); stroke-width: 1.5; }
 .negf-lab .negf-resonance-dot { fill: var(--negf-blue); opacity: 0.6; }
 .negf-lab .negf-barrier-label { fill: var(--negf-gold); font-size: 20px; paint-order: stroke; stroke: var(--card-bg, var(--main-bg, #fff)); stroke-width: 4px; stroke-linejoin: round; }
 .negf-legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.2rem 1rem; font-size: 0.76rem; color: var(--text-muted-color, #6c757d); }
@@ -106,18 +119,23 @@ html[data-bs-theme='dark'] .negf-lab {
 .negf-key { display: inline-block; width: 1rem; height: 0; border-top: 2px solid; }
 .negf-key-potential { border-color: var(--negf-gold); }
 .negf-key-energy { border-color: var(--negf-blue); border-top-style: dashed; }
+.negf-key-reference { border-color: var(--negf-reference); border-top-style: dashed; }
+.negf-key-current { border-color: var(--negf-blue); }
 .negf-lab .negf-chart-hint { font-size: 0.74rem; line-height: 1.4; margin: 0.2rem 0 0; text-align: center; color: var(--text-muted-color, #6c757d); }
 .negf-lab [data-negf-transmission] { cursor: crosshair; touch-action: pan-y; }
 .negf-resonances { display: flex; justify-content: center; flex-wrap: wrap; gap: 0.25rem; margin-top: 0.25rem; }
 .negf-resonances[hidden] { display: none; }
 .negf-peak-button { border: 1px solid var(--negf-line); background: transparent; border-radius: 0.3rem; color: var(--negf-blue); font: inherit; font-size: 0.68rem; font-variant-numeric: tabular-nums; padding: 0.2rem 0.4rem; min-height: 1.7rem; cursor: pointer; }
 .negf-peak-button:hover { background: var(--negf-blue-soft); border-color: var(--negf-blue); }
+.negf-peak-button[aria-pressed='true'] { background: var(--negf-blue-soft); border-color: var(--negf-blue); }
 .negf-peak-button:focus-visible { outline: 2px solid var(--negf-blue); outline-offset: 2px; }
 .negf-readouts { grid-area: readouts; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.65rem; border-top: 1px solid var(--negf-line); border-bottom: 1px solid var(--negf-line); margin: 0; padding: 0.5rem 0; }
 .negf-readouts > div { min-width: 0; }
 .negf-readouts dt { color: var(--text-muted-color, #6c757d); font-size: 0.68rem; font-weight: 400; line-height: 1.4; margin-bottom: 0.1rem; }
 .negf-readouts dd { font-size: 0.82rem; font-weight: 600; font-variant-numeric: tabular-nums; line-height: 1.4; margin: 0; overflow-wrap: anywhere; }
 .negf-readouts dd small { display: block; font-size: 0.65rem; color: var(--text-muted-color, #6c757d); font-weight: 400; }
+.negf-readouts dd { min-height: 3.2em; }
+.negf-readouts dd small { min-height: 1.4em; }
 .negf-lab-footer { padding-top: 0.4rem; }
 .negf-lab .negf-status { font-size: 0.65rem; line-height: 1.4; color: var(--text-muted-color, #6c757d); margin: 0; }
 .negf-reset { grid-area: reset; justify-self: end; align-self: start; color: var(--text-color, #343a40); border: 1px solid var(--negf-line); background: transparent; font: inherit; font-size: 0.72rem; padding: 0.25rem 0.65rem; min-height: 1.9rem; border-radius: 0.35rem; cursor: pointer; }
@@ -164,5 +182,5 @@ html[data-bs-theme='dark'] .negf-lab {
 
 @media print {
   .negf-lab { break-inside: avoid; padding: 1rem; background: transparent; }
-  .negf-controls, .negf-reset, .negf-chart-hint { display: none; }
+  .negf-controls, .negf-reset, .negf-scenarios, .negf-chart-hint { display: none; }
 }

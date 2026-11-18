@@ -172,7 +172,7 @@ print(f"Direct tensor-grid storage: {8 * full_values / 1e12:.1f} TB")
 print(f"Ten-mode occupation storage: {8 * subband_values / 1e6:.1f} MB")
 ```
 
-위 계산은 **두 표현 방식에서 occupation array에 필요한 메모리**만 비교한 것이다. 정확도를 맞춘 두 simulation의 speedup을 측정한 결과는 아니다. 작은 occupation array로 충분하려면 longitudinal semiclassical 근사와 population 근사가 잘 맞아야 하고, 계산에 포함한 mode만으로 density와 전류가 충분히 수렴해야 한다. 모든 mode를 포함해 quantum state를 전개하면 원래 정보는 보존되지만, basis만 바꾼다고 계산량이 자동으로 줄어들지는 않는다.
+위 계산은 **두 표현 방식에서 occupation array에 필요한 메모리**만 비교한 것이다. 같은 정확도로 계산한 두 simulation의 실행 시간을 비교한 결과는 아니다. 작은 occupation array로 충분하려면 longitudinal semiclassical 근사와 population 근사가 잘 맞아야 하고, 계산에 포함한 mode만으로 density와 전류가 충분히 수렴해야 한다. 모든 mode를 포함해 quantum state를 전개하면 원래 정보는 보존되지만, basis만 바꾼다고 계산량이 자동으로 줄어들지는 않는다.
 
 ## 4. Transverse energy level에서 subband가 생기는 과정
 {: id="1-transverse-energy-level에서-subband가-생기는-과정" }
@@ -275,7 +275,7 @@ assert np.isclose(edge_eV(1, 1, 20, 16), edges[0] / 4)
 
 {% include interactive/article-lab.html id="msbte-confinement" %}
 
-Wire의 폭을 줄여 보자. 모든 그래프의 축 범위를 고정했으므로 subband edge가 올라가고, y 방향 분포가 좁아지면서 peak가 높아지는 모습을 비교할 수 있다. 여러 좌표 중 하나에 대한 분포만 구하려면 나머지 좌표에 대해 probability density를 적분하면 된다. 이렇게 얻은 값이 **marginal probability density**다. y 방향 그래프는 z에 대해 적분한 값이고, z 방향 그래프는 y에 대해 적분한 값이다. 각각의 곡선 아래 면적은 1이다. y 방향 모양이 같은 두 mode도 z 방향 모양은 다를 수 있다. Mode 번호는 에너지가 낮은 순서로 붙였으므로, 폭을 바꾸면 같은 번호에 해당하는 transverse index 쌍이 달라질 수 있다.
+Mode 1을 선택한 채 wire의 폭을 10 nm에서 6 nm로 줄여 보자. 모든 그래프의 축 범위가 고정되어 있어, edge가 올라가고 y 방향 분포는 좁아지면서 peak가 높아지는 모습을 비교할 수 있다. 여러 좌표 중 하나에 대한 분포만 구하려면 나머지 좌표에 대해 probability density를 적분하면 된다. 이렇게 얻은 값이 **marginal probability density**다. y 방향 그래프는 z에 대해 적분한 값이고, z 방향 그래프는 y에 대해 적분한 값이다. 각각의 곡선 아래 면적은 1이다. 높이는 바꾸지 않았으므로 transverse index가 같다면 z 방향 분포는 그대로다. 이번에는 폭을 8 nm로 두고 Mode 2와 3을 번갈아 선택해 보자. 두 energy는 같지만 y·z 방향 분포는 다르다. Mode 번호는 에너지가 낮은 순서로 붙였으므로, 폭을 바꾸면 같은 번호에 해당하는 transverse index 쌍이 달라질 수 있다.
 
 ## 5. Quantum mode에서 MS-BTE로: 서로 다른 세 단계
 
@@ -575,7 +575,9 @@ assert np.isclose(fermi(0.150, 0.150, 300), 0.5)
 
 {% include interactive/article-lab.html id="msbte-injection" %}
 
-두 chemical potential을 같게 맞춰 보자. 전자 density가 0이 되는 것은 아니지만, 양방향 전류는 상쇄된다. 그다음 subband edge는 그대로 둔 채 두 값을 다르게 해 보자. Occupation 그래프에는 첫 두 mode를 표시했다. 누적 전류 그래프에서는 첫 번째 mode부터 순서대로 더해, 여덟 번째 mode까지 포함했을 때의 전류를 비교할 수 있다. μA 축의 범위는 고정되어 있다. 음영과 세로선, 점은 현재 전류 계산에 포함한 mode 수를 나타낸다. 이 수를 바꾸면 어떤 mode까지 합산했는지 그래프에서도 확인할 수 있다. 전류는 모두 식 (41)의 analytic energy integral로 계산한다.
+**높은 mode까지 채우기**를 누른 뒤 계산에 포함할 mode 수를 2 → 4 → 8로 바꿔 보자. 가운데 그래프는 occupation을 다시 그린 것이 아니라, 에너지별 electron-flow current인 $dI_e/dE$를 보여 준다. 각 subband는 자신의 edge보다 높은 에너지에서만 기여한다. Mode를 제외하면 spectrum의 계단과 부호를 반영한 면적이 달라진다. 점선은 contact 조건을 그대로 두고 비교용 mode 여덟 개를 모두 포함한 결과다. 마지막 그래프에서는 이에 대응하는 누적 전류를 고정된 μA 축으로 비교한다. 전류 표시값은 화면에 나온 구간만 수치 적분한 값이 아니라 식 (41)의 analytic integral로 구한 값이다. 여덟 개는 비교를 위한 cutoff이며, 전체 wire의 전류가 수렴했는지는 mode를 더 늘려 확인해야 한다.
+
+**두 reservoir를 같게** 버튼을 누르면 전류 spectrum은 전체가 0이 되지만, 첫 그래프의 occupation은 사라지지 않는다. 높은 mode 설정으로 돌아간 뒤 **양쪽 contact 바꾸기**를 누르면 spectrum과 적분한 전류의 부호가 모두 반대가 된다. 초기화하면 높은 mode의 기여가 실제로 작은 원래의 낮은 에너지 설정으로 돌아간다. Chemical potential은 300 meV까지 바꿀 수 있어, mode를 제외했을 때 차이가 뚜렷한 조건에서도 truncation을 비교할 수 있다.
 
 <span id="5-trajectory를-따라-occupation의-변화를-계산하는-boltzmann-equation"></span>
 
@@ -690,9 +692,9 @@ $$
 <details markdown="1">
 <summary>단순한 relaxation-time 항이 particle conservation을 어길 수 있는 이유</summary>
 
-흔히 쓰는 **relaxation-time approximation**, 줄여서 **RTA**는 $C_n=-(f_n-f_n^{\rm target})/\tau$다. Distribution이 시간 척도 $\tau$에 걸쳐 정해진 target에 가까워지게 한다.
+가장 단순한 **relaxation-time approximation**, 줄여서 **RTA**에서는 모든 state에 같은 상수 relaxation time을 사용해 $C_n=-(f_n-f_n^{\rm target})/\tau$로 둔다. Distribution이 시간 척도 $\tau$에 걸쳐 정해진 target에 가까워지게 한다.
 
-Target의 local density가 현재 density와 다르면, $C$를 적분한 값은 $(N^{\rm target}-N)/\tau$가 된다. 즉, 모델 안에서 전자가 생기거나 사라진다. Target의 density를 현재 density에 맞추면 이 문제를 피할 수 있다. 다만 다른 conservation law도 만족하는지, scattering mechanism을 적절히 나타내는지는 따로 확인해야 한다. Equilibrium target을 고정하는 방식이 적절한 open-system relaxation model도 있다. 이를 channel 내부의 particle-conserving collision에 사용하려면 local density와 conservation law를 확인해야 한다.
+Target의 local density가 현재 density와 다르면, $C$를 적분한 값은 $(N^{\rm target}-N)/\tau$가 된다. 즉, 모델 안에서 전자가 생기거나 사라진다. 여기처럼 relaxation time이 모든 state에서 같으면 target의 density를 현재 density에 맞춰 이 문제를 피할 수 있다. Relaxation time이 state마다 다르면 그 역수를 weight로 넣은 적분이 상쇄되어야 하므로, density만 같게 맞추는 것으로는 충분하지 않다. 다른 conservation law도 만족하는지, scattering mechanism을 적절히 나타내는지도 따로 확인해야 한다. Equilibrium target을 고정하는 방식이 적절한 open-system relaxation model도 있다. 이를 channel 내부의 particle-conserving collision에 사용하려면 local density와 conservation law를 확인해야 한다.
 
 순수하게 elastic한 scattering은 총에너지를 유지한 채 방향이나 subband를 바꾼다. 따라서 임의의 energy distribution을 하나의 Fermi function으로 thermalize할 수는 없다. 분포가 $f(k)=f(-k)$를 만족하더라도 local thermal distribution인 것은 아니다. Elastic BTE의 analytic solution을 해석할 때도 이 둘을 구분해야 한다. [Baccarani et al.][elastic]
 
@@ -865,14 +867,14 @@ $$
 
 이다. 분모는 boundary condition에서 정해진다. 이를 적용하면 $f_L-f_R=\Delta+\beta L\Delta$가 된다. 양쪽 contact에서 지정한 값의 차이와, wire 내부의 같은 위치에서 비교한 두 진행 방향의 occupation 차이는 서로 다를 수 있다. Scattering이 있으면 각 방향의 occupation이 위치에 따라서도 달라지기 때문이다.
 
-$\beta=0$이면 모든 위치에서 $f_+=f_L$, $f_-=f_R$다. $\beta L\gg1$이면 두 occupation의 차이는 작아진다. 그래도 양쪽 inflow가 다르면 두 값이 완전히 같아지지는 않으므로 전류는 여전히 흐른다. Scattering이 있을 때의 directional difference를 ballistic 값으로 나눈 transmission factor는
+$\beta=0$이면 모든 위치에서 $f_+=f_L$, $f_-=f_R$다. $\beta L\gg1$이면 두 occupation의 차이는 작아진다. 그래도 양쪽 inflow가 다르면 두 값이 완전히 같아지지는 않으므로 전류는 여전히 흐른다. Ballistic occupation 차이 $f_L-f_R$에 곱해지는 계수를 transmission factor로 정의하면
 
 $$
 \mathcal T(E)=\frac{1}{1+\beta(E)L}.
 \tag{37}
 $$
 
-이다. $f_L=0.9$, $f_R=0.2$, $\beta L=2$이면 일정한 occupation 차이는 $0.7/3$이다. 이때 $f_-(0)\simeq0.667$, $f_+(L)\simeq0.433$이다. 양쪽 contact에서 나가는 전자의 occupation은 그쪽 reservoir의 occupation과 다르다. Scattering으로 wire를 빠져나오는 전자의 distribution이 바뀌어도, wire 안의 net flux는 위치에 따라 변하지 않는다.
+이다. $f_L=f_R$이면 식 (36)에서 $f_+=f_-=f_L$이고, $\beta$에 관계없이 전류는 0이다. 식 (37)의 계수는 이때도 정의되므로, 값이 모두 0인 두 전류를 나눌 필요는 없다. $f_L=0.9$, $f_R=0.2$, $\beta L=2$이면 일정한 occupation 차이는 $0.7/3$이다. 이때 $f_-(0)\simeq0.667$, $f_+(L)\simeq0.433$이다. 양쪽 contact에서 나가는 전자의 occupation은 그쪽 reservoir의 occupation과 다르다. Scattering으로 wire를 빠져나오는 전자의 distribution이 바뀌어도, wire 안의 net flux는 위치에 따라 변하지 않는다.
 
 <figure class="msbte-figure">
 <picture class="rsna-results-figure">
@@ -1013,6 +1015,11 @@ Coupling이 없는 경우, intra-subband reversal만 있는 경우, inter-subban
 
 이 모델에서 두 mode의 계수가 같고 양쪽 contact가 각각 equilibrium reservoir라면, 같은 에너지에서 각 contact가 두 mode에 주는 incoming occupation도 같다. 따라서 같은 진행 방향끼리 비교하면 두 mode의 occupation profile이 겹친다. 전자들이 subband 사이를 오가면서 mode별 occupation이 어떻게 달라지는지 보려면 **nonthermal mode-selective injector**를 켜 보자. 두 번째 mode의 inflow를 독립적으로 지정하는 옵션이다. 기본 설정에서는 0.9 대신 0.3을 넣지만, 첫 번째 mode의 occupation보다 크게 정할 수도 있다. 이 주입 조건은 equilibrium reservoir와 다르며, 실제 passive filter의 성능을 계산하는 옵션도 아니다. 여기서 inter-subband coupling을 켜면 mode별 flux는 위치에 따라 달라져도 합은 일정하게 유지된다.
 
+두 가지 preset으로 비교 조건을 바로 설정할 수 있다.
+
+- **Mode 사이의 재분배**는 왼쪽에서 occupation 0.9와 0.1을 각각 주입하고, 오른쪽에서는 두 mode에 모두 0.5를 주입한다. 두 mode의 flux 방향은 반대이고 합은 0이다. Inter-subband 계수를 바꾸면서 각 mode를 회색 기준선과 비교해 보자. 회색 선은 주입 조건과 intraband 계수는 그대로 두고 inter-subband coupling만 0으로 계산한 결과다. 전체 전류가 0이어도 mode 사이에서는 재분배가 일어날 수 있다.
+- **Grid 수렴 비교하기**는 scattering이 강한 조건에서 cell 12개로 시작한다. N을 24, 36으로 늘려 보자. 회색 continuum occupation과 전체 flux는 그대로인데 finite-volume 계산값은 그 기준에 가까워진다. 각 face에서 flux가 보존되는지 확인하는 것과 continuum 해로 수렴하는지 확인하는 것은 별개의 검증이다.
+
 Analytic benchmark와 비교할 수 있는 조건에서는 lab에 **transmission grid error**도 표시된다. 두 mode에 같은 inflow를 주고 계수도 같게 두면, 각 mode의 effective reversal coefficient는 $\alpha=\beta+\gamma/2$다. Inter-mode coupling의 절반은 반대 방향으로 연결되고, 같은 방향으로 연결되는 항은 occupation이 같아서 상쇄되기 때문이다. 식 (39)의 $\beta$를 $\alpha$로 바꾸면 finite-grid transmission과 continuum 값을 비교할 수 있다. $\beta=\gamma=0.04\,\mathrm{nm}^{-1}$, $L=100\,\mathrm{nm}$에서 12개 cell을 쓰면 grid의 transmission은 0.20으로, continuum 값 $1/7$보다 40% 크다. Face flux가 보존되어도 이런 오차는 남는다. Cell 수를 늘려 오차가 줄어드는지 확인해야 한다. Mode별 inflow가 다른 경우에는 이 benchmark를 적용할 수 없으므로, lab에서도 오차 대신 별도 안내를 표시한다.
 
 ## 15. Ballistic 전류를 에너지 적분으로 구하기
@@ -1132,7 +1139,7 @@ Density를 구할 때는 $1/v$ weight도 처리해야 한다. Edge $\epsilon_n$ 
 | 검증 항목 | 만족해야 할 결과 | 확인할 수 있는 오류 |
 | :--- | :--- | :--- |
 | Confinement scaling | 단면의 두 길이를 모두 2배로 늘리면 confinement energy는 1/4 | Geometry·단위 오류 |
-| 같은 contact 조건 | 일정한 Fermi occupation과 net current 0 | 잘못된 inflow나 collision balance |
+| 같은 contact 조건 | 같은 총에너지에서 공통 Fermi occupation, net current 0 | 잘못된 inflow나 collision balance |
 | Elastic exchange | DOS weight를 곱한 collision 변화의 합이 0 | Occupation과 particle count의 혼동 |
 | Subband 하나 | Grid를 세분화하면 식 (36), (37)로 수렴 | Conservation은 만족하지만 값은 부정확한 경우 |
 | 모든 cell face | Stationary state에서 전체 electron flux가 일정 | 인위적인 particle source·sink |

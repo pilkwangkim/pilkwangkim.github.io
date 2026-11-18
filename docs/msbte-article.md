@@ -113,6 +113,46 @@ column widths, and operate every lab. Unit tests do not establish visual QA.
 Keep build destinations and QA receipts outside tracked source. No commit,
 push, or deployment follows automatically from authoring or validation.
 
+## Physical comparisons in interactive experiments, 2026-11-18
+
+- Kept the reference transport model, equations, teaching code, metadata and
+  stable URLs. Reviewed all seven body figures; retained their explanatory
+  roles rather than adding decorative plots. Contact arrows now label the
+  signed longitudinal velocity `v_x`, leaving `v_n(E)` unambiguously the
+  positive speed in the energy-shell equations. Regenerated only that paired
+  desktop/mobile SVG/PNG and its notebook attachments.
+- The full prose pass makes the constant common relaxation time in the RTA
+  density-matching argument explicit; a state-dependent time needs an
+  inverse-time-weighted cancellation. An independent two-state test checks
+  both cases. The one-mode transmission factor is defined as the coefficient
+  of inflow imbalance, including equilibrium, not a ratio of zero currents.
+- Injection replaces the redundant reservoir Fermi plot with signed
+  `dIe/dE=(G0/1000)M(E)(fL-fR)` in microampere/meV, selected cutoff versus an
+  unchanged eight-mode reference. Integration over all energies matches the
+  analytic current; the displayed window is not its integration cutoff.
+  Chemical potentials extend to 300 meV. Fixed axes span ±1.3 nm⁻¹ for k,
+  ±0.65 μA/meV over 20–480 meV for spectral current, and ±70 μA for cumulative current.
+  Higher-mode, equal-reservoir and reversed-contact presets provide distinct
+  physical experiments without adding hidden state or invalidating old links.
+- The higher-mode preset makes 4→8 omission change actual spectral y data and
+  lose more than 7 μA. Eight modes remain a comparison cutoff, not an
+  assumed fully converged wire. Both articles explain this distinction.
+- Scattering compares the computed solution with the exact continuum f-plus
+  and total flux when common mode inflows permit that benchmark. For unequal
+  mode inflows, gray flux references instead set gamma=0 at the same beta,
+  injection and grid. Counterflow and coarse-grid presets expose redistribution
+  despite zero total current, and conservation despite finite-grid error.
+- The equilibrium quiz no longer displays equal-occupation answer bars before
+  the answer is chosen. Its diagram supplies only equal-total-energy branches
+  at different wavevectors; occupation is what the learner must determine.
+- Bilingual prompts now specify what to hold fixed, change, compare and infer.
+  Tests check actual physical curve data separately from axes, labels and
+  decorations, spectral-current integral/sign/units, unchanged references,
+  valid/resettable preset states, and quiz answer non-disclosure.
+- Local checks passed 46 Python physics tests, 8,239 JavaScript numerical and
+  model checks, 604 UI and state checks, 1,002 bounded states, and 34 checks of
+  how the controls change the plots. Both notebooks execute 12 cells.
+
 ## Fixed-scale and first-read review, 2026-11-12
 
 - Kept the physical model, 42 numbered equations, 12 Python examples, stable

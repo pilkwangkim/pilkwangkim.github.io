@@ -22,8 +22,8 @@
 <line x1="350.00" y1="313.00" x2="225.00" y2="313.00" stroke="#a46e26" stroke-width="3.2" marker-end="url(#arrow)" stroke-dasharray="9 7"/>
 <text x="584.00" y="250.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="30" font-weight="400" fill="#2b6090" text-anchor="middle">f<tspan baseline-shift="sub" font-size="72%">n</tspan>⁺(x,E)</text>
 <text x="584.00" y="325.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="30" font-weight="400" fill="#a46e26" text-anchor="middle">f<tspan baseline-shift="sub" font-size="72%">n</tspan>⁻(x,E)</text>
-<text x="748.00" y="250.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="24" font-weight="400" fill="#2b6090" text-anchor="start">v<tspan baseline-shift="sub" font-size="72%">n</tspan> &gt; 0</text>
-<text x="748.00" y="325.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="24" font-weight="400" fill="#a46e26" text-anchor="start">v<tspan baseline-shift="sub" font-size="72%">n</tspan> &lt; 0</text>
+<text x="748.00" y="250.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="24" font-weight="400" fill="#2b6090" text-anchor="start">vₓ &gt; 0</text>
+<text x="748.00" y="325.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="24" font-weight="400" fill="#a46e26" text-anchor="start">vₓ &lt; 0</text>
 <text x="330.00" y="407.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="27" font-weight="400" fill="#657887" text-anchor="middle">x = 0</text>
 <text x="870.00" y="407.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="27" font-weight="400" fill="#657887" text-anchor="middle">x = L</text>
 <text x="45.00" y="466.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="29" font-weight="400" fill="#2b6090" text-anchor="start">f<tspan baseline-shift="sub" font-size="72%">n</tspan>⁺(0,E) = fL(E)</text>

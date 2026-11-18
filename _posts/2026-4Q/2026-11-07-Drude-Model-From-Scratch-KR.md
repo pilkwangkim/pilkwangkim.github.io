@@ -26,14 +26,14 @@ image:
 
 도선 양끝에 전압을 걸면 전기장이 생기고, 전자는 힘을 받는다. 이렇게 움직이는 전자들이 만드는 전류는 어떻게 계산할까? 전류의 크기는 전자가 얼마나 많이 있는지와, 전자들이 평균적으로 얼마나 빠르게 이동하는지에 달려 있다.
 
-전기장은 전자들의 평균 이동, 즉 drift를 만들고, impurity나 격자 진동에 의한 scattering은 그 운동을 바꾼다. Drude model은 이 두 효과를 전자의 평균 속도에 대한 운동방정식으로 나타낸다. 전류가 전압에 비례하는 관계와 mobility는 이 식의 해에서 얻어진다.
+전기장이 전자에 힘을 가하면 속도 분포가 한쪽으로 치우쳐 평균 속도가 생긴다. 이를 drift라고 한다. 전자가 impurity나 격자 진동 때문에 진행 방향을 바꾸면 평균 속도의 크기가 줄어들 수 있다. Drude model은 전기장과 scattering의 효과를 전자들의 평균 속도에 대한 운동방정식 하나로 묶는다. 이 식을 풀면 약한 전기장에서 전류가 전압에 비례하는 이유와 mobility의 의미를 알 수 있다.
 
 ## 1. 전하·전류 밀도, 전기장과 전하 보존
 {: id="drude-01" }
 
 길이 $L$, 단면적 $A$인 균일한 도선을 생각하자. 좌표 $x$는 왼쪽 contact를 원점으로 잡고 오른쪽으로 갈수록 커지도록 정한다. 전자의 전하는 $-e$이고, $e$는 기본 전하의 크기다. $n(\mathbf r,t)$는 전류를 운반하는 전도전자의 수 밀도다. 원자핵 가까이에 묶인 core electron은 이 수에 포함하지 않는다.
 
-전하 밀도를 구할 때는 전도전자의 음전하와 격자에 남는 전하를 따로 센다. 금속에서 원자핵의 양전하와 전도에 참여하지 않는 전자들의 음전하를 합치면 양전하가 남는다. 이 고정 양전하 밀도를 $+eN_D$로 쓰자. $N_D$는 그 밀도를 기본 전하로 나눈 값이다. 고정 양전하와 전도전자의 음전하가 정확히 상쇄되면 **charge neutrality**가 성립한다.
+전하를 셀 때도 전도전자와 나머지를 구분한다. 금속에서는 원자핵의 양전하에서 격자에 묶인 전자들의 음전하를 빼면, 전도전자의 몫을 제외한 양전하가 남는다. 이 전하의 부피 밀도를 $+eN_D$라 쓰자. $N_D$는 그 밀도를 기본 전하로 나눈 값이다. 여기에 전도전자의 음전하를 더해 0이 되면 **charge neutrality**가 성립한다.
 
 반도체에서는 dopant를 예로 들 수 있다. n형의 donor가 전자 하나를 내놓으면 격자에 남은 donor의 전하는 $+e$다. 반대로 p형의 acceptor가 전자를 받으면 격자에 음전하가 남고, 움직이는 hole은 양전하를 운반한다. 여기서는 전자가 전류를 운반하는 경우만 다룬다. [MIT 6.012, Introduction to Semiconductors](https://ocw.mit.edu/courses/6-012-microelectronic-devices-and-circuits-fall-2009/a37c73e7fcff4bcb5c5f1177e12d0891_MIT6_012F09_lec01.pdf)
 
@@ -64,7 +64,7 @@ $$
 
 두 번째 식이 **Poisson equation**이다. $\varepsilon_0$는 진공의 permittivity이고, $\varepsilon_b$는 배경 물질의 분극을 나타내는 상대 유전율이다. 전도전자의 전하는 이미 $\rho$에 들어 있으므로, 전도전자의 응답을 배경의 유전율에 또 넣지 않는다. 여기서는 관심 주파수 범위에서 배경 유전율을 일정한 양의 실수로 둔다. 전기장과 전위도 원자 하나하나를 분해해 보는 값이 아니라, 여러 격자 간격에 걸쳐 평균한 값이다.
 
-1차원에서 전위의 기울기는 $\partial_x\varphi$, 전기장의 발산은 $\partial_xE_x$다. 작은 구간의 양쪽 경계에서 바깥 방향을 기준으로 전기장 flux를 더한 값이 양수라면, 그 구간에서 전기장이 발산한다는 뜻이다. $\mathbf E$의 단위는 $\mathrm{V/m}$, $\varepsilon$의 단위는 $\mathrm{F/m}$이므로 식 (2)의 양변은 모두 단위 부피당 전하량이다.
+1차원에서 전위의 기울기는 $\partial_x\varphi$, 전기장의 divergence는 $\partial_xE_x$다. 작은 구간을 잡았을 때 오른쪽 경계의 전기장이 왼쪽 경계보다 크면 그 구간의 divergence는 양수다. $\mathbf E$의 단위는 $\mathrm{V/m}$, $\varepsilon$의 단위는 $\mathrm{F/m}$이므로 식 (2)의 양변은 모두 단위 부피당 전하량이다.
 
 Poisson equation은 전하 분포와 전위의 공간 변화를 연결한다. 같은 전하 분포라도 양끝에 어떤 전압을 거느냐에 따라 전기장이 달라지므로, 전위를 구하려면 **boundary condition**도 필요하다. 전기장이 정해져도 전자들이 얼마나 빠르게 이동하는지는 별개의 문제다. [Haus and Melcher, Chs. 4 and 7][electrostatics]
 
@@ -430,7 +430,7 @@ $$
 \tag{13}
 $$
 
-전류 파형의 최대점은 전기장 파형의 최대점보다 **뒤에** 온다. $\omega\tau=1$이면 전류의 진폭은 $\sigma_0E_0$의 $1/\sqrt2$이고, 위상은 $45^\circ$ 늦다(**phase lag**). 식 (12)에서는 $e^{-i\omega t}$를 시간 인자로 썼으므로 conductivity의 양의 허수부가 이런 위상 지연에 해당한다. 시간 인자의 부호를 뒤집으면 허수부의 부호는 바뀌지만, 실제 전류가 늦는다는 사실은 그대로다.
+전류는 전기장보다 늦게 최대값에 도달한다. $\omega\tau=1$이면 전류의 진폭은 $\sigma_0E_0$의 $1/\sqrt2$이고, 전기장보다 위상이 $45^\circ$ 늦다(**phase lag**). 식 (12)처럼 시간 의존성을 $e^{-i\omega t}$로 쓰면 conductivity의 허수부가 양수일 때 전류의 위상이 늦는다. 이 지수의 부호를 뒤집으면 conductivity의 허수부도 부호가 바뀐다. 실제 전류 파형은 바뀌지 않는다.
 
 실제 파형으로 바꾸면 부호를 직접 확인할 수 있다. $\omega\tau=1$에서
 
@@ -707,9 +707,9 @@ $$
 \tag{20}
 $$
 
-이 행렬에 외력 벡터를 곱하면 packet 중심의 가속도가 나온다. 1차원에서는 계수가 하나뿐이다. Band의 곡률(curvature)이 직접 정하는 것은 **단위 외력에 대한 가속도**, 즉 질량의 역수이지 질량 자체가 아니다.
+이 행렬에 외력 벡터를 곱하면 packet 중심의 가속도를 얻는다. 1차원에서는 힘에 곱하는 계수가 하나뿐이다. Band curvature에서 바로 얻는 값은 힘에 가속도로 얼마나 크게 반응하는지를 정하는 계수, 즉 effective mass의 역수다.
 
-Band에서 기울기가 가파른 지점일수록 packet의 group velocity가 크다. 양의 curvature가 큰 지점에서는 외력이 $k$를 조금 바꿔도 그 기울기가 크게 달라진다. 같은 힘으로 더 크게 가속하므로 양의 effective mass는 더 작다. 지금 얼마나 빠르게 움직이는지와 같은 힘을 받았을 때 속도가 얼마나 빨리 변하는지는 서로 다른 문제다.
+Band 기울기의 부호는 group velocity의 방향을, 기울기의 절댓값은 속력을 정한다. 같은 힘이 작용할 때 양의 curvature가 클수록 $k$가 변하면서 속도도 빨리 바뀐다. 이 경우 packet 중심의 가속도가 더 크고, 양의 effective mass는 더 작다. Packet이 빠르게 움직이고 있어도 curvature가 0인 지점에서는 그 순간 가속도가 0이다.
 
 Band가 최솟값을 갖는 매끄러운 지점 $k_0$에서는 Taylor 전개의 1차 항이 0이다. 곡률이 양수라면 2차 항까지 남겨
 
@@ -1266,7 +1266,7 @@ $$
 
 가중치 $1-\cos\theta$는 산란 전 속도 방향으로 투영한 성분이 원래 크기에 비해 얼마나 감소했는지 나타낸다. 방향이 조금만 꺾이면 거의 0이다. 산란 후 방향이 모든 입체각에서 고르게 나오면 평균값은 1이고, 정확히 뒤집히면 성분이 양수에서 같은 크기의 음수로 바뀌므로 감소량은 2배다. 충돌 연산자는 이 코사인 모양의 점유 변화를 다른 모양으로 바꾸지 않고 크기만 줄인다. 이것을 **angular relaxation eigenmode**라 부르며, 그 크기가 줄어드는 시간 척도가 스칼라 전도도에 들어가는 수송 이완 시간(transport relaxation time)이다. 비등방적이거나 비탄성인 산란에는 이 가중치 하나로 같은 계산을 할 수 없다. [Kim, Woo and Min, Eq. (1) and Sec. II][transport-time]
 
-산란할 때마다 방향이 $10^\circ$씩 꺾이고 방위각은 무작위라면, 전류의 이완율은 전체 산란율의 $1-\cos10^\circ\simeq0.01519$배다. 따라서 수송 이완 시간은 산란 사이의 평균 대기시간보다 약 65.8배 길다. 산란을 여러 번 겪어도 조금씩만 꺾이면 처음에 움직이던 방향의 성분이 오래 남는다.
+Scattering을 한 번 겪을 때마다 진행 방향이 무작위 방위각으로 $10^\circ$씩 꺾인다면, transport rate는 전체 event rate의 $1-\cos10^\circ\simeq0.01519$배다. 전류가 처음의 $1/e$까지 줄어드는 데 걸리는 시간은 event 사이의 평균 시간보다 약 65.8배 길다. 전자 한 개가 정해진 횟수만큼 부딪힌다는 뜻이 아니라, 전자들의 운동을 평균해서 얻은 결과다.
 
 <figure class="drude-figure">
 <picture class="rsna-results-figure">
@@ -1375,24 +1375,26 @@ print("tau (ps), shell mobility (m^2/Vs):", tau_impurity * 1e12,
 print("mean free path (nm):", v_shell * tau_impurity * 1e9)
 ```
 
-<figure class="drude-figure">
-<picture class="rsna-results-figure">
-<source media="(max-width: 560px)" srcset="{% include media-url.html src='/assets/img/posts/2026-11-07-drude-model/fig-sec15-short-range-mobile.svg' %}" width="600" height="1340">
-<img src="/assets/img/posts/2026-11-07-drude-model/fig-sec15-short-range.svg" alt="유효 질량과 불순물 밀도, Born 진폭이 일정할 때 에너지에 따른 산란율과 이완 시간." width="1200" height="805">
-</picture>
-<figcaption markdown="span">그림 15. 유효 질량, 불순물 밀도, Born 진폭은 일정하다. 행렬 원소는 방향에 무관하지만, 에너지가 높을수록 최종 상태의 밀도가 커진다. 따라서 산란율 $\Gamma=1/\tau$는 커지고 그 역수인 이완 시간은 짧아진다. 두 점은 같은 기준 에너지를 표시한다. 가로축의 에너지는 밴드 바닥을 기준으로 잰 양수다.</figcaption>
-</figure>
-
-{% include interactive/article-lab.html id="drude-impurity" %}
-
-전자 하나하나는 빠르게 움직여도, 서로 반대 방향의 속도가 평균에서 상쇄되면 drift 속도는 작다. 전자가 진행 방향의 기억을 잃을 때까지 이동하는 거리의 척도인 **수송 평균 자유 행로(transport mean free path)**에는 평균 drift 속도가 아니라, 주어진 에너지에서 전자 한 개의 속력을 넣는다. 여기에 수송 이완 시간을 곱하면
+전자들은 각자 빠르게 움직여도 방향이 제각각이면 평균 drift 속도는 작다. **Transport mean free path**는 transport relaxation time 동안 전자가 이동한 거리를 가늠하는 값이다. 전체 전자의 평균 drift 속도가 아니라 그 에너지에서 전자 한 개의 속력을 쓴다.
 
 $$
 \ell_{\rm tr}=v\tau_{\rm tr}.
 \tag{46}
 $$
 
-이 예제에서는 $\ell_{\rm tr}\simeq198.94\,\mathrm{nm}$, $k\ell_{\rm tr}\simeq101.92$다. 국소적인 확산 수송의 저항으로 설명하려면 시료가 평균 자유 행로보다 충분히 커야 하고, 전자가 그 거리를 가는 동안 전기장이 분포를 크게 바꾸지 않아야 한다. 파동벡터 크기의 역수는 위상이 달라지는 미시적 거리 척도다. 수송 평균 자유 행로가 이보다 훨씬 길면, 산란으로 방향의 기억이 사라지기 전에 파동의 위상이 여러 번 바뀔 만큼 이동할 수 있다. $k\ell$이 크면 약한 무질서 가정과 일관되지만, 개별 결함에 Born 근사를 적용할 수 있다는 뜻은 아니다. 이를 확인하려면 이 예제에서 입력으로 정한 $a_B$뿐 아니라 결함 퍼텐셜의 범위와 세기도 알아야 한다.
+이 예제에서는 $\ell_{\rm tr}\simeq198.94\,\mathrm{nm}$, $k\ell_{\rm tr}\simeq101.92$다. 식 (45)에서 scattering rate는 전자의 속력에 비례한다. 따라서 전자가 빨라지면 같은 시간에 scattering을 더 많이 겪지만, 두 event 사이에 가는 거리는 평균적으로 그대로다. 그림 15에서 두 값이 에너지에 따라 어떻게 달라지는지 나란히 볼 수 있다.
+
+<figure class="drude-figure">
+<picture class="rsna-results-figure">
+<source media="(max-width: 560px)" srcset="{% include media-url.html src='/assets/img/posts/2026-11-07-drude-model/fig-sec15-short-range-mobile.svg' %}" width="600" height="1340">
+<img src="/assets/img/posts/2026-11-07-drude-model/fig-sec15-short-range.svg" alt="Short-range Born 모델에서는 에너지가 높을수록 scattering rate가 커지지만 transport mean free path는 같다." width="1200" height="805">
+</picture>
+<figcaption markdown="span">그림 15. (a) Effective mass, impurity density, Born amplitude가 같을 때, 에너지가 높아지면 전자가 옮겨 갈 수 있는 final state의 밀도가 커져 scattering rate가 높아진다. (b) 전자의 속력도 같은 비율로 늘어난다. 그래서 transport relaxation time 동안 이동하는 거리는 달라지지 않는다. 두 점은 같은 기준 에너지를 표시한다.</figcaption>
+</figure>
+
+{% include interactive/article-lab.html id="drude-impurity" %}
+
+Diffusive transport에서 도선 내부의 저항을 계산할 때는 시료가 mean free path보다 충분히 커야 한다. 전자가 그 거리를 가는 동안 전기장이 전자 분포를 크게 바꾸지 않아야 한다. $k\ell$이 크면 전자가 진행 방향을 잃기 전까지 파동의 위상이 변하는 길이 척도인 $1/k$보다 훨씬 멀리 갈 수 있다. 이는 weak disorder와 맞는 결과다. 그렇다고 개별 결함에 Born 근사를 바로 쓸 수 있는 것은 아니다. 근사가 잘 맞는지는 해당 결함이 만드는 potential의 세기와 범위도 알아야 판단할 수 있다.
 
 ## 16. Screened Coulomb scattering의 quantum·transport rate
 {: id="drude-16" }
@@ -1571,6 +1573,16 @@ $$
 
 Phonon을 흡수하면 전자의 에너지가 늘고, 방출하면 줄어든다. Emission에 붙는 1 덕분에 처음부터 비어 있는 mode에도 자발 방출이 가능하다. 식 (54)는 Pauli blocking을 적용하기 전의 transition rate다. 전자가 처음 상태에 있고 최종 상태는 비어 있어야 한다는 조건은 gain–loss collision equation에 넣는다. 여기서는 작은 wavevector의 intraband normal process만 다룬다. 일반적으로는 crystal momentum의 보존 관계에 reciprocal-lattice vector가 더해질 수도 있다.
 
+식 (54)에서는 전자의 momentum 변화도 정해져 있어서 아무 phonon이나 흡수하거나 방출할 수는 없다. 처음 전자의 wavevector와 phonon wavevector 사이의 각도를 $\alpha$라고 하면, parabolic band의 최종 에너지를 구할 때 $\lvert\mathbf k\pm\mathbf q\rvert^2=k^2+q^2\pm2kq\cos\alpha$가 들어간다. 전자가 얻거나 잃는 에너지를 $\hbar v_sq$로 놓고 속력 $v=\hbar k/m^{\ast}$를 쓰면
+
+$$
+\cos\alpha_{\rm abs}=\frac{v_s}{v}-\frac{q}{2k},
+\qquad
+\cos\alpha_{\rm em}=\frac{v_s}{v}+\frac{q}{2k}.
+$$
+
+$k$와 $q$를 정했을 때 이 값이 −1과 1 사이에 있어야 실제 각도가 존재한다. 즉, phonon 하나를 만들 에너지가 있더라도 보존식을 모두 만족하는 final state가 없으면 emission은 일어나지 않는다. [MIT 6.730의 electron–phonon scattering 강의][mit-solid]
+
 이처럼 산란 전후의 전자 에너지가 다르면 한 energy shell에서 빠져나간 전자가 다른 shell로 들어간다. 따라서 일반적인 inelastic scattering에서는 shell을 따로 떼어 계산하거나, 앞서 쓴 각도 인자 $1-\cos\theta$만으로 전류의 감소율을 구할 수 없다.
 
 ### Equipartition과 quasielastic 근사의 조건
@@ -1604,6 +1616,8 @@ $$
 </picture>
 <figcaption markdown="span">그림 17. (a) Strain은 고전적인 격자 변위를 공간에 대해 미분한 값이다. 따라서 변위가 가장 큰 위치와 band edge가 가장 크게 변하는 위치는 다르다. 이 그림은 mode의 공간 패턴을 그린 것이며, phonon 수가 정해진 양자 상태의 평균 변위를 그린 것이 아니다. (b) 흡수와 방출에 곱해지는 Bose occupation factor를 비교했다. $\hbar\omega_q/(k_BT)$가 작을수록 점선의 high-occupation 근사가 잘 맞는다. 전자의 에너지 변화까지 무시할 수 있는지는 별도로 판단해야 한다.</figcaption>
 </figure>
+
+**내줄 energy가 있어도 emission 불가**를 눌러 두 그래프를 비교해 보자. Phonon occupation은 높다. Emission이 일어난다고 가정하면 전자에 남는 kinetic energy도 양수다. 그런데도 emission을 표시한 점은 점선 위에 있다. 이 wavevector에서는 에너지와 운동량을 모두 보존하는 전자의 final state가 없기 때문이다. 전자의 에너지를 높이면 emission이 가능한 실선 구간이 늘어나지만, 온도만 높이면 경계는 그대로다.
 
 {% include interactive/article-lab.html id="drude-phonon" %}
 
@@ -1703,9 +1717,9 @@ $\tau$가 일정하면 식 (58)은 그 $\tau$를 돌려준다. 고온 acoustic �
 <figcaption markdown="span">그림 18. (a) 입자 수를 셀 때의 가중치와 전류를 계산할 때의 가중치다. 둘 다 양의 에너지 전체에 대해 적분하면 1이지만, 전류 가중치는 입자 수 가중치보다 높은 에너지의 전자에 더 큰 비중을 둔다. (b) 같은 relaxation time이라도 어느 가중치로 평균하느냐에 따라 값이 다르다. Mobility 식에 들어가는 것은 전류에 맞게 평균한 값이다.</figcaption>
 </figure>
 
-{% include interactive/article-lab.html id="drude-average" %}
+위쪽 그래프는 relaxation time을 곱하기 전의 두 weight다. 가로축을 같은 meV 단위로 고정했으므로 온도를 높였을 때 두 분포가 넓어지고 낮아지는 모습을 볼 수 있다. 아래쪽 그래프에는 relaxation time을 반영했다. 가로축에서 에너지를 하나 고르면, 그보다 에너지가 낮은 전자들이 전체 평균에서 차지하는 비율을 세로축에서 읽을 수 있다. 온도를 고정하고 exponent를 양수에서 음수로 바꿔 보자. 낮은 에너지의 비중이 커지므로 작은 에너지에서부터 곡선이 빠르게 올라간다. Particle average가 발산하면 비율을 정의할 수 없어 해당 곡선이 사라진다. 그래프에는 유한한 에너지 범위만 그렸지만, 나눗셈의 분모에는 양의 에너지 전체를 적분한 값을 쓴다.
 
-두 weight는 같은 kinetic energy 축에 meV 단위로 표시한다. 온도를 높이면 가로축이 늘어나는 대신 분포가 실제로 넓어지고 낮아진다. 평균 시간은 온도에 따라 어떻게 달라지는지 ps 단위로 그렸다. 시간의 범위가 넓어서 세로축에는 고정된 log10 scale을 쓴다. 세로축에서 1만큼 올라가면 시간이 열 배가 된다는 뜻이다. Particle average가 발산하는 경우에는 유한한 곡선처럼 그리지 않는다. Energy 그래프의 표시 범위와 달리 평균은 양의 에너지 전체에 대한 analytic integral로 구한다.
+{% include interactive/article-lab.html id="drude-average" %}
 
 ```python
 def mb_transport_time(tau_ref, energy_ref_J, temperature_K, exponent):
@@ -1869,7 +1883,7 @@ print("Charge snapshot a,a' at Omega=1.2,s=1:", density_mode(1.0, 1.2))
 
 {% include interactive/article-lab.html id="drude-charge" %}
 
-$\Omega=0.5$를 기준으로 값을 양쪽으로 바꿔 보자. 한쪽에서는 밀도 차이가 진동 없이 줄고, 다른 쪽에서는 균일한 상태를 지나쳐 부호가 바뀐다. 이 예제는 $\tau=100\,\mathrm{fs}$, $m^{\ast}=0.2m_0$, $\varepsilon_b=11.7$, $L_{\rm cell}=100\,\mathrm{nm}$를 고정한다. $\Omega$를 바꾸면 $\omega_p^2=n_0e^2/(\varepsilon m^{\ast})$에 따라 기준 밀도 $n_0$가 바뀌고, 초기 밀도 차이는 그 밀도의 5%로 정한다. 밀도, 전기장, 전류는 각각 물리 단위의 고정 축에 따로 그렸다. 처음에는 밀도 차이로 전기장이 생겨도 전류는 0일 수 있다.
+$\Omega=0.5$보다 작게도, 크게도 바꿔 보자. 한쪽에서는 밀도 차이가 진동 없이 줄고, 다른 쪽에서는 전자가 균일한 상태를 지나쳐 밀도 차이의 부호가 바뀐다. 이 예제는 $\tau=100\,\mathrm{fs}$, $m^{\ast}=0.2m_0$, $\varepsilon_b=11.7$, $L_{\rm cell}=100\,\mathrm{nm}$를 고정한다. $\Omega$를 움직이면 $\omega_p^2=n_0e^2/(\varepsilon m^{\ast})$에 따라 기준 밀도 $n_0$가 바뀐다. 초기 밀도 차이는 그 밀도의 5%로 맞춘다. 밀도, 전기장, 전류는 각각 실제 단위를 써서 고정된 축에 그렸다. 처음에는 밀도 차이로 전기장이 생겨도 전류는 0일 수 있다. 이 예제는 압력을 빼고 푼 모델을 비교하는 것이지, 특정 물질에서 밀도를 바꾼 결과는 아니다. 파장이 일정할 때 밀도를 낮추면 Coulomb 복원력에 따른 진동수도 낮아진다. 여전히 압력을 무시할 수 있는지는 별도로 확인해야 한다.
 
 평균 drift의 relaxation이 밀도 변화보다 훨씬 빠르면, 밀도가 천천히 바뀌는 동안 전류가 국소 전기장의 DC 응답을 거의 따라간다고 볼 수 있다. 파장이 길다는 이유만으로 관성에 따른 초기 변화가 사라지는 것은 아니다.
 

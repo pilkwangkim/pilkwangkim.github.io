@@ -22,13 +22,11 @@ image:
 - 소스 노트북: [negf_from_scratch.ipynb](https://github.com/pilkwangkim/Physics/blob/master/negf_from_scratch.ipynb)
 - 영문판: [From Closed to Open Quantum Transport with NEGF: A Derivation from Scratch]({{ site.baseurl }}/posts/From-Closed-to-Open-Quantum-Transport-with-NEGF/)
 
-유한한 Hamiltonian을 대각화하면 energy level과 eigenstate를 구할 수 있다. 하지만 steady-state current를 계산하려면 이것만으로는 부족하다. 전류가 흐르는 device는 reservoir와 전자를 주고받는 open system이다. 한쪽 reservoir에서 들어온 전자가 device를 지나 반대쪽 reservoir로 나갈 수 있어야 하며, 계산 영역의 끝에서 인위적으로 반사되어 돌아와서는 안 된다.
+고립된 device의 유한한 Hamiltonian을 대각화하면 eigenstate는 구할 수 있다. 하지만 contact가 어떤 state를 채우는지, device를 떠나는 wave가 어디로 가는지는 알 수 없다. 양쪽에 reservoir를 연결하면 전자가 계속 들어오고, device를 통과한 전자는 계산 영역의 끝에서 인위적으로 반사되지 않고 빠져나간다.
 
 > 무한히 긴 lead에 연결된 device를 계산할 때, 임의의 absorbing boundary condition을 넣지 않고도 유한한 행렬만으로 정확히 풀 수 있을까?
 
 **Nonequilibrium Green's function(NEGF)**에서는 lead의 각 site에 대한 amplitude를 device 방정식에 대입해 소거한다. Lead 안의 amplitude를 미지수로 직접 계산하지 않아도 된다는 뜻이지, lead의 영향을 무시한다는 뜻은 아니다. Device의 retarded response에 미치는 영향은 energy-dependent self-energy로 남으며, reservoir가 주입하는 전자 분포는 따로 지정한다. 주어진 single-particle Hamiltonian에 대해 이 소거 과정은 정확하다.
-
-Device의 Green's function을 구하면 transmission과 local density of states(LDOS)를 계산할 수 있다. 여기에 reservoir의 occupation을 반영하면 device 안의 전자 분포와 전류를 구할 수 있다. Resonant tunneling과 negative differential resistance(NDR)도 이 계산으로 해석한다.
 
 model의 조건은 다음과 같다.
 
@@ -291,7 +289,7 @@ A(E)=i(G^R-G^A),
 \qquad G^A=G^{R\dagger}
 $$
 
-으로 정의하며, $G^A$는 advanced Green's function이다. Spectral function을 보면 각 실수 에너지 부근에 state의 spectral weight가 얼마나 있는지 알 수 있다. Spin 하나당 LDOS는
+으로 정의하며, $G^A$는 advanced Green's function이다. Spectral function에서 각 에너지에 해당하는 state의 weight를 읽을 수 있다. Spin 하나당 local density of states(LDOS)는
 
 $$
 \rho_j(E)=\frac{A_{jj}(E)}{2\pi}
@@ -453,13 +451,7 @@ $$
 
 *그림 3.* (a)에서는 device와 lead의 amplitude를 모두 미지수로 포함한다. (b)에서는 lead의 amplitude를 소거하고 그 영향을 $\Sigma_L^R$로 나타낸다. (c)에서 surface site 하나를 떼어 내면 원래와 같은 semi-infinite chain이 남는다. 이 구조가 반복되므로 surface Green's function의 recursion relation을 세울 수 있다.
 
-여기서 exact elimination은 다음을 뜻한다.
-
-- 식 (8)에서 구한 device Green's function은 전체 energy-domain Green's function의 **device block**과 정확히 같다.
-- 그렇다고 전체 Hermitian Hamiltonian 자체가 더 작은 non-Hermitian Hamiltonian으로 바뀌는 것은 아니다.
-- 앞에서 정한 single-particle Hamiltonian과 subspace 분할만 놓고 보면 block elimination 과정에는 근사가 없다.
-- 소거한 lead 안에서도 전자가 전파하므로 그 효과를 담은 self-energy는 에너지에 따라 달라진다.
-- 전자가 propagating channel을 통해 device를 빠져나갈 수 있으면 device의 effective operator는 non-Hermitian이 될 수 있다.
+식 (8)의 대괄호 안을 역행렬로 바꾸면 전체 resolvent의 **device block**을 정확히 얻는다. 주어진 single-particle Hamiltonian을 device와 lead로 나눴을 때, lead를 소거하는 과정에는 근사가 없다. 다만 이렇게 얻은 작은 행렬이 전체 Hamiltonian과 같은 것은 아니다. Lead의 응답 때문에 에너지에 따라 달라지고, outgoing wave로 확률이 빠져나갈 수 있으면 실수 에너지에서도 non-Hermitian이 될 수 있다.
 
 같은 결과를 device와 lead 사이를 여러 번 왕복하는 과정으로도 해석할 수 있다. lead를 연결하기 전 device의 resolvent를
 
@@ -719,7 +711,7 @@ $$
   <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-04-surface-green-function-mobile.svg" alt="닫힌 chain과 열린 chain의 spectral response, contact self-energy의 실수부와 허수부, 복소평면에서의 retarded surface root" width="1000" height="4040">
 </div>
 
-*그림 4.* hard-wall로 닫혀 있던 chain을 lead에 연결하면 discrete levels가 lead band 안의 continuum과 결합한다. self-energy의 실수부는 level의 위치를 바꾸고, broadening은 propagating band 밖에서 0이 된다. 복소 $q$ 평면에서는 어느 root가 retarded boundary condition을 만족하는지 확인할 수 있다.
+*그림 4.* (a) 같은 균일 chain이라도 hard-wall로 닫으면 discrete level이, lead에 맞춰 연결하면 continuum이 나타난다. 닫힌 chain의 peak 폭은 그림에 나타내려고 넣은 값이지 escape lifetime에서 생긴 폭이 아니다. (b) 음영으로 표시한 band 안에서는 propagating mode로 빠져나갈 수 있어 broadening이 생긴다. Band 밖에서도 self-energy의 실수부는 남을 수 있다. (c) 실선 branch는 band 안에서 outgoing wave를, 밖에서 $\lvert q\rvert<1$인 감쇠 해를 준다. 점선의 reciprocal root를 고르면 입사하거나 커지는 해가 나온다.
 
 Band 밖에서 broadening이 0이 되어도 contact의 영향까지 모두 없어지는 것은 아니다. 이 에너지에서는 전자가 propagating wave로 lead를 따라 빠져나갈 수 없다. 그래도 real self-energy와 evanescent response를 통한 contact의 영향은 남을 수 있다.
 
@@ -925,13 +917,15 @@ $$
 \tag{20}
 $$
 
-로 정의하자. 이 amplitude는 contact flux에 맞춰 normalize한 값이다. norm이 1인 bound-state wavefunction과는 다르며 단위도 $\mathrm{eV}^{-1/2}$이다. 이 정의를 사용하면
+로 정의하자. Device 안에 있을 확률을 1로 맞추는 대신 입사 flux를 1로 맞춘다. Matched contact에서 propagating wave가 존재하는 band 내부의 에너지를 택하고 $\eta\to0^+$로 둔다. 왼쪽 lead에서 device로부터 멀어지는 방향으로 site 번호 $n$을 붙이면 incident wave는 $a_{\rm in}e^{-ikna}$다. 입사 spectral flux의 크기는 $\gamma_L\lvert a_{\rm in}\rvert^2$이므로 $\lvert a_{\rm in}\rvert=1/\sqrt{\gamma_L}$로 두면 된다. 경계에서 wavefunction을 맞추면 이 입사 성분이 $\gamma_L\lvert a_{\rm in}\rvert=\sqrt{\gamma_L}$ 크기의 source로 들어간다. Source 전체에 붙는 phase는 아래의 물리량에 영향을 주지 않는다.
+
+이렇게 구한 amplitude의 단위는 $\mathrm{eV}^{-1/2}$이며, partial spectral function은 다음처럼 쓸 수 있다.
 
 $$
 A_L=\lvert\psi_L\rangle\langle\psi_L\rvert
 $$
 
-가 정확히 성립한다. 따라서
+따라서
 
 $$
 \rho_{L,j}(E)=\frac{\lvert\psi_{L,j}(E)\rvert^2}{2\pi}
@@ -959,7 +953,14 @@ $\eta\to0^+$인 coherent steady state에서는 이 값이 모든 내부 bond에�
 
 *그림 7.* $E_{\mathrm{probe}}=0.400\ \mathrm{eV}$에서 partial LDOS는 barrier 구간에서 크게 줄어들지만, barrier 오른쪽에도 작은 transmitted component가 남는다. Spectral weight는 위치에 따라 크게 달라지지만 spectral flux는 모든 bond에서 $T=2.8572\times10^{-3}$으로 같다.
 
-흔히 “입자가 barrier를 뚫고 간다”고 말하지만, 이 계산에서 시간에 따라 움직이는 작은 입자를 추적하는 것은 아니다. Device와 양쪽 lead에 걸친 하나의 stationary scattering state를 구하되, 양쪽 boundary condition을 모두 만족시킨다. 고전적으로 통과할 수 없는 barrier 구간에서는 amplitude가 작아진다. 그렇더라도 이웃 site 사이에 phase 차이가 있으면 flux가 0일 필요는 없다. 이 예제에서는 작지만 0이 아닌 flux가 barrier 전체에서 보존된다.
+Barrier 안에 감쇠하는 exponential 하나만 있다면, 전체에 어떤 phase를 곱해도 flux는 0이다. 폭이 유한할 때는 양쪽 경계에서 wavefunction을 맞추면서 감쇠하는 성분과 커지는 성분이 함께 생긴다. $\psi_{L,j}=B_-e^{-\kappa ja}+B_+e^{\kappa ja}$를 식 (21)에 대입하면, barrier 내부의 bond에서
+
+$$
+\mathcal J^{(L)}
+=4t_0\sinh(\kappa a)\operatorname{Im}(B_+ B_-^*)
+$$
+
+를 얻는다. 각 성분의 절댓값 제곱이 들어 있는 항은 실수라서 flux에 기여하지 않는다. 두 성분의 상대 phase가 들어 있는 cross term만 남고, 이 항에서는 위치에 따른 exponential이 서로 상쇄된다. 그래서 그림 7의 partial LDOS는 barrier 안에서 크게 줄어들어도 flux는 일정하다.
 
 Equilibrium에서는 오른쪽에서 입사한 state가 반대 방향으로 같은 크기의 flux를 만들므로 두 기여가 상쇄된다. 전류가 흐르려면 두 방향에서 입사하는 state의 occupation이 달라야 한다.
 
@@ -1230,6 +1231,8 @@ Device에는 높이 $0.40\ \mathrm{eV}$인 두 barrier가 있고, 그 사이의 
 *그림 8.* 그림의 선은 potential energy $U_j$이며 $H_{jj}$ 자체가 아니다. Hamiltonian의 diagonal element는 $2t_0+U_j$다. open boundary condition은 device 내부에 임의의 complex potential을 더해서 만드는 것이 아니라, 양 끝의 contact self-energy로 구현한다.
 
 {% include interactive/negf-barrier.html %}
+
+전체 transmission spectrum과 첫 peak를 확대해 그린 그래프를 비교해 보자. Barrier를 높이면 peak 높이가 거의 1로 유지되어도 폭은 줄어들 수 있다. Well을 넓히면 peak 위치도 달라진다. 확대 그래프는 각 곡선의 peak 위치를 원점으로 맞춰 폭을 비교하므로, peak가 이동한 거리는 전체 spectrum에서 확인한다. 이 계산기에서는 device의 Hamiltonian을 바꿔 비교하며, 아래 예제에서 사용하는 reservoir occupation은 바꾸지 않는다.
 
 ### 8.1 닫힌 well의 bound level이 resonance가 되는 과정
 
@@ -1565,7 +1568,17 @@ T(E,V)\big[f_L(E)-f_R(E)\big]
 \tag{31}
 $$
 
-으로 계산한다. $V$가 커지면 두 reservoir의 chemical potential 차이가 커지고, $f_L-f_R$가 크게 나타나는 occupation window도 넓어진다. 하지만 $T(E,V)$의 resonance ridge도 bias에 따라 이동하고 모양이 바뀌므로, occupation window가 넓어진다는 이유만으로 current가 커진다고 볼 수는 없다. 상수 prefactor를 제외한 energy-resolved current integrand는
+으로 계산한다. 이 예제에서는 $V$를 높일 때 $f_L$과 온도는 그대로 두고 $\mu_R$만 낮춘다. $T$가 고정되어 있다면 전류는 늘거나 일정해질 뿐, 줄어들 수는 없다. 각 에너지에서 $f_R$이 작아지고 $T\ge0$이기 때문이다. Bias에 따라 Hamiltonian이 바뀌는 경우에는 전류의 기울기에 두 항이 생긴다.
+
+$$
+\begin{aligned}
+\frac{dI}{dV} &= S_{\rm occ}+S_T,\\
+S_{\rm occ}&=\frac{2e}{h}\int dE\,T\,\partial_V(f_L-f_R),\\
+S_T&=\frac{2e}{h}\int dE\,(\partial_V T)(f_L-f_R).
+\end{aligned}
+$$
+
+그림 12(b)의 점선은 각 bias의 transmission을 사용해 구한 occupation 항 $S_{\rm occ}$다. 다른 device의 전류를 미분한 곡선이 아니다. Occupation 항은 음수가 되지 않는다. Transmission 변화로 전류가 줄어드는 효과가 이 증가분을 넘을 때에만 전체 기울기가 음수가 된다. 상수 prefactor를 빼면 전류 적분에 들어가는 양은
 
 $$
 \text{current integrand}
@@ -1590,7 +1603,7 @@ $$
 \gamma_L(E)\simeq2\sqrt{t_0E}
 $$
 
-처럼 $\gamma_L$이 작아진다. 일반적인 band edge에서는 $E$ 대신 $E-E_{c,L}$를 쓴다. 따라서 resonance가 band 아래로 완전히 내려가기 전부터 injection이 약해질 수 있다. occupation window는 넓어졌는데도 $T(E,V)[f_L-f_R]$의 적분값은 오히려 감소하는 것이다.
+처럼 $\gamma_L$이 작아진다. Emitter band의 아래쪽 끝이 0이 아니면 $E$ 대신 $E-E_{c,L}$를 쓴다. 따라서 resonance가 band 아래로 완전히 내려가기 전부터 injection이 약해질 수 있다. Occupation window는 넓어졌는데도 $T(E,V)[f_L-f_R]$의 적분값은 오히려 감소하는 것이다.
 
 current가 감소하는 bias 구간에서는
 
@@ -1601,13 +1614,13 @@ $$
 이고, 이를 negative differential resistance (NDR)라고 한다. NDR은 $I/V$가 음수라는 뜻이 아니라 differential conductance $dI/dV$가 음수라는 뜻이다.
 
 <div class="negf-figure-desktop">
-  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-12-example-b-ndr-summary.svg" alt="NDR 예제의 전류-전압 곡선, differential conductance, resonance-transmission map, peak와 valley의 spectral current" width="1946" height="3049">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-12-example-b-ndr-summary.svg" alt="NDR 예제의 전류-전압 곡선, differential conductance, resonance-transmission map, peak와 valley의 spectral current" width="1944" height="3050">
 </div>
 <div class="negf-figure-mobile">
-  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-12-example-b-ndr-summary-mobile.svg" alt="NDR 예제의 전류-전압 곡선, differential conductance, resonance-transmission map, peak와 valley의 spectral current" width="939" height="5065">
+  <img src="{{ site.baseurl }}/assets/img/posts/2026-07-22-negf-from-scratch/fig-12-example-b-ndr-summary-mobile.svg" alt="NDR 예제의 전류-전압 곡선, differential conductance, resonance-transmission map, peak와 valley의 spectral current" width="928" height="5031">
 </div>
 
-*그림 12.* (a)–(d)에서는 가장 낮은 resonance에 대응하는 첫 current peak와 그 뒤 valley 구간을 확대했다. Current는 $0.085\ \mathrm{V}$에서 peak에 도달하고, $0.149\ \mathrm{V}$에서 valley에 도달한다. 그 사이에서는 $dI/dV<0$이다. (e)의 전체 sweep에서는 약 $0.4\ \mathrm{V}$ 부근에 더 큰 두 번째 peak가 나타난다. 여기서 보고한 PVCR은 첫 번째 peak와 그 뒤 valley로 계산했다.
+*그림 12.* (a) $0.085\ \mathrm{V}$의 첫 전류 peak와 $0.149\ \mathrm{V}$의 valley로 첫 구간의 peak-to-valley current ratio(PVCR)를 구한다. (b) Occupation 항은 음수가 아니지만 전체 기울기는 음수가 된다. (c) 첫 transmission ridge가 고정된 emitter band edge에 가까워진다. (d) 두 곡선을 같은 축에 그렸으며, 색을 채운 면적이 peak와 valley의 전류다. (e) 약 $0.4\ \mathrm{V}$ 부근의 NDR은 다른 resonance에서 생긴다.
 
 아래에 명시한 energy·voltage grid에서 첫 번째 peak와 그 뒤 valley의 값은
 
@@ -1694,7 +1707,7 @@ Lead elimination과 균일 lead의 surface Green's function은 지금 정한 sin
 
 이 제한들은 NEGF formalism 자체의 한계가 아니다. multi-orbital contact에서는 surface self-energy가 scalar가 아니라 matrix가 된다. scattering을 포함하려면 retarded self-energy와 in-scattering self-energy를 추가한다. electric field까지 self-consistent하게 구할 때에는 $G^n$에서 density를 계산하고, 그 density로 $H_D$를 갱신한다. 세부 model이 달라져도 retarded propagation과 occupation을 분리하는 계산 구조는 그대로 유지된다.
 
-NEGF에서는 retarded self-energy와 $G^R$로 boundary condition과 available spectrum을 계산하고, in-scattering self-energy와 $G^n$에 reservoir occupation을 반영한다. 두 계산 결과를 결합하면 density와 current 같은 observable을 구할 수 있다.
+어떤 model을 쓸지는 전류를 좌우하는 물리에 따라 달라진다. Barrier 사이의 phase interference가 중요하면 subband별 occupation만으로는 부족하다. 반대로 transverse confinement는 중요하지만 길이 방향의 phase를 버려도 된다면, [MS-BTE]({{ site.baseurl }}/posts/Multi-Subband-Boltzmann-Transport-From-Scratch-KR/)로 subband별 occupation과 subband 사이의 transition을 계산할 수 있다. 공간적으로 균일하고 equilibrium에 가까운 상태에서 momentum relaxation이 주된 효과라면, [Drude model]({{ site.baseurl }}/posts/Drude-Model-From-Scratch-KR/)은 전체 분포 대신 drift velocity를 구한다. 이 두 근사만으로는 예제 A의 좁은 coherent resonance를 재현할 수 없다.
 
 ---
 

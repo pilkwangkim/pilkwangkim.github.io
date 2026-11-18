@@ -3,6 +3,7 @@
 <section class="negf-lab tex2jax_ignore" data-negf-lab data-lang="{% if negf_ko %}ko{% else %}en{% endif %}" data-local-editor-skip aria-labelledby="negf-lab-title">
   <header class="negf-lab-header">
     <h3 id="negf-lab-title" data-toc-skip>{% if negf_ko %}Resonant tunneling: barrier와 well 조절하기{% else %}Resonant tunneling lab{% endif %}</h3>
+    <p class="negf-experiment-guide">{% if negf_ko %}Barrier를 높여 resonance 폭이 어떻게 달라지는지, well을 넓혀 peak가 어느 에너지로 이동하는지 비교해 보세요. 회색 점선은 초기 설정입니다. 입사 에너지를 바꾸면 potential 위의 가로선과 transmission의 표시점이 함께 움직입니다.{% else %}Raise the barriers to compare resonance widths, then widen the well to see where the peaks move. Gray dashes retain the default geometry. Changing probe energy moves the horizontal line over the potential and the transmission marker together.{% endif %}</p>
   </header>
   <div class="negf-lab-body">
     <div class="negf-sidebar">
@@ -32,6 +33,10 @@
           <div class="negf-range-ends" aria-hidden="true"><span>0.001</span><span>0.60 eV</span></div>
         </div>
       </div>
+      <div class="negf-scenarios" role="group" aria-label="{% if negf_ko %}비교할 설정{% else %}Comparison scenarios{% endif %}">
+        <button class="negf-scenario" data-negf-scenario-high disabled type="button">{% if negf_ko %}Barrier 높이 0.60 eV{% else %}Higher barriers: 0.60 eV{% endif %}</button>
+        <button class="negf-scenario" data-negf-scenario-wide disabled type="button">{% if negf_ko %}Well 폭 24 nm{% else %}Wider well: 24 nm{% endif %}</button>
+      </div>
       <dl class="negf-readouts" aria-label="{% if negf_ko %}계산 결과{% else %}Calculation results{% endif %}">
         <div><dt>{% if negf_ko %}입사 에너지{% else %}Probe energy{% endif %}</dt><dd data-negf-probe-energy>—</dd></div>
         <div><dt>{% if negf_ko %}선택한 에너지의 T(E){% else %}Transmission at probe{% endif %}</dt><dd data-negf-probe-transmission>—</dd></div>
@@ -47,12 +52,13 @@
         </figcaption>
         <svg data-negf-potential viewBox="0 0 640 256" role="img" aria-labelledby="negf-potential-title negf-potential-desc">
           <title id="negf-potential-title">{% if negf_ko %}위치에 따른 double-barrier potential{% else %}Double-barrier potential as a function of position{% endif %}</title>
-          <desc id="negf-potential-desc">{% if negf_ko %}금색 선은 potential energy, 파란 점선은 선택한 입사 에너지를 나타냅니다. Barrier 높이나 well 폭을 바꾸면 potential의 모양이 달라집니다.{% else %}The gold line shows potential energy and the dashed blue line shows the selected incident energy. The sliders change the barrier height and the distance between the barriers.{% endif %}</desc>
+          <desc id="negf-potential-desc">{% if negf_ko %}금색 선은 현재 potential energy, 회색 점선은 초기 설정인 높이 0.40 eV와 well 폭 16 nm, 파란 점선은 선택한 입사 에너지입니다. 가로축과 세로축 범위는 고정되어 있습니다.{% else %}Gold shows the current potential; gray dashes retain the default 0.40 eV barriers and 16 nm well. The blue dashed line shows the selected incident energy. Both axis ranges remain fixed.{% endif %}</desc>
           <g data-negf-chart><text x="320" y="110" text-anchor="middle" class="negf-placeholder">{% if negf_ko %}계산 중…{% else %}Calculating…{% endif %}</text></g>
         </svg>
         <div class="negf-legend" aria-hidden="true">
           <span><i class="negf-key negf-key-potential"></i>{% if negf_ko %}Potential{% else %}Potential{% endif %}</span>
           <span><i class="negf-key negf-key-energy"></i>{% if negf_ko %}입사 에너지{% else %}Probe energy{% endif %}</span>
+          <span><i class="negf-key negf-key-reference"></i>{% if negf_ko %}초기 설정{% else %}Default{% endif %}</span>
         </div>
       </figure>
       <figure class="negf-plot">
@@ -62,11 +68,27 @@
         </figcaption>
         <svg data-negf-transmission viewBox="0 0 640 256" role="img" aria-labelledby="negf-transmission-title negf-transmission-desc">
           <title id="negf-transmission-title">{% if negf_ko %}입사 에너지에 따른 transmission{% else %}Transmission as a function of incident energy{% endif %}</title>
-          <desc id="negf-transmission-desc">{% if negf_ko %}파란 선은 transmission입니다. 점과 세로 점선은 선택한 입사 에너지를 가리킵니다. 입사 에너지 슬라이더는 키보드로도 조절할 수 있습니다.{% else %}The blue curve shows transmission. A dot and vertical dashed line mark the selected energy. The probe-energy slider provides the same energy selection with the keyboard.{% endif %}</desc>
+          <desc id="negf-transmission-desc">{% if negf_ko %}파란 선은 현재 transmission, 회색 점선은 초기 설정의 transmission입니다. 점과 세로 점선은 선택한 입사 에너지, 표시점 아래의 파란 막대 높이는 그 에너지의 transmission을 나타냅니다. 가로축과 세로축 범위는 고정되어 있습니다.{% else %}Blue shows current transmission and gray dashes the default. A dot and vertical dashed line mark the selected energy; the blue column beneath the dot shows its transmission. Both axis ranges remain fixed.{% endif %}</desc>
           <g data-negf-chart><text x="320" y="110" text-anchor="middle" class="negf-placeholder">{% if negf_ko %}계산 중…{% else %}Calculating…{% endif %}</text></g>
         </svg>
         <div class="negf-resonances" data-negf-resonances aria-label="{% if negf_ko %}Resonance 에너지 (eV){% else %}Resonance energies (eV){% endif %}" role="group"></div>
         <p class="negf-chart-hint">{% if negf_ko %}그래프나 resonance 에너지 버튼을 눌러 T(E)를 확인하세요.{% else %}Select the curve or a resonance energy to inspect transmission.{% endif %}</p>
+      </figure>
+      <figure class="negf-plot" data-negf-width-panel>
+        <figcaption class="negf-plot-heading">
+          <span>{% if negf_ko %}첫 resonance의 폭 비교{% else %}First-resonance width{% endif %}</span>
+          <span class="negf-chart-symbol" lang="en">T(E₁ + ΔE)</span>
+        </figcaption>
+        <svg data-negf-linewidth viewBox="0 0 640 256" role="img" aria-labelledby="negf-linewidth-title negf-linewidth-desc">
+          <title id="negf-linewidth-title">{% if negf_ko %}첫 resonance를 같은 중심에 놓고 폭 비교하기{% else %}Compare first resonances with their centers aligned{% endif %}</title>
+          <desc id="negf-linewidth-desc">{% if negf_ko %}각 설정의 첫 resonance 중심을 가로축 0에 맞춥니다. 가로축은 중심에서 마이너스 500에서 플러스 500 microelectronvolt, 세로축은 transmission 0에서 1로 고정합니다. 파란 선은 현재 설정, 회색 점선은 초기 설정입니다. 곡선 높이는 따로 normalize하지 않습니다. 가로 점선은 transmission 0.5입니다.{% else %}Each first resonance is centered at zero detuning. The fixed horizontal range is minus 500 to plus 500 microelectronvolts and the vertical range is transmission zero to one. Blue is current, gray dashes default; curve heights are not renormalized. The horizontal dotted line is transmission 0.5.{% endif %}</desc>
+          <g data-negf-chart><text x="320" y="110" text-anchor="middle">{% if negf_ko %}계산 중…{% else %}Calculating…{% endif %}</text></g>
+        </svg>
+        <div class="negf-legend" aria-hidden="true">
+          <span><i class="negf-key negf-key-current"></i>{% if negf_ko %}현재 설정{% else %}Current{% endif %}</span>
+          <span><i class="negf-key negf-key-reference"></i>{% if negf_ko %}초기 설정{% else %}Default{% endif %}</span>
+        </div>
+        <p class="negf-chart-hint" data-negf-width-note>{% if negf_ko %}폭만 비교하도록 각 peak 중심을 0에 맞췄습니다. 실제 peak 에너지는 위 transmission 그래프에서 확인하세요.{% else %}Centers are aligned only to compare widths. The full transmission plot above retains their actual energies.{% endif %}</p>
       </figure>
     </div>
   </div>
@@ -75,7 +97,7 @@
   </div>
   <details class="negf-model-details">
     <summary>{% if negf_ko %}모델 설정{% else %}Model details{% endif %}</summary>
-    <p class="negf-model-note" data-negf-model-note>{% if negf_ko %}Zero-bias 조건의 1차원 coherent tight-binding model입니다. 100-site device를 쓰며, effective mass는 m* = 0.067m₀, 격자 간격은 a = 1 nm입니다. 각 barrier의 폭은 3 nm로 고정하고, well 폭은 site 한 칸씩 바꿉니다.{% else %}Zero-bias, one-dimensional coherent tight-binding model with a 100-site device. Effective mass m* = 0.067m₀; lattice spacing a = 1 nm. Each barrier stays 3 nm wide; the well changes one site at a time.{% endif %}</p>
+    <p class="negf-model-note" data-negf-model-note>{% if negf_ko %}Zero-bias 조건의 1차원 coherent tight-binding model입니다. 100-site device를 쓰며, effective mass는 m* = 0.067m₀, 격자 간격은 a = 1 nm입니다. 각 barrier의 폭은 3 nm로 고정하고, well 폭은 site 한 칸씩 바꿉니다. 비교 기준은 barrier 높이 0.40 eV, well 폭 16 nm입니다. 폭 비교 그래프도 같은 NEGF 계산값을 사용하며, Lorentzian을 fitting하거나 peak 높이를 normalize하지 않습니다. 입사 에너지 선택은 Hamiltonian이나 transmission 곡선을 바꾸지 않습니다.{% else %}Zero-bias, one-dimensional coherent tight-binding model with a 100-site device. Effective mass m* = 0.067m₀; lattice spacing a = 1 nm. Each barrier stays 3 nm wide; the well changes one site at a time. The reference uses 0.40 eV barriers and a 16 nm well. The width comparison uses the same NEGF calculation, not a fitted Lorentzian or peak-height normalization. Selecting incident energy does not change the Hamiltonian or transmission curve.{% endif %}</p>
   </details>
   <noscript><p class="negf-noscript">{% if negf_ko %}직접 조작하려면 JavaScript가 필요합니다. 위의 그림과 아래 수식 유도에서도 double-barrier potential과 resonant tunneling을 확인할 수 있습니다.{% else %}This calculator requires JavaScript. The static figure above and the derivation below describe the double-barrier potential and resonant tunneling.{% endif %}</p></noscript>
 </section>

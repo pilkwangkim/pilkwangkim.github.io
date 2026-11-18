@@ -166,7 +166,7 @@ def main():
         f"EN-only {en['inline_math'] - ko['inline_math']}; KR-only {ko['inline_math'] - en['inline_math']}")
     assert en == ko, "Paired equations, code, labs, images, references or anchors diverged"
     assert en["ids"] == en["h2_ids"] == COMMON_ANCHORS, "All 21 common anchors must appear exactly once on their H2 headings"
-    assert len(en["math"]) == 92 and len(en["code"]) == 16
+    assert len(en["math"]) == 93 and len(en["code"]) == 16
     assert all("'" not in formula for formula in en["inline_math"]), "Use explicit TeX prime commands; smart quotes can alter inline math"
     assert all(r"\begin{pmatrix}" not in formula for formula in en["inline_math"]), "Put row-separated matrices in display math; Markdown can consume backslashes"
     assert en["labs"] == LAB_IDS
@@ -181,7 +181,7 @@ def main():
     for text in texts:
         assert re.findall(r"^## (\d+)\.", text, re.M) == [str(i) for i in range(1, 21)]
         assert text.count('<details markdown="1">') == text.count("</details>") == 23
-        assert text.count("$$") == 184
+        assert text.count("$$") == 2 * len(en["math"])
         assert "date: 2026-11-07 18:00:00 +0900" in text
         assert "translation_key: drude-model-from-scratch" in text
         assert "topic: quantum-transport" in text

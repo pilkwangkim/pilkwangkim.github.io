@@ -20,6 +20,19 @@ assert.ok(m.ballisticCurrent(edges, 115, 95, 300) < 0); checks++;
 const de = .02; let integral = 0;
 edges.forEach(edge => { for (let i = 0; i < 50000; i++) { const e = edge + (i + .5) * de; integral += (m.fermi(e, 115, 300) - m.fermi(e, 95, 300)) * de; } });
 close(-m.G0 / 1000 * integral, m.ballisticCurrent(edges, 115, 95, 300), 1e-8);
+// A current-density curve must integrate to the analytic current with the
+// same spin, energy-unit and electron-flow sign conventions.
+for (const [left, right, temperature] of [[115, 95, 300], [300, 80, 100], [80, 300, 100]]) {
+  let area = 0;
+  for (const edge of edges) for (let j = 0; j < 50000; j++) area += .02 * m.spectralElectronCurrent(edge + (j + .5) * .02, [edge], left, right, temperature);
+  close(area, -m.ballisticCurrent(edges, left, right, temperature), 2e-7);
+}
+close(m.spectralElectronCurrent(49, edges, 300, 80, 100), 0);
+close(m.spectralElectronCurrent(220, edges, 100, 100, 300), 0);
+close(m.spectralElectronCurrent(220, edges, 300, 80, 100), -m.spectralElectronCurrent(220, edges, 80, 300, 100));
+assert.ok(m.spectralElectronCurrent(220, edges, 300, 80, 100) > m.spectralElectronCurrent(220, edges.slice(0, 4), 300, 80, 100)); checks++;
+throws(() => m.spectralElectronCurrent(NaN, edges, 100, 80, 300));
+throws(() => m.spectralElectronCurrent(100, [, 120], 100, 80, 300));
 for (const open of [1, 2]) for (const beta of [0, .005, .04]) for (const gamma of [0, .01, .04]) {
   const result = m.solveShell({ modes: open, beta, gamma, cells: 12 });
   result.occupation.flat().forEach(f => { assert.ok(f >= .2 - 1e-12 && f <= .9 + 1e-12); checks++; });
@@ -186,7 +199,7 @@ function mount(id, ko) {
       const domains = {
         'msbte-basics': [[[-100, 140], [0, 1]], [[0, 4], [0, 1]]],
         'msbte-confinement': [[[-.5, .5], [0, 320]], [[0, 20], [0, .36]], [[0, 8], [0, .36]]],
-        'msbte-injection': [[[-.8, .8], [0, 1]], [[20, 260], [0, 1]], [[.5, 8.5], [-22, 22]]],
+        'msbte-injection': [[[-1.3, 1.3], [0, 1]], [[20, 480], [-.65, .65]], [[.5, 8.5], [-70, 70]]],
         'msbte-scattering': [[[0, 100], [0, 1]], [[0, 100], [-2.1, 2.1]], [[-.8, .8], [0, 280]]]
       };
       if (domains[id]) assert.ok(domains[id].some(([x, y]) => JSON.stringify(x) === JSON.stringify(spec.x) && JSON.stringify(y) === JSON.stringify(spec.y)), 'A physical control rescaled its axes');
@@ -238,7 +251,7 @@ for (const id of factories.keys()) for (const ko of [false, true]) {
     const zArea = z.slice(1).reduce((sum, p, i) => sum + (p[0] - z[i][0]) * (p[1] + z[i][1]) / 2, 0);
     assert.ok(Math.abs(zArea - 1) < 1e-12); lifecycle++;
   }
-  if (id === 'msbte-injection') for (const muL of [50, 180]) for (const muR of [50, 180]) for (const temperature of [50, 500]) for (const count of [2, 4, 8]) { assert.equal(lab.state.write({ muL, muR, temperature, count }), true); lifecycle++; }
+  if (id === 'msbte-injection') for (const muL of [50, 300]) for (const muR of [50, 300]) for (const temperature of [50, 500]) for (const count of [2, 4, 8]) { assert.equal(lab.state.write({ muL, muR, temperature, count }), true); lifecycle++; }
   if (id === 'msbte-injection') {
     lab.state.write({ muL: 50, muR: 180, temperature: 50, count: 8 });
     assert.ok(Number(lab.metrics[0].textContent) < 0 && Number(lab.metrics[1].textContent) > 0); lifecycle++;
@@ -259,7 +272,7 @@ for (const id of factories.keys()) for (const ko of [false, true]) {
     lab.state.write({ ...symmetric, filter: true, fL2: .9 }); assert.equal(lab.metrics[3].textContent, '40.00'); lifecycle++;
     for (const [energy, modes] of [[110, 1], [115, 2], [140, 2]]) {
       lab.state.write({ ...symmetric, energy, filter: true });
-      assert.equal(lab.ctx.view.children[0].attrs.spec.series.length, 2 * modes);
+      assert.equal(lab.ctx.view.children[0].attrs.spec.series.length, 2 * modes + (modes === 1 ? 1 : 0));
       assert.equal(lab.fields[6].disabled, modes === 1);
       assert.equal(lab.fields[2].disabled, modes === 1);
       assert.equal(lab.fields[5].disabled, modes === 1);
@@ -277,7 +290,7 @@ for (const id of factories.keys()) for (const ko of [false, true]) {
     assert.equal(lab.fields[6].disabled, false); assert.equal(lab.metrics[3].textContent, '—'); lifecycle++;
     assert.equal(lab.state.write({ ...reopened, energy: 110 }), true);
     assert.equal(lab.fields[6].disabled, true); assert.equal(lab.state.read().fL2, .95);
-    assert.equal(lab.ctx.view.children[0].attrs.spec.series.length, 2); lifecycle++;
+    assert.equal(lab.ctx.view.children[0].attrs.spec.series.length, 3); lifecycle++;
     assert.equal(lab.state.write(reopened), true); assert.equal(lab.snapshot(), openSnapshot); lifecycle++;
     const shared = mount(id, ko);
     assert.equal(shared.state.write(JSON.parse(JSON.stringify(lab.state.read()))), true);
@@ -294,6 +307,14 @@ for (const id of factories.keys()) for (const ko of [false, true]) {
       assert.ok(diagram && diagram.textContent.includes('Subband 1') && diagram.textContent.includes('Subband 2'));
       assert.ok(!diagram.textContent.includes('0.25') && !diagram.textContent.includes('0.75'));
       assert.equal(diagram.children.filter(node => node instanceof Element && node.tagName === 'CIRCLE').length, q.edges.filter(edge => q.energy > edge).length);
+      lifecycle++;
+    }
+    if (index === 2) {
+      const diagram = lab.ctx.view.children[1].attrs.spec;
+      assert.equal(diagram.markers.length, 4);
+      assert.equal(diagram.series.length, 3);
+      assert.ok(Math.abs(diagram.markers[0].x) > Math.abs(diagram.markers[2].x));
+      assert.ok(!JSON.stringify(diagram).includes('f=0.4'), 'Do not draw the equilibrium answer before the learner chooses it');
       lifecycle++;
     }
     lab.buttons[0](); assert.ok(lab.ctx.view.textContent.includes(ko ? '맞았습니다' : 'Correct.'));
@@ -349,7 +370,7 @@ for (const ko of [false, true]) {
   conf.state.write({ width: 8, level: 1 }); const degen = graphic(conf), edge = conf.ctx.view.children[0].attrs.spec.markers[0].y;
   conf.state.write({ width: 8, level: 2 }); close(conf.ctx.view.children[0].attrs.spec.markers[0].y, edge); assert.notEqual(graphic(conf), degen);
   const inj = mount('msbte-injection', ko);
-  for (let temperature = 50; temperature <= 500; temperature += 25) for (const count of [2, 4, 8]) for (const [muL, muR] of [[50, 180], [180, 50]]) {
+  for (let temperature = 50; temperature <= 500; temperature += 25) for (const count of [2, 4, 8]) for (const [muL, muR] of [[50, 300], [300, 50]]) {
     // Current is monotone in each chemical potential, so the extreme contact
     // values bound every intermediate slider combination at each allowed T.
     assert.equal(inj.state.write({ muL, muR, temperature, count }), true); sliderStates++;
@@ -357,10 +378,27 @@ for (const ko of [false, true]) {
   for (const count of [2, 4, 8]) {
     inj.state.write({ muL: 180, muR: 50, temperature: 500, count });
     const c = inj.ctx.view.children[2].attrs.spec;
-    assert.deepEqual(Array.from(c.x), [.5, 8.5]); assert.deepEqual(Array.from(c.y), [-22, 22]);
+    assert.deepEqual(Array.from(c.x), [.5, 8.5]); assert.deepEqual(Array.from(c.y), [-70, 70]);
     assert.equal(c.markers[0].x, count); close(c.markers[0].y, -m.ballisticCurrent(m.subbands(10, 8, .19, count).map(b => b.edge), 180, 50, 500));
     assert.equal(c.series[1].points.length, count); assert.equal(c.bands[0].x1, count + .5);
   }
+  // Check actual physical y data, not ticks, shade, cutoff markers or labels.
+  inj.buttons[0]();
+  assert.deepEqual(JSON.parse(JSON.stringify(inj.state.read())), { muL: 300, muR: 80, temperature: 100, count: 8 });
+  const highSpectrum = inj.ctx.view.children[1].attrs.spec.series[1].points;
+  const highCurrent = Number(inj.metrics[0].textContent);
+  inj.state.write({ ...inj.state.read(), count: 4 });
+  const fourSpectrum = inj.ctx.view.children[1].attrs.spec.series[1].points;
+  assert.ok(Math.max(...highSpectrum.map((p, j) => Math.abs(p[1] - fourSpectrum[j][1]))) > .07, 'Mode cutoff must visibly change the current spectrum in the higher-mode experiment');
+  assert.ok(highCurrent - Number(inj.metrics[0].textContent) > 7, 'The higher-mode experiment needs a meaningful omitted-current area');
+  const beforeReverse = fourSpectrum.map(p => p[1]);
+  inj.buttons[2]();
+  inj.ctx.view.children[1].attrs.spec.series[1].points.forEach((p, j) => close(p[1], -beforeReverse[j], 1e-14));
+  inj.buttons[1]();
+  assert.ok(inj.ctx.view.children[1].attrs.spec.series[1].points.every(p => p[1] === 0));
+  assert.ok(inj.ctx.view.children[0].attrs.spec.series.some(s => s.points.some(p => p[1] > .1)), 'Zero current is not zero occupation');
+  inj.reset();
+  assert.deepEqual(JSON.parse(JSON.stringify(inj.state.read())), { muL: 115, muR: 95, temperature: 300, count: 8 });
   const shell = mount('msbte-scattering', ko), base = JSON.parse(JSON.stringify(shell.state.read()));
   shell.state.write({ ...base, energy: 120 });
   const occupation120 = JSON.stringify(shell.ctx.view.children[0].attrs.spec.series), dispersion120 = JSON.stringify(shell.ctx.view.children[2].attrs.spec.markers);
@@ -378,5 +416,20 @@ for (const ko of [false, true]) {
     shell.ctx.view.children[2].attrs.spec.markers.forEach(p => { const band = m.subbands(10, 8, .19, 2).find(b => Math.abs(b.edge + m.A0 / .19 * p.x * p.x - energy) < 1e-8); assert.ok(band); });
     lifecycle++;
   }
+  shell.buttons[0]();
+  const counter = shell.ctx.view.children[1].attrs.spec;
+  assert.ok(Math.abs(Number(shell.metrics[0].textContent)) < 1e-12);
+  assert.ok(Math.abs(counter.series[0].points[0][1] - counter.series[0].points.at(-1)[1]) > .1);
+  assert.ok(Math.max(...counter.series[0].points.map((p, j) => Math.abs(p[1] - counter.series[3].points[j][1]))) > .1, 'Intermode transfer must differ from the identical-injection gamma=0 reference');
+  shell.buttons[1]();
+  const continuumProfile = JSON.stringify(shell.ctx.view.children[0].attrs.spec.series.at(-1).points);
+  const continuumFlux = shell.ctx.view.children[1].attrs.spec.series.at(-1).points[0][1];
+  const coarseFlux = shell.ctx.view.children[1].attrs.spec.series[2].points[0][1];
+  shell.state.write({ ...shell.state.read(), cells: 36 });
+  assert.equal(JSON.stringify(shell.ctx.view.children[0].attrs.spec.series.at(-1).points), continuumProfile);
+  const fineFlux = shell.ctx.view.children[1].attrs.spec.series[2].points[0][1];
+  assert.ok(Math.abs(fineFlux - continuumFlux) < Math.abs(coarseFlux - continuumFlux));
+  close((coarseFlux / continuumFlux - 1) * 100, 40, 1e-10);
+  shell.reset();
 }
 console.log(`MS-BTE lab models: ${checks} checks (${previousModelChecks} core + ${basicsModelChecks} BTE basics + ${auditModelChecks} transmission audit + ${finalAuditChecks} final numerical audit + ${checks - previousModelChecks - basicsModelChecks - auditModelChecks - finalAuditChecks} fixed-scale numerical checks); UI/state lifecycle: ${lifecycle} checks; ${sliderStates} control-grid/bounding states; ${graphicControls} active control-to-graphic checks passed. Fixed axes and finite in-domain plot data checked on every render; browser geometry is separate.`);

@@ -21,9 +21,9 @@
 <line x1="490.00" y1="375.00" x2="565.00" y2="375.00" stroke="#2b6090" stroke-width="3" marker-end="url(#arrow)" stroke-dasharray="9 7"/>
 <line x1="110.00" y1="485.00" x2="35.00" y2="485.00" stroke="#a46e26" stroke-width="3" marker-end="url(#arrow)" stroke-dasharray="9 7"/>
 <text x="300.00" y="387.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="31" font-weight="400" fill="#2b6090" text-anchor="middle">f<tspan baseline-shift="sub" font-size="72%">n</tspan>⁺(x,E)</text>
-<text x="300.00" y="347.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="25" font-weight="400" fill="#2b6090" text-anchor="middle">v<tspan baseline-shift="sub" font-size="72%">n</tspan> &gt; 0</text>
+<text x="300.00" y="347.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="25" font-weight="400" fill="#2b6090" text-anchor="middle">vₓ &gt; 0</text>
 <text x="300.00" y="497.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="31" font-weight="400" fill="#a46e26" text-anchor="middle">f<tspan baseline-shift="sub" font-size="72%">n</tspan>⁻(x,E)</text>
-<text x="300.00" y="536.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="25" font-weight="400" fill="#a46e26" text-anchor="middle">v<tspan baseline-shift="sub" font-size="72%">n</tspan> &lt; 0</text>
+<text x="300.00" y="536.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="25" font-weight="400" fill="#a46e26" text-anchor="middle">vₓ &lt; 0</text>
 <text x="90.00" y="597.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="27" font-weight="400" fill="#657887" text-anchor="middle">x = 0</text>
 <text x="510.00" y="597.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="27" font-weight="400" fill="#657887" text-anchor="middle">x = L</text>
 <text x="300.00" y="651.00" font-family="DejaVu Sans, Arial, sans-serif" font-size="26" font-weight="400" fill="#657887" text-anchor="middle">Outgoing values are not fixed.</text>
